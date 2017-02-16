@@ -37,19 +37,6 @@ _module_logger = logging.getLogger(__name__)
 
 # Point
 #   trueDarts {'type': 'trueDarts', 'name1': 'A34', 'dartP2': '139', 'dartP1': '141', 'my2': '-3.87275', 'point2': '146', 'dartP3': '140', 'id': '144', 'mx2': '0.794387', 'my1': '-2.44561', 'name2': 'A35', 'point1': '145', 'baseLineP2': '63', 'mx1': '-3.64071', 'baseLineP1': '68'}
-#
-# Line
-#   {'typeLine': 'hair', 'lineColor': 'black', 'firstPoint': '74', 'secondPoint': '72', 'id': '76'}
-#
-# Spline
-#    {'type': 'simpleInteractive',
-#       'length2': '8.65783', 'angle2': '85.3921',
-#        'point4': '31',
-#        'color': 'black',
-#        'length1': '8.85757', 'angle1': '251.913',
-#        'point1': '20',
-#        'id': '97'
-#     }
 
 ####################################################################################################
 
@@ -64,6 +51,10 @@ class Operation:
 
         if element.tag == 'point':
             return Point.from_xml(element, pattern)
+        elif element.tag == 'line':
+            return Line.from_xml(element, pattern)
+        elif element.tag == 'spline':
+            return Curve.from_xml(element, pattern)
         else:
             return Operation(pattern, element.attrib['id'])
 
@@ -630,6 +621,135 @@ class PointOfIntersectionPoint(Point):
 
         self._vector = Vector2D(self._first_point.vector.x, self._second_point.vector.y)
         self._post_eval_internal()
+
+####################################################################################################
+
+class Line(Operation, LineProperties):
+
+    ##############################################
+
+    def __init__(self, pattern, id_,
+                 first_point, second_point,
+                 line_type=None, line_color=None,
+                 ):
+
+        Operation.__init__(self, pattern, id_)
+        LineProperties.__init__(self, line_type, line_color)
+        self._first_point = pattern.get_operation(first_point)
+        self._second_point = pattern.get_operation(second_point)
+
+    ##############################################
+
+    @property
+    def first_point(self):
+        return self._first_point
+
+    @property
+    def second_point(self):
+        return self._second_point
+
+    ##############################################
+
+    @staticmethod
+    def from_xml(element, pattern):
+
+        # {'typeLine': 'hair', 'lineColor': 'black', 'firstPoint': '74', 'secondPoint': '72', 'id': '76'}
+
+        kwargs = Operation.xml_attributes(element, pattern,
+                                          ('id', 'firstPoint', 'secondPoint', 'lineType', 'lineType'),
+                                          ('id_', 'first_point', 'second_point', 'line_type', 'line_type'))
+        return Line(**kwargs)
+
+    ##############################################
+
+    def __repr__(self):
+
+        return self.__class__.__name__ + ' ({0._first_point.name}, {0._second_point.name})'.format(self)
+
+    ##############################################
+
+    def eval_internal(self):
+
+        pass
+
+####################################################################################################
+
+class Curve(Operation, LineProperties):
+
+    ##############################################
+
+    def __init__(self, pattern, id_,
+                 first_point, second_point,
+                 angle1, length1,
+                 angle2, length2,
+                 line_type=None, line_color=None,
+                 ):
+
+        Operation.__init__(self, pattern, id_)
+        LineProperties.__init__(self, line_type, line_color)
+        self._first_point = pattern.get_operation(first_point)
+        self._second_point = pattern.get_operation(second_point)
+        self._angle1 = Expression(angle1, pattern.evaluator)
+        self._length1 = Expression(length1, pattern.evaluator)
+        self._angle2 = Expression(angle2, pattern.evaluator)
+        self._length2 = Expression(length2, pattern.evaluator)
+
+    ##############################################
+
+    @property
+    def first_point(self):
+        return self._first_point
+
+    @property
+    def second_point(self):
+        return self._second_point
+
+    @property
+    def angle1(self):
+        return self._angle1
+
+    @property
+    def length1(self):
+        return self._length1
+
+    @property
+    def angle2(self):
+        return self._angle2
+
+    @property
+    def length2(self):
+        return self._length2
+
+    ##############################################
+
+    @staticmethod
+    def from_xml(element, pattern):
+
+        # 'type': 'simpleInteractive',
+        #   'length2': '8.65783', 'angle2': '85.3921',
+        #    'point4': '31',
+        #    'color': 'black',
+        #    'length1': '8.85757', 'angle1': '251.913',
+        #    'point1': '20',
+        #    'id': '97'
+        # }
+
+        kwargs = Operation.xml_attributes(element, pattern,
+                                          ('id', 'point1', 'point4', 'angle1', 'length1', 'angle2', 'length2', 'lineType', 'lineType'),
+                                          ('id_', 'first_point', 'second_point', 'angle1', 'length1', 'angle2', 'length2', 'line_type', 'line_type'))
+        return Curve(**kwargs)
+
+    ##############################################
+
+    def __repr__(self):
+
+        return self.__class__.__name__ + ' ({0._first_point.name}, {0._second_point.name}, {0._angle1}, {0._length1}, {0._angle2}, {0._length2})'.format(self)
+
+    ##############################################
+
+    def eval_internal(self):
+
+        pass
 
 ####################################################################################################
 
