@@ -31,6 +31,8 @@ _module_logger = logging.getLogger(__name__)
 
 class Evaluator:
 
+    _logger = _module_logger.getChild('Evaluator')
+
     ##############################################
 
     def __init__(self, measurements):
@@ -42,6 +44,10 @@ class Evaluator:
     ##############################################
 
     @property
+    def measurements(self):
+        return self._measurements
+
+    @property
     def cache(self):
         return self._cache
 
@@ -51,15 +57,12 @@ class Evaluator:
 
         self._cache[named_expression.name] = named_expression.value
 
-    ##############################################
-
-    @property
-    def measurements(self):
-        return self._measurements
 
 ####################################################################################################
 
 class Expression:
+
+    _logger = _module_logger.getChild('Expression')
 
     ##############################################
 
@@ -135,6 +138,26 @@ class Expression:
         # http://beltoforion.de/article.php?a=muparserx
         self._ast = ast.parse(expression, mode='eval')
         self._code = compile(self._ast, '<string>', mode='eval')
+
+    ##############################################
+
+    def eval(self):
+
+        self.compile()
+        try:
+            self._value = eval(self._code, self._evaluator.cache)
+        except NameError:
+            self._value = None
+        self._logger.info('Eval {} = {}'.format(self._expression, self._value))
+
+    ##############################################
+
+    @property
+    def value(self):
+
+        if self._code is None:
+            self.eval()
+        return self._value
 
 ####################################################################################################
 

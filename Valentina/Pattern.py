@@ -25,6 +25,7 @@ import logging
 from lxml import etree
 
 from .Evaluator import Expression
+from .Measurement import VitParser
 
 ####################################################################################################
 
@@ -54,27 +55,36 @@ class Operation:
 
     ##############################################
 
-    def __init__(self, id_):
+    def __init__(self, id_, evaluator=None):
 
         self._id = id_
+        self._evaluator = evaluator
+
+    ##############################################
+
+    @property
+    def evaluator(self):
+        return self._evaluator
 
     ##############################################
 
     @staticmethod
-    def from_xml(element):
+    def from_xml(element, evaluator):
 
         if element.tag == 'point':
-            return Point.from_xml(element)
+            return Point.from_xml(element, evaluator)
         else:
             return None
 
     ##############################################
 
     @staticmethod
-    def xml_attributes(element, attributes, keys):
+    def xml_attributes(element, evaluator, attributes, keys):
 
         attrib = element.attrib
-        return {key:attrib.get(attribute, None) for key, attribute in zip(keys, attributes)}
+        kwargs = {key:attrib.get(attribute, None) for key, attribute in zip(keys, attributes)}
+        kwargs['evaluator'] = evaluator
+        return kwargs
 
 ####################################################################################################
 
@@ -82,9 +92,23 @@ class Pattern:
 
     ##############################################
 
-    def __init__(self):
+    def __init__(self, measurements):
 
+        self._measurements = measurements
+        self._evaluator = measurements.evaluator
         self._operations = []
+
+    ##############################################
+
+    @property
+    def measurements(self):
+        return self._measurements
+
+    ##############################################
+
+    @property
+    def evaluator(self):
+        return self._evaluator
 
     ##############################################
 
@@ -116,10 +140,12 @@ class Point(Operation):
 
     ##############################################
 
-    def __init__(self, id_, name, mx=0, my=0):
+    def __init__(self, id_, name,
+                 mx=0, my=0,
+                 evaluator=None):
 
         # super(Point, self).__init__(id_)
-        Operation.__init__(self, id_)
+        Operation.__init__(self, id_, evaluator)
         self._name = name
         self._mx = mx
         self._my = my
@@ -127,23 +153,23 @@ class Point(Operation):
     ##############################################
 
     @staticmethod
-    def from_xml(element):
+    def from_xml(element, evaluator):
 
         if element.tag != 'point':
             raise ValueError
         type_ = element.attrib['type']
         if type_ == 'single':
-            return SinglePoint.from_xml(element)
+            return SinglePoint.from_xml(element, evaluator)
         elif type_ == 'alongLine':
-            return AlongLinePoint.from_xml(element)
+            return AlongLinePoint.from_xml(element, evaluator)
         elif type_ == 'endLine':
-            return EndLinePoint.from_xml(element)
+            return EndLinePoint.from_xml(element, evaluator)
         elif type_ == 'lineIntersect':
-            return LineIntersectPoint.from_xml(element)
+            return LineIntersectPoint.from_xml(element, evaluator)
         elif type_ == 'normal':
-            return NormalPoint.from_xml(element)
+            return NormalPoint.from_xml(element, evaluator)
         elif type_ == 'pointOfIntersection':
-            return PointOfIntersectionPoint.from_xml(element)
+            return PointOfIntersectionPoint.from_xml(element, evaluator)
         else:
             return None
 
@@ -153,21 +179,24 @@ class SinglePoint(Point):
 
     ##############################################
 
-    def __init__(self, id_, name, x, y, mx=0, my=0):
+    def __init__(self, id_, name,
+                 x, y,
+                 mx=0, my=0,
+                 evaluator=None):
 
         # super(SinglePoint, self).__init__(id_, name, mx, my, line_type, line_color)
         Point.__init__(self, id_, name, mx, my)
-        self._x = Expression(x)
-        self._y = Expression(y)
+        self._x = Expression(x, evaluator)
+        self._y = Expression(y, evaluator)
 
     ##############################################
 
     @staticmethod
-    def from_xml(element):
+    def from_xml(element, evaluator):
 
         # {'y': '1.05833', 'mx': '0.132292', 'type': 'single', 'my': '0.264583', 'id': '1', 'name': 'A0', 'x': '0.79375'}
 
-        kwargs = Operation.xml_attributes(element,
+        kwargs = Operation.xml_attributes(element, evaluator,
                                           ('id', 'name', 'x', 'y', 'mx', 'my'),
                                           ('id_', 'name', 'x', 'y', 'mx', 'my'))
         return SinglePoint(**kwargs)
@@ -176,7 +205,7 @@ class SinglePoint(Point):
 
     def __repr__(self):
 
-        return self.__class__.__name__ + ' {0._name} = ({0._x}, {0._y})'.format(self)
+        return self.__class__.__name__ + ' {0._name} = ({0._x.value}, {0._y.value})'.format(self)
 
 ####################################################################################################
 
@@ -184,27 +213,37 @@ class AlongLinePoint(Point, LineProperties):
 
     ##############################################
 
-    def __init__(self, id_, name, first_point, second_point, length, mx=0, my=0, line_type=None, line_color=None):
+    def __init__(self, id_, name,
+                 first_point, second_point, length,
+                 mx=0, my=0,
+                 line_type=None, line_color=None,
+                 evaluator=None):
 
         # super(AlongLinePoint, self).__init__(id_, name, mx, my, line_type, line_color)
         Point.__init__(self, id_, name, mx, my)
         LineProperties.__init__(self, line_type, line_color)
         self._first_point = first_point
         self._second_point = second_point
-        self._length = length
+        self._length = Expression(length, evaluator)
 
     ##############################################
 
     @staticmethod
-    def from_xml(element):
+    def from_xml(element, evaluator):
 
         # {'lineColor': 'black', 'firstPoint': '138', 'id': '141', 'mx': '-4.2484', 'typeLine': 'none',
         #  'my': '1.01162', 'name': 'A33', 'length': 'Line_A30_A32', 'type': 'alongLine', 'secondPoint': '68'}
 
-        kwargs = Operation.xml_attributes(element,
+        kwargs = Operation.xml_attributes(element, evaluator,
                                           ('id', 'name', 'firstPoint', 'secondPoint', 'length', 'mx', 'my', 'lineType', 'lineType'),
                                           ('id_', 'name', 'first_point', 'second_point', 'length', 'mx', 'my', 'line_type', 'line_type'))
         return AlongLinePoint(**kwargs)
+
+    ##############################################
+
+    def __repr__(self):
+
+        return self.__class__.__name__ + ' {0._name} = ({0._first_point}, {0._second_point}, {0._length.value})'.format(self)
 
 ####################################################################################################
 
@@ -212,24 +251,28 @@ class EndLinePoint(Point, LineProperties):
 
     ##############################################
 
-    def __init__(self, id_, name, base_point, angle, length, mx=0, my=0, line_type=None, line_color=None):
+    def __init__(self, id_, name,
+                 base_point, angle, length,
+                 mx=0, my=0,
+                 line_type=None, line_color=None,
+                 evaluator=None):
 
         # super(EndLinePoint, self).__init__(id_, name, mx, my, line_type, line_color)
         Point.__init__(self, id_, name, mx, my)
         LineProperties.__init__(self, line_type, line_color)
         self._base_point = base_point
-        self._angle = angle
-        self._length = length
+        self._angle = Expression(angle, evaluator)
+        self._length = Expression(length, evaluator)
 
     ##############################################
 
     @staticmethod
-    def from_xml(element):
+    def from_xml(element, evaluator):
 
         # {'basePoint': '1', 'name': 'A1', 'id': '2', 'angle': '0', 'length': 'waist_circ/2+10',
         #  'typeLine': 'dashDotLine', 'my': '0.264583', 'type': 'endLine', 'mx': '0.132292', 'lineColor': 'black'}
 
-        kwargs = Operation.xml_attributes(element,
+        kwargs = Operation.xml_attributes(element, evaluator,
                                           ('id', 'name', 'basePoint', 'angle', 'length', 'mx', 'my', 'lineType', 'lineType'),
                                           ('id_', 'name', 'base_point', 'angle', 'length', 'mx', 'my', 'line_type', 'line_type'))
         return EndLinePoint(**kwargs)
@@ -238,7 +281,7 @@ class EndLinePoint(Point, LineProperties):
 
     def __repr__(self):
 
-        return self.__class__.__name__ + ' {0._name} = ({0._base_point}, {0._angle}, {0._length})'.format(self)
+        return self.__class__.__name__ + ' {0._name} = ({0._base_point}, {0._angle.value}, {0._length.value})'.format(self)
 
 ####################################################################################################
 
@@ -246,7 +289,11 @@ class LineIntersectPoint(Point, LineProperties):
 
     ##############################################
 
-    def __init__(self, id_, name, point1_line1, point2_line1, point1_line2, point2_line2, mx=0, my=0, line_type=None, line_color=None):
+    def __init__(self, id_, name,
+                 point1_line1, point2_line1, point1_line2, point2_line2,
+                 mx=0, my=0,
+                 line_type=None, line_color=None,
+                 evaluator=None):
 
         # super(LineIntersectPoint, self).__init__(id_, name, mx, my, line_type, line_color)
         Point.__init__(self, id_, name, mx, my)
@@ -259,15 +306,21 @@ class LineIntersectPoint(Point, LineProperties):
     ##############################################
 
     @staticmethod
-    def from_xml(element):
+    def from_xml(element, evaluator):
 
         # {'type': 'lineIntersect', 'p2Line1': '32', 'mx': '0.132292', 'p1Line2': '10',
         #  'p2Line2': '11', 'p1Line1': '27', 'id': '39', 'my': '0.264583', 'name': 'Cp'}
 
-        kwargs = Operation.xml_attributes(element,
+        kwargs = Operation.xml_attributes(element, evaluator,
                                           ('id', 'name', 'p1Line1', 'p2line1', 'p1Line2', 'p2Line2', 'mx', 'my', 'lineType', 'lineType'),
                                           ('id_', 'name', 'point1_line1', 'point2_line1', 'point1_line2', 'mx', 'my', 'point2_line2', 'line_type', 'line_type'))
         return LineIntersectPoint(**kwargs)
+
+    ##############################################
+
+    def __repr__(self):
+
+        return self.__class__.__name__ + ' {0._name} = ()'.format(self)
 
 ####################################################################################################
 
@@ -275,28 +328,38 @@ class NormalPoint(Point, LineProperties):
 
     ##############################################
 
-    def __init__(self, id_, name, first_point, second_point, angle, length, mx=0, my=0, line_type=None, line_color=None):
+    def __init__(self, id_, name,
+                 first_point, second_point, angle, length,
+                 mx=0, my=0,
+                 line_type=None, line_color=None,
+                 evaluator=None):
 
         # super(NormalPoint, self).__init__(id_, name, mx, my, line_type, line_color)
         Point.__init__(self, id_, name, mx, my)
         LineProperties.__init__(self, line_type, line_color)
         self._first_point = first_point
         self._second_point = second_point
-        self._angle = angle
-        self._length = length
+        self._angle = Expression(angle, evaluator)
+        self._length = Expression(length, evaluator)
 
     ##############################################
 
     @staticmethod
-    def from_xml(element):
+    def from_xml(element, evaluator):
 
         # {'my': '-4.18524', 'secondPoint': '63', 'name': 'A36', 'angle': '0', 'length': '0.5',
         #  'firstPoint': '138', 'typeLine': 'hair', 'type': 'normal', 'mx': '-1.57131', 'id': '147', 'lineColor': 'black'}
 
-        kwargs = Operation.xml_attributes(element,
+        kwargs = Operation.xml_attributes(element, evaluator,
                                           ('id', 'name', 'firstPoint', 'secondPoint', 'angle', 'length', 'lineType', 'lineType'),
                                           ('id_', 'name', 'first_point', 'second_point', 'angle', 'length', 'line_type', 'line_type'))
         return NormalPoint(**kwargs)
+
+    ##############################################
+
+    def __repr__(self):
+
+        return self.__class__.__name__ + ' {0._name} = ({0._first_point}, {0._second_point}, {0._angle.value}, {0._length.value})'.format(self)
 
 ####################################################################################################
 
@@ -304,7 +367,10 @@ class PointOfIntersectionPoint(Point):
 
     ##############################################
 
-    def __init__(self, id_, name, first_point, second_point, point_of_intersection, mx=0, my=0):
+    def __init__(self, id_, name,
+                 first_point, second_point, point_of_intersection,
+                 mx=0, my=0,
+                 evaluator=None):
 
         # super(PointOfIntersectionPoint, self).__init__(id_, name, mx, my)
         Point.__init__(self, id_, name, mx, my)
@@ -315,18 +381,26 @@ class PointOfIntersectionPoint(Point):
     ##############################################
 
     @staticmethod
-    def from_xml(element):
+    def from_xml(element, evaluator):
 
         # {'id': '71', 'secondPoint': '56', 'type': 'pointOfIntersection', 'firstPoint': '59', 'name': 'Nc', 'mx': '0.132292', 'my': '0.264583'}
 
-        kwargs = Operation.xml_attributes(element,
+        kwargs = Operation.xml_attributes(element, evaluator,
                                           ('id', 'name', 'firstPoint', 'secondPoint', 'pointOfIntersection', 'mx', 'my'),
                                           ('id_', 'name', 'first_point', 'second_point', 'point_of_intersection', 'mx', 'my'))
         return PointOfIntersectionPoint(**kwargs)
 
+    ##############################################
+
+    def __repr__(self):
+
+        return self.__class__.__name__ + ' {0._name} = ()'.format(self)
+
 ####################################################################################################
 
 class ValParser:
+
+    _logger = _module_logger.getChild('ValParser')
 
     ##############################################
 
@@ -337,11 +411,16 @@ class ValParser:
 
         tree = etree.fromstring(source)
 
-        pattern = Pattern()
+        measurements_path = self._get_xpath_element(tree, 'measurements').text
+        self._logger.info('Measurements loaded from ' + measurements_path)
+        measurements = VitParser().parse(measurements_path)
+        measurements.eval()
+
+        pattern = Pattern(measurements)
 
         elements = self._get_xpath_element(tree, 'draw/calculation')
         for element in elements:
-            operation = Operation.from_xml(element)
+            operation = Operation.from_xml(element, pattern.evaluator)
             pattern.add(operation)
 
         return pattern

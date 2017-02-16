@@ -147,25 +147,14 @@ class Measurement(NamedExpression):
 
     def eval(self):
 
-        self.compile()
-        try:
-            self._value = eval(self._code, self._evaluator.cache)
-        except NameError:
-            self._value = None
+        super(Measurement, self).eval()
         self._evaluator._update_cache(self)
-
-    ##############################################
-
-    @property
-    def value(self):
-
-        if self._code is None:
-            self.eval()
-        return self._value
 
 ####################################################################################################
 
 class VitParser:
+
+    _logger = _module_logger.getChild('VitParser')
 
     ##############################################
 
