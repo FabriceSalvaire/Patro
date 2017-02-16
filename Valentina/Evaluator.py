@@ -18,6 +18,16 @@
 #
 ####################################################################################################
 
+# Fixme:
+#   increments ?
+#   Length of line: Line_A_B
+#   Length of curve: Spl_A_B
+#   Angle of line: AngleLine_A_B
+#   radius of arcs
+#   Angles of curves: Angle1Spl_A_B Angle2Spl_A_B
+#   Length of control points: C1LengthSpl_A_B C2LengthSpl_A_B
+#   functions
+
 ####################################################################################################
 
 import ast
@@ -39,7 +49,9 @@ class Evaluator:
 
         self._measurements = measurements
 
-        self._cache  = {}
+        self._cache  = {'__evaluator__': self}
+        self._points = {}
+        self._current_operation = None
 
     ##############################################
 
@@ -57,6 +69,63 @@ class Evaluator:
 
         self._cache[named_expression.name] = named_expression.value
 
+    ##############################################
+
+    def add_point(self, point):
+
+        self._points[point.name] = point
+
+    ##############################################
+
+    def set_current_segment(self, vector):
+
+        self._current_segment = vector
+
+    ##############################################
+
+    def unset_current_segment(self):
+
+        self._current_segment = None
+        # self._logger.info('Unset current segment')
+
+    ##############################################
+
+    def _name_to_point(self, point_name1, point_name2):
+
+        return self._points[point_name1].vector, self._points[point_name2].vector
+
+    ##############################################
+
+    def _function_Angle1Spl(self, point_name1, point_name2):
+        point1, point2 = self._name_to_point(point_name1, point_name2)
+        return 0
+
+    def _function_Angle2Spl(self, point_name1, point_name2):
+        point1, point2 = self._name_to_point(point_name1, point_name2)
+        return 0
+
+    def _function_AngleLine(self, point_name1, point_name2):
+        point1, point2 = self._name_to_point(point_name1, point_name2)
+        return (point2 - point1).orientation()
+
+    def _function_CurrentLength(self):
+        return self._current_segment.magnitude()
+
+    def _function_C1LengthSpl(self, point_name1, point_name2):
+        point1, point2 = self._name_to_point(point_name1, point_name2)
+        return 0
+
+    def _function_C2LengthSpl(self, point_name1, point_name2):
+        point1, point2 = self._name_to_point(point_name1, point_name2)
+        return 0
+
+    def _function_Line(self, point_name1, point_name2):
+        point1, point2 = self._name_to_point(point_name1, point_name2)
+        return (point2 - point1).magnitude()
+
+    def _function_Spl(self, point_name1, point_name2):
+        point1, point2 = self._name_to_point(point_name1, point_name2)
+        return 0
 
 ####################################################################################################
 
@@ -98,16 +167,16 @@ class Expression:
 
     ##############################################
 
-    def find_name(self, start=0):
+    def find_name(self, prefix, start=0):
 
         expression = self._expression
-        start = expression.find('@', start)
+        start = expression.find(prefix, start)
         if start is -1:
             return None, None
         index = start + 1
         while index < len(expression):
             c = expression[index]
-            if 'a' <= c <= 'z' or 'A' <= c <= 'Z' or c in '_':
+            if 'a' <= c <= 'z' or 'A' <= c <= 'Z' or '0' <= c <= '9' or c in '_':
                 index += 1
             else:
                 break
@@ -118,6 +187,7 @@ class Expression:
     def compile(self):
 
         expression = self._expression
+        self._logger.info("expression '{}'".format(expression))
 
         # Python don't accept identifier starting with @
         # https://docs.python.org/3.5/reference/lexical_analysis.html#identifiers
@@ -125,13 +195,42 @@ class Expression:
             custom_measurements = []
             start = 0
             while True:
-                name, start = self.find_name(start)
+                name, start = self.find_name('@', start)
                 if name is None:
                     break
                 else:
                     custom_measurements.append(name)
             for measurement in custom_measurements:
                 expression = self.expression.replace(measurement, self._evaluator.measurements[measurement].name)
+
+        functions = []
+        for function in (
+                'Angle1Spl_',
+                'Angle2Spl_',
+                'AngleLine_',
+                'CurrentLength',
+                'C1LengthSpl_',
+                'C2LengthSpl_',
+                'Line_',
+                'Spl_',
+        ):
+            start = 0
+            while True:
+                name, start = self.find_name(function, start)
+                if name is None:
+                    break
+                else:
+                    functions.append(name)
+        # self._logger.info('Functions ' + str(functions))
+        for function_call in functions:
+            parts = function_call.split('_')
+            function = parts[0]
+            args = parts[1:]
+            pythonised_function = '__evaluator__._function_' + function + '(' + ', '.join(["'{}'".format(x) for x in args]) + ')'
+            # self._logger.info('Function {} {} -> {}'.format(function, args, pythonised_function))
+            expression = expression.replace(function_call, pythonised_function)
+
+        self._logger.info("Pythonised expression '{}'".format(expression))
 
         # Fixme: What is the (supported) grammar ?
         # http://beltoforion.de/article.php?a=muparser
@@ -148,6 +247,9 @@ class Expression:
             self._value = eval(self._code, self._evaluator.cache)
         except NameError:
             self._value = None
+        # except AttributeError as e:
+        #     self._logger.warning(e)
+        #     self._value = None
         self._logger.info('Eval {} = {}'.format(self._expression, self._value))
 
     ##############################################
