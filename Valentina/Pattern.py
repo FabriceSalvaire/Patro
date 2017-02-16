@@ -24,6 +24,8 @@ import logging
 
 from lxml import etree
 
+from .Evaluator import Expression
+
 ####################################################################################################
 
 _module_logger = logging.getLogger(__name__)
@@ -155,8 +157,8 @@ class SinglePoint(Point):
 
         # super(SinglePoint, self).__init__(id_, name, mx, my, line_type, line_color)
         Point.__init__(self, id_, name, mx, my)
-        self._x = x
-        self._y = y
+        self._x = Expression(x)
+        self._y = Expression(y)
 
     ##############################################
 

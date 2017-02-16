@@ -20,10 +20,11 @@
 
 ####################################################################################################
 
-import ast
 import logging
 
 from lxml import etree
+
+from .Evaluator import Evaluator, NamedExpression
 
 ####################################################################################################
 
@@ -59,92 +60,75 @@ class Measurements:
 
     def __init__(self):
 
-        self._items = []
-        self._item_dict = {}
-        self._globals = {}
+        self._measures = []
+        self._measure_dict = {}
+        self._evaluator = Evaluator(self)
 
     ##############################################
 
     @property
-    def globals(self):
-        return self._globals
+    def evaluator(self):
+        return self._evaluator
 
     ##############################################
 
     def __iter__(self):
-        return iter(self._items)
+        return iter(self._measures)
 
     ##############################################
 
     def __getitem__(self, name):
-        return self._item_dict[name]
+        return self._measure_dict[name]
 
     ##############################################
 
     def add(self, *args, **kgwars):
 
         measurement = Measurement(self, *args, **kgwars)
-        self._items.append(measurement)
-        self._item_dict[measurement.name] = measurement
+        self._measures.append(measurement)
+        self._measure_dict[measurement.name] = measurement
         if measurement.is_custom():
-            self._item_dict[measurement.pythonised_name] = measurement
-
-    ##############################################
-
-    def _update_globals(self, measurement):
-
-        self._globals[measurement.pythonised_name] = measurement.eval()
+            self._measure_dict[measurement.valentina_name] = measurement
 
     ##############################################
 
     def eval(self):
 
         # Fixme: compute a graph from the ast to evaluate
-        for item in self:
-            item.eval()
+        for measure in self:
+            measure.eval()
 
     ##############################################
 
     def dump(self):
 
-        for item in self:
-            print(item.pythonised_name, '=', item.value)
-            print('  =', item.eval())
+        for measure in self:
+            print(measure.name, '=', measure.expression)
+            print('  =', measure.value)
 
 ####################################################################################################
 
-class Measurement:
+class Measurement(NamedExpression):
 
     ##############################################
 
     def __init__(self, measurements, name, value, full_name='', description=''):
 
-        self._measurements = measurements
-        self._name = name
-        self._value = value
+        self._valentina_name = name
+
+        if self.is_custom():
+            name = '__custom__' + name[1:]
+
+        NamedExpression.__init__(self, name, value, evaluator=measurements.evaluator)
+
         self._full_name = full_name
         self._description = description
-
-        self._ast = None
-        self._code = None
-        self._float = None # Fixme: or int
 
     ##############################################
 
     @property
-    def name(self):
-        return self._name
-
-    @property
-    def pythonised_name(self):
-        if self.is_custom():
-            return '__custom__' + self._name[1:]
-        else:
-            return self._name
-
-    @property
-    def value(self):
-        return self._value
+    def valentina_name(self):
+        return self._valentina_name
 
     @property
     def full_name(self):
@@ -156,74 +140,28 @@ class Measurement:
 
     ##############################################
 
-    def is_float(self):
-
-        try:
-            float(self._value)
-            return True
-        except ValueError:
-            return False
-
-    ##############################################
-
     def is_custom(self):
-        return self._name.startswith('@')
-
-    ##############################################
-
-    def find_name(self, start=0):
-
-        value = self._value
-        start = value.find('@', start)
-        if start is -1:
-            return None, None
-        index = start + 1
-        while index < len(value):
-            c = value[index]
-            if 'a' <= c <= 'z' or 'A' <= c <= 'Z' or c in '_':
-                index += 1
-            else:
-                break
-        return value[start:index], index + 1
-
-    ##############################################
-
-    def compile(self):
-
-        value = self._value
-
-        # Python don't accept identifier starting with @
-        # https://docs.python.org/3.5/reference/lexical_analysis.html#identifiers
-        if '@' in value:
-            custom_measurements = []
-            start = 0
-            while True:
-                name, start = self.find_name(start)
-                if name is None:
-                    break
-                else:
-                    custom_measurements.append(name)
-            for custom_measurement in custom_measurements:
-                value = self.value.replace(custom_measurement, self._measurements[custom_measurement].pythonised_name)
-
-        # Fixme: What is the (supported) grammar ?
-        # http://beltoforion.de/article.php?a=muparser
-        # http://beltoforion.de/article.php?a=muparserx
-        self._ast = ast.parse(value, mode='eval')
-        self._code = compile(self._ast, '<string>', mode='eval')
+        return self._valentina_name.startswith('@')
 
     ##############################################
 
     def eval(self):
 
+        self.compile()
+        try:
+            self._value = eval(self._code, self._evaluator.cache)
+        except NameError:
+            self._value = None
+        self._evaluator._update_cache(self)
+
+    ##############################################
+
+    @property
+    def value(self):
+
         if self._code is None:
-            self.compile()
-            try:
-                self._float = eval(self._code, self._measurements.globals)
-            except NameError:
-                self._float = None
-            self._measurements._update_globals(self)
-        return self._float
+            self.eval()
+        return self._value
 
 ####################################################################################################
 
