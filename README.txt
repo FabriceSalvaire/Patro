@@ -28,13 +28,13 @@ The latest documentation build from the git repository is available at readthedo
 
 Written by `Fabrice Salvaire <http://fabrice-salvaire.pagesperso-orange.fr>`_.
 
------
-
 .. include:: introduction.txt
 
 .. include:: features.txt
 
 .. include:: installation.rst
+
+.. include:: bibliography.rst
 
 .. End
 

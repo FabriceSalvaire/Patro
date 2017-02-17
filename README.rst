@@ -107,8 +107,6 @@ The latest documentation build from the git repository is available at readthedo
 
 Written by `Fabrice Salvaire <http://fabrice-salvaire.pagesperso-orange.fr>`_.
 
------
-
 .. -*- Mode: rst -*-
 
 =============
@@ -262,6 +260,15 @@ Then to build and install PyValentina run these commands:
   python setup.py install
 
 .. End
+
+.. _bibliography-page:
+
+=============
+ Bibliography
+=============
+
+* `CGAL Computational Geometry Algorithms Library <http://www.cgal.org/>`_
+* `David Eberly Geometric Tools web site <https://www.geometrictools.com/index.html>`_
 
 .. End
 
