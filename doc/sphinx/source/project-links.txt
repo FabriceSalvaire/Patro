@@ -1,0 +1,66 @@
+.. -*- Mode: rst -*-
+
+..
+   |PyValentinaUrl|
+   |PyValentinaHomePage|_
+   |PyValentinaDoc|_
+   |PyValentina@github|_
+   |PyValentina@readthedocs|_
+   |PyValentina@readthedocs-badge|
+   |PyValentina@pypi|_
+
+.. |ohloh| image:: https://www.openhub.net/accounts/230426/widgets/account_tiny.gif
+   :target: https://www.openhub.net/accounts/fabricesalvaire
+   :alt: Fabrice Salvaire's Ohloh profile
+   :height: 15px
+   :width:  80px
+
+.. |PyValentinaUrl| replace:: http://fabricesalvaire.github.io/PyValentina
+
+.. |PyValentinaHomePage| replace:: PyValentina Home Page
+.. _PyValentinaHomePage: http://fabricesalvaire.github.io/PyValentina
+
+.. |PyValentinaDoc| replace:: PyValentina Documentation
+.. _PyValentinaDoc: http://pyvalentina.readthedocs.org/en/latest
+
+.. |PyValentina@readthedocs-badge| image:: https://readthedocs.org/projects/pyvalentina/badge/?version=latest
+   :target: http://pyvalentina.readthedocs.org/en/latest
+
+.. |PyValentina@github| replace:: https://github.com/FabriceSalvaire/PyValentina
+.. .. _PyValentina@github: https://github.com/FabriceSalvaire/PyValentina
+
+.. |PyValentina@readthedocs| replace:: http://pyvalentina.readthedocs.org
+.. .. _PyValentina@readthedocs: http://pyvalentina.readthedocs.org
+
+.. |PyValentina@pypi| replace:: https://pypi.python.org/pypi/PyValentina
+.. .. _PyValentina@pypi: https://pypi.python.org/pypi/PyValentina
+
+.. |Build Status| image:: https://travis-ci.org/FabriceSalvaire/PyValentina.svg?branch=master
+   :target: https://travis-ci.org/FabriceSalvaire/PyValentina
+   :alt: PyValentina build status @travis-ci.org
+
+.. |Pypi Download| image:: https://img.shields.io/pypi/dm/PyValentina.svg
+   :target: https://pypi.python.org/pypi/PyValentina
+   :alt: PyValentina Download per month
+
+.. |Pypi Version| image:: https://img.shields.io/pypi/v/PyValentina.svg
+   :target: https://pypi.python.org/pypi/PyValentina
+   :alt: PyValentina last version
+
+.. |Pypi License| image:: https://img.shields.io/pypi/l/PyValentina.svg
+   :target: https://pypi.python.org/pypi/PyValentina
+   :alt: PyValentina license
+
+.. |Pypi Format| image:: https://img.shields.io/pypi/format/PyValentina.svg
+   :target: https://pypi.python.org/pypi/PyValentina
+   :alt: PyValentina format
+
+.. |Pypi Python Version| image:: https://img.shields.io/pypi/pyversions/PyValentina.svg
+   :target: https://pypi.python.org/pypi/PyValentina
+   :alt: PyValentina python version
+
+..  coverage test
+..  https://img.shields.io/pypi/status/Django.svg
+..  https://img.shields.io/github/stars/badges/shields.svg?style=social&label=Star
+
+.. End
