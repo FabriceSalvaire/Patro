@@ -1,6 +1,6 @@
 ####################################################################################################
 #
-# X - x
+# PyValentina - A Python implementation of Valentina Pattern Making Software
 # Copyright (C) 2017 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
