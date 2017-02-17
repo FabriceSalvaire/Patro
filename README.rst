@@ -162,6 +162,11 @@ the 3D human model generator `MakeHuman <http://www.makehuman.org>`_ is written 
 Python can be easily extended by C libraries using `CFFI <http://cffi.readthedocs.io/en/latest>`_
 and C++ libraries using `SWIG <http://www.swig.org>`_.
 
+Python as other dynamic languages is able to evaluate code on the fly which provide an expression
+evaluator for free.  And this feature is even more pertinent in our case because of the canonical
+nature of the syntax of Python which is natural to somebody initiated to a basic mathematical
+language level.
+
 What is the purpose of this library ?
 -------------------------------------
 
@@ -189,6 +194,30 @@ computer of these days.  It can be sometime difficult to overcome some latency a
 software stack.  Thus yes we can do it, but it could requires some tricks to achieve the performance
 of a C++ application.
 
+How to generate drawings in standard format like PDF or SVG ?
+-------------------------------------------------------------
+
+SVG is not difficult to generate from Python since it is based on XML.  However the PDF format is
+more challenging, for efficiency reason PDF is a binary format and is thus much more complicated
+than PostScript which a true programming language.
+
+There is several possibilities to generate PDF.
+
+The most disturbing one is to use the `LaTeX <https://en.wikipedia.org/wiki/LaTeX>`_ publishing
+system in combination with the `PGF <http://www.texample.net/tikz/examples>`_ package which provide
+an amazing graphical language on top of LaTeX.  This solution could terrify people, but it do the
+job and very well as well as for text and graphics.  However user must install a LaTeX environment
+from their Linux distribution or using `TexLive <https://www.tug.org/texlive>`_.
+
+A more conventional solution requires a library able to generate PDF from standard graphical
+operations.  Some libraries able to that are :
+
+* Qt using QPainter API, Valentina solution, see https://wiki.qt.io/Handling_PDF
+* `Cairo <https://www.cairographics.org/manual/cairo-PDF-Surfaces.html>`_
+* `ReportLab open-source PDF Toolkit <http://www.reportlab.com/opensource>`_ (more commercial and less known)
+* `Matplotlib <http://matplotlib.org>`_ (but more oriented to plot)
+* and ???
+
 .. -*- Mode: rst -*-
 
 ==========
@@ -198,8 +227,18 @@ of a C++ application.
 The features of PyValentina are :
 
 * read *.val* and *.vit* file
+* `QMuParser <http://beltoforion.de/article.php?a=muparser>`_ expressions are translated to Python and evaluated on the fly
 * compute the detail of a pattern
 * export the detail to latex/pgf
+
+Missing features:
+
+* write *.val* and *.vit* file
+* full operation support
+
+Planed features:
+
+
 
 .. -*- Mode: rst -*-
 

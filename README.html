@@ -432,6 +432,10 @@ its ecosystem (scientific libraries).</p>
 the 3D human model generator <a class="reference external" href="http://www.makehuman.org">MakeHuman</a> is written in Python.</p>
 <p>Python can be easily extended by C libraries using <a class="reference external" href="http://cffi.readthedocs.io/en/latest">CFFI</a>
 and C++ libraries using <a class="reference external" href="http://www.swig.org">SWIG</a>.</p>
+<p>Python as other dynamic languages is able to evaluate code on the fly which provide an expression
+evaluator for free.  And this feature is even more pertinent in our case because of the canonical
+nature of the syntax of Python which is natural to somebody initiated to a basic mathematical
+language level.</p>
 </div>
 <div class="section" id="what-is-the-purpose-of-this-library">
 <h2>What is the purpose of this library ?</h2>
@@ -454,6 +458,27 @@ multi-core in some cases, but less easily than in Java or Cxx11.</p>
 computer of these days.  It can be sometime difficult to overcome some latency arising from the
 software stack.  Thus yes we can do it, but it could requires some tricks to achieve the performance
 of a C++ application.</p>
+</div>
+<div class="section" id="how-to-generate-drawings-in-standard-format-like-pdf-or-svg">
+<h2>How to generate drawings in standard format like PDF or SVG ?</h2>
+<p>SVG is not difficult to generate from Python since it is based on XML.  However the PDF format is
+more challenging, for efficiency reason PDF is a binary format and is thus much more complicated
+than PostScript which a true programming language.</p>
+<p>There is several possibilities to generate PDF.</p>
+<p>The most disturbing one is to use the <a class="reference external" href="https://en.wikipedia.org/wiki/LaTeX">LaTeX</a> publishing
+system in combination with the <a class="reference external" href="http://www.texample.net/tikz/examples">PGF</a> package which provide
+an amazing graphical language on top of LaTeX.  This solution could terrify people, but it do the
+job and very well as well as for text and graphics.  However user must install a LaTeX environment
+from their Linux distribution or using <a class="reference external" href="https://www.tug.org/texlive">TexLive</a>.</p>
+<p>A more conventional solution requires a library able to generate PDF from standard graphical
+operations.  Some libraries able to that are :</p>
+<ul class="simple">
+<li>Qt using QPainter API, Valentina solution, see <a class="reference external" href="https://wiki.qt.io/Handling_PDF">https://wiki.qt.io/Handling_PDF</a></li>
+<li><a class="reference external" href="https://www.cairographics.org/manual/cairo-PDF-Surfaces.html">Cairo</a></li>
+<li><a class="reference external" href="http://www.reportlab.com/opensource">ReportLab open-source PDF Toolkit</a> (more commercial and less known)</li>
+<li><a class="reference external" href="http://matplotlib.org">Matplotlib</a> (but more oriented to plot)</li>
+<li>and ???</li>
+</ul>
 <!-- -*- Mode: rst -*- -->
 </div>
 </div>
@@ -462,9 +487,16 @@ of a C++ application.</p>
 <p>The features of PyValentina are :</p>
 <ul class="simple">
 <li>read <em>.val</em> and <em>.vit</em> file</li>
+<li><a class="reference external" href="http://beltoforion.de/article.php?a=muparser">QMuParser</a> expressions are translated to Python and evaluated on the fly</li>
 <li>compute the detail of a pattern</li>
 <li>export the detail to latex/pgf</li>
 </ul>
+<p>Missing features:</p>
+<ul class="simple">
+<li>write <em>.val</em> and <em>.vit</em> file</li>
+<li>full operation support</li>
+</ul>
+<p>Planed features:</p>
 <!-- -*- Mode: rst -*- -->
 </div>
 <div class="section" id="installation">
