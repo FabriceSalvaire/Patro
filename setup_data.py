@@ -1,6 +1,6 @@
 ####################################################################################################
 #
-# PyValentina - A Python implementation of Valentina Pattern Making Software
+# PyValentina - A Python implementation of Valentina Pattern Drafting Software
 # Copyright (C) 2017 Salvaire Fabrice
 #
 # This program is free software: you can redistribute it and/or modify
@@ -33,7 +33,7 @@ setup_dict = dict(
     version='0.1.0',
     author='Fabrice Salvaire',
     author_email='fabrice.salvaire@orange.fr',
-    description='A Python implementation of Valentina Pattern Making Software.',
+    description='A Python implementation of Valentina Pattern Drafting Software.',
     license="GPLv3",
     keywords="pattern making, valentina",
     url='https://github.com/FabriceSalvaire/PyValentina',
