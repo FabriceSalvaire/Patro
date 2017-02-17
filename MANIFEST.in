@@ -1,0 +1,17 @@
+include *.val *.vit
+include .gitignore
+include LICENSE.txt
+include MANIFEST.in
+include README.rst
+include requirements.in
+include requirements.txt requirements-dev.txt
+include setup_data.py
+recursive-include doc *
+recursive-include doc/sphinx/source/_static *
+recursive-include gh-pages *
+recursive-include test *
+recursive-include tools *
+recursive-include unit-test *.py
+global-exclude *.pyc
+global-exclude *__pycache__*
+prune doc/sphinx/build
