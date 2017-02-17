@@ -214,7 +214,7 @@ operations.  Some libraries able to that are :
 
 * Qt using QPainter API, Valentina solution, see https://wiki.qt.io/Handling_PDF
 * `Cairo <https://www.cairographics.org/manual/cairo-PDF-Surfaces.html>`_
-* `ReportLab open-source PDF Toolkit <http://www.reportlab.com/opensource>`_ (more commercial and less known)
+* `ReportLab <http://www.reportlab.com/opensource>`_  open-source PDF Toolkit (more commercial and less known)
 * `Matplotlib <http://matplotlib.org>`_ (but more oriented to plot)
 * and ???
 
@@ -235,10 +235,13 @@ Missing features:
 
 * write *.val* and *.vit* file
 * full operation support
+* direct PDF export
+* SVG export
 
 Planed features:
 
-
+* export to tiled A4 PDF
+* Python API to define pattern
 
 .. -*- Mode: rst -*-
 
