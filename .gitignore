@@ -1,2 +1,11 @@
+*.aux
+*.val.lock
 *~
 __pycache__
+
+MANIFEST
+auto/
+build/
+dist/
+doc/sphinx/build
+trash/
