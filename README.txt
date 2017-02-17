@@ -30,6 +30,10 @@ Written by `Fabrice Salvaire <http://fabrice-salvaire.pagesperso-orange.fr>`_.
 
 -----
 
+.. include:: introduction.txt
+
+.. include:: features.txt
+
 .. include:: installation.rst
 
 .. End

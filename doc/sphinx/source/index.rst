@@ -16,6 +16,10 @@ Welcome to the PyValentina documentation!
 
     As opposite the |PyValentinaHomePage|_ is built manually and is thus less prone to errors.
 
+.. include:: introduction.txt
+
+.. include:: features.txt
+
 ==============
  Installation
 ==============
@@ -29,6 +33,7 @@ The procedure to install PyValentina is described in the :ref:`Installation Manu
 The best way to know what we can do with PyValentina and learn it, is to start with the examples.
 
  * :ref:`PyValentina Reference Manual <reference-manual-page>`
+ * :ref:`Bibliography <bibliography-page>`
 
 ==========
  Overview
@@ -40,5 +45,6 @@ The best way to know what we can do with PyValentina and learn it, is to start w
 
   installation.rst
   reference-manual.rst
+  bibliography.rst
 
 .. End
