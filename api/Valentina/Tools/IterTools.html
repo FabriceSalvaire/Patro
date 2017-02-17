@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2.1.7.1. IterTools &#8212; PyValentina 0.3.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../static/MyTheme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../static/jquery.js"></script>
+    <script type="text/javascript" src="../../../static/underscore.js"></script>
+    <script type="text/javascript" src="../../../static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../static/hidecode.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="prev" title="2.1.7. Tools" href="../Tools.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../Tools.html" title="2.1.7. Tools"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyValentina 0.3.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../reference-manual.html" >2. API Documentation</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../Valentina.html" >2.1. <code class="docutils literal"><span class="pre">Valentina</span></code></a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="../Tools.html" accesskey="U">2.1.7. <code class="docutils literal"><span class="pre">Tools</span></code></a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-Valentina.Tools.IterTools">
+<span id="itertools"></span><h1>2.1.7.1. <code class="xref py py-mod docutils literal"><span class="pre">IterTools</span></code><a class="headerlink" href="#module-Valentina.Tools.IterTools" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Valentina.Tools.IterTools.PairWiseManipulator">
+<em class="property">class </em><code class="descclassname">Valentina.Tools.IterTools.</code><code class="descname">PairWiseManipulator</code><a class="reference internal" href="../../../_modules/Valentina/Tools/IterTools.html#PairWiseManipulator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Tools.IterTools.PairWiseManipulator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>This class is a template to manipulate an iterable with a pair wise iterator concept.</p>
+<p>The method <a class="reference internal" href="#Valentina.Tools.IterTools.PairWiseManipulator.do" title="Valentina.Tools.IterTools.PairWiseManipulator.do"><code class="xref py py-meth docutils literal"><span class="pre">do()</span></code></a> must be implemented in super-class.</p>
+<dl class="method">
+<dt id="Valentina.Tools.IterTools.PairWiseManipulator.apply">
+<code class="descname">apply</code><span class="sig-paren">(</span><em>iterable</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Tools/IterTools.html#PairWiseManipulator.apply"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Tools.IterTools.PairWiseManipulator.apply" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate over the iterable and call the method <a class="reference internal" href="#Valentina.Tools.IterTools.PairWiseManipulator.do" title="Valentina.Tools.IterTools.PairWiseManipulator.do"><code class="xref py py-meth docutils literal"><span class="pre">do()</span></code></a> at each iteration until the
+last position is reached.  The index position is incremented if the method return
+<a class="reference external" href="https://docs.python.org/2/library/constants.html#True" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">True</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Tools.IterTools.PairWiseManipulator.del_item">
+<code class="descname">del_item</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Tools/IterTools.html#PairWiseManipulator.del_item"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Tools.IterTools.PairWiseManipulator.del_item" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the item at the current index position.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Tools.IterTools.PairWiseManipulator.del_next_item">
+<code class="descname">del_next_item</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Tools/IterTools.html#PairWiseManipulator.del_next_item"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Tools.IterTools.PairWiseManipulator.del_next_item" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the item at the next index position.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Tools.IterTools.PairWiseManipulator.do">
+<code class="descname">do</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Tools/IterTools.html#PairWiseManipulator.do"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Tools.IterTools.PairWiseManipulator.do" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method called by method <a class="reference internal" href="#Valentina.Tools.IterTools.PairWiseManipulator.apply" title="Valentina.Tools.IterTools.PairWiseManipulator.apply"><code class="xref py py-meth docutils literal"><span class="pre">apply()</span></code></a> to manipulate the list. Must return a boolean.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Tools.IterTools.PairWiseManipulator.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Tools/IterTools.html#PairWiseManipulator.end"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Tools.IterTools.PairWiseManipulator.end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if the index position is at the end of the list.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Tools.IterTools.PairWiseManipulator.next">
+<code class="descname">next</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Tools/IterTools.html#PairWiseManipulator.next"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Tools.IterTools.PairWiseManipulator.next" title="Permalink to this definition">¶</a></dt>
+<dd><p>Increment the index position.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Tools.IterTools.PairWiseManipulator.pair">
+<code class="descname">pair</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Tools/IterTools.html#PairWiseManipulator.pair"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Tools.IterTools.PairWiseManipulator.pair" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the pair from the current index position.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="Valentina.Tools.IterTools.accumulate">
+<code class="descclassname">Valentina.Tools.IterTools.</code><code class="descname">accumulate</code><span class="sig-paren">(</span><em>iterable</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Tools/IterTools.html#accumulate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Tools.IterTools.accumulate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accumulate the values of an iterable to a new array.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Valentina.Tools.IterTools.closed_pairwise">
+<code class="descclassname">Valentina.Tools.IterTools.</code><code class="descname">closed_pairwise</code><span class="sig-paren">(</span><em>iterable</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Tools/IterTools.html#closed_pairwise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Tools.IterTools.closed_pairwise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a generator which generate a closed pair wise list from an iterable.
+s -&gt; (s[0],s[1]), (s[1],s[2]), ... (s[N], s[0])</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Valentina.Tools.IterTools.multiwise">
+<code class="descclassname">Valentina.Tools.IterTools.</code><code class="descname">multiwise</code><span class="sig-paren">(</span><em>iterable</em>, <em>n=2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Tools/IterTools.html#multiwise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Tools.IterTools.multiwise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a generator which generate a multi wise list from an iterable.
+s -&gt; (s[0],s[1],s[2],...), (s[1],s[2],s[3],...), ... (...,s[N-2],s[N-1],s[N])</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="nb">list</span><span class="p">(</span><span class="n">multiwise</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="c1"># [(1,), (2,), (3,), (4,), (5,)]</span>
+
+<span class="nb">list</span><span class="p">(</span><span class="n">multiwise</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="c1"># [(1, 2), (2, 3), (3, 4), (4, 5)]</span>
+
+<span class="nb">list</span><span class="p">(</span><span class="n">multiwise</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+<span class="c1"># [(1, 2, 3), (2, 3, 4), (3, 4, 5)]</span>
+
+<span class="c1"># list(multiwise(a, n=4))</span>
+<span class="c1"># [(1, 2, 3, 4), (2, 3, 4, 5)]</span>
+
+<span class="nb">list</span><span class="p">(</span><span class="n">multiwise</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
+<span class="c1"># [(1, 2, 3, 4, 5)]</span>
+
+<span class="nb">list</span><span class="p">(</span><span class="n">multiwise</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">6</span><span class="p">))</span>
+<span class="c1"># []</span>
+
+<span class="nb">list</span><span class="p">(</span><span class="n">multiwise</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="c1"># []</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="Valentina.Tools.IterTools.multiwise_interval">
+<code class="descclassname">Valentina.Tools.IterTools.</code><code class="descname">multiwise_interval</code><span class="sig-paren">(</span><em>iterable_size</em>, <em>n=2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Tools/IterTools.html#multiwise_interval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Tools.IterTools.multiwise_interval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="Valentina.Tools.IterTools.pairwise">
+<code class="descclassname">Valentina.Tools.IterTools.</code><code class="descname">pairwise</code><span class="sig-paren">(</span><em>iterable</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Tools/IterTools.html#pairwise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Tools.IterTools.pairwise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a generator which generate a pair wise list from an iterable.
+s -&gt; (s[0],s[1]), (s[1],s[2]), ... (s[N-1],s[N])</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../Tools.html"
+                        title="previous chapter">2.1.7. <code class="docutils literal"><span class="pre">Tools</span></code></a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/api/Valentina/Tools/IterTools.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../Tools.html" title="2.1.7. Tools"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyValentina 0.3.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../reference-manual.html" >2. API Documentation</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../Valentina.html" >2.1. <code class="docutils literal"><span class="pre">Valentina</span></code></a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="../Tools.html" >2.1.7. <code class="docutils literal"><span class="pre">Tools</span></code></a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Fabrice Salvaire.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
+    </div>
+  </body>
+</html>

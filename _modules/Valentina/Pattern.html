@@ -1,0 +1,886 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Valentina.Pattern &#8212; PyValentina 0.3.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../static/MyTheme.css" type="text/css" />
+    <link rel="stylesheet" href="../../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../static/jquery.js"></script>
+    <script type="text/javascript" src="../../static/underscore.js"></script>
+    <script type="text/javascript" src="../../static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../static/hidecode.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">PyValentina 0.3.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for Valentina.Pattern</h1><div class="highlight"><pre>
+<span></span><span class="c1">####################################################################################################</span>
+<span class="c1">#</span>
+<span class="c1"># PyValentina - A Python implementation of Valentina Pattern Drafting Software</span>
+<span class="c1"># Copyright (C) 2017 Fabrice Salvaire</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1">#</span>
+<span class="c1">####################################################################################################</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">lxml</span> <span class="k">import</span> <span class="n">etree</span>
+
+<span class="kn">from</span> <span class="nn">.Evaluator</span> <span class="k">import</span> <span class="n">Expression</span>
+<span class="kn">from</span> <span class="nn">.Geometry.Vector2D</span> <span class="k">import</span> <span class="n">Vector2D</span>
+<span class="kn">from</span> <span class="nn">.Geometry.Line2D</span> <span class="k">import</span> <span class="n">Line2D</span>
+<span class="kn">from</span> <span class="nn">.Measurement</span> <span class="k">import</span> <span class="n">VitParser</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="n">_module_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="c1"># Point</span>
+<span class="c1">#   trueDarts {&#39;type&#39;: &#39;trueDarts&#39;, &#39;name1&#39;: &#39;A34&#39;, &#39;dartP2&#39;: &#39;139&#39;, &#39;dartP1&#39;: &#39;141&#39;, &#39;my2&#39;: &#39;-3.87275&#39;, &#39;point2&#39;: &#39;146&#39;, &#39;dartP3&#39;: &#39;140&#39;, &#39;id&#39;: &#39;144&#39;, &#39;mx2&#39;: &#39;0.794387&#39;, &#39;my1&#39;: &#39;-2.44561&#39;, &#39;name2&#39;: &#39;A35&#39;, &#39;point1&#39;: &#39;145&#39;, &#39;baseLineP2&#39;: &#39;63&#39;, &#39;mx1&#39;: &#39;-3.64071&#39;, &#39;baseLineP1&#39;: &#39;68&#39;}</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Operation"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.Operation">[docs]</a><span class="k">class</span> <span class="nc">Operation</span><span class="p">:</span>
+
+    <span class="n">_logger</span> <span class="o">=</span> <span class="n">_module_logger</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;Operation&#39;</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Operation.from_xml"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.Operation.from_xml">[docs]</a>    <span class="k">def</span> <span class="nf">from_xml</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;point&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Point</span><span class="o">.</span><span class="n">from_xml</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">element</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;line&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Line</span><span class="o">.</span><span class="n">from_xml</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">element</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;spline&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Curve</span><span class="o">.</span><span class="n">from_xml</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Operation</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">element</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Operation.xml_attributes"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.Operation.xml_attributes">[docs]</a>    <span class="k">def</span> <span class="nf">xml_attributes</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">attributes</span><span class="p">,</span> <span class="n">keys</span><span class="p">):</span>
+
+        <span class="n">attrib</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">attrib</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">attribute</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">attributes</span><span class="p">)}</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;pattern&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pattern</span>
+        <span class="k">return</span> <span class="n">kwargs</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">id_</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pattern</span> <span class="o">=</span> <span class="n">pattern</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="n">id_</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pattern</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="si">{0._id}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Operation.eval"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.Operation.eval">[docs]</a>    <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Eval </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eval_internal</span><span class="p">()</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Operation.eval_internal"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.Operation.eval_internal">[docs]</a>    <span class="k">def</span> <span class="nf">eval_internal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">pass</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Pattern"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.Pattern">[docs]</a><span class="k">class</span> <span class="nc">Pattern</span><span class="p">:</span>
+
+    <span class="n">_logger</span> <span class="o">=</span> <span class="n">_module_logger</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;Pattern&#39;</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">measurements</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_measurements</span> <span class="o">=</span> <span class="n">measurements</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_evaluator</span> <span class="o">=</span> <span class="n">measurements</span><span class="o">.</span><span class="n">evaluator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_operations</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_operation_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">measurements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_measurements</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">evaluator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_evaluator</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">operations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operations</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Pattern.add"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.Pattern.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operation</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">operation</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_operations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">operation</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_operation_dict</span><span class="p">[</span><span class="n">operation</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">operation</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Pattern.get_operation"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.Pattern.get_operation">[docs]</a>    <span class="k">def</span> <span class="nf">get_operation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operation_dict</span><span class="p">[</span><span class="n">id_</span><span class="p">]</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Pattern.get_point"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.Pattern.get_point">[docs]</a>    <span class="k">def</span> <span class="nf">get_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">[</span><span class="n">name</span><span class="p">]</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Pattern.eval"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.Pattern.eval">[docs]</a>    <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">for</span> <span class="n">operation</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operations</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">operation</span><span class="p">,</span> <span class="n">Point</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_evaluator</span><span class="o">.</span><span class="n">add_point</span><span class="p">(</span><span class="n">operation</span><span class="p">)</span>
+                <span class="n">operation</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">pass</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Pattern.dump"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.Pattern.dump">[docs]</a>    <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">for</span> <span class="n">operation</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operations</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">operation</span><span class="p">,</span> <span class="n">Point</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">operation</span><span class="p">,</span> <span class="n">operation</span><span class="o">.</span><span class="n">vector</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">operation</span><span class="p">)</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="LineProperties"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.LineProperties">[docs]</a><span class="k">class</span> <span class="nc">LineProperties</span><span class="p">:</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_line_type</span> <span class="o">=</span> <span class="n">line_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_line_color</span> <span class="o">=</span> <span class="n">line_color</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">line_color</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_line_color</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">line_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_line_type</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Point"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.Point">[docs]</a><span class="k">class</span> <span class="nc">Point</span><span class="p">(</span><span class="n">Operation</span><span class="p">):</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">id_</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span>
+                 <span class="n">mx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">my</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                 <span class="p">):</span>
+
+        <span class="c1"># super(Point, self).__init__(id_)</span>
+        <span class="n">Operation</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">id_</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mx</span> <span class="o">=</span> <span class="n">mx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_my</span> <span class="o">=</span> <span class="n">my</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vector</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mx</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mx</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">my</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_my</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">vector</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vector</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Point.from_xml"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.Point.from_xml">[docs]</a>    <span class="k">def</span> <span class="nf">from_xml</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">tag</span> <span class="o">!=</span> <span class="s1">&#39;point&#39;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span>
+        <span class="n">type_</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">type_</span> <span class="o">==</span> <span class="s1">&#39;single&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">SinglePoint</span><span class="o">.</span><span class="n">from_xml</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">type_</span> <span class="o">==</span> <span class="s1">&#39;alongLine&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">AlongLinePoint</span><span class="o">.</span><span class="n">from_xml</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">type_</span> <span class="o">==</span> <span class="s1">&#39;endLine&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">EndLinePoint</span><span class="o">.</span><span class="n">from_xml</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">type_</span> <span class="o">==</span> <span class="s1">&#39;lineIntersect&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">LineIntersectPoint</span><span class="o">.</span><span class="n">from_xml</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">type_</span> <span class="o">==</span> <span class="s1">&#39;normal&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">NormalPoint</span><span class="o">.</span><span class="n">from_xml</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">type_</span> <span class="o">==</span> <span class="s1">&#39;pointOfIntersection&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">PointOfIntersectionPoint</span><span class="o">.</span><span class="n">from_xml</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">_post_eval_internal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0._name}</span><span class="s1"> </span><span class="si">{0._vector}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="SinglePoint"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.SinglePoint">[docs]</a><span class="k">class</span> <span class="nc">SinglePoint</span><span class="p">(</span><span class="n">Point</span><span class="p">):</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">id_</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span>
+                 <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span>
+                 <span class="n">mx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">my</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                 <span class="p">):</span>
+
+        <span class="c1"># super(SinglePoint, self).__init__(id_, name, mx, my, line_type, line_color)</span>
+        <span class="n">Point</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">id_</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">mx</span><span class="p">,</span> <span class="n">my</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pattern</span><span class="o">.</span><span class="n">evaluator</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_y</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pattern</span><span class="o">.</span><span class="n">evaluator</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_y</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="SinglePoint.from_xml"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.SinglePoint.from_xml">[docs]</a>    <span class="k">def</span> <span class="nf">from_xml</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+
+        <span class="c1"># {&#39;y&#39;: &#39;1.05833&#39;, &#39;mx&#39;: &#39;0.132292&#39;, &#39;type&#39;: &#39;single&#39;, &#39;my&#39;: &#39;0.264583&#39;, &#39;id&#39;: &#39;1&#39;, &#39;name&#39;: &#39;A0&#39;, &#39;x&#39;: &#39;0.79375&#39;}</span>
+
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="n">Operation</span><span class="o">.</span><span class="n">xml_attributes</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span>
+                                          <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;mx&#39;</span><span class="p">,</span> <span class="s1">&#39;my&#39;</span><span class="p">),</span>
+                                          <span class="p">(</span><span class="s1">&#39;id_&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;mx&#39;</span><span class="p">,</span> <span class="s1">&#39;my&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">SinglePoint</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="si">{0._name}</span><span class="s1"> = (</span><span class="si">{0._x}</span><span class="s1">, </span><span class="si">{0._y}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="SinglePoint.eval_internal"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.SinglePoint.eval_internal">[docs]</a>    <span class="k">def</span> <span class="nf">eval_internal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vector</span> <span class="o">=</span> <span class="n">Vector2D</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_y</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_post_eval_internal</span><span class="p">()</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="AlongLinePoint"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.AlongLinePoint">[docs]</a><span class="k">class</span> <span class="nc">AlongLinePoint</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">LineProperties</span><span class="p">):</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">id_</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span>
+                 <span class="n">first_point</span><span class="p">,</span> <span class="n">second_point</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span>
+                 <span class="n">mx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">my</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                 <span class="n">line_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="p">):</span>
+
+        <span class="c1"># super(AlongLinePoint, self).__init__(id_, name, mx, my, line_type, line_color)</span>
+        <span class="n">Point</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">id_</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">mx</span><span class="p">,</span> <span class="n">my</span><span class="p">)</span>
+        <span class="n">LineProperties</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line_type</span><span class="p">,</span> <span class="n">line_color</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_first_point</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">get_operation</span><span class="p">(</span><span class="n">first_point</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_second_point</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">get_operation</span><span class="p">(</span><span class="n">second_point</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">pattern</span><span class="o">.</span><span class="n">evaluator</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">first_point</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_point</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">second_point</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_second_point</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="AlongLinePoint.from_xml"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.AlongLinePoint.from_xml">[docs]</a>    <span class="k">def</span> <span class="nf">from_xml</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+
+        <span class="c1"># {&#39;lineColor&#39;: &#39;black&#39;, &#39;firstPoint&#39;: &#39;138&#39;, &#39;id&#39;: &#39;141&#39;, &#39;mx&#39;: &#39;-4.2484&#39;, &#39;typeLine&#39;: &#39;none&#39;,</span>
+        <span class="c1">#  &#39;my&#39;: &#39;1.01162&#39;, &#39;name&#39;: &#39;A33&#39;, &#39;length&#39;: &#39;Line_A30_A32&#39;, &#39;type&#39;: &#39;alongLine&#39;, &#39;secondPoint&#39;: &#39;68&#39;}</span>
+
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="n">Operation</span><span class="o">.</span><span class="n">xml_attributes</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span>
+                                          <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;firstPoint&#39;</span><span class="p">,</span> <span class="s1">&#39;secondPoint&#39;</span><span class="p">,</span> <span class="s1">&#39;length&#39;</span><span class="p">,</span> <span class="s1">&#39;mx&#39;</span><span class="p">,</span> <span class="s1">&#39;my&#39;</span><span class="p">,</span> <span class="s1">&#39;lineType&#39;</span><span class="p">,</span> <span class="s1">&#39;lineType&#39;</span><span class="p">),</span>
+                                          <span class="p">(</span><span class="s1">&#39;id_&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;first_point&#39;</span><span class="p">,</span> <span class="s1">&#39;second_point&#39;</span><span class="p">,</span> <span class="s1">&#39;length&#39;</span><span class="p">,</span> <span class="s1">&#39;mx&#39;</span><span class="p">,</span> <span class="s1">&#39;my&#39;</span><span class="p">,</span> <span class="s1">&#39;line_type&#39;</span><span class="p">,</span> <span class="s1">&#39;line_type&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">AlongLinePoint</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="si">{0._name}</span><span class="s1"> = (</span><span class="si">{0._first_point.name}</span><span class="s1">, </span><span class="si">{0._second_point.name}</span><span class="s1">, </span><span class="si">{0._length}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="AlongLinePoint.eval_internal"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.AlongLinePoint.eval_internal">[docs]</a>    <span class="k">def</span> <span class="nf">eval_internal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">vector</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_second_point</span><span class="o">.</span><span class="n">vector</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_point</span><span class="o">.</span><span class="n">vector</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pattern</span><span class="o">.</span><span class="n">evaluator</span><span class="o">.</span><span class="n">set_current_segment</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vector</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_point</span><span class="o">.</span><span class="n">vector</span> <span class="o">+</span> <span class="n">vector</span><span class="o">.</span><span class="n">to_normalised</span><span class="p">()</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_length</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pattern</span><span class="o">.</span><span class="n">evaluator</span><span class="o">.</span><span class="n">unset_current_segment</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_post_eval_internal</span><span class="p">()</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="EndLinePoint"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.EndLinePoint">[docs]</a><span class="k">class</span> <span class="nc">EndLinePoint</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">LineProperties</span><span class="p">):</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">id_</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span>
+                 <span class="n">base_point</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span>
+                 <span class="n">mx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">my</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                 <span class="n">line_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="p">):</span>
+
+        <span class="c1"># super(EndLinePoint, self).__init__(id_, name, mx, my, line_type, line_color)</span>
+        <span class="n">Point</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">id_</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">mx</span><span class="p">,</span> <span class="n">my</span><span class="p">)</span>
+        <span class="n">LineProperties</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line_type</span><span class="p">,</span> <span class="n">line_color</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_base_point</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">get_operation</span><span class="p">(</span><span class="n">base_point</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_angle</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="n">pattern</span><span class="o">.</span><span class="n">evaluator</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">pattern</span><span class="o">.</span><span class="n">evaluator</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">base_point</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_point</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">angle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_angle</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="EndLinePoint.from_xml"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.EndLinePoint.from_xml">[docs]</a>    <span class="k">def</span> <span class="nf">from_xml</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+
+        <span class="c1"># {&#39;basePoint&#39;: &#39;1&#39;, &#39;name&#39;: &#39;A1&#39;, &#39;id&#39;: &#39;2&#39;, &#39;angle&#39;: &#39;0&#39;, &#39;length&#39;: &#39;waist_circ/2+10&#39;,</span>
+        <span class="c1">#  &#39;typeLine&#39;: &#39;dashDotLine&#39;, &#39;my&#39;: &#39;0.264583&#39;, &#39;type&#39;: &#39;endLine&#39;, &#39;mx&#39;: &#39;0.132292&#39;, &#39;lineColor&#39;: &#39;black&#39;}</span>
+
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="n">Operation</span><span class="o">.</span><span class="n">xml_attributes</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span>
+                                          <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;basePoint&#39;</span><span class="p">,</span> <span class="s1">&#39;angle&#39;</span><span class="p">,</span> <span class="s1">&#39;length&#39;</span><span class="p">,</span> <span class="s1">&#39;mx&#39;</span><span class="p">,</span> <span class="s1">&#39;my&#39;</span><span class="p">,</span> <span class="s1">&#39;lineType&#39;</span><span class="p">,</span> <span class="s1">&#39;lineType&#39;</span><span class="p">),</span>
+                                          <span class="p">(</span><span class="s1">&#39;id_&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;base_point&#39;</span><span class="p">,</span> <span class="s1">&#39;angle&#39;</span><span class="p">,</span> <span class="s1">&#39;length&#39;</span><span class="p">,</span> <span class="s1">&#39;mx&#39;</span><span class="p">,</span> <span class="s1">&#39;my&#39;</span><span class="p">,</span> <span class="s1">&#39;line_type&#39;</span><span class="p">,</span> <span class="s1">&#39;line_type&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">EndLinePoint</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="si">{0._name}</span><span class="s1"> = (</span><span class="si">{0._base_point.name}</span><span class="s1">, </span><span class="si">{0._angle}</span><span class="s1">, </span><span class="si">{0._length}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="EndLinePoint.eval_internal"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.EndLinePoint.eval_internal">[docs]</a>    <span class="k">def</span> <span class="nf">eval_internal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vector</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_point</span><span class="o">.</span><span class="n">_vector</span> <span class="o">+</span> <span class="n">Vector2D</span><span class="o">.</span><span class="n">from_angle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_angle</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_length</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_post_eval_internal</span><span class="p">()</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="LineIntersectPoint"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.LineIntersectPoint">[docs]</a><span class="k">class</span> <span class="nc">LineIntersectPoint</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">LineProperties</span><span class="p">):</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">id_</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span>
+                 <span class="n">point1_line1</span><span class="p">,</span> <span class="n">point2_line1</span><span class="p">,</span> <span class="n">point1_line2</span><span class="p">,</span> <span class="n">point2_line2</span><span class="p">,</span>
+                 <span class="n">mx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">my</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                 <span class="n">line_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="p">):</span>
+
+        <span class="c1"># super(LineIntersectPoint, self).__init__(id_, name, mx, my, line_type, line_color)</span>
+        <span class="n">Point</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">id_</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">mx</span><span class="p">,</span> <span class="n">my</span><span class="p">)</span>
+        <span class="n">LineProperties</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line_type</span><span class="p">,</span> <span class="n">line_color</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_point1_line1</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">get_operation</span><span class="p">(</span><span class="n">point1_line1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_point2_line1</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">get_operation</span><span class="p">(</span><span class="n">point2_line1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_point1_line2</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">get_operation</span><span class="p">(</span><span class="n">point1_line2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_point2_line2</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">get_operation</span><span class="p">(</span><span class="n">point2_line2</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">point1_line1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_point1_line1</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">point2_line1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_point2_line1</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">point1_line2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_point1_line2</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">point2_line2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_point2_line2</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="LineIntersectPoint.from_xml"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.LineIntersectPoint.from_xml">[docs]</a>    <span class="k">def</span> <span class="nf">from_xml</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+
+        <span class="c1"># {&#39;type&#39;: &#39;lineIntersect&#39;, &#39;p2Line1&#39;: &#39;32&#39;, &#39;mx&#39;: &#39;0.132292&#39;, &#39;p1Line2&#39;: &#39;10&#39;,</span>
+        <span class="c1">#  &#39;p2Line2&#39;: &#39;11&#39;, &#39;p1Line1&#39;: &#39;27&#39;, &#39;id&#39;: &#39;39&#39;, &#39;my&#39;: &#39;0.264583&#39;, &#39;name&#39;: &#39;Cp&#39;}</span>
+
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="n">Operation</span><span class="o">.</span><span class="n">xml_attributes</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span>
+                                          <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;p1Line1&#39;</span><span class="p">,</span> <span class="s1">&#39;p2Line1&#39;</span><span class="p">,</span> <span class="s1">&#39;p1Line2&#39;</span><span class="p">,</span> <span class="s1">&#39;p2Line2&#39;</span><span class="p">,</span> <span class="s1">&#39;mx&#39;</span><span class="p">,</span> <span class="s1">&#39;my&#39;</span><span class="p">,</span> <span class="s1">&#39;lineType&#39;</span><span class="p">,</span> <span class="s1">&#39;lineType&#39;</span><span class="p">),</span>
+                                          <span class="p">(</span><span class="s1">&#39;id_&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;point1_line1&#39;</span><span class="p">,</span> <span class="s1">&#39;point2_line1&#39;</span><span class="p">,</span> <span class="s1">&#39;point1_line2&#39;</span><span class="p">,</span> <span class="s1">&#39;point2_line2&#39;</span><span class="p">,</span> <span class="s1">&#39;mx&#39;</span><span class="p">,</span> <span class="s1">&#39;my&#39;</span><span class="p">,</span> <span class="s1">&#39;line_type&#39;</span><span class="p">,</span> <span class="s1">&#39;line_type&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">LineIntersectPoint</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="si">{0._name}</span><span class="s1"> = (</span><span class="si">{0._point1_line1.name}</span><span class="s1">, </span><span class="si">{0._point2_line1.name}</span><span class="s1">, </span><span class="si">{0._point1_line2.name}</span><span class="s1">, </span><span class="si">{0._point2_line2.name}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="LineIntersectPoint.eval_internal"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.LineIntersectPoint.eval_internal">[docs]</a>    <span class="k">def</span> <span class="nf">eval_internal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">line1</span> <span class="o">=</span> <span class="n">Line2D</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_point1_line1</span><span class="o">.</span><span class="n">vector</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_point2_line1</span><span class="o">.</span><span class="n">vector</span><span class="p">)</span>
+        <span class="n">line2</span> <span class="o">=</span> <span class="n">Line2D</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_point1_line2</span><span class="o">.</span><span class="n">vector</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_point2_line2</span><span class="o">.</span><span class="n">vector</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_point1_line1</span><span class="o">.</span><span class="n">vector</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_point2_line1</span><span class="o">.</span><span class="n">vector</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_point1_line2</span><span class="o">.</span><span class="n">vector</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_point2_line2</span><span class="o">.</span><span class="n">vector</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vector</span> <span class="o">=</span> <span class="n">line1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">line2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_post_eval_internal</span><span class="p">()</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="NormalPoint"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.NormalPoint">[docs]</a><span class="k">class</span> <span class="nc">NormalPoint</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">LineProperties</span><span class="p">):</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">id_</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span>
+                 <span class="n">first_point</span><span class="p">,</span> <span class="n">second_point</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span>
+                 <span class="n">mx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">my</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                 <span class="n">line_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="p">):</span>
+
+        <span class="c1"># super(NormalPoint, self).__init__(id_, name, mx, my, line_type, line_color)</span>
+        <span class="n">Point</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">id_</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">mx</span><span class="p">,</span> <span class="n">my</span><span class="p">)</span>
+        <span class="n">LineProperties</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line_type</span><span class="p">,</span> <span class="n">line_color</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_first_point</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">get_operation</span><span class="p">(</span><span class="n">first_point</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_second_point</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">get_operation</span><span class="p">(</span><span class="n">second_point</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_angle</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="n">pattern</span><span class="o">.</span><span class="n">evaluator</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">pattern</span><span class="o">.</span><span class="n">evaluator</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">first_point</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_point</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">second_point</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_second_point</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">angle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_angle</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="NormalPoint.from_xml"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.NormalPoint.from_xml">[docs]</a>    <span class="k">def</span> <span class="nf">from_xml</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+
+        <span class="c1"># {&#39;my&#39;: &#39;-4.18524&#39;, &#39;secondPoint&#39;: &#39;63&#39;, &#39;name&#39;: &#39;A36&#39;, &#39;angle&#39;: &#39;0&#39;, &#39;length&#39;: &#39;0.5&#39;,</span>
+        <span class="c1">#  &#39;firstPoint&#39;: &#39;138&#39;, &#39;typeLine&#39;: &#39;hair&#39;, &#39;type&#39;: &#39;normal&#39;, &#39;mx&#39;: &#39;-1.57131&#39;, &#39;id&#39;: &#39;147&#39;, &#39;lineColor&#39;: &#39;black&#39;}</span>
+
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="n">Operation</span><span class="o">.</span><span class="n">xml_attributes</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span>
+                                          <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;firstPoint&#39;</span><span class="p">,</span> <span class="s1">&#39;secondPoint&#39;</span><span class="p">,</span> <span class="s1">&#39;angle&#39;</span><span class="p">,</span> <span class="s1">&#39;length&#39;</span><span class="p">,</span> <span class="s1">&#39;lineType&#39;</span><span class="p">,</span> <span class="s1">&#39;lineType&#39;</span><span class="p">),</span>
+                                          <span class="p">(</span><span class="s1">&#39;id_&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;first_point&#39;</span><span class="p">,</span> <span class="s1">&#39;second_point&#39;</span><span class="p">,</span> <span class="s1">&#39;angle&#39;</span><span class="p">,</span> <span class="s1">&#39;length&#39;</span><span class="p">,</span> <span class="s1">&#39;line_type&#39;</span><span class="p">,</span> <span class="s1">&#39;line_type&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">NormalPoint</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="si">{0._name}</span><span class="s1"> = (</span><span class="si">{0._first_point.name}</span><span class="s1">, </span><span class="si">{0._second_point.name}</span><span class="s1">, </span><span class="si">{0._angle}</span><span class="s1">, </span><span class="si">{0._length}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="NormalPoint.eval_internal"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.NormalPoint.eval_internal">[docs]</a>    <span class="k">def</span> <span class="nf">eval_internal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">vector</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_second_point</span><span class="o">.</span><span class="n">vector</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_point</span><span class="o">.</span><span class="n">vector</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pattern</span><span class="o">.</span><span class="n">evaluator</span><span class="o">.</span><span class="n">set_current_segment</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span>
+        <span class="n">direction</span> <span class="o">=</span> <span class="n">vector</span><span class="o">.</span><span class="n">to_normalised</span><span class="p">()</span>
+        <span class="n">direction</span> <span class="o">=</span> <span class="n">direction</span><span class="o">.</span><span class="n">rotate_counter_clockwise_90</span><span class="p">()</span>
+        <span class="n">angle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_angle</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">if</span> <span class="n">angle</span><span class="p">:</span>
+            <span class="n">direction</span> <span class="o">=</span> <span class="n">direction</span><span class="o">.</span><span class="n">rotate_counter_clockwise</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vector</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_point</span><span class="o">.</span><span class="n">vector</span> <span class="o">+</span> <span class="n">direction</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_length</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pattern</span><span class="o">.</span><span class="n">evaluator</span><span class="o">.</span><span class="n">unset_current_segment</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_post_eval_internal</span><span class="p">()</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="PointOfIntersectionPoint"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.PointOfIntersectionPoint">[docs]</a><span class="k">class</span> <span class="nc">PointOfIntersectionPoint</span><span class="p">(</span><span class="n">Point</span><span class="p">):</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">id_</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span>
+                 <span class="n">first_point</span><span class="p">,</span> <span class="n">second_point</span><span class="p">,</span>
+                 <span class="n">mx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">my</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                 <span class="p">):</span>
+
+        <span class="c1"># super(PointOfIntersectionPoint, self).__init__(id_, name, mx, my)</span>
+        <span class="n">Point</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">id_</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">mx</span><span class="p">,</span> <span class="n">my</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_first_point</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">get_operation</span><span class="p">(</span><span class="n">first_point</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_second_point</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">get_operation</span><span class="p">(</span><span class="n">second_point</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">first_point</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_point</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">second_point</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_second_point</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="PointOfIntersectionPoint.from_xml"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.PointOfIntersectionPoint.from_xml">[docs]</a>    <span class="k">def</span> <span class="nf">from_xml</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+
+        <span class="c1"># {&#39;id&#39;: &#39;71&#39;, &#39;secondPoint&#39;: &#39;56&#39;, &#39;type&#39;: &#39;pointOfIntersection&#39;, &#39;firstPoint&#39;: &#39;59&#39;, &#39;name&#39;: &#39;Nc&#39;, &#39;mx&#39;: &#39;0.132292&#39;, &#39;my&#39;: &#39;0.264583&#39;}</span>
+
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="n">Operation</span><span class="o">.</span><span class="n">xml_attributes</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span>
+                                          <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;firstPoint&#39;</span><span class="p">,</span> <span class="s1">&#39;secondPoint&#39;</span><span class="p">,</span> <span class="s1">&#39;mx&#39;</span><span class="p">,</span> <span class="s1">&#39;my&#39;</span><span class="p">),</span>
+                                          <span class="p">(</span><span class="s1">&#39;id_&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;first_point&#39;</span><span class="p">,</span> <span class="s1">&#39;second_point&#39;</span><span class="p">,</span> <span class="s1">&#39;mx&#39;</span><span class="p">,</span> <span class="s1">&#39;my&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">PointOfIntersectionPoint</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="si">{0._name}</span><span class="s1"> = (</span><span class="si">{0._first_point.name}</span><span class="s1">, </span><span class="si">{0._second_point.name}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="PointOfIntersectionPoint.eval_internal"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.PointOfIntersectionPoint.eval_internal">[docs]</a>    <span class="k">def</span> <span class="nf">eval_internal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vector</span> <span class="o">=</span> <span class="n">Vector2D</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_first_point</span><span class="o">.</span><span class="n">vector</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_second_point</span><span class="o">.</span><span class="n">vector</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_post_eval_internal</span><span class="p">()</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Line"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.Line">[docs]</a><span class="k">class</span> <span class="nc">Line</span><span class="p">(</span><span class="n">Operation</span><span class="p">,</span> <span class="n">LineProperties</span><span class="p">):</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">id_</span><span class="p">,</span>
+                 <span class="n">first_point</span><span class="p">,</span> <span class="n">second_point</span><span class="p">,</span>
+                 <span class="n">line_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="p">):</span>
+
+        <span class="n">Operation</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">id_</span><span class="p">)</span>
+        <span class="n">LineProperties</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line_type</span><span class="p">,</span> <span class="n">line_color</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_first_point</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">get_operation</span><span class="p">(</span><span class="n">first_point</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_second_point</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">get_operation</span><span class="p">(</span><span class="n">second_point</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">first_point</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_point</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">second_point</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_second_point</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Line.from_xml"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.Line.from_xml">[docs]</a>    <span class="k">def</span> <span class="nf">from_xml</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+
+        <span class="c1"># {&#39;typeLine&#39;: &#39;hair&#39;, &#39;lineColor&#39;: &#39;black&#39;, &#39;firstPoint&#39;: &#39;74&#39;, &#39;secondPoint&#39;: &#39;72&#39;, &#39;id&#39;: &#39;76&#39;}</span>
+
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="n">Operation</span><span class="o">.</span><span class="n">xml_attributes</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span>
+                                          <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;firstPoint&#39;</span><span class="p">,</span> <span class="s1">&#39;secondPoint&#39;</span><span class="p">,</span> <span class="s1">&#39;lineType&#39;</span><span class="p">,</span> <span class="s1">&#39;lineType&#39;</span><span class="p">),</span>
+                                          <span class="p">(</span><span class="s1">&#39;id_&#39;</span><span class="p">,</span> <span class="s1">&#39;first_point&#39;</span><span class="p">,</span> <span class="s1">&#39;second_point&#39;</span><span class="p">,</span> <span class="s1">&#39;line_type&#39;</span><span class="p">,</span> <span class="s1">&#39;line_type&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">Line</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; (</span><span class="si">{0._first_point.name}</span><span class="s1">, </span><span class="si">{0._second_point.name}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Line.eval_internal"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.Line.eval_internal">[docs]</a>    <span class="k">def</span> <span class="nf">eval_internal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">pass</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Curve"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.Curve">[docs]</a><span class="k">class</span> <span class="nc">Curve</span><span class="p">(</span><span class="n">Operation</span><span class="p">,</span> <span class="n">LineProperties</span><span class="p">):</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">id_</span><span class="p">,</span>
+                 <span class="n">first_point</span><span class="p">,</span> <span class="n">second_point</span><span class="p">,</span>
+                 <span class="n">angle1</span><span class="p">,</span> <span class="n">length1</span><span class="p">,</span>
+                 <span class="n">angle2</span><span class="p">,</span> <span class="n">length2</span><span class="p">,</span>
+                 <span class="n">line_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="p">):</span>
+
+        <span class="n">Operation</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">id_</span><span class="p">)</span>
+        <span class="n">LineProperties</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line_type</span><span class="p">,</span> <span class="n">line_color</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_first_point</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">get_operation</span><span class="p">(</span><span class="n">first_point</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_second_point</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">get_operation</span><span class="p">(</span><span class="n">second_point</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_angle1</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="n">angle1</span><span class="p">,</span> <span class="n">pattern</span><span class="o">.</span><span class="n">evaluator</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_length1</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="n">length1</span><span class="p">,</span> <span class="n">pattern</span><span class="o">.</span><span class="n">evaluator</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_angle2</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="n">angle2</span><span class="p">,</span> <span class="n">pattern</span><span class="o">.</span><span class="n">evaluator</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_length2</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="n">length2</span><span class="p">,</span> <span class="n">pattern</span><span class="o">.</span><span class="n">evaluator</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">first_point</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_point</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">second_point</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_second_point</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">angle1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_angle1</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">length1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length1</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">angle2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_angle2</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">length2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length2</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Curve.from_xml"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.Curve.from_xml">[docs]</a>    <span class="k">def</span> <span class="nf">from_xml</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+
+        <span class="c1"># &#39;type&#39;: &#39;simpleInteractive&#39;,</span>
+        <span class="c1">#   &#39;length2&#39;: &#39;8.65783&#39;, &#39;angle2&#39;: &#39;85.3921&#39;,</span>
+        <span class="c1">#    &#39;point4&#39;: &#39;31&#39;,</span>
+        <span class="c1">#    &#39;color&#39;: &#39;black&#39;,</span>
+        <span class="c1">#    &#39;length1&#39;: &#39;8.85757&#39;, &#39;angle1&#39;: &#39;251.913&#39;,</span>
+        <span class="c1">#    &#39;point1&#39;: &#39;20&#39;,</span>
+        <span class="c1">#    &#39;id&#39;: &#39;97&#39;</span>
+        <span class="c1"># }</span>
+
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="n">Operation</span><span class="o">.</span><span class="n">xml_attributes</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span>
+                                          <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;point1&#39;</span><span class="p">,</span> <span class="s1">&#39;point4&#39;</span><span class="p">,</span> <span class="s1">&#39;angle1&#39;</span><span class="p">,</span> <span class="s1">&#39;length1&#39;</span><span class="p">,</span> <span class="s1">&#39;angle2&#39;</span><span class="p">,</span> <span class="s1">&#39;length2&#39;</span><span class="p">,</span> <span class="s1">&#39;lineType&#39;</span><span class="p">,</span> <span class="s1">&#39;lineType&#39;</span><span class="p">),</span>
+                                          <span class="p">(</span><span class="s1">&#39;id_&#39;</span><span class="p">,</span> <span class="s1">&#39;first_point&#39;</span><span class="p">,</span> <span class="s1">&#39;second_point&#39;</span><span class="p">,</span> <span class="s1">&#39;angle1&#39;</span><span class="p">,</span> <span class="s1">&#39;length1&#39;</span><span class="p">,</span> <span class="s1">&#39;angle2&#39;</span><span class="p">,</span> <span class="s1">&#39;length2&#39;</span><span class="p">,</span> <span class="s1">&#39;line_type&#39;</span><span class="p">,</span> <span class="s1">&#39;line_type&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">Curve</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; (</span><span class="si">{0._first_point.name}</span><span class="s1">, </span><span class="si">{0._second_point.name}</span><span class="s1">, </span><span class="si">{0._angle1}</span><span class="s1">, </span><span class="si">{0._length1}</span><span class="s1">, </span><span class="si">{0._angle2}</span><span class="s1">, </span><span class="si">{0._length2}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Curve.eval_internal"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.Curve.eval_internal">[docs]</a>    <span class="k">def</span> <span class="nf">eval_internal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">pass</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="ValParser"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.ValParser">[docs]</a><span class="k">class</span> <span class="nc">ValParser</span><span class="p">:</span>
+
+    <span class="n">_logger</span> <span class="o">=</span> <span class="n">_module_logger</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;ValParser&#39;</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="ValParser.parse"><a class="viewcode-back" href="../../api/Valentina/Pattern.html#Valentina.Pattern.ValParser.parse">[docs]</a>    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val_path</span><span class="p">):</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">val_path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+
+        <span class="n">measurements_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_xpath_element</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="s1">&#39;measurements&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Measurements loaded from &#39;</span> <span class="o">+</span> <span class="n">measurements_path</span><span class="p">)</span>
+        <span class="n">measurements</span> <span class="o">=</span> <span class="n">VitParser</span><span class="p">()</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">measurements_path</span><span class="p">)</span>
+        <span class="n">measurements</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+        <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="p">(</span><span class="n">measurements</span><span class="p">)</span>
+
+        <span class="n">elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_xpath_element</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="s1">&#39;draw/calculation&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
+            <span class="n">operation</span> <span class="o">=</span> <span class="n">Operation</span><span class="o">.</span><span class="n">from_xml</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+            <span class="n">pattern</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">operation</span><span class="p">)</span>
+            <span class="n">pattern</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">pattern</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">_get_xpath_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">PyValentina 0.3.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Fabrice Salvaire.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
+    </div>
+  </body>
+</html>
