@@ -1,7 +1,7 @@
 ####################################################################################################
 #
-# X - X
-# Copyright (C) 2015 Fabrice Salvaire
+# PyValentina - A Python implementation of Valentina Pattern Making Software
+# Copyright (C) 2017 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -152,17 +152,17 @@ class Line2D(object):
 
         # l1 = p1 + s1*v1
         # l2 = p2 + s2*v2
-        # delta = p2 - p1 = s1*v1 - s2*v2
-        # delta x v2 = s1 * v1 x v2
-        # delta x v1 = s2 * v1 x v2
+        # delta = p2 - p1 = s2*v2 - s1*v1
+        # delta x v1 = s2*v2 x v1 = s2 *  - v1 x v2
+        # delta x v2 = s1*v1 x v2 = s1 *  v1 x v2
 
         if l1.is_parallel(l2):
             return (None, None)
         else:
-            n = 1. / l1.v.cross(l2.v)
+            denominator = 1. / l1.v.cross(l2.v)
             delta = l2.p - l1.p
-            s1 = delta.cross(l2.v) * n
-            s2 = delta.cross(l1.v) * n
+            s1 = delta.cross(l2.v) * denominator
+            s2 = delta.cross(l1.v) * -denominator
             return (s1, s2)
 
     #######################################

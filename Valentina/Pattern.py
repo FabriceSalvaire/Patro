@@ -1,6 +1,6 @@
 ####################################################################################################
 #
-# X - x
+# PyValentina - A Python implementation of Valentina Pattern Making Software
 # Copyright (C) 2017 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
@@ -130,6 +130,12 @@ class Pattern:
     @property
     def evaluator(self):
         return self._evaluator
+
+    ##############################################
+
+    @property
+    def operations(self):
+        return self._operations
 
     ##############################################
 
@@ -367,7 +373,7 @@ class AlongLinePoint(Point, LineProperties):
 
         vector = self._second_point.vector - self._first_point.vector
         self._pattern.evaluator.set_current_segment(vector)
-        self._vector = vector.to_normalised()*self._length.value
+        self._vector = self._first_point.vector + vector.to_normalised()*self._length.value
         self._pattern.evaluator.unset_current_segment()
         self._post_eval_internal()
 
@@ -612,7 +618,7 @@ class PointOfIntersectionPoint(Point):
 
     def __repr__(self):
 
-        return self.__class__.__name__ + ' {0._name} = ()'.format(self)
+        return self.__class__.__name__ + ' {0._name} = ({0._first_point.name}, {0._second_point.name})'.format(self)
 
 
     ##############################################
