@@ -56,6 +56,8 @@ _module_logger = logging.getLogger(__name__)
 
 class Measurements:
 
+    _logger = _module_logger.getChild('Measurements')
+
     ##############################################
 
     def __init__(self):
@@ -95,6 +97,7 @@ class Measurements:
     def eval(self):
 
         # Fixme: compute a graph from the ast to evaluate
+        self._logger.info('Eval all measurements')
         for measure in self:
             measure.eval()
 
@@ -102,6 +105,7 @@ class Measurements:
 
     def dump(self):
 
+        print("\nDump measurements:")
         for measure in self:
             print(measure.name, '=', measure.expression)
             print('  =', measure.value)
@@ -160,6 +164,8 @@ class VitParser:
 
     def parse(self, val_path):
 
+        self._logger.info('Load measurements from ' + val_path)
+
         with open(val_path, 'rb') as f:
             source = f.read()
 
@@ -176,6 +182,8 @@ class VitParser:
                                   attrs.get('description', ''))
              else:
                  raise NotImplementedError
+
+        measurements.eval()
 
         return measurements
 

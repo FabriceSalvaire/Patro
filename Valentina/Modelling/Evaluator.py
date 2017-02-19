@@ -18,16 +18,6 @@
 #
 ####################################################################################################
 
-# Fixme:
-#   increments ?
-#   Length of line: Line_A_B
-#   Length of curve: Spl_A_B
-#   Angle of line: AngleLine_A_B
-#   radius of arcs
-#   Angles of curves: Angle1Spl_A_B Angle2Spl_A_B
-#   Length of control points: C1LengthSpl_A_B C2LengthSpl_A_B
-#   functions
-
 ####################################################################################################
 
 import ast
@@ -96,6 +86,15 @@ class Evaluator:
 
     ##############################################
 
+    # Fixme:
+    #   increments ?
+    #   Length of curve: Spl_A_B
+    #   Angle of line: AngleLine_A_B
+    #   radius of arcs
+    #   Angles of curves: Angle1Spl_A_B Angle2Spl_A_B
+    #   Length of control points: C1LengthSpl_A_B C2LengthSpl_A_B
+    #   functions
+
     def _function_Angle1Spl(self, point_name1, point_name2):
         point1, point2 = self._name_to_point(point_name1, point_name2)
         return 0
@@ -143,6 +142,7 @@ class Expression:
         self._ast = None
         self._code = None
         self._value = None
+        self._value_error = False
 
     ##############################################
 
@@ -167,7 +167,7 @@ class Expression:
 
     ##############################################
 
-    def find_name(self, prefix, start=0):
+    def _find_name(self, prefix, start=0):
 
         expression = self._expression
         start = expression.find(prefix, start)
@@ -184,7 +184,7 @@ class Expression:
 
     ##############################################
 
-    def compile(self):
+    def _compile(self):
 
         expression = self._expression
         self._logger.info("expression '{}'".format(expression))
@@ -195,7 +195,7 @@ class Expression:
             custom_measurements = []
             start = 0
             while True:
-                name, start = self.find_name('@', start)
+                name, start = self._find_name('@', start)
                 if name is None:
                     break
                 else:
@@ -216,7 +216,7 @@ class Expression:
         ):
             start = 0
             while True:
-                name, start = self.find_name(function, start)
+                name, start = self._find_name(function, start)
                 if name is None:
                     break
                 else:
@@ -242,22 +242,34 @@ class Expression:
 
     def eval(self):
 
-        self.compile()
+        if self._code is None:
+            self._compile()
+
         try:
             self._value = eval(self._code, self._evaluator.cache)
+            self._value_error = False
         except NameError:
             self._value = None
+            self._value_error = True
         # except AttributeError as e:
         #     self._logger.warning(e)
         #     self._value = None
+
         self._logger.info('Eval {} = {}'.format(self._expression, self._value))
+
+    ##############################################
+
+    def set_dirty(self):
+
+        self._value = None
+        self._value_error = False
 
     ##############################################
 
     @property
     def value(self):
 
-        if self._code is None:
+        if self._value is None and self._value_error is False:
             self.eval()
         return self._value
 

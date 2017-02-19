@@ -24,10 +24,12 @@ import logging
 
 from lxml import etree
 
+from ArithmeticInterval import Interval2D
+
 from .Evaluator import Expression
-from .Geometry.Vector2D import Vector2D
-from .Geometry.Line2D import Line2D
 from .Measurement import VitParser
+from Valentina.Geometry.Line2D import Line2D
+from Valentina.Geometry.Vector2D import Vector2D
 
 ####################################################################################################
 
@@ -35,14 +37,45 @@ _module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
-# Point
-#   trueDarts {'type': 'trueDarts', 'name1': 'A34', 'dartP2': '139', 'dartP1': '141', 'my2': '-3.87275', 'point2': '146', 'dartP3': '140', 'id': '144', 'mx2': '0.794387', 'my1': '-2.44561', 'name2': 'A35', 'point1': '145', 'baseLineP2': '63', 'mx1': '-3.64071', 'baseLineP1': '68'}
+# {'type': 'trueDarts', 'name1': 'A34', 'dartP2': '139', 'dartP1': '141',
+# 'my2': '-3.87275', 'point2': '146', 'dartP3': '140', 'id': '144', 'mx2': '0.794387',
+# 'my1': '-2.44561', 'name2': 'A35', 'point1': '145', 'baseLineP2': '63', 'mx1': '-3.64071',
+# 'baseLineP1': '68'}
+
+####################################################################################################
+
+def vector_to_interval2d(vector):
+    x, y = vector.x, vector.y
+    return Interval2D((x, x), (y, y))
 
 ####################################################################################################
 
 class Operation:
 
     _logger = _module_logger.getChild('Operation')
+
+    # Improvements:
+    #  XML <-> Python
+    #  for each calculation
+    #  provide mapping between xml and Python attributes
+    #  and type: string, int, float, string expression
+    # Mixin classes
+
+    __ARC_TYPE__ = (
+        'arcWithLength', # to be implemented
+        'simple', # to be implemented
+        )
+
+    __ELLIPSE_TYPE__ = (
+        'simple', # to be implemented
+        )
+
+    __OPERATION_TYPE__ = (
+        'flippingByAxis', # to be implemented
+        'flippingByLine', # to be implemented
+        'moving', # to be implemented
+        'rotation', # to be implemented
+    )
 
     ##############################################
 
@@ -55,6 +88,14 @@ class Operation:
             return Line.from_xml(element, pattern)
         elif element.tag == 'spline':
             return Curve.from_xml(element, pattern)
+        elif element.tag == 'spline':
+            return Curve.from_xml(element, pattern)
+        # elif element.tag == 'operation': # Fixme: name clash
+        #     return Operation.from_xml(element, pattern)
+        # elif element.tag == 'arc':
+        #     return Arc.from_xml(element, pattern)
+        # elif element.tag == 'ellipse':
+        #     return Ellipse.from_xml(element, pattern)
         else:
             return Operation(pattern, element.attrib['id'])
 
@@ -161,10 +202,13 @@ class Pattern:
 
     def eval(self):
 
+        self._logger.info('Eval all operations')
         for operation in self._operations:
             if isinstance(operation, Point):
                 self._evaluator.add_point(operation)
                 operation.eval()
+            elif isinstance(operation, Curve):
+                operation.eval() # for control points
             else:
                 pass
 
@@ -172,15 +216,63 @@ class Pattern:
 
     def dump(self):
 
+        print("\nDump operations:")
         for operation in self._operations:
             if isinstance(operation, Point):
                 print(operation, operation.vector)
             else:
                 print(operation)
 
+    ##############################################
+
+    def bounding_box(self):
+
+        interval = None
+        for operation in self._operations:
+            if isinstance(operation, Point):
+                interval_point = vector_to_interval2d(operation.vector)
+                if interval is None:
+                    interval = interval_point
+                else:
+                    interval |= interval_point
+            elif isinstance(operation, Curve):
+                interval |= vector_to_interval2d(operation.control_point1)
+                interval |= vector_to_interval2d(operation.control_point2)
+        return interval
+
 ####################################################################################################
 
 class LineProperties:
+
+    __COLORS__ = (
+        'black',
+        'blue',
+        'cornflowerblue',
+        'darkBlue',
+        'darkGreen',
+        'darkRed',
+        'darkviolet',
+        'deeppink',
+        'deepskyblue',
+        'goldenrod',
+        'green',
+        'lightsalmon',
+        'lime',
+        'mediumseagreen',
+        'orange',
+        'violet',
+        'yellow',
+    )
+
+    # Fixme: line style ?
+    __LINE_TYPE__ = (
+        'dashDotDotLine',
+        'dashDotLine',
+        'dashLine',
+        'dotLine',
+        'hair', # should be solid
+        'none',
+    )
 
     ##############################################
 
@@ -203,6 +295,31 @@ class LineProperties:
 
 class Point(Operation):
 
+    __POINT_TYPES__ = (
+        'alongLine',
+        'bisector', # to be implemented
+        'curveIntersectAxis', # to be implemented
+        'cutArc', # to be implemented
+        'cutSpline', # to be implemented
+        'cutSplinePath', # to be implemented
+        'endLine',
+        'height', # to be implemented
+        'lineIntersect',
+        'lineIntersectAxis', # to be implemented
+        'normal',
+        'pointFromArcAndTangent', # to be implemented
+        'pointFromCircleAndTangent', # to be implemented
+        'pointOfContact', # to be implemented
+        'pointOfIntersection',
+        'pointOfIntersectionArcs', # to be implemented
+        'pointOfIntersectionCircles', # to be implemented
+        'pointOfIntersectionCurves', # to be implemented
+        'shoulder', # to be implemented
+        'single',
+        'triangle', # to be implemented
+        'trueDarts', # to be implemented
+    )
+
     ##############################################
 
     def __init__(self, pattern, id_, name,
@@ -212,8 +329,8 @@ class Point(Operation):
         # super(Point, self).__init__(id_)
         Operation.__init__(self, pattern, id_)
         self._name = name
-        self._mx = mx
-        self._my = my
+        self._mx = float(mx) # Fixme: pass type in xml_attributes?
+        self._my = float(my)
 
         self._vector = None
 
@@ -295,7 +412,7 @@ class SinglePoint(Point):
     @staticmethod
     def from_xml(element, pattern):
 
-        # {'y': '1.05833', 'mx': '0.132292', 'type': 'single', 'my': '0.264583', 'id': '1', 'name': 'A0', 'x': '0.79375'}
+        # {'y': '1.0', 'mx': '0.1', 'type': 'single', 'my': '0.2', 'id': '1', 'name': 'A0', 'x': '0.7'}
 
         kwargs = Operation.xml_attributes(element, pattern,
                                           ('id', 'name', 'x', 'y', 'mx', 'my'),
@@ -357,8 +474,8 @@ class AlongLinePoint(Point, LineProperties):
         #  'my': '1.01162', 'name': 'A33', 'length': 'Line_A30_A32', 'type': 'alongLine', 'secondPoint': '68'}
 
         kwargs = Operation.xml_attributes(element, pattern,
-                                          ('id', 'name', 'firstPoint', 'secondPoint', 'length', 'mx', 'my', 'lineType', 'lineType'),
-                                          ('id_', 'name', 'first_point', 'second_point', 'length', 'mx', 'my', 'line_type', 'line_type'))
+                                          ('id', 'name', 'firstPoint', 'secondPoint', 'length', 'mx', 'my', 'lineColor', 'typeLine'),
+                                          ('id_', 'name', 'first_point', 'second_point', 'length', 'mx', 'my', 'line_color', 'line_type'))
         return AlongLinePoint(**kwargs)
 
     ##############################################
@@ -419,8 +536,8 @@ class EndLinePoint(Point, LineProperties):
         #  'typeLine': 'dashDotLine', 'my': '0.264583', 'type': 'endLine', 'mx': '0.132292', 'lineColor': 'black'}
 
         kwargs = Operation.xml_attributes(element, pattern,
-                                          ('id', 'name', 'basePoint', 'angle', 'length', 'mx', 'my', 'lineType', 'lineType'),
-                                          ('id_', 'name', 'base_point', 'angle', 'length', 'mx', 'my', 'line_type', 'line_type'))
+                                          ('id', 'name', 'basePoint', 'angle', 'length', 'mx', 'my', 'lineColor', 'typeLine'),
+                                          ('id_', 'name', 'base_point', 'angle', 'length', 'mx', 'my', 'line_color', 'line_type'))
         return EndLinePoint(**kwargs)
 
     ##############################################
@@ -483,8 +600,8 @@ class LineIntersectPoint(Point, LineProperties):
         #  'p2Line2': '11', 'p1Line1': '27', 'id': '39', 'my': '0.264583', 'name': 'Cp'}
 
         kwargs = Operation.xml_attributes(element, pattern,
-                                          ('id', 'name', 'p1Line1', 'p2Line1', 'p1Line2', 'p2Line2', 'mx', 'my', 'lineType', 'lineType'),
-                                          ('id_', 'name', 'point1_line1', 'point2_line1', 'point1_line2', 'point2_line2', 'mx', 'my', 'line_type', 'line_type'))
+                                          ('id', 'name', 'p1Line1', 'p2Line1', 'p1Line2', 'p2Line2', 'mx', 'my', 'lineColor', 'typeLine'),
+                                          ('id_', 'name', 'point1_line1', 'point2_line1', 'point1_line2', 'point2_line2', 'mx', 'my', 'line_color', 'line_type'))
         return LineIntersectPoint(**kwargs)
 
     ##############################################
@@ -499,8 +616,6 @@ class LineIntersectPoint(Point, LineProperties):
 
         line1 = Line2D(self._point1_line1.vector, self._point2_line1.vector)
         line2 = Line2D(self._point1_line2.vector, self._point2_line2.vector)
-        print(self._point1_line1.vector, self._point2_line1.vector)
-        print(self._point1_line2.vector, self._point2_line2.vector)
         self._vector = line1.intersection(line2)
         self._post_eval_internal()
 
@@ -551,8 +666,8 @@ class NormalPoint(Point, LineProperties):
         #  'firstPoint': '138', 'typeLine': 'hair', 'type': 'normal', 'mx': '-1.57131', 'id': '147', 'lineColor': 'black'}
 
         kwargs = Operation.xml_attributes(element, pattern,
-                                          ('id', 'name', 'firstPoint', 'secondPoint', 'angle', 'length', 'lineType', 'lineType'),
-                                          ('id_', 'name', 'first_point', 'second_point', 'angle', 'length', 'line_type', 'line_type'))
+                                          ('id', 'name', 'firstPoint', 'secondPoint', 'angle', 'length', 'mx', 'my', 'lineColor', 'typeLine'),
+                                          ('id_', 'name', 'first_point', 'second_point', 'angle', 'length', 'mx', 'my', 'line_color', 'line_type'))
         return NormalPoint(**kwargs)
 
     ##############################################
@@ -620,7 +735,6 @@ class PointOfIntersectionPoint(Point):
 
         return self.__class__.__name__ + ' {0._name} = ({0._first_point.name}, {0._second_point.name})'.format(self)
 
-
     ##############################################
 
     def eval_internal(self):
@@ -662,8 +776,8 @@ class Line(Operation, LineProperties):
         # {'typeLine': 'hair', 'lineColor': 'black', 'firstPoint': '74', 'secondPoint': '72', 'id': '76'}
 
         kwargs = Operation.xml_attributes(element, pattern,
-                                          ('id', 'firstPoint', 'secondPoint', 'lineType', 'lineType'),
-                                          ('id_', 'first_point', 'second_point', 'line_type', 'line_type'))
+                                          ('id', 'firstPoint', 'secondPoint', 'lineColor', 'typeLine'),
+                                          ('id_', 'first_point', 'second_point', 'line_color', 'line_type'))
         return Line(**kwargs)
 
     ##############################################
@@ -682,6 +796,13 @@ class Line(Operation, LineProperties):
 
 class Curve(Operation, LineProperties):
 
+    __SPLINE_TYPE__ = (
+        'cubicBezier', # to be implemented
+        'cubicBezierPath', # to be implemented
+        'pathInteractive', # to be implemented
+        'simpleInteractive',
+        )
+
     ##############################################
 
     def __init__(self, pattern, id_,
@@ -699,6 +820,9 @@ class Curve(Operation, LineProperties):
         self._length1 = Expression(length1, pattern.evaluator)
         self._angle2 = Expression(angle2, pattern.evaluator)
         self._length2 = Expression(length2, pattern.evaluator)
+
+        self._control_point1 = None # Fixme: not yet computed
+        self._control_point2 = None
 
     ##############################################
 
@@ -726,6 +850,14 @@ class Curve(Operation, LineProperties):
     def length2(self):
         return self._length2
 
+    @property
+    def control_point1(self):
+        return self._control_point1
+
+    @property
+    def control_point2(self):
+        return self._control_point2
+
     ##############################################
 
     @staticmethod
@@ -741,8 +873,8 @@ class Curve(Operation, LineProperties):
         # }
 
         kwargs = Operation.xml_attributes(element, pattern,
-                                          ('id', 'point1', 'point4', 'angle1', 'length1', 'angle2', 'length2', 'lineType', 'lineType'),
-                                          ('id_', 'first_point', 'second_point', 'angle1', 'length1', 'angle2', 'length2', 'line_type', 'line_type'))
+                                          ('id', 'point1', 'point4', 'angle1', 'length1', 'angle2', 'length2', 'color'),
+                                          ('id_', 'first_point', 'second_point', 'angle1', 'length1', 'angle2', 'length2', 'line_color'))
         return Curve(**kwargs)
 
     ##############################################
@@ -755,7 +887,9 @@ class Curve(Operation, LineProperties):
 
     def eval_internal(self):
 
-        pass
+        self._control_point1 = self.first_point.vector + Vector2D.from_angle(self._angle1.value)*self._length1.value
+        self._control_point2 = self.second_point.vector + Vector2D.from_angle(self._angle2.value)*self._length2.value
+        self._logger.info("Control points : {} {}".format(self._control_point1, self._control_point2))
 
 ####################################################################################################
 
@@ -773,9 +907,7 @@ class ValParser:
         tree = etree.fromstring(source)
 
         measurements_path = self._get_xpath_element(tree, 'measurements').text
-        self._logger.info('Measurements loaded from ' + measurements_path)
         measurements = VitParser().parse(measurements_path)
-        measurements.eval()
 
         pattern = Pattern(measurements)
 
@@ -783,7 +915,8 @@ class ValParser:
         for element in elements:
             operation = Operation.from_xml(element, pattern)
             pattern.add(operation)
-            pattern.eval()
+
+        pattern.eval()
 
         return pattern
 

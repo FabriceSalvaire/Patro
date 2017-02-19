@@ -172,7 +172,6 @@ class Line2D(object):
         """ Return the intersection Point between self and other """
 
         s0, s1 = self.intersection_abscissae(other)
-        print(s0, s1)
         if s0 is None:
             return None
         else:

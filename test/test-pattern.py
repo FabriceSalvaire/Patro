@@ -1,15 +1,11 @@
 ####################################################################################################
 
-import logging
-
-# FORMAT = '%(asctime)s - %(name)s - %(module)s.%(levelname)s - %(message)s'
-FORMAT = '\033[1;32m%(asctime)s\033[0m - \033[1;34m%(name)s.%(funcName)s\033[0m - \033[1;31m%(levelname)s\033[0m - %(message)s'
-logging.basicConfig(format=FORMAT, level=logging.DEBUG)
+import Logging
 
 ####################################################################################################
 
-from Valentina.Pattern import ValParser
-from Valentina.Tex import Tex
+from Valentina import ValParser
+from Valentina.Modelling.Tex import Tex
 
 ####################################################################################################
 
@@ -19,5 +15,6 @@ pattern.dump()
 
 tex = Tex('pattern.tex')
 tex.open()
-tex.add_detail_figure(pattern)
+# tex.add_detail_figure(pattern)
+tex.add_tiled_detail_figure(pattern)
 tex.close()
