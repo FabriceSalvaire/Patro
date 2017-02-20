@@ -1,0 +1,178 @@
+#! /usr/bin/env python
+# -*- Python -*-
+
+####################################################################################################
+#
+# PyValentina - A Python implementation of Valentina Pattern Drafting Software
+# Copyright (C) 2017 Salvaire Fabrice
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+####################################################################################################
+
+####################################################################################################
+
+import argparse
+import getpass
+import os
+import sys
+
+# from github import Github
+import github3
+
+####################################################################################################
+
+parser = argparse.ArgumentParser(description='GutHub API')
+parser.add_argument('--user',
+                    default='fabricesalvaire',
+                    help='user')
+parser.add_argument('--password',
+                    default=None,
+                    help='password')
+parser.add_argument('--token',
+                    default=False, action='store_true',
+                    help='aske token')
+
+args = parser.parse_args()
+
+####################################################################################################
+
+def two_factor_callback():
+    otp = ''
+    while not otp:
+        # The user could accidentally press Enter before being ready,
+        # let's protect them from doing that.
+        otp = getpass.getpass(prompt='OTP: ', stream=None)
+    print(otp)
+    return otp
+
+####################################################################################################
+
+# password = getpass.getpass(prompt='Password: ', stream=None)
+
+credentials_file = os.path.expanduser('~/.github-token')
+
+if args.token:
+    note = 'github-api'
+    note_url = 'http://fabrice-salvaire.fr'
+    scopes = ['user', 'repo']
+
+    authorisation = github3.authorize(args.user, args.password, scopes, note, note_url, two_factor_callback=two_factor_callback)
+    print('Authorisation:', authorisation)
+
+    with open(credentials_file, 'w') as fd:
+        fd.write(authorisation.token + '\n')
+        fd.write(str(authorisation.id))
+    print('Wrote', credentials_file)
+    sys.exit()
+else:
+    token = token_id = ''
+    with open(credentials_file, 'r') as fd:
+        token = fd.readline().strip()  # Can't hurt to be paranoid
+        token_id = fd.readline().strip()
+    print('Token', token, token_id)
+
+    gh = github3.login(token=token)
+    # github3.exceptions.AuthenticationFailed: 401 Requires username/password authentication
+    # authorisation = gh.authorization(token_id)
+    # auth.update(add_scopes=['repo:status', 'gist'], rm_scopes=['user'])
+
+    # if you want to be really paranoid, you can then test:
+    # token == auth.token
+    # in case the update changes the token
+
+# gh = github3.login(args.user, args.password, two_factor_callback=two_factor_callback)
+# print(gh)
+
+####################################################################################################
+
+repository = gh.repository('FabriceSalvaire', 'PyValentina')
+print(repository)
+
+# for feature in (
+#         # 'alongLine',
+#         # 'bisector',
+#         # 'curveIntersectAxis',
+#         # 'cutArc',
+#         # 'cutSpline',
+#         # 'cutSplinePath',
+#         # 'endLine',
+#         # 'height',
+#         # 'lineIntersect',
+#         # 'lineIntersectAxis',
+#         # 'normal',
+#         # 'pointFromArcAndTangent',
+#         # 'pointFromCircleAndTangent',
+#         # 'pointOfContact',
+#         # 'pointOfIntersection',
+#         # 'pointOfIntersectionArcs',
+#         # 'pointOfIntersectionCircles',
+#         # 'pointOfIntersectionCurves',
+#         # 'shoulder',
+#         # 'single',
+#         # 'triangle',
+#         # 'trueDarts',
+
+#         # 'spline/cubicBezier',
+#         # 'spline/cubicBezierPath',
+#         # 'spline/pathInteractive',
+#         # 'spline/simpleInteractive',
+
+#         # 'arc/arcWithLength',
+#         # 'arc/simple',
+
+#         # 'elarc/simple',
+
+#         # 'operation/flippingByAxis',
+#         # 'operation/flippingByLine',
+#         # 'operation/moving',
+#         # 'operation/rotation',
+# ):
+#     issue = repository.create_issue('Implement {}'.format(feature), body=None, assignee=None, milestone=1, labels=['completion'])
+#     issue.create_comment('done')
+#     issue.close()
+#     print(issue)
+
+# features =(
+#         'alongLine',
+#         'bisector',
+#         'curveIntersectAxis',
+#         'cutArc',
+#         'cutSpline',
+#         'cutSplinePath',
+#         'endLine',
+#         'height',
+#         'lineIntersect',
+#         'lineIntersectAxis',
+#         'normal',
+#         'pointFromArcAndTangent',
+#         'pointFromCircleAndTangent',
+#         'pointOfContact',
+#         'pointOfIntersection',
+#         'pointOfIntersectionArcs',
+#         'pointOfIntersectionCircles',
+#         'pointOfIntersectionCurves',
+#         'shoulder',
+#         'single',
+#         'triangle',
+#         'trueDarts',
+# )
+
+# for issue in repository.issues(state='open'): # closed open
+#     print(issue.title)
+#     feature = issue.title.split(' ')[-1]
+#     if feature in features:
+#         new_title = 'Implement point/{}'.format(feature)
+#         print (new_title)
+#         issue.edit(title=new_title)
