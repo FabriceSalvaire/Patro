@@ -22,12 +22,8 @@
 
 import logging
 
-from ArithmeticInterval import Interval2D
-
 from Valentina.Geometry.Vector2D import Vector2D
-from Valentina.Math.Functions import rint
-from Valentina.Modelling.Pattern import (Point, Line, Curve, LineProperties,
-                                         AlongLinePoint, EndLinePoint, LineIntersectPoint, NormalPoint)
+from . import Calculation
 
 ####################################################################################################
 
@@ -42,6 +38,7 @@ class Tex:
     def __init__(self, path):
 
         self._path = path
+        self._file = None
 
     ##############################################
 
@@ -71,8 +68,7 @@ class Tex:
 %**** Page settings ******************************
 
 \usepackage[%
-% paper=a0paper,%
-paper=a4paper,%
+paper=a0paper,%
 %landscape,
 %includeheadfoot,%
 margin=5cm,%
@@ -102,7 +98,7 @@ dvips,%
 
     ##############################################
 
-    __LINE_TYPE__ = {
+    __LINE_STYLE__ = {
         None: None,
         'dashDotLine': 'dash pattern=on 5mm off 4mm on 2mm off 4mm', # 'loosely dashdotted',
         'dotLine': 'dash pattern=on 2mm off 2mm', # 'dotted',
@@ -118,112 +114,70 @@ dvips,%
     @staticmethod
     def _line_style(line):
 
-        return Tex.__LINE_TYPE__[line.line_type], Tex.__LINE_COLOR__[line.line_color]
+        return Tex.__LINE_STYLE__[line.line_style], Tex.__LINE_COLOR__[line.line_color]
 
     @staticmethod
     def _format_line_style(line, line_width):
 
-        line_type, line_color = Tex._line_style(line)
+        line_style, line_color = Tex._line_style(line)
         style = 'line width={}'.format(line_width)
-        if line_type is not None:
-            style += ', {}'.format(line_type)
+        if line_style is not None:
+            style += ', {}'.format(line_style)
         if line_color is not None:
             style += ', {}'.format(line_color)
         return style
 
     ##############################################
 
-    def detail_figure(self, pattern):
-
-        source = ''
-        for operation in pattern.operations:
-            if isinstance(operation, Point):
-                # \node [label={[shift={(1.0,0.3)}]Label}] {Node};
-                source += r'\coordinate ({0.name}) at ({0.vector.x:.2f},{0.vector.y:.2f});'.format(operation) + '\n'
-                source += r'\fill [black] ({0.name}) circle (1pt);'.format(operation) + '\n'
-                # source += r'\draw[] ({0.name}) node[anchor=center] {{{0.name}}};'.format(operation) + '\n'
-                offset = Vector2D(operation.mx, -operation.my) # Fixme: ???
-                label_position = operation.vector + offset
-                print(operation.name, operation.vector, offset, label_position)
-                if offset:
-                    # arrow must point to the label center and be clipped
-                    source += r'\draw[line width=.5pt] ({0.vector.x:.2f},{0.vector.y:.2f}) -- ({1.x:.2f},{1.y:.2f}) ;'.format(operation, label_position) + '\n'
-                source += r'\draw[] ({0.x:.2f},{0.y:.2f}) node[anchor=north west] {{{1.name}}};'.format(label_position, operation) + '\n'
-#                 source += r'''
-# {{
-# \pgftransformshift{{\pgfpointxy{{{0.x:.2f}}}{{{0.y:.2f}}}}}
-# \pgfnode{{rectangle}}{{north west}}{{{1.name}}}{{label{1.name}}}{{\pgfusepath{{stroke}}}}
-# \pgfpathcircle{{\pgfpointanchor{{label{1.name}}}{{north}}}}{{2pt}}
-# }}
-# '''.format(label_position, operation)
-
-                if isinstance(operation, LineProperties):
-                    style = self._format_line_style(operation, '2pt')
-                    if isinstance(operation, AlongLinePoint):
-                        source += r'\draw[{0}] ({1.first_point.name}) -- ({1.name});'.format(style, operation) + '\n'
-                    elif isinstance(operation, EndLinePoint):
-                        source += r'\draw[{0}] ({1.base_point.name}) -- ({1.name});'.format(style, operation) + '\n'
-                    # elif isinstance(operation, LineIntersectPoint):
-                    #     source += r'\draw[{0}] ({1.point1_line1.name}) -- ({1.name});'.format(style, operation) + '\n'
-                    elif isinstance(operation, NormalPoint):
-                        source += r'\draw[{0}] ({1.first_point.name}) -- ({1.name});'.format(style, operation) + '\n'
-            elif isinstance(operation, Line):
-                style = self._format_line_style(operation, '4pt')
-                source += r'\draw[{0}] ({1.first_point.name}) -- ({1.second_point.name});'.format(style, operation) + '\n'
-            elif isinstance(operation, Curve):
-                style = self._format_line_style(operation, '4pt')
-                source += r'\draw[{0}] ({1.first_point.name}) .. controls ({1.control_point1.x:.2f},{1.control_point1.y:.2f}) and ({1.control_point2.x:.2f},{1.control_point2.y:.2f}) .. ({1.second_point.name});'.format(style, operation) + '\n'
-
-        return source
-
-    ##############################################
-
-    def add_tiled_detail_figure(self, pattern):
-
-        bounding_box = pattern.bounding_box()
-        print(bounding_box)
-
-        paper_size = Vector2D(210, 297) / 10
-        paper_margin = 10 / 10
-        area_vector = paper_size - Vector2D(paper_margin, paper_margin) * 2
-        number_of_columns = rint(bounding_box.x.length / area_vector.x)
-        number_of_rows = rint(bounding_box.y.length / area_vector.y)
-
-        print('Area {}'.format(area_vector))
-        print('Grid {}x{}'.format(number_of_rows, number_of_columns))
-
-        min_point = Vector2D((bounding_box.x.inf, bounding_box.y.inf))
-
-        detail_figure = self.detail_figure(pattern)
-
-        for r in range(number_of_rows):
-            for c in range(number_of_columns):
-                local_min_point = min_point + area_vector * Vector2D(r, c)
-                local_max_point = local_min_point + area_vector
-                interval = Interval2D((local_min_point.x, local_max_point.x), (local_min_point.y, local_max_point.y))
-                print(r, c, interval)
-                self._file.write(r'''
-\begin{center}
-\begin{tikzpicture}[x=5mm,y=5mm]
-''')
-                self._file.write(r'\draw[clip] ({0.x.inf:.2f},{0.y.inf:.2f}) -- ({0.x.sup:.2f},{0.y.inf:.2f}) -- ({0.x.sup:.2f},{0.y.sup:.2f}) -- ({0.x.inf:.2f},{0.y.sup:.2f}) -- cycle;'.format(interval) + '\n')
-                self._file.write(detail_figure)
-                self._file.write(r'''
-\end{tikzpicture}
-\end{center}
-\newpage
-''')
-
-    ##############################################
-
-    def add_detail_figure(self, pattern, interval=None):
+    def add_detail_figure(self, pattern):
 
         self._file.write(r'''
 \fontsize{64}{72}\selectfont % \fontsize{size}{baselineskip}
 \begin{center}
 \begin{tikzpicture}[x=8mm,y=8mm]
 ''')
-        self._file.write(self.detail_figure(pattern))
+
+        # \draw[clip] (0,0) -- (30,0) -- (30,-30) -- (0,-30) -- cycle;
+
+        for calculation in pattern.calculations:
+            if isinstance(calculation, Calculation.Point):
+                # \node [label={[shift={(1.0,0.3)}]Label}] {Node};
+                self._file.write(r'\coordinate ({0.name}) at ({0.vector.x:.2f},{0.vector.y:.2f});'.format(calculation) + '\n')
+                self._file.write(r'\fill [black] ({0.name}) circle (1pt);'.format(calculation) + '\n')
+                # self._file.write(r'\draw[] ({0.name}) node[anchor=center] {{{0.name}}};'.format(calculation) + '\n')
+                label_offset = calculation.label_offset
+                offset = Vector2D(label_offset.x, -label_offset.y) # Fixme: ???
+                label_position = calculation.vector + offset
+                print(calculation.name, calculation.vector, offset, label_position)
+                if offset:
+                    # arrow must point to the label center and be clipped
+                    self._file.write(r'\draw[line width=.5pt] ({0.vector.x:.2f},{0.vector.y:.2f}) -- ({1.x:.2f},{1.y:.2f}) ;'.format(calculation, label_position) + '\n')
+                self._file.write(r'\draw[] ({0.x:.2f},{0.y:.2f}) node[anchor=north west] {{{1.name}}};'.format(label_position, calculation) + '\n')
+#                 self._file.write(r'''
+# {{
+# \pgftransformshift{{\pgfpointxy{{{0.x:.2f}}}{{{0.y:.2f}}}}}
+# \pgfnode{{rectangle}}{{north west}}{{{1.name}}}{{label{1.name}}}{{\pgfusepath{{stroke}}}}
+# \pgfpathcircle{{\pgfpointanchor{{label{1.name}}}{{north}}}}{{2pt}}
+# }}
+# '''.format(label_position, calculation))
+
+                if isinstance(calculation, Calculation.LinePropertiesMixin):
+                    style = self._format_line_style(calculation, '2pt')
+                    if isinstance(calculation, Calculation.AlongLinePoint):
+                        self._file.write(r'\draw[{0}] ({1.first_point.name}) -- ({1.name});'.format(style, calculation) + '\n')
+                    elif isinstance(calculation, Calculation.EndLinePoint):
+                        self._file.write(r'\draw[{0}] ({1.base_point.name}) -- ({1.name});'.format(style, calculation) + '\n')
+                    # elif isinstance(calculation, LineIntersectPoint):
+                    #     self._file.write(r'\draw[{0}] ({1.point1_line1.name}) -- ({1.name});'.format(style, calculation) + '\n')
+                    elif isinstance(calculation, Calculation.NormalPoint):
+                        self._file.write(r'\draw[{0}] ({1.first_point.name}) -- ({1.name});'.format(style, calculation) + '\n')
+            elif isinstance(calculation, Calculation.Line):
+                style = self._format_line_style(calculation, '4pt')
+                self._file.write(r'\draw[{0}] ({1.first_point.name}) -- ({1.second_point.name});'.format(style, calculation) + '\n')
+            elif isinstance(calculation, Calculation.SimpleInteractiveSpline):
+                style = self._format_line_style(calculation, '4pt')
+                self._file.write(r'\draw[{0}] ({1.first_point.name}) .. controls ({1.control_point1.x:.2f},{1.control_point1.y:.2f}) and ({1.control_point2.x:.2f},{1.control_point2.y:.2f}) .. ({1.second_point.name});'.format(style, calculation) + '\n')
+
         self._file.write(r'''
 \end{tikzpicture}
 \end{center}

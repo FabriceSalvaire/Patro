@@ -1,11 +1,10 @@
 ####################################################################################################
 
-import Logging
+from Valentina.Logging import Basic
 
-from Valentina import VitParser
+from Valentina.FileFormat.Measurements import VitFile
 
 ####################################################################################################
 
-vit_parser = VitParser()
-measurements = vit_parser.parse('measurements.vit')
-measurements.dump()
+vit_file = VitFile('measurements.vit')
+vit_file.measurements.dump()

@@ -22,9 +22,7 @@
 
 import logging
 
-from lxml import etree
-
-from .Evaluator import Evaluator, NamedExpression
+from .Calculator import Calculator, NamedExpression
 
 ####################################################################################################
 
@@ -32,25 +30,59 @@ _module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
-# <?xml version='1.0' encoding='UTF-8'?>
-# <vit>
-#     <!--Measurements created with Valentina (http://www.valentina-project.org/).-->
-#     <version>0.3.3</version>
-#     <read-only>false</read-only>
-#     <notes/>
-#     <unit>cm</unit>
-#     <pm_system>998</pm_system>
-#     <personal>
-#         <family-name>..</family-name>
-#         <given-name>...</given-name>
-#         <birth-date>...</birth-date>
-#         <gender>...</gender>
-#         <email/>
-#     </personal>
-#     <body-measurements>
-#         <m value="46" name="height_knee"/>
-#     </body-measurements>
-# </vit>
+class Personal:
+
+    ##############################################
+
+    def __init__(self, first_name=None, last_name=None, birth_date=None, gender=None, email=None):
+
+        self._first_name = first_name
+        self._last_name = last_name
+        self._birth_date = birth_date
+        self._gender = gender
+        self._email = email
+
+    ##############################################
+
+    @property
+    def first_name(self):
+        return self._first_name
+
+    @first_name.setter
+    def first_name(self, value):
+        self._first_name = value
+
+    @property
+    def last_name(self):
+        return self._last_name
+
+    @last_name.setter
+    def last_name(self, value):
+        self._last_name = value
+
+    @property
+    def birth_date(self):
+        return self._birth_date
+
+    @birth_date.setter
+    def birth_date(self, value):
+        self._birth_date = value
+
+    @property
+    def gender(self):
+        return self._gender
+
+    @gender.setter
+    def gender(self, value):
+        self._gender = value
+
+    @property
+    def email(self):
+        return self._email
+
+    @email.setter
+    def email(self, value):
+        self._email = value
 
 ####################################################################################################
 
@@ -62,15 +94,39 @@ class Measurements:
 
     def __init__(self):
 
+        self._unit = None
+        self._pattern_making_system = None
+        self._personal = Personal()
+
         self._measures = []
         self._measure_dict = {}
-        self._evaluator = Evaluator(self)
+        self._calculator = Calculator(self)
 
     ##############################################
 
     @property
-    def evaluator(self):
-        return self._evaluator
+    def calculator(self):
+        return self._calculator
+
+    @property
+    def personal(self):
+        return self._personal
+
+    @property
+    def unit(self):
+        return self._unit
+
+    @unit.setter
+    def unit(self, value):
+        self._unit = value
+
+    @property
+    def pattern_makin_system(self):
+        return self._pattern_makin_system
+
+    @pattern_makin_system.setter
+    def pattern_makin_system(self, value):
+        self._pattern_makin_system = value
 
     ##############################################
 
@@ -123,7 +179,7 @@ class Measurement(NamedExpression):
         if self.is_custom():
             name = '__custom__' + name[1:]
 
-        NamedExpression.__init__(self, name, value, evaluator=measurements.evaluator)
+        NamedExpression.__init__(self, name, value, calculator=measurements.calculator)
 
         self._full_name = full_name
         self._description = description
@@ -152,43 +208,4 @@ class Measurement(NamedExpression):
     def eval(self):
 
         super(Measurement, self).eval()
-        self._evaluator._update_cache(self)
-
-####################################################################################################
-
-class VitParser:
-
-    _logger = _module_logger.getChild('VitParser')
-
-    ##############################################
-
-    def parse(self, val_path):
-
-        self._logger.info('Load measurements from ' + val_path)
-
-        with open(val_path, 'rb') as f:
-            source = f.read()
-
-        tree = etree.fromstring(source)
-
-        measurements = Measurements()
-
-        elements = self._get_xpath_element(tree, 'body-measurements')
-        for element in elements:
-             if element.tag == 'm':
-                 attrs = element.attrib
-                 measurements.add(attrs['name'], attrs['value'],
-                                  attrs.get('full_name', ''),
-                                  attrs.get('description', ''))
-             else:
-                 raise NotImplementedError
-
-        measurements.eval()
-
-        return measurements
-
-    ##############################################
-
-    def _get_xpath_element(self, root, path):
-
-        return root.xpath(path)[0]
+        self._calculator._update_cache(self)

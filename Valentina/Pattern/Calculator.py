@@ -29,9 +29,9 @@ _module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
-class Evaluator:
+class Calculator:
 
-    _logger = _module_logger.getChild('Evaluator')
+    _logger = _module_logger.getChild('Calculator')
 
     ##############################################
 
@@ -39,7 +39,7 @@ class Evaluator:
 
         self._measurements = measurements
 
-        self._cache  = {'__evaluator__': self}
+        self._cache  = {'__calculator__': self}
         self._points = {}
         self._current_operation = None
 
@@ -134,10 +134,10 @@ class Expression:
 
     ##############################################
 
-    def __init__(self, expression, evaluator=None):
+    def __init__(self, expression, calculator=None):
 
         self._expression = expression
-        self._evaluator = evaluator
+        self._calculator = calculator
 
         self._ast = None
         self._code = None
@@ -201,7 +201,7 @@ class Expression:
                 else:
                     custom_measurements.append(name)
             for measurement in custom_measurements:
-                expression = self.expression.replace(measurement, self._evaluator.measurements[measurement].name)
+                expression = self.expression.replace(measurement, self._calculator.measurements[measurement].name)
 
         functions = []
         for function in (
@@ -226,7 +226,7 @@ class Expression:
             parts = function_call.split('_')
             function = parts[0]
             args = parts[1:]
-            pythonised_function = '__evaluator__._function_' + function + '(' + ', '.join(["'{}'".format(x) for x in args]) + ')'
+            pythonised_function = '__calculator__._function_' + function + '(' + ', '.join(["'{}'".format(x) for x in args]) + ')'
             # self._logger.info('Function {} {} -> {}'.format(function, args, pythonised_function))
             expression = expression.replace(function_call, pythonised_function)
 
@@ -246,7 +246,7 @@ class Expression:
             self._compile()
 
         try:
-            self._value = eval(self._code, self._evaluator.cache)
+            self._value = eval(self._code, self._calculator.cache)
             self._value_error = False
         except NameError:
             self._value = None
@@ -279,9 +279,9 @@ class NamedExpression(Expression):
 
     ##############################################
 
-    def __init__(self, name, expression, evaluator=None):
+    def __init__(self, name, expression, calculator=None):
 
-        Expression.__init__(self, expression, evaluator)
+        Expression.__init__(self, expression, calculator)
         self._name = name
 
     ##############################################
