@@ -77,6 +77,16 @@ class CalculationMixin:
 
 ####################################################################################################
 
+class CalculationTypeMixin(CalculationMixin):
+
+    ##############################################
+
+    def to_xml(self):
+
+        return XmlObjectAdaptator.to_xml(self, type=self.__type__)
+
+####################################################################################################
+
 class LinePropertiesMixin:
 
     __attributes__ = (
@@ -243,7 +253,7 @@ class LengthAngleMixin(LengthMixin, AngleMixin):
 
 ####################################################################################################
 
-class PointMixin(CalculationMixin):
+class PointMixin(CalculationTypeMixin):
 
     __tag__ = 'point'
     __attributes__ = (
@@ -278,7 +288,7 @@ class PointLinePropertiesMixin(PointMixin, LinePropertiesMixin):
 
 ####################################################################################################
 
-class AlongLinePoint(XmlObjectAdaptator, PointLinePropertiesMixin, FirstSecondPointMixin, LengthMixin):
+class AlongLinePoint(PointLinePropertiesMixin, FirstSecondPointMixin, LengthMixin, XmlObjectAdaptator):
 
     # <point id="27" firstPoint="25" typeLine="none" mx="0.1" secondPoint="26"
     # length="-Line_Bt_Ct" name="Dt" lineColor="black" type="alongLine" my="0.2"/>
@@ -288,7 +298,7 @@ class AlongLinePoint(XmlObjectAdaptator, PointLinePropertiesMixin, FirstSecondPo
 
 ####################################################################################################
 
-class BissectorPoint(XmlObjectAdaptator, PointLinePropertiesMixin, FirstSecondThirdPointMixin, LengthMixin):
+class BissectorPoint(PointLinePropertiesMixin, FirstSecondThirdPointMixin, LengthMixin, XmlObjectAdaptator):
 
     # <point id="13" firstPoint="2" thirdPoint="5" typeLine="hair" mx="0.1" secondPoint="1"
     # length="Line_A_X" name="B" lineColor="deepskyblue" type="bisector" my="0.2"/>
@@ -313,7 +323,7 @@ class BissectorPoint(XmlObjectAdaptator, PointLinePropertiesMixin, FirstSecondTh
 
 ####################################################################################################
 
-class EndLinePoint(XmlObjectAdaptator, PointLinePropertiesMixin, BasePointMixin, LengthAngleMixin):
+class EndLinePoint(PointLinePropertiesMixin, BasePointMixin, LengthAngleMixin, XmlObjectAdaptator):
 
     # <point id="2" basePoint="1" typeLine="hair" mx="0.1" length="10" name="X"
     # lineColor="blue" type="endLine" angle="360" my="0.25"/>
@@ -323,7 +333,7 @@ class EndLinePoint(XmlObjectAdaptator, PointLinePropertiesMixin, BasePointMixin,
 
 ####################################################################################################
 
-class HeightPoint(XmlObjectAdaptator, PointLinePropertiesMixin, BasePointMixin, Line1Mixin):
+class HeightPoint(PointLinePropertiesMixin, BasePointMixin, Line1Mixin, XmlObjectAdaptator):
 
     # <point id="18" basePoint="7" typeLine="hair" mx="0.1" p2Line="14" name="P" p1Line="2"
     # lineColor="mediumseagreen" type="height" my="0.2"/>
@@ -333,7 +343,7 @@ class HeightPoint(XmlObjectAdaptator, PointLinePropertiesMixin, BasePointMixin, 
 
 ####################################################################################################
 
-class LineIntersectPoint(XmlObjectAdaptator, PointMixin, Line12Mixin):
+class LineIntersectPoint(PointMixin, Line12Mixin, XmlObjectAdaptator):
 
     # <point id="17" mx="0.1" p1Line2="2" p1Line1="1" name="I" type="lineIntersect" my="0.2"
     # p2Line1="12" p2Line2="14"/>
@@ -343,7 +353,7 @@ class LineIntersectPoint(XmlObjectAdaptator, PointMixin, Line12Mixin):
 
 ####################################################################################################
 
-class LineIntersectAxisPoint(XmlObjectAdaptator, PointLinePropertiesMixin, BasePointMixin, Line1Mixin, AngleMixin):
+class LineIntersectAxisPoint(PointLinePropertiesMixin, BasePointMixin, Line1Mixin, AngleMixin, XmlObjectAdaptator):
 
     # <point id="20" basePoint="14" typeLine="hair" mx="0.4" p2Line="1" name="AxAn" p1Line="5"
     # lineColor="goldenrod" type="lineIntersectAxis" angle="150" my="-1.8"/>
@@ -353,7 +363,7 @@ class LineIntersectAxisPoint(XmlObjectAdaptator, PointLinePropertiesMixin, BaseP
 
 ####################################################################################################
 
-class NormalPoint(XmlObjectAdaptator, PointLinePropertiesMixin, FirstSecondPointMixin, LengthAngleMixin):
+class NormalPoint(PointLinePropertiesMixin, FirstSecondPointMixin, LengthAngleMixin, XmlObjectAdaptator):
 
     # <point id="26" firstPoint="25" typeLine="hair" mx="0.1" secondPoint="24" length="5"
     # name="Ct" lineColor="blue" type="normal" angle="0" my="0.1"/>
@@ -374,7 +384,7 @@ class NormalPoint(XmlObjectAdaptator, PointLinePropertiesMixin, FirstSecondPoint
 
 ####################################################################################################
 
-class PointOfIntersection(XmlObjectAdaptator, PointMixin, FirstSecondPointMixin):
+class PointOfIntersection(PointMixin, FirstSecondPointMixin, XmlObjectAdaptator):
 
     # <point id="14" firstPoint="2" mx="0.1" secondPoint="5" name="XY" type="pointOfIntersection" my="0.2"/>
 
@@ -396,7 +406,7 @@ class PointOfIntersection(XmlObjectAdaptator, PointMixin, FirstSecondPointMixin)
 
 ####################################################################################################
 
-class ShoulderPoint(XmlObjectAdaptator, PointLinePropertiesMixin, Line1Mixin, LengthMixin):
+class ShoulderPoint(PointLinePropertiesMixin, Line1Mixin, LengthMixin, XmlObjectAdaptator):
 
     # <point id="21" typeLine="hair" mx="0.7" p2Line="14" length="Line_X_XY*2" pShoulder="20" name="Sh"
     # p1Line="5" lineColor="lightsalmon" type="shoulder" my="-1.3"/>
@@ -409,7 +419,7 @@ class ShoulderPoint(XmlObjectAdaptator, PointLinePropertiesMixin, Line1Mixin, Le
 
 ####################################################################################################
 
-class SinglePoint(XmlObjectAdaptator, PointMixin, XyMixin):
+class SinglePoint(PointMixin, XyMixin, XmlObjectAdaptator):
 
     # <point id="1" mx="0.1" x="0.79375" y="1.05833" name="A" type="single" my="0.2"/>
 
@@ -459,7 +469,7 @@ class Point:
 
 ####################################################################################################
 
-class Line(XmlObjectAdaptator, CalculationMixin, LinePropertiesMixin, FirstSecondPointMixin):
+class Line(CalculationMixin, LinePropertiesMixin, FirstSecondPointMixin, XmlObjectAdaptator):
 
     # <line id="47" firstPoint="38" typeLine="hair" secondPoint="45" lineColor="blue"/>
 
@@ -482,12 +492,12 @@ class Line(XmlObjectAdaptator, CalculationMixin, LinePropertiesMixin, FirstSecon
 
 ####################################################################################################
 
-class SplineMixin(CalculationMixin):
+class SplineMixin(CalculationTypeMixin):
     __tag__ = 'spline'
 
 ####################################################################################################
 
-class SimpleInteractiveSpline(XmlObjectAdaptator, SplineMixin):
+class SimpleInteractiveSpline(SplineMixin, XmlObjectAdaptator):
 
     # <spline id="53" angle2="138.403" length2="14.0301" angle1="329.987" length1="18.2062"
     # point4="52" type="simpleInteractive" point1="51" color="blue"/>
@@ -725,7 +735,9 @@ class ValFile(XmlFileMixin):
         measurements_path = self._get_xpath_element(tree, 'measurements').text
         self._vit_file = VitFile(measurements_path)
 
-        pattern = Pattern(self._vit_file.measurements)
+        unit = self._get_xpath_element(tree, 'unit').text
+
+        pattern = Pattern(self._vit_file.measurements, unit)
         self._pattern = pattern
 
         elements = self._get_xpath_element(tree, 'draw/calculation')
@@ -741,9 +753,35 @@ class ValFile(XmlFileMixin):
 
     ##############################################
 
-    def write(self):
+    def write(self, path=None):
+
+        root = etree.Element('pattern')
+        root.append(etree.Comment('Pattern created with PyValentina (https://github.com/FabriceSalvaire/PyValentina)'))
+
+        etree.SubElement(root, 'version').text = '0.4.0'
+        etree.SubElement(root, 'unit').text = self._pattern.unit
+        etree.SubElement(root, 'author')
+        etree.SubElement(root, 'description')
+        etree.SubElement(root, 'notes')
+        etree.SubElement(root, 'measurements').text = self._vit_file.path
+        etree.SubElement(root, 'increments')
+
+        draw_element = etree.SubElement(root, 'draw') # Fixme:
+        draw_element.attrib['name'] = 'Pattern piece 1' # Fixme:
+
+        calculation_element = etree.SubElement(draw_element, 'calculation')
+        modeling_element = etree.SubElement(draw_element, 'modeling')
+        details_element = etree.SubElement(draw_element, 'details')
+        # group_element = etree.SubElement(draw_element, 'groups')
 
         for calculation in self._pattern.calculations:
             xml_calculation = self._calculation_dispatcher.from_calculation(calculation)
             # print(xml_calculation)
-            print(xml_calculation.to_xml_string())
+            # print(xml_calculation.to_xml_string())
+            calculation_element.append(xml_calculation.to_xml())
+
+        if path is None:
+            path = self.path
+        with open(path, 'wb') as f:
+            # ElementTree.write() ?
+            f.write(etree.tostring(root, pretty_print=True))

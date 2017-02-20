@@ -44,12 +44,13 @@ class Pattern:
 
     ##############################################
 
-    def __init__(self, measurements):
+    def __init__(self, measurements, unit):
 
         self._measurements = measurements
         self._calculator = measurements.calculator
         self._calculations = []
         self._calculation_dict = {}
+        self._unit = unit
 
     ##############################################
 
@@ -57,11 +58,13 @@ class Pattern:
     def measurements(self):
         return self._measurements
 
-    ##############################################
-
     @property
     def calculator(self):
         return self._calculator
+
+    @property
+    def unit(self):
+        return self._unit
 
     ##############################################
 

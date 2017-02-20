@@ -18,6 +18,8 @@
 #
 ####################################################################################################
 
+# cf. also http://lxml.de/objectify.html
+
 ####################################################################################################
 
 import logging
@@ -156,7 +158,7 @@ class XmlObjectAdaptatorMetaClass(type):
 
 class XmlObjectAdaptator(metaclass = XmlObjectAdaptatorMetaClass):
 
-    # __tag__ = None # Hide tag defined in mixin
+    __tag__ = None
     __attributes__ = ()
 
     ##############################################
@@ -214,9 +216,10 @@ class XmlObjectAdaptator(metaclass = XmlObjectAdaptatorMetaClass):
 
     ##############################################
 
-    def to_xml(self):
+    def to_xml(self, **kwargs):
 
         attributes = {attribute.xml_attribute:str(attribute.get_attribute(self)) for attribute in self.__attributes__}
+        attributes.update(kwargs)
         return etree.Element(self.__tag__, **attributes)
 
     ##############################################

@@ -33,6 +33,7 @@ from Valentina.Pattern.Measurement import Measurements, Measurement
 _module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
+
 # <?xml version='1.0' encoding='UTF-8'?>
 # <vit>
 #     <!--Measurements created with Valentina (http://www.valentina-project.org/).-->
