@@ -38,10 +38,13 @@ class Calculation:
 
     ##############################################
 
-    def __init__(self, pattern, id):
+    def __init__(self, pattern, id=None):
 
         self._pattern = pattern
-        self._id = id
+        if id is None:
+            self._id = pattern.get_calculation_id()
+        else:
+            self._id = id
 
     ##############################################
 
@@ -58,6 +61,15 @@ class Calculation:
     def __repr__(self):
 
         return self.__class__.__name__ + ' {0._id}'.format(self)
+
+    ##############################################
+
+    def _get_calculation(self, calculation):
+
+        if isinstance(calculation, Calculation):
+            return calculation
+        elif isinstance(calculation, int):
+            return self._pattern.get_calculation(calculation)
 
     ##############################################
 
@@ -109,8 +121,8 @@ class FirstSecondPointMixin:
 
     def __init__(self, first_point, second_point):
 
-        self._first_point = self._pattern.get_calculation(first_point)
-        self._second_point = self._pattern.get_calculation(second_point)
+        self._first_point = self._get_calculation(first_point)
+        self._second_point = self._get_calculation(second_point)
 
     ##############################################
 
@@ -130,7 +142,7 @@ class BasePointMixin:
 
     def __init__(self, base_point):
 
-        self._base_point = self._pattern.get_calculation(base_point)
+        self._base_point = self._get_calculation(base_point)
 
     ##############################################
 
@@ -187,7 +199,7 @@ class Point(Calculation):
 
     ##############################################
 
-    def __init__(self, pattern, id, name, label_offset):
+    def __init__(self, pattern, name, label_offset, id=None):
 
         Calculation.__init__(self, pattern, id)
         self._name = name
@@ -221,12 +233,13 @@ class SinglePoint(Point):
 
     ##############################################
 
-    def __init__(self, pattern, id, name,
+    def __init__(self, pattern, name,
                  x, y,
                  label_offset,
-                 ):
+                 id=None
+    ):
 
-        Point.__init__(self, pattern, id, name, label_offset)
+        Point.__init__(self, pattern, name, label_offset, id)
         self._x = Expression(x, pattern.calculator)
         self._y = Expression(y, pattern.calculator)
 
@@ -259,13 +272,14 @@ class AlongLinePoint(Point, LinePropertiesMixin, FirstSecondPointMixin, LengthMi
 
     ##############################################
 
-    def __init__(self, pattern, id, name,
+    def __init__(self, pattern, name,
                  first_point, second_point, length,
                  label_offset,
                  line_style=None, line_color=None,
+                 id=None,
                  ):
 
-        Point.__init__(self, pattern, id, name, label_offset)
+        Point.__init__(self, pattern, name, label_offset, id)
         LinePropertiesMixin.__init__(self, line_style, line_color)
         FirstSecondPointMixin.__init__(self, first_point, second_point)
         LengthMixin.__init__(self, length)
@@ -292,13 +306,14 @@ class EndLinePoint(Point, LinePropertiesMixin, BasePointMixin, LengthAngleMixin)
 
     ##############################################
 
-    def __init__(self, pattern, id, name,
+    def __init__(self, pattern, name,
                  base_point, angle, length,
                  label_offset,
                  line_style=None, line_color=None,
-                 ):
+                 id=None,
+    ):
 
-        Point.__init__(self, pattern, id, name, label_offset)
+        Point.__init__(self, pattern, name, label_offset, id)
         LinePropertiesMixin.__init__(self, line_style, line_color)
         BasePointMixin.__init__(self, base_point)
         LengthAngleMixin.__init__(self, length, angle)
@@ -322,18 +337,19 @@ class LineIntersectPoint(Point, LinePropertiesMixin):
 
     ##############################################
 
-    def __init__(self, pattern, id, name,
+    def __init__(self, pattern, name,
                  point1_line1, point2_line1, point1_line2, point2_line2,
                  label_offset,
                  line_style=None, line_color=None,
-                 ):
+                 id=None,
+    ):
 
-        Point.__init__(self, pattern, id, name, label_offset)
+        Point.__init__(self, pattern, name, label_offset, id)
         LinePropertiesMixin.__init__(self, line_style, line_color)
-        self._point1_line1 = pattern.get_calculation(point1_line1)
-        self._point2_line1 = pattern.get_calculation(point2_line1)
-        self._point1_line2 = pattern.get_calculation(point1_line2)
-        self._point2_line2 = pattern.get_calculation(point2_line2)
+        self._point1_line1 = self._get_calculation(point1_line1)
+        self._point2_line1 = self._get_calculation(point2_line1)
+        self._point1_line2 = self._get_calculation(point1_line2)
+        self._point2_line2 = self._get_calculation(point2_line2)
 
     ##############################################
 
@@ -374,13 +390,14 @@ class NormalPoint(Point, LinePropertiesMixin, FirstSecondPointMixin, LengthAngle
 
     ##############################################
 
-    def __init__(self, pattern, id, name,
+    def __init__(self, pattern, name,
                  first_point, second_point, angle, length,
                  label_offset,
                  line_style=None, line_color=None,
-                 ):
+                 id=None,
+    ):
 
-        Point.__init__(self, pattern, id, name, label_offset)
+        Point.__init__(self, pattern, name, label_offset, id)
         LinePropertiesMixin.__init__(self, line_style, line_color)
         FirstSecondPointMixin.__init__(self, first_point, second_point)
         LengthAngleMixin.__init__(self, length, angle)
@@ -412,12 +429,13 @@ class PointOfIntersection(Point, FirstSecondPointMixin):
 
     ##############################################
 
-    def __init__(self, pattern, id, name,
+    def __init__(self, pattern, name,
                  first_point, second_point,
                  label_offset,
-                 ):
+                 id=None,
+    ):
 
-        Point.__init__(self, pattern, id, name, label_offset)
+        Point.__init__(self, pattern, name, label_offset, id)
         FirstSecondPointMixin.__init__(self, first_point, second_point)
 
     ##############################################
@@ -439,10 +457,11 @@ class Line(Calculation, LinePropertiesMixin, FirstSecondPointMixin):
 
     ##############################################
 
-    def __init__(self, pattern, id,
+    def __init__(self, pattern,
                  first_point, second_point,
-                 line_style=None, line_color=None,
-                 ):
+                 line_style='solid', line_color='black',
+                 id=None,
+    ):
 
         Calculation.__init__(self, pattern, id)
         LinePropertiesMixin.__init__(self, line_style, line_color)
@@ -466,12 +485,13 @@ class SimpleInteractiveSpline(Calculation, LinePropertiesMixin, FirstSecondPoint
 
     ##############################################
 
-    def __init__(self, pattern, id,
+    def __init__(self, pattern,
                  first_point, second_point,
                  angle1, length1,
                  angle2, length2,
-                 line_style=None, line_color=None,
-                 ):
+                 line_style='solid', line_color='black',
+                 id=None,
+    ):
 
         Calculation.__init__(self, pattern, id)
         LinePropertiesMixin.__init__(self, line_style, line_color)

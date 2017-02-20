@@ -147,7 +147,7 @@ class PointMixin(CalculationMixin):
 
     def to_calculation(self, pattern):
 
-        kwargs = self.to_dict(exclude=('mx', 'my'))
+        kwargs = self.to_dict(exclude=('mx', 'my')) # id'
         kwargs['label_offset'] = Vector2D(self.mx, self.my)
         return self.__calculation__(pattern, **kwargs)
 
@@ -264,7 +264,7 @@ class Line(XmlObjectAdaptator, CalculationMixin, LinePropertiesMixin, FirstSecon
 
     def to_calculation(self, pattern):
 
-        return Calculation.Line(pattern, **self.to_dict())
+        return Calculation.Line(pattern, **self.to_dict()) # exclude=('id')
 
 ####################################################################################################
 
@@ -299,7 +299,7 @@ class SimpleInteractiveSpline(XmlObjectAdaptator, SplineMixin):
 
     def to_calculation(self, pattern):
 
-        return Calculation.SimpleInteractiveSpline(pattern, **self.to_dict())
+        return Calculation.SimpleInteractiveSpline(pattern, **self.to_dict()) # exclude=('id')
 
 ####################################################################################################
 

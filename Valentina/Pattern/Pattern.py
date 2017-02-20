@@ -79,6 +79,12 @@ class Pattern:
 
     ##############################################
 
+    def get_calculation_id(self):
+
+        return len(self._calculations)
+
+    ##############################################
+
     def get_calculation(self, id):
 
         return self._calculation_dict[id]

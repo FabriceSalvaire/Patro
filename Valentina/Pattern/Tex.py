@@ -104,6 +104,8 @@ dvips,%
         'dotLine': 'dash pattern=on 2mm off 2mm', # 'dotted',
         'hair': 'solid',
         'none': None,
+
+        'solid': 'solid',
         }
 
     __LINE_COLOR__ = {
