@@ -136,7 +136,7 @@ class Expression:
 
     def __init__(self, expression, calculator=None):
 
-        self._expression = expression
+        self._expression = str(expression)
         self._calculator = calculator
 
         self._ast = None

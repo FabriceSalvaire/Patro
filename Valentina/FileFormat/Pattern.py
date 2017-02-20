@@ -691,12 +691,23 @@ class ValFile(XmlFileMixin):
 
     ##############################################
 
-    def __init__(self, path):
+    def __init__(self, path=None):
 
         XmlFileMixin.__init__(self, path)
         self._vit_file = None
         self._pattern = None
-        self._read()
+        # Fixme:
+        if path is not None:
+            self._read()
+
+    ##############################################
+
+    def Write(self, path, vit_file, pattern):
+
+        # Fixme:
+        self._vit_file = vit_file
+        self._pattern = pattern
+        self.write(path)
 
     ##############################################
 
@@ -744,8 +755,9 @@ class ValFile(XmlFileMixin):
         for element in elements:
             try:
                 xml_calculation = self._calculation_dispatcher.from_xml(element)
-                calculation = xml_calculation.to_calculation(pattern)
-                pattern.add(calculation)
+                xml_calculation.to_calculation(pattern)
+                # calculation =
+                # pattern.add(calculation)
             except NotImplementedError:
                 self._logger.warning('Not implemented calculation\n' +  str(etree.tostring(element)))
 

@@ -79,16 +79,27 @@ class Pattern:
         if calculation is not None:
             self._calculations.append(calculation)
             self._calculation_dict[calculation.id] = calculation
+            # Fixme: isinstance ?
+            # Fixme: cannot due to init order ...
+            # if hasattr(calculation, 'name'):
+            #     print(calculation.name)
+            #     self._calculation_dict[calculation.name] = calculation
 
     ##############################################
 
     def get_calculation_id(self):
 
-        return len(self._calculations)
+        return len(self._calculations) + 1 # id > 0
 
     ##############################################
 
     def get_calculation(self, id):
+
+        # Fixme: lazy ...
+        if id not in self._calculation_dict and isinstance(id, str):
+            for calculation in self._calculations:
+                if hasattr(calculation, 'name') and calculation.name == id:
+                    self._calculation_dict[calculation.name] = calculation
 
         return self._calculation_dict[id]
 

@@ -21,3 +21,6 @@ tex.add_detail_figure(pattern)
 tex.close()
 
 val_file.write('write-test.val')
+
+for calculation in pattern.calculations:
+    print(calculation.to_python())

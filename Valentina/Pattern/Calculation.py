@@ -32,6 +32,11 @@ _module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
+def quote(x):
+    return "'{}'".format(x)
+
+####################################################################################################
+
 class Calculation:
 
     _logger = _module_logger.getChild('Calculation')
@@ -40,11 +45,14 @@ class Calculation:
 
     def __init__(self, pattern, id=None):
 
+        # Fixme: check api
         self._pattern = pattern
         if id is None:
             self._id = pattern.get_calculation_id()
         else:
+            # Fixme: check id is uniq
             self._id = id
+        pattern.add(self)
 
     ##############################################
 
@@ -74,7 +82,8 @@ class Calculation:
 
         if isinstance(calculation, Calculation):
             return calculation
-        elif isinstance(calculation, int):
+        # elif isinstance(calculation, (int, str)):
+        else:
             return self._pattern.get_calculation(calculation)
 
     ##############################################
@@ -89,6 +98,49 @@ class Calculation:
     def eval_internal(self):
 
         pass
+
+    ##############################################
+
+    def to_python(self):
+
+        args = self._init_args()
+        values = []
+        for arg in args:
+            value = getattr(self, arg)
+            # if arg == 'pattern':
+            #     value_str = 'pattern'
+            # if isinstance(value, Pattern):
+            #     value_str = 'pattern'
+            if value is  None:
+                value_str = 'None'
+            elif isinstance(value, (int, float)):
+                value_str = str(value)
+            elif isinstance(value, str):
+                value_str = quote(value)
+            # elif isinstance(value, Calculation):
+            #     value_str = str(value.id)
+            elif isinstance(value, Point):
+                value_str = quote(value.name)
+            elif isinstance(value, Expression):
+                if value.is_float():
+                    value_str = str(value)
+                else:
+                    value_str = quote(value)
+            elif isinstance(value, Vector2D):
+                value_str = 'Vector2D({0.x}, {0.y})'.format(value)
+            else:
+                value_str = ''
+            values.append(value_str)
+        kwargs = ', '.join(['pattern'] + [key + '=' + value for key, value in zip(args, values)])
+        return self.__class__.__name__ + '(' + kwargs + ')'
+
+    ##############################################
+
+    def _init_args(self):
+
+        args = self.__init__.__code__.co_varnames
+        args = args[2:-1] # remove self, pattern, id
+        return args
 
 ####################################################################################################
 
@@ -339,19 +391,17 @@ class EndLinePoint(Point, LinePropertiesMixin, BasePointMixin, LengthAngleMixin)
 
 ####################################################################################################
 
-class LineIntersectPoint(Point, LinePropertiesMixin):
+class LineIntersectPoint(Point):
 
     ##############################################
 
     def __init__(self, pattern, name,
                  point1_line1, point2_line1, point1_line2, point2_line2,
                  label_offset,
-                 line_style=None, line_color=None,
                  id=None,
     ):
 
         Point.__init__(self, pattern, name, label_offset, id)
-        LinePropertiesMixin.__init__(self, line_style, line_color)
         self._point1_line1 = self._get_calculation(point1_line1)
         self._point2_line1 = self._get_calculation(point2_line1)
         self._point1_line2 = self._get_calculation(point1_line2)
