@@ -19,3 +19,5 @@ tex.open()
 tex.add_detail_figure(pattern)
 # tex.add_tiled_detail_figure(pattern)
 tex.close()
+
+val_file.write()

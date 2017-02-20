@@ -156,7 +156,7 @@ class XmlObjectAdaptatorMetaClass(type):
 
 class XmlObjectAdaptator(metaclass = XmlObjectAdaptatorMetaClass):
 
-    __tag__ = None
+    # __tag__ = None # Hide tag defined in mixin
     __attributes__ = ()
 
     ##############################################
@@ -192,6 +192,16 @@ class XmlObjectAdaptator(metaclass = XmlObjectAdaptatorMetaClass):
             else:
                 value = attribute.default
             attribute.set_attribute(self, value)
+
+    ##############################################
+
+    @classmethod
+    def get_dict(cls, instance, exclude=()):
+
+        return {attribute.py_attribute:getattr(instance, attribute.py_attribute)
+                for attribute in cls.__attributes__
+                if attribute.py_attribute not in exclude
+        }
 
     ##############################################
 

@@ -64,6 +64,12 @@ class Calculation:
 
     ##############################################
 
+    def __int__(self):
+
+        return self._id
+
+    ##############################################
+
     def _get_calculation(self, calculation):
 
         if isinstance(calculation, Calculation):

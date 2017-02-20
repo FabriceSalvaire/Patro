@@ -18,6 +18,14 @@
 #
 ####################################################################################################
 
+"""This module implements the val XML file format and is designed so as to decouple the XML details
+and the calculation API.
+
+The purpose of each XmlObjectAdaptator sub-classes is to serve as a bidirectional adaptor between
+the XML format and the API.
+
+"""
+
 ####################################################################################################
 
 import logging
@@ -46,9 +54,24 @@ class CalculationMixin:
         IntAttribute('id'),
     )
 
+    __calculation__ = None
+
+    ##############################################
+
+    def __repr__(self):
+
+        return '{} {}'.format(self.__class__.__name__, self.to_dict())
+
     ##############################################
 
     def to_calculation(self, pattern):
+
+        raise NotImplementedError
+
+    ##############################################
+
+    @classmethod
+    def from_calculation(calculation):
 
         raise NotImplementedError
 
@@ -229,8 +252,6 @@ class PointMixin(CalculationMixin):
         FloatAttribute('my'),
     )
 
-    __calculation__ = None
-
     ##############################################
 
     def to_calculation(self, pattern):
@@ -238,6 +259,17 @@ class PointMixin(CalculationMixin):
         kwargs = self.to_dict(exclude=('mx', 'my')) # id'
         kwargs['label_offset'] = Vector2D(self.mx, self.my)
         return self.__calculation__(pattern, **kwargs)
+
+    ##############################################
+
+    @classmethod
+    def from_calculation(cls, calculation):
+
+        kwargs = cls.get_dict(calculation, exclude=('mx', 'my'))
+        label_offset = calculation.label_offset
+        kwargs['mx'] = label_offset.x
+        kwargs['my'] = label_offset.y
+        return cls(**kwargs)
 
 ####################################################################################################
 
@@ -432,12 +464,21 @@ class Line(XmlObjectAdaptator, CalculationMixin, LinePropertiesMixin, FirstSecon
     # <line id="47" firstPoint="38" typeLine="hair" secondPoint="45" lineColor="blue"/>
 
     __tag__ = 'line'
+    __calculation__ = Calculation.Line
 
     ##############################################
 
     def to_calculation(self, pattern):
 
-        return Calculation.Line(pattern, **self.to_dict()) # exclude=('id')
+        return self.__calculation__(pattern, **self.to_dict()) # exclude=('id')
+
+    ##############################################
+
+    @classmethod
+    def from_calculation(cls, calculation):
+
+        kwargs = cls.get_dict(calculation)
+        return cls(**kwargs)
 
 ####################################################################################################
 
@@ -461,12 +502,21 @@ class SimpleInteractiveSpline(XmlObjectAdaptator, SplineMixin):
         StringAttribute('angle2'),
         StringAttribute('line_color', 'color'),
     )
+    __calculation__ = Calculation.SimpleInteractiveSpline
 
     ##############################################
 
     def to_calculation(self, pattern):
 
-        return Calculation.SimpleInteractiveSpline(pattern, **self.to_dict()) # exclude=('id')
+        return self.__calculation__(pattern, **self.to_dict()) # exclude=('id')
+
+    ##############################################
+
+    @classmethod
+    def from_calculation(cls, calculation):
+
+        kwargs = cls.get_dict(calculation)
+        return cls(**kwargs)
 
 ####################################################################################################
 
@@ -574,10 +624,38 @@ class CalculationDispatcher:
 
     ##############################################
 
-    @staticmethod
-    def from_xml(element):
+    def __init__(self):
 
-        tag_class = CalculationDispatcher.__TAGS__[element.tag]
+        self._mapping = {}
+        self._init_mapper()
+
+    ##############################################
+
+    def _register_mapping(self, xml_class):
+
+        calculation_class = xml_class.__calculation__
+        if calculation_class:
+            self._mapping[xml_class] = calculation_class
+            self._mapping[calculation_class] = xml_class
+
+    ##############################################
+
+    def _init_mapper(self):
+
+        for tag_class in self.__TAGS__.values():
+            if tag_class is not None:
+                if hasattr(tag_class, '__TYPES__'):
+                    for xml_class in tag_class.__TYPES__.values():
+                        if xml_class is not None:
+                            self._register_mapping(xml_class)
+                else:
+                    self._register_mapping(tag_class)
+
+    ##############################################
+
+    def from_xml(self, element):
+
+        tag_class = self.__TAGS__[element.tag]
         if hasattr(tag_class, '__TYPES__'):
             cls = tag_class.__TYPES__[element.attrib['type']]
         else:
@@ -587,11 +665,19 @@ class CalculationDispatcher:
         else:
             raise NotImplementedError
 
+    ##############################################
+
+    def from_calculation(self, calculation):
+
+        return self._mapping[calculation.__class__].from_calculation(calculation)
+
 ####################################################################################################
 
 class ValFile(XmlFileMixin):
 
     _logger = _module_logger.getChild('ValFile')
+
+    _calculation_dispatcher = CalculationDispatcher()
 
     ##############################################
 
@@ -645,10 +731,19 @@ class ValFile(XmlFileMixin):
         elements = self._get_xpath_element(tree, 'draw/calculation')
         for element in elements:
             try:
-                xml_calculation = CalculationDispatcher.from_xml(element)
+                xml_calculation = self._calculation_dispatcher.from_xml(element)
                 calculation = xml_calculation.to_calculation(pattern)
                 pattern.add(calculation)
             except NotImplementedError:
                 self._logger.warning('Not implemented calculation\n' +  str(etree.tostring(element)))
 
         pattern.eval()
+
+    ##############################################
+
+    def write(self):
+
+        for calculation in self._pattern.calculations:
+            xml_calculation = self._calculation_dispatcher.from_calculation(calculation)
+            # print(xml_calculation)
+            print(xml_calculation.to_xml_string())
