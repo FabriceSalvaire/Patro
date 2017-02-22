@@ -44,7 +44,7 @@ class Tex:
 
     def open(self):
 
-        self._file = open(self._path, 'w')
+        self._file = open(str(self._path), 'w')
         self.write_preambule()
 
     ##############################################

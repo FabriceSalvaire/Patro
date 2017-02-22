@@ -4,23 +4,28 @@ from Valentina.Logging import Basic
 
 ####################################################################################################
 
+from pathlib import Path
+
 from Valentina.FileFormat.Pattern import ValFile
 from Valentina.Pattern.Tex import Tex
 
 ####################################################################################################
 
-val_file = ValFile('flat-city-trouser.val')
+val_file = ValFile(Path('patterns', 'flat-city-trouser.val'))
 pattern = val_file.pattern
 
 pattern.dump()
 
-tex = Tex('pattern.tex')
+output = Path('output')
+output.mkdir(exist_ok=True)
+
+tex = Tex(output.joinpath('pattern.tex'))
 tex.open()
 tex.add_detail_figure(pattern)
 # tex.add_tiled_detail_figure(pattern)
 tex.close()
 
-val_file.write('write-test.val')
+val_file.write(output.joinpath('write-test.val'))
 
 for calculation in pattern.calculations:
     print(calculation.to_python())

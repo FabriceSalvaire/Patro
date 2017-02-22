@@ -21,6 +21,7 @@
 ####################################################################################################
 
 import logging
+from pathlib import Path
 
 from lxml import etree
 
@@ -38,7 +39,7 @@ class XmlFileMixin:
 
     def __init__(self, path):
 
-        self._path = path
+        self._path = Path(path)
 
     ##############################################
 
@@ -50,7 +51,7 @@ class XmlFileMixin:
 
     def _parse(self):
 
-        with open(self._path, 'rb') as f:
+        with open(str(self._path), 'rb') as f:
             source = f.read()
 
         return etree.fromstring(source)

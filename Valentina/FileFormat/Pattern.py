@@ -29,6 +29,7 @@ the XML format and the API.
 ####################################################################################################
 
 import logging
+from pathlib import Path
 
 from lxml import etree
 
@@ -693,11 +694,15 @@ class ValFile(XmlFileMixin):
 
     def __init__(self, path=None):
 
+        # Fixme:
+        if path is None:
+            path = ''
         XmlFileMixin.__init__(self, path)
         self._vit_file = None
         self._pattern = None
         # Fixme:
-        if path is not None:
+        # if path is not None:
+        if path != '':
             self._read()
 
     ##############################################
@@ -743,7 +748,12 @@ class ValFile(XmlFileMixin):
 
         tree = self._parse()
 
-        measurements_path = self._get_xpath_element(tree, 'measurements').text
+        measurements_path = Path(self._get_xpath_element(tree, 'measurements').text)
+        if not measurements_path.exists():
+            measurements_path = self._path.parent.joinpath(measurements_path)
+            if not measurements_path.exists():
+                raise NameError("Cannot find {}".format(measurements_path))
+
         self._vit_file = VitFile(measurements_path)
 
         unit = self._get_xpath_element(tree, 'unit').text
@@ -775,7 +785,7 @@ class ValFile(XmlFileMixin):
         etree.SubElement(root, 'author')
         etree.SubElement(root, 'description')
         etree.SubElement(root, 'notes')
-        etree.SubElement(root, 'measurements').text = self._vit_file.path
+        etree.SubElement(root, 'measurements').text = str(self._vit_file.path)
         etree.SubElement(root, 'increments')
 
         draw_element = etree.SubElement(root, 'draw') # Fixme:
@@ -794,6 +804,6 @@ class ValFile(XmlFileMixin):
 
         if path is None:
             path = self.path
-        with open(path, 'wb') as f:
+        with open(str(path), 'wb') as f:
             # ElementTree.write() ?
             f.write(etree.tostring(root, pretty_print=True))

@@ -2,6 +2,12 @@
 
 from Valentina.Logging import Basic
 
+####################################################################################################
+
+from pathlib import Path
+
+####################################################################################################
+
 from Valentina.FileFormat.Measurements import VitFile
 from Valentina.FileFormat.Pattern import ValFile
 from Valentina.Geometry.Vector2D import Vector2D
@@ -11,7 +17,7 @@ from Valentina.Pattern.Tex import Tex
 
 ####################################################################################################
 
-vit_file = VitFile('measurements.vit')
+vit_file = VitFile(Path('patterns', 'measurements.vit'))
 measurements = vit_file.measurements
 
 ####################################################################################################
@@ -129,7 +135,10 @@ pattern.dump()
 
 pattern.eval()
 
-tex = Tex('pattern-from-api.tex')
+output = Path('output')
+output.mkdir(exist_ok=True)
+
+tex = Tex(output.joinpath('pattern-from-api.tex'))
 tex.open()
 tex.add_detail_figure(pattern)
 # tex.add_tiled_detail_figure(pattern)
@@ -137,4 +146,4 @@ tex.close()
 
 # Fixme:
 val_file = ValFile()
-val_file.Write('write-test-from-api.val', vit_file, pattern)
+val_file.Write(output.joinpath('write-test-from-api.val'), vit_file, pattern)

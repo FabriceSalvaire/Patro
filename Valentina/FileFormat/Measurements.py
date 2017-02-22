@@ -90,7 +90,7 @@ class VitFile(XmlFileMixin):
 
     def _read(self):
 
-        self._logger.info('Load measurements from ' + self._path)
+        self._logger.info('Load measurements from ' + str(self._path))
 
         tree = self._parse()
 
