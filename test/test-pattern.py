@@ -25,7 +25,7 @@ tex.add_detail_figure(pattern)
 # tex.add_tiled_detail_figure(pattern)
 tex.close()
 
-val_file.write(output.joinpath('write-test.val'))
+# val_file.write(output.joinpath('write-test.val'))
 
-for calculation in pattern.calculations:
-    print(calculation.to_python())
+# for calculation in pattern.calculations:
+#     print(calculation.to_python())
