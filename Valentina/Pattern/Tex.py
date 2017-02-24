@@ -42,11 +42,10 @@ _preambule = r'''
 %**** Page settings ******************************
 
 \usepackage[%
-paper=a0paper,%
-% paper=a4paper,%
+paper=«0.paper»,%
 %landscape,
 %includeheadfoot,%
-margin=5cm,%
+margin=«0.margin»mm,%
 headsep=0cm, footskip=0cm,%
 dvips,%
 ]{geometry}
@@ -77,10 +76,33 @@ class Tex:
 
     ##############################################
 
-    def __init__(self, path):
+    def __init__(self, path, paper='a0paper', margin=10):
 
         self._path = path
         self._file = None
+        self._paper = paper
+        self._margin = margin
+
+    ##############################################
+
+    @property
+    def paper(self):
+        return self._paper
+
+    @property
+    def margin(self):
+        return self._margin
+
+    ##############################################
+
+    @staticmethod
+    def _format(pattern, *args, **kwargs):
+
+        pattern = pattern.replace('{', '{{')
+        pattern = pattern.replace('}', '}}')
+        pattern = pattern.replace('«', '{')
+        pattern = pattern.replace('»', '}')
+        return pattern.format(*args, **kwargs)
 
     ##############################################
 
@@ -100,7 +122,7 @@ class Tex:
 
     def write_preambule(self):
 
-        self._file.write(_preambule)
+        self._file.write(self._format(_preambule, self))
 
     ##############################################
 
@@ -153,7 +175,7 @@ class Tex:
                 if offset:
                     # arrow must point to the label center and be clipped
                     source += r'\draw[line width=.5pt] ({0.vector.x:.2f},{0.vector.y:.2f}) -- ({1.x:.2f},{1.y:.2f}) ;'.format(calculation, label_position) + '\n'
-                source += r'\draw[] ({0.x:.2f},{0.y:.2f}) node[anchor=north west] {{{1.name}}};'.format(label_position, calculation) + '\n'
+                source += self._format(r'\draw[] («0.x:.2f»,«0.y:.2f») node[anchor=north west] {«1.name»};', label_position, calculation) + '\n'
 #                 source += r'''
 # {{
 # \pgftransformshift{{\pgfpointxy{{{0.x:.2f}}}{{{0.y:.2f}}}}}
@@ -188,8 +210,9 @@ class Tex:
         bounding_box = pattern.bounding_box()
         print(bounding_box)
 
-        paper_size = Vector2D(210, 297) / 10
-        paper_margin = 10 / 10
+        paper_size = Vector2D(210, 297) / 10 # Fixme:
+        figure_margin = 2
+        paper_margin = (self._margin + figure_margin) / 10
         area_vector = paper_size - Vector2D(paper_margin, paper_margin) * 2
         number_of_columns = rint(bounding_box.x.length / area_vector.x)
         number_of_rows = rint(bounding_box.y.length / area_vector.y)
@@ -209,7 +232,7 @@ class Tex:
                 print(r, c, interval)
                 self._file.write(r'''
 \begin{center}
-\begin{tikzpicture}[x=5mm,y=5mm]
+\begin{tikzpicture}[x=10mm,y=10mm]
 ''')
                 self._file.write(r'\draw[clip] ({0.x.inf:.2f},{0.y.inf:.2f}) -- ({0.x.sup:.2f},{0.y.inf:.2f}) -- ({0.x.sup:.2f},{0.y.sup:.2f}) -- ({0.x.inf:.2f},{0.y.sup:.2f}) -- cycle;'.format(interval) + '\n')
                 self._file.write(detail_figure)
@@ -223,6 +246,7 @@ class Tex:
 
     def add_detail_figure(self, pattern, interval=None):
 
+        # Fixme: scale!
         self._file.write(r'''
 \fontsize{64}{72}\selectfont % \fontsize{size}{baselineskip}
 \begin{center}

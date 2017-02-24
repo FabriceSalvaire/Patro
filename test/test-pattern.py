@@ -19,10 +19,10 @@ pattern.dump()
 output = Path('output')
 output.mkdir(exist_ok=True)
 
-tex = Tex(output.joinpath('pattern.tex'))
+tex = Tex(output.joinpath('pattern.tex'), paper='a4paper', margin=10)
 tex.open()
-tex.add_detail_figure(pattern)
-# tex.add_tiled_detail_figure(pattern)
+# tex.add_detail_figure(pattern)
+tex.add_tiled_detail_figure(pattern)
 tex.close()
 
 # val_file.write(output.joinpath('write-test.val'))
