@@ -33,7 +33,7 @@ from pathlib import Path
 
 from lxml import etree
 
-from Valentina.Geometry.Vector2D import Vector2D
+from Valentina.Geometry.Vector import Vector2D
 from Valentina.Pattern.Measurement import Measurements, Measurement
 from Valentina.Pattern.Pattern import Pattern
 from Valentina.Xml.Objectivity import (IntAttribute, FloatAttribute, StringAttribute,

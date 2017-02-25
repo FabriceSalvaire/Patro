@@ -23,8 +23,8 @@
 import logging
 
 from .Calculator import Expression
-from Valentina.Geometry.Line2D import Line2D
-from Valentina.Geometry.Vector2D import Vector2D
+from Valentina.Geometry.Line import Line2D
+from Valentina.Geometry.Vector import Vector2D
 
 ####################################################################################################
 

@@ -20,12 +20,13 @@
 
 ####################################################################################################
 
-from .Vector2D import Vector2D
 from Valentina.Tools.IterTools import pairwise
+from .Primitive import Primitive2D
+from .Vector import Vector2D
 
 ####################################################################################################
 
-class Line2D(object):
+class Line2D(Primitive2D):
 
     """ 2D Line """
 

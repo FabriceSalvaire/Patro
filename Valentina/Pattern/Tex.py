@@ -24,7 +24,7 @@ import logging
 
 from ArithmeticInterval import Interval2D
 
-from Valentina.Geometry.Vector2D import Vector2D
+from Valentina.Geometry.Vector import Vector2D
 from Valentina.Math.Functions import rint
 from . import Calculation
 

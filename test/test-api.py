@@ -10,7 +10,7 @@ from pathlib import Path
 
 from Valentina.FileFormat.Measurements import VitFile
 from Valentina.FileFormat.Pattern import ValFile
-from Valentina.Geometry.Vector2D import Vector2D
+from Valentina.Geometry.Vector import Vector2D
 from Valentina.Pattern.Pattern import Pattern
 from Valentina.Pattern.Calculation import *
 from Valentina.Pattern.Tex import Tex

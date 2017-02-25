@@ -24,8 +24,8 @@ import unittest
 
 ####################################################################################################
 
-from Valentina.Geometry.Line2D import *
-from Valentina.Geometry.Vector2D import *
+from Valentina.Geometry.Line import *
+from Valentina.Geometry.Vector import *
 
 ####################################################################################################
 
@@ -60,25 +60,13 @@ class TestLine2D(unittest.TestCase):
 
         # Orthocenter Triangle test
 
-        p0 = Vector2D(10, 10)
-        d0 = Vector2D.from_angle(10)
-        l0 = Line2D(p0, d0)
+        v0 = Vector2D(10, 10)
+        v1 = Vector2D(50, 50)
+        v2 = Vector2D(20, 60)
 
-        p1 = Vector2D(50, 50)
-        d1 = Vector2D.from_angle(-40)
-        l1 = Line2D(p1, d1)
-
-        p2 = Vector2D(20, 60)
-        d2 = Vector2D.from_angle(-20)
-        l2 = Line2D(p2, d2)
-
-        v0 = l0.intersection(l1)
-        v1 = l1.intersection(l2)
-        v2 = l2.intersection(l0)
-
-        lp0 = Line2D(v2, d0.rotate_counter_clockwise_90())
-        lp1 = Line2D(v0, d1.rotate_counter_clockwise_90())
-        lp2 = Line2D(v1, d2.rotate_counter_clockwise_90())
+        lp0 = Line2D(v2, (v1 - v0).rotate_counter_clockwise_90())
+        lp1 = Line2D(v0, (v2 - v1).rotate_counter_clockwise_90())
+        lp2 = Line2D(v1, (v2 - v0).rotate_counter_clockwise_90())
 
         i0 = lp0.intersection(lp1)
         i1 = lp1.intersection(lp2)
