@@ -16,16 +16,20 @@ pattern = val_file.pattern
 
 pattern.dump()
 
-output = Path('output')
-output.mkdir(exist_ok=True)
+### output = Path('output')
+### output.mkdir(exist_ok=True)
+### 
+### tex = Tex(output.joinpath('pattern.tex'), paper='a4paper', margin=10)
+### tex.open()
+### # tex.add_detail_figure(pattern)
+### tex.add_tiled_detail_figure(pattern)
+### tex.close()
+### 
+### # val_file.write(output.joinpath('write-test.val'))
+### 
+### # for calculation in pattern.calculations:
+### #     print(calculation.to_python())
 
-tex = Tex(output.joinpath('pattern.tex'), paper='a4paper', margin=10)
-tex.open()
-# tex.add_detail_figure(pattern)
-tex.add_tiled_detail_figure(pattern)
-tex.close()
-
-# val_file.write(output.joinpath('write-test.val'))
-
-# for calculation in pattern.calculations:
-#     print(calculation.to_python())
+nodes = pattern.calculator.dag.topological_sort()
+for node in nodes:
+    print(node.data)

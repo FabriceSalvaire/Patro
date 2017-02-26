@@ -26,6 +26,8 @@ from .Calculator import Expression
 from Valentina.Geometry.Line import Line2D
 from Valentina.Geometry.Vector import Vector2D
 
+pyid = id
+
 ####################################################################################################
 
 _module_logger = logging.getLogger(__name__)
@@ -53,6 +55,9 @@ class Calculation:
             # Fixme: check id is uniq
             self._id = id
         pattern.add(self)
+        self._dag_node = self._dag.add_node(pyid(self), data=self)
+
+        self._dependencies = set()
 
     ##############################################
 
@@ -63,6 +68,14 @@ class Calculation:
     @property
     def pattern(self):
         return self._pattern
+
+    @property
+    def _dag(self):
+        return self._pattern.calculator.dag
+
+    @property
+    def dependencies(self):
+        return self._dependencies
 
     ##############################################
 
@@ -142,6 +155,35 @@ class Calculation:
         args = args[2:-1] # remove self, pattern, id
         return args
 
+    ##############################################
+
+    def _connect_ancestor(self, *points):
+
+        dag = self._dag
+        for point in points:
+            self._dependencies.add(point)
+            self._dag_node.connect_ancestor(dag[pyid(point)])
+
+    ##############################################
+
+    # def _connect_ancestor_for_expressions(self, *expressions):
+
+    #     for expression in expressions:
+    #         self._connect_ancestor(*expression.dependencies)
+
+    def _iter_on_expressions(self):
+
+        for attribute in self.__dict__.values():
+            if isinstance(attribute, Expression):
+                yield attribute
+
+    def connect_ancestor_for_expressions(self):
+
+        # Expression's dependencies are only known after compilation
+
+        for expression in self._iter_on_expressions():
+            self._connect_ancestor(*expression.dependencies)
+
 ####################################################################################################
 
 class LinePropertiesMixin:
@@ -181,6 +223,7 @@ class FirstSecondPointMixin:
 
         self._first_point = self._get_calculation(first_point)
         self._second_point = self._get_calculation(second_point)
+        self._connect_ancestor(self._first_point, self._second_point)
 
     ##############################################
 
@@ -201,6 +244,7 @@ class BasePointMixin:
     def __init__(self, base_point):
 
         self._base_point = self._get_calculation(base_point)
+        self._connect_ancestor(self._base_point)
 
     ##############################################
 
@@ -217,6 +261,7 @@ class LengthMixin:
     def __init__(self, length):
 
         self._length = Expression(length, self._pattern.calculator)
+        # self._connect_ancestor_for_expressions(self._length)
 
     ##############################################
 
@@ -233,6 +278,7 @@ class AngleMixin:
     def __init__(self, angle):
 
         self._angle = Expression(angle, self._pattern.calculator)
+        # self._connect_ancestor_for_expressions(self._angle)
 
     ##############################################
 
@@ -300,6 +346,7 @@ class SinglePoint(Point):
         Point.__init__(self, pattern, name, label_offset, id)
         self._x = Expression(x, pattern.calculator)
         self._y = Expression(y, pattern.calculator)
+        # self._connect_ancestor_for_expressions(self._x, self._y)
 
     ##############################################
 
@@ -406,6 +453,8 @@ class LineIntersectPoint(Point):
         self._point2_line1 = self._get_calculation(point2_line1)
         self._point1_line2 = self._get_calculation(point1_line2)
         self._point2_line2 = self._get_calculation(point2_line2)
+        self._connect_ancestor(self._point1_line1, self._point2_line1,
+                               self._point1_line2, self._point2_line2)
 
     ##############################################
 
@@ -556,6 +605,7 @@ class SimpleInteractiveSpline(Calculation, LinePropertiesMixin, FirstSecondPoint
         self._length1 = Expression(length1, pattern.calculator)
         self._angle2 = Expression(angle2, pattern.calculator)
         self._length2 = Expression(length2, pattern.calculator)
+        # self._connect_ancestor_for_expressions(self._angle1, self._length1, self._angle2, self._length2)
 
         self._control_point1 = None # Fixme: not yet computed
         self._control_point2 = None

@@ -23,9 +23,48 @@
 import ast
 import logging
 
+from Valentina.Graph.DirectedAcyclicGraph import DirectedAcyclicGraph
+
 ####################################################################################################
 
 _module_logger = logging.getLogger(__name__)
+
+####################################################################################################
+
+class NodeVisitor(ast.NodeVisitor):
+
+    ##############################################
+
+    def __init__(self, calculator):
+
+        super(NodeVisitor, self).__init__()
+        self._calculator = calculator
+        self._dependencies = []
+
+    ##############################################
+
+    @property
+    def dependencies(self):
+        return self._dependencies
+
+    ##############################################
+
+    # def visit(self, node):
+
+    #     print(node)
+    #     super(NodeVisitor, self).visit(node)
+
+    ##############################################
+
+    def visit_Call(self, node):
+
+        function = node.func
+        if isinstance(function, ast.Attribute) and function.value.id == '__calculator__':
+            dag = self._calculator.dag
+            if function.attr == '_function_Line':
+                for arg in node.args:
+                    self._dependencies.append(self._calculator._name_to_point(arg.s))
+        self.generic_visit(node)
 
 ####################################################################################################
 
@@ -39,6 +78,7 @@ class Calculator:
 
         self._measurements = measurements
 
+        self._dag = DirectedAcyclicGraph()
         self._cache  = {'__calculator__': self}
         self._points = {}
         self._current_operation = None
@@ -48,6 +88,10 @@ class Calculator:
     @property
     def measurements(self):
         return self._measurements
+
+    @property
+    def dag(self):
+        return self._dag
 
     @property
     def cache(self):
@@ -80,9 +124,21 @@ class Calculator:
 
     ##############################################
 
-    def _name_to_point(self, point_name1, point_name2):
+    def _name_to_point(self, name):
 
-        return self._points[point_name1].vector, self._points[point_name2].vector
+        return self._points[name]
+
+    ##############################################
+
+    def _name_to_vector_point(self, name):
+
+        return self._points[name].vector
+
+    ##############################################
+
+    def _names_to_vector_points(self, *names):
+
+        return [self._name_to_vector_point(name) for name in names]
 
     ##############################################
 
@@ -96,34 +152,34 @@ class Calculator:
     #   functions
 
     def _function_Angle1Spl(self, point_name1, point_name2):
-        point1, point2 = self._name_to_point(point_name1, point_name2)
+        point1, point2 = self._names_to_vector_points(point_name1, point_name2)
         return 0
 
     def _function_Angle2Spl(self, point_name1, point_name2):
-        point1, point2 = self._name_to_point(point_name1, point_name2)
+        point1, point2 = self._names_to_vector_points(point_name1, point_name2)
         return 0
 
     def _function_AngleLine(self, point_name1, point_name2):
-        point1, point2 = self._name_to_point(point_name1, point_name2)
+        point1, point2 = self._names_to_vector_points(point_name1, point_name2)
         return (point2 - point1).orientation()
 
     def _function_CurrentLength(self):
         return self._current_segment.magnitude()
 
     def _function_C1LengthSpl(self, point_name1, point_name2):
-        point1, point2 = self._name_to_point(point_name1, point_name2)
+        point1, point2 = self._names_to_vector_points(point_name1, point_name2)
         return 0
 
     def _function_C2LengthSpl(self, point_name1, point_name2):
-        point1, point2 = self._name_to_point(point_name1, point_name2)
+        point1, point2 = self._names_to_vector_points(point_name1, point_name2)
         return 0
 
     def _function_Line(self, point_name1, point_name2):
-        point1, point2 = self._name_to_point(point_name1, point_name2)
+        point1, point2 = self._names_to_vector_points(point_name1, point_name2)
         return (point2 - point1).magnitude()
 
     def _function_Spl(self, point_name1, point_name2):
-        point1, point2 = self._name_to_point(point_name1, point_name2)
+        point1, point2 = self._names_to_vector_points(point_name1, point_name2)
         return 0
 
 ####################################################################################################
@@ -140,6 +196,7 @@ class Expression:
         self._calculator = calculator
 
         self._ast = None
+        self._dependencies = None
         self._code = None
         self._value = None
         self._value_error = False
@@ -149,6 +206,10 @@ class Expression:
     @property
     def expression(self):
         return self._expression
+
+    @property
+    def dependencies(self):
+        return self._dependencies
 
     ##############################################
 
@@ -236,6 +297,9 @@ class Expression:
         # http://beltoforion.de/article.php?a=muparser
         # http://beltoforion.de/article.php?a=muparserx
         self._ast = ast.parse(expression, mode='eval')
+        node_visitor = NodeVisitor(self._calculator)
+        node_visitor.generic_visit(self._ast)
+        self._dependencies = node_visitor.dependencies
         self._code = compile(self._ast, '<string>', mode='eval')
 
     ##############################################

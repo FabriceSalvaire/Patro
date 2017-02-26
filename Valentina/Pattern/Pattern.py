@@ -122,6 +122,7 @@ class Pattern:
                 calculation.eval() # for control points
             else:
                 pass
+            calculation.connect_ancestor_for_expressions()
 
     ##############################################
 
@@ -133,6 +134,8 @@ class Pattern:
                 print(calculation, calculation.vector)
             else:
                 print(calculation)
+            for dependency in calculation.dependencies:
+                print('  ->', dependency)
 
     ##############################################
 
