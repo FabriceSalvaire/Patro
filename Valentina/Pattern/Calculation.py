@@ -484,8 +484,8 @@ class LineIntersectPoint(Point):
 
     def eval_internal(self):
 
-        line1 = Line2D(self._point1_line1.vector, self._point2_line1.vector)
-        line2 = Line2D(self._point1_line2.vector, self._point2_line2.vector)
+        line1 = Line2D.from_two_points(self._point1_line1.vector, self._point2_line1.vector)
+        line2 = Line2D.from_two_points(self._point1_line2.vector, self._point2_line2.vector)
         self._vector = line1.intersection(line2)
         self._post_eval_internal()
 
