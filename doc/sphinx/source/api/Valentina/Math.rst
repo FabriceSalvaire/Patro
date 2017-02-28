@@ -4,7 +4,6 @@
 
 .. toctree::
   Math/Functions
-  Math/Interval
 
 .. automodule:: Valentina.Math
    :members:

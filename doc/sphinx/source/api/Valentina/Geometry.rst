@@ -3,8 +3,13 @@
 *****************
 
 .. toctree::
-  Geometry/Line2D
-  Geometry/Vector2D
+  Geometry/Bezier
+  Geometry/Conic
+  Geometry/Line
+  Geometry/Primitive
+  Geometry/Segment
+  Geometry/Transformation
+  Geometry/Vector
 
 .. automodule:: Valentina.Geometry
    :members:

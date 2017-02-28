@@ -1,8 +1,8 @@
 ***************
- :mod:`Line2D`
+ :mod:`Vector`
 ***************
 
-.. automodule:: Valentina.Geometry.Line2D
+.. automodule:: Valentina.Geometry.Vector
    :members:
    :show-inheritance:
 

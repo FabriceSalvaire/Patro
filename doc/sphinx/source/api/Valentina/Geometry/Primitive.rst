@@ -1,8 +1,8 @@
 ******************
- :mod:`Evaluator`
+ :mod:`Primitive`
 ******************
 
-.. automodule:: Valentina.Evaluator
+.. automodule:: Valentina.Geometry.Primitive
    :members:
    :show-inheritance:
 

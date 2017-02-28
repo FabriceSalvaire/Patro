@@ -1,8 +1,8 @@
 *****************
- :mod:`Vector2D`
+ :mod:`Document`
 *****************
 
-.. automodule:: Valentina.Geometry.Vector2D
+.. automodule:: Valentina.TeX.Document
    :members:
    :show-inheritance:
 

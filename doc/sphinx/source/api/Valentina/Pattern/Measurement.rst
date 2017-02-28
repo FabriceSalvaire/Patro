@@ -2,7 +2,7 @@
  :mod:`Measurement`
 ********************
 
-.. automodule:: Valentina.Measurement
+.. automodule:: Valentina.Pattern.Measurement
    :members:
    :show-inheritance:
 
