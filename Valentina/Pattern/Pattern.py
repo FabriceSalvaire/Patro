@@ -170,6 +170,8 @@ class Pattern:
     def detail_scene(self):
 
         scene = GraphicScene()
+        # Fixme:
+        scene.bounding_box = self.bounding_box()
 
         for calculation in self._calculations:
 

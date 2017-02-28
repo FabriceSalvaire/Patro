@@ -28,7 +28,7 @@ from Valentina.Geometry.Vector import Vector2D
 from Valentina.TeX.Document import Document
 from Valentina.TeX.Environment import Center
 from Valentina.TeX.Tikz import TikzFigure
-from .Painter import Painter
+from .Painter import Painter, Tiler
 
 ####################################################################################################
 
@@ -79,18 +79,7 @@ class TexPainter(Painter):
         self._document = Document(path, 'article', '12pt')
         self._paper = paper
 
-        preambule = self._document.preambule
-        content = self._document.content
-
-        preambule.append(Document._format(_preambule, self))
-        content.append(r'\pagestyle{empty}' + '\n')
-
-        content.append(r'\fontsize{64}{72}\selectfont % \fontsize{size}{baselineskip}' + '\n')
-        options = 'x=8mm,y=8mm'
-        self._figure = TikzFigure(options)
-        content.append(Center().append(self._figure))
-
-        self.paint()
+        self._preambule.append(Document._format(_preambule, self))
 
     ##############################################
 
@@ -101,6 +90,14 @@ class TexPainter(Painter):
     @property
     def margin(self):
         return self._paper.margin
+
+    @property
+    def _preambule(self):
+        return self._document.preambule
+
+    @property
+    def _content(self):
+        return self._document.content
 
     ##############################################
 
@@ -147,3 +144,39 @@ class TexPainter(Painter):
         style = TikzFigure.format_path_style(item.path_style)
         coordinates = [self._format_position(position) for position in item.positions]
         self._figure.append(r'\draw[{0}] {1} .. controls {2} and {3} .. {4};'.format(style, *coordinates) + '\n')
+
+    ##############################################
+
+    def _add_pagestyle_empty(self):
+
+        self._content.append(r'\pagestyle{empty}' + '\n')
+
+    ##############################################
+
+    def add_detail_figure(self):
+
+        # Fixme: split document / scene painter
+
+        self._add_pagestyle_empty()
+        self._content.append(r'\fontsize{64}{72}\selectfont % \fontsize{size}{baselineskip}' + '\n')
+        options = 'x=8mm,y=8mm'
+        self._figure = TikzFigure(options)
+        self._content.append(Center().append(self._figure))
+        self.paint()
+
+    ##############################################
+
+    def add_tiled_detail_figure(self):
+
+        self._add_pagestyle_empty()
+        tiler = Tiler(self._scene.bounding_box, self._paper)
+        for interval in tiler:
+            options = 'x=10mm,y=10mm'
+            self._figure = TikzFigure(options)
+            self._figure.append(r'\draw[clip] '
+                                r'({0.x.inf:.2f},{0.y.inf:.2f}) -- '
+                                r'({0.x.sup:.2f},{0.y.inf:.2f}) -- '
+                                r'({0.x.sup:.2f},{0.y.sup:.2f}) -- '
+                                r'({0.x.inf:.2f},{0.y.sup:.2f}) -- cycle;'.format(interval) + '\n')
+            self._content.append(Center().append(self._figure))
+            self.paint()

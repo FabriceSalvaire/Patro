@@ -32,8 +32,10 @@ output.mkdir(exist_ok=True)
 
 scene = pattern.detail_scene()
 tex_path = output.joinpath('pattern2.tex')
-# paper = PaperSize('a4', 'portrait', 10)
-paper = PaperSize('a0', 'portrait', 10)
+paper = PaperSize('a4', 'portrait', 10)
+# paper = PaperSize('a0', 'portrait', 10)
 tex_painter = TexPainter(str(tex_path), scene, paper)
+# tex_painter.add_detail_figure()
+tex_painter.add_tiled_detail_figure()
 tex_painter._document.write()
 

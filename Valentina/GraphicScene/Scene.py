@@ -95,12 +95,22 @@ class GraphicScene:
     def __init__(self):
 
         self._root_scope = GraphicSceneScope()
+        # Fixme: don't want to reimplement bounding box for graphic item
+        self._bounding_box = None
 
     ##############################################
 
     @property
     def root_scope(self):
         return self._root_scope
+
+    @property
+    def bounding_box(self):
+        return self._bounding_box
+
+    @bounding_box.setter
+    def bounding_box(self, value):
+        self._bounding_box = value
 
     ##############################################
 
