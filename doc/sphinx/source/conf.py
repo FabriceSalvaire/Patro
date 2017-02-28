@@ -135,7 +135,7 @@ autodoc_default_flags = [
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'MyTheme'
+# html_theme = 'MyTheme'
 
 # on_rtd is whether we are on readthedocs.org
 ## on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
