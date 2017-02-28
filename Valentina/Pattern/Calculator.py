@@ -23,6 +23,9 @@
 import ast
 import logging
 
+import astunparse
+# import astor
+
 from Valentina.Graph.DirectedAcyclicGraph import DirectedAcyclicGraph
 
 ####################################################################################################
@@ -301,6 +304,9 @@ class Expression:
         node_visitor.generic_visit(self._ast)
         self._dependencies = node_visitor.dependencies
         self._code = compile(self._ast, '<string>', mode='eval')
+        # print('AST', astunparse.dump(self._ast))
+        # print('AST -> Python', astunparse.unparse(self._ast))
+        ## print('AST -> Python', astor.to_source(self._ast.body))
 
     ##############################################
 
