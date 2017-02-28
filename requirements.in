@@ -1,3 +1,4 @@
 ArithmeticInterval
-numpy
 astunparse
+lxml
+numpy
