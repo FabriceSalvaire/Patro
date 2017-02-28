@@ -145,7 +145,7 @@ class Calculator:
 
     ##############################################
 
-    # Fixme:
+    # Fixme: special functions
     #   increments ?
     #   Length of curve: Spl_A_B
     #   Angle of line: AngleLine_A_B

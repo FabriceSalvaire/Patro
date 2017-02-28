@@ -98,7 +98,7 @@ class Pattern:
 
     def get_calculation(self, id):
 
-        # Fixme: lazy ...
+        # Fixme: lazy initialisation for name dict
         if id not in self._calculation_dict and isinstance(id, str):
             for calculation in self._calculations:
                 if hasattr(calculation, 'name') and calculation.name == id:
@@ -144,6 +144,9 @@ class Pattern:
 
     def bounding_box(self):
 
+        # Fixme: bounding box should use geometry
+        #   calculation -> geometric object -> bounding box
+
         interval = None
         for calculation in self._calculations:
             if isinstance(calculation, Calculation.Point):
@@ -169,9 +172,13 @@ class Pattern:
 
     def detail_scene(self):
 
+        """Generate a graphic scene for the detail mode"""
+
         scene = GraphicScene()
-        # Fixme:
+        # Fixme: scene bounding box
         scene.bounding_box = self.bounding_box()
+
+        # Fixme: implement a transformer class to prevent if ... ?
 
         for calculation in self._calculations:
 

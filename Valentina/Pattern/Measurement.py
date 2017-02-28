@@ -152,7 +152,7 @@ class Measurements:
 
     def eval(self):
 
-        # Fixme: compute a graph from the ast to evaluate
+        # Fixme: eval / compute a graph from the ast to evaluate
         self._logger.info('Eval all measurements')
         for measure in self:
             measure.eval()

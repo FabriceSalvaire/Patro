@@ -94,8 +94,13 @@ class GraphicScene:
 
     def __init__(self):
 
+        # Fixme: root scope ???
         self._root_scope = GraphicSceneScope()
         # Fixme: don't want to reimplement bounding box for graphic item
+        #   - solution 1 : pass geometric object
+        #     but we want to use named coordinate -> Coordinate union of Vector2D or name
+        #   - solution 2 : item -> geometric object -> bounding box
+        #     need to convert coordinate to vector2d
         self._bounding_box = None
 
     ##############################################

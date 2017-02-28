@@ -112,6 +112,8 @@ class TexPainter(Painter):
 
     def paint_CoordinateItem(self, item):
 
+        # Fixme: implement detail in TikzFigure ?
+
         coordinate = self._format_position(item.position)
         self._figure.append(r'\coordinate ({0}) at {1};'.format(item.name, coordinate) + '\n')
 
@@ -149,6 +151,7 @@ class TexPainter(Painter):
 
     def _add_pagestyle_empty(self):
 
+        # Fixme: implement in Document ?
         self._content.append(r'\pagestyle{empty}' + '\n')
 
     ##############################################
@@ -156,6 +159,7 @@ class TexPainter(Painter):
     def add_detail_figure(self):
 
         # Fixme: split document / scene painter
+        #  don't make sense to generate a0 and a4 content on the same file !
 
         self._add_pagestyle_empty()
         self._content.append(r'\fontsize{64}{72}\selectfont % \fontsize{size}{baselineskip}' + '\n')

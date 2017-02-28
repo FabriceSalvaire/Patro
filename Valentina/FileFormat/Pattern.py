@@ -694,7 +694,7 @@ class ValFile(XmlFileMixin):
 
     def __init__(self, path=None):
 
-        # Fixme:
+        # Fixme: path
         if path is None:
             path = ''
         XmlFileMixin.__init__(self, path)
@@ -709,7 +709,7 @@ class ValFile(XmlFileMixin):
 
     def Write(self, path, vit_file, pattern):
 
-        # Fixme:
+        # Fixme: write
         self._vit_file = vit_file
         self._pattern = pattern
         self.write(path)
