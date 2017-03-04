@@ -36,7 +36,9 @@ from lxml import etree
 from Valentina.Geometry.Vector import Vector2D
 from Valentina.Pattern.Measurement import Measurements, Measurement
 from Valentina.Pattern.Pattern import Pattern
-from Valentina.Xml.Objectivity import (IntAttribute, FloatAttribute, StringAttribute,
+from Valentina.Xml.Objectivity import (BoolAttribute,
+                                       IntAttribute, FloatAttribute,
+                                       StringAttribute,
                                        XmlObjectAdaptator)
 from Valentina.Xml.XmlFile import XmlFileMixin
 from .Measurements import VitFile
@@ -49,6 +51,15 @@ _module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
+class MxMyMixin:
+
+    __attributes__ = (
+        FloatAttribute('mx'),
+        FloatAttribute('my'),
+    )
+
+####################################################################################################
+
 class CalculationMixin:
 
     __attributes__ = (
@@ -56,12 +67,6 @@ class CalculationMixin:
     )
 
     __calculation__ = None
-
-    ##############################################
-
-    def __repr__(self):
-
-        return '{} {}'.format(self.__class__.__name__, self.to_dict())
 
     ##############################################
 
@@ -254,13 +259,11 @@ class LengthAngleMixin(LengthMixin, AngleMixin):
 
 ####################################################################################################
 
-class PointMixin(CalculationTypeMixin):
+class PointMixin(CalculationTypeMixin, MxMyMixin):
 
     __tag__ = 'point'
     __attributes__ = (
         StringAttribute('name'),
-        FloatAttribute('mx'),
-        FloatAttribute('my'),
     )
 
     ##############################################
@@ -620,6 +623,22 @@ class Spline:
 
 ####################################################################################################
 
+class Dispatcher:
+
+    __TAGS__ = {}
+
+    ##############################################
+
+    def from_xml(self, element):
+
+        tag_class = self.__TAGS__[element.tag]
+        if tag_class is not None:
+            return tag_class(element)
+        else:
+            raise NotImplementedError
+
+####################################################################################################
+
 class CalculationDispatcher:
 
     _logger = _module_logger.getChild('CalculationDispatcher')
@@ -684,11 +703,185 @@ class CalculationDispatcher:
 
 ####################################################################################################
 
+class ModelingItemMixin:
+
+    __attributes__ = (
+        IntAttribute('id'),
+        IntAttribute('object_id', 'idObject'),
+        StringAttribute('type'),
+        BoolAttribute('in_use', 'inUse'),
+    )
+
+###################################################################################################
+
+class ModelingPoint(ModelingItemMixin, MxMyMixin, XmlObjectAdaptator):
+
+    # <point id="108" idObject="66" inUse="true" mx="0.132292" type="modeling" my="0.264583"/>
+
+    pass
+
+####################################################################################################
+
+class ModelingSpline(ModelingItemMixin, XmlObjectAdaptator):
+
+    # <spline id="111" idObject="107" inUse="true" type="modelingSpline"/>
+
+    pass
+
+####################################################################################################
+
+class ModelingDispatcher(Dispatcher):
+
+    __TAGS__ = {
+        'point': ModelingPoint,
+        'spline': ModelingSpline,
+        }
+
+####################################################################################################
+
+class Modeling:
+
+    ##############################################
+
+    def __init__(self):
+
+        self._items = []
+        self._id_map = {}
+
+    ##############################################
+
+    def __getitem__(self, id):
+
+        return self._id_map[id]
+
+    ##############################################
+
+    def append(self, item):
+
+        self._items.append(item)
+        self._id_map[item.id] = item
+
+####################################################################################################
+
+class Detail(MxMyMixin, XmlObjectAdaptator):
+
+    # <detail id="118" version="2" forbidFlipping="false" width="1" united="false" mx="0"
+    #  name="Devant" inLayout="true" seamAllowance="true" my="0">
+
+    __attributes__ = (
+        IntAttribute('id'),
+        IntAttribute('version'),
+        BoolAttribute('forbidFlipping'),
+        IntAttribute('width'),
+        BoolAttribute('united'),
+        StringAttribute('name'),
+        BoolAttribute('inLayout'),
+        BoolAttribute('seamAllowance'),
+    )
+
+    ##############################################
+
+    def __init__(self, modeling, *args, **kwargs):
+
+        XmlObjectAdaptator.__init__(self, *args, **kwargs)
+        self._modeling = modeling
+        self._nodes = []
+
+    ##############################################
+
+    def append_node(self, node):
+
+        self._nodes.append(node)
+        modeling_item = self._modeling[node.object_id]
+        print(node.object_id, '->', modeling_item, '->', modeling_item.object_id)
+
+####################################################################################################
+
+class VisibleRotationMixin:
+
+    __attributes__ = (
+        BoolAttribute('visible'),
+        IntAttribute('rotation'),
+    )
+
+####################################################################################################
+
+class HeightWidthMixin:
+
+    __attributes__ = (
+        IntAttribute('height'),
+        IntAttribute('width'),
+    )
+
+####################################################################################################
+
+class FontSizeMixin:
+
+    __attributes__ = (
+        IntAttribute('fontSize'),
+    )
+
+####################################################################################################
+
+class DetailData(HeightWidthMixin, MxMyMixin, FontSizeMixin, VisibleRotationMixin, XmlObjectAdaptator):
+
+    # <data letter="" width="0" mx="0" height="0" fontSize="0" visible="false" rotation="0" my="0"/>
+
+    __attributes__ = (
+        StringAttribute('letter'),
+    )
+
+####################################################################################################
+
+class DetailPatternInfo(HeightWidthMixin, MxMyMixin, FontSizeMixin, VisibleRotationMixin, XmlObjectAdaptator):
+
+    # <patternInfo width="0" mx="0" height="0" fontSize="0" visible="false" rotation="0" my="0"/>
+
+    pass
+
+####################################################################################################
+
+class DetailGrainline(MxMyMixin, VisibleRotationMixin, XmlObjectAdaptator):
+
+    # <grainline arrows="0" mx="0" length="0" visible="false" rotation="90" my="0"/>
+
+    __attributes__ = (
+        IntAttribute('arrows'),
+        IntAttribute('length'),
+    )
+
+####################################################################################################
+
+class DetailNode(XmlObjectAdaptator):
+
+    # <node idObject="108" type="NodePoint"/>
+    # <node idObject="120" reverse="1" type="NodeSpline"/>
+
+    __attributes__ = (
+        IntAttribute('object_id', 'idObject'),
+        StringAttribute('type'),
+        BoolAttribute('reverse'),
+    )
+
+####################################################################################################
+
+class DetailDispatcher(Dispatcher):
+
+    __TAGS__ = {
+        'grainline': DetailGrainline,
+        'patternInfo': DetailPatternInfo,
+        'data': DetailData,
+        }
+
+####################################################################################################
+
 class ValFile(XmlFileMixin):
 
     _logger = _module_logger.getChild('ValFile')
 
     _calculation_dispatcher = CalculationDispatcher()
+    _modeling_dispatcher = ModelingDispatcher()
+    _detail_dispatcher = DetailDispatcher()
 
     ##############################################
 
@@ -761,8 +954,7 @@ class ValFile(XmlFileMixin):
         pattern = Pattern(self._vit_file.measurements, unit)
         self._pattern = pattern
 
-        elements = self._get_xpath_element(tree, 'draw/calculation')
-        for element in elements:
+        for element in self._get_xpath_element(tree, 'draw/calculation'):
             try:
                 xml_calculation = self._calculation_dispatcher.from_xml(element)
                 xml_calculation.to_calculation(pattern)
@@ -771,7 +963,29 @@ class ValFile(XmlFileMixin):
             except NotImplementedError:
                 self._logger.warning('Not implemented calculation\n' +  str(etree.tostring(element)))
 
-        pattern.eval()
+        modeling = Modeling()
+        for element in self._get_xpath_element(tree, 'draw/modeling'):
+            xml_modeling_item = self._modeling_dispatcher.from_xml(element)
+            modeling.append(xml_modeling_item)
+            print(xml_modeling_item)
+
+        details = []
+        for detail_element in self._get_xpath_element(tree, 'draw/details'):
+            xml_detail = Detail(modeling, detail_element)
+            details.append(xml_detail)
+            print(xml_detail)
+            for element in detail_element:
+                if element.tag == 'nodes':
+                    for node in element:
+                        xml_node = DetailNode(node)
+                        print(xml_node)
+                        xml_detail.append_node(xml_node)
+                else:
+                    xml_modeling_item = self._detail_dispatcher.from_xml(element)
+                    # Fixme: xml_detail. = xml_modeling_item
+                    print(xml_modeling_item)
+
+        # pattern.eval()
 
     ##############################################
 

@@ -99,6 +99,20 @@ class Attribute:
 
 ####################################################################################################
 
+class BoolAttribute(Attribute):
+
+    ##############################################
+
+    def from_xml(self, value):
+        if value == "true" or value == "1":
+            return True
+        elif value == "false" or value == "0":
+            return False
+        else:
+            raise ValueError("Incorrect boolean value {}".format(value))
+
+####################################################################################################
+
 class IntAttribute(Attribute):
 
     ##############################################
@@ -169,6 +183,12 @@ class XmlObjectAdaptator(metaclass = XmlObjectAdaptatorMetaClass):
             self._init_from_xml(args[0])
         elif kwargs:
             self._init_from_kwargs(kwargs)
+
+    ##############################################
+
+    def __repr__(self):
+
+        return '{} {}'.format(self.__class__.__name__, self.to_dict())
 
     ##############################################
 
