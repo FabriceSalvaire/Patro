@@ -37,7 +37,7 @@ class Vector2DBase(Primitive2D):
 
     __data_type__ = None
 
-    #######################################
+    ##############################################
 
     def __init__(self, *args):
 
@@ -74,7 +74,12 @@ class Vector2DBase(Primitive2D):
 
         return array
 
-    #######################################
+    ##############################################
+
+    def clone(self):
+        return self.__class__(self)
+
+    ##############################################
 
     @property
     def v(self):
@@ -100,7 +105,7 @@ class Vector2DBase(Primitive2D):
     def y(self, y):
         self._v[1] = y
 
-    #######################################
+    ##############################################
 
     def copy(self):
 
@@ -108,43 +113,43 @@ class Vector2DBase(Primitive2D):
 
         return self.__class__(self._v)
 
-    #######################################
+    ##############################################
 
     def __repr__(self):
 
         return self.__class__.__name__ + str(self.v)
 
-    #######################################
+    ##############################################
 
     def __nonzero__(self):
 
         return bool(self._v.any())
 
-    #######################################
+    ##############################################
 
     def __len__(self):
 
         return 2
 
-    #######################################
+    ##############################################
 
     def __iter__(self):
 
         return iter(self._v)
 
-    #######################################
+    ##############################################
 
     def __getitem__(self, a_slice):
 
         return self._v[a_slice]
 
-    #######################################
+    ##############################################
 
     def __setitem__(self, index, value):
 
         self._v[index] = value
 
-    #######################################
+    ##############################################
 
     def __eq__(v1, v2):
 
@@ -152,7 +157,7 @@ class Vector2DBase(Primitive2D):
 
         return np.array_equal(v1.v, v2.v)
 
-    #######################################
+    ##############################################
 
     def __add__(self, other):
 
@@ -160,7 +165,7 @@ class Vector2DBase(Primitive2D):
 
         return self.__class__(self._v + other.v)
 
-    #######################################
+    ##############################################
 
     def __iadd__(self, other):
 
@@ -170,7 +175,7 @@ class Vector2DBase(Primitive2D):
 
         return self
 
-    #######################################
+    ##############################################
 
     def __sub__(self, other):
 
@@ -178,7 +183,7 @@ class Vector2DBase(Primitive2D):
 
         return self.__class__(self._v - other.v)
 
-    #######################################
+    ##############################################
 
     def __isub__(self, other):
 
@@ -188,7 +193,7 @@ class Vector2DBase(Primitive2D):
 
         return self
 
-    #######################################
+    ##############################################
 
     def __pos__(self):
 
@@ -196,7 +201,7 @@ class Vector2DBase(Primitive2D):
 
         return self.__class__(self._v)
 
-    #######################################
+    ##############################################
 
     def __neg__(self):
 
@@ -204,7 +209,7 @@ class Vector2DBase(Primitive2D):
 
         return self.__class__(-self._v)
 
-    #######################################
+    ##############################################
 
     def __abs__(self):
 
@@ -244,7 +249,7 @@ class Vector2DFloatBase(Vector2DBase):
         x, y = self.x, self.y
         return Interval2D((x, x) , (y, y))
 
-    #######################################
+    ##############################################
 
     def almost_equal(v1, v2, rtol=1e-05, atol=1e-08, equal_nan=False):
 
@@ -252,7 +257,7 @@ class Vector2DFloatBase(Vector2DBase):
 
         return np.allclose(v1, v2, rtol, atol, equal_nan)
 
-    #######################################
+    ##############################################
 
     def magnitude_square(self):
 
@@ -260,7 +265,7 @@ class Vector2DFloatBase(Vector2DBase):
 
         return np.dot(self._v, self._v)
 
-    #######################################
+    ##############################################
 
     def magnitude(self):
 
@@ -268,7 +273,7 @@ class Vector2DFloatBase(Vector2DBase):
 
         return math.sqrt(self.magnitude_square())
 
-    #######################################
+    ##############################################
 
     def orientation(self):
 
@@ -302,15 +307,17 @@ class Vector2DFloatBase(Vector2DBase):
                     orientation -= 180
             return orientation
 
-    #######################################
+    ##############################################
 
-    def rotate_counter_clockwise(self, angle):
+    def rotate(self, angle, counter_clockwise=True):
 
         """ Return a new vector equal to self rotated of angle degree in the counter clockwise
         direction
         """
 
         radians = math.radians(angle)
+        if not counter_clockwise:
+            radians = -radians
         c = math.cos(radians)
         s = math.sin(radians)
 
@@ -320,9 +327,9 @@ class Vector2DFloatBase(Vector2DBase):
 
         return self.__class__((xp, yp))
 
-    #######################################
+    ##############################################
 
-    def rotate_counter_clockwise_90(self):
+    def normal(self):
 
         """ Return a new vector equal to self rotated of 90 degree in the counter clockwise
         direction
@@ -333,9 +340,9 @@ class Vector2DFloatBase(Vector2DBase):
 
         return self.__class__((xp, yp))
 
-    #######################################
+    ##############################################
 
-    def rotate_clockwise_90(self):
+    def anti_normal(self):
 
         """ Return a new vector equal to self rotated of 90 degree in the clockwise direction
         """
@@ -345,9 +352,9 @@ class Vector2DFloatBase(Vector2DBase):
 
         return self.__class__((xp, yp))
 
-    #######################################
+    ##############################################
 
-    def rotate_180(self):
+    def parity(self):
 
         """ Return a new vector equal to self rotated of 180 degree
         """
@@ -358,7 +365,7 @@ class Vector2DFloatBase(Vector2DBase):
 
         return self.__class__((xp, yp))
 
-    #######################################
+    ##############################################
 
     def tan(self):
 
@@ -367,7 +374,7 @@ class Vector2DFloatBase(Vector2DBase):
         # RuntimeWarning: divide by zero encountered in double_scalars
         return self.y / self.x
 
-    #######################################
+    ##############################################
 
     def inverse_tan(self):
 
@@ -375,7 +382,7 @@ class Vector2DFloatBase(Vector2DBase):
 
         return self.x / self.y
 
-    #######################################
+    ##############################################
 
     def dot(self, other):
 
@@ -383,7 +390,7 @@ class Vector2DFloatBase(Vector2DBase):
 
         return float(np.dot(self._v, other.v))
 
-    #######################################
+    ##############################################
 
     def cross(self, other):
 
@@ -391,7 +398,7 @@ class Vector2DFloatBase(Vector2DBase):
 
         return float(np.cross(self._v, other.v))
 
-    #######################################
+    ##############################################
 
     def is_parallel(self, other):
 
@@ -399,7 +406,7 @@ class Vector2DFloatBase(Vector2DBase):
 
         return round(self.cross(other), 7) == 0
 
-    #######################################
+    ##############################################
 
     def is_orthogonal(self, other):
 
@@ -407,7 +414,7 @@ class Vector2DFloatBase(Vector2DBase):
 
         return round(self.dot(other), 7) == 0
 
-    #######################################
+    ##############################################
 
     def cos_with(self, direction):
 
@@ -417,7 +424,7 @@ class Vector2DFloatBase(Vector2DBase):
 
         return trignometric_clamp(cos)
 
-    #######################################
+    ##############################################
 
     def projection_on(self, direction):
 
@@ -425,7 +432,7 @@ class Vector2DFloatBase(Vector2DBase):
 
         return direction.dot(self) / direction.magnitude()
 
-    #######################################
+    ##############################################
 
     def sin_with(self, direction):
 
@@ -436,7 +443,7 @@ class Vector2DFloatBase(Vector2DBase):
 
         return trignometric_clamp(sin)
 
-    #######################################
+    ##############################################
 
     def deviation_with(self, direction):
 
@@ -444,7 +451,7 @@ class Vector2DFloatBase(Vector2DBase):
 
         return direction.cross(self) / direction.magnitude()
 
-    #######################################
+    ##############################################
 
     def orientation_with(self, direction):
 
@@ -464,7 +471,7 @@ class Vector2D(Vector2DFloatBase):
 
     """ 2D Vector """
 
-    #######################################
+    ##############################################
 
     @staticmethod
     def from_angle(angle):
@@ -475,7 +482,7 @@ class Vector2D(Vector2DFloatBase):
 
         return Vector2D((math.cos(rad), math.sin(rad)))
 
-    #######################################
+    ##############################################
 
     @staticmethod
     def middle(p0, p1):
@@ -484,7 +491,7 @@ class Vector2D(Vector2DFloatBase):
 
         return Vector2D(p0 + p1) * .5
 
-    #######################################
+    ##############################################
 
     def __mul__(self, scale):
 
@@ -492,7 +499,7 @@ class Vector2D(Vector2DFloatBase):
 
         return self.__class__(scale * self._v)
 
-    #######################################
+    ##############################################
 
     def __imul__(self, scale):
 
@@ -502,7 +509,7 @@ class Vector2D(Vector2DFloatBase):
 
         return self
 
-    #######################################
+    ##############################################
 
     def __truediv__(self, scale):
 
@@ -510,7 +517,7 @@ class Vector2D(Vector2DFloatBase):
 
         return self.__class__(self._v / scale)
 
-    #######################################
+    ##############################################
 
     def __itruediv__(self, scale):
 
@@ -520,7 +527,7 @@ class Vector2D(Vector2DFloatBase):
 
         return self
 
-    #######################################
+    ##############################################
 
     def normalise(self):
 
@@ -528,7 +535,7 @@ class Vector2D(Vector2DFloatBase):
 
         self._v /= self.magnitude()
 
-    #######################################
+    ##############################################
 
     def to_normalised(self):
 
@@ -536,7 +543,7 @@ class Vector2D(Vector2DFloatBase):
 
         return NormalisedVector2D(self._v / self.magnitude())
 
-    #######################################
+    ##############################################
 
     def rint(self):
 
@@ -548,7 +555,7 @@ class NormalisedVector2D(Vector2DFloatBase):
 
     """ 2D Normalised Vector """
 
-    #######################################
+    ##############################################
 
     def __init__(self, *args):
 
@@ -561,7 +568,7 @@ class NormalisedVector2D(Vector2DFloatBase):
         #         is_in_trignometric_range(self.y)):
         #     raise ValueError("Values must be in trignometric range")
 
-    #######################################
+    ##############################################
 
     def __mul__(self, scale):
 
@@ -575,7 +582,7 @@ class HomogeneousVector2D(Vector2D):
 
     """ 2D Homogeneous Coordinate Vector """
 
-    #######################################
+    ##############################################
 
     def __init__(self, vector):
 

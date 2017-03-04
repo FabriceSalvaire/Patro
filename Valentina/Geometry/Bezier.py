@@ -22,13 +22,13 @@
 
 from math import log, sqrt # pow
 
-from .Primitive import Primitive2D, bounding_box_from_points
-from .Segment import Segment2D
+from .Primitive import Primitive2D, ReversablePrimitiveMixin, bounding_box_from_points
+from .Segment import Segment2D, interpolate_two_points
 from .Vector import Vector2D
 
 ####################################################################################################
 
-class QuadraticBezier2D(Primitive2D):
+class QuadraticBezier2D(Primitive2D, ReversablePrimitiveMixin):
 
     """ 2D Quadratic Bezier Curve """
 
@@ -43,6 +43,24 @@ class QuadraticBezier2D(Primitive2D):
         self._p0 = Vector2D(p0)
         self._p1 = Vector2D(p1)
         self._p2 = Vector2D(p2)
+
+    ##############################################
+
+    def clone(self):
+
+        return self.__class__(self._p0, self._p1, self._p2)
+
+    ##############################################
+
+    def bounding_box(self):
+
+        return bounding_box_from_points((self._p0, self._p1, self._p2))
+
+    ##############################################
+
+    def reverse(self):
+
+        return self.__class__(self._p2, self._p1, self._p0)
 
     ##############################################
 
@@ -130,9 +148,9 @@ class QuadraticBezier2D(Primitive2D):
         # if 0 < t or 1 < t:
         #     raise ValueError()
 
-        one_minus_t = 1 - t
+        u = 1 - t
 
-        return self._p0 * one_minus_t**2 + self._p1 * 2 * t * one_minus_t + self._p2 * t**2
+        return self._p0 * u**2 + self._p1 * 2 * t * u + self._p2 * t**2
 
     ##############################################
 
@@ -140,17 +158,44 @@ class QuadraticBezier2D(Primitive2D):
 
         # Splits the curve at given position
 
-        a = Segment2D(self._p0, self._p1).point_at_t(t)
-        b = Segment2D(self._p1, self._p2).point_at_t(t)
-        p = self.point_at_t(t)
+        p01 = interpolate_two_points(self._p0, self._p1, t)
+        p12 = interpolate_two_points(self._p1, self._p2, t)
+        p = interpolate_two_points(p01, p12, t) # p = p012
+        # p = self.point_at_t(t)
 
-        return (QuadraticBezier2D(self._p0, a, p), QuadraticBezier2D(p, b, self._p2))
+        return (QuadraticBezier2D(self._p0, p01, p), QuadraticBezier2D(p, p12, self._p2))
 
     ##############################################
 
-    def bounding_box(self):
+    @property
+    def tangent0(self):
+        return (self._p1 - self._p0).normalise()
 
-        return bounding_box_from_points((self._p0, self._p1, self._p2))
+    ##############################################
+
+    @property
+    def tangent1(self):
+        return (self._p2 - self._p1).normalise()
+
+    ##############################################
+
+    @property
+    def normal0(self):
+        return self.tangent0.normal()
+
+    ##############################################
+
+    @property
+    def tangent1(self):
+        return self.tangent1.normal()
+
+    ##############################################
+
+    def tangent_at(self, t):
+
+        u = 1 - t
+
+        return (self._p1 - self._p0) * u + (self._p2 - self._p1) * t
 
 ####################################################################################################
 
@@ -173,6 +218,24 @@ class CubicBezier2D(QuadraticBezier2D):
 
         QuadraticBezier2D.__init__(self, p0, p1, p2)
         self._p3 = Vector2D(p3)
+
+    ##############################################
+
+    def clone(self):
+
+        return self.__class__(self._p0, self._p1, self._p2, self._p3)
+
+    ##############################################
+
+    def bounding_box(self):
+
+        return bounding_box_from_points((self._p0, self._p1, self._p2, self._p3))
+
+    ##############################################
+
+    def reverse(self):
+
+        return self.__class__(self._p3, self._p2, self._p1, self._p0)
 
     ##############################################
 
@@ -233,14 +296,15 @@ class CubicBezier2D(QuadraticBezier2D):
 
         # Splits the curve at given position
 
-        a = Segment2D(self._p0, self._p1).point_at_t(t)
-        b = Segment2D(self._p1, self._p2).point_at_t(t)
-        c = Segment2D(self._p2, self._p3).point_at_t(t)
-        m = Segment2D(a, b).point_at_t(t)
-        n = Segment2D(b, c).point_at_t(t)
-        p = self.point_at_t(t)
+        p01 = interpolate_two_points(self._p0, self._p1, t)
+        p12 = interpolate_two_points(self._p1, self._p2, t)
+        p23 = interpolate_two_points(self._p2, self._p3, t)
+        p012 = interpolate_two_points(p01, p12, t)
+        p123 = interpolate_two_points(p12, p23, t)
+        p = interpolate_two_points(p012, p123, t) # p = p0123
+        # p = self.point_at_t(t)
 
-        return (CubicBezier2D(self._p0, a, m, p), CubicBezier2D(p, n, c, self._p3))
+        return (CubicBezier2D(self._p0, p01, p012, p), CubicBezier2D(p, p123, p23, self._p3))
 
     ##############################################
 
@@ -278,9 +342,16 @@ class CubicBezier2D(QuadraticBezier2D):
 
         return sum([segment.q_length() for segment in segments])
 
+    ##############################################
+
+    @property
+    def tangent1(self):
+        return (self._p3 - self._p2).normalise()
 
     ##############################################
 
-    def bounding_box(self):
+    def tangent_at(self, t):
 
-        return bounding_box_from_points((self._p0, self._p1, self._p2, self._p3))
+        u = 1 - t
+
+        return (self._p1 - self._p0) * u**2 + (self._p2 - self._p1) * 2 * t * u + (self._p3 - self._p2) * t**2

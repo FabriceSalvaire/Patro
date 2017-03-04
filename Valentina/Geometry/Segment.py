@@ -21,7 +21,7 @@
 ####################################################################################################
 
 from .Line import Line2D
-from .Primitive import Primitive2D, bounding_box_from_points
+from .Primitive import Primitive2D, ReversablePrimitiveMixin, bounding_box_from_points
 from .Vector import Vector2D
 
 ####################################################################################################
@@ -54,7 +54,12 @@ def triangle_orientation(p0, p1, p2):
 
 ####################################################################################################
 
-class Segment2D(Primitive2D):
+def interpolate_two_points(p0, p1, t):
+    return p0 * (1 - t) + p1 * t
+
+####################################################################################################
+
+class Segment2D(Primitive2D, ReversablePrimitiveMixin):
 
     """ 2D Segment """
 
@@ -66,6 +71,24 @@ class Segment2D(Primitive2D):
 
         self._p0 = Vector2D(p0)
         self._p1 = Vector2D(p1)
+
+    ##############################################
+
+    def clone(self):
+
+        return self.__class__(self._p0, self._p1)
+
+    ##############################################
+
+    def bounding_box(self):
+
+        return bounding_box_from_points((self._p0, self._p1))
+
+    ##############################################
+
+    def reverse(self):
+
+        return self.__class__(self._p1, self._p0)
 
     ##############################################
 
@@ -109,6 +132,7 @@ class Segment2D(Primitive2D):
 
     def point_at_t(self, t):
 
+        # return interpolate_two_points(self._p0, self._p1)
         return self._p0 * (1 - t) + self._p1 * t
 
     ##############################################
@@ -132,9 +156,3 @@ class Segment2D(Primitive2D):
         return (((ccw11 * ccw12 < 0) and (ccw21 * ccw22 < 0))
                 # one ccw value is zero to detect an intersection
                 or (ccw11 * ccw12 * ccw21 * ccw22 == 0))
-
-    ##############################################
-
-    def bounding_box(self):
-
-        return bounding_box_from_points((self._p0, self._p1))

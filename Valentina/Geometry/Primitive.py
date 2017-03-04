@@ -35,12 +35,43 @@ class Primitive:
 
     ##############################################
 
-    def bounding_box(self):
-
+    def clone(self):
         raise NotImplementedError
+
+    ##############################################
+
+    def bounding_box(self):
+        # Fixme: infinite primitive
+        raise NotImplementedError
+
+    ##############################################
+
+    @property
+    def is_reversable(self):
+        return False
+
+    ##############################################
+
+    def reverse(self):
+        return self
 
 ####################################################################################################
 
 class Primitive2D:
 
     __dimension__ = 2
+
+####################################################################################################
+
+class ReversablePrimitiveMixin:
+
+    ##############################################
+
+    @property
+    def is_reversable(self):
+        return True
+
+    ##############################################
+
+    def reverse(self):
+        raise NotImplementedError
