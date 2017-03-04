@@ -39,7 +39,21 @@ def quote(x):
 
 ####################################################################################################
 
-class Calculation:
+class CalculationMetaClass:
+
+    _logger = _module_logger.getChild('CalculationMetaClass')
+
+    ##############################################
+
+    def __init__(cls, class_name, super_classes, class_attribute_dict):
+
+        cls._logger.info(str((cls, class_name, super_classes, class_attribute_dict)))
+        type.__init__(cls, class_name, super_classes, class_attribute_dict)
+
+####################################################################################################
+
+# metaclass = CalculationMetaClass
+class Calculation():
 
     _logger = _module_logger.getChild('Calculation')
 
@@ -47,16 +61,15 @@ class Calculation:
 
     def __init__(self, pattern, id=None):
 
-        # Fixme: check api
         self._pattern = pattern
+
         if id is None:
             self._id = pattern.get_calculation_id()
         else:
             # Fixme: check id is uniq
             self._id = id
-        pattern.add(self)
-        self._dag_node = self._dag.add_node(pyid(self), data=self)
 
+        self._dag_node = self._dag.add_node(pyid(self), data=self)
         self._dependencies = set()
 
     ##############################################

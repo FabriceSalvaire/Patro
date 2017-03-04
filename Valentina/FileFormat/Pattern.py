@@ -70,6 +70,12 @@ class CalculationMixin:
 
     ##############################################
 
+    def call_calculation_function(self, pattern, kwargs):
+
+        return getattr(pattern, self.__calculation__.__name__)(**kwargs)
+
+    ##############################################
+
     def to_calculation(self, pattern):
 
         raise NotImplementedError
@@ -272,7 +278,7 @@ class PointMixin(CalculationTypeMixin, MxMyMixin):
 
         kwargs = self.to_dict(exclude=('mx', 'my')) # id'
         kwargs['label_offset'] = Vector2D(self.mx, self.my)
-        return self.__calculation__(pattern, **kwargs)
+        return self.call_calculation_function(pattern, kwargs)
 
     ##############################################
 
@@ -484,7 +490,7 @@ class Line(CalculationMixin, LinePropertiesMixin, FirstSecondPointMixin, XmlObje
 
     def to_calculation(self, pattern):
 
-        return self.__calculation__(pattern, **self.to_dict()) # exclude=('id')
+        return self.call_calculation_function(pattern, self.to_dict()) # exclude=('id')
 
     ##############################################
 
@@ -522,7 +528,7 @@ class SimpleInteractiveSpline(SplineMixin, XmlObjectAdaptator):
 
     def to_calculation(self, pattern):
 
-        return self.__calculation__(pattern, **self.to_dict()) # exclude=('id')
+        return self.call_calculation_function(pattern, self.to_dict()) # exclude=('id')
 
     ##############################################
 
@@ -958,8 +964,6 @@ class ValFile(XmlFileMixin):
             try:
                 xml_calculation = self._calculation_dispatcher.from_xml(element)
                 xml_calculation.to_calculation(pattern)
-                # calculation =
-                # pattern.add(calculation)
             except NotImplementedError:
                 self._logger.warning('Not implemented calculation\n' +  str(etree.tostring(element)))
 
@@ -985,7 +989,7 @@ class ValFile(XmlFileMixin):
                     # Fixme: xml_detail. = xml_modeling_item
                     print(xml_modeling_item)
 
-        # pattern.eval()
+        pattern.eval()
 
     ##############################################
 
