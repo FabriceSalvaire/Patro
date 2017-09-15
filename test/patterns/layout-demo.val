@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pattern>
+    <!--Pattern created with Valentina (http://www.valentina-project.org/).-->
+    <version>0.4.2</version>
+    <unit>cm</unit>
+    <author/>
+    <description/>
+    <notes/>
+    <measurements/>
+    <increments/>
+    <draw name="Pattern piece 1">
+        <calculation>
+            <point id="1" mx="0.132292" x="0.79375" y="1.05833" name="A" type="single" my="0.264583"/>
+            <point id="2" basePoint="1" typeLine="hair" mx="0.132292" length="10" name="A1" lineColor="black" type="endLine" angle="0" my="0.264583"/>
+            <point id="3" basePoint="2" typeLine="hair" mx="0.132292" length="10" name="A2" lineColor="black" type="endLine" angle="-90" my="0.264583"/>
+            <point id="4" basePoint="1" typeLine="hair" mx="0.132292" length="5" name="A3" lineColor="black" type="endLine" angle="250" my="0.264583"/>
+            <spline id="5" angle2="248.286" length2="3.15692" angle1="231.836" length1="3.68694" point4="4" type="simpleInteractive" point1="3" color="black"/>
+        </calculation>
+        <modeling>
+            <point id="6" idObject="1" inUse="true" mx="0.740834" type="modeling" my="-2.77813"/>
+            <point id="7" idObject="2" inUse="true" mx="0.132292" type="modeling" my="0.264583"/>
+            <point id="8" idObject="3" inUse="true" mx="0.132292" type="modeling" my="0.264583"/>
+            <spline id="9" idObject="5" inUse="true" type="modelingSpline"/>
+            <point id="11" idObject="4" inUse="true" mx="0.132292" type="modeling" my="0.264583"/>
+            <point id="12" idObject="1" inUse="true" mx="0.132292" type="modeling" my="0.264583"/>
+            <point id="13" idObject="2" inUse="true" mx="0.132292" type="modeling" my="0.264583"/>
+            <point id="14" idObject="3" inUse="true" mx="0.132292" type="modeling" my="0.264583"/>
+            <path id="15" typeLine="hair" name="path1" type="2">
+                <nodes>
+                    <node idObject="11" type="NodePoint"/>
+                    <node idObject="12" type="NodePoint"/>
+                    <node idObject="13" type="NodePoint"/>
+                    <node idObject="14" type="NodePoint"/>
+                </nodes>
+            </path>
+            <point id="16" idObject="1" type="pin"/>
+            <point id="17" idObject="2" type="pin"/>
+            <point id="18" idObject="3" type="pin"/>
+            <point id="19" idObject="4" type="pin"/>
+        </modeling>
+        <details>
+            <detail id="10" version="2" forbidFlipping="false" width="1" united="false" mx="0.926042" name="Detail" inLayout="true" seamAllowance="true" my="0.47625">
+                <data letter="Z" topLeftPin="16" width="64.6337" mx="30" height="177.58" bottomRightPin="19" fontSize="6" visible="true" rotation="39.3304" my="39.9999">
+                    <mcp placement="0" material="0" cutNumber="1"/>
+                    <mcp placement="1" material="0" cutNumber="2"/>
+                </data>
+                <patternInfo topLeftPin="16" width="64.6337" mx="30" height="177.58" bottomRightPin="19" fontSize="9" visible="true" rotation="474.162" my="39.9999"/>
+                <grainline arrows="0" mx="0" length="0" visible="false" rotation="90" my="0"/>
+                <nodes>
+                    <node idObject="6" type="NodePoint"/>
+                    <node idObject="7" after="CurrentSeamAllowance*3" before="CurrentSeamAllowance*2" type="NodePoint" angle="1"/>
+                    <node idObject="8" after="CurrentSeamAllowance*2" before="CurrentSeamAllowance*2" type="NodePoint"/>
+                    <node idObject="9" reverse="0" type="NodeSpline"/>
+                </nodes>
+                <iPaths>
+                    <record path="15"/>
+                </iPaths>
+                <pins>
+                    <record>16</record>
+                    <record>17</record>
+                    <record>18</record>
+                    <record>19</record>
+                </pins>
+            </detail>
+        </details>
+        <groups/>
+    </draw>
+</pattern>

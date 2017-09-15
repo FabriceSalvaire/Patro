@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pattern>
+    <!--Pattern created with Valentina (http://www.valentina-project.org/).-->
+    <version>0.4.2</version>
+    <unit>cm</unit>
+    <author/>
+    <description/>
+    <notes/>
+    <measurements/>
+    <increments/>
+    <draw name="Pattern piece 1">
+        <calculation>
+            <point id="1" mx="0.132292" x="0.79375" y="1.05833" name="A" type="single" my="0.264583"/>
+            <point id="2" basePoint="1" typeLine="hair" mx="0.132292" length="20" name="A1" lineColor="black" type="endLine" angle="0" my="0.264583"/>
+            <point id="3" firstPoint="2" typeLine="hair" mx="0.132292" secondPoint="1" length="10" name="A2" lineColor="black" type="normal" angle="0" my="0.264583"/>
+            <point id="4" firstPoint="1" mx="0.132292" secondPoint="3" name="A3" type="pointOfIntersection" my="0.264583"/>
+            <point id="5" firstPoint="3" typeLine="none" mx="0.132292" secondPoint="4" length="-5" name="A4" lineColor="black" type="alongLine" my="0.264583"/>
+            <point id="6" firstPoint="4" typeLine="none" mx="0.132292" secondPoint="3" length="-5" name="A5" lineColor="black" type="alongLine" my="0.264583"/>
+            <point id="7" firstPoint="3" typeLine="none" mx="0.132292" secondPoint="2" length="-3" name="A6" lineColor="black" type="alongLine" my="0.264583"/>
+            <point id="8" firstPoint="4" typeLine="none" mx="0.132292" secondPoint="1" length="-3" name="A7" lineColor="black" type="alongLine" my="0.264583"/>
+            <line id="9" firstPoint="6" typeLine="hair" secondPoint="1" lineColor="black"/>
+            <line id="10" firstPoint="2" typeLine="hair" secondPoint="5" lineColor="black"/>
+            <line id="11" firstPoint="5" typeLine="hair" secondPoint="6" lineColor="black"/>
+            <line id="12" firstPoint="8" typeLine="hair" secondPoint="7" lineColor="black"/>
+        </calculation>
+        <modeling>
+            <point id="13" idObject="1" inUse="true" mx="0.132292" type="modeling" my="0.264583"/>
+            <point id="14" idObject="2" inUse="true" mx="-1.3163" type="modeling" my="0.566374"/>
+            <point id="15" idObject="5" inUse="true" mx="-3.3383" type="modeling" my="-2.05921"/>
+            <point id="16" idObject="6" inUse="true" mx="1.58089" type="modeling" my="-1.6367"/>
+            <point id="18" idObject="8" inUse="true" mx="0.132292" type="modeling" my="0.264583"/>
+            <point id="19" idObject="7" inUse="true" mx="0.132292" type="modeling" my="0.264583"/>
+            <path id="20" typeLine="hair" name="Unnamed path" type="1">
+                <nodes>
+                    <node idObject="18" type="NodePoint"/>
+                    <node idObject="19" type="NodePoint"/>
+                </nodes>
+            </path>
+        </modeling>
+        <details>
+            <detail id="17" version="2" forbidFlipping="false" width="1" united="false" mx="0" name="Detail" inLayout="true" seamAllowance="true" my="0">
+                <data letter="" width="0" mx="0" height="0" fontSize="0" visible="false" rotation="0" my="0"/>
+                <patternInfo width="0" mx="0" height="0" fontSize="0" visible="false" rotation="0" my="0"/>
+                <grainline arrows="0" mx="0" length="0" visible="false" rotation="90" my="0"/>
+                <nodes>
+                    <node idObject="13" type="NodePoint"/>
+                    <node idObject="14" type="NodePoint"/>
+                    <node idObject="15" type="NodePoint"/>
+                    <node idObject="16" type="NodePoint"/>
+                </nodes>
+                <csa>
+                    <record reverse="false" includeAs="0" path="20" end="16" start="15"/>
+                </csa>
+            </detail>
+        </details>
+        <groups/>
+    </draw>
+</pattern>
