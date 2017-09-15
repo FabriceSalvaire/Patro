@@ -22,15 +22,21 @@
  PyValentina
 ============
 
-The official PyValentina Home Page is located at |PyValentinaUrl|
+PyValentina Home Page is located at |PyValentinaUrl|
 
 The latest documentation build from the git repository is available at readthedocs.org |PyValentina@readthedocs-badge|
 
-Written by `Fabrice Salvaire <http://fabrice-salvaire.pagesperso-orange.fr>`_.
-
-.. include:: introduction.txt
+Authored by `Fabrice Salvaire <http://fabrice-salvaire.pagesperso-orange.fr>`_.
 
 .. include:: features.txt
+
+.. image:: https://raw.github.com/FabriceSalvaire/PyValentina/master/test/output/pattern-a0.png
+ :height: 600px
+
+.. image:: https://raw.github.com/FabriceSalvaire/PyValentina/master/test/output/pattern-a4.png
+ :height: 600px
+
+.. include:: introduction.txt
 
 .. include:: installation.rst
 

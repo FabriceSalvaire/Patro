@@ -388,15 +388,35 @@ ul.auto-toc {
 <!-- End -->
 <div class="section" id="pyvalentina">
 <h1>PyValentina</h1>
-<p>The official PyValentina Home Page is located at <a class="reference external" href="http://fabricesalvaire.github.io/PyValentina">http://fabricesalvaire.github.io/PyValentina</a></p>
+<p>PyValentina Home Page is located at <a class="reference external" href="http://fabricesalvaire.github.io/PyValentina">http://fabricesalvaire.github.io/PyValentina</a></p>
 <p>The latest documentation build from the git repository is available at readthedocs.org <a class="reference external" href="http://pyvalentina.readthedocs.org/en/latest"><img alt="PyValentina&#64;readthedocs-badge" src="https://readthedocs.org/projects/pyvalentina/badge/?version=latest" /></a></p>
-<p>Written by <a class="reference external" href="http://fabrice-salvaire.pagesperso-orange.fr">Fabrice Salvaire</a>.</p>
+<p>Authored by <a class="reference external" href="http://fabrice-salvaire.pagesperso-orange.fr">Fabrice Salvaire</a>.</p>
+<!-- -*- Mode: rst -*- -->
+</div>
+<div class="section" id="features">
+<h1>Features</h1>
+<p>The features of PyValentina are :</p>
+<ul class="simple">
+<li>read/write <em>.val</em> and <em>.vit</em> file</li>
+<li><a class="reference external" href="http://beltoforion.de/article.php?a=muparser">QMuParser</a> expressions are translated to Python and evaluated on the fly</li>
+<li>API to define patterns</li>
+<li>compute the detail of a pattern</li>
+<li>export the detail to latex/pgf as A0 or tiled A4 paper</li>
+</ul>
+<p>Missing features:</p>
+<ul class="simple">
+<li>full operation support</li>
+<li>direct PDF export</li>
+<li>SVG export</li>
+</ul>
+<img alt="https://raw.github.com/FabriceSalvaire/PyValentina/master/test/output/pattern-a0.png" src="https://raw.github.com/FabriceSalvaire/PyValentina/master/test/output/pattern-a0.png" style="height: 600px;" />
+<img alt="https://raw.github.com/FabriceSalvaire/PyValentina/master/test/output/pattern-a4.png" src="https://raw.github.com/FabriceSalvaire/PyValentina/master/test/output/pattern-a4.png" style="height: 600px;" />
 <!-- -*- Mode: rst -*- -->
 </div>
 <div class="section" id="introduction">
 <h1>Introduction</h1>
 <p>PyValentina is a python implementation of the <a class="reference external" href="http://valentina-project.org/">Valentina</a> Pattern
-Drafting software, which only focus to the core engine and not to the graphical user interface.</p>
+Making software, which only focus to implement the core engine and not the graphical user interface.</p>
 <p>A pattern in flat pattern design is build from geometrical operations which can be turned to a
 computer program and is thus a field of applications of Computer Aided Design.  It corresponds more
 precisely to parametric modelling with dedicated features to fashion modelling and manufacturing.</p>
@@ -404,7 +424,7 @@ precisely to parametric modelling with dedicated features to fashion modelling a
 <h2>What is the requirements of a pattern drafting software ?</h2>
 <p>The core functionality of a CAD system for pattern drafting consists of these two software components :</p>
 <ul class="simple">
-<li>an _open_ file format to store and exchange the pattern,</li>
+<li>an <strong>open</strong> file format to store and exchange the pattern,</li>
 <li>a geometrical engine to compute the pattern, e.g. to generate the layout of each fabric's piece of a clothe.</li>
 </ul>
 <p>The XML language is a natural candidate to define an open file format to store and exchange the
@@ -416,18 +436,18 @@ publishing, G-code for machining etc.</p>
 <p>Usually the geometrical operations of a pattern are simple in comparison to the requirements of a
 mechanical or electronic CAD software.  In first hand it is only 2D and the number of operations
 should be handled smoothly by a computer of these days, whereas it is still challenging for other
-domains.  A pattern drafting software only need a good geometrical engine to be designed
-efficiently.</p>
+domains.</p>
+<!-- A pattern drafting software only need a good geometrical engine to be designed efficiently. -->
 <p>Finally, a pattern drafting software requires an efficient graphical user interface so as to be used
-by fashion designers and not only by computer scientists.  This software component is more challenging in
-therms of software engineering, i.e. in therms of design and cost.</p>
+by fashion designers and not only by hackers.  This software component is more challenging in therms
+of software engineering, i.e. in therms of design and cost.</p>
 </div>
 <div class="section" id="why-python-is-a-good-language-for-this-library">
 <h2>Why Python is a good language for this library ?</h2>
 <p>The Python language has a large audience in engineering, due to its canonical syntax and richness of
 its ecosystem (scientific libraries).</p>
 <p>Python is a high level language and thus more productive.</p>
-<p>Python is used as scripting language to extend many software, in particular the famous open source
+<p>Python is used as scripting language to extend many softwares, in particular the famous open source
 3D creation suite <a class="reference external" href="https://www.blender.org">Blender</a>, the parametric 3D modeller <a class="reference external" href="http://freecadweb.org">FreeCad</a> as well as the SVG editor <a class="reference external" href="https://inkscape.org/">Inkscape</a>.  Moreover
 the 3D human model generator <a class="reference external" href="http://www.makehuman.org">MakeHuman</a> is written in Python.</p>
 <p>Python can be easily extended by C libraries using <a class="reference external" href="http://cffi.readthedocs.io/en/latest">CFFI</a>
@@ -447,31 +467,33 @@ language level.</p>
 </div>
 <div class="section" id="could-we-implement-a-full-software-using-python">
 <h2>Could we implement a full software using Python ?</h2>
-<p>The answer is <em>yes we can!</em> since <a class="reference external" href="https://www.qt.io">Qt</a> has as a nice binding so called <a class="reference external" href="https://riverbankcomputing.com/software/pyqt/intro">PyQt</a> (if we consider Qt is superior to GTK and
-WxWidgets).</p>
-<p>But up to now Python as of course some drawbacks!</p>
+<p>The answer is <em>yes we can!</em> since <a class="reference external" href="https://www.qt.io">Qt</a> has as a nice binding so called
+<a class="reference external" href="https://riverbankcomputing.com/software/pyqt/intro">PyQt</a>.</p>
+<!-- (if we consider Qt is superior to GTK and WxWidgets) -->
+<p>But up to now Python has of course some drawbacks!</p>
 <p>Its main drawback is due to the fact the standard interpreter cannot execute more than one <em>Python
-bytecode</em> thread in true parallelism (multi-core), this limitation so called Global Interpreter Lock
-is required for implementation simplicity.  Consequently we can do multi-threading, even on
-multi-core in some cases, but less easily than in Java or Cxx11.</p>
+bytecode</em> thread at once, this limitation so called Global Interpreter Lock is required for
+implementation simplicity.</p>
+<!-- in true parallelism (multi-core) -->
+<!-- Consequently we can do multi-threading, even on multi-core in some cases, but less easily than in Java or Cxx11. -->
 <p>Despite a GUI implemented in PyQt is almost of the time more faster than the human perception on a
-computer of these days.  It can be sometime difficult to overcome some latency arising from the
-software stack.  Thus yes we can do it, but it could requires some tricks to achieve the performance
-of a C++ application.</p>
+computer of these days.  It can be sometime difficult to overcome latency arising from the software
+stack.  Thus yes we can do it, but it could requires some tricks to achieve the performance of a C++
+application.</p>
 </div>
 <div class="section" id="how-to-generate-drawings-in-standard-format-like-pdf-or-svg">
 <h2>How to generate drawings in standard format like PDF or SVG ?</h2>
 <p>SVG is not difficult to generate from Python since it is based on XML.  However the PDF format is
 more challenging, for efficiency reason PDF is a binary format and is thus much more complicated
-than PostScript which a true programming language.</p>
+than PostScript which is a true programming language.</p>
 <p>There is several possibilities to generate PDF.</p>
 <p>The most disturbing one is to use the <a class="reference external" href="https://en.wikipedia.org/wiki/LaTeX">LaTeX</a> publishing
 system in combination with the <a class="reference external" href="http://www.texample.net/tikz/examples">PGF</a> package which provide
-an amazing graphical language on top of LaTeX.  This solution could terrify people, but it do the
-job and very well as well as for text and graphics.  However user must install a LaTeX environment
-from their Linux distribution or using <a class="reference external" href="https://www.tug.org/texlive">TexLive</a>.</p>
-<p>A more conventional solution requires a library able to generate PDF from standard graphical
-operations.  Some libraries able to that are :</p>
+an amazing graphical language on top of LaTeX.  This solution could terrify many peoples, but it do
+the job very well for text and graphics.  However user must install a LaTeX environment from their
+Linux distribution or using the <a class="reference external" href="https://www.tug.org/texlive">TexLive</a> distribution.</p>
+<p>A more conventional solution requires a library that can generate PDF from standard graphical
+operations.  Some libraries featuring that are :</p>
 <ul class="simple">
 <li>Qt using QPainter API, Valentina solution, see <a class="reference external" href="https://wiki.qt.io/Handling_PDF">https://wiki.qt.io/Handling_PDF</a></li>
 <li><a class="reference external" href="https://www.cairographics.org/manual/cairo-PDF-Surfaces.html">Cairo</a></li>
@@ -481,29 +503,6 @@ operations.  Some libraries able to that are :</p>
 </ul>
 <!-- -*- Mode: rst -*- -->
 </div>
-</div>
-<div class="section" id="features">
-<h1>Features</h1>
-<p>The features of PyValentina are :</p>
-<ul class="simple">
-<li>read <em>.val</em> and <em>.vit</em> file</li>
-<li><a class="reference external" href="http://beltoforion.de/article.php?a=muparser">QMuParser</a> expressions are translated to Python and evaluated on the fly</li>
-<li>compute the detail of a pattern</li>
-<li>export the detail to latex/pgf</li>
-</ul>
-<p>Missing features:</p>
-<ul class="simple">
-<li>write <em>.val</em> and <em>.vit</em> file</li>
-<li>full operation support</li>
-<li>direct PDF export</li>
-<li>SVG export</li>
-</ul>
-<p>Planed features:</p>
-<ul class="simple">
-<li>export to tiled A4 PDF</li>
-<li>Python API to define pattern</li>
-</ul>
-<!-- -*- Mode: rst -*- -->
 </div>
 <div class="section" id="installation">
 <span id="installation-page"></span><h1>Installation</h1>
@@ -558,7 +557,8 @@ python setup.py install
 <div class="section" id="bibliography">
 <span id="bibliography-page"></span><h1>Bibliography</h1>
 <ul class="simple">
-<li><a class="reference external" href="http://www.cgal.org/">CGAL Computational Geometry Algorithms Library</a></li>
+<li><a class="reference external" href="http://www.cgal.org">CGAL Computational Geometry Algorithms Library</a></li>
+<li><a class="reference external" href="https://www.opencascade.com">Open Cascade Framework</a></li>
 <li><a class="reference external" href="https://www.geometrictools.com/index.html">David Eberly Geometric Tools web site</a></li>
 </ul>
 <!-- End -->
