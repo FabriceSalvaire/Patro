@@ -3,10 +3,10 @@
 pushd output
 
 pdftoppm pattern-a0.pdf out
-convert -scale 25% out-1.ppm pattern-a0.png
+convert -resize x1000 out-1.ppm pattern-a0.png
 
 pdftoppm -f 4 -l 4 pattern-a4.pdf out
-convert -scale 25% out-04.ppm pattern-a4.png
+convert -resize x1000 out-04.ppm pattern-a4.png
 
 rm out*.ppm
 
