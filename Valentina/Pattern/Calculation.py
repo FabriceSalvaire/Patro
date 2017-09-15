@@ -209,7 +209,7 @@ class Calculation():
 
     # @property
     def geometry(self):
-        raise NotImplementedError
+        raise NotImplementedError('Geometry is not implemented for {}'.format(self))
 
 ####################################################################################################
 
@@ -357,6 +357,12 @@ class Point(Calculation):
     def _post_eval_internal(self):
 
         self._logger.info('{0._name} {0._vector}'.format(self))
+
+    ##############################################
+
+    def geometry(self):
+
+        return self._vector.clone()
 
 ####################################################################################################
 
@@ -687,6 +693,7 @@ class SimpleInteractiveSpline(Calculation, LinePropertiesMixin, FirstSecondPoint
     ##############################################
 
     def geometry(self):
+
         if self._control_point1 is None:
             raise NameError("eval before to get geometry")
         return CubicBezier2D(self._first_point.vector, self._control_point1,

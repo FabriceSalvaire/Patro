@@ -25,7 +25,7 @@ import logging
 from ArithmeticInterval import Interval2D
 
 from Valentina.Geometry.Vector import Vector2D
-from Valentina.Math.Functions import rint
+from Valentina.Math.Functions import ceil_int
 
 ####################################################################################################
 
@@ -34,6 +34,8 @@ _module_logger = logging.getLogger(__name__)
 ####################################################################################################
 
 class Tiler:
+
+    _logger = _module_logger.getChild('Tiler')
 
     ##############################################
 
@@ -52,11 +54,12 @@ class Tiler:
         paper_margin = (self._paper.margin + figure_margin) / 10
         area_vector = paper_size - Vector2D(paper_margin, paper_margin) * 2
 
-        number_of_columns = rint(self._bounding_box.x.length / area_vector.x)
-        number_of_rows = rint(self._bounding_box.y.length / area_vector.y)
+        number_of_columns = ceil_int(self._bounding_box.x.length / area_vector.x)
+        number_of_rows = ceil_int(self._bounding_box.y.length / area_vector.y)
 
-        print('Area {}'.format(area_vector))
-        print('Grid {}x{}'.format(number_of_rows, number_of_columns))
+        self._logger.info('Bounding Box {}'.format(self._bounding_box))
+        self._logger.info('Area {}'.format(area_vector))
+        self._logger.info('Grid {}x{}'.format(number_of_rows, number_of_columns))
 
         min_point = Vector2D((self._bounding_box.x.inf, self._bounding_box.y.inf))
 

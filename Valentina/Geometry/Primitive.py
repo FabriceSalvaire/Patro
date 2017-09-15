@@ -24,7 +24,7 @@ def bounding_box_from_points(points):
 
     bounding_box = points[0].bounding_box()
     for point in points[1:]:
-        bounding_box |= points.bounding_box()
+        bounding_box |= point.bounding_box()
     return bounding_box
 
 ####################################################################################################

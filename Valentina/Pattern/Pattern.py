@@ -141,9 +141,6 @@ class Pattern:
 
     def bounding_box(self):
 
-        # Fixme: bounding box should use geometry
-        #   calculation -> geometric object -> bounding box
-
         bounding_box = None
         for calculation in self._calculations:
             interval = calculation.geometry().bounding_box()
@@ -151,16 +148,8 @@ class Pattern:
                 bounding_box = interval
             else:
                 bounding_box |= interval
-            # if isinstance(calculation, Calculation.Point):
-            #     interval_point = vector_to_interval2d(calculation.vector)
-            #     if interval is None:
-            #         interval = interval_point
-            #     else:
-            #         interval |= interval_point
-            # elif isinstance(calculation, Calculation.SimpleInteractiveSpline):
-            #     interval |= vector_to_interval2d(calculation.control_point1)
-            #     interval |= vector_to_interval2d(calculation.control_point2)
-        return interval
+
+        return bounding_box
 
     ##############################################
 
