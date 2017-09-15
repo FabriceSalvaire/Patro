@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Valentina.Geometry.Line2D &#8212; PyValentina 0.3.0 documentation</title>
+    <title>Valentina.Geometry.Line &#8212; PyValentina 0.1.0 documentation</title>
     
     <link rel="stylesheet" href="../../../static/MyTheme.css" type="text/css" />
     <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.3.0',
+        VERSION:     '0.1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -39,7 +39,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">PyValentina 0.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyValentina 0.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -49,7 +49,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>Source code for Valentina.Geometry.Line2D</h1><div class="highlight"><pre>
+  <h1>Source code for Valentina.Geometry.Line</h1><div class="highlight"><pre>
 <span></span><span class="c1">####################################################################################################</span>
 <span class="c1">#</span>
 <span class="c1"># PyValentina - A Python implementation of Valentina Pattern Drafting Software</span>
@@ -77,14 +77,14 @@
 
 <span class="c1">####################################################################################################</span>
 
-<div class="viewcode-block" id="Line2D"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line2D.Line2D">[docs]</a><span class="k">class</span> <span class="nc">Line2D</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Line2D"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line.Line2D">[docs]</a><span class="k">class</span> <span class="nc">Line2D</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot; 2D Line &quot;&quot;&quot;</span>
 
     <span class="c1">#######################################</span>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Line2D.from_two_points"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line2D.Line2D.from_two_points">[docs]</a>    <span class="k">def</span> <span class="nf">from_two_points</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">):</span>
+<div class="viewcode-block" id="Line2D.from_two_points"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line.Line2D.from_two_points">[docs]</a>    <span class="k">def</span> <span class="nf">from_two_points</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Construct a :class:`Line2D` from two points. &quot;&quot;&quot;</span>
 
@@ -113,7 +113,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Line2D.point_at_s"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line2D.Line2D.point_at_s">[docs]</a>    <span class="k">def</span> <span class="nf">point_at_s</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+<div class="viewcode-block" id="Line2D.point_at_s"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line.Line2D.point_at_s">[docs]</a>    <span class="k">def</span> <span class="nf">point_at_s</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return the Point corresponding to the curvilinear abscissa s &quot;&quot;&quot;</span>
 
@@ -121,7 +121,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Line2D.compute_distance_between_abscissae"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line2D.Line2D.compute_distance_between_abscissae">[docs]</a>    <span class="k">def</span> <span class="nf">compute_distance_between_abscissae</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s0</span><span class="p">,</span> <span class="n">s1</span><span class="p">):</span>
+<div class="viewcode-block" id="Line2D.compute_distance_between_abscissae"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line.Line2D.compute_distance_between_abscissae">[docs]</a>    <span class="k">def</span> <span class="nf">compute_distance_between_abscissae</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s0</span><span class="p">,</span> <span class="n">s1</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Compute distance between two abscissae &quot;&quot;&quot;</span>
 
@@ -129,7 +129,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Line2D.compute_distance"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line2D.Line2D.compute_distance">[docs]</a>    <span class="k">def</span> <span class="nf">compute_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s_list</span><span class="p">):</span>
+<div class="viewcode-block" id="Line2D.compute_distance"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line.Line2D.compute_distance">[docs]</a>    <span class="k">def</span> <span class="nf">compute_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s_list</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Compute distance between a set of abscissae &quot;&quot;&quot;</span>
 
@@ -141,7 +141,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Line2D.get_y_from_x"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line2D.Line2D.get_y_from_x">[docs]</a>    <span class="k">def</span> <span class="nf">get_y_from_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<div class="viewcode-block" id="Line2D.get_y_from_x"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line.Line2D.get_y_from_x">[docs]</a>    <span class="k">def</span> <span class="nf">get_y_from_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return y corresponding to x &quot;&quot;&quot;</span>
 
@@ -149,7 +149,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Line2D.get_x_from_y"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line2D.Line2D.get_x_from_y">[docs]</a>    <span class="k">def</span> <span class="nf">get_x_from_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<div class="viewcode-block" id="Line2D.get_x_from_y"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line.Line2D.get_x_from_y">[docs]</a>    <span class="k">def</span> <span class="nf">get_x_from_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return x corresponding to y &quot;&quot;&quot;</span>
 
@@ -159,7 +159,7 @@
 
     <span class="c1"># Fixme: is_parallel_to</span>
 
-<div class="viewcode-block" id="Line2D.is_parallel"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line2D.Line2D.is_parallel">[docs]</a>    <span class="k">def</span> <span class="nf">is_parallel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<div class="viewcode-block" id="Line2D.is_parallel"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line.Line2D.is_parallel">[docs]</a>    <span class="k">def</span> <span class="nf">is_parallel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Self is parallel to other &quot;&quot;&quot;</span>
 
@@ -167,7 +167,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Line2D.is_orthogonal"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line2D.Line2D.is_orthogonal">[docs]</a>    <span class="k">def</span> <span class="nf">is_orthogonal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<div class="viewcode-block" id="Line2D.is_orthogonal"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line.Line2D.is_orthogonal">[docs]</a>    <span class="k">def</span> <span class="nf">is_orthogonal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Self is orthogonal to other &quot;&quot;&quot;</span>
 
@@ -175,7 +175,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Line2D.shifted_parallel_line"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line2D.Line2D.shifted_parallel_line">[docs]</a>    <span class="k">def</span> <span class="nf">shifted_parallel_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shift</span><span class="p">):</span>
+<div class="viewcode-block" id="Line2D.shifted_parallel_line"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line.Line2D.shifted_parallel_line">[docs]</a>    <span class="k">def</span> <span class="nf">shifted_parallel_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shift</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return the shifted parallel line &quot;&quot;&quot;</span>
 
@@ -187,7 +187,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Line2D.orthogonal_line_at_abscissa"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line2D.Line2D.orthogonal_line_at_abscissa">[docs]</a>    <span class="k">def</span> <span class="nf">orthogonal_line_at_abscissa</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+<div class="viewcode-block" id="Line2D.orthogonal_line_at_abscissa"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line.Line2D.orthogonal_line_at_abscissa">[docs]</a>    <span class="k">def</span> <span class="nf">orthogonal_line_at_abscissa</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return the orthogonal line at abscissa s &quot;&quot;&quot;</span>
 
@@ -198,7 +198,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Line2D.intersection_abscissae"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line2D.Line2D.intersection_abscissae">[docs]</a>    <span class="k">def</span> <span class="nf">intersection_abscissae</span><span class="p">(</span><span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="p">):</span>
+<div class="viewcode-block" id="Line2D.intersection_abscissae"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line.Line2D.intersection_abscissae">[docs]</a>    <span class="k">def</span> <span class="nf">intersection_abscissae</span><span class="p">(</span><span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return the intersection abscissae between l1 and l2 &quot;&quot;&quot;</span>
 
@@ -219,7 +219,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Line2D.intersection"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line2D.Line2D.intersection">[docs]</a>    <span class="k">def</span> <span class="nf">intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<div class="viewcode-block" id="Line2D.intersection"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line.Line2D.intersection">[docs]</a>    <span class="k">def</span> <span class="nf">intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return the intersection Point between self and other &quot;&quot;&quot;</span>
 
@@ -232,7 +232,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Line2D.projected_abscissa"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line2D.Line2D.projected_abscissa">[docs]</a>    <span class="k">def</span> <span class="nf">projected_abscissa</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+<div class="viewcode-block" id="Line2D.projected_abscissa"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line.Line2D.projected_abscissa">[docs]</a>    <span class="k">def</span> <span class="nf">projected_abscissa</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return the abscissa corresponding to the perpendicular projection of a point to the line</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -244,7 +244,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Line2D.distance_to_line"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line2D.Line2D.distance_to_line">[docs]</a>    <span class="k">def</span> <span class="nf">distance_to_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+<div class="viewcode-block" id="Line2D.distance_to_line"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line.Line2D.distance_to_line">[docs]</a>    <span class="k">def</span> <span class="nf">distance_to_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return the distance of a point to the line &quot;&quot;&quot;</span>
 
@@ -255,7 +255,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Line2D.distance_and_abscissa_to_line"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line2D.Line2D.distance_and_abscissa_to_line">[docs]</a>    <span class="k">def</span> <span class="nf">distance_and_abscissa_to_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+<div class="viewcode-block" id="Line2D.distance_and_abscissa_to_line"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line.Line2D.distance_and_abscissa_to_line">[docs]</a>    <span class="k">def</span> <span class="nf">distance_and_abscissa_to_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return the distance of a point to the line &quot;&quot;&quot;</span>
 
@@ -267,7 +267,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Line2D.get_x_y_from_bounding_box"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line2D.Line2D.get_x_y_from_bounding_box">[docs]</a>    <span class="k">def</span> <span class="nf">get_x_y_from_bounding_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interval</span><span class="p">):</span>
+<div class="viewcode-block" id="Line2D.get_x_y_from_bounding_box"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Line2D.html#Valentina.Geometry.Line.Line2D.get_x_y_from_bounding_box">[docs]</a>    <span class="k">def</span> <span class="nf">get_x_y_from_bounding_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interval</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return the bounding box build on the intersection of the input bounding box with the</span>
 <span class="sd">        line</span>
@@ -313,7 +313,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">PyValentina 0.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyValentina 0.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

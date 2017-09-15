@@ -3,13 +3,17 @@
 ******************
 
 .. toctree::
-  Valentina/Evaluator
+  Valentina/FileFormat
   Valentina/Geometry
+  Valentina/Graph
+  Valentina/GraphicScene
+  Valentina/Logging
   Valentina/Math
-  Valentina/Measurement
+  Valentina/Painter
   Valentina/Pattern
-  Valentina/Tex
+  Valentina/TeX
   Valentina/Tools
+  Valentina/Xml
 
 .. automodule:: Valentina
    :members:

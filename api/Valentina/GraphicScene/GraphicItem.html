@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2.1.4.1. GraphicItem &#8212; PyValentina 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../static/jquery.js"></script>
+    <script type="text/javascript" src="../../../static/underscore.js"></script>
+    <script type="text/javascript" src="../../../static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="2.1.4.2. Scene" href="Scene.html" />
+    <link rel="prev" title="2.1.4. GraphicScene" href="../GraphicScene.html" />
+   
+  <link rel="stylesheet" href="../../../static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-Valentina.GraphicScene.GraphicItem">
+<span id="graphicitem"></span><h1>2.1.4.1. <code class="xref py py-mod docutils literal"><span class="pre">GraphicItem</span></code><a class="headerlink" href="#module-Valentina.GraphicScene.GraphicItem" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Valentina.GraphicScene.GraphicItem.CircleItem">
+<em class="property">class </em><code class="descclassname">Valentina.GraphicScene.GraphicItem.</code><code class="descname">CircleItem</code><span class="sig-paren">(</span><em>position</em>, <em>radius</em>, <em>path_style</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/GraphicScene/GraphicItem.html#CircleItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.CircleItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.GraphicScene.GraphicItem.PathItem" title="Valentina.GraphicScene.GraphicItem.PathItem"><code class="xref py py-class docutils literal"><span class="pre">Valentina.GraphicScene.GraphicItem.PathItem</span></code></a>, <a class="reference internal" href="#Valentina.GraphicScene.GraphicItem.PositionMixin" title="Valentina.GraphicScene.GraphicItem.PositionMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.GraphicScene.GraphicItem.PositionMixin</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.GraphicScene.GraphicItem.CircleItem.radius">
+<code class="descname">radius</code><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.CircleItem.radius" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.GraphicScene.GraphicItem.CoordinateItem">
+<em class="property">class </em><code class="descclassname">Valentina.GraphicScene.GraphicItem.</code><code class="descname">CoordinateItem</code><span class="sig-paren">(</span><em>name</em>, <em>position</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/GraphicScene/GraphicItem.html#CoordinateItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.CoordinateItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.GraphicScene.GraphicItem.GraphicItem" title="Valentina.GraphicScene.GraphicItem.GraphicItem"><code class="xref py py-class docutils literal"><span class="pre">Valentina.GraphicScene.GraphicItem.GraphicItem</span></code></a>, <a class="reference internal" href="#Valentina.GraphicScene.GraphicItem.PositionMixin" title="Valentina.GraphicScene.GraphicItem.PositionMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.GraphicScene.GraphicItem.PositionMixin</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.GraphicScene.GraphicItem.CoordinateItem.name">
+<code class="descname">name</code><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.CoordinateItem.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.GraphicScene.GraphicItem.CubicBezierItem">
+<em class="property">class </em><code class="descclassname">Valentina.GraphicScene.GraphicItem.</code><code class="descname">CubicBezierItem</code><span class="sig-paren">(</span><em>position1</em>, <em>position2</em>, <em>position3</em>, <em>position4</em>, <em>path_style</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/GraphicScene/GraphicItem.html#CubicBezierItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.CubicBezierItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.GraphicScene.GraphicItem.PathItem" title="Valentina.GraphicScene.GraphicItem.PathItem"><code class="xref py py-class docutils literal"><span class="pre">Valentina.GraphicScene.GraphicItem.PathItem</span></code></a>, <a class="reference internal" href="#Valentina.GraphicScene.GraphicItem.FourPositionMixin" title="Valentina.GraphicScene.GraphicItem.FourPositionMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.GraphicScene.GraphicItem.FourPositionMixin</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.GraphicScene.GraphicItem.FourPositionMixin">
+<em class="property">class </em><code class="descclassname">Valentina.GraphicScene.GraphicItem.</code><code class="descname">FourPositionMixin</code><span class="sig-paren">(</span><em>position1</em>, <em>position2</em>, <em>position3</em>, <em>position4</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/GraphicScene/GraphicItem.html#FourPositionMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.FourPositionMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.GraphicScene.GraphicItem.TwoPositionMixin" title="Valentina.GraphicScene.GraphicItem.TwoPositionMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.GraphicScene.GraphicItem.TwoPositionMixin</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.GraphicScene.GraphicItem.FourPositionMixin.position3">
+<code class="descname">position3</code><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.FourPositionMixin.position3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.GraphicScene.GraphicItem.FourPositionMixin.position4">
+<code class="descname">position4</code><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.FourPositionMixin.position4" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.GraphicScene.GraphicItem.FourPositionMixin.positions">
+<code class="descname">positions</code><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.FourPositionMixin.positions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.GraphicScene.GraphicItem.GraphicItem">
+<em class="property">class </em><code class="descclassname">Valentina.GraphicScene.GraphicItem.</code><code class="descname">GraphicItem</code><a class="reference internal" href="../../../_modules/Valentina/GraphicScene/GraphicItem.html#GraphicItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.GraphicItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.GraphicScene.GraphicItem.PathItem">
+<em class="property">class </em><code class="descclassname">Valentina.GraphicScene.GraphicItem.</code><code class="descname">PathItem</code><span class="sig-paren">(</span><em>path_style</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/GraphicScene/GraphicItem.html#PathItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.PathItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.GraphicScene.GraphicItem.PathItem.path_style">
+<code class="descname">path_style</code><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.PathItem.path_style" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.GraphicScene.GraphicItem.PathStyle">
+<em class="property">class </em><code class="descclassname">Valentina.GraphicScene.GraphicItem.</code><code class="descname">PathStyle</code><span class="sig-paren">(</span><em>stroke_style=None</em>, <em>line_width=None</em>, <em>stroke_color=None</em>, <em>fill_color=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/GraphicScene/GraphicItem.html#PathStyle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.PathStyle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.GraphicScene.GraphicItem.PathStyle.fill_color">
+<code class="descname">fill_color</code><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.PathStyle.fill_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.GraphicScene.GraphicItem.PathStyle.line_width">
+<code class="descname">line_width</code><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.PathStyle.line_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.GraphicScene.GraphicItem.PathStyle.stroke_color">
+<code class="descname">stroke_color</code><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.PathStyle.stroke_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.GraphicScene.GraphicItem.PathStyle.stroke_style">
+<code class="descname">stroke_style</code><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.PathStyle.stroke_style" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.GraphicScene.GraphicItem.PositionMixin">
+<em class="property">class </em><code class="descclassname">Valentina.GraphicScene.GraphicItem.</code><code class="descname">PositionMixin</code><span class="sig-paren">(</span><em>position</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/GraphicScene/GraphicItem.html#PositionMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.PositionMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.GraphicScene.GraphicItem.PositionMixin.position">
+<code class="descname">position</code><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.PositionMixin.position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.GraphicScene.GraphicItem.PositionMixin.positions">
+<code class="descname">positions</code><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.PositionMixin.positions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.GraphicScene.GraphicItem.SegmentItem">
+<em class="property">class </em><code class="descclassname">Valentina.GraphicScene.GraphicItem.</code><code class="descname">SegmentItem</code><span class="sig-paren">(</span><em>position1</em>, <em>position2</em>, <em>path_style</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/GraphicScene/GraphicItem.html#SegmentItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.SegmentItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.GraphicScene.GraphicItem.PathItem" title="Valentina.GraphicScene.GraphicItem.PathItem"><code class="xref py py-class docutils literal"><span class="pre">Valentina.GraphicScene.GraphicItem.PathItem</span></code></a>, <a class="reference internal" href="#Valentina.GraphicScene.GraphicItem.TwoPositionMixin" title="Valentina.GraphicScene.GraphicItem.TwoPositionMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.GraphicScene.GraphicItem.TwoPositionMixin</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.GraphicScene.GraphicItem.TextItem">
+<em class="property">class </em><code class="descclassname">Valentina.GraphicScene.GraphicItem.</code><code class="descname">TextItem</code><span class="sig-paren">(</span><em>position</em>, <em>text</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/GraphicScene/GraphicItem.html#TextItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.TextItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.GraphicScene.GraphicItem.GraphicItem" title="Valentina.GraphicScene.GraphicItem.GraphicItem"><code class="xref py py-class docutils literal"><span class="pre">Valentina.GraphicScene.GraphicItem.GraphicItem</span></code></a>, <a class="reference internal" href="#Valentina.GraphicScene.GraphicItem.PositionMixin" title="Valentina.GraphicScene.GraphicItem.PositionMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.GraphicScene.GraphicItem.PositionMixin</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.GraphicScene.GraphicItem.TextItem.text">
+<code class="descname">text</code><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.TextItem.text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.GraphicScene.GraphicItem.TwoPositionMixin">
+<em class="property">class </em><code class="descclassname">Valentina.GraphicScene.GraphicItem.</code><code class="descname">TwoPositionMixin</code><span class="sig-paren">(</span><em>position1</em>, <em>position2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/GraphicScene/GraphicItem.html#TwoPositionMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.TwoPositionMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.GraphicScene.GraphicItem.TwoPositionMixin.position1">
+<code class="descname">position1</code><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.TwoPositionMixin.position1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.GraphicScene.GraphicItem.TwoPositionMixin.position2">
+<code class="descname">position2</code><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.TwoPositionMixin.position2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.GraphicScene.GraphicItem.TwoPositionMixin.positions">
+<code class="descname">positions</code><a class="headerlink" href="#Valentina.GraphicScene.GraphicItem.TwoPositionMixin.positions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../reference-manual.html">2. API Documentation</a><ul>
+  <li><a href="../../Valentina.html">2.1. <code class="docutils literal"><span class="pre">Valentina</span></code></a><ul>
+  <li><a href="../GraphicScene.html">2.1.4. <code class="docutils literal"><span class="pre">GraphicScene</span></code></a><ul>
+      <li>Previous: <a href="../GraphicScene.html" title="previous chapter">2.1.4. <code class="docutils literal"><span class="pre">GraphicScene</span></code></a></li>
+      <li>Next: <a href="Scene.html" title="next chapter">2.1.4.2. <code class="docutils literal"><span class="pre">Scene</span></code></a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/api/Valentina/GraphicScene/GraphicItem.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Fabrice Salvaire.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../../_sources/api/Valentina/GraphicScene/GraphicItem.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

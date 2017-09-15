@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introduction &#8212; PyValentina 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="static/MyTheme.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="static/hidecode.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PyValentina 0.1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>PyValentina is a python implementation of the <a class="reference external" href="http://valentina-project.org/">Valentina</a> Pattern
+Drafting software, which only focus to the core engine and not to the graphical user interface.</p>
+<p>A pattern in flat pattern design is build from geometrical operations which can be turned to a
+computer program and is thus a field of applications of Computer Aided Design.  It corresponds more
+precisely to parametric modelling with dedicated features to fashion modelling and manufacturing.</p>
+<div class="section" id="what-is-the-requirements-of-a-pattern-drafting-software">
+<h2>What is the requirements of a pattern drafting software ?<a class="headerlink" href="#what-is-the-requirements-of-a-pattern-drafting-software" title="Permalink to this headline">¶</a></h2>
+<p>The core functionality of a CAD system for pattern drafting consists of these two software components :</p>
+<ul class="simple">
+<li>an _open_ file format to store and exchange the pattern,</li>
+<li>a geometrical engine to compute the pattern, e.g. to generate the layout of each fabric&#8217;s piece of a clothe.</li>
+</ul>
+<p>The XML language is a natural candidate to define an open file format to store and exchange the
+pattern. Valentina uses XML to sore measurements in <em>.vit</em> files and patterns in <em>.val</em> files.</p>
+<p>Another solution to define and store a pattern is to use a programming language, it can be a
+dedicated language or any programming language associated to a dedicated API.  Many graphical
+languages was invented for specific usages, e.g. PostScript for printer, Metafont and MetaPost for
+publishing, G-code for machining etc.</p>
+<p>Usually the geometrical operations of a pattern are simple in comparison to the requirements of a
+mechanical or electronic CAD software.  In first hand it is only 2D and the number of operations
+should be handled smoothly by a computer of these days, whereas it is still challenging for other
+domains.  A pattern drafting software only need a good geometrical engine to be designed
+efficiently.</p>
+<p>Finally, a pattern drafting software requires an efficient graphical user interface so as to be used
+by fashion designers and not only by computer scientists.  This software component is more challenging in
+therms of software engineering, i.e. in therms of design and cost.</p>
+</div>
+<div class="section" id="why-python-is-a-good-language-for-this-library">
+<h2>Why Python is a good language for this library ?<a class="headerlink" href="#why-python-is-a-good-language-for-this-library" title="Permalink to this headline">¶</a></h2>
+<p>The Python language has a large audience in engineering, due to its canonical syntax and richness of
+its ecosystem (scientific libraries).</p>
+<p>Python is a high level language and thus more productive.</p>
+<p>Python is used as scripting language to extend many software, in particular the famous open source
+3D creation suite <a class="reference external" href="https://www.blender.org">Blender</a>, the parametric 3D modeller <a class="reference external" href="http://freecadweb.org">FreeCad</a> as well as the SVG editor <a class="reference external" href="https://inkscape.org/">Inkscape</a>.  Moreover
+the 3D human model generator <a class="reference external" href="http://www.makehuman.org">MakeHuman</a> is written in Python.</p>
+<p>Python can be easily extended by C libraries using <a class="reference external" href="http://cffi.readthedocs.io/en/latest">CFFI</a>
+and C++ libraries using <a class="reference external" href="http://www.swig.org">SWIG</a>.</p>
+</div>
+<div class="section" id="what-is-the-purpose-of-this-library">
+<h2>What is the purpose of this library ?<a class="headerlink" href="#what-is-the-purpose-of-this-library" title="Permalink to this headline">¶</a></h2>
+<p>This library could serve several purposes :</p>
+<ul class="simple">
+<li>help to experiment core features for pattern drafting,</li>
+<li>plug Valentina to software featuring a Python plugin mechanism like Blender, FreeCad etc.</li>
+</ul>
+</div>
+<div class="section" id="could-we-implement-a-full-software-using-python">
+<h2>Could we implement a full software using Python ?<a class="headerlink" href="#could-we-implement-a-full-software-using-python" title="Permalink to this headline">¶</a></h2>
+<p>The answer is <em>yes we can!</em> since <a class="reference external" href="https://www.qt.io">Qt</a> has as a nice binding so called <a class="reference external" href="https://riverbankcomputing.com/software/pyqt/intro">PyQt</a> (if we consider Qt is superior to GTK and
+WxWidgets).</p>
+<p>But up to now Python as of course some drawbacks!</p>
+<p>Its main drawback is due to the fact the standard interpreter cannot execute more than one <em>Python
+bytecode</em> thread in true parallelism (multi-core), this limitation so called Global Interpreter Lock
+is required for implementation simplicity.  Consequently we can do multi-threading, even on
+multi-core in some cases, but less easily than in Java or Cxx11.</p>
+<p>Despite a GUI implemented in PyQt is almost of the time more faster than the human perception on a
+computer of these days.  It can be sometime difficult to overcome some latency arising from the
+software stack.  Thus yes we can do it, but it could requires some tricks to achieve the performance
+of a C++ application.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Introduction</a><ul>
+<li><a class="reference internal" href="#what-is-the-requirements-of-a-pattern-drafting-software">What is the requirements of a pattern drafting software ?</a></li>
+<li><a class="reference internal" href="#why-python-is-a-good-language-for-this-library">Why Python is a good language for this library ?</a></li>
+<li><a class="reference internal" href="#what-is-the-purpose-of-this-library">What is the purpose of this library ?</a></li>
+<li><a class="reference internal" href="#could-we-implement-a-full-software-using-python">Could we implement a full software using Python ?</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/introduction.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PyValentina 0.1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Fabrice Salvaire.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
+    </div>
+  </body>
+</html>

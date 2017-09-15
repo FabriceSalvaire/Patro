@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Valentina.Geometry.Vector2D &#8212; PyValentina 0.3.0 documentation</title>
+    <title>Valentina.Geometry.Vector &#8212; PyValentina 0.1.0 documentation</title>
     
     <link rel="stylesheet" href="../../../static/MyTheme.css" type="text/css" />
     <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.3.0',
+        VERSION:     '0.1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -39,7 +39,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">PyValentina 0.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyValentina 0.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -49,7 +49,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>Source code for Valentina.Geometry.Vector2D</h1><div class="highlight"><pre>
+  <h1>Source code for Valentina.Geometry.Vector</h1><div class="highlight"><pre>
 <span></span><span class="c1">####################################################################################################</span>
 <span class="c1">#</span>
 <span class="c1"># PyValentina - A Python implementation of Valentina Pattern Drafting Software</span>
@@ -82,7 +82,7 @@
 
 <span class="c1">####################################################################################################</span>
 
-<div class="viewcode-block" id="Vector2DBase"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DBase">[docs]</a><span class="k">class</span> <span class="nc">Vector2DBase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DBase"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DBase">[docs]</a><span class="k">class</span> <span class="nc">Vector2DBase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="n">__data_type__</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -144,7 +144,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Vector2DBase.copy"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DBase.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DBase.copy"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DBase.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return a copy of self &quot;&quot;&quot;</span>
 
@@ -234,25 +234,25 @@
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="Vector2DBase.to_int_list"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DBase.to_int_list">[docs]</a>    <span class="k">def</span> <span class="nf">to_int_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DBase.to_int_list"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DBase.to_int_list">[docs]</a>    <span class="k">def</span> <span class="nf">to_int_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="k">return</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">]</span></div></div>
 
 <span class="c1">####################################################################################################</span>
 
-<div class="viewcode-block" id="Vector2DInt"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DInt">[docs]</a><span class="k">class</span> <span class="nc">Vector2DInt</span><span class="p">(</span><span class="n">Vector2DBase</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DInt"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DInt">[docs]</a><span class="k">class</span> <span class="nc">Vector2DInt</span><span class="p">(</span><span class="n">Vector2DBase</span><span class="p">):</span>
 
     <span class="n">__data_type__</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span></div>
 
 <span class="c1">####################################################################################################</span>
 
-<div class="viewcode-block" id="Vector2DFloatBase"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DFloatBase">[docs]</a><span class="k">class</span> <span class="nc">Vector2DFloatBase</span><span class="p">(</span><span class="n">Vector2DBase</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DFloatBase"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DFloatBase">[docs]</a><span class="k">class</span> <span class="nc">Vector2DFloatBase</span><span class="p">(</span><span class="n">Vector2DBase</span><span class="p">):</span>
 
     <span class="n">__data_type__</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float</span>
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Vector2DFloatBase.almost_equal"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DFloatBase.almost_equal">[docs]</a>    <span class="k">def</span> <span class="nf">almost_equal</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">7</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DFloatBase.almost_equal"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DFloatBase.almost_equal">[docs]</a>    <span class="k">def</span> <span class="nf">almost_equal</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">7</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; self ~= other &quot;&quot;&quot;</span>
 
@@ -262,7 +262,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Vector2DFloatBase.magnitude_square"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DFloatBase.magnitude_square">[docs]</a>    <span class="k">def</span> <span class="nf">magnitude_square</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DFloatBase.magnitude_square"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DFloatBase.magnitude_square">[docs]</a>    <span class="k">def</span> <span class="nf">magnitude_square</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return the square of the magnitude of the vector &quot;&quot;&quot;</span>
 
@@ -270,7 +270,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Vector2DFloatBase.magnitude"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DFloatBase.magnitude">[docs]</a>    <span class="k">def</span> <span class="nf">magnitude</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DFloatBase.magnitude"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DFloatBase.magnitude">[docs]</a>    <span class="k">def</span> <span class="nf">magnitude</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return the magnitude of the vector &quot;&quot;&quot;</span>
 
@@ -278,7 +278,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Vector2DFloatBase.orientation"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DFloatBase.orientation">[docs]</a>    <span class="k">def</span> <span class="nf">orientation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DFloatBase.orientation"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DFloatBase.orientation">[docs]</a>    <span class="k">def</span> <span class="nf">orientation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return the orientation in degree &quot;&quot;&quot;</span>
 
@@ -312,7 +312,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Vector2DFloatBase.rotate_counter_clockwise"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DFloatBase.rotate_counter_clockwise">[docs]</a>    <span class="k">def</span> <span class="nf">rotate_counter_clockwise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DFloatBase.rotate_counter_clockwise"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DFloatBase.rotate_counter_clockwise">[docs]</a>    <span class="k">def</span> <span class="nf">rotate_counter_clockwise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return a new vector equal to self rotated of angle degree in the counter clockwise</span>
 <span class="sd">        direction</span>
@@ -330,7 +330,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Vector2DFloatBase.rotate_counter_clockwise_90"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DFloatBase.rotate_counter_clockwise_90">[docs]</a>    <span class="k">def</span> <span class="nf">rotate_counter_clockwise_90</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DFloatBase.rotate_counter_clockwise_90"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DFloatBase.rotate_counter_clockwise_90">[docs]</a>    <span class="k">def</span> <span class="nf">rotate_counter_clockwise_90</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return a new vector equal to self rotated of 90 degree in the counter clockwise</span>
 <span class="sd">        direction</span>
@@ -343,7 +343,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Vector2DFloatBase.rotate_clockwise_90"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DFloatBase.rotate_clockwise_90">[docs]</a>    <span class="k">def</span> <span class="nf">rotate_clockwise_90</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DFloatBase.rotate_clockwise_90"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DFloatBase.rotate_clockwise_90">[docs]</a>    <span class="k">def</span> <span class="nf">rotate_clockwise_90</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return a new vector equal to self rotated of 90 degree in the clockwise direction</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -355,7 +355,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Vector2DFloatBase.rotate_180"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DFloatBase.rotate_180">[docs]</a>    <span class="k">def</span> <span class="nf">rotate_180</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DFloatBase.rotate_180"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DFloatBase.rotate_180">[docs]</a>    <span class="k">def</span> <span class="nf">rotate_180</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return a new vector equal to self rotated of 180 degree</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -368,7 +368,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Vector2DFloatBase.tan"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DFloatBase.tan">[docs]</a>    <span class="k">def</span> <span class="nf">tan</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DFloatBase.tan"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DFloatBase.tan">[docs]</a>    <span class="k">def</span> <span class="nf">tan</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return the tangent &quot;&quot;&quot;</span>
 
@@ -377,7 +377,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Vector2DFloatBase.inverse_tan"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DFloatBase.inverse_tan">[docs]</a>    <span class="k">def</span> <span class="nf">inverse_tan</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DFloatBase.inverse_tan"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DFloatBase.inverse_tan">[docs]</a>    <span class="k">def</span> <span class="nf">inverse_tan</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return the inverse tangent &quot;&quot;&quot;</span>
 
@@ -385,7 +385,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Vector2DFloatBase.dot"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DFloatBase.dot">[docs]</a>    <span class="k">def</span> <span class="nf">dot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DFloatBase.dot"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DFloatBase.dot">[docs]</a>    <span class="k">def</span> <span class="nf">dot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return the dot product of self with other &quot;&quot;&quot;</span>
 
@@ -393,7 +393,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Vector2DFloatBase.cross"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DFloatBase.cross">[docs]</a>    <span class="k">def</span> <span class="nf">cross</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DFloatBase.cross"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DFloatBase.cross">[docs]</a>    <span class="k">def</span> <span class="nf">cross</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return the cross product of self with other &quot;&quot;&quot;</span>
 
@@ -401,7 +401,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Vector2DFloatBase.is_parallel"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DFloatBase.is_parallel">[docs]</a>    <span class="k">def</span> <span class="nf">is_parallel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DFloatBase.is_parallel"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DFloatBase.is_parallel">[docs]</a>    <span class="k">def</span> <span class="nf">is_parallel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Self is parallel with other &quot;&quot;&quot;</span>
 
@@ -409,7 +409,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Vector2DFloatBase.is_orthogonal"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DFloatBase.is_orthogonal">[docs]</a>    <span class="k">def</span> <span class="nf">is_orthogonal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DFloatBase.is_orthogonal"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DFloatBase.is_orthogonal">[docs]</a>    <span class="k">def</span> <span class="nf">is_orthogonal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Self is orthogonal with other &quot;&quot;&quot;</span>
 
@@ -417,7 +417,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Vector2DFloatBase.cos_with"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DFloatBase.cos_with">[docs]</a>    <span class="k">def</span> <span class="nf">cos_with</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DFloatBase.cos_with"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DFloatBase.cos_with">[docs]</a>    <span class="k">def</span> <span class="nf">cos_with</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return the cosinus of self with direction &quot;&quot;&quot;</span>
 
@@ -427,7 +427,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Vector2DFloatBase.projection_on"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DFloatBase.projection_on">[docs]</a>    <span class="k">def</span> <span class="nf">projection_on</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DFloatBase.projection_on"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DFloatBase.projection_on">[docs]</a>    <span class="k">def</span> <span class="nf">projection_on</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return the projection of self on direction &quot;&quot;&quot;</span>
 
@@ -435,7 +435,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Vector2DFloatBase.sin_with"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DFloatBase.sin_with">[docs]</a>    <span class="k">def</span> <span class="nf">sin_with</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DFloatBase.sin_with"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DFloatBase.sin_with">[docs]</a>    <span class="k">def</span> <span class="nf">sin_with</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return the sinus of self with other &quot;&quot;&quot;</span>
 
@@ -446,7 +446,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Vector2DFloatBase.deviation_with"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DFloatBase.deviation_with">[docs]</a>    <span class="k">def</span> <span class="nf">deviation_with</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DFloatBase.deviation_with"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DFloatBase.deviation_with">[docs]</a>    <span class="k">def</span> <span class="nf">deviation_with</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return the deviation of self with other &quot;&quot;&quot;</span>
 
@@ -454,7 +454,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Vector2DFloatBase.orientation_with"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2DFloatBase.orientation_with">[docs]</a>    <span class="k">def</span> <span class="nf">orientation_with</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2DFloatBase.orientation_with"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2DFloatBase.orientation_with">[docs]</a>    <span class="k">def</span> <span class="nf">orientation_with</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">):</span>
 
         <span class="c1"># Fixme: check all cases</span>
         <span class="c1"># -&gt; angle_with</span>
@@ -468,14 +468,14 @@
 
 <span class="c1">####################################################################################################</span>
 
-<div class="viewcode-block" id="Vector2D"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2D">[docs]</a><span class="k">class</span> <span class="nc">Vector2D</span><span class="p">(</span><span class="n">Vector2DFloatBase</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2D"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2D">[docs]</a><span class="k">class</span> <span class="nc">Vector2D</span><span class="p">(</span><span class="n">Vector2DFloatBase</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot; 2D Vector &quot;&quot;&quot;</span>
 
     <span class="c1">#######################################</span>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Vector2D.from_angle"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2D.from_angle">[docs]</a>    <span class="k">def</span> <span class="nf">from_angle</span><span class="p">(</span><span class="n">angle</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2D.from_angle"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2D.from_angle">[docs]</a>    <span class="k">def</span> <span class="nf">from_angle</span><span class="p">(</span><span class="n">angle</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Create the unitary vector (cos(angle), sin(angle)).  The *angle* is in degree. &quot;&quot;&quot;</span>
 
@@ -486,7 +486,7 @@
     <span class="c1">#######################################</span>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Vector2D.middle"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2D.middle">[docs]</a>    <span class="k">def</span> <span class="nf">middle</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2D.middle"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2D.middle">[docs]</a>    <span class="k">def</span> <span class="nf">middle</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return the middle point. &quot;&quot;&quot;</span>
 
@@ -530,7 +530,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Vector2D.normalise"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2D.normalise">[docs]</a>    <span class="k">def</span> <span class="nf">normalise</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2D.normalise"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2D.normalise">[docs]</a>    <span class="k">def</span> <span class="nf">normalise</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Normalise the vector &quot;&quot;&quot;</span>
 
@@ -538,7 +538,7 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Vector2D.to_normalised"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2D.to_normalised">[docs]</a>    <span class="k">def</span> <span class="nf">to_normalised</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2D.to_normalised"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2D.to_normalised">[docs]</a>    <span class="k">def</span> <span class="nf">to_normalised</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot; Return a normalised vector &quot;&quot;&quot;</span>
 
@@ -546,13 +546,13 @@
 
     <span class="c1">#######################################</span>
 
-<div class="viewcode-block" id="Vector2D.rint"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.Vector2D.rint">[docs]</a>    <span class="k">def</span> <span class="nf">rint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector2D.rint"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.Vector2D.rint">[docs]</a>    <span class="k">def</span> <span class="nf">rint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="k">return</span> <span class="n">Vector2DInt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">rint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">))</span></div></div>
 
 <span class="c1">####################################################################################################</span>
 
-<div class="viewcode-block" id="NormalisedVector2D"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector2D.NormalisedVector2D">[docs]</a><span class="k">class</span> <span class="nc">NormalisedVector2D</span><span class="p">(</span><span class="n">Vector2DFloatBase</span><span class="p">):</span>
+<div class="viewcode-block" id="NormalisedVector2D"><a class="viewcode-back" href="../../../api/Valentina/Geometry/Vector2D.html#Valentina.Geometry.Vector.NormalisedVector2D">[docs]</a><span class="k">class</span> <span class="nc">NormalisedVector2D</span><span class="p">(</span><span class="n">Vector2DFloatBase</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot; 2D Normalised Vector &quot;&quot;&quot;</span>
 
@@ -606,7 +606,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">PyValentina 0.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyValentina 0.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

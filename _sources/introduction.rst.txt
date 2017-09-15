@@ -1,0 +1,79 @@
+=============
+ Introduction
+=============
+
+PyValentina is a python implementation of the `Valentina <http://valentina-project.org/>`_ Pattern
+Drafting software, which only focus to the core engine and not to the graphical user interface.
+
+A pattern in flat pattern design is build from geometrical operations which can be turned to a
+computer program and is thus a field of applications of Computer Aided Design.  It corresponds more
+precisely to parametric modelling with dedicated features to fashion modelling and manufacturing.
+
+What is the requirements of a pattern drafting software ?
+---------------------------------------------------------
+
+The core functionality of a CAD system for pattern drafting consists of these two software components :
+
+* an _open_ file format to store and exchange the pattern,
+* a geometrical engine to compute the pattern, e.g. to generate the layout of each fabric's piece of a clothe.
+
+The XML language is a natural candidate to define an open file format to store and exchange the
+pattern. Valentina uses XML to sore measurements in *.vit* files and patterns in *.val* files.
+
+Another solution to define and store a pattern is to use a programming language, it can be a
+dedicated language or any programming language associated to a dedicated API.  Many graphical
+languages was invented for specific usages, e.g. PostScript for printer, Metafont and MetaPost for
+publishing, G-code for machining etc.
+
+Usually the geometrical operations of a pattern are simple in comparison to the requirements of a
+mechanical or electronic CAD software.  In first hand it is only 2D and the number of operations
+should be handled smoothly by a computer of these days, whereas it is still challenging for other
+domains.  A pattern drafting software only need a good geometrical engine to be designed
+efficiently.
+
+Finally, a pattern drafting software requires an efficient graphical user interface so as to be used
+by fashion designers and not only by computer scientists.  This software component is more challenging in
+therms of software engineering, i.e. in therms of design and cost.
+
+Why Python is a good language for this library ?
+------------------------------------------------
+
+The Python language has a large audience in engineering, due to its canonical syntax and richness of
+its ecosystem (scientific libraries).
+
+Python is a high level language and thus more productive.
+
+Python is used as scripting language to extend many software, in particular the famous open source
+3D creation suite `Blender <https://www.blender.org>`_, the parametric 3D modeller `FreeCad
+<http://freecadweb.org>`_ as well as the SVG editor `Inkscape <https://inkscape.org/>`_.  Moreover
+the 3D human model generator `MakeHuman <http://www.makehuman.org>`_ is written in Python.
+
+Python can be easily extended by C libraries using `CFFI <http://cffi.readthedocs.io/en/latest>`_
+and C++ libraries using `SWIG <http://www.swig.org>`_.
+
+What is the purpose of this library ?
+-------------------------------------
+
+This library could serve several purposes :
+
+* help to experiment core features for pattern drafting,
+* plug Valentina to software featuring a Python plugin mechanism like Blender, FreeCad etc.
+
+Could we implement a full software using Python ?
+-------------------------------------------------
+
+The answer is *yes we can!* since `Qt <https://www.qt.io>`_ has as a nice binding so called `PyQt
+<https://riverbankcomputing.com/software/pyqt/intro>`_ (if we consider Qt is superior to GTK and
+WxWidgets).
+
+But up to now Python as of course some drawbacks!
+
+Its main drawback is due to the fact the standard interpreter cannot execute more than one *Python
+bytecode* thread in true parallelism (multi-core), this limitation so called Global Interpreter Lock
+is required for implementation simplicity.  Consequently we can do multi-threading, even on
+multi-core in some cases, but less easily than in Java or Cxx11.
+
+Despite a GUI implemented in PyQt is almost of the time more faster than the human perception on a
+computer of these days.  It can be sometime difficult to overcome some latency arising from the
+software stack.  Thus yes we can do it, but it could requires some tricks to achieve the performance
+of a C++ application.

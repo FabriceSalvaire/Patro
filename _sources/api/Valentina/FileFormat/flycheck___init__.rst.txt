@@ -1,0 +1,10 @@
+**************************
+ :mod:`flycheck___init__`
+**************************
+
+.. automodule:: Valentina.FileFormat.flycheck___init__
+   :members:
+   :show-inheritance:
+
+
+.. End

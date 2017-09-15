@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2.1.2.3. Line &#8212; PyValentina 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../static/jquery.js"></script>
+    <script type="text/javascript" src="../../../static/underscore.js"></script>
+    <script type="text/javascript" src="../../../static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="2.1.2.4. Primitive" href="Primitive.html" />
+    <link rel="prev" title="2.1.2.2. Conic" href="Conic.html" />
+   
+  <link rel="stylesheet" href="../../../static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-Valentina.Geometry.Line">
+<span id="line"></span><h1>2.1.2.3. <code class="xref py py-mod docutils literal"><span class="pre">Line</span></code><a class="headerlink" href="#module-Valentina.Geometry.Line" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Valentina.Geometry.Line.Line2D">
+<em class="property">class </em><code class="descclassname">Valentina.Geometry.Line.</code><code class="descname">Line2D</code><span class="sig-paren">(</span><em>point</em>, <em>vector</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Line.html#Line2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Line.Line2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="Primitive.html#Valentina.Geometry.Primitive.Primitive2D" title="Valentina.Geometry.Primitive.Primitive2D"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Geometry.Primitive.Primitive2D</span></code></a></p>
+<p>2D Line</p>
+<p>Construct a <a class="reference internal" href="#Valentina.Geometry.Line.Line2D" title="Valentina.Geometry.Line.Line2D"><code class="xref py py-class docutils literal"><span class="pre">Line2D</span></code></a> from a point and a vector.</p>
+<dl class="method">
+<dt id="Valentina.Geometry.Line.Line2D.clone">
+<code class="descname">clone</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Line.html#Line2D.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Line.Line2D.clone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Line.Line2D.compute_distance">
+<code class="descname">compute_distance</code><span class="sig-paren">(</span><em>s_list</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Line.html#Line2D.compute_distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Line.Line2D.compute_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute distance between a set of abscissae</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Line.Line2D.compute_distance_between_abscissae">
+<code class="descname">compute_distance_between_abscissae</code><span class="sig-paren">(</span><em>s0</em>, <em>s1</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Line.html#Line2D.compute_distance_between_abscissae"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Line.Line2D.compute_distance_between_abscissae" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute distance between two abscissae</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Line.Line2D.distance_and_abscissa_to_line">
+<code class="descname">distance_and_abscissa_to_line</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Line.html#Line2D.distance_and_abscissa_to_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Line.Line2D.distance_and_abscissa_to_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the distance of a point to the line</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Line.Line2D.distance_to_line">
+<code class="descname">distance_to_line</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Line.html#Line2D.distance_to_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Line.Line2D.distance_to_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the distance of a point to the line</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="Valentina.Geometry.Line.Line2D.from_two_points">
+<em class="property">static </em><code class="descname">from_two_points</code><span class="sig-paren">(</span><em>p0</em>, <em>p1</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Line.html#Line2D.from_two_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Line.Line2D.from_two_points" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct a <a class="reference internal" href="#Valentina.Geometry.Line.Line2D" title="Valentina.Geometry.Line.Line2D"><code class="xref py py-class docutils literal"><span class="pre">Line2D</span></code></a> from two points.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Line.Line2D.get_x_from_y">
+<code class="descname">get_x_from_y</code><span class="sig-paren">(</span><em>y</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Line.html#Line2D.get_x_from_y"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Line.Line2D.get_x_from_y" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return x corresponding to y</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Line.Line2D.get_x_y_from_bounding_box">
+<code class="descname">get_x_y_from_bounding_box</code><span class="sig-paren">(</span><em>interval</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Line.html#Line2D.get_x_y_from_bounding_box"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Line.Line2D.get_x_y_from_bounding_box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the bounding box build on the intersection of the input bounding box with the
+line</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Line.Line2D.get_y_from_x">
+<code class="descname">get_y_from_x</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Line.html#Line2D.get_y_from_x"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Line.Line2D.get_y_from_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return y corresponding to x</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Line.Line2D.intersection">
+<code class="descname">intersection</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Line.html#Line2D.intersection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Line.Line2D.intersection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the intersection Point between self and other</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Line.Line2D.intersection_abscissae">
+<code class="descname">intersection_abscissae</code><span class="sig-paren">(</span><em>l1</em>, <em>l2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Line.html#Line2D.intersection_abscissae"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Line.Line2D.intersection_abscissae" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the intersection abscissae between l1 and l2</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Line.Line2D.is_orthogonal">
+<code class="descname">is_orthogonal</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Line.html#Line2D.is_orthogonal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Line.Line2D.is_orthogonal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Self is orthogonal to other</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Line.Line2D.is_parallel">
+<code class="descname">is_parallel</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Line.html#Line2D.is_parallel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Line.Line2D.is_parallel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Self is parallel to other</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Line.Line2D.orthogonal_line_at_abscissa">
+<code class="descname">orthogonal_line_at_abscissa</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Line.html#Line2D.orthogonal_line_at_abscissa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Line.Line2D.orthogonal_line_at_abscissa" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the orthogonal line at abscissa s</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Line.Line2D.point_at_s">
+<code class="descname">point_at_s</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Line.html#Line2D.point_at_s"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Line.Line2D.point_at_s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the Point corresponding to the curvilinear abscissa s</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Line.Line2D.projected_abscissa">
+<code class="descname">projected_abscissa</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Line.html#Line2D.projected_abscissa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Line.Line2D.projected_abscissa" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the abscissa corresponding to the perpendicular projection of a point to the line</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Line.Line2D.shifted_parallel_line">
+<code class="descname">shifted_parallel_line</code><span class="sig-paren">(</span><em>shift</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Line.html#Line2D.shifted_parallel_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Line.Line2D.shifted_parallel_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the shifted parallel line</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../reference-manual.html">2. API Documentation</a><ul>
+  <li><a href="../../Valentina.html">2.1. <code class="docutils literal"><span class="pre">Valentina</span></code></a><ul>
+  <li><a href="../Geometry.html">2.1.2. <code class="docutils literal"><span class="pre">Geometry</span></code></a><ul>
+      <li>Previous: <a href="Conic.html" title="previous chapter">2.1.2.2. <code class="docutils literal"><span class="pre">Conic</span></code></a></li>
+      <li>Next: <a href="Primitive.html" title="next chapter">2.1.2.4. <code class="docutils literal"><span class="pre">Primitive</span></code></a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/api/Valentina/Geometry/Line.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Fabrice Salvaire.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../../_sources/api/Valentina/Geometry/Line.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2.1.2.1. Bezier &#8212; PyValentina 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../static/jquery.js"></script>
+    <script type="text/javascript" src="../../../static/underscore.js"></script>
+    <script type="text/javascript" src="../../../static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="2.1.2.2. Conic" href="Conic.html" />
+    <link rel="prev" title="2.1.2. Geometry" href="../Geometry.html" />
+   
+  <link rel="stylesheet" href="../../../static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-Valentina.Geometry.Bezier">
+<span id="bezier"></span><h1>2.1.2.1. <code class="xref py py-mod docutils literal"><span class="pre">Bezier</span></code><a class="headerlink" href="#module-Valentina.Geometry.Bezier" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Valentina.Geometry.Bezier.CubicBezier2D">
+<em class="property">class </em><code class="descclassname">Valentina.Geometry.Bezier.</code><code class="descname">CubicBezier2D</code><span class="sig-paren">(</span><em>p0</em>, <em>p1</em>, <em>p2</em>, <em>p3</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Bezier.html#CubicBezier2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Bezier.CubicBezier2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.Geometry.Bezier.QuadraticBezier2D" title="Valentina.Geometry.Bezier.QuadraticBezier2D"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Geometry.Bezier.QuadraticBezier2D</span></code></a></p>
+<p>2D Cubic Bezier Curve</p>
+<p>Construct a <code class="xref py py-class docutils literal"><span class="pre">Segment2D</span></code> from three points.</p>
+<dl class="attribute">
+<dt id="Valentina.Geometry.Bezier.CubicBezier2D.InterpolationPrecision">
+<code class="descname">InterpolationPrecision</code><em class="property"> = 0.001</em><a class="headerlink" href="#Valentina.Geometry.Bezier.CubicBezier2D.InterpolationPrecision" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Bezier.CubicBezier2D.adaptive_length_approximation">
+<code class="descname">adaptive_length_approximation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Bezier.html#CubicBezier2D.adaptive_length_approximation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Bezier.CubicBezier2D.adaptive_length_approximation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Bezier.CubicBezier2D.bounding_box">
+<code class="descname">bounding_box</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Bezier.html#CubicBezier2D.bounding_box"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Bezier.CubicBezier2D.bounding_box" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Bezier.CubicBezier2D.clone">
+<code class="descname">clone</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Bezier.html#CubicBezier2D.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Bezier.CubicBezier2D.clone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.Geometry.Bezier.CubicBezier2D.end_point">
+<code class="descname">end_point</code><a class="headerlink" href="#Valentina.Geometry.Bezier.CubicBezier2D.end_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.Geometry.Bezier.CubicBezier2D.length">
+<code class="descname">length</code><a class="headerlink" href="#Valentina.Geometry.Bezier.CubicBezier2D.length" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Bezier.CubicBezier2D.mid_point_quadratic_approximation">
+<code class="descname">mid_point_quadratic_approximation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Bezier.html#CubicBezier2D.mid_point_quadratic_approximation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Bezier.CubicBezier2D.mid_point_quadratic_approximation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.Geometry.Bezier.CubicBezier2D.p3">
+<code class="descname">p3</code><a class="headerlink" href="#Valentina.Geometry.Bezier.CubicBezier2D.p3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Bezier.CubicBezier2D.point_at_t">
+<code class="descname">point_at_t</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Bezier.html#CubicBezier2D.point_at_t"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Bezier.CubicBezier2D.point_at_t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Bezier.CubicBezier2D.q_length">
+<code class="descname">q_length</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Bezier.html#CubicBezier2D.q_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Bezier.CubicBezier2D.q_length" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Bezier.CubicBezier2D.reverse">
+<code class="descname">reverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Bezier.html#CubicBezier2D.reverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Bezier.CubicBezier2D.reverse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Bezier.CubicBezier2D.split_at_t">
+<code class="descname">split_at_t</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Bezier.html#CubicBezier2D.split_at_t"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Bezier.CubicBezier2D.split_at_t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.Geometry.Bezier.CubicBezier2D.tangent1">
+<code class="descname">tangent1</code><a class="headerlink" href="#Valentina.Geometry.Bezier.CubicBezier2D.tangent1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Bezier.CubicBezier2D.tangent_at">
+<code class="descname">tangent_at</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Bezier.html#CubicBezier2D.tangent_at"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Bezier.CubicBezier2D.tangent_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.Geometry.Bezier.QuadraticBezier2D">
+<em class="property">class </em><code class="descclassname">Valentina.Geometry.Bezier.</code><code class="descname">QuadraticBezier2D</code><span class="sig-paren">(</span><em>p0</em>, <em>p1</em>, <em>p2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Bezier.html#QuadraticBezier2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Bezier.QuadraticBezier2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="Primitive.html#Valentina.Geometry.Primitive.Primitive2D" title="Valentina.Geometry.Primitive.Primitive2D"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Geometry.Primitive.Primitive2D</span></code></a>, <a class="reference internal" href="Primitive.html#Valentina.Geometry.Primitive.ReversablePrimitiveMixin" title="Valentina.Geometry.Primitive.ReversablePrimitiveMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Geometry.Primitive.ReversablePrimitiveMixin</span></code></a></p>
+<p>2D Quadratic Bezier Curve</p>
+<p>Construct a <code class="xref py py-class docutils literal"><span class="pre">Segment2D</span></code> from three points.</p>
+<dl class="attribute">
+<dt id="Valentina.Geometry.Bezier.QuadraticBezier2D.LineInterpolationPrecision">
+<code class="descname">LineInterpolationPrecision</code><em class="property"> = 0.05</em><a class="headerlink" href="#Valentina.Geometry.Bezier.QuadraticBezier2D.LineInterpolationPrecision" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Bezier.QuadraticBezier2D.bounding_box">
+<code class="descname">bounding_box</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Bezier.html#QuadraticBezier2D.bounding_box"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Bezier.QuadraticBezier2D.bounding_box" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Bezier.QuadraticBezier2D.clone">
+<code class="descname">clone</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Bezier.html#QuadraticBezier2D.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Bezier.QuadraticBezier2D.clone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.Geometry.Bezier.QuadraticBezier2D.end_point">
+<code class="descname">end_point</code><a class="headerlink" href="#Valentina.Geometry.Bezier.QuadraticBezier2D.end_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Bezier.QuadraticBezier2D.interpolated_length">
+<code class="descname">interpolated_length</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Bezier.html#QuadraticBezier2D.interpolated_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Bezier.QuadraticBezier2D.interpolated_length" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.Geometry.Bezier.QuadraticBezier2D.length">
+<code class="descname">length</code><a class="headerlink" href="#Valentina.Geometry.Bezier.QuadraticBezier2D.length" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.Geometry.Bezier.QuadraticBezier2D.normal0">
+<code class="descname">normal0</code><a class="headerlink" href="#Valentina.Geometry.Bezier.QuadraticBezier2D.normal0" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.Geometry.Bezier.QuadraticBezier2D.p0">
+<code class="descname">p0</code><a class="headerlink" href="#Valentina.Geometry.Bezier.QuadraticBezier2D.p0" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.Geometry.Bezier.QuadraticBezier2D.p1">
+<code class="descname">p1</code><a class="headerlink" href="#Valentina.Geometry.Bezier.QuadraticBezier2D.p1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.Geometry.Bezier.QuadraticBezier2D.p2">
+<code class="descname">p2</code><a class="headerlink" href="#Valentina.Geometry.Bezier.QuadraticBezier2D.p2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Bezier.QuadraticBezier2D.point_at_t">
+<code class="descname">point_at_t</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Bezier.html#QuadraticBezier2D.point_at_t"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Bezier.QuadraticBezier2D.point_at_t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Bezier.QuadraticBezier2D.reverse">
+<code class="descname">reverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Bezier.html#QuadraticBezier2D.reverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Bezier.QuadraticBezier2D.reverse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Bezier.QuadraticBezier2D.split_at_t">
+<code class="descname">split_at_t</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Bezier.html#QuadraticBezier2D.split_at_t"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Bezier.QuadraticBezier2D.split_at_t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.Geometry.Bezier.QuadraticBezier2D.start_point">
+<code class="descname">start_point</code><a class="headerlink" href="#Valentina.Geometry.Bezier.QuadraticBezier2D.start_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.Geometry.Bezier.QuadraticBezier2D.tangent0">
+<code class="descname">tangent0</code><a class="headerlink" href="#Valentina.Geometry.Bezier.QuadraticBezier2D.tangent0" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.Geometry.Bezier.QuadraticBezier2D.tangent1">
+<code class="descname">tangent1</code><a class="headerlink" href="#Valentina.Geometry.Bezier.QuadraticBezier2D.tangent1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.Geometry.Bezier.QuadraticBezier2D.tangent_at">
+<code class="descname">tangent_at</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Geometry/Bezier.html#QuadraticBezier2D.tangent_at"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Geometry.Bezier.QuadraticBezier2D.tangent_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../reference-manual.html">2. API Documentation</a><ul>
+  <li><a href="../../Valentina.html">2.1. <code class="docutils literal"><span class="pre">Valentina</span></code></a><ul>
+  <li><a href="../Geometry.html">2.1.2. <code class="docutils literal"><span class="pre">Geometry</span></code></a><ul>
+      <li>Previous: <a href="../Geometry.html" title="previous chapter">2.1.2. <code class="docutils literal"><span class="pre">Geometry</span></code></a></li>
+      <li>Next: <a href="Conic.html" title="next chapter">2.1.2.2. <code class="docutils literal"><span class="pre">Conic</span></code></a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/api/Valentina/Geometry/Bezier.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Fabrice Salvaire.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../../_sources/api/Valentina/Geometry/Bezier.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

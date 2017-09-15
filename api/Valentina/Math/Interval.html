@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>2.1.3.2. Interval &#8212; PyValentina 0.3.0 documentation</title>
+    <title>Interval &#8212; PyValentina 0.1.0 documentation</title>
     
     <link rel="stylesheet" href="../../../static/MyTheme.css" type="text/css" />
     <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.3.0',
+        VERSION:     '0.1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -27,9 +27,7 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../static/hidecode.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="2.1.4. Measurement" href="../Measurement.html" />
-    <link rel="prev" title="2.1.3.1. Functions" href="Functions.html" /> 
+    <link rel="search" title="Search" href="../../../search.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -41,16 +39,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="right" >
-          <a href="../Measurement.html" title="2.1.4. Measurement"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="Functions.html" title="2.1.3.1. Functions"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">PyValentina 0.3.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../../reference-manual.html" >2. API Documentation</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="../../Valentina.html" >2.1. <code class="docutils literal"><span class="pre">Valentina</span></code></a> &#187;</li>
-          <li class="nav-item nav-item-3"><a href="../Math.html" accesskey="U">2.1.3. <code class="docutils literal"><span class="pre">Math</span></code></a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyValentina 0.1.0 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -59,305 +48,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-Valentina.Math.Interval">
-<span id="interval"></span><h1>2.1.3.2. <code class="xref py py-mod docutils literal"><span class="pre">Interval</span></code><a class="headerlink" href="#module-Valentina.Math.Interval" title="Permalink to this headline">¶</a></h1>
-<p>This module implements interval arithmetic.</p>
-<dl class="class">
-<dt id="Valentina.Math.Interval.Interval">
-<em class="property">class </em><code class="descclassname">Valentina.Math.Interval.</code><code class="descname">Interval</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
-<p>Interval [inf, sup] in the float domain.</p>
-<p>An interval can be constructed using a couple (inf, sup) or an object that support the
-<code class="xref py py-meth docutils literal"><span class="pre">__getitem__()</span></code> interface:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Interval</span><span class="p">(</span><span class="n">inf</span><span class="p">,</span> <span class="n">sup</span><span class="p">)</span>
-<span class="n">Interval</span><span class="p">((</span><span class="n">inf</span><span class="p">,</span> <span class="n">sup</span><span class="p">))</span>
-<span class="n">Interval</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>
-<span class="n">Interval</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>To get the interval boundaries, use the <code class="xref py py-attr docutils literal"><span class="pre">inf</span></code> and <code class="xref py py-attr docutils literal"><span class="pre">sup</span></code> attribute.</p>
-<p>An empty interval is defined with <em>inf</em> and <em>sup</em> set to <a class="reference external" href="https://docs.python.org/2/library/constants.html#None" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">None</span></code></a>.</p>
-<p>To compute the union of two intervals use:</p>
-<blockquote>
-<div>i3 = i1 | i2
-i1 <a href="#id1"><span class="problematic" id="id2">|</span></a>= i2</div></blockquote>
-<p>To compute the intersection of two intervals use:</p>
-<blockquote>
-<div>i3 = i1 &amp; i2
-i1 &amp;= i2</div></blockquote>
-<p>It returns an empty interval if the intersection is null.</p>
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval.clone">
-<code class="descname">clone</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Valentina.Math.Interval.Interval.clone" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#Valentina.Math.Interval.Interval.copy" title="Valentina.Math.Interval.Interval.copy"><code class="xref py py-meth docutils literal"><span class="pre">copy()</span></code></a></p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval.copy">
-<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval.copy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a clone of the interval.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval.enlarge">
-<code class="descname">enlarge</code><span class="sig-paren">(</span><em>dx</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval.enlarge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval.enlarge" title="Permalink to this definition">¶</a></dt>
-<dd><p>Enlarge the interval of <em>dx</em>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval.intersect">
-<code class="descname">intersect</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval.intersect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval.intersect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test whether the interval intersects with i2?</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval.is_empty">
-<code class="descname">is_empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval.is_empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval.is_empty" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test if the interval is empty.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval.is_included_in">
-<code class="descname">is_included_in</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval.is_included_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval.is_included_in" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test whether the interval is included in i1?</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval.is_outside_of">
-<code class="descname">is_outside_of</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval.is_outside_of"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval.is_outside_of" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test whether the interval is outside of i2?</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Valentina.Math.Interval.Interval.left_open">
-<code class="descname">left_open</code><a class="headerlink" href="#Valentina.Math.Interval.Interval.left_open" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval.length">
-<code class="descname">length</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval.length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval.length" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return <code class="docutils literal"><span class="pre">sup</span> <span class="pre">-</span> <span class="pre">inf</span></code>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval.map_in">
-<code class="descname">map_in</code><span class="sig-paren">(</span><em>interval_reference</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval.map_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval.map_in" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a new interval shifted of <em>interval_reference.inf</em>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval.map_x_in">
-<code class="descname">map_x_in</code><span class="sig-paren">(</span><em>x</em>, <em>clamp=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval.map_x_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval.map_x_in" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return <code class="docutils literal"><span class="pre">x</span> <span class="pre">-</span> <span class="pre">inf</span></code>. If <em>clamp</em> parameter is set True then the value is clamped in the
-interval.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval.middle">
-<code class="descname">middle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval.middle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval.middle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the interval&#8217;s middle.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Valentina.Math.Interval.Interval.right_open">
-<code class="descname">right_open</code><a class="headerlink" href="#Valentina.Math.Interval.Interval.right_open" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval.unmap_x_in">
-<code class="descname">unmap_x_in</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval.unmap_x_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval.unmap_x_in" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return <code class="docutils literal"><span class="pre">x</span> <span class="pre">+</span> <span class="pre">inf</span></code>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval.zero_length">
-<code class="descname">zero_length</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval.zero_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval.zero_length" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return <code class="docutils literal"><span class="pre">sup</span> <span class="pre">==</span> <span class="pre">inf</span></code>.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="Valentina.Math.Interval.Interval2D">
-<em class="property">class </em><code class="descclassname">Valentina.Math.Interval.</code><code class="descname">Interval2D</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval2D" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
-<p>Interval [inf, sup]*[inf, sup] in the float domain.</p>
-<p>The components can be accessed using the <code class="xref py py-attr docutils literal"><span class="pre">x</span></code> and <code class="xref py py-attr docutils literal"><span class="pre">y</span></code> attribute, or using an index
-interface where the index 0 maps to <em>x</em> and 1 to <em>y</em>, respectively.</p>
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval2D.area">
-<code class="descname">area</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval2D.area"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval2D.area" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the area.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval2D.bounding_box">
-<code class="descname">bounding_box</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval2D.bounding_box"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval2D.bounding_box" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the corresponding bounding box <code class="docutils literal"><span class="pre">(x.inf,</span> <span class="pre">y.inf,</span> <span class="pre">x.sup,</span> <span class="pre">y.sup)</span></code>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval2D.clone">
-<code class="descname">clone</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Valentina.Math.Interval.Interval2D.clone" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#Valentina.Math.Interval.Interval2D.copy" title="Valentina.Math.Interval.Interval2D.copy"><code class="xref py py-meth docutils literal"><span class="pre">copy()</span></code></a></p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval2D.copy">
-<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval2D.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval2D.copy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a clone of the interval.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval2D.diagonal">
-<code class="descname">diagonal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval2D.diagonal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval2D.diagonal" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the diagonal&#8217;s length.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval2D.enlarge">
-<code class="descname">enlarge</code><span class="sig-paren">(</span><em>dx</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval2D.enlarge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval2D.enlarge" title="Permalink to this definition">¶</a></dt>
-<dd><p>Enlarge the interval of dx.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval2D.intersect">
-<code class="descname">intersect</code><span class="sig-paren">(</span><em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval2D.intersect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval2D.intersect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test whether the interval intersects with i2?</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval2D.is_empty">
-<code class="descname">is_empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval2D.is_empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval2D.is_empty" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test if the interval is empty.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval2D.is_included_in">
-<code class="descname">is_included_in</code><span class="sig-paren">(</span><em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval2D.is_included_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval2D.is_included_in" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test whether the interval is included in i2?</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval2D.map_in">
-<code class="descname">map_in</code><span class="sig-paren">(</span><em>interval_reference</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval2D.map_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval2D.map_in" title="Permalink to this definition">¶</a></dt>
-<dd><p>Construct a new interval shifted of <em>interval_reference.inf</em>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval2D.map_xy_in">
-<code class="descname">map_xy_in</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>clamp=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval2D.map_xy_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval2D.map_xy_in" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return <code class="docutils literal"><span class="pre">(x</span> <span class="pre">-</span> <span class="pre">y.inf,</span> <span class="pre">y</span> <span class="pre">-</span> <span class="pre">y.inf)</span></code>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval2D.middle">
-<code class="descname">middle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval2D.middle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval2D.middle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the interval&#8217;s middle.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval2D.shift">
-<code class="descname">shift</code><span class="sig-paren">(</span><em>dx</em>, <em>dy</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval2D.shift"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval2D.shift" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shift the interval of (dx, dy).</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval2D.size">
-<code class="descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval2D.size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval2D.size" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the horizontal and vertical length.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.Interval2D.unmap_xy_in">
-<code class="descname">unmap_xy_in</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#Interval2D.unmap_xy_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.Interval2D.unmap_xy_in" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return <code class="docutils literal"><span class="pre">(x</span> <span class="pre">+</span> <span class="pre">y.inf,</span> <span class="pre">y</span> <span class="pre">+</span> <span class="pre">y.inf)</span></code>.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="Valentina.Math.Interval.IntervalInt">
-<em class="property">class </em><code class="descclassname">Valentina.Math.Interval.</code><code class="descname">IntervalInt</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#IntervalInt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.IntervalInt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#Valentina.Math.Interval.Interval" title="Valentina.Math.Interval.Interval"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Math.Interval.Interval</span></code></a></p>
-<p>Interval [inf, sup] in the integer domain.</p>
-<dl class="method">
-<dt id="Valentina.Math.Interval.IntervalInt.iter">
-<code class="descname">iter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#IntervalInt.iter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.IntervalInt.iter" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="Valentina.Math.Interval.IntervalInt.left_open">
-<code class="descname">left_open</code><a class="headerlink" href="#Valentina.Math.Interval.IntervalInt.left_open" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.IntervalInt.length">
-<code class="descname">length</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#IntervalInt.length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.IntervalInt.length" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return <code class="docutils literal"><span class="pre">sup</span> <span class="pre">-</span> <span class="pre">inf</span> <span class="pre">+1</span></code>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.IntervalInt.length_float">
-<code class="descname">length_float</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#IntervalInt.length_float"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.IntervalInt.length_float" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return <code class="docutils literal"><span class="pre">sup</span> <span class="pre">-</span> <span class="pre">inf</span></code>.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Valentina.Math.Interval.IntervalInt.right_open">
-<code class="descname">right_open</code><a class="headerlink" href="#Valentina.Math.Interval.IntervalInt.right_open" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.IntervalInt.to_slice">
-<code class="descname">to_slice</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#IntervalInt.to_slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.IntervalInt.to_slice" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a slice instance.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="Valentina.Math.Interval.IntervalInt2D">
-<em class="property">class </em><code class="descclassname">Valentina.Math.Interval.</code><code class="descname">IntervalInt2D</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#IntervalInt2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.IntervalInt2D" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#Valentina.Math.Interval.Interval2D" title="Valentina.Math.Interval.Interval2D"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Math.Interval.Interval2D</span></code></a></p>
-<p>Interval [inf, sup]*[inf, sup] in the integer domain.</p>
-<dl class="method">
-<dt id="Valentina.Math.Interval.IntervalInt2D.iter">
-<code class="descname">iter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#IntervalInt2D.iter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.IntervalInt2D.iter" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="Valentina.Math.Interval.IntervalIntSupOpen">
-<em class="property">class </em><code class="descclassname">Valentina.Math.Interval.</code><code class="descname">IntervalIntSupOpen</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#IntervalIntSupOpen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.IntervalIntSupOpen" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#Valentina.Math.Interval.IntervalInt" title="Valentina.Math.Interval.IntervalInt"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Math.Interval.IntervalInt</span></code></a></p>
-<p>Interval [inf, sup[ in the integer domain.</p>
-<dl class="method">
-<dt id="Valentina.Math.Interval.IntervalIntSupOpen.exclude">
-<code class="descname">exclude</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#IntervalIntSupOpen.exclude"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.IntervalIntSupOpen.exclude" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the subset intervals of <em>i1</em> given an exclusion interval <em>i2</em>.</p>
-<p>It returns <a class="reference external" href="https://docs.python.org/2/library/constants.html#None" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">None</span></code></a> if the intervals don&#8217;t intersect or <em>i1</em> is included in <em>i2</em>.  Else
-it returns a list of couples (interval, excluded_flag) where <em>interval</em> is a subset of the
-interval <em>i1</em> and <em>excluded_flag</em> indicated if the subset is excluded.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.IntervalIntSupOpen.intersect">
-<code class="descname">intersect</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#IntervalIntSupOpen.intersect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.IntervalIntSupOpen.intersect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Does the interval intersect with <em>i2</em>?</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Valentina.Math.Interval.IntervalIntSupOpen.minus">
-<code class="descname">minus</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Math/Interval.html#IntervalIntSupOpen.minus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Math.Interval.IntervalIntSupOpen.minus" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a list of intervals corresponding to i1 - intersection of i1 and i2. If i2 is
-included in i1 then two intervals can be returned. If the compution is not defined then
-<a class="reference external" href="https://docs.python.org/2/library/constants.html#None" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">None</span></code></a> is returned.</p>
-</dd></dl>
-
-</dd></dl>
-
+  <div class="section" id="interval">
+<h1><code class="xref py py-mod docutils literal"><span class="pre">Interval</span></code><a class="headerlink" href="#interval" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -366,12 +58,6 @@ included in i1 then two intervals can be returned. If the compution is not defin
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="Functions.html"
-                        title="previous chapter">2.1.3.1. <code class="docutils literal"><span class="pre">Functions</span></code></a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="../Measurement.html"
-                        title="next chapter">2.1.4. <code class="docutils literal"><span class="pre">Measurement</span></code></a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -402,21 +88,12 @@ included in i1 then two intervals can be returned. If the compution is not defin
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="right" >
-          <a href="../Measurement.html" title="2.1.4. Measurement"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="Functions.html" title="2.1.3.1. Functions"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">PyValentina 0.3.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../../reference-manual.html" >2. API Documentation</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="../../Valentina.html" >2.1. <code class="docutils literal"><span class="pre">Valentina</span></code></a> &#187;</li>
-          <li class="nav-item nav-item-3"><a href="../Math.html" >2.1.3. <code class="docutils literal"><span class="pre">Math</span></code></a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyValentina 0.1.0 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Fabrice Salvaire.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
     </div>
   </body>
 </html>

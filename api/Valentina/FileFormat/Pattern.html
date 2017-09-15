@@ -1,0 +1,1220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2.1.1.2. Pattern &#8212; PyValentina 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../static/jquery.js"></script>
+    <script type="text/javascript" src="../../../static/underscore.js"></script>
+    <script type="text/javascript" src="../../../static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="2.1.2. Geometry" href="../Geometry.html" />
+    <link rel="prev" title="2.1.1.1. Measurements" href="Measurements.html" />
+   
+  <link rel="stylesheet" href="../../../static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-Valentina.FileFormat.Pattern">
+<span id="pattern"></span><h1>2.1.1.2. <code class="xref py py-mod docutils literal"><span class="pre">Pattern</span></code><a class="headerlink" href="#module-Valentina.FileFormat.Pattern" title="Permalink to this headline">¶</a></h1>
+<p>This module implements the val XML file format and is designed so as to decouple the XML details
+and the calculation API.</p>
+<p>The purpose of each XmlObjectAdaptator sub-classes is to serve as a bidirectional adaptor between
+the XML format and the API.</p>
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.AlongLinePoint">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">AlongLinePoint</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#AlongLinePoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.AlongLinePoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.PointLinePropertiesMixin" title="Valentina.FileFormat.Pattern.PointLinePropertiesMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.PointLinePropertiesMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.FirstSecondPointMixin" title="Valentina.FileFormat.Pattern.FirstSecondPointMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.FirstSecondPointMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.LengthMixin" title="Valentina.FileFormat.Pattern.LengthMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.LengthMixin</span></code></a>, <a class="reference internal" href="../Xml/Objectivity.html#Valentina.Xml.Objectivity.XmlObjectAdaptator" title="Valentina.Xml.Objectivity.XmlObjectAdaptator"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Xml.Objectivity.XmlObjectAdaptator</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.AlongLinePoint.first_point">
+<code class="descname">first_point</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.AlongLinePoint.first_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.AlongLinePoint.id">
+<code class="descname">id</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.AlongLinePoint.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.AlongLinePoint.length">
+<code class="descname">length</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.AlongLinePoint.length" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.AlongLinePoint.line_color">
+<code class="descname">line_color</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.AlongLinePoint.line_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.AlongLinePoint.line_style">
+<code class="descname">line_style</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.AlongLinePoint.line_style" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.AlongLinePoint.mx">
+<code class="descname">mx</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.AlongLinePoint.mx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.AlongLinePoint.my">
+<code class="descname">my</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.AlongLinePoint.my" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.AlongLinePoint.name">
+<code class="descname">name</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.AlongLinePoint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.AlongLinePoint.second_point">
+<code class="descname">second_point</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.AlongLinePoint.second_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.AngleMixin">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">AngleMixin</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#AngleMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.AngleMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.BasePointMixin">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">BasePointMixin</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#BasePointMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.BasePointMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.BissectorPoint">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">BissectorPoint</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#BissectorPoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.BissectorPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.PointLinePropertiesMixin" title="Valentina.FileFormat.Pattern.PointLinePropertiesMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.PointLinePropertiesMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.FirstSecondThirdPointMixin" title="Valentina.FileFormat.Pattern.FirstSecondThirdPointMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.FirstSecondThirdPointMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.LengthMixin" title="Valentina.FileFormat.Pattern.LengthMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.LengthMixin</span></code></a>, <a class="reference internal" href="../Xml/Objectivity.html#Valentina.Xml.Objectivity.XmlObjectAdaptator" title="Valentina.Xml.Objectivity.XmlObjectAdaptator"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Xml.Objectivity.XmlObjectAdaptator</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.BissectorPoint.first_point">
+<code class="descname">first_point</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.BissectorPoint.first_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.BissectorPoint.id">
+<code class="descname">id</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.BissectorPoint.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.BissectorPoint.length">
+<code class="descname">length</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.BissectorPoint.length" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.BissectorPoint.line_color">
+<code class="descname">line_color</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.BissectorPoint.line_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.BissectorPoint.line_style">
+<code class="descname">line_style</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.BissectorPoint.line_style" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.BissectorPoint.mx">
+<code class="descname">mx</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.BissectorPoint.mx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.BissectorPoint.my">
+<code class="descname">my</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.BissectorPoint.my" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.BissectorPoint.name">
+<code class="descname">name</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.BissectorPoint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.BissectorPoint.second_point">
+<code class="descname">second_point</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.BissectorPoint.second_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.BissectorPoint.third_point">
+<code class="descname">third_point</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.BissectorPoint.third_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.CalculationDispatcher">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">CalculationDispatcher</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#CalculationDispatcher"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.CalculationDispatcher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="Valentina.FileFormat.Pattern.CalculationDispatcher.from_calculation">
+<code class="descname">from_calculation</code><span class="sig-paren">(</span><em>calculation</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#CalculationDispatcher.from_calculation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.CalculationDispatcher.from_calculation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.FileFormat.Pattern.CalculationDispatcher.from_xml">
+<code class="descname">from_xml</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#CalculationDispatcher.from_xml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.CalculationDispatcher.from_xml" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.CalculationMixin">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">CalculationMixin</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#CalculationMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.CalculationMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="Valentina.FileFormat.Pattern.CalculationMixin.call_calculation_function">
+<code class="descname">call_calculation_function</code><span class="sig-paren">(</span><em>pattern</em>, <em>kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#CalculationMixin.call_calculation_function"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.CalculationMixin.call_calculation_function" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="Valentina.FileFormat.Pattern.CalculationMixin.from_calculation">
+<em class="property">classmethod </em><code class="descname">from_calculation</code><span class="sig-paren">(</span><em>calculation</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#CalculationMixin.from_calculation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.CalculationMixin.from_calculation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.FileFormat.Pattern.CalculationMixin.to_calculation">
+<code class="descname">to_calculation</code><span class="sig-paren">(</span><em>pattern</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#CalculationMixin.to_calculation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.CalculationMixin.to_calculation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.CalculationTypeMixin">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">CalculationTypeMixin</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#CalculationTypeMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.CalculationTypeMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.CalculationMixin" title="Valentina.FileFormat.Pattern.CalculationMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.CalculationMixin</span></code></a></p>
+<dl class="method">
+<dt id="Valentina.FileFormat.Pattern.CalculationTypeMixin.to_xml">
+<code class="descname">to_xml</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#CalculationTypeMixin.to_xml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.CalculationTypeMixin.to_xml" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.Detail">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">Detail</code><span class="sig-paren">(</span><em>modeling</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#Detail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.Detail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.MxMyMixin" title="Valentina.FileFormat.Pattern.MxMyMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.MxMyMixin</span></code></a>, <a class="reference internal" href="../Xml/Objectivity.html#Valentina.Xml.Objectivity.XmlObjectAdaptator" title="Valentina.Xml.Objectivity.XmlObjectAdaptator"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Xml.Objectivity.XmlObjectAdaptator</span></code></a></p>
+<dl class="method">
+<dt id="Valentina.FileFormat.Pattern.Detail.append_node">
+<code class="descname">append_node</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#Detail.append_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.Detail.append_node" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.Detail.forbidFlipping">
+<code class="descname">forbidFlipping</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.Detail.forbidFlipping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.Detail.id">
+<code class="descname">id</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.Detail.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.Detail.inLayout">
+<code class="descname">inLayout</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.Detail.inLayout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.FileFormat.Pattern.Detail.iter_on_nodes">
+<code class="descname">iter_on_nodes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#Detail.iter_on_nodes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.Detail.iter_on_nodes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.Detail.mx">
+<code class="descname">mx</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.Detail.mx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.Detail.my">
+<code class="descname">my</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.Detail.my" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.Detail.name">
+<code class="descname">name</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.Detail.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.Detail.seamAllowance">
+<code class="descname">seamAllowance</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.Detail.seamAllowance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.Detail.united">
+<code class="descname">united</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.Detail.united" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.Detail.version">
+<code class="descname">version</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.Detail.version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.Detail.width">
+<code class="descname">width</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.Detail.width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.DetailData">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">DetailData</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#DetailData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.HeightWidthMixin" title="Valentina.FileFormat.Pattern.HeightWidthMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.HeightWidthMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.MxMyMixin" title="Valentina.FileFormat.Pattern.MxMyMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.MxMyMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.FontSizeMixin" title="Valentina.FileFormat.Pattern.FontSizeMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.FontSizeMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.VisibleRotationMixin" title="Valentina.FileFormat.Pattern.VisibleRotationMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.VisibleRotationMixin</span></code></a>, <a class="reference internal" href="../Xml/Objectivity.html#Valentina.Xml.Objectivity.XmlObjectAdaptator" title="Valentina.Xml.Objectivity.XmlObjectAdaptator"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Xml.Objectivity.XmlObjectAdaptator</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailData.fontSize">
+<code class="descname">fontSize</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailData.fontSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailData.height">
+<code class="descname">height</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailData.height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailData.letter">
+<code class="descname">letter</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailData.letter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailData.mx">
+<code class="descname">mx</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailData.mx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailData.my">
+<code class="descname">my</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailData.my" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailData.rotation">
+<code class="descname">rotation</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailData.rotation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailData.visible">
+<code class="descname">visible</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailData.visible" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailData.width">
+<code class="descname">width</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailData.width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.DetailDispatcher">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">DetailDispatcher</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#DetailDispatcher"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailDispatcher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.Dispatcher" title="Valentina.FileFormat.Pattern.Dispatcher"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.Dispatcher</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.DetailGrainline">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">DetailGrainline</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#DetailGrainline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailGrainline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.MxMyMixin" title="Valentina.FileFormat.Pattern.MxMyMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.MxMyMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.VisibleRotationMixin" title="Valentina.FileFormat.Pattern.VisibleRotationMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.VisibleRotationMixin</span></code></a>, <a class="reference internal" href="../Xml/Objectivity.html#Valentina.Xml.Objectivity.XmlObjectAdaptator" title="Valentina.Xml.Objectivity.XmlObjectAdaptator"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Xml.Objectivity.XmlObjectAdaptator</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailGrainline.arrows">
+<code class="descname">arrows</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailGrainline.arrows" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailGrainline.length">
+<code class="descname">length</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailGrainline.length" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailGrainline.mx">
+<code class="descname">mx</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailGrainline.mx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailGrainline.my">
+<code class="descname">my</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailGrainline.my" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailGrainline.rotation">
+<code class="descname">rotation</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailGrainline.rotation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailGrainline.visible">
+<code class="descname">visible</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailGrainline.visible" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.DetailNode">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">DetailNode</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#DetailNode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../Xml/Objectivity.html#Valentina.Xml.Objectivity.XmlObjectAdaptator" title="Valentina.Xml.Objectivity.XmlObjectAdaptator"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Xml.Objectivity.XmlObjectAdaptator</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailNode.object_id">
+<code class="descname">object_id</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailNode.object_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailNode.reverse">
+<code class="descname">reverse</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailNode.reverse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailNode.type">
+<code class="descname">type</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailNode.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.DetailPatternInfo">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">DetailPatternInfo</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#DetailPatternInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailPatternInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.HeightWidthMixin" title="Valentina.FileFormat.Pattern.HeightWidthMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.HeightWidthMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.MxMyMixin" title="Valentina.FileFormat.Pattern.MxMyMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.MxMyMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.FontSizeMixin" title="Valentina.FileFormat.Pattern.FontSizeMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.FontSizeMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.VisibleRotationMixin" title="Valentina.FileFormat.Pattern.VisibleRotationMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.VisibleRotationMixin</span></code></a>, <a class="reference internal" href="../Xml/Objectivity.html#Valentina.Xml.Objectivity.XmlObjectAdaptator" title="Valentina.Xml.Objectivity.XmlObjectAdaptator"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Xml.Objectivity.XmlObjectAdaptator</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailPatternInfo.fontSize">
+<code class="descname">fontSize</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailPatternInfo.fontSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailPatternInfo.height">
+<code class="descname">height</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailPatternInfo.height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailPatternInfo.mx">
+<code class="descname">mx</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailPatternInfo.mx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailPatternInfo.my">
+<code class="descname">my</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailPatternInfo.my" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailPatternInfo.rotation">
+<code class="descname">rotation</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailPatternInfo.rotation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailPatternInfo.visible">
+<code class="descname">visible</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailPatternInfo.visible" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.DetailPatternInfo.width">
+<code class="descname">width</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.DetailPatternInfo.width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.Dispatcher">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">Dispatcher</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#Dispatcher"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.Dispatcher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="Valentina.FileFormat.Pattern.Dispatcher.from_xml">
+<code class="descname">from_xml</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#Dispatcher.from_xml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.Dispatcher.from_xml" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.EndLinePoint">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">EndLinePoint</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#EndLinePoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.EndLinePoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.PointLinePropertiesMixin" title="Valentina.FileFormat.Pattern.PointLinePropertiesMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.PointLinePropertiesMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.BasePointMixin" title="Valentina.FileFormat.Pattern.BasePointMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.BasePointMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.LengthAngleMixin" title="Valentina.FileFormat.Pattern.LengthAngleMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.LengthAngleMixin</span></code></a>, <a class="reference internal" href="../Xml/Objectivity.html#Valentina.Xml.Objectivity.XmlObjectAdaptator" title="Valentina.Xml.Objectivity.XmlObjectAdaptator"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Xml.Objectivity.XmlObjectAdaptator</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.EndLinePoint.angle">
+<code class="descname">angle</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.EndLinePoint.angle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.EndLinePoint.base_point">
+<code class="descname">base_point</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.EndLinePoint.base_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.EndLinePoint.id">
+<code class="descname">id</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.EndLinePoint.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.EndLinePoint.length">
+<code class="descname">length</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.EndLinePoint.length" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.EndLinePoint.line_color">
+<code class="descname">line_color</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.EndLinePoint.line_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.EndLinePoint.line_style">
+<code class="descname">line_style</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.EndLinePoint.line_style" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.EndLinePoint.mx">
+<code class="descname">mx</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.EndLinePoint.mx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.EndLinePoint.my">
+<code class="descname">my</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.EndLinePoint.my" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.EndLinePoint.name">
+<code class="descname">name</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.EndLinePoint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.FirstSecondPointMixin">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">FirstSecondPointMixin</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#FirstSecondPointMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.FirstSecondPointMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.FirstSecondThirdPointMixin">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">FirstSecondThirdPointMixin</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#FirstSecondThirdPointMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.FirstSecondThirdPointMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.FirstSecondPointMixin" title="Valentina.FileFormat.Pattern.FirstSecondPointMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.FirstSecondPointMixin</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.FontSizeMixin">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">FontSizeMixin</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#FontSizeMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.FontSizeMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.HeightPoint">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">HeightPoint</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#HeightPoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.HeightPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.PointLinePropertiesMixin" title="Valentina.FileFormat.Pattern.PointLinePropertiesMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.PointLinePropertiesMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.BasePointMixin" title="Valentina.FileFormat.Pattern.BasePointMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.BasePointMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.Line1Mixin" title="Valentina.FileFormat.Pattern.Line1Mixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.Line1Mixin</span></code></a>, <a class="reference internal" href="../Xml/Objectivity.html#Valentina.Xml.Objectivity.XmlObjectAdaptator" title="Valentina.Xml.Objectivity.XmlObjectAdaptator"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Xml.Objectivity.XmlObjectAdaptator</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.HeightPoint.base_point">
+<code class="descname">base_point</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.HeightPoint.base_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.HeightPoint.id">
+<code class="descname">id</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.HeightPoint.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.HeightPoint.line_color">
+<code class="descname">line_color</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.HeightPoint.line_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.HeightPoint.line_style">
+<code class="descname">line_style</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.HeightPoint.line_style" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.HeightPoint.mx">
+<code class="descname">mx</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.HeightPoint.mx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.HeightPoint.my">
+<code class="descname">my</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.HeightPoint.my" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.HeightPoint.name">
+<code class="descname">name</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.HeightPoint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.HeightPoint.point1_line1">
+<code class="descname">point1_line1</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.HeightPoint.point1_line1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.HeightPoint.point2_line1">
+<code class="descname">point2_line1</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.HeightPoint.point2_line1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.HeightWidthMixin">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">HeightWidthMixin</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#HeightWidthMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.HeightWidthMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.LengthAngleMixin">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">LengthAngleMixin</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#LengthAngleMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.LengthAngleMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.LengthMixin" title="Valentina.FileFormat.Pattern.LengthMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.LengthMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.AngleMixin" title="Valentina.FileFormat.Pattern.AngleMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.AngleMixin</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.LengthMixin">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">LengthMixin</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#LengthMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.LengthMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.Line">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">Line</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#Line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.Line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.CalculationMixin" title="Valentina.FileFormat.Pattern.CalculationMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.CalculationMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.LinePropertiesMixin" title="Valentina.FileFormat.Pattern.LinePropertiesMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.LinePropertiesMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.FirstSecondPointMixin" title="Valentina.FileFormat.Pattern.FirstSecondPointMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.FirstSecondPointMixin</span></code></a>, <a class="reference internal" href="../Xml/Objectivity.html#Valentina.Xml.Objectivity.XmlObjectAdaptator" title="Valentina.Xml.Objectivity.XmlObjectAdaptator"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Xml.Objectivity.XmlObjectAdaptator</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.Line.first_point">
+<code class="descname">first_point</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.Line.first_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="Valentina.FileFormat.Pattern.Line.from_calculation">
+<em class="property">classmethod </em><code class="descname">from_calculation</code><span class="sig-paren">(</span><em>calculation</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#Line.from_calculation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.Line.from_calculation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.Line.id">
+<code class="descname">id</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.Line.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.Line.line_color">
+<code class="descname">line_color</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.Line.line_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.Line.line_style">
+<code class="descname">line_style</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.Line.line_style" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.Line.second_point">
+<code class="descname">second_point</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.Line.second_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.FileFormat.Pattern.Line.to_calculation">
+<code class="descname">to_calculation</code><span class="sig-paren">(</span><em>pattern</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#Line.to_calculation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.Line.to_calculation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.Line12Mixin">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">Line12Mixin</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#Line12Mixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.Line12Mixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.Line1Mixin" title="Valentina.FileFormat.Pattern.Line1Mixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.Line1Mixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.Line2Mixin" title="Valentina.FileFormat.Pattern.Line2Mixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.Line2Mixin</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.Line1Mixin">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">Line1Mixin</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#Line1Mixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.Line1Mixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.Line2Mixin">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">Line2Mixin</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#Line2Mixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.Line2Mixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.LineIntersectAxisPoint">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">LineIntersectAxisPoint</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#LineIntersectAxisPoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.LineIntersectAxisPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.PointLinePropertiesMixin" title="Valentina.FileFormat.Pattern.PointLinePropertiesMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.PointLinePropertiesMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.BasePointMixin" title="Valentina.FileFormat.Pattern.BasePointMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.BasePointMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.Line1Mixin" title="Valentina.FileFormat.Pattern.Line1Mixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.Line1Mixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.AngleMixin" title="Valentina.FileFormat.Pattern.AngleMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.AngleMixin</span></code></a>, <a class="reference internal" href="../Xml/Objectivity.html#Valentina.Xml.Objectivity.XmlObjectAdaptator" title="Valentina.Xml.Objectivity.XmlObjectAdaptator"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Xml.Objectivity.XmlObjectAdaptator</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.LineIntersectAxisPoint.angle">
+<code class="descname">angle</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.LineIntersectAxisPoint.angle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.LineIntersectAxisPoint.base_point">
+<code class="descname">base_point</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.LineIntersectAxisPoint.base_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.LineIntersectAxisPoint.id">
+<code class="descname">id</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.LineIntersectAxisPoint.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.LineIntersectAxisPoint.line_color">
+<code class="descname">line_color</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.LineIntersectAxisPoint.line_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.LineIntersectAxisPoint.line_style">
+<code class="descname">line_style</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.LineIntersectAxisPoint.line_style" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.LineIntersectAxisPoint.mx">
+<code class="descname">mx</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.LineIntersectAxisPoint.mx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.LineIntersectAxisPoint.my">
+<code class="descname">my</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.LineIntersectAxisPoint.my" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.LineIntersectAxisPoint.name">
+<code class="descname">name</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.LineIntersectAxisPoint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.LineIntersectAxisPoint.point1_line1">
+<code class="descname">point1_line1</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.LineIntersectAxisPoint.point1_line1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.LineIntersectAxisPoint.point2_line1">
+<code class="descname">point2_line1</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.LineIntersectAxisPoint.point2_line1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.LineIntersectPoint">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">LineIntersectPoint</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#LineIntersectPoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.LineIntersectPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.PointMixin" title="Valentina.FileFormat.Pattern.PointMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.PointMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.Line12Mixin" title="Valentina.FileFormat.Pattern.Line12Mixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.Line12Mixin</span></code></a>, <a class="reference internal" href="../Xml/Objectivity.html#Valentina.Xml.Objectivity.XmlObjectAdaptator" title="Valentina.Xml.Objectivity.XmlObjectAdaptator"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Xml.Objectivity.XmlObjectAdaptator</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.LineIntersectPoint.id">
+<code class="descname">id</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.LineIntersectPoint.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.LineIntersectPoint.mx">
+<code class="descname">mx</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.LineIntersectPoint.mx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.LineIntersectPoint.my">
+<code class="descname">my</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.LineIntersectPoint.my" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.LineIntersectPoint.name">
+<code class="descname">name</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.LineIntersectPoint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.LineIntersectPoint.point1_line1">
+<code class="descname">point1_line1</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.LineIntersectPoint.point1_line1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.LineIntersectPoint.point1_line2">
+<code class="descname">point1_line2</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.LineIntersectPoint.point1_line2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.LineIntersectPoint.point2_line1">
+<code class="descname">point2_line1</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.LineIntersectPoint.point2_line1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.LineIntersectPoint.point2_line2">
+<code class="descname">point2_line2</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.LineIntersectPoint.point2_line2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.LinePropertiesMixin">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">LinePropertiesMixin</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#LinePropertiesMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.LinePropertiesMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.Modeling">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">Modeling</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#Modeling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.Modeling" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="Valentina.FileFormat.Pattern.Modeling.append">
+<code class="descname">append</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#Modeling.append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.Modeling.append" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.ModelingDispatcher">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">ModelingDispatcher</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#ModelingDispatcher"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.ModelingDispatcher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.Dispatcher" title="Valentina.FileFormat.Pattern.Dispatcher"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.Dispatcher</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.ModelingItemMixin">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">ModelingItemMixin</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#ModelingItemMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.ModelingItemMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.ModelingPoint">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">ModelingPoint</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#ModelingPoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.ModelingPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.ModelingItemMixin" title="Valentina.FileFormat.Pattern.ModelingItemMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.ModelingItemMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.MxMyMixin" title="Valentina.FileFormat.Pattern.MxMyMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.MxMyMixin</span></code></a>, <a class="reference internal" href="../Xml/Objectivity.html#Valentina.Xml.Objectivity.XmlObjectAdaptator" title="Valentina.Xml.Objectivity.XmlObjectAdaptator"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Xml.Objectivity.XmlObjectAdaptator</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.ModelingPoint.id">
+<code class="descname">id</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.ModelingPoint.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.ModelingPoint.in_use">
+<code class="descname">in_use</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.ModelingPoint.in_use" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.ModelingPoint.mx">
+<code class="descname">mx</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.ModelingPoint.mx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.ModelingPoint.my">
+<code class="descname">my</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.ModelingPoint.my" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.ModelingPoint.object_id">
+<code class="descname">object_id</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.ModelingPoint.object_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.ModelingPoint.type">
+<code class="descname">type</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.ModelingPoint.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.ModelingSpline">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">ModelingSpline</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#ModelingSpline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.ModelingSpline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.ModelingItemMixin" title="Valentina.FileFormat.Pattern.ModelingItemMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.ModelingItemMixin</span></code></a>, <a class="reference internal" href="../Xml/Objectivity.html#Valentina.Xml.Objectivity.XmlObjectAdaptator" title="Valentina.Xml.Objectivity.XmlObjectAdaptator"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Xml.Objectivity.XmlObjectAdaptator</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.ModelingSpline.id">
+<code class="descname">id</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.ModelingSpline.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.ModelingSpline.in_use">
+<code class="descname">in_use</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.ModelingSpline.in_use" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.ModelingSpline.object_id">
+<code class="descname">object_id</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.ModelingSpline.object_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.ModelingSpline.type">
+<code class="descname">type</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.ModelingSpline.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.MxMyMixin">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">MxMyMixin</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#MxMyMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.MxMyMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.NormalPoint">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">NormalPoint</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#NormalPoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.NormalPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.PointLinePropertiesMixin" title="Valentina.FileFormat.Pattern.PointLinePropertiesMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.PointLinePropertiesMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.FirstSecondPointMixin" title="Valentina.FileFormat.Pattern.FirstSecondPointMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.FirstSecondPointMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.LengthAngleMixin" title="Valentina.FileFormat.Pattern.LengthAngleMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.LengthAngleMixin</span></code></a>, <a class="reference internal" href="../Xml/Objectivity.html#Valentina.Xml.Objectivity.XmlObjectAdaptator" title="Valentina.Xml.Objectivity.XmlObjectAdaptator"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Xml.Objectivity.XmlObjectAdaptator</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.NormalPoint.angle">
+<code class="descname">angle</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.NormalPoint.angle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.NormalPoint.first_point">
+<code class="descname">first_point</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.NormalPoint.first_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.NormalPoint.id">
+<code class="descname">id</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.NormalPoint.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.NormalPoint.length">
+<code class="descname">length</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.NormalPoint.length" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.NormalPoint.line_color">
+<code class="descname">line_color</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.NormalPoint.line_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.NormalPoint.line_style">
+<code class="descname">line_style</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.NormalPoint.line_style" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.NormalPoint.mx">
+<code class="descname">mx</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.NormalPoint.mx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.NormalPoint.my">
+<code class="descname">my</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.NormalPoint.my" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.NormalPoint.name">
+<code class="descname">name</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.NormalPoint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.NormalPoint.second_point">
+<code class="descname">second_point</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.NormalPoint.second_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.Point">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">Point</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#Point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.Point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.PointLinePropertiesMixin">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">PointLinePropertiesMixin</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#PointLinePropertiesMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.PointLinePropertiesMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.PointMixin" title="Valentina.FileFormat.Pattern.PointMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.PointMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.LinePropertiesMixin" title="Valentina.FileFormat.Pattern.LinePropertiesMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.LinePropertiesMixin</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.PointMixin">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">PointMixin</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#PointMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.PointMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.CalculationTypeMixin" title="Valentina.FileFormat.Pattern.CalculationTypeMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.CalculationTypeMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.MxMyMixin" title="Valentina.FileFormat.Pattern.MxMyMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.MxMyMixin</span></code></a></p>
+<dl class="classmethod">
+<dt id="Valentina.FileFormat.Pattern.PointMixin.from_calculation">
+<em class="property">classmethod </em><code class="descname">from_calculation</code><span class="sig-paren">(</span><em>calculation</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#PointMixin.from_calculation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.PointMixin.from_calculation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.FileFormat.Pattern.PointMixin.to_calculation">
+<code class="descname">to_calculation</code><span class="sig-paren">(</span><em>pattern</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#PointMixin.to_calculation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.PointMixin.to_calculation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.PointOfIntersection">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">PointOfIntersection</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#PointOfIntersection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.PointOfIntersection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.PointMixin" title="Valentina.FileFormat.Pattern.PointMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.PointMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.FirstSecondPointMixin" title="Valentina.FileFormat.Pattern.FirstSecondPointMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.FirstSecondPointMixin</span></code></a>, <a class="reference internal" href="../Xml/Objectivity.html#Valentina.Xml.Objectivity.XmlObjectAdaptator" title="Valentina.Xml.Objectivity.XmlObjectAdaptator"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Xml.Objectivity.XmlObjectAdaptator</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.PointOfIntersection.first_point">
+<code class="descname">first_point</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.PointOfIntersection.first_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.PointOfIntersection.id">
+<code class="descname">id</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.PointOfIntersection.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.PointOfIntersection.mx">
+<code class="descname">mx</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.PointOfIntersection.mx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.PointOfIntersection.my">
+<code class="descname">my</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.PointOfIntersection.my" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.PointOfIntersection.name">
+<code class="descname">name</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.PointOfIntersection.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.PointOfIntersection.second_point">
+<code class="descname">second_point</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.PointOfIntersection.second_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.ShoulderPoint">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">ShoulderPoint</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#ShoulderPoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.ShoulderPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.PointLinePropertiesMixin" title="Valentina.FileFormat.Pattern.PointLinePropertiesMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.PointLinePropertiesMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.Line1Mixin" title="Valentina.FileFormat.Pattern.Line1Mixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.Line1Mixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.LengthMixin" title="Valentina.FileFormat.Pattern.LengthMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.LengthMixin</span></code></a>, <a class="reference internal" href="../Xml/Objectivity.html#Valentina.Xml.Objectivity.XmlObjectAdaptator" title="Valentina.Xml.Objectivity.XmlObjectAdaptator"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Xml.Objectivity.XmlObjectAdaptator</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.ShoulderPoint.id">
+<code class="descname">id</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.ShoulderPoint.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.ShoulderPoint.length">
+<code class="descname">length</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.ShoulderPoint.length" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.ShoulderPoint.line_color">
+<code class="descname">line_color</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.ShoulderPoint.line_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.ShoulderPoint.line_style">
+<code class="descname">line_style</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.ShoulderPoint.line_style" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.ShoulderPoint.mx">
+<code class="descname">mx</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.ShoulderPoint.mx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.ShoulderPoint.my">
+<code class="descname">my</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.ShoulderPoint.my" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.ShoulderPoint.name">
+<code class="descname">name</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.ShoulderPoint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.ShoulderPoint.point1_line1">
+<code class="descname">point1_line1</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.ShoulderPoint.point1_line1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.ShoulderPoint.point2_line1">
+<code class="descname">point2_line1</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.ShoulderPoint.point2_line1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.ShoulderPoint.shoulder_point">
+<code class="descname">shoulder_point</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.ShoulderPoint.shoulder_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.SimpleInteractiveSpline">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">SimpleInteractiveSpline</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#SimpleInteractiveSpline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.SimpleInteractiveSpline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.SplineMixin" title="Valentina.FileFormat.Pattern.SplineMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.SplineMixin</span></code></a>, <a class="reference internal" href="../Xml/Objectivity.html#Valentina.Xml.Objectivity.XmlObjectAdaptator" title="Valentina.Xml.Objectivity.XmlObjectAdaptator"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Xml.Objectivity.XmlObjectAdaptator</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.SimpleInteractiveSpline.angle1">
+<code class="descname">angle1</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.SimpleInteractiveSpline.angle1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.SimpleInteractiveSpline.angle2">
+<code class="descname">angle2</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.SimpleInteractiveSpline.angle2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.SimpleInteractiveSpline.first_point">
+<code class="descname">first_point</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.SimpleInteractiveSpline.first_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="Valentina.FileFormat.Pattern.SimpleInteractiveSpline.from_calculation">
+<em class="property">classmethod </em><code class="descname">from_calculation</code><span class="sig-paren">(</span><em>calculation</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#SimpleInteractiveSpline.from_calculation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.SimpleInteractiveSpline.from_calculation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.SimpleInteractiveSpline.id">
+<code class="descname">id</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.SimpleInteractiveSpline.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.SimpleInteractiveSpline.length1">
+<code class="descname">length1</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.SimpleInteractiveSpline.length1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.SimpleInteractiveSpline.length2">
+<code class="descname">length2</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.SimpleInteractiveSpline.length2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.SimpleInteractiveSpline.line_color">
+<code class="descname">line_color</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.SimpleInteractiveSpline.line_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.SimpleInteractiveSpline.second_point">
+<code class="descname">second_point</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.SimpleInteractiveSpline.second_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.FileFormat.Pattern.SimpleInteractiveSpline.to_calculation">
+<code class="descname">to_calculation</code><span class="sig-paren">(</span><em>pattern</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#SimpleInteractiveSpline.to_calculation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.SimpleInteractiveSpline.to_calculation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.SinglePoint">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">SinglePoint</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#SinglePoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.SinglePoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.PointMixin" title="Valentina.FileFormat.Pattern.PointMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.PointMixin</span></code></a>, <a class="reference internal" href="#Valentina.FileFormat.Pattern.XyMixin" title="Valentina.FileFormat.Pattern.XyMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.XyMixin</span></code></a>, <a class="reference internal" href="../Xml/Objectivity.html#Valentina.Xml.Objectivity.XmlObjectAdaptator" title="Valentina.Xml.Objectivity.XmlObjectAdaptator"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Xml.Objectivity.XmlObjectAdaptator</span></code></a></p>
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.SinglePoint.id">
+<code class="descname">id</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.SinglePoint.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.SinglePoint.mx">
+<code class="descname">mx</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.SinglePoint.mx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.SinglePoint.my">
+<code class="descname">my</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.SinglePoint.my" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.SinglePoint.name">
+<code class="descname">name</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.SinglePoint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.SinglePoint.x">
+<code class="descname">x</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.SinglePoint.x" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.SinglePoint.y">
+<code class="descname">y</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.SinglePoint.y" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.Spline">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">Spline</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#Spline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.Spline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.SplineMixin">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">SplineMixin</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#SplineMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.SplineMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Valentina.FileFormat.Pattern.CalculationTypeMixin" title="Valentina.FileFormat.Pattern.CalculationTypeMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.FileFormat.Pattern.CalculationTypeMixin</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.ValFile">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">ValFile</code><span class="sig-paren">(</span><em>path=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#ValFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.ValFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../Xml/XmlFile.html#Valentina.Xml.XmlFile.XmlFileMixin" title="Valentina.Xml.XmlFile.XmlFileMixin"><code class="xref py py-class docutils literal"><span class="pre">Valentina.Xml.XmlFile.XmlFileMixin</span></code></a></p>
+<dl class="method">
+<dt id="Valentina.FileFormat.Pattern.ValFile.Write">
+<code class="descname">Write</code><span class="sig-paren">(</span><em>path</em>, <em>vit_file</em>, <em>pattern</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#ValFile.Write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.ValFile.Write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.ValFile.measurements">
+<code class="descname">measurements</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.ValFile.measurements" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Valentina.FileFormat.Pattern.ValFile.pattern">
+<code class="descname">pattern</code><a class="headerlink" href="#Valentina.FileFormat.Pattern.ValFile.pattern" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Valentina.FileFormat.Pattern.ValFile.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>path=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#ValFile.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.ValFile.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.VisibleRotationMixin">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">VisibleRotationMixin</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#VisibleRotationMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.VisibleRotationMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Valentina.FileFormat.Pattern.XyMixin">
+<em class="property">class </em><code class="descclassname">Valentina.FileFormat.Pattern.</code><code class="descname">XyMixin</code><a class="reference internal" href="../../../_modules/Valentina/FileFormat/Pattern.html#XyMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.FileFormat.Pattern.XyMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../reference-manual.html">2. API Documentation</a><ul>
+  <li><a href="../../Valentina.html">2.1. <code class="docutils literal"><span class="pre">Valentina</span></code></a><ul>
+  <li><a href="../FileFormat.html">2.1.1. <code class="docutils literal"><span class="pre">FileFormat</span></code></a><ul>
+      <li>Previous: <a href="Measurements.html" title="previous chapter">2.1.1.1. <code class="docutils literal"><span class="pre">Measurements</span></code></a></li>
+      <li>Next: <a href="../Geometry.html" title="next chapter">2.1.2. <code class="docutils literal"><span class="pre">Geometry</span></code></a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/api/Valentina/FileFormat/Pattern.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Fabrice Salvaire.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../../_sources/api/Valentina/FileFormat/Pattern.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

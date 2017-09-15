@@ -2,7 +2,7 @@
  :mod:`Line2D`
 ***************
 
-.. automodule:: Valentina.Geometry.Line2D
+.. automodule:: Valentina.Geometry.Line
    :members:
    :show-inheritance:
 
