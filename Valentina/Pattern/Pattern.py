@@ -79,17 +79,23 @@ class Pattern:
 
     def _add_calculation(self, calculation):
 
-        if calculation is not None:
-            self._calculations.append(calculation)
-            self._calculation_dict[calculation.id] = calculation
-            if hasattr(calculation, 'name'):
-                self._calculation_dict[calculation.name] = calculation
+        # Work as a post init
+        self._calculations.append(calculation)
+        self._calculation_dict[calculation.id] = calculation
+        if hasattr(calculation, 'name'):
+            self._calculation_dict[calculation.name] = calculation
 
     ##############################################
 
     def get_calculation_id(self):
 
         return len(self._calculations) + 1 # id > 0
+
+    ##############################################
+
+    def has_calculation_id(self, id):
+
+        return id in self._calculation_dict
 
     ##############################################
 
@@ -138,17 +144,22 @@ class Pattern:
         # Fixme: bounding box should use geometry
         #   calculation -> geometric object -> bounding box
 
-        interval = None
+        bounding_box = None
         for calculation in self._calculations:
-            if isinstance(calculation, Calculation.Point):
-                interval_point = vector_to_interval2d(calculation.vector)
-                if interval is None:
-                    interval = interval_point
-                else:
-                    interval |= interval_point
-            elif isinstance(calculation, Calculation.SimpleInteractiveSpline):
-                interval |= vector_to_interval2d(calculation.control_point1)
-                interval |= vector_to_interval2d(calculation.control_point2)
+            interval = calculation.geometry().bounding_box()
+            if bounding_box is None:
+                bounding_box = interval
+            else:
+                bounding_box |= interval
+            # if isinstance(calculation, Calculation.Point):
+            #     interval_point = vector_to_interval2d(calculation.vector)
+            #     if interval is None:
+            #         interval = interval_point
+            #     else:
+            #         interval |= interval_point
+            # elif isinstance(calculation, Calculation.SimpleInteractiveSpline):
+            #     interval |= vector_to_interval2d(calculation.control_point1)
+            #     interval |= vector_to_interval2d(calculation.control_point2)
         return interval
 
     ##############################################

@@ -75,3 +75,17 @@ class ReversablePrimitiveMixin:
 
     def reverse(self):
         raise NotImplementedError
+
+    ##############################################
+
+    @property
+    def start_point(self):
+        raise NotImplementedError
+
+    @property
+    def end_point(self):
+        raise NotImplementedError
+
+    def iter_on_points(self):
+        for point in self.start_point, self.start_point:
+            yield point

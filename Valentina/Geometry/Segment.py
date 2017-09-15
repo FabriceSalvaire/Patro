@@ -108,6 +108,14 @@ class Segment2D(Primitive2D, ReversablePrimitiveMixin):
     def p1(self, value):
         self._p1 = value
 
+    @property
+    def start_point(self):
+        return self._p0
+
+    @property
+    def end_point(self):
+        return self._p1
+
     ##############################################
 
     @property

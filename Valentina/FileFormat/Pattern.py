@@ -798,8 +798,13 @@ class Detail(MxMyMixin, XmlObjectAdaptator):
     def append_node(self, node):
 
         self._nodes.append(node)
-        modeling_item = self._modeling[node.object_id]
-        print(node.object_id, '->', modeling_item, '->', modeling_item.object_id)
+
+    ##############################################
+
+    def iter_on_nodes(self):
+
+        for node in self._nodes:
+            yield node, self._modeling[node.object_id]
 
 ####################################################################################################
 
@@ -967,11 +972,13 @@ class ValFile(XmlFileMixin):
             except NotImplementedError:
                 self._logger.warning('Not implemented calculation\n' +  str(etree.tostring(element)))
 
+        pattern.eval()
+
         modeling = Modeling()
         for element in self._get_xpath_element(tree, 'draw/modeling'):
             xml_modeling_item = self._modeling_dispatcher.from_xml(element)
             modeling.append(xml_modeling_item)
-            print(xml_modeling_item)
+            # print(xml_modeling_item)
 
         details = []
         for detail_element in self._get_xpath_element(tree, 'draw/details'):
@@ -982,14 +989,15 @@ class ValFile(XmlFileMixin):
                 if element.tag == 'nodes':
                     for node in element:
                         xml_node = DetailNode(node)
-                        print(xml_node)
+                        # print(xml_node)
                         xml_detail.append_node(xml_node)
                 else:
                     xml_modeling_item = self._detail_dispatcher.from_xml(element)
                     # Fixme: xml_detail. = xml_modeling_item
-                    print(xml_modeling_item)
-
-        pattern.eval()
+                    # print(xml_modeling_item)
+            for node, modeling_item in xml_detail.iter_on_nodes():
+                # print(node.object_id, '->', modeling_item, '->', modeling_item.object_id)
+                print(node, '->\n', modeling_item, '->\n', pattern.get_calculation(modeling_item.object_id))
 
     ##############################################
 

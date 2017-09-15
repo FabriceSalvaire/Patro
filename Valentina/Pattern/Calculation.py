@@ -18,12 +18,18 @@
 #
 ####################################################################################################
 
+"""
+A calculation must be build from the corresponding method of the Pattern class.
+"""
+
 ####################################################################################################
 
 import logging
 
 from .Calculator import Expression
+from Valentina.Geometry.Bezier import CubicBezier2D
 from Valentina.Geometry.Line import Line2D
+from Valentina.Geometry.Segment import Segment2D
 from Valentina.Geometry.Vector import Vector2D
 
 pyid = id
@@ -47,7 +53,7 @@ class CalculationMetaClass:
 
     def __init__(cls, class_name, super_classes, class_attribute_dict):
 
-        cls._logger.info(str((cls, class_name, super_classes, class_attribute_dict)))
+        # cls._logger.info(str((cls, class_name, super_classes, class_attribute_dict)))
         type.__init__(cls, class_name, super_classes, class_attribute_dict)
 
 ####################################################################################################
@@ -66,8 +72,10 @@ class Calculation():
         if id is None:
             self._id = pattern.get_calculation_id()
         else:
-            # Fixme: check id is uniq
-            self._id = id
+            if pattern.has_calculation_id(id):
+                raise NameError("calculation id {} is already attributed".format(id))
+            else:
+                self._id = id
 
         self._dag_node = self._dag.add_node(pyid(self), data=self)
         self._dependencies = set()
@@ -196,6 +204,12 @@ class Calculation():
 
         for expression in self._iter_on_expressions():
             self._connect_ancestor(*expression.dependencies)
+
+    ##############################################
+
+    # @property
+    def geometry(self):
+        raise NotImplementedError
 
 ####################################################################################################
 
@@ -597,6 +611,11 @@ class Line(Calculation, LinePropertiesMixin, FirstSecondPointMixin):
 
         pass
 
+    ##############################################
+
+    def geometry(self):
+        return Segment2D(self._first_point.vector, self._second_point.vector)
+
 ####################################################################################################
 
 class SimpleInteractiveSpline(Calculation, LinePropertiesMixin, FirstSecondPointMixin):
@@ -659,6 +678,16 @@ class SimpleInteractiveSpline(Calculation, LinePropertiesMixin, FirstSecondPoint
 
     def eval_internal(self):
 
-        self._control_point1 = self.first_point.vector + Vector2D.from_angle(self._angle1.value)*self._length1.value
-        self._control_point2 = self.second_point.vector + Vector2D.from_angle(self._angle2.value)*self._length2.value
-        self._logger.info("Control points : {} {}".format(self._control_point1, self._control_point2))
+        control_point1_offset = Vector2D.from_angle(self._angle1.value)*self._length1.value
+        control_point2_offset = Vector2D.from_angle(self._angle2.value)*self._length2.value
+        self._control_point1 = self.first_point.vector + control_point1_offset
+        self._control_point2 = self.second_point.vector + control_point2_offset
+        # self._logger.info("Control points : {} {}".format(self._control_point1, self._control_point2))
+
+    ##############################################
+
+    def geometry(self):
+        if self._control_point1 is None:
+            raise NameError("eval before to get geometry")
+        return CubicBezier2D(self._first_point.vector, self._control_point1,
+                             self._control_point2, self._second_point.vector)
