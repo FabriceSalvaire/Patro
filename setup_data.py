@@ -72,9 +72,9 @@ setup_dict = dict(
     version='0.1.0',
     author='Fabrice Salvaire',
     author_email='fabrice.salvaire@orange.fr',
-    description='A Python implementation of Valentina Pattern Drafting Software.',
-    license="GPLv3",
-    keywords="pattern making, valentina",
+    description='Python implementation of Valentina Pattern Making Software',
+    license='GPLv3',
+    keywords='pattern making valentina',
     url='https://github.com/FabriceSalvaire/PyValentina',
     scripts=[],
     packages=['Valentina', # Fixme:
@@ -86,20 +86,14 @@ setup_dict = dict(
     long_description=long_description,
     # cf. http://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
-        "Topic :: Scientific/Engineering",
-        "Intended Audience :: Education",
-        "Development Status :: 5 - Production/Stable",
-        "License :: OSI Approved :: GNU General Public License (GPL)",
-        "Operating System :: OS Independent",
-        "Programming Language :: Python :: 3.5",
+        'Topic :: Scientific/Engineering',
+        'Intended Audience :: Education',
+        'Development Status :: 5 - Production/Stable',
+        'License :: OSI Approved :: GNU General Public License (GPL)',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 3.5',
         ],
     requires=[
         'numpy',
     ],
 )
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################
