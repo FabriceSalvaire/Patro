@@ -121,15 +121,15 @@ class TestVector2D(unittest.TestCase):
         v1 = Vector2D(10, 10)
         v2 = Vector2D(-10, 10)
         self.assertTrue(v1.is_orthogonal(v2))
-        self.assertTrue(v1.is_orthogonal(v1.rotate_counter_clockwise_90()))
+        self.assertTrue(v1.is_orthogonal(v1.rotate(90)))
 
         v1 = Vector2D(10, 10)
         self.assertTrue(v1.is_parallel(v1 * -10))
-        self.assertTrue(v1.is_parallel(v1.rotate_180()))
+        self.assertTrue(v1.is_parallel(v1.rotate(180)))
 
         angle1 = 10
         direction = Vector2D.from_angle(angle1)
-        perpendicular_direction = direction.rotate_counter_clockwise_90()
+        perpendicular_direction = direction.rotate(90)
         for angle2 in range(-160, 180, 10):
             v2 = Vector2D.from_angle(angle2)
 
