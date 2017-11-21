@@ -1,0 +1,17 @@
+#! /usr/bin/bash
+
+find PyValentina -name "flycheck*.py" -exec rm {} \;
+find PyValentina -name "parsetab.py" -exec rm {} \;
+
+api=doc/sphinx/source/api
+rm -rf ${api}
+
+echo
+echo Generate RST API files
+generate-rst-api Valentina
+
+echo
+echo Run Sphinx
+pushd doc/sphinx/
+./make-html #--clean
+popd
