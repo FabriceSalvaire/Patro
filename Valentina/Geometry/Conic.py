@@ -24,7 +24,7 @@ from math import sqrt, radians, cos, sin
 
 import numpy as np
 
-from ArithmeticInterval import Interval, Interval2D
+from IntervalArithmetic import Interval, Interval2D
 
 from .Primitive import Primitive2D
 from .Vector import Vector2D

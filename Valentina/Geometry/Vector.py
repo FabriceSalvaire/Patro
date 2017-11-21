@@ -24,7 +24,7 @@ import math
 
 import numpy as np
 
-from ArithmeticInterval import Interval2D, IntervalInt2D
+from IntervalArithmetic import Interval2D, IntervalInt2D
 
 ####################################################################################################
 

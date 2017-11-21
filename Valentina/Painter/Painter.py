@@ -22,7 +22,7 @@
 
 import logging
 
-from ArithmeticInterval import Interval2D
+from IntervalArithmetic import Interval2D
 
 from Valentina.Geometry.Vector import Vector2D
 from Valentina.Math.Functions import ceil_int
