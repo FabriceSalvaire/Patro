@@ -2,10 +2,21 @@
 *.val.lock
 *~
 __pycache__
-
+#
 MANIFEST
 auto/
 build/
 dist/
 doc/sphinx/build
 trash/
+#
+Untracked files (28)
+Valentina/Geometry/reference.txt
+notes/
+old-todo.txt
+test/output-old/
+test/output/
+test/patterns/backup/
+test/patterns/layout/
+todo.txt
+tools/upload-www
