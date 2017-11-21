@@ -64,9 +64,9 @@ class TestLine2D(unittest.TestCase):
         v1 = Vector2D(50, 50)
         v2 = Vector2D(20, 60)
 
-        lp0 = Line2D(v2, (v1 - v0).rotate_counter_clockwise_90())
-        lp1 = Line2D(v0, (v2 - v1).rotate_counter_clockwise_90())
-        lp2 = Line2D(v1, (v2 - v0).rotate_counter_clockwise_90())
+        lp0 = Line2D(v2, (v1 - v0).rotate(90))
+        lp1 = Line2D(v0, (v2 - v1).rotate(90))
+        lp2 = Line2D(v1, (v2 - v0).rotate(90))
 
         i0 = lp0.intersection(lp1)
         i1 = lp1.intersection(lp2)
