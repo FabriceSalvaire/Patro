@@ -1,6 +1,6 @@
-****************
- :mod:`Painter`
-****************
+*********
+Painter
+*********
 
 .. toctree::
   Painter/Painter
@@ -10,5 +10,3 @@
 .. automodule:: Valentina.Painter
    :members:
    :show-inheritance:
-
-.. End

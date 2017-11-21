@@ -1,6 +1,6 @@
-************
- :mod:`Xml`
-************
+*****
+Xml
+*****
 
 .. toctree::
   Xml/Objectivity
@@ -9,5 +9,3 @@
 .. automodule:: Valentina.Xml
    :members:
    :show-inheritance:
-
-.. End

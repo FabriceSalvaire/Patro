@@ -1,10 +1,8 @@
-********************
- :mod:`Calculation`
-********************
+*************
+Calculation
+*************
 
 .. automodule:: Valentina.Pattern.Calculation
    :members:
    :show-inheritance:
 
-
-.. End

@@ -1,6 +1,6 @@
-*******************
- :mod:`FileFormat`
-*******************
+************
+FileFormat
+************
 
 .. toctree::
   FileFormat/Measurements
@@ -9,5 +9,3 @@
 .. automodule:: Valentina.FileFormat
    :members:
    :show-inheritance:
-
-.. End

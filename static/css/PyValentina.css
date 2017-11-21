@@ -2,15 +2,42 @@
 
 /* ----------------------------------------------------------------------------------------------- *
  *
- * Sphinx stylesheet
+ * PyValentina stylesheet
  *
- * :copyright: Copyright 2015 Fabrice Salvaire
+ * :copyright: Copyright 2017 Fabrice Salvaire
  *
  * This file is part of the PyValentina software.
  *
  */
 
-@import url("default.css");
+@import url("theme.css");
+
+/* ----------------------------------------------------------------------------------------------- *
+ *
+ * Overwrite RTD Theme
+ *
+ */
+
+.wy-nav-content {
+    padding: 1.618em 3.236em;
+    height: 100%;
+    max-width: 100%;
+    margin: auto;
+}
+
+p {
+    font-size: 100%; /* 16 px */
+}
+
+div[class^="highlight"] pre {
+    font-size: 100%; /* 16 px */
+}
+
+
+.btn {
+    border-radius: 10px; /* 2px */
+    box-shadow: none;
+}
 
 /* ----------------------------------------------------------------------------------------------- */
 
@@ -46,7 +73,7 @@ div.getthecode-header span {
 div.getthecode-header a {
   margin-left: .5em;
   display: inline-block;
-  background-image: url("file-text-small.png");
+  background-image: url("../file-text-small.png");
   background-repeat: no-repeat;
   width: 16px;
   height: 16px;

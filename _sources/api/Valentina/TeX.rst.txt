@@ -1,6 +1,6 @@
-************
- :mod:`TeX`
-************
+*****
+TeX
+*****
 
 .. toctree::
   TeX/Buffer
@@ -11,5 +11,3 @@
 .. automodule:: Valentina.TeX
    :members:
    :show-inheritance:
-
-.. End

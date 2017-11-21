@@ -1,9 +1,0 @@
-==========
- Features
-==========
-
-The features of PyValentina are :
-
-* read *.val* and *.vit* file
-* compute the detail of a pattern
-* export the detail to latex/pgf

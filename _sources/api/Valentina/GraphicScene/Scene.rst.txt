@@ -1,10 +1,8 @@
-**************
- :mod:`Scene`
-**************
+*******
+Scene
+*******
 
 .. automodule:: Valentina.GraphicScene.Scene
    :members:
    :show-inheritance:
 
-
-.. End

@@ -1,6 +1,6 @@
-*********************
- :mod:`GraphicScene`
-*********************
+**************
+GraphicScene
+**************
 
 .. toctree::
   GraphicScene/GraphicItem
@@ -9,5 +9,3 @@
 .. automodule:: Valentina.GraphicScene
    :members:
    :show-inheritance:
-
-.. End

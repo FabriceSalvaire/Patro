@@ -1,6 +1,6 @@
-******************
- :mod:`Valentina`
-******************
+***********
+Valentina
+***********
 
 .. toctree::
   Valentina/FileFormat
@@ -18,5 +18,3 @@
 .. automodule:: Valentina
    :members:
    :show-inheritance:
-
-.. End

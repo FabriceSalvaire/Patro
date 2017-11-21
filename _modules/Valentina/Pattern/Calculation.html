@@ -1,46 +1,162 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Valentina.Pattern.Calculation &mdash; PyValentina 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
     
-    <title>Valentina.Pattern.Calculation &#8212; PyValentina 0.1.0 documentation</title>
-    
-    <link rel="stylesheet" href="../../../static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../',
-        VERSION:     '0.1.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../../static/jquery.js"></script>
-    <script type="text/javascript" src="../../../static/underscore.js"></script>
-    <script type="text/javascript" src="../../../static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../static/css/PyValentina.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="PyValentina 0.2.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Valentina.Pattern" href="../Pattern.html"/> 
+
+  
+  <script src="../../../static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
    
-  <link rel="stylesheet" href="../../../static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <div class="wy-grid-for-nav">
 
-  </head>
-  <body role="document">
-  
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+          
+            <a href="../../../index.html" class="icon icon-home"> PyValentina
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference-manual.html">2. API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">3. Bibliography</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyValentina</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../Pattern.html">Valentina.Pattern</a> &raquo;</li>
+        
+      <li>Valentina.Pattern.Calculation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <h1>Source code for Valentina.Pattern.Calculation</h1><div class="highlight"><pre>
 <span></span><span class="c1">####################################################################################################</span>
@@ -72,7 +188,9 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">from</span> <span class="nn">.Calculator</span> <span class="k">import</span> <span class="n">Expression</span>
+<span class="kn">from</span> <span class="nn">Valentina.Geometry.Bezier</span> <span class="k">import</span> <span class="n">CubicBezier2D</span>
 <span class="kn">from</span> <span class="nn">Valentina.Geometry.Line</span> <span class="k">import</span> <span class="n">Line2D</span>
+<span class="kn">from</span> <span class="nn">Valentina.Geometry.Segment</span> <span class="k">import</span> <span class="n">Segment2D</span>
 <span class="kn">from</span> <span class="nn">Valentina.Geometry.Vector</span> <span class="k">import</span> <span class="n">Vector2D</span>
 
 <span class="n">pyid</span> <span class="o">=</span> <span class="nb">id</span>
@@ -96,7 +214,7 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">class_name</span><span class="p">,</span> <span class="n">super_classes</span><span class="p">,</span> <span class="n">class_attribute_dict</span><span class="p">):</span>
 
-        <span class="bp">cls</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="nb">str</span><span class="p">((</span><span class="bp">cls</span><span class="p">,</span> <span class="n">class_name</span><span class="p">,</span> <span class="n">super_classes</span><span class="p">,</span> <span class="n">class_attribute_dict</span><span class="p">)))</span>
+        <span class="c1"># cls._logger.info(str((cls, class_name, super_classes, class_attribute_dict)))</span>
         <span class="nb">type</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">class_name</span><span class="p">,</span> <span class="n">super_classes</span><span class="p">,</span> <span class="n">class_attribute_dict</span><span class="p">)</span></div>
 
 <span class="c1">####################################################################################################</span>
@@ -115,8 +233,10 @@
         <span class="k">if</span> <span class="nb">id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">get_calculation_id</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Fixme: check id is uniq</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="nb">id</span>
+            <span class="k">if</span> <span class="n">pattern</span><span class="o">.</span><span class="n">has_calculation_id</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;calculation id </span><span class="si">{}</span><span class="s2"> is already attributed&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="nb">id</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_dag_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dag</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">pyid</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dependencies</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -244,7 +364,13 @@
         <span class="c1"># Expression&#39;s dependencies are only known after compilation</span>
 
         <span class="k">for</span> <span class="n">expression</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter_on_expressions</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_connect_ancestor</span><span class="p">(</span><span class="o">*</span><span class="n">expression</span><span class="o">.</span><span class="n">dependencies</span><span class="p">)</span></div></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connect_ancestor</span><span class="p">(</span><span class="o">*</span><span class="n">expression</span><span class="o">.</span><span class="n">dependencies</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="c1"># @property</span>
+<div class="viewcode-block" id="Calculation.geometry"><a class="viewcode-back" href="../../../api/Valentina/Pattern/Calculation.html#Valentina.Pattern.Calculation.Calculation.geometry">[docs]</a>    <span class="k">def</span> <span class="nf">geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Geometry is not implemented for </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div></div>
 
 <span class="c1">####################################################################################################</span>
 
@@ -391,7 +517,13 @@
 
     <span class="k">def</span> <span class="nf">_post_eval_internal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0._name}</span><span class="s1"> </span><span class="si">{0._vector}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0._name}</span><span class="s1"> </span><span class="si">{0._vector}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Point.geometry"><a class="viewcode-back" href="../../../api/Valentina/Pattern/Calculation.html#Valentina.Pattern.Calculation.Point.geometry">[docs]</a>    <span class="k">def</span> <span class="nf">geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vector</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span></div></div>
 
 <span class="c1">####################################################################################################</span>
 
@@ -644,7 +776,12 @@
 
 <div class="viewcode-block" id="Line.eval_internal"><a class="viewcode-back" href="../../../api/Valentina/Pattern/Calculation.html#Valentina.Pattern.Calculation.Line.eval_internal">[docs]</a>    <span class="k">def</span> <span class="nf">eval_internal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="k">pass</span></div></div>
+        <span class="k">pass</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Line.geometry"><a class="viewcode-back" href="../../../api/Valentina/Pattern/Calculation.html#Valentina.Pattern.Calculation.Line.geometry">[docs]</a>    <span class="k">def</span> <span class="nf">geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Segment2D</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_first_point</span><span class="o">.</span><span class="n">vector</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_second_point</span><span class="o">.</span><span class="n">vector</span><span class="p">)</span></div></div>
 
 <span class="c1">####################################################################################################</span>
 
@@ -708,51 +845,84 @@
 
 <div class="viewcode-block" id="SimpleInteractiveSpline.eval_internal"><a class="viewcode-back" href="../../../api/Valentina/Pattern/Calculation.html#Valentina.Pattern.Calculation.SimpleInteractiveSpline.eval_internal">[docs]</a>    <span class="k">def</span> <span class="nf">eval_internal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_control_point1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_point</span><span class="o">.</span><span class="n">vector</span> <span class="o">+</span> <span class="n">Vector2D</span><span class="o">.</span><span class="n">from_angle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_angle1</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_length1</span><span class="o">.</span><span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_control_point2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">second_point</span><span class="o">.</span><span class="n">vector</span> <span class="o">+</span> <span class="n">Vector2D</span><span class="o">.</span><span class="n">from_angle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_angle2</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_length2</span><span class="o">.</span><span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Control points : </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_control_point1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control_point2</span><span class="p">))</span></div></div>
+        <span class="n">control_point1_offset</span> <span class="o">=</span> <span class="n">Vector2D</span><span class="o">.</span><span class="n">from_angle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_angle1</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_length1</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">control_point2_offset</span> <span class="o">=</span> <span class="n">Vector2D</span><span class="o">.</span><span class="n">from_angle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_angle2</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_length2</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_control_point1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_point</span><span class="o">.</span><span class="n">vector</span> <span class="o">+</span> <span class="n">control_point1_offset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_control_point2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">second_point</span><span class="o">.</span><span class="n">vector</span> <span class="o">+</span> <span class="n">control_point2_offset</span></div>
+        <span class="c1"># self._logger.info(&quot;Control points : {} {}&quot;.format(self._control_point1, self._control_point2))</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="SimpleInteractiveSpline.geometry"><a class="viewcode-back" href="../../../api/Valentina/Pattern/Calculation.html#Valentina.Pattern.Calculation.SimpleInteractiveSpline.geometry">[docs]</a>    <span class="k">def</span> <span class="nf">geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control_point1</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;eval before to get geometry&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">CubicBezier2D</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_first_point</span><span class="o">.</span><span class="n">vector</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control_point1</span><span class="p">,</span>
+                             <span class="bp">self</span><span class="o">.</span><span class="n">_control_point2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_second_point</span><span class="o">.</span><span class="n">vector</span><span class="p">)</span></div></div>
 </pre></div>
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Fabrice Salvaire.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../../../index.html">Documentation overview</a><ul>
-  <li><a href="../../index.html">Module code</a><ul>
-  <li><a href="../Pattern.html">Valentina.Pattern</a><ul>
-  </ul></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, Fabrice Salvaire.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../static/jquery.js"></script>
+      <script type="text/javascript" src="../../../static/underscore.js"></script>
+      <script type="text/javascript" src="../../../static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../../../static/hidecode.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

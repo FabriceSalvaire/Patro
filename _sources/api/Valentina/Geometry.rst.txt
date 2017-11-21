@@ -1,6 +1,6 @@
-*****************
- :mod:`Geometry`
-*****************
+**********
+Geometry
+**********
 
 .. toctree::
   Geometry/Bezier
@@ -14,5 +14,3 @@
 .. automodule:: Valentina.Geometry
    :members:
    :show-inheritance:
-
-.. End

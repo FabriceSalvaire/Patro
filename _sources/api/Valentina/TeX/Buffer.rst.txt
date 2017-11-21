@@ -1,10 +1,8 @@
-***************
- :mod:`Buffer`
-***************
+********
+Buffer
+********
 
 .. automodule:: Valentina.TeX.Buffer
    :members:
    :show-inheritance:
 
-
-.. End

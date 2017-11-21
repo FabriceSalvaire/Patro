@@ -1,51 +1,195 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.1.8.4. Measurement &mdash; PyValentina 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
     
-    <title>2.1.8.3. Measurement &#8212; PyValentina 0.1.0 documentation</title>
-    
-    <link rel="stylesheet" href="../../../static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../',
-        VERSION:     '0.1.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../../static/jquery.js"></script>
-    <script type="text/javascript" src="../../../static/underscore.js"></script>
-    <script type="text/javascript" src="../../../static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="2.1.8.4. Pattern" href="Pattern.html" />
-    <link rel="prev" title="2.1.8.2. Calculator" href="Calculator.html" />
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../static/css/PyValentina.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="PyValentina 0.2.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="2.1.8. Pattern" href="../Pattern.html"/>
+        <link rel="next" title="2.1.8.5. Pattern" href="Pattern.html"/>
+        <link rel="prev" title="2.1.8.3. Contour" href="Contour.html"/> 
+
+  
+  <script src="../../../static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
    
-  <link rel="stylesheet" href="../../../static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <div class="wy-grid-for-nav">
 
-  </head>
-  <body role="document">
-  
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+          
+            <a href="../../../index.html" class="icon icon-home"> PyValentina
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">1. Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference-manual.html">2. API Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../Valentina.html">2.1. Valentina</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../FileFormat.html">2.1.1. FileFormat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Geometry.html">2.1.2. Geometry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Graph.html">2.1.3. Graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GraphicScene.html">2.1.4. GraphicScene</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Logging.html">2.1.5. Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Math.html">2.1.6. Math</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Painter.html">2.1.7. Painter</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../Pattern.html">2.1.8. Pattern</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="Calculation.html">2.1.8.1. Calculation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Calculator.html">2.1.8.2. Calculator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Contour.html">2.1.8.3. Contour</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">2.1.8.4. Measurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Pattern.html">2.1.8.5. Pattern</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../TeX.html">2.1.9. TeX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tools.html">2.1.10. Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Xml.html">2.1.11. Xml</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference-manual.html#indexes">2.2. Indexes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">3. Bibliography</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyValentina</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../reference-manual.html">2. API Documentation</a> &raquo;</li>
+        
+          <li><a href="../../Valentina.html">2.1. Valentina</a> &raquo;</li>
+        
+          <li><a href="../Pattern.html">2.1.8. Pattern</a> &raquo;</li>
+        
+      <li>2.1.8.4. Measurement</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/Valentina/Pattern/Measurement.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="module-Valentina.Pattern.Measurement">
-<span id="measurement"></span><h1>2.1.8.3. <code class="xref py py-mod docutils literal"><span class="pre">Measurement</span></code><a class="headerlink" href="#module-Valentina.Pattern.Measurement" title="Permalink to this headline">¶</a></h1>
+<span id="measurement"></span><h1>2.1.8.4. Measurement<a class="headerlink" href="#module-Valentina.Pattern.Measurement" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="Valentina.Pattern.Measurement.Measurement">
 <em class="property">class </em><code class="descclassname">Valentina.Pattern.Measurement.</code><code class="descname">Measurement</code><span class="sig-paren">(</span><em>measurements</em>, <em>name</em>, <em>value</em>, <em>full_name=''</em>, <em>description=''</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Valentina/Pattern/Measurement.html#Measurement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Valentina.Pattern.Measurement.Measurement" title="Permalink to this definition">¶</a></dt>
@@ -152,60 +296,77 @@
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Pattern.html" class="btn btn-neutral float-right" title="2.1.8.5. Pattern" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Contour.html" class="btn btn-neutral" title="2.1.8.3. Contour" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Fabrice Salvaire.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../../../index.html">Documentation overview</a><ul>
-  <li><a href="../../../reference-manual.html">2. API Documentation</a><ul>
-  <li><a href="../../Valentina.html">2.1. <code class="docutils literal"><span class="pre">Valentina</span></code></a><ul>
-  <li><a href="../Pattern.html">2.1.8. <code class="docutils literal"><span class="pre">Pattern</span></code></a><ul>
-      <li>Previous: <a href="Calculator.html" title="previous chapter">2.1.8.2. <code class="docutils literal"><span class="pre">Calculator</span></code></a></li>
-      <li>Next: <a href="Pattern.html" title="next chapter">2.1.8.4. <code class="docutils literal"><span class="pre">Pattern</span></code></a></li>
-  </ul></li>
-  </ul></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../../../_sources/api/Valentina/Pattern/Measurement.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, Fabrice Salvaire.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="../../../_sources/api/Valentina/Pattern/Measurement.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../static/jquery.js"></script>
+      <script type="text/javascript" src="../../../static/underscore.js"></script>
+      <script type="text/javascript" src="../../../static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../../../static/hidecode.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>
