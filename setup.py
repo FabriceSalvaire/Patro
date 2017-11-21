@@ -1,9 +1,9 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 
 ####################################################################################################
 #
 # PyValentina - A Python implementation of Valentina Pattern Drafting Software
-# Copyright (C) 2017 Salvaire Fabrice
+# Copyright (C) 2017 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,10 +22,11 @@
 
 ####################################################################################################
 
+import glob
 import sys
 
-from distutils.core import setup
-# from setuptools import setup
+from setuptools import setup, find_packages
+setuptools_available = True
 
 ####################################################################################################
 
@@ -35,10 +36,39 @@ if sys.version_info < (3,):
 
 exec(compile(open('setup_data.py').read(), 'setup_data.py', 'exec'))
 
-setup(**setup_dict)
+####################################################################################################
+
+setup_dict.update(dict(
+    # include_package_data=True, # Look in MANIFEST.in
+    packages=find_packages(exclude=['unit-test']),
+    #scripts=glob.glob('bin/*'),
+    # [
+    #     'bin/...',
+    # ],
+    # package_data={
+    # },
+
+    platforms='any',
+    zip_safe=False, # due to data files
+
+    # cf. http://pypi.python.org/pypi?%3Aaction=list_classifiers
+    classifiers=[
+        'Topic :: Scientific/Engineering',
+        'Intended Audience :: Education',
+        'Development Status :: 5 - Production/Stable',
+        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 3.5',
+        ],
+
+    install_requires=[
+        'IntervalArithmetic',
+        'astunparse',
+        'lxml',
+        'numpy',
+    ],
+))
 
 ####################################################################################################
-#
-# End
-#
-####################################################################################################
+
+setup(**setup_dict)

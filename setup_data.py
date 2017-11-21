@@ -1,7 +1,7 @@
 ####################################################################################################
 #
 # PyValentina - A Python implementation of Valentina Pattern Drafting Software
-# Copyright (C) 2017 Salvaire Fabrice
+# Copyright (C) 2017 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@ def merge_include(src_lines, doc_path, included_rst_files=None):
 
 # Utility function to read the README file.
 # Used for the long_description.
-def read(file_name):
+def read_readme(file_name):
 
     source_path = os.path.dirname(os.path.realpath(__file__))
     if os.path.basename(source_path) == 'tools':
@@ -63,37 +63,21 @@ def read(file_name):
 
 ####################################################################################################
 
-long_description = read('README.txt')
+if not __file__.endswith('conf.py'):
+    long_description = read_readme('README.txt')
+else:
+    long_description = ''
 
 ####################################################################################################
 
 setup_dict = dict(
     name='PyValentina',
-    version='0.1.0',
+    version='0.2.0',
     author='Fabrice Salvaire',
     author_email='fabrice.salvaire@orange.fr',
     description='Python implementation of Valentina Pattern Making Software',
     license='GPLv3',
     keywords='pattern making valentina',
     url='https://github.com/FabriceSalvaire/PyValentina',
-    scripts=[],
-    packages=['Valentina', # Fixme:
-              'Valentina.Math',
-              'Valentina.Tools',
-          ],
-    # package_dir = {'PyValentina': 'PyValentina'},
-    data_files=[],
     long_description=long_description,
-    # cf. http://pypi.python.org/pypi?%3Aaction=list_classifiers
-    classifiers=[
-        'Topic :: Scientific/Engineering',
-        'Intended Audience :: Education',
-        'Development Status :: 5 - Production/Stable',
-        'License :: OSI Approved :: GNU General Public License (GPL)',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python :: 3.5',
-        ],
-    requires=[
-        'numpy',
-    ],
 )
