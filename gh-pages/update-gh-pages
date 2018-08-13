@@ -9,7 +9,7 @@ source_gh_pages=${root_dir}/gh-pages
 echo Source Path: ${root_dir}
 echo HTML Build Path: ${html_build}
 
-origin='git@github.com:FabriceSalvaire/PyValentina.git'
+origin='git@github.com:FabriceSalvaire/Patro.git'
 
 ####################################################################################################
 
@@ -17,8 +17,8 @@ tmp_dir=$(mktemp -d)
 if [ -e ${tmp_dir} ]; then
   pushd ${tmp_dir}
 
-  git clone ${origin} PyValentina-gh-pages --branch gh-pages --single-branch
-  pushd PyValentina-gh-pages
+  git clone ${origin} Patro-gh-pages --branch gh-pages --single-branch
+  pushd Patro-gh-pages
   # sync with origin if already cloned
   # git fetch origin
   git checkout gh-pages
