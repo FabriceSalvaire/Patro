@@ -1,7 +1,7 @@
-####################################################################################################
+g####################################################################################################
 #
-# PyValentina - A Python implementation of Valentina Pattern Drafting Software
-# Copyright (C) 2017 Fabrice Salvaire
+# Patro - A Python library to make pattern
+# Copyright (C) 2018 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -71,13 +71,13 @@ else:
 ####################################################################################################
 
 setup_dict = dict(
-    name='PyValentina',
-    version='0.2.0',
+    name='Patro',
+    version='0.3.0',
     author='Fabrice Salvaire',
     author_email='fabrice.salvaire@orange.fr',
-    description='Python implementation of Valentina Pattern Making Software',
+    description='A Python library to make pattern for fashion design',
     license='GPLv3',
-    keywords='pattern making valentina',
-    url='https://github.com/FabriceSalvaire/PyValentina',
+    keywords= 'pattern making drafting digitising digitizing sewing fashion design garment cloth valentina seamly',
+    url='https://github.com/FabriceSalvaire/Patro',
     long_description=long_description,
 )

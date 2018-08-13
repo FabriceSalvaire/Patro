@@ -2,8 +2,8 @@
 
 ####################################################################################################
 #
-# PyValentina - A Python implementation of Valentina Pattern Drafting Software
-# Copyright (C) 2017 Fabrice Salvaire
+# Patro - A Python library to make pattern
+# Copyright (C) 2018 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -31,21 +31,27 @@ setuptools_available = True
 ####################################################################################################
 
 if sys.version_info < (3,):
-    print('PyValentina requires Python 3', file=sys.stderr)
+    print('Patro requires Python 3', file=sys.stderr)
     sys.exit(1)
 
 exec(compile(open('setup_data.py').read(), 'setup_data.py', 'exec'))
 
 ####################################################################################################
 
+def read_requirement():
+    return [requirement.strip() for requirement in open('requirements.txt').readlines()]
+
+####################################################################################################
+
 setup_dict.update(dict(
     # include_package_data=True, # Look in MANIFEST.in
     packages=find_packages(exclude=['unit-test']),
-    #scripts=glob.glob('bin/*'),
+    # scripts=glob.glob('bin/*'),
     # [
     #     'bin/...',
     # ],
     # package_data={
+    #     'Patro.Config': ['logging.yml'],
     # },
 
     platforms='any',
@@ -54,19 +60,14 @@ setup_dict.update(dict(
     # cf. http://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         'Topic :: Scientific/Engineering',
-        'Intended Audience :: Education',
-        'Development Status :: 5 - Production/Stable',
+        'Development Status :: 4 - Beta',
+        # 'Development Status :: 5 - Production/Stable',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         ],
 
-    install_requires=[
-        'IntervalArithmetic',
-        'astunparse',
-        'lxml',
-        'numpy',
-    ],
+    install_requires=read_requirement(),
 ))
 
 ####################################################################################################
