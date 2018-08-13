@@ -38,7 +38,6 @@ class XmlFileMixin:
     ##############################################
 
     def __init__(self, path):
-
         self._path = Path(path)
 
     ##############################################
@@ -50,15 +49,12 @@ class XmlFileMixin:
     ##############################################
 
     def _parse(self):
-
         with open(str(self._path), 'rb') as f:
             source = f.read()
-
         return etree.fromstring(source)
 
     ##############################################
 
     @staticmethod
     def _get_xpath_element(root, path):
-
         return root.xpath(path)[0]

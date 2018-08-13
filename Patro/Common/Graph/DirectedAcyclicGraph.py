@@ -74,14 +74,12 @@ class DirectedAcyclicGraphNode:
     ##############################################
 
     def disconnect_ancestor(self, node):
-
         self._ancestors.remove(node)
         node.descendants.remove(self)
 
     ##############################################
 
     def connect_ancestor(self, node):
-
         self._ancestors.add(node)
         node._descendants.add(self)
 
@@ -108,19 +106,16 @@ class DirectedAcyclicGraph(object):
     ##############################################
 
     def __init__(self):
-
         self._nodes = {}
 
     ##############################################
 
     def __iter__(self):
-
         return iter(self._nodes.values())
 
     ##############################################
 
     def __getitem__(self, node_id):
-
         return self._nodes[node_id]
 
     ##############################################
@@ -137,19 +132,16 @@ class DirectedAcyclicGraph(object):
     ##############################################
 
     def add_edge(self, ancestor, descendant):
-
         descendant.connect_ancestor(ancestor)
 
     ##############################################
 
     def roots(self):
-
         return [node for node in self if node.is_root]
 
     ##############################################
 
     def leafs(self):
-
         return [node for node in self if node.is_leaf]
 
     ##############################################

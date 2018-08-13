@@ -88,13 +88,11 @@ class Attribute:
     ##############################################
 
     def get_attribute(self, instance):
-
         return getattr(instance, self.py_cls_attribute)
 
     ##############################################
 
     def set_attribute(self, instance, value):
-
         setattr(instance, self.py_cls_attribute, value)
 
 ####################################################################################################
@@ -187,7 +185,6 @@ class XmlObjectAdaptator(metaclass = XmlObjectAdaptatorMetaClass):
     ##############################################
 
     def __repr__(self):
-
         return '{} {}'.format(self.__class__.__name__, self.to_dict())
 
     ##############################################
@@ -245,7 +242,6 @@ class XmlObjectAdaptator(metaclass = XmlObjectAdaptatorMetaClass):
     ##############################################
 
     def to_xml_string(self):
-
         return etree.tostring(self.to_xml())
 
     ##############################################

@@ -50,9 +50,7 @@ def epsilon_float(a, b, epsilon = 1e-3):
     return abs(a-b) <= epsilon
 
 def trignometric_clamp(x):
-
-    """ Clamp *x* in the range [-1.,1]. """
-
+    """Clamp *x* in the range [-1.,1]."""
     if x > 1.:
         return 1.
     elif x < -1.:

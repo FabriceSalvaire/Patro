@@ -26,8 +26,9 @@ from itertools import tee
 
 def pairwise(iterable):
 
-    """ Return a generator which generate a pair wise list from an iterable.
-    s -> (s[0],s[1]), (s[1],s[2]), ... (s[N-1],s[N])
+    """Return a generator which generate a pair wise list from an iterable.  s -> (s[0],s[1]),
+    (s[1],s[2]), ... (s[N-1],s[N])
+
     """
 
     prev = iterable[0]
@@ -39,8 +40,8 @@ def pairwise(iterable):
 
 def multiwise(iterable, n=2):
 
-    """ Return a generator which generate a multi wise list from an iterable.
-    s -> (s[0],s[1],s[2],...), (s[1],s[2],s[3],...), ... (...,s[N-2],s[N-1],s[N])
+    """Return a generator which generate a multi wise list from an iterable.  s ->
+    (s[0],s[1],s[2],...), (s[1],s[2],s[3],...), ... (...,s[N-2],s[N-1],s[N])
 
     Examples::
 
@@ -96,8 +97,9 @@ def multiwise_interval(iterable_size, n=2):
 
 def closed_pairwise(iterable):
 
-    """ Return a generator which generate a closed pair wise list from an iterable.
-    s -> (s[0],s[1]), (s[1],s[2]), ... (s[N], s[0])
+    """Return a generator which generate a closed pair wise list from an iterable.  s -> (s[0],s[1]),
+    (s[1],s[2]), ... (s[N], s[0])
+
     """
 
     closed_iterable = list(iterable) + [iterable[0]]
@@ -112,78 +114,60 @@ def closed_pairwise(iterable):
 
 class PairWiseManipulator(object):
 
-    """ This class is a template to manipulate an iterable with a pair wise iterator concept.
+    """This class is a template to manipulate an iterable with a pair wise iterator concept.
 
     The method :meth:`do` must be implemented in super-class.
+
     """
 
     ##############################################
 
     def __init__(self):
-
          self._iterable = None
 
     ##############################################
 
     def _index_max(self):
-
-        """ Return the index max of the list.
-        """
-
+        """Return the index max of the list."""
         return len(self._iterable) -1
 
     ##############################################
 
     def next(self):
-
-        """ Increment the index position.
-        """
-
+        """Increment the index position."""
         self._index += 1
 
     ##############################################
 
     def end(self):
-
-        """ Test if the index position is at the end of the list.
-        """
-
+        """Test if the index position is at the end of the list."""
         return self._index == self._index_max()
 
     ##############################################
 
     def pair(self):
-
-        """ Return the pair from the current index position.
-        """
-
+        """Return the pair from the current index position."""
         return self._iterable[self._index:self._index+2]
 
     ##############################################
 
     def del_item(self):
-
-        """ Delete the item at the current index position.
-        """
-
+        """Delete the item at the current index position."""
         del self._iterable[self._index]
 
     ##############################################
 
     def del_next_item(self):
-
-        """ Delete the item at the next index position.
-        """
-
+        """Delete the item at the next index position."""
         del self._iterable[self._index +1]
 
     ##############################################
 
     def apply(self, iterable):
 
-        """ Iterate over the iterable and call the method :meth:`do` at each iteration until the
-        last position is reached.  The index position is incremented if the method return
-        :obj:`True`.
+        """Iterate over the iterable and call the method :meth:`do` at each iteration until the last
+        position is reached.  The index position is incremented if the method return :obj:`True`.
+
         """
 
         self._iterable = iterable
@@ -198,17 +182,14 @@ class PairWiseManipulator(object):
     ##############################################
 
     def do(self):
-
-        """ Method called by method :meth:`apply` to manipulate the list. Must return a boolean.
-        """
-
+        """Method called by method :meth:`apply` to manipulate the list. Must return a boolean."""
         raise NotImplementedError
 
 ####################################################################################################
 
 def accumulate(iterable):
 
-    """ Accumulate the values of an iterable to a new array. """
+    """Accumulate the values of an iterable to a new array."""
 
     accumulator = 0
     array = []
