@@ -1,14 +1,14 @@
 #! /usr/bin/bash
 
-find PyValentina -name "flycheck*.py" -exec rm {} \;
-find PyValentina -name "parsetab.py" -exec rm {} \;
+find Patro -name "flycheck*.py" -exec rm {} \;
+find Patro -name "parsetab.py" -exec rm {} \;
 
 api=doc/sphinx/source/api
 rm -rf ${api}
 
 echo
 echo Generate RST API files
-generate-rst-api Valentina
+pyterate-rst-api Patro
 
 echo
 echo Run Sphinx
