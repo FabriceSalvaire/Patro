@@ -22,6 +22,8 @@
 
 import os
 
+from Patro import __version__
+
 ####################################################################################################
 
 def merge_include(src_lines, doc_path, included_rst_files=None):
@@ -72,7 +74,7 @@ else:
 
 setup_dict = dict(
     name='Patro',
-    version='0.3.0',
+    version=__version__,
     author='Fabrice Salvaire',
     author_email='fabrice.salvaire@orange.fr',
     description='A Python library to make pattern for fashion design',
