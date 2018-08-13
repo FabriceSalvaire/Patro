@@ -1,6 +1,6 @@
 ####################################################################################################
 #
-# PyValentina - A Python implementation of Valentina Pattern Drafting Software
+# Patro - A Python implementation of Valentina Pattern Drafting Software
 # Copyright (C) 2017 Salvaire Fabrice
 #
 # This program is free software: you can redistribute it and/or modify
@@ -26,7 +26,7 @@ from math import sqrt
 
 ####################################################################################################
 
-from Valentina.Geometry.Vector import *
+from Patro.Geometry.Vector import *
 
 ####################################################################################################
 

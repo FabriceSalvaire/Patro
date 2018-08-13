@@ -1,7 +1,7 @@
 ####################################################################################################
 #
 # Patro - A Python implementation of Valentina Pattern Drafting Software
-# Copyright (C) 2017 Salvaire Fabrice
+# Copyright (C) 2017 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,27 +20,51 @@
 
 ####################################################################################################
 
-import unittest
+import copy
 
 ####################################################################################################
 
-from Patro.Painter.Paper import PaperSize
-from Patro.Painter.TexPainter import TexPainter
-
-####################################################################################################
-
-class TestTexPainter(unittest.TestCase):
+class Buffer:
 
     ##############################################
 
-    def test(self):
+    def __init__(self):
 
-        paper = PaperSize('a4', 'portrait', 10)
-        tex_painter = TexPainter('out.tex', None, paper)
-        print(tex_painter._document)
+        self._content = []
+        self.clear()
 
-####################################################################################################
+    ##############################################
 
-if __name__ == '__main__':
+    def __str__(self):
 
-    unittest.main()
+        source = ''
+        for item in self._content:
+            source += str(item)
+        return source
+
+    ##############################################
+
+    def clear(self):
+
+        self._content.clear()
+
+    ##############################################
+
+    def append(self, data, deepcopy=False):
+
+        if isinstance(data, list):
+            for item in data:
+                self._append(item, deepcopy)
+        else:
+            self._append(data, deepcopy)
+
+        return self
+
+    ##############################################
+
+    def _append(self, data, deepcopy=False):
+
+        if deepcopy:
+            data = copy.deepcopy(data)
+        # if isinstance(data, str) or isinstance(data, Buffer):
+        self._content.append(data)

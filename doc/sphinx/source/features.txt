@@ -4,7 +4,7 @@
  Features
 ==========
 
-The features of PyValentina are :
+The features of Patro are :
 
 * read/write *.val* and *.vit* file
 * `QMuParser <http://beltoforion.de/article.php?a=muparser>`_ expressions are translated to Python and evaluated on the fly

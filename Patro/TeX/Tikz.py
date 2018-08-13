@@ -1,7 +1,7 @@
 ####################################################################################################
 #
 # Patro - A Python implementation of Valentina Pattern Drafting Software
-# Copyright (C) 2017 Salvaire Fabrice
+# Copyright (C) 2017 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,27 +20,45 @@
 
 ####################################################################################################
 
-import unittest
+from .Environment import Environment
 
 ####################################################################################################
 
-from Patro.Painter.Paper import PaperSize
-from Patro.Painter.TexPainter import TexPainter
-
-####################################################################################################
-
-class TestTexPainter(unittest.TestCase):
+class TikzFigure(Environment):
 
     ##############################################
 
-    def test(self):
+    __STROKE_STYLE__ = {
+        None: None,
+        'dashDotLine': 'dash pattern=on 5mm off 4mm on 2mm off 4mm', # 'loosely dashdotted',
+        'dotLine': 'dash pattern=on 2mm off 2mm', # 'dotted',
+        'hair': 'solid',
+        'none': None,
 
-        paper = PaperSize('a4', 'portrait', 10)
-        tex_painter = TexPainter('out.tex', None, paper)
-        print(tex_painter._document)
+        'solid': 'solid',
+        }
 
-####################################################################################################
+    __COLOR__ = {
+        None : None,
+        'black': 'black',
+        }
 
-if __name__ == '__main__':
+    @staticmethod
+    def format_path_style(path_syle):
 
-    unittest.main()
+        stroke_style = TikzFigure.__STROKE_STYLE__[path_syle.stroke_style]
+        stroke_color = TikzFigure.__COLOR__[path_syle.stroke_color]
+
+        styles = []
+        styles.append('line width={}'.format(path_syle.line_width))
+        if stroke_style is not None:
+            styles.append(stroke_style)
+        if stroke_color is not None:
+            styles.append(stroke_color)
+        return ', '.join(styles)
+
+    ##############################################
+
+    def __init__(self, options=''):
+
+        super(TikzFigure, self).__init__('tikzpicture', options)

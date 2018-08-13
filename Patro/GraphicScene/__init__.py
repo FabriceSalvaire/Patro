@@ -1,7 +1,7 @@
 ####################################################################################################
 #
 # Patro - A Python implementation of Valentina Pattern Drafting Software
-# Copyright (C) 2017 Salvaire Fabrice
+# Copyright (C) 2017 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,29 +18,7 @@
 #
 ####################################################################################################
 
-####################################################################################################
+"""This subpackage implements a graphic scene which serve to describe a vector drawing to be
+rendered by a painter implementation.
 
-import unittest
-
-####################################################################################################
-
-from Patro.Painter.Paper import PaperSize
-from Patro.Painter.TexPainter import TexPainter
-
-####################################################################################################
-
-class TestTexPainter(unittest.TestCase):
-
-    ##############################################
-
-    def test(self):
-
-        paper = PaperSize('a4', 'portrait', 10)
-        tex_painter = TexPainter('out.tex', None, paper)
-        print(tex_painter._document)
-
-####################################################################################################
-
-if __name__ == '__main__':
-
-    unittest.main()
+"""

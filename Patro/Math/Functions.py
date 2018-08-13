@@ -1,7 +1,7 @@
 ####################################################################################################
 #
 # Patro - A Python implementation of Valentina Pattern Drafting Software
-# Copyright (C) 2017 Salvaire Fabrice
+# Copyright (C) 2017 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,49 +20,47 @@
 
 ####################################################################################################
 
-import unittest
-
-import numpy.testing as np_testing
+import math
 
 ####################################################################################################
 
-from Patro.Geometry.Transformation import *
+def rint(f):
+    return int(round(f))
 
 ####################################################################################################
 
-class TestTransformation(unittest.TestCase):
-
-    ##############################################
-
-    def test(self):
-
-        p0 = Vector2D(10, 0)
-        rotation = Transformation2D.Rotation(90)
-        p1 = rotation * p0
-        p1_true = Vector2D(0, 10)
-        self.assertTrue(p1.almost_equal(p1_true))
-
-        rotation = AffineTransformation2D.Rotation(90)
-        p1 = rotation * p0
-        self.assertTrue(p1.almost_equal(p1_true))
-
-        offset = Vector2D(10, 30)
-        translation = AffineTransformation2D.Translation(offset)
-        p1 = translation * p0
-        p1_true = Vector2D(20, 30)
-        self.assertTrue(p1.almost_equal(p1_true))
-
-        p0 = Vector2D(20, 10)
-        center = Vector2D(10, 10)
-        rotation_at = AffineTransformation2D.RotationAt(center, 90)
-        p1 = rotation_at * p0
-        p1_true = Vector2D(10, 20)
-        self.assertTrue(p1.almost_equal(p1_true))
-
-        # np_testing.assert_almost_equal()
+def ceil_int(f):
+    return int(math.ceil(f))
 
 ####################################################################################################
 
-if __name__ == '__main__':
+def middle(a, b):
+    return .5*(a + b)
 
-    unittest.main()
+####################################################################################################
+
+def cmp(a, b):
+    return (a > b) - (a < b)
+
+# Fixme: sign_of ?
+def sign(x):
+    return cmp(x, 0)
+
+def epsilon_float(a, b, epsilon = 1e-3):
+    return abs(a-b) <= epsilon
+
+def trignometric_clamp(x):
+
+    """ Clamp *x* in the range [-1.,1]. """
+
+    if x > 1.:
+        return 1.
+    elif x < -1.:
+        return -1.
+    else:
+        return x
+
+####################################################################################################
+
+def is_in_trignometric_range(x):
+    return -1. <= x <= 1

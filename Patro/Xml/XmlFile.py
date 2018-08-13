@@ -1,7 +1,7 @@
 ####################################################################################################
 #
 # Patro - A Python implementation of Valentina Pattern Drafting Software
-# Copyright (C) 2017 Salvaire Fabrice
+# Copyright (C) 2017 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,49 +20,45 @@
 
 ####################################################################################################
 
-import unittest
+import logging
+from pathlib import Path
 
-import numpy.testing as np_testing
-
-####################################################################################################
-
-from Patro.Geometry.Transformation import *
+from lxml import etree
 
 ####################################################################################################
 
-class TestTransformation(unittest.TestCase):
+_module_logger = logging.getLogger(__name__)
+
+####################################################################################################
+
+class XmlFileMixin:
+
+    # _logger = _module_logger.getChild('XmlFile')
 
     ##############################################
 
-    def test(self):
+    def __init__(self, path):
 
-        p0 = Vector2D(10, 0)
-        rotation = Transformation2D.Rotation(90)
-        p1 = rotation * p0
-        p1_true = Vector2D(0, 10)
-        self.assertTrue(p1.almost_equal(p1_true))
+        self._path = Path(path)
 
-        rotation = AffineTransformation2D.Rotation(90)
-        p1 = rotation * p0
-        self.assertTrue(p1.almost_equal(p1_true))
+    ##############################################
 
-        offset = Vector2D(10, 30)
-        translation = AffineTransformation2D.Translation(offset)
-        p1 = translation * p0
-        p1_true = Vector2D(20, 30)
-        self.assertTrue(p1.almost_equal(p1_true))
+    @property
+    def path(self):
+        return self._path
 
-        p0 = Vector2D(20, 10)
-        center = Vector2D(10, 10)
-        rotation_at = AffineTransformation2D.RotationAt(center, 90)
-        p1 = rotation_at * p0
-        p1_true = Vector2D(10, 20)
-        self.assertTrue(p1.almost_equal(p1_true))
+    ##############################################
 
-        # np_testing.assert_almost_equal()
+    def _parse(self):
 
-####################################################################################################
+        with open(str(self._path), 'rb') as f:
+            source = f.read()
 
-if __name__ == '__main__':
+        return etree.fromstring(source)
 
-    unittest.main()
+    ##############################################
+
+    @staticmethod
+    def _get_xpath_element(root, path):
+
+        return root.xpath(path)[0]

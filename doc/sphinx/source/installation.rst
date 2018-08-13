@@ -9,13 +9,13 @@
  Installation
 ==============
 
-The installation of PyValentina by itself is quite simple. However it will be easier to get the
+The installation of Patro by itself is quite simple. However it will be easier to get the
 dependencies on a Linux desktop.
 
 Dependencies
 ------------
 
-PyValentina requires the following dependencies:
+Patro requires the following dependencies:
 
  * |Python|_ 3
  * |Numpy|_
@@ -32,26 +32,26 @@ For development, you will need in addition:
 Installation from PyPi Repository
 ---------------------------------
 
-PyValentina is made available on the |Pypi|_ repository at |PyValentina@pypi|
+Patro is made available on the |Pypi|_ repository at |Patro@pypi|
 
 Run this command to install the last release:
 
 .. code-block:: sh
 
-  pip install PyValentina
+  pip install Patro
 
 Installation from Source
 ------------------------
 
-The PyValentina source code is hosted at |PyValentina@github|
+The Patro source code is hosted at |Patro@github|
 
 To clone the Git repository, run this command in a terminal:
 
 .. code-block:: sh
 
-  git clone git@github.com:FabriceSalvaire/PyValentina.git
+  git clone git@github.com:FabriceSalvaire/Patro.git
 
-Then to build and install PyValentina run these commands:
+Then to build and install Patro run these commands:
 
 .. code-block:: sh
 

@@ -1,6 +1,6 @@
 ####################################################################################################
 
-from Valentina.Logging import Basic
+from Patro.Logging import Basic
 
 ####################################################################################################
 
@@ -8,12 +8,12 @@ from pathlib import Path
 
 ####################################################################################################
 
-from Valentina.FileFormat.Measurements import VitFile
-from Valentina.FileFormat.Pattern import ValFile
-from Valentina.Geometry.Vector import Vector2D
-from Valentina.Painter.Paper import PaperSize
-from Valentina.Painter.TexPainter import TexPainter
-from Valentina.Pattern.Pattern import Pattern
+from Patro.FileFormat.Measurements import VitFile
+from Patro.FileFormat.Pattern import ValFile
+from Patro.Geometry.Vector import Vector2D
+from Patro.Painter.Paper import PaperSize
+from Patro.Painter.TexPainter import TexPainter
+from Patro.Pattern.Pattern import Pattern
 
 ####################################################################################################
 

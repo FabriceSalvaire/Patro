@@ -1,7 +1,7 @@
 ####################################################################################################
 #
 # Patro - A Python implementation of Valentina Pattern Drafting Software
-# Copyright (C) 2017 Salvaire Fabrice
+# Copyright (C) 2017 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,29 +18,37 @@
 #
 ####################################################################################################
 
-####################################################################################################
+"""This subpackage implements the core engine for pattern.
 
-import unittest
-
-####################################################################################################
-
-from Patro.Painter.Paper import PaperSize
-from Patro.Painter.TexPainter import TexPainter
+"""
 
 ####################################################################################################
 
-class TestTexPainter(unittest.TestCase):
+import inspect
 
-    ##############################################
-
-    def test(self):
-
-        paper = PaperSize('a4', 'portrait', 10)
-        tex_painter = TexPainter('out.tex', None, paper)
-        print(tex_painter._document)
+from . import Calculation
+from .Pattern import Pattern
 
 ####################################################################################################
 
-if __name__ == '__main__':
+def _get_calculations(module):
+    return [item
+            for item  in module.__dict__.values()
+            if inspect.isclass(item) and issubclass(item, Calculation.Calculation)]
 
-    unittest.main()
+####################################################################################################
+
+_calculations = _get_calculations(Calculation)
+
+for calculation_class in _calculations:
+
+    def _make_function(calculation_class):
+        def function(self, *args, **kwargs):
+            calculation = calculation_class(self, *args, **kwargs)
+            self._add_calculation(calculation)
+            return calculation
+        return function
+
+    function_name = calculation_class.__name__
+
+    setattr(Pattern, function_name, _make_function(calculation_class))

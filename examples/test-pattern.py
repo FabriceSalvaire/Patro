@@ -1,14 +1,14 @@
 ####################################################################################################
 
-from Valentina.Logging import Basic
+from Patro.Logging import Basic
 
 ####################################################################################################
 
 from pathlib import Path
 
-from Valentina.FileFormat.Pattern import ValFile
-from Valentina.Painter.Paper import PaperSize
-from Valentina.Painter.TexPainter import TexPainter
+from Patro.FileFormat.Pattern import ValFile
+from Patro.Painter.Paper import PaperSize
+from Patro.Painter.TexPainter import TexPainter
 
 ####################################################################################################
 

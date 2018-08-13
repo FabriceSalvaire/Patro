@@ -1,7 +1,7 @@
 ####################################################################################################
 #
 # Patro - A Python implementation of Valentina Pattern Drafting Software
-# Copyright (C) 2017 Salvaire Fabrice
+# Copyright (C) 2017 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,49 +20,42 @@
 
 ####################################################################################################
 
-import unittest
-
-import numpy.testing as np_testing
+from .Buffer import Buffer
 
 ####################################################################################################
 
-from Patro.Geometry.Transformation import *
-
-####################################################################################################
-
-class TestTransformation(unittest.TestCase):
+class Environment(Buffer):
 
     ##############################################
 
-    def test(self):
+    def __init__(self, name, options=''):
 
-        p0 = Vector2D(10, 0)
-        rotation = Transformation2D.Rotation(90)
-        p1 = rotation * p0
-        p1_true = Vector2D(0, 10)
-        self.assertTrue(p1.almost_equal(p1_true))
+        super(Environment, self).__init__()
 
-        rotation = AffineTransformation2D.Rotation(90)
-        p1 = rotation * p0
-        self.assertTrue(p1.almost_equal(p1_true))
+        self._name = name
+        # self._options = options
 
-        offset = Vector2D(10, 30)
-        translation = AffineTransformation2D.Translation(offset)
-        p1 = translation * p0
-        p1_true = Vector2D(20, 30)
-        self.assertTrue(p1.almost_equal(p1_true))
+        self._begin_buffer = Buffer()
+        self._end_buffer = Buffer()
 
-        p0 = Vector2D(20, 10)
-        center = Vector2D(10, 10)
-        rotation_at = AffineTransformation2D.RotationAt(center, 90)
-        p1 = rotation_at * p0
-        p1_true = Vector2D(10, 20)
-        self.assertTrue(p1.almost_equal(p1_true))
+        if options:
+            _options = '[' + options + ']'
+        else:
+            _options = ''
+        self._begin_buffer.append(r'\begin{%s}%s' % (self._name, _options) + '\n')
+        self._end_buffer.append(r'\end{%s}' % (self._name) + '\n')
 
-        # np_testing.assert_almost_equal()
+    ##############################################
+
+    def __str__(self):
+
+        source = str(self._begin_buffer)
+        source += super(Environment, self).__str__()
+        source += str(self._end_buffer)
+        return source
 
 ####################################################################################################
 
-if __name__ == '__main__':
-
-    unittest.main()
+class Center(Environment):
+    def __init__(self):
+        Environment.__init__(self, 'center')

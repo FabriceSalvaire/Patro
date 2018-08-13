@@ -5,16 +5,16 @@
 
    <br/>
 
-Welcome to the PyValentina documentation!
+Welcome to the Patro documentation!
 
-.. note:: The official Home Page of PyValentina is located at |PyValentinaUrl|
+.. note:: The official Home Page of Patro is located at |PatroUrl|
 
     If you are at http://readthedocs.org then you are reading the so called *latest documentation*.
 
-    The *latest documentation* |PyValentina@readthedocs-badge| is automatically built from the
+    The *latest documentation* |Patro@readthedocs-badge| is automatically built from the
     git repository after each commit.
 
-    As opposite the |PyValentinaHomePage|_ is built manually and is thus less prone to errors.
+    As opposite the |PatroHomePage|_ is built manually and is thus less prone to errors.
 
 .. include:: introduction.txt
 
@@ -24,15 +24,15 @@ Welcome to the PyValentina documentation!
  Installation
 ==============
 
-The procedure to install PyValentina is described in the :ref:`Installation Manual <installation-page>`.
+The procedure to install Patro is described in the :ref:`Installation Manual <installation-page>`.
 
 ===============
  Documentation
 ===============
 
-The best way to know what we can do with PyValentina and learn it, is to start with the examples.
+The best way to know what we can do with Patro and learn it, is to start with the examples.
 
- * :ref:`PyValentina Reference Manual <reference-manual-page>`
+ * :ref:`Patro Reference Manual <reference-manual-page>`
  * :ref:`Bibliography <bibliography-page>`
 
 ==========

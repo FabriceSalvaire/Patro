@@ -1,6 +1,6 @@
 ####################################################################################################
 #
-# PyValentina - A Python implementation of Valentina Pattern Drafting Software
+# Patro - A Python implementation of Valentina Pattern Drafting Software
 # Copyright (C) 2017 Salvaire Fabrice
 #
 # This program is free software: you can redistribute it and/or modify
@@ -24,8 +24,8 @@ import unittest
 
 ####################################################################################################
 
-from Valentina.Geometry.Line import *
-from Valentina.Geometry.Vector import *
+from Patro.Geometry.Line import *
+from Patro.Geometry.Vector import *
 
 ####################################################################################################
 

@@ -1,12 +1,12 @@
 ####################################################################################################
 
-from Valentina.Logging import Basic
+from Patro.Logging import Basic
 
 ####################################################################################################
 
 from pathlib import Path
 
-from Valentina.FileFormat.Measurements import VitFile
+from Patro.FileFormat.Measurements import VitFile
 
 ####################################################################################################
 

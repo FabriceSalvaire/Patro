@@ -6,7 +6,7 @@
  API Documentation
 ===================
 
-This is the auto-generated API documentation for the PyValentina library.
+This is the auto-generated API documentation for the Patro library.
 
 .. warning:: The API documentation is automatically generated from the docstrings in the source
   using the |Sphinx| tool.  This way to produce the documentation is know to be perfectible
