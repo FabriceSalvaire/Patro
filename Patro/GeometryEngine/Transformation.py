@@ -76,13 +76,11 @@ class Transformation:
     ##############################################
 
     def __repr__(self):
-
         return self.__class__.__name__ + str(self._m)
 
     ##############################################
 
     def same_dimension(self, other):
-
         return self.__size__ == other.dimension
 
     #######################################
@@ -131,28 +129,24 @@ class Transformation2D(Transformation):
 
     @classmethod
     def Scale(cls, x_scale, y_scale):
-
         return cls(np.array((x_scale, 0), (0,  y_scale)))
 
     ##############################################
 
     @classmethod
     def Parity(cls):
-
         return cls.Scale(-1, -1)
 
     ##############################################
 
     @classmethod
     def XReflection(cls):
-
         return cls.Scale(-1, 1)
 
     ##############################################
 
     @classmethod
     def YReflection(cls):
-
         return cls.Scale(1, -1)
 
 ####################################################################################################
@@ -213,7 +207,6 @@ class AffineTransformation(Transformation):
 ####################################################################################################
 
 class AffineTransformation2D(AffineTransformation):
-
     __dimension__ = 2
     __size__ = 3
 

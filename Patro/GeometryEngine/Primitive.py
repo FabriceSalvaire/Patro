@@ -20,18 +20,11 @@
 
 ####################################################################################################
 
-def bounding_box_from_points(points):
-
-    bounding_box = points[0].bounding_box()
-    for point in points[1:]:
-        bounding_box |= point.bounding_box()
-    return bounding_box
-
-####################################################################################################
-
 class Primitive:
 
-    __dimension__ = None
+    """Base class for geometric primitive"""
+
+    __dimension__ = None # in [2, 3] for 2D / 3D primitive
 
     ##############################################
 
@@ -58,7 +51,6 @@ class Primitive:
 ####################################################################################################
 
 class Primitive2D:
-
     __dimension__ = 2
 
 ####################################################################################################
@@ -85,6 +77,8 @@ class ReversablePrimitiveMixin:
     @property
     def end_point(self):
         raise NotImplementedError
+
+    ##############################################
 
     def iter_on_points(self):
         for point in self.start_point, self.start_point:

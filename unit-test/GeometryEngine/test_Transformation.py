@@ -24,9 +24,7 @@ import unittest
 
 import numpy.testing as np_testing
 
-####################################################################################################
-
-from Patro.Geometry.Transformation import *
+from Patro.GeometryEngine.Transformation import *
 
 ####################################################################################################
 

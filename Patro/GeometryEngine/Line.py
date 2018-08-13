@@ -29,14 +29,14 @@ from .Vector import Vector2D
 
 class Line2D(Primitive2D):
 
-    """ 2D Line """
+    """Class to implement 2D Line."""
 
     ##############################################
 
     @staticmethod
     def from_two_points(p0, p1):
 
-        """ Construct a :class:`Line2D` from two points. """
+        """Construct a :class:`Line2D` from two points."""
 
         return Line2D(p0, p1 - p0)
 
@@ -44,7 +44,7 @@ class Line2D(Primitive2D):
 
     def __init__(self, point, vector):
 
-        """ Construct a :class:`Line2D` from a point and a vector. """
+        """Construct a :class:`Line2D` from a point and a vector."""
 
         self.p = point
         self.v = vector
@@ -52,7 +52,6 @@ class Line2D(Primitive2D):
     ##############################################
 
     def clone(self):
-
         return self.__class__(self.p, self.v)
 
     ##############################################
@@ -70,24 +69,20 @@ class Line2D(Primitive2D):
     ##############################################
 
     def point_at_s(self, s):
-
-        """ Return the Point corresponding to the curvilinear abscissa s """
-
+        """Return the Point corresponding to the curvilinear abscissa s"""
         return self.p + (self.v * s)
 
     ##############################################
 
     def compute_distance_between_abscissae(self, s0, s1):
-
-        """ Compute distance between two abscissae """
-
+        """Compute distance between two abscissae"""
         return abs(s1 - s0) * self.v.magnitude()
 
     ##############################################
 
     def compute_distance(self, s_list):
 
-        """ Compute distance between a set of abscissae """
+        """Compute distance between a set of abscissae"""
 
         # Fixme: ?
         #   s_list_sorted = copy.deepcopy(s_list)
@@ -98,17 +93,13 @@ class Line2D(Primitive2D):
     ##############################################
 
     def get_y_from_x(self, x):
-
-        """ Return y corresponding to x """
-
+        """Return y corresponding to x"""
         return self.v.tan() * (x - self.p.x) + self.p.y
 
     ##############################################
 
     def get_x_from_y(self, y):
-
-        """ Return x corresponding to y """
-
+        """Return x corresponding to y"""
         return self.v.inverse_tan() * (y - self.p.y) + self.p.x
 
     ##############################################
@@ -116,24 +107,20 @@ class Line2D(Primitive2D):
     # Fixme: is_parallel_to
 
     def is_parallel(self, other):
-
-        """ Self is parallel to other """
-
+        """Self is parallel to other"""
         return self.v.is_parallel(other.v)
 
     ##############################################
 
     def is_orthogonal(self, other):
-
-        """ Self is orthogonal to other """
-
+        """Self is orthogonal to other"""
         return self.v.is_orthogonal(other.v)
 
     ##############################################
 
     def shifted_parallel_line(self, shift):
 
-        """ Return the shifted parallel line """
+        """Return the shifted parallel line"""
 
         n = self.v.normal()
         n.normalise()
@@ -145,7 +132,7 @@ class Line2D(Primitive2D):
 
     def orthogonal_line_at_abscissa(self, s):
 
-        """ Return the orthogonal line at abscissa s """
+        """Return the orthogonal line at abscissa s"""
 
         point = self.point_at_s(s)
         vector = self.v.normal()
@@ -156,7 +143,7 @@ class Line2D(Primitive2D):
 
     def intersection_abscissae(l1, l2):
 
-        """ Return the intersection abscissae between l1 and l2 """
+        """Return the intersection abscissae between l1 and l2"""
 
         # l1 = p1 + s1*v1
         # l2 = p2 + s2*v2
@@ -177,7 +164,7 @@ class Line2D(Primitive2D):
 
     def intersection(self, other):
 
-        """ Return the intersection Point between self and other """
+        """Return the intersection Point between self and other"""
 
         s0, s1 = self.intersection_abscissae(other)
         if s0 is None:
@@ -189,7 +176,8 @@ class Line2D(Primitive2D):
 
     def projected_abscissa(self, point):
 
-        """ Return the abscissa corresponding to the perpendicular projection of a point to the line
+        """Return the abscissa corresponding to the perpendicular projection of a point to the line
+
         """
 
         delta = point - self.p
@@ -201,7 +189,7 @@ class Line2D(Primitive2D):
 
     def distance_to_line(self, point):
 
-        """ Return the distance of a point to the line """
+        """Return the distance of a point to the line"""
 
         delta = point - self.p
         d = delta.deviation_with(self.v)
@@ -212,7 +200,7 @@ class Line2D(Primitive2D):
 
     def distance_and_abscissa_to_line(self, point):
 
-        """ Return the distance of a point to the line """
+        """Return the distance of a point to the line"""
 
         delta = point - self.p
         d = delta.deviation_with(self.v)
@@ -224,8 +212,8 @@ class Line2D(Primitive2D):
 
     def get_x_y_from_bounding_box(self, interval):
 
-        """ Return the bounding box build on the intersection of the input bounding box with the
-        line
+        """Return the bounding box build on the intersection of the input bounding box with the line
+
         """
 
         left, bottom, right, top = interval.bounding_box()

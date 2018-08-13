@@ -22,23 +22,22 @@
 
 from math import log, sqrt # pow
 
-from .Primitive import Primitive2D, ReversablePrimitiveMixin, bounding_box_from_points
-from .Segment import Segment2D, interpolate_two_points
+from .BoundingBox import bounding_box_from_points
+from .Interpolation import interpolate_two_points
+from .Primitive import Primitive2D, ReversablePrimitiveMixin
 from .Vector import Vector2D
 
 ####################################################################################################
 
 class QuadraticBezier2D(Primitive2D, ReversablePrimitiveMixin):
 
-    """ 2D Quadratic Bezier Curve """
+    """Class to implements 2D Quadratic Bezier Curve."""
 
     LineInterpolationPrecision = 0.05
 
     ##############################################
 
     def __init__(self, p0, p1, p2):
-
-        """ Construct a :class:`Segment2D` from three points. """
 
         self._p0 = Vector2D(p0)
         self._p1 = Vector2D(p1)
@@ -47,25 +46,21 @@ class QuadraticBezier2D(Primitive2D, ReversablePrimitiveMixin):
     ##############################################
 
     def clone(self):
-
         return self.__class__(self._p0, self._p1, self._p2)
 
     ##############################################
 
     def bounding_box(self):
-
         return bounding_box_from_points((self._p0, self._p1, self._p2))
 
     ##############################################
 
     def reverse(self):
-
         return self.__class__(self._p2, self._p1, self._p0)
 
     ##############################################
 
     def __repr__(self):
-
         return self.__class__.__name__ + '({0._p0}, {0._p1}, {0._p2})'.format(self)
 
     ##############################################
@@ -107,8 +102,29 @@ class QuadraticBezier2D(Primitive2D, ReversablePrimitiveMixin):
     @property
     def length(self):
 
-        # calculation by Dave Eberly
-        #   http://www.gamedev.net/topic/551455-length-of-a-generalized-quadratic-bezier-curve-in-3d
+        # Algorithm:
+        #
+        # http://www.gamedev.net/topic/551455-length-of-a-generalized-quadratic-bezier-curve-in-3d
+        # Dave Eberly Posted October 25, 2009
+        #
+        # The quadratic Bezier is
+        #   (x(t),y(t)) = (1-t)^2*(x0,y0) + 2*t*(1-t)*(x1,y1) + t^2*(x2,y2)
+        #
+        # The derivative is
+        #   (x'(t),y'(t)) = -2*(1-t)*(x0,y0) + (2-4*t)*(x1,y1) + 2*t*(x2,y2)
+        #
+        # The length of the curve for 0 <= t <= 1 is
+        #   Integral[0,1] sqrt((x'(t))^2 + (y'(t))^2) dt
+        # The integrand is of the form sqrt(c*t^2 + b*t + a)
+        #
+        # You have three separate cases: c = 0, c > 0, or c < 0.
+        # * The case c = 0 is easy.
+        # * For the case c > 0, an antiderivative is
+        #     (2*c*t+b)*sqrt(c*t^2+b*t+a)/(4*c) + (0.5*k)*log(2*sqrt(c*(c*t^2+b*t+a)) + 2*c*t + b)/sqrt(c)
+        #   where k = 4*c/q with q = 4*a*c - b*b.
+        # * For the case c < 0, an antiderivative is
+        #    (2*c*t+b)*sqrt(c*t^2+b*t+a)/(4*c) - (0.5*k)*arcsin((2*c*t+b)/sqrt(-q))/sqrt(-c)
+
         A0 = self._p1 - self._p0
         A1 = self._p0 - self._p1 * 2 + self._p2
         if A1.magnitude_square() != 0:
@@ -144,19 +160,16 @@ class QuadraticBezier2D(Primitive2D, ReversablePrimitiveMixin):
     ##############################################
 
     def point_at_t(self, t):
-
         # if 0 < t or 1 < t:
         #     raise ValueError()
-
         u = 1 - t
-
         return self._p0 * u**2 + self._p1 * 2 * t * u + self._p2 * t**2
 
     ##############################################
 
     def split_at_t(self, t):
 
-        # Splits the curve at given position
+        """Split the curve at given position"""
 
         p01 = interpolate_two_points(self._p0, self._p1, t)
         p12 = interpolate_two_points(self._p1, self._p2, t)
@@ -192,9 +205,7 @@ class QuadraticBezier2D(Primitive2D, ReversablePrimitiveMixin):
     ##############################################
 
     def tangent_at(self, t):
-
         u = 1 - t
-
         return (self._p1 - self._p0) * u + (self._p2 - self._p1) * t
 
 ####################################################################################################
@@ -206,7 +217,7 @@ _Sqrt3Div36 = _Sqrt3 / 36
 
 class CubicBezier2D(QuadraticBezier2D):
 
-    """ 2D Cubic Bezier Curve """
+    """Class to implements 2D Cubic Bezier Curve."""
 
     InterpolationPrecision = 0.001
 
@@ -214,33 +225,27 @@ class CubicBezier2D(QuadraticBezier2D):
 
     def __init__(self, p0, p1, p2, p3):
 
-        """ Construct a :class:`Segment2D` from three points. """
-
         QuadraticBezier2D.__init__(self, p0, p1, p2)
         self._p3 = Vector2D(p3)
 
     ##############################################
 
     def clone(self):
-
         return self.__class__(self._p0, self._p1, self._p2, self._p3)
 
     ##############################################
 
     def bounding_box(self):
-
         return bounding_box_from_points((self._p0, self._p1, self._p2, self._p3))
 
     ##############################################
 
     def reverse(self):
-
         return self.__class__(self._p3, self._p2, self._p1, self._p0)
 
     ##############################################
 
     def __repr__(self):
-
         return self.__class__.__name__ + '({0._p0}, {0._p1}, {0._p2}, {0._p3})'.format(self)
 
     ##############################################
@@ -261,16 +266,13 @@ class CubicBezier2D(QuadraticBezier2D):
 
     @property
     def length(self):
-
         return self.adaptive_length_approximation()
 
     ##############################################
 
     def point_at_t(self, t):
-
         # if 0 < t or 1 < t:
         #     raise ValueError()
-
         return (self._p0 +
                 (self._p1 - self._p0) * 3 * t  +
                 (self._p2 - self._p1 * 2 + self._p0) * 3 * t**2 +
@@ -279,14 +281,13 @@ class CubicBezier2D(QuadraticBezier2D):
     ##############################################
 
     def _q_point(self):
-        # Control point for mid-point quadratic approximation
+        """Return the control point for mid-point quadratic approximation"""
         return (self._p2 * 3 - self._p3 + self._p1 * 3 - self._p0) / 4
 
     ##############################################
 
     def mid_point_quadratic_approximation(self):
-
-        # Mid-point quadratic approximation
+        """Return the mid-point quadratic approximation"""
         p1 = self._q_point()
         return QuadraticBezier2D(self._p0, p1, self._p3)
 
@@ -294,7 +295,7 @@ class CubicBezier2D(QuadraticBezier2D):
 
     def split_at_t(self, t):
 
-        # Splits the curve at given position
+        """Split the curve at given position"""
 
         p01 = interpolate_two_points(self._p0, self._p1, t)
         p12 = interpolate_two_points(self._p1, self._p2, t)
@@ -309,27 +310,27 @@ class CubicBezier2D(QuadraticBezier2D):
     ##############################################
 
     def _d01(self):
-        # The distance between 0 and 1 quadratic aproximations
+        """Return the distance between 0 and 1 quadratic aproximations"""
         return (self._p3 - self._p2 * 3 + self._p1 * 3 - self._p0).magnitude() / 2
 
     ##############################################
 
     def _t_max(self):
-        # Split point for adaptive quadratic approximation
+        """Return the split point for adaptive quadratic approximation"""
         return (_Div18Sqrt3 * self.InterpolationPrecision / self._d01())**_OneThird
 
     ##############################################
 
     def q_length(self):
-
-        #  length of the mid-point quadratic approximation
+        """Return the length of the mid-point quadratic approximation"""
         return self.mid_point_quadratic_approximation().length
 
     ##############################################
 
     def adaptive_length_approximation(self):
 
-        # Calculated length of adaptive quadratic approximation
+        """Return the length of the adaptive quadratic approximation"""
+
         segments = []
         segment = self
         t_max = segment._t_max()
@@ -351,7 +352,5 @@ class CubicBezier2D(QuadraticBezier2D):
     ##############################################
 
     def tangent_at(self, t):
-
         u = 1 - t
-
         return (self._p1 - self._p0) * u**2 + (self._p2 - self._p1) * 2 * t * u + (self._p3 - self._p2) * t**2

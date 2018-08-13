@@ -18,7 +18,8 @@
 #
 ####################################################################################################
 
-"""This module implements a 2D geometry engine suitable for a low number of graphic entities. It
-implements standard primitives like line, segment and Bezier curve.
+####################################################################################################
 
-"""
+def interpolate_two_points(p0, p1, t):
+    """Return the linear interpolate of two points."""
+    return p0 * (1 - t) + p1 * t

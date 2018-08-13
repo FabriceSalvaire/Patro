@@ -20,54 +20,23 @@
 
 ####################################################################################################
 
+from .Interpolation import interpolate_two_points
 from .Line import Line2D
 from .Primitive import Primitive2D, ReversablePrimitiveMixin, bounding_box_from_points
+from .Triangle import triangle_orientation
 from .Vector import Vector2D
-
-####################################################################################################
-
-def triangle_orientation(p0, p1, p2):
-
-    dx1 = p1.x - p0.x
-    dy1 = p1.y - p0.y
-    dx2 = p2.x - p0.x
-    dy2 = p2.y - p0.y
-
-    # second slope is greater than the first one --> counter-clockwise
-    if dx1 * dy2 > dx2 * dy1:
-        return 1
-    # first slope is greater than the second one --> clockwise
-    elif dx1 * dy2 < dx2 * dy1:
-        return -1
-    # both slopes are equal --> collinear line segments
-    else:
-        # p0 is between p1 and p2
-        if dx1 * dx2 < 0 or dy1 * dy2 < 0:
-            return -1
-        # p2 is between p0 and p1, as the length is compared
-        # square roots are avoided to increase performance
-        elif dx1 * dx1 + dy1 * dy1 >= dx2 * dx2 + dy2 * dy2:
-            return 0
-        # p1 is between p0 and p2
-        else:
-            return 1
-
-####################################################################################################
-
-def interpolate_two_points(p0, p1, t):
-    return p0 * (1 - t) + p1 * t
 
 ####################################################################################################
 
 class Segment2D(Primitive2D, ReversablePrimitiveMixin):
 
-    """ 2D Segment """
+    """2D Segment"""
 
     #######################################
 
     def __init__(self, p0, p1):
 
-        """ Construct a :class:`Segment2D` between two points. """
+        """Construct a :class:`Segment2D` between two points."""
 
         self._p0 = Vector2D(p0)
         self._p1 = Vector2D(p1)
@@ -75,19 +44,16 @@ class Segment2D(Primitive2D, ReversablePrimitiveMixin):
     ##############################################
 
     def clone(self):
-
         return self.__class__(self._p0, self._p1)
 
     ##############################################
 
     def bounding_box(self):
-
         return bounding_box_from_points((self._p0, self._p1))
 
     ##############################################
 
     def reverse(self):
-
         return self.__class__(self._p1, self._p0)
 
     ##############################################

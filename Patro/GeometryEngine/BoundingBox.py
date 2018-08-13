@@ -18,7 +18,11 @@
 #
 ####################################################################################################
 
-"""This module implements a 2D geometry engine suitable for a low number of graphic entities. It
-implements standard primitives like line, segment and Bezier curve.
+####################################################################################################
 
-"""
+def bounding_box_from_points(points):
+    """Return the bounding box of the list of points."""
+    bounding_box = points[0].bounding_box()
+    for point in points[1:]:
+        bounding_box |= point.bounding_box()
+    return bounding_box

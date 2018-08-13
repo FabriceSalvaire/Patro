@@ -33,7 +33,7 @@ from .Vector import Vector2D
 
 class Circle2D(Primitive2D):
 
-    """ 2D Conic """
+    """Class to implements 2D Circle."""
 
     #######################################
 
@@ -83,7 +83,7 @@ class Circle2D(Primitive2D):
 
 class Conic2D(Primitive2D):
 
-    """ 2D Conic """
+    """Class to implements 2D Conic."""
 
     #######################################
 

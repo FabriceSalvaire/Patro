@@ -22,10 +22,8 @@
 
 import unittest
 
-####################################################################################################
-
-from Patro.Geometry.Line import *
-from Patro.Geometry.Vector import *
+from Patro.GeometryEngine.Line import *
+from Patro.GeometryEngine.Vector import *
 
 ####################################################################################################
 

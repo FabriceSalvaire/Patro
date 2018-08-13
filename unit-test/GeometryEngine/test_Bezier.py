@@ -22,10 +22,8 @@
 
 import unittest
 
-####################################################################################################
-
-from Patro.Geometry.Bezier import *
-from Patro.Geometry.Vector import Vector2D
+from Patro.GeometryEngine.Bezier import *
+from Patro.GeometryEngine.Vector import Vector2D
 
 ####################################################################################################
 
