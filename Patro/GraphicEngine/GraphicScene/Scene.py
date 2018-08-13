@@ -22,7 +22,7 @@
 
 import logging
 
-from Patro.Geometry.Transformation import AffineTransformation2D
+from Patro.GeometryEngine.Transformation import AffineTransformation2D
 from .GraphicItem import CoordinateItem, TextItem, CircleItem, SegmentItem, CubicBezierItem
 
 ####################################################################################################

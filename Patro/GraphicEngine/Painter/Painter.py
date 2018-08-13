@@ -24,8 +24,8 @@ import logging
 
 from IntervalArithmetic import Interval2D
 
-from Patro.Geometry.Vector import Vector2D
-from Patro.Math.Functions import ceil_int
+from Patro.GeometryEngine.Vector import Vector2D
+from Patro.Common.Math.Functions import ceil_int
 
 ####################################################################################################
 

@@ -24,8 +24,8 @@ import logging
 
 from lxml import etree
 
-from Patro.Xml.Objectivity import StringAttribute, XmlObjectAdaptator
-from Patro.Xml.XmlFile import XmlFileMixin
+from Patro.Common.Xml.Objectivity import StringAttribute, XmlObjectAdaptator
+from Patro.Common.Xml.XmlFile import XmlFileMixin
 from Patro.Pattern.Measurement import Measurements, Measurement
 
 ####################################################################################################

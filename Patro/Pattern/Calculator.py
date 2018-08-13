@@ -26,7 +26,7 @@ import logging
 import astunparse
 # import astor
 
-from Patro.Graph.DirectedAcyclicGraph import DirectedAcyclicGraph
+from Patro.Common.Graph.DirectedAcyclicGraph import DirectedAcyclicGraph
 
 ####################################################################################################
 

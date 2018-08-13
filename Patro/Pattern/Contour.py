@@ -22,7 +22,7 @@
 
 import logging
 
-# from Patro.Geometry import Segment2D, CubicBezier2D
+# from Patro.GeometryPatro.Engine import Segment2D, CubicBezier2D
 
 ####################################################################################################
 

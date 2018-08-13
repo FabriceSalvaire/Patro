@@ -26,11 +26,11 @@ A calculation must be build from the corresponding method of the Pattern class.
 
 import logging
 
+from Patro.GeometryEngine.Bezier import CubicBezier2D
+from Patro.GeometryEngine.Line import Line2D
+from Patro.GeometryEngine.Segment import Segment2D
+from Patro.GeometryEngine.Vector import Vector2D
 from .Calculator import Expression
-from Patro.Geometry.Bezier import CubicBezier2D
-from Patro.Geometry.Line import Line2D
-from Patro.Geometry.Segment import Segment2D
-from Patro.Geometry.Vector import Vector2D
 
 pyid = id
 

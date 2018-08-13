@@ -28,7 +28,8 @@ from IntervalArithmetic import Interval2D, IntervalInt2D
 
 ####################################################################################################
 
-from Patro.Math.Functions import sign, trignometric_clamp #, is_in_trignometric_range
+from Patro.Common.Math.Functions import sign, trignometric_clamp #, is_in_trignometric_range
+
 from .Primitive import Primitive2D
 
 ####################################################################################################

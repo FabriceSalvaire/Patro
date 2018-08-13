@@ -24,10 +24,10 @@ import logging
 
 from math import sqrt
 
-from Patro.Geometry.Vector import Vector2D
-from Patro.TeX.Document import Document
-from Patro.TeX.Environment import Center
-from Patro.TeX.Tikz import TikzFigure
+from Patro.GeometryEngine.Vector import Vector2D
+from Patro.GraphicEngine.TeX.Document import Document
+from Patro.GraphicEngine.TeX.Environment import Center
+from Patro.GraphicEngine.TeX.Tikz import TikzFigure
 from .Painter import Painter, Tiler
 
 ####################################################################################################

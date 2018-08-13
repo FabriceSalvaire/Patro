@@ -20,7 +20,8 @@
 
 ####################################################################################################
 
-from Patro.Tools.IterTools import pairwise
+from Patro.Common.IterTools import pairwise
+
 from .Primitive import Primitive2D
 from .Vector import Vector2D
 

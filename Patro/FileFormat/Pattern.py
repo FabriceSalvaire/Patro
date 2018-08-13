@@ -33,16 +33,17 @@ from pathlib import Path
 
 from lxml import etree
 
-from Patro.Geometry.Vector import Vector2D
+from Patro.Common.Xml.Objectivity import (
+    BoolAttribute,
+    IntAttribute, FloatAttribute,
+    StringAttribute,
+    XmlObjectAdaptator
+)
+from Patro.Common.Xml.XmlFile import XmlFileMixin
+from Patro.GeometryEngine.Vector import Vector2D
 from Patro.Pattern.Measurement import Measurements, Measurement
 from Patro.Pattern.Pattern import Pattern
-from Patro.Xml.Objectivity import (BoolAttribute,
-                                       IntAttribute, FloatAttribute,
-                                       StringAttribute,
-                                       XmlObjectAdaptator)
-from Patro.Xml.XmlFile import XmlFileMixin
 from .Measurements import VitFile
-
 import Patro.Pattern.Calculation as Calculation
 
 ####################################################################################################

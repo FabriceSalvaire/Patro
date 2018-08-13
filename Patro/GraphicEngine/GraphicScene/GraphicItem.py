@@ -22,7 +22,7 @@
 
 import logging
 
-# from Patro.Geometry.Vector import Vector2D
+# from Patro.GeometryPatro.Engine.Vector import Vector2D
 
 ####################################################################################################
 

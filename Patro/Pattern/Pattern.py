@@ -24,9 +24,9 @@ import logging
 
 from IntervalArithmetic import Interval2D
 
-from Patro.Geometry.Vector import Vector2D
-from Patro.GraphicScene.GraphicItem import PathStyle
-from Patro.GraphicScene.Scene import GraphicScene
+from Patro.GeometryEngine.Vector import Vector2D
+from Patro.GraphicEngine.GraphicScene.GraphicItem import PathStyle
+from Patro.GraphicEngine.GraphicScene.Scene import GraphicScene
 from . import Calculation
 
 ####################################################################################################
