@@ -92,7 +92,6 @@ class PositionMixin:
     ##############################################
 
     def __init__(self, position):
-
         # Fixme: could be Vector2D or name
         self._position = position # Vector2D(position)
 
@@ -117,7 +116,6 @@ class TwoPositionMixin:
     ##############################################
 
     def __init__(self, position1, position2):
-
         # Fixme: could be Vector2D or name
         self._position1 = position1
         self._position2 = position2
@@ -143,7 +141,6 @@ class FourPositionMixin(TwoPositionMixin):
     ##############################################
 
     def __init__(self, position1, position2, position3, position4):
-
         TwoPositionMixin.__init__(self, position1, position2)
         self._position3 = position3
         self._position4 = position4
@@ -169,7 +166,6 @@ class CoordinateItem(GraphicItem, PositionMixin):
     ##############################################
 
     def __init__(self, name, position):
-
         GraphicItem.__init__(self)
         PositionMixin.__init__(self, position)
         self._name = str(name)
@@ -187,7 +183,6 @@ class TextItem(GraphicItem, PositionMixin):
     ##############################################
 
     def __init__(self, position, text):
-
         GraphicItem.__init__(self)
         PositionMixin.__init__(self, position)
         self._text = str(text)
@@ -209,7 +204,6 @@ class PathItem:
     ##############################################
 
     def __init__(self, path_style):
-
         self._path_style = path_style
 
     ##############################################
@@ -229,7 +223,6 @@ class CircleItem(PathItem, PositionMixin):
     ##############################################
 
     def __init__(self, position, radius, path_style):
-
         PathItem.__init__(self, path_style)
         PositionMixin.__init__(self, position)
         self._radius = radius
@@ -251,7 +244,6 @@ class SegmentItem(PathItem, TwoPositionMixin):
     ##############################################
 
     def __init__(self, position1, position2, path_style): # segment
-
         PathItem.__init__(self, path_style)
         TwoPositionMixin.__init__(self, position1, position2)
         # super(SegmentItem, self).__init__(path_style)
@@ -274,9 +266,7 @@ class CubicBezierItem(PathItem, FourPositionMixin):
     ##############################################
 
     def __init__(self, position1, position2, position3, position4, path_style): # , curve
-
         # Fixme: curve vs path
-
         PathItem.__init__(self, path_style)
         FourPositionMixin.__init__(self, position1, position2, position3, position4)
 

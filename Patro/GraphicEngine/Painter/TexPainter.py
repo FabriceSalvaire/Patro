@@ -22,8 +22,6 @@
 
 import logging
 
-from math import sqrt
-
 from Patro.GeometryEngine.Vector import Vector2D
 from Patro.GraphicEngine.TeX.Document import Document
 from Patro.GraphicEngine.TeX.Environment import Center

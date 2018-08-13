@@ -77,7 +77,6 @@ class Painter:
     ##############################################
 
     def __init__(self, scene):
-
         self._scene = scene
 
     ##############################################
@@ -102,30 +101,25 @@ class Painter:
     ##############################################
 
     def paint_CoordinateItem(self, item):
-
         raise NotImplementedError
 
     ##############################################
 
     def paint_TextItem(self, item):
-
         raise NotImplementedError
 
     ##############################################
 
     def paint_CircleItem(self, item):
-
         raise NotImplementedError
 
     ##############################################
 
     def paint_SegmentItem(self, item):
-
         raise NotImplementedError
 
     ##############################################
 
     def paint_CubicBezierItem(self, item):
-
         raise NotImplementedError
 

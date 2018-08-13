@@ -26,38 +26,40 @@ from math import sqrt
 
 class PaperSize:
 
+    """Class to implements ISO 216 / ISO 269 paper size."""
+
+    # A0  841 × 1189 -> 594 ×  841
+    # B0 1000 × 1414 -> 707 × 1000
+    # C0  917 × 1297 -> 648 ×  917
+    LETTER_TO_DIMENSION = {
+        'A': 1189,
+        'B': 1414,
+        'C': 1297
+    }
+
     ##############################################
 
-    def __init__(self, size_name, orientation, margin):
+    def __init__(self, name, orientation, margin):
 
-        self._size_name = size_name
+        name = name.upper()
+        letter = name[0]
+        level = int(name[1:])
+        if letter not in ('A', 'B', 'C'):
+            raise ValueError
+        if level < 0 or level > 10:
+            raise ValueError
+        self._name = name
 
         if orientation not in ('portrait', 'landscape'):
             raise ValueError
         self._orientation = orientation
 
-        self._margin = margin
+        self._margin = float(margin)
 
-        # ISO 216 / ISO 269
-        # A0 841 × 1189 -> 594 × 841
-        # B0 1000 × 1414 -> 707 × 1000
-        # C0 917 × 1297 -> 648 × 917
-
-        letter_to_dimension = {
-            'a': 1189,
-            'b': 1414,
-            'c': 1297
-            }
-
-        size_name = size_name.lower()
-        letter = size_name[0]
-        level = int(size_name[1:])
-        if letter in ('a', 'b', 'c'):
-            if level < 0 or level > 10:
-                raise ValueError
-            scale = sqrt(2)**level
-            height = letter_to_dimension[letter] / scale
-            width = height / sqrt(2)
+        SQRT_2 = sqrt(2)
+        scale = SQRT_2**level
+        height = self.LETTER_TO_DIMENSION[letter] / scale
+        width = height / SQRT_2
         if orientation == 'landscape':
             height, width = width, height
         self._height = height
@@ -66,8 +68,8 @@ class PaperSize:
     ##############################################
 
     @property
-    def size_name(self):
-        return self._size_name
+    def name(self):
+        return self._name
 
     @property
     def orientation(self):
