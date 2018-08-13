@@ -1,6 +1,6 @@
 ####################################################################################################
 #
-# Patro - A Python implementation of Valentina Pattern Drafting Software
+# Patro - A Python library to make patterns for fashion design
 # Copyright (C) 2017 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify

@@ -2,7 +2,7 @@
 
 ####################################################################################################
 #
-# Patro - A Python library to make pattern
+# Patro - A Python library to make patterns for fashion design
 # Copyright (C) 2018 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
