@@ -17,6 +17,12 @@ tmp_dir=$(mktemp -d)
 if [ -e ${tmp_dir} ]; then
   pushd ${tmp_dir}
 
+  # To create gh-pages branch
+  # git clone ${origin} Patro-gh-pages
+  # pushd Patro-gh-pages
+  # git checkout --orphan  gh-pages
+  # git rm --cached -r .
+
   git clone ${origin} Patro-gh-pages --branch gh-pages --single-branch
   pushd Patro-gh-pages
   # sync with origin if already cloned
