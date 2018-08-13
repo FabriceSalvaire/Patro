@@ -1,46 +1,55 @@
 .. -*- Mode: rst -*-
 
-.. image:: https://badge.fury.io/py/PyValentina.svg
-	   :target: https://badge.fury.io/py/PyValentina
-
-.. image:: https://img.shields.io/pypi/dm/PyValentina.svg
-	   :target: https://pypi.python.org/pypi/PyValentina
-
-.. image:: https://img.shields.io/pypi/status/PyValentina.svg
-	   :target: https://pypi.python.org/pypi/PyValentina
-
-.. image:: https://img.shields.io/pypi/pyversions/PyValentina.svg
-	   :target: https://pypi.python.org/pypi/PyValentina
-
-.. image:: https://img.shields.io/pypi/l/PyValentina.svg
-	   :target: https://raw.githubusercontent.com/FabriceSalvaire/PyValentina/master/LICENSE.txt
-
 .. include:: project-links.txt
 .. include:: abbreviation.txt
 
-============
- PyValentina
-============
+=======
+ Patro
+=======
 
-PyValentina Home Page is located at |PyValentinaUrl|
+|Pypi License|
+|Pypi Python Version|
 
-The latest documentation build from the git repository is available at readthedocs.org |PyValentina@readthedocs-badge|
+|Pypi Version|
 
-Authored by `Fabrice Salvaire <http://fabrice-salvaire.pagesperso-orange.fr>`_.
+* Quick Link to `Production Branch <https://github.com/FabriceSalvaire/Patro/tree/master>`_
+* Quick Link to `Devel Branch <https://github.com/FabriceSalvaire/Patro/tree/devel>`_
+
+Overview
+========
+
+What is Patro ?
+---------------
+
+Patro is a Python module which implements pattern drafting for fashion design.
+
+Where is the Documentation ?
+----------------------------
+
+The documentation is available on the |PatroHomePage|_.
+
+What are the main features ?
+----------------------------
 
 .. include:: features.txt
 
-.. image:: https://raw.github.com/FabriceSalvaire/PyValentina/master/test/output/pattern-a0.png
+.. image:: https://raw.github.com/FabriceSalvaire/Patro/master/test/output/pattern-a0.png
  :height: 600px
 
-.. image:: https://raw.github.com/FabriceSalvaire/PyValentina/master/test/output/pattern-a4.png
+.. image:: https://raw.github.com/FabriceSalvaire/Patro/master/test/output/pattern-a4.png
  :height: 600px
 
-.. include:: introduction.txt
+How to install it ?
+-------------------
 
-.. include:: installation.rst
+Look at the `installation <https://fabricesalvaire.github.io/PyValentina/installation.html>`_ section in the documentation.
 
-.. include:: bibliography.rst
+Credits
+=======
 
-.. End
+Authors: `Fabrice Salvaire <http://fabrice-salvaire.fr>`_
 
+News
+====
+
+.. include:: news.txt

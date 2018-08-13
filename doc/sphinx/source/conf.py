@@ -32,11 +32,11 @@ from datetime import datetime
 import logging
 logger = logging.getLogger(__name__)
 
-try:
-    import sphinx_rtd_theme
-except:
-    logger.warning('Failed to import sphinx_rtd_theme')
-    pass
+# try:
+#     import sphinx_rtd_theme
+# except:
+#     logger.warning('Failed to import sphinx_rtd_theme')
+#     pass
 
 ####################################################################################################
 

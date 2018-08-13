@@ -1,9 +1,5 @@
 .. -*- Mode: rst -*-
 
-==========
- Features
-==========
-
 The features of Patro are :
 
 * read/write *.val* and *.vit* file

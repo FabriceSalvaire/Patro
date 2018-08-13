@@ -11,5 +11,3 @@
 
 .. |Sphinx| replace:: Sphinx
 .. _Sphinx: http://sphinx-doc.org
-
-.. End

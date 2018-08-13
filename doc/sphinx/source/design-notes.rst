@@ -1,8 +1,8 @@
-.. -*- Mode: rst -*-
+.. _design-note-page:
 
-=============
- Introduction
-=============
+==============
+ Design Notes
+==============
 
 Patro is a python implementation of the `Valentina <http://valentina-project.org/>`_ Pattern
 Making software, which only focus to implement the core engine and not the graphical user interface.

@@ -3,7 +3,6 @@ include .gitignore
 include LICENSE.txt
 include MANIFEST.in
 include README.*
-include requirements.in
 include requirements.txt requirements-dev.txt
 include setup_data.py
 recursive-include doc *

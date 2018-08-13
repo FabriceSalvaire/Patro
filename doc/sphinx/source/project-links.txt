@@ -62,5 +62,3 @@
 ..  coverage test
 ..  https://img.shields.io/pypi/status/Django.svg
 ..  https://img.shields.io/github/stars/badges/shields.svg?style=social&label=Star
-
-.. End
