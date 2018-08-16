@@ -1,12 +1,13 @@
 ####################################################################################################
 
-from Patro.Logging import Basic
+from Patro.Common.Logging import Logging
+Logging.setup_logging()
 
 ####################################################################################################
 
 from pathlib import Path
 
-from Patro.FileFormat.Measurements import VitFile
+from Patro.FileFormat.Valentina.Measurements import VitFile
 
 ####################################################################################################
 

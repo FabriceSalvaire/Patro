@@ -1,14 +1,13 @@
 ####################################################################################################
 
-from Patro.Logging import Basic
-
-####################################################################################################
-
 from pathlib import Path
 
-from Patro.FileFormat.Pattern import ValFile
-from Patro.Painter.Paper import PaperSize
-from Patro.Painter.TexPainter import TexPainter
+from Patro.Common.Logging import Logging
+Logging.setup_logging()
+
+from Patro.FileFormat.Valentina.Pattern import ValFile
+from Patro.GraphicEngine.Painter.Paper import PaperSize
+from Patro.GraphicEngine.Painter.TexPainter import TexPainter
 
 ####################################################################################################
 

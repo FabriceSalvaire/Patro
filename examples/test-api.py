@@ -1,22 +1,20 @@
 ####################################################################################################
 
-from Patro.Logging import Basic
-
-####################################################################################################
-
 from pathlib import Path
 
-####################################################################################################
+from Patro.Common.Logging import Logging
+Logging.setup_logging()
 
-from Patro.FileFormat.Measurements import VitFile
-from Patro.FileFormat.Pattern import ValFile
-from Patro.Geometry.Vector import Vector2D
-from Patro.Painter.Paper import PaperSize
-from Patro.Painter.TexPainter import TexPainter
+from Patro.FileFormat.Valentina.Measurements import VitFile
+from Patro.FileFormat.Valentina.Pattern import ValFile
+from Patro.GeometryEngine.Vector import Vector2D
+from Patro.GraphicEngine.Painter.Paper import PaperSize
+from Patro.GraphicEngine.Painter.TexPainter import TexPainter
 from Patro.Pattern.Pattern import Pattern
 
 ####################################################################################################
 
+# Read measurements file
 vit_file = VitFile(Path('patterns', 'measurements.vit'))
 measurements = vit_file.measurements
 
