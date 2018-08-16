@@ -83,7 +83,7 @@ class TexPainter(Painter):
 
     @property
     def paper_name(self):
-        return self._paper.size_name + 'paper'
+        return self._paper.name.lower() + 'paper'
 
     @property
     def margin(self):

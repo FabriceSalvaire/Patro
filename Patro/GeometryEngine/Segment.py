@@ -20,9 +20,10 @@
 
 ####################################################################################################
 
-from .Interpolation import interpolate_two_points
+# from .Interpolation import interpolate_two_points
+from .BoundingBox import bounding_box_from_points
 from .Line import Line2D
-from .Primitive import Primitive2D, ReversablePrimitiveMixin, bounding_box_from_points
+from .Primitive import Primitive2D, ReversablePrimitiveMixin
 from .Triangle import triangle_orientation
 from .Vector import Vector2D
 
