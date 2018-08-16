@@ -22,11 +22,10 @@
 
 import logging
 
-from lxml import etree
-
 from Patro.Common.Xml.Objectivity import StringAttribute, XmlObjectAdaptator
 from Patro.Common.Xml.XmlFile import XmlFileMixin
-from Patro.Pattern.Measurement import Measurements, Measurement
+from Patro.Pattern.Measurement import Measurements
+from Patro.Pattern.PersonalData import Gender
 
 ####################################################################################################
 
@@ -100,14 +99,14 @@ class VitFile(XmlFileMixin):
         # self._read_only = self._get_xpath_element(tree, 'read-only').text
         # self._notes = self._get_xpath_element(tree, 'notes').text
         self.unit = self._get_xpath_element(tree, 'unit').text
-        self.pattern_makin_system = self._get_xpath_element(tree, 'pm_system').text
+        self.pattern_making_system = self._get_xpath_element(tree, 'pm_system').text
 
         personal = measurements.personal
         personal_element = self._get_xpath_element(tree, 'personal')
         personal.last_name = self._get_xpath_element(personal_element, 'family-name').text
         personal.first_name = self._get_xpath_element(personal_element, 'given-name').text
         personal.birth_date = self._get_xpath_element(personal_element, 'birth-date').text
-        personal.gender = self._get_xpath_element(personal_element, 'gender').text
+        personal.gender = Gender[self._get_xpath_element(personal_element, 'gender').text.upper()]
         personal.email = self._get_xpath_element(personal_element, 'email').text
 
         elements = self._get_xpath_element(tree, 'body-measurements')

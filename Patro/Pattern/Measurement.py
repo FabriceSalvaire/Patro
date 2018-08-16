@@ -23,6 +23,7 @@
 import logging
 
 from .Calculator import Calculator, NamedExpression
+from .PersonalData import PersonalData
 
 ####################################################################################################
 
@@ -30,63 +31,58 @@ _module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
-class Personal:
+class Measurement(NamedExpression):
+
+    """Class to define a measurement"""
 
     ##############################################
 
-    def __init__(self, first_name=None, last_name=None, birth_date=None, gender=None, email=None):
+    def __init__(self, measurements, name, value, full_name='', description=''):
 
-        self._first_name = first_name
-        self._last_name = last_name
-        self._birth_date = birth_date
-        self._gender = gender
-        self._email = email
+        # Valentina defines custom measurement with a @ prefix
+        name = str(name)
+        self._valentina_name = name
+        if self.is_custom():
+            name = '__custom__' + name[1:]
+        for c in name:
+            if not c.isalnum() and c != '_':
+                raise ValueError('Invalid measurement name "{}"'.format(self._valentina_name))
+
+        NamedExpression.__init__(self, name, value, calculator=measurements.calculator)
+
+        self._full_name = str(full_name) # for human
+        self._description = str(description) # describe the purpose of the measurement
 
     ##############################################
 
     @property
-    def first_name(self):
-        return self._first_name
-
-    @first_name.setter
-    def first_name(self, value):
-        self._first_name = value
+    def valentina_name(self):
+        return self._valentina_name
 
     @property
-    def last_name(self):
-        return self._last_name
-
-    @last_name.setter
-    def last_name(self, value):
-        self._last_name = value
+    def full_name(self):
+        return self._full_name
 
     @property
-    def birth_date(self):
-        return self._birth_date
+    def description(self):
+        return self._description
 
-    @birth_date.setter
-    def birth_date(self, value):
-        self._birth_date = value
+    ##############################################
 
-    @property
-    def gender(self):
-        return self._gender
+    def is_custom(self):
+        return self._valentina_name.startswith('@')
 
-    @gender.setter
-    def gender(self, value):
-        self._gender = value
+    ##############################################
 
-    @property
-    def email(self):
-        return self._email
-
-    @email.setter
-    def email(self, value):
-        self._email = value
+    def eval(self):
+        super(Measurement, self).eval()
+        self._calculator._update_cache(self)
 
 ####################################################################################################
 
 class Measurements:
+
+    """Class to store a set of measurements"""
 
     _logger = _module_logger.getChild('Measurements')
 
@@ -96,7 +92,7 @@ class Measurements:
 
         self._unit = None
         self._pattern_making_system = None
-        self._personal = Personal()
+        self._personal = PersonalData()
 
         self._measures = []
         self._measure_dict = {}
@@ -112,6 +108,8 @@ class Measurements:
     def personal(self):
         return self._personal
 
+    ##############################################
+
     @property
     def unit(self):
         return self._unit
@@ -120,13 +118,15 @@ class Measurements:
     def unit(self, value):
         self._unit = value
 
-    @property
-    def pattern_makin_system(self):
-        return self._pattern_makin_system
+    ##############################################
 
-    @pattern_makin_system.setter
-    def pattern_makin_system(self, value):
-        self._pattern_makin_system = value
+    @property
+    def pattern_making_system(self):
+        return self._pattern_making_system
+
+    @pattern_making_system.setter
+    def pattern_making_system(self, value):
+        self._pattern_making_system = value
 
     ##############################################
 
@@ -141,6 +141,8 @@ class Measurements:
     ##############################################
 
     def add(self, *args, **kgwars):
+
+        # Fixme: name ?
 
         measurement = Measurement(self, *args, **kgwars)
         self._measures.append(measurement)
@@ -165,47 +167,3 @@ class Measurements:
         for measure in self:
             print(measure.name, '=', measure.expression)
             print('  =', measure.value)
-
-####################################################################################################
-
-class Measurement(NamedExpression):
-
-    ##############################################
-
-    def __init__(self, measurements, name, value, full_name='', description=''):
-
-        self._valentina_name = name
-
-        if self.is_custom():
-            name = '__custom__' + name[1:]
-
-        NamedExpression.__init__(self, name, value, calculator=measurements.calculator)
-
-        self._full_name = full_name
-        self._description = description
-
-    ##############################################
-
-    @property
-    def valentina_name(self):
-        return self._valentina_name
-
-    @property
-    def full_name(self):
-        return self._full_name
-
-    @property
-    def description(self):
-        return self._description
-
-    ##############################################
-
-    def is_custom(self):
-        return self._valentina_name.startswith('@')
-
-    ##############################################
-
-    def eval(self):
-
-        super(Measurement, self).eval()
-        self._calculator._update_cache(self)
