@@ -79,7 +79,7 @@ class Pattern:
 
     def _add_calculation(self, calculation):
 
-        # Work as a post init
+        # Works as a post init
         self._calculations.append(calculation)
         self._calculation_dict[calculation.id] = calculation
         if hasattr(calculation, 'name'):
@@ -88,25 +88,21 @@ class Pattern:
     ##############################################
 
     def get_calculation_id(self):
-
         return len(self._calculations) + 1 # id > 0
 
     ##############################################
 
     def has_calculation_id(self, id):
-
         return id in self._calculation_dict
 
     ##############################################
 
     def get_calculation(self, id):
-
         return self._calculation_dict[id]
 
     ##############################################
 
     def get_point(self, name):
-
         return self._points[name]
 
     ##############################################
@@ -141,6 +137,8 @@ class Pattern:
 
     def bounding_box(self):
 
+        """Compute the bounding box of the pattern."""
+
         bounding_box = None
         for calculation in self._calculations:
             interval = calculation.geometry().bounding_box()
@@ -155,9 +153,11 @@ class Pattern:
 
     def _calculation_to_path_style(self, calculation, **kwargs):
 
-        return PathStyle(stroke_style=calculation.line_style,
-                         stroke_color=calculation.line_color,
-                         **kwargs)
+        return PathStyle(
+            stroke_style=calculation.line_style,
+            stroke_color=calculation.line_color,
+            **kwargs
+        )
 
     ##############################################
 

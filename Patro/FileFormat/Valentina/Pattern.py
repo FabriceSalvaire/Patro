@@ -18,7 +18,7 @@
 #
 ####################################################################################################
 
-"""This module implements the val XML file format and is designed so as to decouple the XML details
+"""This module implements the val XML file format and is designed so as to decouple the XML format
 and the calculation API.
 
 The purpose of each XmlObjectAdaptator sub-classes is to serve as a bidirectional adaptor between
@@ -33,6 +33,7 @@ from pathlib import Path
 
 from lxml import etree
 
+import Patro.Pattern.Calculation as Calculation
 from Patro.Common.Xml.Objectivity import (
     BoolAttribute,
     IntAttribute, FloatAttribute,
@@ -41,10 +42,8 @@ from Patro.Common.Xml.Objectivity import (
 )
 from Patro.Common.Xml.XmlFile import XmlFileMixin
 from Patro.GeometryEngine.Vector import Vector2D
-from Patro.Pattern.Measurement import Measurements, Measurement
 from Patro.Pattern.Pattern import Pattern
 from .Measurements import VitFile
-import Patro.Pattern.Calculation as Calculation
 
 ####################################################################################################
 
@@ -67,25 +66,22 @@ class CalculationMixin:
         IntAttribute('id'),
     )
 
-    __calculation__ = None
+    __calculation__ = None # calculation's class
 
     ##############################################
 
     def call_calculation_function(self, pattern, kwargs):
-
         return getattr(pattern, self.__calculation__.__name__)(**kwargs)
 
     ##############################################
 
     def to_calculation(self, pattern):
-
         raise NotImplementedError
 
     ##############################################
 
     @classmethod
     def from_calculation(calculation):
-
         raise NotImplementedError
 
 ####################################################################################################
@@ -95,7 +91,6 @@ class CalculationTypeMixin(CalculationMixin):
     ##############################################
 
     def to_xml(self):
-
         return XmlObjectAdaptator.to_xml(self, type=self.__type__)
 
 ####################################################################################################
@@ -490,14 +485,12 @@ class Line(CalculationMixin, LinePropertiesMixin, FirstSecondPointMixin, XmlObje
     ##############################################
 
     def to_calculation(self, pattern):
-
         return self.call_calculation_function(pattern, self.to_dict()) # exclude=('id')
 
     ##############################################
 
     @classmethod
     def from_calculation(cls, calculation):
-
         kwargs = cls.get_dict(calculation)
         return cls(**kwargs)
 
@@ -528,14 +521,12 @@ class SimpleInteractiveSpline(SplineMixin, XmlObjectAdaptator):
     ##############################################
 
     def to_calculation(self, pattern):
-
         return self.call_calculation_function(pattern, self.to_dict()) # exclude=('id')
 
     ##############################################
 
     @classmethod
     def from_calculation(cls, calculation):
-
         kwargs = cls.get_dict(calculation)
         return cls(**kwargs)
 
@@ -632,6 +623,8 @@ class Spline:
 
 class Dispatcher:
 
+    """Baseclass to dispatch XML to Python class."""
+
     __TAGS__ = {}
 
     ##############################################
@@ -648,6 +641,8 @@ class Dispatcher:
 
 class CalculationDispatcher:
 
+    """Class to implement a dispatcher for calculations."""
+
     _logger = _module_logger.getChild('CalculationDispatcher')
 
     __TAGS__ = {
@@ -663,7 +658,8 @@ class CalculationDispatcher:
 
     def __init__(self):
 
-        self._mapping = {}
+        # Fixme: could be done in class definition
+        self._mapping = {} # used for Calculation -> XML
         self._init_mapper()
 
     ##############################################
@@ -705,7 +701,6 @@ class CalculationDispatcher:
     ##############################################
 
     def from_calculation(self, calculation):
-
         return self._mapping[calculation.__class__].from_calculation(calculation)
 
 ####################################################################################################
@@ -751,20 +746,17 @@ class Modeling:
     ##############################################
 
     def __init__(self):
-
         self._items = []
         self._id_map = {}
 
     ##############################################
 
     def __getitem__(self, id):
-
         return self._id_map[id]
 
     ##############################################
 
     def append(self, item):
-
         self._items.append(item)
         self._id_map[item.id] = item
 
@@ -797,13 +789,11 @@ class Detail(MxMyMixin, XmlObjectAdaptator):
     ##############################################
 
     def append_node(self, node):
-
         self._nodes.append(node)
 
     ##############################################
 
     def iter_on_nodes(self):
-
         for node in self._nodes:
             yield node, self._modeling[node.object_id]
 
@@ -888,6 +878,8 @@ class DetailDispatcher(Dispatcher):
 ####################################################################################################
 
 class ValFile(XmlFileMixin):
+
+    """Class to read/write val file."""
 
     _logger = _module_logger.getChild('ValFile')
 

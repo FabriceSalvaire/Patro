@@ -36,11 +36,13 @@ _module_logger = logging.getLogger(__name__)
 
 class NodeVisitor(ast.NodeVisitor):
 
+    """Class to implement a AST node visitor to register dependencies."""
+
     ##############################################
 
     def __init__(self, calculator):
 
-        super(NodeVisitor, self).__init__()
+        super(NodeVisitor).__init__()
         self._calculator = calculator
         self._dependencies = []
 
@@ -61,10 +63,13 @@ class NodeVisitor(ast.NodeVisitor):
 
     def visit_Call(self, node):
 
+        # See Green Tree Snakes - the missing Python AST docs
+        #   https://greentreesnakes.readthedocs.io/en/latest/index.html
+
         function = node.func
         if isinstance(function, ast.Attribute) and function.value.id == '__calculator__':
             dag = self._calculator.dag
-            if function.attr == '_function_Line':
+            if function.attr == '_function_Line': # catched _function_Line.__calculator__
                 for arg in node.args:
                     self._dependencies.append(self._calculator._name_to_point(arg.s))
         self.generic_visit(node)
@@ -72,6 +77,8 @@ class NodeVisitor(ast.NodeVisitor):
 ####################################################################################################
 
 class Calculator:
+
+    """Class to implement a calculator for expressions"""
 
     _logger = _module_logger.getChild('Calculator')
 
@@ -102,48 +109,45 @@ class Calculator:
 
     ##############################################
 
-    def _update_cache(self, named_expression):
-
-        self._cache[named_expression.name] = named_expression.value
-
-    ##############################################
-
-    def add_point(self, point):
-
-        self._points[point.name] = point
-
-    ##############################################
-
     def set_current_segment(self, vector):
-
         self._current_segment = vector
 
     ##############################################
 
     def unset_current_segment(self):
-
         self._current_segment = None
         # self._logger.info('Unset current segment')
 
     ##############################################
 
-    def _name_to_point(self, name):
+    def _update_cache(self, named_expression):
+        # Fixme: private ???
+        self._cache[named_expression.name] = named_expression.value
 
+    ##############################################
+
+    def add_point(self, point):
+        self._points[point.name] = point
+
+    ##############################################
+
+    def _name_to_point(self, name):
         return self._points[name]
 
     ##############################################
 
     def _name_to_vector_point(self, name):
-
         return self._points[name].vector
 
     ##############################################
 
     def _names_to_vector_points(self, *names):
-
         return [self._name_to_vector_point(name) for name in names]
 
     ##############################################
+    #
+    # Define special functions
+    #
 
     # Fixme: special functions
     #   increments ?
@@ -156,11 +160,11 @@ class Calculator:
 
     def _function_Angle1Spl(self, point_name1, point_name2):
         point1, point2 = self._names_to_vector_points(point_name1, point_name2)
-        return 0
+        return 0 # Fixme:
 
     def _function_Angle2Spl(self, point_name1, point_name2):
         point1, point2 = self._names_to_vector_points(point_name1, point_name2)
-        return 0
+        return 0 # Fixme:
 
     def _function_AngleLine(self, point_name1, point_name2):
         point1, point2 = self._names_to_vector_points(point_name1, point_name2)
@@ -171,11 +175,11 @@ class Calculator:
 
     def _function_C1LengthSpl(self, point_name1, point_name2):
         point1, point2 = self._names_to_vector_points(point_name1, point_name2)
-        return 0
+        return 0 # Fixme:
 
     def _function_C2LengthSpl(self, point_name1, point_name2):
         point1, point2 = self._names_to_vector_points(point_name1, point_name2)
-        return 0
+        return 0 # Fixme:
 
     def _function_Line(self, point_name1, point_name2):
         point1, point2 = self._names_to_vector_points(point_name1, point_name2)
@@ -183,11 +187,13 @@ class Calculator:
 
     def _function_Spl(self, point_name1, point_name2):
         point1, point2 = self._names_to_vector_points(point_name1, point_name2)
-        return 0
+        return 0 # Fixme:
 
 ####################################################################################################
 
 class Expression:
+
+    """Class to define an expression."""
 
     _logger = _module_logger.getChild('Expression')
 
@@ -231,7 +237,9 @@ class Expression:
 
     ##############################################
 
-    def _find_name(self, prefix, start=0):
+    def _find_identifier(self, prefix, start=0):
+
+        """Find an identifier in a Python expression"""
 
         expression = self._expression
         start = expression.find(prefix, start)
@@ -254,19 +262,22 @@ class Expression:
         self._logger.info("expression '{}'".format(expression))
 
         # Python don't accept identifier starting with @
+        # Replace @foo by __custom__foo
         # https://docs.python.org/3.5/reference/lexical_analysis.html#identifiers
         if '@' in expression:
             custom_measurements = []
             start = 0
             while True:
-                name, start = self._find_name('@', start)
+                name, start = self._find_identifier('@', start)
                 if name is None:
                     break
                 else:
                     custom_measurements.append(name)
             for measurement in custom_measurements:
-                expression = self.expression.replace(measurement, self._calculator.measurements[measurement].name)
+                py_name = self._calculator.measurements[measurement].name
+                expression = self.expression.replace(measurement, py_name)
 
+        # Replace special function like Line_A1_A2 to __calculator__._function_Line('A1', 'A2')
         functions = []
         for function in (
                 'Angle1Spl_',
@@ -280,7 +291,7 @@ class Expression:
         ):
             start = 0
             while True:
-                name, start = self._find_name(function, start)
+                name, start = self._find_identifier(function, start)
                 if name is None:
                     break
                 else:
@@ -299,11 +310,18 @@ class Expression:
         # Fixme: What is the (supported) grammar ?
         # http://beltoforion.de/article.php?a=muparser
         # http://beltoforion.de/article.php?a=muparserx
+
+        # Get the AST of the expression
         self._ast = ast.parse(expression, mode='eval')
+
+        # Get the dependencies
         node_visitor = NodeVisitor(self._calculator)
         node_visitor.generic_visit(self._ast)
         self._dependencies = node_visitor.dependencies
+
+        # Compile to Python bytecode
         self._code = compile(self._ast, '<string>', mode='eval')
+
         # print('AST', astunparse.dump(self._ast))
         # print('AST -> Python', astunparse.unparse(self._ast))
         ## print('AST -> Python', astor.to_source(self._ast.body))
@@ -330,7 +348,6 @@ class Expression:
     ##############################################
 
     def set_dirty(self):
-
         self._value = None
         self._value_error = False
 
@@ -338,7 +355,7 @@ class Expression:
 
     @property
     def value(self):
-
+        """Eval on the fly and return the value"""
         if self._value is None and self._value_error is False:
             self.eval()
         return self._value
@@ -347,10 +364,11 @@ class Expression:
 
 class NamedExpression(Expression):
 
+    """Class for Expression with a name"""
+
     ##############################################
 
     def __init__(self, name, expression, calculator=None):
-
         Expression.__init__(self, expression, calculator)
         self._name = name
 

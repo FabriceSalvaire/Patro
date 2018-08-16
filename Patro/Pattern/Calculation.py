@@ -18,8 +18,11 @@
 #
 ####################################################################################################
 
-"""
+"""This module defines all the calculations supported by the pattern engine, e.g. the intersection
+between two lines.
+
 A calculation must be build from the corresponding method of the Pattern class.
+
 """
 
 ####################################################################################################
@@ -32,6 +35,7 @@ from Patro.GeometryEngine.Segment import Segment2D
 from Patro.GeometryEngine.Vector import Vector2D
 from .Calculator import Expression
 
+# Rename id buitin
 pyid = id
 
 ####################################################################################################
@@ -45,21 +49,22 @@ def quote(x):
 
 ####################################################################################################
 
-class CalculationMetaClass:
-
-    _logger = _module_logger.getChild('CalculationMetaClass')
-
-    ##############################################
-
-    def __init__(cls, class_name, super_classes, class_attribute_dict):
-
-        # cls._logger.info(str((cls, class_name, super_classes, class_attribute_dict)))
-        type.__init__(cls, class_name, super_classes, class_attribute_dict)
+### class CalculationMetaClass:
+###
+###     _logger = _module_logger.getChild('CalculationMetaClass')
+###
+###     ##############################################
+###
+###     def __init__(cls, class_name, super_classes, class_attribute_dict):
+###         # cls._logger.info(str((cls, class_name, super_classes, class_attribute_dict)))
+###         type.__init__(cls, class_name, super_classes, class_attribute_dict)
 
 ####################################################################################################
 
 # metaclass = CalculationMetaClass
 class Calculation():
+
+    """Baseclass for calculation"""
 
     _logger = _module_logger.getChild('Calculation')
 
@@ -69,6 +74,8 @@ class Calculation():
 
         self._pattern = pattern
 
+        # Valentina set an incremental integer id for each calculation (entity)
+        # A calculation which generate a point has also a name
         if id is None:
             self._id = pattern.get_calculation_id()
         else:
@@ -101,41 +108,55 @@ class Calculation():
     ##############################################
 
     def __repr__(self):
-
         return self.__class__.__name__ + ' {0._id}'.format(self)
 
     ##############################################
 
     def __int__(self):
-
         return self._id
 
     ##############################################
 
     def _get_calculation(self, calculation):
 
+        """Return the corresponding :obj:`Calculation` object where *calculation* can be
+        :obj:`Calculation` instance, an id or a name.
+
+        """
+
         if isinstance(calculation, Calculation):
             return calculation
         # elif isinstance(calculation, (int, str)):
-        else:
+        else: # must be id or string
             return self._pattern.get_calculation(calculation)
 
     ##############################################
 
     def eval(self):
-
         self._logger.info('Eval {}'.format(self))
         self.eval_internal()
 
     ##############################################
 
     def eval_internal(self):
-
+        """Code to evaluate the calculation in subclasses, i.e. to compute internal states like points."""
         pass
 
     ##############################################
 
+    def _init_args(self):
+
+        # cf. to_python
+
+        args = self.__init__.__code__.co_varnames
+        args = args[2:-1] # remove self, pattern, id
+        return args
+
+    ##############################################
+
     def to_python(self):
+
+        """Return the Python code for the calculation"""
 
         args = self._init_args()
         values = []
@@ -170,16 +191,8 @@ class Calculation():
 
     ##############################################
 
-    def _init_args(self):
-
-        args = self.__init__.__code__.co_varnames
-        args = args[2:-1] # remove self, pattern, id
-        return args
-
-    ##############################################
-
     def _connect_ancestor(self, *points):
-
+        """Connect point dependencies in the DAG."""
         dag = self._dag
         for point in points:
             self._dependencies.add(point)
@@ -193,15 +206,14 @@ class Calculation():
     #         self._connect_ancestor(*expression.dependencies)
 
     def _iter_on_expressions(self):
-
+        """Lookup for :obj:`Expression` in the object and yield them."""
         for attribute in self.__dict__.values():
             if isinstance(attribute, Expression):
                 yield attribute
 
     def connect_ancestor_for_expressions(self):
-
+        """Connect dependencies from expressions in the DAG."""
         # Expression's dependencies are only known after compilation
-
         for expression in self._iter_on_expressions():
             self._connect_ancestor(*expression.dependencies)
 
@@ -209,6 +221,7 @@ class Calculation():
 
     # @property
     def geometry(self):
+        """Return the geometric object"""
         raise NotImplementedError('Geometry is not implemented for {}'.format(self))
 
 ####################################################################################################
@@ -218,7 +231,6 @@ class LinePropertiesMixin:
     ##############################################
 
     def __init__(self, line_style, line_color):
-
         self._line_color = line_color
         self._line_style = line_style
 
@@ -247,7 +259,6 @@ class FirstSecondPointMixin:
     ##############################################
 
     def __init__(self, first_point, second_point):
-
         self._first_point = self._get_calculation(first_point)
         self._second_point = self._get_calculation(second_point)
         self._connect_ancestor(self._first_point, self._second_point)
@@ -269,7 +280,6 @@ class BasePointMixin:
     ##############################################
 
     def __init__(self, base_point):
-
         self._base_point = self._get_calculation(base_point)
         self._connect_ancestor(self._base_point)
 
@@ -286,7 +296,6 @@ class LengthMixin:
     ##############################################
 
     def __init__(self, length):
-
         self._length = Expression(length, self._pattern.calculator)
         # self._connect_ancestor_for_expressions(self._length)
 
@@ -303,7 +312,6 @@ class AngleMixin:
     ##############################################
 
     def __init__(self, angle):
-
         self._angle = Expression(angle, self._pattern.calculator)
         # self._connect_ancestor_for_expressions(self._angle)
 
@@ -320,13 +328,14 @@ class LengthAngleMixin(LengthMixin, AngleMixin):
     ##############################################
 
     def __init__(self, length, angle):
-
         LengthMixin.__init__(self, length)
         AngleMixin.__init__(self, angle)
 
 ####################################################################################################
 
 class Point(Calculation):
+
+    """Base class for point."""
 
     ##############################################
 
@@ -355,18 +364,18 @@ class Point(Calculation):
     ##############################################
 
     def _post_eval_internal(self):
-
         self._logger.info('{0._name} {0._vector}'.format(self))
 
     ##############################################
 
     def geometry(self):
-
         return self._vector.clone()
 
 ####################################################################################################
 
 class SinglePoint(Point):
+
+    """Construct a point from coordinate"""
 
     ##############################################
 
@@ -394,19 +403,19 @@ class SinglePoint(Point):
     ##############################################
 
     def __repr__(self):
-
         return self.__class__.__name__ + ' {0._name} = ({0._x}, {0._y})'.format(self)
 
     ##############################################
 
     def eval_internal(self):
-
         self._vector = Vector2D(self._x.value, self._y.value)
         self._post_eval_internal()
 
 ####################################################################################################
 
 class AlongLinePoint(Point, LinePropertiesMixin, FirstSecondPointMixin, LengthMixin):
+
+    """Construct a point from two points defining a direction and a length"""
 
     ##############################################
 
@@ -425,7 +434,6 @@ class AlongLinePoint(Point, LinePropertiesMixin, FirstSecondPointMixin, LengthMi
     ##############################################
 
     def __repr__(self):
-
         return self.__class__.__name__ + ' {0._name} = ({0._first_point.name}, {0._second_point.name}, {0._length})'.format(self)
 
     ##############################################
@@ -441,6 +449,8 @@ class AlongLinePoint(Point, LinePropertiesMixin, FirstSecondPointMixin, LengthMi
 ####################################################################################################
 
 class EndLinePoint(Point, LinePropertiesMixin, BasePointMixin, LengthAngleMixin):
+
+    """Construct a point from a base point and a vector defined by an angle and a length"""
 
     ##############################################
 
@@ -459,7 +469,6 @@ class EndLinePoint(Point, LinePropertiesMixin, BasePointMixin, LengthAngleMixin)
     ##############################################
 
     def __repr__(self):
-
         return self.__class__.__name__ + ' {0._name} = ({0._base_point.name}, {0._angle}, {0._length})'.format(self)
 
     ##############################################
@@ -472,6 +481,8 @@ class EndLinePoint(Point, LinePropertiesMixin, BasePointMixin, LengthAngleMixin)
 ####################################################################################################
 
 class LineIntersectPoint(Point):
+
+    """Construct a point from the intersection of two segments defined by four points"""
 
     ##############################################
 
@@ -510,7 +521,6 @@ class LineIntersectPoint(Point):
     ##############################################
 
     def __repr__(self):
-
         return self.__class__.__name__ + ' {0._name} = ({0._point1_line1.name}, {0._point2_line1.name}, {0._point1_line2.name}, {0._point2_line2.name})'.format(self)
 
     ##############################################
@@ -525,6 +535,8 @@ class LineIntersectPoint(Point):
 ####################################################################################################
 
 class NormalPoint(Point, LinePropertiesMixin, FirstSecondPointMixin, LengthAngleMixin):
+
+    """Construct a point at a distance of the first point on the rotated normal of a line defined by two points"""
 
     ##############################################
 
@@ -543,7 +555,6 @@ class NormalPoint(Point, LinePropertiesMixin, FirstSecondPointMixin, LengthAngle
     ##############################################
 
     def __repr__(self):
-
         return self.__class__.__name__ + ' {0._name} = ({0._first_point.name}, {0._second_point.name}, {0._angle}, {0._length})'.format(self)
 
     ##############################################
@@ -565,6 +576,8 @@ class NormalPoint(Point, LinePropertiesMixin, FirstSecondPointMixin, LengthAngle
 
 class PointOfIntersection(Point, FirstSecondPointMixin):
 
+    """Construct a point from the x coordinate of a fist point and the y coordinate of a second point"""
+
     ##############################################
 
     def __init__(self, pattern, name,
@@ -579,19 +592,19 @@ class PointOfIntersection(Point, FirstSecondPointMixin):
     ##############################################
 
     def __repr__(self):
-
         return self.__class__.__name__ + ' {0._name} = ({0._first_point.name}, {0._second_point.name})'.format(self)
 
     ##############################################
 
     def eval_internal(self):
-
         self._vector = Vector2D(self._first_point.vector.x, self._second_point.vector.y)
         self._post_eval_internal()
 
 ####################################################################################################
 
 class Line(Calculation, LinePropertiesMixin, FirstSecondPointMixin):
+
+    """Construct a line defined by two points"""
 
     ##############################################
 
@@ -608,13 +621,11 @@ class Line(Calculation, LinePropertiesMixin, FirstSecondPointMixin):
     ##############################################
 
     def __repr__(self):
-
         return self.__class__.__name__ + ' ({0._first_point.name}, {0._second_point.name})'.format(self)
 
     ##############################################
 
     def eval_internal(self):
-
         pass
 
     ##############################################
@@ -625,6 +636,8 @@ class Line(Calculation, LinePropertiesMixin, FirstSecondPointMixin):
 ####################################################################################################
 
 class SimpleInteractiveSpline(Calculation, LinePropertiesMixin, FirstSecondPointMixin):
+
+    """"Construct a quadratic Bezier curve from two extremity points and two control points"""
 
     ##############################################
 
@@ -677,7 +690,6 @@ class SimpleInteractiveSpline(Calculation, LinePropertiesMixin, FirstSecondPoint
     ##############################################
 
     def __repr__(self):
-
         return self.__class__.__name__ + ' ({0._first_point.name}, {0._second_point.name}, {0._angle1}, {0._length1}, {0._angle2}, {0._length2})'.format(self)
 
     ##############################################

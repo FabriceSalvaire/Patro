@@ -18,13 +18,19 @@
 #
 ####################################################################################################
 
+"""This module implements a directed acyclic graph.
+
+"""
+
 ####################################################################################################
 
-import logging
+# import logging
 
 ####################################################################################################
 
 class DirectedAcyclicGraphNode:
+
+    """Class to define a node of a DAG."""
 
     ##############################################
 
@@ -101,7 +107,9 @@ class DirectedAcyclicGraphNode:
 
 ####################################################################################################
 
-class DirectedAcyclicGraph(object):
+class DirectedAcyclicGraph:
+
+    """Class to implement a DAG."""
 
     ##############################################
 
@@ -155,7 +163,7 @@ class DirectedAcyclicGraph(object):
 
         def visit(node):
             if node in temporary_marked_nodes:
-                raise NameError("Not a DAG")
+                raise NameError('Not a DAG')
             if node not in marked_nodes:
                 temporary_marked_nodes.add(node)
                 for descendant in node._descendants:
