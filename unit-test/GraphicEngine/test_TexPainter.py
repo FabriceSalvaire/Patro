@@ -24,8 +24,8 @@ import unittest
 
 ####################################################################################################
 
-from Patro.Painter.Paper import PaperSize
-from Patro.Painter.TexPainter import TexPainter
+from Patro.GraphicEngine.Painter.Paper import PaperSize
+from Patro.GraphicEngine.Painter.TexPainter import TexPainter
 
 ####################################################################################################
 

@@ -24,8 +24,10 @@ import unittest
 
 ####################################################################################################
 
-import Patro.Logging.Basic
-from Patro.Xml.Objectivity import *
+from Patro.Common.Logging import Logging
+Logging.setup_logging()
+
+from Patro.Common.Xml.Objectivity import *
 
 ####################################################################################################
 
