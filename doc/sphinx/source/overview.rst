@@ -12,12 +12,18 @@ What is Patro ?
 
 Patro is a Python module which implements pattern drafting for fashion design.
 
+What is the purpose of this library ?
+-------------------------------------
+
+This library could serve several purposes :
+
+* help to experiment core features for pattern drafting,
+* plug Valentina to software featuring a Python plugin mechanism like Blender, FreeCad etc.
 
 What are the Features of Patro ?
 --------------------------------
 
 .. include:: features.txt
-
 
 How is Patro licensed ?
 -----------------------
