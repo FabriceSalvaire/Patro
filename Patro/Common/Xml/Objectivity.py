@@ -35,15 +35,19 @@ _module_logger = logging.getLogger(__name__)
 
 class Attribute:
 
+    """Class to define XML element attribtes"""
+
     ##############################################
 
     def __init__(self, py_attribute, xml_attribute=None, default=None):
 
         self._py_attribute = py_attribute
+
         if xml_attribute is None:
             self._xml_attribute = py_attribute
         else:
             self._xml_attribute = xml_attribute
+
         self._default = default
 
     ##############################################
@@ -54,6 +58,7 @@ class Attribute:
 
     @property
     def py_cls_attribute(self):
+        """Return the private identifier used for :class:`XmlObjectAdaptator`"""
         return '_' + self._py_attribute
 
     @property
@@ -72,11 +77,14 @@ class Attribute:
     ##############################################
 
     def from_xml(self, value):
+        """Convert a value from XML to Python"""
         raise NotImplementedError
 
     ##############################################
 
     def set_property(self, cls):
+
+        """Define a property for this attribute in :class:`XmlObjectAdaptator`"""
 
         py_cls_attribute = self.py_cls_attribute
         setattr(cls,
@@ -88,11 +96,13 @@ class Attribute:
     ##############################################
 
     def get_attribute(self, instance):
+        """Get an attribute of an :class:`XmlObjectAdaptator` instance"""
         return getattr(instance, self.py_cls_attribute)
 
     ##############################################
 
     def set_attribute(self, instance, value):
+        """Set an attribute of an :class:`XmlObjectAdaptator` instance"""
         setattr(instance, self.py_cls_attribute, value)
 
 ####################################################################################################
@@ -140,6 +150,8 @@ class StringAttribute(Attribute):
 
 class XmlObjectAdaptatorMetaClass(type):
 
+    """Metaclass to collect attributes from super-classes and define a property for each attribute"""
+
     _logger = _module_logger.getChild('XmlObjectAdaptatorMetaClass')
 
     ##############################################
@@ -148,8 +160,12 @@ class XmlObjectAdaptatorMetaClass(type):
 
         # cls._logger.info(str((cls, class_name, super_classes, class_attribute_dict)))
         type.__init__(cls, class_name, super_classes, class_attribute_dict)
+
+        # Collect attributes from super-classes and update
         super_attributes = cls.register_from_super_class(super_classes)
         cls.__attributes__ = super_attributes + list(cls.__attributes__)
+
+        # Define a property for each attribute
         for attribute in cls.__attributes__:
             # cls._logger.info('Register {}'.format(attribute))
             attribute.set_property(cls)
@@ -157,6 +173,10 @@ class XmlObjectAdaptatorMetaClass(type):
     ##############################################
 
     def register_from_super_class(cls, super_classes):
+
+        """Collect attributes from super-classes"""
+
+        # Fixme: use set ???
 
         super_attributes = []
         for super_class in super_classes:
@@ -170,7 +190,9 @@ class XmlObjectAdaptatorMetaClass(type):
 
 class XmlObjectAdaptator(metaclass = XmlObjectAdaptatorMetaClass):
 
-    __tag__ = None
+    """Class to implement an object oriented adaptor for XML elements."""
+
+    __tag__ = None # XML tag
     __attributes__ = ()
 
     ##############################################
@@ -206,6 +228,7 @@ class XmlObjectAdaptator(metaclass = XmlObjectAdaptatorMetaClass):
 
         for attribute in self.__attributes__:
             py_attribute = attribute.py_attribute
+            # Fixme: duplicated code
             if py_attribute in kwargs:
                 value = attribute.from_xml(kwargs[py_attribute])
             else:
@@ -216,16 +239,17 @@ class XmlObjectAdaptator(metaclass = XmlObjectAdaptatorMetaClass):
 
     @classmethod
     def get_dict(cls, instance, exclude=()):
-
-        return {attribute.py_attribute:getattr(instance, attribute.py_attribute)
-                for attribute in cls.__attributes__
-                if attribute.py_attribute not in exclude
+        """Return a dict containing the attributes"""
+        return {
+            attribute.py_attribute:getattr(instance, attribute.py_attribute)
+            for attribute in cls.__attributes__
+            if attribute.py_attribute not in exclude
         }
 
     ##############################################
 
     def to_dict(self, exclude=()):
-
+        """Return a dict containing the attributes"""
         return {attribute.py_attribute:attribute.get_attribute(self)
                 for attribute in self.__attributes__
                 if attribute.py_attribute not in exclude
@@ -234,7 +258,7 @@ class XmlObjectAdaptator(metaclass = XmlObjectAdaptatorMetaClass):
     ##############################################
 
     def to_xml(self, **kwargs):
-
+        """Return an etree element"""
         attributes = {attribute.xml_attribute:str(attribute.get_attribute(self)) for attribute in self.__attributes__}
         attributes.update(kwargs)
         return etree.Element(self.__tag__, **attributes)
@@ -242,6 +266,7 @@ class XmlObjectAdaptator(metaclass = XmlObjectAdaptatorMetaClass):
     ##############################################
 
     def to_xml_string(self):
+        """Return a XML string"""
         return etree.tostring(self.to_xml())
 
     ##############################################

@@ -33,6 +33,8 @@ _module_logger = logging.getLogger(__name__)
 
 class XmlFileMixin:
 
+    """Class mixin to parse a XML file using lxml module"""
+
     # _logger = _module_logger.getChild('XmlFile')
 
     ##############################################
@@ -49,6 +51,7 @@ class XmlFileMixin:
     ##############################################
 
     def _parse(self):
+        """Parse a XML file and return the etree"""
         with open(str(self._path), 'rb') as f:
             source = f.read()
         return etree.fromstring(source)
@@ -57,4 +60,5 @@ class XmlFileMixin:
 
     @staticmethod
     def _get_xpath_element(root, path):
+        """Utility function to get an element from a xpath and a root"""
         return root.xpath(path)[0]
