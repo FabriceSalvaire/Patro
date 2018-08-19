@@ -22,8 +22,19 @@
 
 ####################################################################################################
 
+__all__ = [
+    'BoolAttribute',
+    'FloatAttribute',
+    'FloatListAttribute',
+    'IntAttribute',
+    'StringAttribute',
+    'XmlObjectAdaptator',
+]
+
+####################################################################################################
+
 import logging
-from collections import OrderedDict
+# from collections import OrderedDict
 
 from lxml import etree
 
@@ -136,6 +147,25 @@ class FloatAttribute(Attribute):
 
     def from_xml(self, value):
         return float(value)
+
+####################################################################################################
+
+class FloatListAttribute(Attribute):
+
+    ##############################################
+
+    def from_xml(self, value):
+
+        if value == 'none':
+            return None
+        else:
+            if ' ' in value:
+                separator = ' '
+            elif ',' in value:
+                separator = ','
+            else:
+                return [float(value)]
+            return [float(x) for x in value.split(separator)]
 
 ####################################################################################################
 
