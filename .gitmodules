@@ -1,0 +1,3 @@
+[submodule "non-public-submodule"]
+	path = non-public-submodule
+	url = ./non-public-submodule
