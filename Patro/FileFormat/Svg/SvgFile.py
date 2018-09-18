@@ -45,6 +45,24 @@ _module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
+class RenderState:
+
+    ##############################################
+
+    def __init__(self):
+
+        self._transformations = []
+
+    ##############################################
+
+    def push_transformation(self, transformation):
+        self._transformations.append(transformation)
+
+    def pop_transformation(self):
+        self._transformations.pop()
+
+####################################################################################################
+
 class SvgDispatcher:
 
     """Class to dispatch XML to Python class."""
@@ -93,6 +111,8 @@ class SvgDispatcher:
     ##############################################
 
     def __init__(self, root):
+
+        self._state = RenderState()
 
         self.on_root(root)
 

@@ -190,10 +190,81 @@ class IdMixin:
 #
 ####################################################################################################
 
+####################################################################################################
+
+class InheritAttribute(StringAttribute):
+
+    ##############################################
+
+    def from_xml(self, value):
+        if value == 'inherit':
+            return value
+        else:
+            return self._from_xml(value)
+
+    ##############################################
+
+    def _from_xml(self, value):
+        raise NotImplementedError
+
+####################################################################################################
+
+class NumberAttribute(InheritAttribute):
+    def _from_xml(self, value):
+        return float(value)
+
+####################################################################################################
+
+class PercentValue:
+
+    ##############################################
+
+    def __init__(self, value):
+        self._value = float(value) / 100
+
+    ##############################################
+
+    def __float__(self):
+        return self._value
+
+####################################################################################################
+
+class UnitValue:
+
+    ##############################################
+
+    def __init__(self, value, unit):
+        self._value = float(value)
+        self._unit = unit
+
+    ##############################################
+
+    def __float__(self):
+        return self._value
+
+    ##############################################
+
+    def __str__(self):
+        return self._unit
+
+####################################################################################################
+
+class PercentLengthAttribute(InheritAttribute):
+    def _from_xml(self, value):
+        # length ::= number ("em" | "ex" | "px" | "in" | "cm" | "mm" | "pt" | "pc" | "%")?
+        if value.endswith('%'):
+            return PercentValue(value[:-1])
+        elif value[-1].isalpha():
+            return UnitValue(value[:-2], value[-2])
+        else:
+            return float(value)
+
+####################################################################################################
+
 class ColorMixin:
 
     __attributes__ = (
-        StringAttribute('fill'), # none red #FFFFFF
+        StringAttribute('fill'), # none inherit red #ffbb00
         StringAttribute('stroke'),
     )
 
@@ -204,8 +275,8 @@ class StrokeMixin:
     __attributes__ = (
         StringAttribute('stroke_line_cap', 'stroke-linecap'),
         StringAttribute('stroke_line_join', 'stroke-linejoin'),
-        FloatAttribute('stroke_miter_limit', 'stroke-miterlimit'),
-        FloatAttribute('stroke_width', 'stroke-width'),
+        NumberAttribute('stroke_miter_limit', 'stroke-miterlimit'),
+        PercentLengthAttribute('stroke_width', 'stroke-width'),
         FloatListAttribute('stroke_dasharray', 'stroke-dasharray') # stroke-dasharray="20,10,5,5,5,10"
     )
 
@@ -791,25 +862,40 @@ class PathDataAttribute(StringAttribute):
 
     def from_xml(self, value):
 
-        parts = split_space_list(value)
+        # Replace comma separator by space
+        value = value.replace(',', ' ')
+        # Add space after letter
+        data_path = ''
+        for c in value:
+            data_path += c
+            if c.isalpha:
+                data_path += ' '
+        # Convert float
+        parts = []
+        for part in split_space_list(value):
+            if not(len(part) == 1 and part.isalpha):
+                part = float(part)
+            parts.append(part)
+
         commands = []
+        command = None # last command
+        number_of_args = None
         i = 0
         while i < len(parts):
             part = parts[i]
-            command = part
-            command_lower = command.lower()
-            if command_lower in self.COMMANDS:
+            if isinstance(part, str):
+                command = part
+                command_lower = command.lower()
+                if command_lower not in self.COMMANDS:
+                    raise ValueError('Invalid path instruction')
                 number_of_args = self.NUMBER_OF_ARGS[command_lower]
-                if number_of_args % 2:
-                    raise ValueError
-                next_i = i+number_of_args+1
-                values = [float(x) for x in parts[i+1:next_i]]
-                #! points = [Vector2D(values[2*i], values[2*i+1]) for i in range(number_of_args / 2)]
-                points = values
-                commands.append((command, points))
-                i = next_i
-            else:
-                raise ValueError
+            # else repeated instruction
+            next_i = i + number_of_args + 1
+            values = parts[i+1:next_i]
+            #! points = [Vector2D(values[2*i], values[2*i+1]) for i in range(number_of_args / 2)]
+            points = values
+            commands.append((command, points))
+            i = next_i
 
         return commands
 
