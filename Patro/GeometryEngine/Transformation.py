@@ -80,6 +80,11 @@ class Transformation:
 
     ##############################################
 
+    def to_list(self):
+        return list(self._m.flat)
+
+    ##############################################
+
     def same_dimension(self, other):
         return self.__size__ == other.dimension
 
@@ -129,7 +134,7 @@ class Transformation2D(Transformation):
 
     @classmethod
     def Scale(cls, x_scale, y_scale):
-        return cls(np.array((x_scale, 0), (0,  y_scale)))
+        return cls(np.array(((x_scale, 0), (0,  y_scale))))
 
     ##############################################
 
@@ -165,15 +170,6 @@ class AffineTransformation(Transformation):
     ##############################################
 
     @classmethod
-    def Rotation(cls, angle):
-
-        transformation = cls.Identity()
-        transformation.matrix_part[...] = Transformation2D.Rotation(angle).array
-        return transformation
-
-    ##############################################
-
-    @classmethod
     def RotationAt(cls, center, angle):
 
         transformation = cls.Translation(center)
@@ -191,6 +187,33 @@ class AffineTransformation(Transformation):
     def translation_part(self):
         return self._m[:self.__dimension__,-1]
 
+####################################################################################################
+
+class AffineTransformation2D(AffineTransformation):
+
+    __dimension__ = 2
+    __size__ = 3
+
+    ##############################################
+
+    @classmethod
+    def Rotation(cls, angle):
+
+        transformation = cls.Identity()
+        transformation.matrix_part[...] = Transformation2D.Rotation(angle).array
+        return transformation
+
+    ##############################################
+
+    @classmethod
+    def Scale(cls, x_scale, y_scale):
+
+        # Fixme: others, use *= ?
+
+        transformation = cls.Identity()
+        transformation.matrix_part[...] = Transformation2D.Scale(x_scale, y_scale).array
+        return transformation
+
     #######################################
 
     def __mul__(self, obj):
@@ -203,12 +226,6 @@ class AffineTransformation(Transformation):
             return HomogeneousVector2D(array)
         else:
             return super(AffineTransformation, self).__mul__(obj)
-
-####################################################################################################
-
-class AffineTransformation2D(AffineTransformation):
-    __dimension__ = 2
-    __size__ = 3
 
 ####################################################################################################
 

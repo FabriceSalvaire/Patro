@@ -7,9 +7,10 @@ Logging.setup_logging()
 
 from Patro.FileFormat.Valentina.Pattern import ValFile
 from Patro.GraphicEngine.Painter.Paper import PaperSize
-from Patro.GraphicEngine.Painter.TexPainter import TexPainter
 from Patro.GraphicEngine.Painter.MplPainter import MplPainter
 from Patro.GraphicEngine.Painter.PdfPainter import PdfPainter
+from Patro.GraphicEngine.Painter.SvgPainter import SvgPainter
+from Patro.GraphicEngine.Painter.TexPainter import TexPainter
 
 ####################################################################################################
 
@@ -48,6 +49,10 @@ scene = pattern.detail_scene()
 # mpl_painter = MplPainter(scene, paper)
 # mpl_painter.show()
 
+# paper = PaperSize('a0', 'portrait', 10)
+# pdf_path = output.joinpath('pattern-a0-reportlab.pdf')
+# pdf_painter = PdfPainter(pdf_path, scene, paper, driver='reportlab')
+
 paper = PaperSize('a0', 'portrait', 10)
-pdf_path = output.joinpath('pattern-a0-reportlab.pdf')
-pdf_painter = PdfPainter(pdf_path, scene, paper, driver='reportlab')
+svg_path = output.joinpath('pattern-a0.svg')
+svg_painter = SvgPainter(svg_path, scene, paper)

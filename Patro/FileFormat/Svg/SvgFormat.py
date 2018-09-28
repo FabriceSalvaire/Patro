@@ -72,10 +72,12 @@ from Patro.Common.Xml.Objectivity import (
     IntAttribute, FloatAttribute,
     FloatListAttribute,
     StringAttribute,
-    XmlObjectAdaptator
+    XmlObjectAdaptator,
+    TextXmlObjectAdaptator,
 )
 
 # from Patro.GeometryEngine.Vector import Vector2D
+from Patro.GeometryEngine.Transformation import AffineTransformation2D
 
 ####################################################################################################
 
@@ -196,21 +198,24 @@ class InheritAttribute(StringAttribute):
 
     ##############################################
 
-    def from_xml(self, value):
+    @classmethod
+    def from_xml(cls, value):
         if value == 'inherit':
             return value
         else:
-            return self._from_xml(value)
+            return cls._from_xml(value)
 
     ##############################################
 
-    def _from_xml(self, value):
+    @classmethod
+    def _from_xml(cls, value):
         raise NotImplementedError
 
 ####################################################################################################
 
 class NumberAttribute(InheritAttribute):
-    def _from_xml(self, value):
+    @classmethod
+    def _from_xml(cls, value):
         return float(value)
 
 ####################################################################################################
@@ -250,7 +255,11 @@ class UnitValue:
 ####################################################################################################
 
 class PercentLengthAttribute(InheritAttribute):
-    def _from_xml(self, value):
+
+    ##############################################
+
+    @classmethod
+    def _from_xml(cls, value):
         # length ::= number ("em" | "ex" | "px" | "in" | "cm" | "mm" | "pt" | "pc" | "%")?
         if value.endswith('%'):
             return PercentValue(value[:-1])
@@ -258,6 +267,19 @@ class PercentLengthAttribute(InheritAttribute):
             return UnitValue(value[:-2], value[-2])
         else:
             return float(value)
+
+    ##############################################
+
+    @classmethod
+    def _to_xml(cls, value):
+
+        # Fixme: ok ???
+        if isinstance(value, PercentValue):
+            return '{}%'.format(float(value))
+        elif isinstance(value, UnitValue):
+            return '{}{}'.format(float(value), value.unit)
+        else:
+            return str(value)
 
 ####################################################################################################
 
@@ -400,19 +422,30 @@ class TransformAttribute(StringAttribute):
 
     ##############################################
 
-    def from_xml(self, value):
+    @classmethod
+    def from_xml(cls, value):
 
-        transforms = []
-        for transform in split_space_list(value):
-            pos0 = value.find('(')
-            pos1 = value.find(')')
-            if pos0 == -1 or pos1 != len(value) -1:
-                raise ValueError
-            transform_type = value[:pos0]
-            values = [float(x) for x in value[pos0+1:-1].split(',')]
-            transforms.append((transform_type, values))
+        if isinstance(value, AffineTransformation2D):
+            # Python value
+            return value
+        else:
+            transforms = []
+            for transform in split_space_list(value):
+                pos0 = value.find('(')
+                pos1 = value.find(')')
+                if pos0 == -1 or pos1 != len(value) -1:
+                    raise ValueError
+                transform_type = value[:pos0]
+                values = [float(x) for x in value[pos0+1:-1].split(',')]
+                transforms.append((transform_type, values))
+                # Fixme:
+            return transforms
 
-        return transforms
+    ##############################################
+
+    @classmethod
+    def to_xml(cls, value):
+        return 'matrix({})'.format(' '.join([str(x) for x in value.to_list()])) # Fixme: to func
 
 ####################################################################################################
 
@@ -860,7 +893,8 @@ class PathDataAttribute(StringAttribute):
 
     ##############################################
 
-    def from_xml(self, value):
+    @classmethod
+    def from_xml(cls, value):
 
         # Replace comma separator by space
         value = value.replace(',', ' ')
@@ -886,9 +920,9 @@ class PathDataAttribute(StringAttribute):
             if isinstance(part, str):
                 command = part
                 command_lower = command.lower()
-                if command_lower not in self.COMMANDS:
+                if command_lower not in cls.COMMANDS:
                     raise ValueError('Invalid path instruction')
-                number_of_args = self.NUMBER_OF_ARGS[command_lower]
+                number_of_args = cls.NUMBER_OF_ARGS[command_lower]
             # else repeated instruction
             next_i = i + number_of_args + 1
             values = parts[i+1:next_i]
@@ -898,6 +932,18 @@ class PathDataAttribute(StringAttribute):
             i = next_i
 
         return commands
+
+    ##############################################
+
+    @classmethod
+    def to_xml(cls, value):
+
+        path_data = ''
+        for command in value:
+            if path_data:
+                path_data += ' '
+            path_data += ' '.join(list(command[0]) + [str(x) for x in command[1]])
+        return path_data
 
 ####################################################################################################
 
@@ -996,7 +1042,15 @@ class Stop(XmlObjectAdaptator):
 
 ####################################################################################################
 
-class Text(DeltaMixin, FontMixin, ColorMixin, SvgElementMixin, XmlObjectAdaptator):
+class Style(TextXmlObjectAdaptator):
+
+    """Defines style"""
+
+    __tag__ = 'style'
+
+####################################################################################################
+
+class Text(PositionMixin, DeltaMixin, FontMixin, ColorMixin, SvgElementMixin, TextXmlObjectAdaptator):
 
     """Defines a text"""
 
@@ -1009,6 +1063,12 @@ class Text(DeltaMixin, FontMixin, ColorMixin, SvgElementMixin, XmlObjectAdaptato
     # rotate="a list of rotations. The nth rotation is performed on the nth character. Additional characters are NOT given the last rotation value"
     # textLength="a target length for the text that the SVG viewer will attempt to display the text between by adjusting the spacing and/or the glyphs. (default: The text's normal length)"
     # lengthAdjust="tells the viewer what to adjust to try to accomplish rendering the text if the length is specified. The two values are 'spacing' and 'spacingAndGlyphs'"
+
+    __attributes__ = (
+        # Fixme: common ???
+        StringAttribute('_class', 'class', None),
+        StringAttribute('style'),
+    )
 
 ####################################################################################################
 

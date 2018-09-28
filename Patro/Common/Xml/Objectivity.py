@@ -87,9 +87,17 @@ class Attribute:
 
     ##############################################
 
-    def from_xml(self, value):
+    @classmethod
+    def from_xml(cls, value):
         """Convert a value from XML to Python"""
         raise NotImplementedError
+
+    ##############################################
+
+    @classmethod
+    def to_xml(cls, value):
+        """Convert a value from Python to XML"""
+        return str(value)
 
     ##############################################
 
@@ -122,7 +130,8 @@ class BoolAttribute(Attribute):
 
     ##############################################
 
-    def from_xml(self, value):
+    @classmethod
+    def from_xml(cls, value):
         if value == "true" or value == "1":
             return True
         elif value == "false" or value == "0":
@@ -130,13 +139,20 @@ class BoolAttribute(Attribute):
         else:
             raise ValueError("Incorrect boolean value {}".format(value))
 
+    ##############################################
+
+    @classmethod
+    def to_xml(cls, value):
+        return 'true' if value else 'false'
+
 ####################################################################################################
 
 class IntAttribute(Attribute):
 
     ##############################################
 
-    def from_xml(self, value):
+    @classmethod
+    def from_xml(cls, value):
         return int(value)
 
 ####################################################################################################
@@ -145,7 +161,8 @@ class FloatAttribute(Attribute):
 
     ##############################################
 
-    def from_xml(self, value):
+    @classmethod
+    def from_xml(cls, value):
         return float(value)
 
 ####################################################################################################
@@ -154,10 +171,13 @@ class FloatListAttribute(Attribute):
 
     ##############################################
 
+    @classmethod
     def from_xml(self, value):
 
-        if value == 'none':
+        if value == 'none' or value is None:
             return None
+        elif isinstance(value, (tuple, list)): # Python value
+            return value
         else:
             if ' ' in value:
                 separator = ' '
@@ -167,13 +187,20 @@ class FloatListAttribute(Attribute):
                 return [float(value)]
             return [float(x) for x in value.split(separator)]
 
+    ##############################################
+
+    @classmethod
+    def to_xml(cls, value):
+        return ' '.join([str(x) for x in value])
+
 ####################################################################################################
 
 class StringAttribute(Attribute):
 
     ##############################################
 
-    def from_xml(self, value):
+    @classmethod
+    def from_xml(cls, value):
         return str(value)
 
 ####################################################################################################
@@ -218,7 +245,7 @@ class XmlObjectAdaptatorMetaClass(type):
 
 ####################################################################################################
 
-class XmlObjectAdaptator(metaclass = XmlObjectAdaptatorMetaClass):
+class XmlObjectAdaptator(metaclass=XmlObjectAdaptatorMetaClass):
 
     """Class to implement an object oriented adaptor for XML elements."""
 
@@ -288,9 +315,18 @@ class XmlObjectAdaptator(metaclass = XmlObjectAdaptatorMetaClass):
     ##############################################
 
     def to_xml(self, **kwargs):
+
         """Return an etree element"""
-        attributes = {attribute.xml_attribute:str(attribute.get_attribute(self)) for attribute in self.__attributes__}
+
+        # attributes = {attribute.xml_attribute:str(attribute.get_attribute(self)) for attribute in self.__attributes__}
+
+        attributes = {}
+        for attribute in self.__attributes__:
+            value = attribute.get_attribute(self)
+            if value is not None:
+                attributes[attribute.xml_attribute] = attribute.to_xml(value)
         attributes.update(kwargs)
+
         return etree.Element(self.__tag__, **attributes)
 
     ##############################################
@@ -303,3 +339,32 @@ class XmlObjectAdaptator(metaclass = XmlObjectAdaptatorMetaClass):
 
     # def __getattribute__(self, name):
     #     object.__getattribute__(self, '_' + name)
+
+####################################################################################################
+
+class TextXmlObjectAdaptator(XmlObjectAdaptator):
+
+    """Class to implement an object oriented adaptor for text XML elements."""
+
+    ##############################################
+
+    def __init__(self, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+        self.text = kwargs.get('text', '')
+
+    ##############################################
+
+    def _init_from_xml(self, xml_element):
+
+        super()._init_from_xml(xml_element)
+        self.text = str(xml_element.text)
+
+    ##############################################
+
+    def to_xml(self, **kwargs):
+
+        element = super().to_xml(**kwargs)
+        element.text = self.text
+
+        return element

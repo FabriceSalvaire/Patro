@@ -32,7 +32,6 @@ Import Algorithm:
 ####################################################################################################
 
 import logging
-from pathlib import Path
 
 from lxml import etree
 
@@ -169,6 +168,11 @@ class SvgFile(XmlFileMixin):
 
     _logger = _module_logger.getChild('SvgFile')
 
+    SVG_DOCTYPE = '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">'
+    SVG_xmlns = 'http://www.w3.org/2000/svg'
+    SVG_xmlns_xlink = 'http://www.w3.org/1999/xlink'
+    SVG_version = '1.1'
+
     ##############################################
 
     def __init__(self, path=None):
@@ -176,7 +180,9 @@ class SvgFile(XmlFileMixin):
         # Fixme: path
         if path is None:
             path = ''
+
         XmlFileMixin.__init__(self, path)
+
         # Fixme:
         # if path is not None:
         if path != '':
@@ -200,16 +206,52 @@ class SvgFile(XmlFileMixin):
 
     ##############################################
 
-    def write(self, path=None):
+    @classmethod
+    def new_root(cls, paper):
 
-        root = etree.Element('pattern')
+        nsmap = {
+            None: cls.SVG_xmlns,
+            'xlink': cls.SVG_xmlns_xlink,
+        }
+        root = etree.Element('svg', nsmap=nsmap)
+        attrib = root.attrib
+        attrib['version'] = cls.SVG_version
+        # Set document dimension and user space unit to mm
+        # see https://mpetroff.net/2013/08/analysis-of-svg-units
+        attrib['width'] = '{:.3f}mm'.format(paper.width)
+        attrib['height'] = '{:.3f}mm'.format(paper.height)
+        attrib['viewBox'] = '0 0 {:.3f} {:.3f}'.format(paper.width, paper.height)
+
+        # Fixme: from conf
         root.append(etree.Comment('Pattern created with Patro (https://github.com/FabriceSalvaire/Patro)'))
 
-        # Fixme: ...
+        return root
+
+    ##############################################
+
+    def write(self, paper, root_tree, transformation=None, path=None):
+
+        root = self.new_root(paper)
+
+        # Fixme: implement tree, look at lxml
+        if transformation:
+            # transform text as well !!!
+            group = SvgFormat.Group(transform=transformation).to_xml()
+            root.append(group)
+        else:
+            group = root
+
+        for element in root_tree:
+            group.append(element.to_xml())
 
         if path is None:
             path = self.path
-        with open(str(path), 'wb') as f:
-            # ElementTree.write() ?
-            f.write(etree.tostring(root, pretty_print=True))
 
+        tree = etree.ElementTree(root)
+        tree.write(str(path),
+                   pretty_print=True,
+                   xml_declaration=True,
+                   encoding='utf-8',
+                   standalone=False,
+                   doctype=self.SVG_DOCTYPE,
+        )
