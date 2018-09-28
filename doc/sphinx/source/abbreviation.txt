@@ -15,12 +15,20 @@
 .. |Python| replace:: Python
 .. _Python: https://python.org
 
+.. |Qt| replace:: Qt
+.. _Qt: https://www.qt.io
+
+.. |PyQt| replace:: PyQt
+.. _PyQt: https://riverbankcomputing.com/software/pyqt/intro>
+
 .. |Reportlab| replace:: Reportlab
-.. _Reportlab: https://www.reportlab.com/opensource/
+.. _Reportlab: https://www.reportlab.com/opensource
 
 .. |Sphinx| replace:: Sphinx
 .. _Sphinx: http://sphinx-doc.org
 
+.. |Sympy| replace:: Sympy
+.. _Sympy: http://www.sympy.org
+
 .. |Valentina| replace:: Valentina
 .. _Valentina: https://bitbucket.org/dismine/valentina
-

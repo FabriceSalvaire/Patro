@@ -37,9 +37,9 @@
 
    <div class="reduced-width">
 
-#############################################################
- Patro — a Python library to Make Patterns for Fashion Design
-#############################################################
+############################################################
+ Patro — Python library to Make Patterns for Fashion Design
+############################################################
 
 .. image:: /_static/logo.png
    :alt: Patro logo
@@ -49,7 +49,7 @@
 Overview
 ********
 
-Patro is a free and open source (*) Python module which implements pattern drafting for fashion design.
+Patro is a free and open source (*) Python library which implements pattern drafting for fashion design.
 
 .. rst-class:: small-text
 
@@ -146,6 +146,7 @@ If you want to donate to the project or need a more professional support.
   news.rst
   roadmap.rst
   installation.rst
+  examples.rst
   faq.rst
   design-notes.rst
   reference-manual.rst
