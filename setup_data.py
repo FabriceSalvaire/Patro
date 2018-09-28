@@ -79,7 +79,7 @@ setup_dict = dict(
     author_email='fabrice.salvaire@orange.fr',
     description='A Python library to make pattern for fashion design',
     license='GPLv3',
-    keywords= 'pattern making drafting digitising digitizing sewing fashion design garment cloth valentina seamly',
+    keywords= 'pattern making drafting digitising digitizing sewing fashion design garment cloth valentina seamly svg latex tikz geometry engine cad',
     url='https://github.com/FabriceSalvaire/Patro',
     long_description=long_description,
 )
