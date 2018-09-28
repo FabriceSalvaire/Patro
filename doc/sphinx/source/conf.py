@@ -187,12 +187,12 @@ html_theme_path = ['themes']
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-html_logo = None
+html_logo = '_static/logo-64.png'
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large.
-# html_favicon = None
+# html_favicon = '_static/logo-64.png'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -264,7 +264,7 @@ latex_documents = [
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
-latex_logo = None
+latex_logo = '_static/logo-64.png'
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
 # not chapters.

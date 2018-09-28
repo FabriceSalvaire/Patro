@@ -43,7 +43,7 @@
 
 .. image:: /_static/logo.png
    :alt: Patro logo
-   :width: 750
+   :width: 200
 
 ********
 Overview

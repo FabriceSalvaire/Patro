@@ -4,9 +4,14 @@ options="--export-area-page --export-background=white --export-background-opacit
 
 # --export-width=
 
-height=400
+# for i in 1 2; do
+#   inkscape --export-png=logo-v$i.png ${options} --export-height=${height} svg/logo-v$i.svg
+#   inkscape --export-png=logo-v$i.png ${options} --export-height=${height} svg/logo-v$i.svg
+# done
 
-for i in 1 2; do
-  inkscape --export-png=logo-v$i.png ${options} --export-height=${height} svg/logo-v$i.svg
-  inkscape --export-png=logo-v$i.png ${options} --export-height=${height} svg/logo-v$i.svg
+height=512
+inkscape --export-png=logo.png ${options} --export-height=${height} svg/logo.svg
+
+for height in 32 64 96 128 256 512; do
+  inkscape --export-png=logo-${height}.png ${options} --export-height=${height} svg/logo.svg
 done
