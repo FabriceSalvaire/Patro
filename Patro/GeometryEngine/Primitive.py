@@ -18,10 +18,24 @@
 #
 ####################################################################################################
 
+__all__ = [
+    'Primitive',
+    'Primitive2DMixin',
+    'Primitive1P',
+    'Primitive2P',
+    'Primitive3P',
+    'Primitive4P',
+]
+
 ####################################################################################################
 
-from .Bounding_Box import bounding_box_from_points
-from .Vector import Vector2D
+from .BoundingBox import bounding_box_from_points
+
+####################################################################################################
+
+# Fixme:
+#  length, interpolate path
+#  area
 
 ####################################################################################################
 
@@ -45,6 +59,13 @@ class Primitive:
     @property
     def is_infinite(self):
         """True if the primitive has infinite extend like a line"""
+        return False
+
+    ##############################################
+
+    @property
+    def is_closed(self):
+        """True if the primitive is a closed path."""
         return False
 
     ##############################################
@@ -92,6 +113,7 @@ class Primitive:
 
     ##############################################
 
+    @property
     def bounding_box(self):
         """Bounding box of the primitive.
 
@@ -119,11 +141,11 @@ class Primitive:
 
 ####################################################################################################
 
-class Primitive2D:
+class Primitive2DMixin:
 
     # __dimension__ = 2
 
-    __vector_cls__ = Vector2D
+    __vector_cls__ = None # Fixme: due to import, done in module's __init__.py
 
     @property
     def dimension(self):
@@ -242,16 +264,22 @@ class Primitive2P(Primitive1P, ReversiblePrimitiveMixin):
 
     @property
     def points(self):
-        return iter(self._p0, self._p1)
+        return iter((self._p0, self._p1))
 
     @property
     def reversed_points(self):
-        return iter(self._p1, self._p0)
+        return iter((self._p1, self._p0))
 
     ##############################################
 
     def _set_points(self, points):
         self._p0, self._p1 = points
+
+    ##############################################
+
+    def interpolate(self, t):
+        """Return the linear interpolate of two points."""
+        return self._p0 * (1 - t) + self._p1 * t
 
 ####################################################################################################
 
@@ -289,11 +317,11 @@ class Primitive3P(Primitive2P):
 
     @property
     def points(self):
-        return iter(self._p0, self._p1, self._p2)
+        return iter((self._p0, self._p1, self._p2))
 
     @property
     def reversed_points(self):
-        return iter(self._p2, self._p1, self._p0)
+        return iter((self._p2, self._p1, self._p0))
 
     ##############################################
 
@@ -302,14 +330,14 @@ class Primitive3P(Primitive2P):
 
 ####################################################################################################
 
-class Primitive3P(Primitive2P):
+class Primitive4P(Primitive3P):
 
     ##############################################
 
-    def __init__(self, p0, p2, p2, p3):
+    def __init__(self, p0, p1, p2, p3):
 
         self.p0 = p0
-        self.p2 = p2
+        self.p1 = p1
         self.p2 = p2
         self.p3 = p3
 
@@ -337,11 +365,11 @@ class Primitive3P(Primitive2P):
 
     @property
     def points(self):
-        return iter(self._p0, self._p1, self._p2, self._p3)
+        return iter((self._p0, self._p1, self._p2, self._p3))
 
     @property
     def reversed_points(self):
-        return iter(self._p3, self._p2, self._p1, self._p0)
+        return iter((self._p3, self._p2, self._p1, self._p0))
 
     ##############################################
 
@@ -350,7 +378,7 @@ class Primitive3P(Primitive2P):
 
 ####################################################################################################
 
-class PrimitiveNP(PrimitiveP, ReversiblePrimitiveMixin):
+class PrimitiveNP(Primitive, ReversiblePrimitiveMixin):
 
     ##############################################
 

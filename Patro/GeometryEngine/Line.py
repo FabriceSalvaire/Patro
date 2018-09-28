@@ -22,12 +22,12 @@
 
 from Patro.Common.IterTools import pairwise
 
-from .Primitive import Primitive2D
+from .Primitive import Primitive, Primitive2DMixin
 from .Vector import Vector2D
 
 ####################################################################################################
 
-class Line2D(Primitive2D):
+class Line2D(Primitive2DMixin, Primitive):
 
     """Class to implement 2D Line."""
 
@@ -65,6 +65,12 @@ class Line2D(Primitive2D):
 '''
 
         return text % (str(self.p), str(self.v), self.v.magnitude())
+
+    ##############################################
+
+    @property
+    def is_infinite(self):
+        return True
 
     ##############################################
 
@@ -191,9 +197,24 @@ class Line2D(Primitive2D):
 
         """Return the distance of a point to the line"""
 
+        # Reference: https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line
+
+        # Line equation: a*x + b*y + c = 0
+        # d = |a*x + b*y + c| / sqrt(a**2 + b**2)
+        # Vx*y - Vy*x + c = 0
+        # c = Vy*X0 - Vx*Y0
+        # d = (vx*(y - y0) - vy*(x - x0)) / |V|
+        # d = V x (P - P0) / |V|
+
+        # x0 = self.p.x
+        # y0 = self.p.y
+        # vx = self.v.x
+        # vy = self.v.y
+
+        # return (self.v.x*(point.y - self.p.y) - self.v.y*(point.x - self.p.x)) / self.v.magnitude
+
         delta = point - self.p
         d = delta.deviation_with(self.v)
-
         return d
 
     ##############################################

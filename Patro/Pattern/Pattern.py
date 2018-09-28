@@ -135,13 +135,15 @@ class Pattern:
 
     ##############################################
 
+    @property
     def bounding_box(self):
 
         """Compute the bounding box of the pattern."""
 
         bounding_box = None
         for calculation in self._calculations:
-            interval = calculation.geometry().bounding_box()
+            interval = calculation.geometry().bounding_box
+            print(calculation.geometry(), interval)
             if bounding_box is None:
                 bounding_box = interval
             else:
@@ -167,7 +169,7 @@ class Pattern:
 
         scene = GraphicScene()
         # Fixme: scene bounding box
-        scene.bounding_box = self.bounding_box()
+        scene.bounding_box = self.bounding_box
 
         # Fixme: implement a transformer class to prevent if ... ?
 

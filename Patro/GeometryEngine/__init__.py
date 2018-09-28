@@ -22,3 +22,13 @@
 implements standard primitives like line, segment and Bezier curve.
 
 """
+
+####################################################################################################
+
+from .Primitive import Primitive2DMixin
+from .Vector import Vector2D
+
+####################################################################################################
+
+# Fixme: to fix cyclic import issue
+Primitive2DMixin.__vector_cls__ = Vector2D

@@ -168,10 +168,10 @@ class Calculator:
 
     def _function_AngleLine(self, point_name1, point_name2):
         point1, point2 = self._names_to_vector_points(point_name1, point_name2)
-        return (point2 - point1).orientation()
+        return (point2 - point1).orientation
 
     def _function_CurrentLength(self):
-        return self._current_segment.magnitude()
+        return self._current_segment.magnitude
 
     def _function_C1LengthSpl(self, point_name1, point_name2):
         point1, point2 = self._names_to_vector_points(point_name1, point_name2)
@@ -183,7 +183,7 @@ class Calculator:
 
     def _function_Line(self, point_name1, point_name2):
         point1, point2 = self._names_to_vector_points(point_name1, point_name2)
-        return (point2 - point1).magnitude()
+        return (point2 - point1).magnitude
 
     def _function_Spl(self, point_name1, point_name2):
         point1, point2 = self._names_to_vector_points(point_name1, point_name2)

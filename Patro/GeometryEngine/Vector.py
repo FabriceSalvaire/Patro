@@ -27,11 +27,11 @@ import numpy as np
 from IntervalArithmetic import Interval2D, IntervalInt2D
 
 from Patro.Common.Math.Functions import sign, trignometric_clamp #, is_in_trignometric_range
-from .Primitive import Primitive2D
+from .Primitive import Primitive, Primitive2DMixin
 
 ####################################################################################################
 
-class Vector2DBase(Primitive2D):
+class Vector2DBase(Primitive, Primitive2DMixin):
 
     __data_type__ = None
 
@@ -202,6 +202,7 @@ class Vector2DInt(Vector2DBase):
 
     ##############################################
 
+    @property
     def bounding_box(self):
         x, y = self.x, self.y
         return IntervalInt2D((x, x) , (y, y))
@@ -214,6 +215,7 @@ class Vector2DFloatBase(Vector2DBase):
 
     ##############################################
 
+    @property
     def bounding_box(self):
         x, y = self.x, self.y
         return Interval2D((x, x) , (y, y))
@@ -226,18 +228,21 @@ class Vector2DFloatBase(Vector2DBase):
 
     ##############################################
 
+    @property
     def magnitude_square(self):
         """Return the square of the magnitude of the vector"""
         return np.dot(self._v, self._v)
 
     ##############################################
 
+    @property
     def magnitude(self):
         """Return the magnitude of the vector"""
-        return math.sqrt(self.magnitude_square())
+        return math.sqrt(self.magnitude_square)
 
     ##############################################
 
+    @property
     def orientation(self):
 
         """Return the orientation in degree"""
@@ -262,7 +267,7 @@ class Vector2DFloatBase(Vector2DBase):
         elif self.y == 0:
             return 0 if self.x >= 0 else 180
         else:
-            orientation = math.degrees(math.atan(self.tan()))
+            orientation = math.degrees(math.atan(self.tan))
             if self.x < 0:
                 if self.y > 0:
                     orientation += 180
@@ -292,6 +297,7 @@ class Vector2DFloatBase(Vector2DBase):
 
     ##############################################
 
+    @property
     def normal(self):
 
         """Return a new vector equal to self rotated of 90 degree in the counter clockwise direction
@@ -305,6 +311,7 @@ class Vector2DFloatBase(Vector2DBase):
 
     ##############################################
 
+    @property
     def anti_normal(self):
 
         """Return a new vector equal to self rotated of 90 degree in the clockwise direction
@@ -318,6 +325,7 @@ class Vector2DFloatBase(Vector2DBase):
 
     ##############################################
 
+    @property
     def parity(self):
 
         """Return a new vector equal to self rotated of 180 degree
@@ -332,6 +340,7 @@ class Vector2DFloatBase(Vector2DBase):
 
     ##############################################
 
+    @property
     def tan(self):
         """Return the tangent"""
         # RuntimeWarning: divide by zero encountered in double_scalars
@@ -339,6 +348,7 @@ class Vector2DFloatBase(Vector2DBase):
 
     ##############################################
 
+    @property
     def inverse_tan(self):
         """Return the inverse tangent"""
         return self.x / self.y
@@ -371,14 +381,14 @@ class Vector2DFloatBase(Vector2DBase):
 
     def cos_with(self, direction):
         """Return the cosinus of self with direction"""
-        cos = direction.dot(self) / (direction.magnitude() * self.magnitude())
+        cos = direction.dot(self) / (direction.magnitude * self.magnitude)
         return trignometric_clamp(cos)
 
     ##############################################
 
     def projection_on(self, direction):
         """Return the projection of self on direction"""
-        return direction.dot(self) / direction.magnitude()
+        return direction.dot(self) / direction.magnitude
 
     ##############################################
 
@@ -387,7 +397,7 @@ class Vector2DFloatBase(Vector2DBase):
         """Return the sinus of self with other"""
 
         # turn from direction to self
-        sin = direction.cross(self) / (direction.magnitude() * self.magnitude())
+        sin = direction.cross(self) / (direction.magnitude * self.magnitude)
 
         return trignometric_clamp(sin)
 
@@ -395,7 +405,7 @@ class Vector2DFloatBase(Vector2DBase):
 
     def deviation_with(self, direction):
         """Return the deviation of self with other"""
-        return direction.cross(self) / direction.magnitude()
+        return direction.cross(self) / direction.magnitude
 
     ##############################################
 
@@ -422,11 +432,20 @@ class Vector2D(Vector2DFloatBase):
     @staticmethod
     def from_angle(angle):
 
-        """Create the unitary vector (cos(angle), sin(angle)).  The *angle* is in degree."""
+        """Create the unitary vector (cos(angle), sin(angle)).  *angle* is in degree."""
 
         rad = math.radians(angle)
 
         return Vector2D((math.cos(rad), math.sin(rad))) # Fixme: classmethod
+
+    ##############################################
+
+    @staticmethod
+    def from_polar(radius, angle):
+
+        """Create the polar vector (radius*cos(angle), radius*sin(angle)).  *angle* is in degree."""
+
+        return Vector2D.from_angle(angle) * radius # Fixme: classmethod
 
     ##############################################
 
@@ -465,13 +484,13 @@ class Vector2D(Vector2DFloatBase):
 
     def normalise(self):
         """Normalise the vector"""
-        self._v /= self.magnitude()
+        self._v /= self.magnitude
 
     ##############################################
 
     def to_normalised(self):
         """Return a normalised vector"""
-        return NormalisedVector2D(self._v / self.magnitude())
+        return NormalisedVector2D(self._v / self.magnitude)
 
     ##############################################
 
@@ -490,7 +509,7 @@ class NormalisedVector2D(Vector2DFloatBase):
 
         super(NormalisedVector2D, self).__init__(*args)
 
-        #! if self.magnitude() != 1.:
+        #! if self.magnitude != 1.:
         #!     raise ValueError("Magnitude != 1")
 
         # if not (is_in_trignometric_range(self.x) and

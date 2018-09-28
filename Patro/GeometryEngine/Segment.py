@@ -21,17 +21,18 @@
 ####################################################################################################
 
 # from .Interpolation import interpolate_two_points
-from .BoundingBox import bounding_box_from_points
 from .Line import Line2D
-from .Primitive import Primitive2D, ReversablePrimitiveMixin
+from .Primitive import Primitive2P, Primitive2DMixin
 from .Triangle import triangle_orientation
 from .Vector import Vector2D
 
 ####################################################################################################
 
-class Segment2D(Primitive2D, ReversablePrimitiveMixin):
+class Segment2D(Primitive2DMixin, Primitive2P):
 
-    """2D Segment"""
+    """Class to implement 2D Segment"""
+
+    # Fixme: _p0 versus p0
 
     #######################################
 
@@ -39,49 +40,7 @@ class Segment2D(Primitive2D, ReversablePrimitiveMixin):
 
         """Construct a :class:`Segment2D` between two points."""
 
-        self._p0 = Vector2D(p0)
-        self._p1 = Vector2D(p1)
-
-    ##############################################
-
-    def clone(self):
-        return self.__class__(self._p0, self._p1)
-
-    ##############################################
-
-    def bounding_box(self):
-        return bounding_box_from_points((self._p0, self._p1))
-
-    ##############################################
-
-    def reverse(self):
-        return self.__class__(self._p1, self._p0)
-
-    ##############################################
-
-    @property
-    def p0(self):
-        return self._p0
-
-    @p0.setter
-    def p0(self, value):
-        self._p0 = value
-
-    @property
-    def p1(self):
-        return self._p1
-
-    @p1.setter
-    def p1(self, value):
-        self._p1 = value
-
-    @property
-    def start_point(self):
-        return self._p0
-
-    @property
-    def end_point(self):
-        return self._p1
+        Primitive2P.__init__(self, p0, p1)
 
     ##############################################
 
@@ -100,15 +59,19 @@ class Segment2D(Primitive2D, ReversablePrimitiveMixin):
 
     ##############################################
 
+    @property
+    def cross_product(self):
+
+        return self._p0.cross(self._p1)
+
+    ##############################################
+
     def to_line(self):
         return Line2D.from_two_points(self._p1, self._p0)
 
     ##############################################
 
-    def point_at_t(self, t):
-
-        # return interpolate_two_points(self._p0, self._p1)
-        return self._p0 * (1 - t) + self._p1 * t
+    point_at_t = Primitive2P.interpolate
 
     ##############################################
 

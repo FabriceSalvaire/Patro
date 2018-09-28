@@ -20,6 +20,13 @@
 
 ####################################################################################################
 
+import math
+
+from .Primitive import Primitive3P, Primitive2DMixin
+from .Line import Line2D
+
+####################################################################################################
+
 def triangle_orientation(p0, p1, p2):
 
     """Return the triangle orientation defined by the three points."""
@@ -47,3 +54,215 @@ def triangle_orientation(p0, p1, p2):
         # p1 is between p0 and p2
         else:
             return 1
+
+####################################################################################################
+
+def same_side(p1, p2, a, b):
+
+    """Return True if the points p1 and p2 lie on the same side of the edge [a, b]."""
+
+    v = b - a
+    cross1 = v.cross(p1 - a)
+    cross2 = v.cross(p2 - a)
+
+    # return cross1.dot(cross2) >= 0
+    return cross1*cross2 >= 0
+
+####################################################################################################
+
+class Triangle2D( Primitive2DMixin, Primitive3P):
+
+    ##############################################
+
+    def __init__(self, p0, p1, p2):
+
+        if (p1 - p0).is_parallel((p2 - p0)):
+            raise ValueError('Flat triangle')
+
+        Primitive3P.__init__(self, p0, p1, p2)
+
+        # self._p10 = None
+        # self._p21 = None
+        # self._p02 = None
+
+    ##############################################
+
+    @property
+    def is_closed(self):
+        return True
+
+    ##############################################
+
+    @property
+    def bisector_vector0(self):
+        return (self._p1 - self._p0) + (self._p2 - self._p0)
+
+    @property
+    def bisector_vector1(self):
+        return (self._p0 - self._p1) + (self._p2 - self._p1)
+
+    @property
+    def bisector_vector2(self):
+        return (self._p1 - self._p2) + (self._p0 - self._p2)
+
+    ##############################################
+
+    @property
+    def bisector_line0(self):
+        return Line2D(self._p0, self.bisector_vector0)
+
+    @property
+    def bisector_line1(self):
+        return Line2D(self._p1, self.bisector_vector1)
+
+    @property
+    def bisector_line2(self):
+        return Line2D(self._p2, self.bisector_vector2)
+
+    ##############################################
+
+    def _cache_length(self):
+
+        if not hasattr(self._p10):
+            self._p10 = (self._p1 - self._p0).magnitude
+            self._p21 = (self._p2 - self._p1).magnitude
+            self._p02 = (self._p0 - self._p2).magnitude
+
+    ##############################################
+
+    def _cache_angle(self):
+
+        if not hasattr(self._a10):
+            self._a10 = (self._p1 - self._p0).orientation
+            self._a21 = (self._p2 - self._p1).orientation
+            self._a02 = (self._p0 - self._p2).orientation
+
+    ##############################################
+
+    @property
+    def perimeter(self):
+
+        self._cache_length()
+        return self._p10 + self._p21 + self._p02
+
+    ##############################################
+
+    @property
+    def area(self):
+
+        # using height
+        #   = base * height / 2
+        # using edge length
+        #   = \frac{1}{4} \sqrt{(a+b+c)(-a+b+c)(a-b+c)(a+b-c)} = \sqrt{p(p-a)(p-b)(p-c)}
+        # using sinus law
+        #  = \frac{1}{2} a b \sin\gamma
+        # using coordinate
+        # = \frac{1}{2} \left\|{ \overrightarrow{AB} \wedge \overrightarrow{AC}}
+        # = \dfrac{1}{2} \big| x_A y_C - x_A y_B + x_B y_A - x_B y_C + x_C y_B - x_C y_A \big|
+
+        return .5 * math.fabs((self._p1 - self._p0).cross(self._p2 - self._p0))
+
+    ##############################################
+
+    @property
+    def is_equilateral(self):
+
+        self._cache_length()
+        # all sides have the same length and angle = 60
+        return (self._p10 == self._p21 and
+                self._p21 == self._p02)
+
+    ##############################################
+
+    @property
+    def is_scalene(self):
+
+        self._cache_length()
+        # all sides have different lengths
+        return (self._p10 != self._p21 and
+                self._p21 != self._p02 and
+                self._p02 != self._p10)
+
+    ##############################################
+
+    @property
+    def is_isosceles(self):
+
+        self._cache_length()
+        # two sides of equal length
+        return not(self.is_equilateral) and not(self.is_scalene)
+
+    ##############################################
+
+    @property
+    def is_right(self):
+
+        self._cache_angle()
+        # one angle = 90
+        raise NotImplementedError
+
+    ##############################################
+
+    @property
+    def is_obtuse(self):
+
+        self._cache_angle()
+        # one angle > 90
+        return max(self._a10, self._a21, self._a02) > 90
+
+    ##############################################
+
+    @property
+    def is_acute(self):
+
+        self._cache_angle()
+        # all angle < 90
+        return max(self._a10, self._a21, self._a02) < 90
+
+    ##############################################
+
+    @property
+    def is_oblique(self):
+
+        return not self.is_equilateral
+
+    ##############################################
+
+    @property
+    def orthocenter(self):
+        # intersection of the altitudes
+        raise NotImplementedError
+
+    ##############################################
+
+    @property
+    def centroid(self):
+        # intersection of the medians
+        raise NotImplementedError
+
+    ##############################################
+
+    @property
+    def circumcenter(self):
+        # intersection of the perpendiculars at middle
+        raise NotImplementedError
+
+    ##############################################
+
+    @property
+    def in_circle(self):
+        # intersection of the bisectors
+        raise NotImplementedError # return circle
+
+    ##############################################
+
+    def is_point_inside(self, point):
+
+        # Reference:
+        #   http://mathworld.wolfram.com/TriangleInterior.html
+
+        return (
+            same_side(point, self._p0, self._p1, self._p2) and
+            same_side(point, self._p1, self._p0, self._p2) and
+            same_side(point, self._p2, self._p0, self._p1)
+        )

@@ -42,12 +42,19 @@ def middle(a, b):
 def cmp(a, b):
     return (a > b) - (a < b)
 
-# Fixme: sign_of ?
+####################################################################################################
+
 def sign(x):
-    return cmp(x, 0)
+    # Fixme: sign_of ?
+    # return cmp(x, 0)
+    return math.copysign(1.0, x)
+
+####################################################################################################
 
 def epsilon_float(a, b, epsilon = 1e-3):
     return abs(a-b) <= epsilon
+
+####################################################################################################
 
 def trignometric_clamp(x):
     """Clamp *x* in the range [-1.,1]."""

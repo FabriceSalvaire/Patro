@@ -564,7 +564,7 @@ class NormalPoint(Point, LinePropertiesMixin, FirstSecondPointMixin, LengthAngle
         vector = self._second_point.vector - self._first_point.vector
         self._pattern.calculator.set_current_segment(vector)
         direction = vector.to_normalised()
-        direction = direction.normal()
+        direction = direction.normal
         angle = self._angle.value
         if angle:
             direction = direction.rotate(angle)
