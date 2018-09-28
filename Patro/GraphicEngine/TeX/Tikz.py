@@ -36,12 +36,12 @@ class TikzFigure(Environment):
         'none': None,
 
         'solid': 'solid',
-        }
+    }
 
     __COLOR__ = {
         None : None,
         'black': 'black',
-        }
+    }
 
     @staticmethod
     def format_path_style(path_syle):

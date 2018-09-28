@@ -84,5 +84,13 @@ class PaperSize:
         return self._width
 
     @property
+    def height_in(self):
+        return self._height / 25.4
+
+    @property
+    def width_in(self):
+        return self._width / 25.4
+
+    @property
     def margin(self):
         return self._margin

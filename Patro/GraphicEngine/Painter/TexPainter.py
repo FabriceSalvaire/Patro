@@ -72,7 +72,7 @@ class TexPainter(Painter):
 
     def __init__(self, path, scene, paper):
 
-        super(TexPainter, self).__init__(scene)
+        super().__init__(scene)
 
         self._document = Document(path, 'article', '12pt')
         self._paper = paper
