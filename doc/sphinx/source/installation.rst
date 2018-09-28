@@ -92,11 +92,4 @@ Then to build and install Patro run these commands:
 Dependencies
 ------------
 
-Patro requires the following dependencies:
-
- * |Python|_ 3
- * |Numpy|_
-
-To generate the documentation, you will need in addition:
-
- * |Sphinx|_
+See *requirements.txt* file for normal installation and *requirements-dev.txt* to regenerate the package.

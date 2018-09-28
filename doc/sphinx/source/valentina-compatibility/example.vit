@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<vit>
+  <!--Measurements created with Valentina (http://www.valentina-project.org/).-->
+  <version>0.3.3</version>
+  <read-only>false</read-only>
+  <notes/>
+  <unit>cm</unit>
+  <pm_system>998</pm_system>
+  <personal>
+    <family-name>Doe</family-name>
+    <given-name>John</given-name>
+    <birth-date>1970-01-01</birth-date>
+    <gender>male</gender>
+    <email/>
+  </personal>
+  <body-measurements>
+    <m value="46" name="height_knee"/>
+    <m value="10" name="height_ankle_high"/>
+    <m value="95 " name="bust_circ"/>
+    <m value="84" name="waist_circ"/>
+    <m value="88" name="highhip_circ"/>
+    <m value="96" name="hip_circ"/>
+    <m value="(hip_arc_b + hip_with_abdomen_arc_f)" name="hip_circ_with_abdomen"/>
+    <m value="(hip_arc_f/2)" name="hip_arc_half_f"/>
+    <m value="(hip_circ - hip_arc_f)" name="hip_arc_b"/>
+    <m value="0" name="hip_arc_f"/>
+    <m value="0" name="hip_with_abdomen_arc_f"/>
+    <m value="81" name="leg_crotch_to_floor"/>
+    <m value="73" name="@leg_crotch_to_floor_men"/>
+    <m value="100" name="leg_waist_side_to_floor"/>
+    <m value="54.5" name="leg_thigh_upper_circ"/>
+    <m value="50" name="leg_thigh_mid_circ"/>
+    <m value="37" name="leg_knee_circ"/>
+    <m value="32" name="leg_knee_small_circ"/>
+    <m value="37" name="leg_calf_circ"/>
+    <m value="21" name="leg_ankle_high_circ"/>
+    <m value="24" name="leg_ankle_circ"/>
+    <m value="40" name="leg_knee_circ_bent"/>
+    <m value="62" name="crotch_length"/>
+    <m value="28" name="crotch_length_b"/>
+    <m value="(crotch_length - crotch_length_b)" name="crotch_length_f"/>
+    <m value="22" name="rise_length_side_sitting"/>
+    <m value="26" name="rise_length_diag"/>
+    <m full_name="Longeur ourlet bas pantalon" value="10" description="Logueur d'ourlet de bas de pantalon" name="@longeur_ourlet_bas_pantalon"/>
+    <m full_name="Largeur de bas de pantalon" value="20" description="*2 ?" name="@largeur_bas_pantalon"/>
+    <m full_name="Aisanse au genou" value="6" description="???" name="@aisanse_genou"/>
+    <m value="leg_knee_circ+@aisanse_genou" name="@circ_genou_avec_aisance"/>
+    <m full_name="Aisance bassin Pantalon plat" value="10" name="@aisance_bassin_pantalon_plat"/>
+    <m full_name="Tour bassin avec aisance Pantalon plat" value="hip_circ+@aisance_bassin_pantalon_plat" name="@tour_bassin_avec_aisance_pantalon_plat"/>
+    <m full_name="Largeur au genou avec aisance (circ)" value="54" name="@circ_genou_avec_aisance_pantalon_plat"/>
+    <m value="4" name="@aisance_taile_pantalon_casual"/>
+    <m full_name="Aisance bassin Pantalon casual" value="16" name="@aisance_bassin_pantalon_casual"/>
+    <m value="waist_circ+@aisance_taile_pantalon_casual" name="@tour_taille_avec_aisance_pantalon_casual"/>
+    <m full_name="Tour bassin avec aisance Pantalon casual" value="hip_circ+@aisance_bassin_pantalon_casual" name="@tour_bassin_avec_aisance_pantalon_casual"/>
+    <m value="52" name="@circ_genou_avec_aisance_pantalon_casual"/>
+    <m full_name="Largeur de bas de pantalon Casual" value="44" name="@circ_bas_pantalon_casual"/>
+    <m value="4" name="@aisance_taile_pantalon_jeans"/>
+    <m full_name="Aisance bassin Pantalon jeans" value="8" name="@aisance_bassin_pantalon_jeans"/>
+    <m value="waist_circ+@aisance_taile_pantalon_jeans" name="@tour_taille_avec_aisance_pantalon_jeans"/>
+    <m full_name="Tour bassin avec aisance Pantalon jeans" value="hip_circ+@aisance_bassin_pantalon_jeans" name="@tour_bassin_avec_aisance_pantalon_jeans"/>
+    <m value="44" name="@circ_genou_avec_aisance_pantalon_jeans"/>
+    <m full_name="Largeur de bas de pantalon Jeans" value="38" name="@circ_bas_pantalon_jeans"/>
+  </body-measurements>
+</vit>

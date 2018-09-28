@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pattern>
+    <!--Pattern created with Valentina (http://www.valentina-project.org/).-->
+    <version>0.4.2</version>
+    <unit>cm</unit>
+    <author/>
+    <description/>
+    <notes/>
+    <measurements/>
+    <increments/>
+    <draw name="Pattern piece 1">
+        <calculation>
+            <point id="1" mx="0.132292" x="0.79375" y="1.05833" name="A" type="single" my="0.264583"/>
+            <point id="2" basePoint="1" typeLine="hair" mx="0.132292" length="20" name="A1" lineColor="black" type="endLine" angle="0" my="0.264583"/>
+            <point id="3" firstPoint="2" typeLine="hair" mx="0.132292" secondPoint="1" length="10" name="A2" lineColor="black" type="normal" angle="0" my="0.264583"/>
+            <point id="4" firstPoint="1" mx="0.132292" secondPoint="3" name="A3" type="pointOfIntersection" my="0.264583"/>
+            <line id="5" firstPoint="1" typeLine="hair" secondPoint="4" lineColor="black"/>
+            <line id="6" firstPoint="4" typeLine="hair" secondPoint="3" lineColor="black"/>
+            <point id="12" firstPoint="1" typeLine="none" mx="0.132292" secondPoint="4" length="CurrentLength/2" name="A4" lineColor="black" type="alongLine" my="0.264583"/>
+            <point id="13" firstPoint="2" typeLine="none" mx="0.132292" secondPoint="3" length="CurrentLength/2" name="A5" lineColor="black" type="alongLine" my="0.264583"/>
+            <point id="17" firstPoint="1" typeLine="none" mx="0.132292" secondPoint="12" length="CurrentLength/2" name="A6" lineColor="black" type="alongLine" my="0.264583"/>
+            <point id="18" firstPoint="2" typeLine="none" mx="0.132292" secondPoint="13" length="CurrentLength/2" name="A7" lineColor="black" type="alongLine" my="0.264583"/>
+        </calculation>
+        <modeling>
+            <point id="7" idObject="1" inUse="true" mx="1.44658" type="modeling" my="-1.70684"/>
+            <point id="8" idObject="2" inUse="true" mx="-0.343958" type="modeling" my="-2.91042"/>
+            <point id="9" idObject="3" inUse="true" mx="0.132292" type="modeling" my="0.264583"/>
+            <point id="10" idObject="4" inUse="true" mx="0.132292" type="modeling" my="0.264583"/>
+            <point id="14" idObject="12" inUse="true" mx="0.132292" type="modeling" my="0.264583"/>
+            <point id="15" idObject="13" inUse="true" mx="0.132292" type="modeling" my="0.264583"/>
+            <path id="16" typeLine="dashDotLine" name="Fold" type="2">
+                <nodes>
+                    <node idObject="14" type="NodePoint"/>
+                    <node idObject="15" type="NodePoint"/>
+                </nodes>
+            </path>
+            <point id="19" idObject="17" type="pin"/>
+            <point id="20" idObject="18" type="pin"/>
+            <point id="21" idObject="1" type="pin"/>
+            <point id="22" idObject="4" type="pin"/>
+            <point id="23" idObject="3" type="pin"/>
+        </modeling>
+        <details>
+            <detail id="11" version="2" forbidFlipping="false" width="1" united="false" mx="1.16417" name="Detail" seamAllowance="true" my="-0.582084">
+                <data letter="A" topLeftPin="21" width="26.4567" mx="30" height="94.4882" bottomRightPin="19" fontSize="5" visible="true" rotation="-0.0547782" my="39.9999">
+                    <mcp placement="0" material="0" cutNumber="1"/>
+                    <mcp placement="1" material="1" cutNumber="2"/>
+                </data>
+                <patternInfo topLeftPin="19" width="26.4567" mx="30" height="283.465" bottomRightPin="22" fontSize="5" visible="true" rotation="359.876" my="134.488"/>
+                <grainline arrows="0" mx="0" bottomPin="20" length="0" visible="true" rotation=" 0" topPin="19" my="0"/>
+                <nodes>
+                    <node idObject="7" type="NodePoint"/>
+                    <node idObject="8" type="NodePoint"/>
+                    <node idObject="9" type="NodePoint"/>
+                    <node idObject="10" type="NodePoint"/>
+                </nodes>
+                <iPaths>
+                    <record path="16"/>
+                </iPaths>
+                <pins>
+                    <record>19</record>
+                    <record>20</record>
+                    <record>21</record>
+                    <record>22</record>
+                    <record>23</record>
+                </pins>
+            </detail>
+        </details>
+        <groups/>
+    </draw>
+</pattern>

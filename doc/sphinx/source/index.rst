@@ -142,6 +142,7 @@ If you want to donate to the project or need a more professional support.
   :numbered:
 
   overview.rst
+  features-all.rst
   news.rst
   roadmap.rst
   installation.rst

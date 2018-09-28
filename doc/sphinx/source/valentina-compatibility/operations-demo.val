@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<pattern>
+    <!--Pattern created with Valentina (http://www.valentina-project.org/).-->
+    <version>0.4.0</version>
+    <unit>cm</unit>
+    <author/>
+    <description/>
+    <notes/>
+    <measurements/>
+    <increments/>
+    <draw name="Pattern piece 1">
+        <calculation>
+            <point id="1" mx="0.132292" x="0.79375" y="1.05833" name="A" type="single" my="0.264583"/>
+            <point id="2" basePoint="1" typeLine="hair" mx="0.132292" length="10" name="X" lineColor="blue" type="endLine" angle="360" my="0.25879"/>
+            <point id="4" firstPoint="1" typeLine="hair" mx="-0.0996573" secondPoint="2" length="CurrentLength/2" name="M" lineColor="violet" type="alongLine" my="0.612507"/>
+            <point id="5" firstPoint="1" typeLine="hair" mx="0.132292" secondPoint="2" length="Line_A_X" name="Y" lineColor="deeppink" type="normal" angle="0" my="0.264583"/>
+            <point id="6" basePoint="1" typeLine="hair" mx="0.132292" length="20" name="An1" lineColor="cornflowerblue" type="endLine" angle="10" my="0.264583"/>
+            <point id="7" basePoint="1" typeLine="dotLine" mx="0.529451" length="Line_A_An1" name="An2" lineColor="lime" type="endLine" angle="20" my="-0.690272"/>
+            <point id="8" basePoint="1" typeLine="dotLine" mx="0.480216" length="Line_A_An1" name="An3" lineColor="darkBlue" type="endLine" angle="30" my="0.467539"/>
+            <point id="9" basePoint="1" typeLine="dashLine" mx="0.190279" length="Line_A_An1" name="An4" lineColor="darkGreen" type="endLine" angle="40" my="0.293577"/>
+            <point id="10" basePoint="1" typeLine="dashDotLine" mx="0.161286" length="Line_A_An1" name="An5" lineColor="darkRed" type="endLine" angle="50" my="0.264583"/>
+            <point id="11" basePoint="1" typeLine="dashDotDotLine" mx="0.0743047" length="Line_A_An1" name="An6" lineColor="darkviolet" type="endLine" angle="60" my="0.264583"/>
+            <point id="12" firstPoint="1" typeLine="none" mx="0.132292" secondPoint="6" length="15" name="C" lineColor="black" type="alongLine" my="0.264583"/>
+            <point id="13" firstPoint="2" thirdPoint="5" typeLine="hair" mx="0.132292" secondPoint="1" length="Line_A_X" name="B" lineColor="deepskyblue" type="bisector" my="0.289512"/>
+            <point id="14" firstPoint="2" mx="0.132292" secondPoint="5" name="XY" type="pointOfIntersection" my="0.264583"/>
+            <line id="15" firstPoint="2" typeLine="hair" secondPoint="14" lineColor="orange"/>
+            <line id="16" firstPoint="14" typeLine="hair" secondPoint="5" lineColor="black"/>
+            <point id="17" mx="0.132292" p1Line2="2" p1Line1="1" name="I" type="lineIntersect" my="0.264583" p2Line1="12" p2Line2="14"/>
+            <point id="18" basePoint="7" typeLine="hair" mx="0.132292" p2Line="14" name="P" p1Line="2" lineColor="mediumseagreen" type="height" my="0.293577"/>
+            <point id="19" radius="Line_A_M*3/2" center="4" firstPoint="1" mx="0.132292" secondPoint="5" name="R" type="pointOfContact" my="0.264583"/>
+            <point id="20" basePoint="14" typeLine="hair" mx="0.422229" p2Line="1" name="AxAn" p1Line="5" lineColor="goldenrod" type="lineIntersectAxis" angle="150" my="-1.82296"/>
+            <point id="21" typeLine="hair" mx="0.799146" p2Line="14" length="Line_X_XY*2" pShoulder="20" name="Sh" p1Line="5" lineColor="lightsalmon" type="shoulder" my="-1.38806"/>
+            <line id="22" firstPoint="5" typeLine="hair" secondPoint="20" lineColor="yellow"/>
+            <line id="23" firstPoint="6" typeLine="hair" secondPoint="7" lineColor="green"/>
+            <point id="24" basePoint="1" typeLine="none" mx="0.132292" length="25" name="At" lineColor="black" type="endLine" angle="90" my="0.227009"/>
+            <point id="25" basePoint="24" typeLine="hair" mx="0.132292" length="5" name="Bt" lineColor="black" type="endLine" angle="10" my="0.264583"/>
+            <point id="26" firstPoint="25" typeLine="hair" mx="0.132292" secondPoint="24" length="5" name="Ct" lineColor="blue" type="normal" angle="0" my="0.189435"/>
+            <point id="27" firstPoint="25" typeLine="none" mx="0.132292" secondPoint="26" length="-Line_Bt_Ct" name="Dt" lineColor="black" type="alongLine" my="0.264583"/>
+            <point id="28" axisP2="25" axisP1="24" firstPoint="27" mx="0.847452" secondPoint="26" name="T1" type="triangle" my="1.4024"/>
+            <point id="29" basePoint="25" typeLine="none" mx="0.132292" length="Line_Bt_Ct" name="Et" lineColor="black" type="endLine" angle="60" my="0.264583"/>
+            <point id="30" axisP2="25" axisP1="24" firstPoint="29" mx="0.79244" secondPoint="26" name="T2" type="triangle" my="-1.55082"/>
+            <line id="31" firstPoint="27" typeLine="hair" secondPoint="25" lineColor="blue"/>
+            <line id="32" firstPoint="27" typeLine="hair" secondPoint="28" lineColor="blue"/>
+            <line id="33" firstPoint="26" typeLine="hair" secondPoint="28" lineColor="blue"/>
+            <line id="34" firstPoint="29" typeLine="hair" secondPoint="26" lineColor="darkGreen"/>
+            <line id="35" firstPoint="29" typeLine="hair" secondPoint="30" lineColor="darkGreen"/>
+            <line id="36" firstPoint="26" typeLine="hair" secondPoint="30" lineColor="darkGreen"/>
+            <line id="37" firstPoint="25" typeLine="hair" secondPoint="30" lineColor="black"/>
+            <point id="38" basePoint="24" typeLine="none" mx="-1.57309" length="30" name="Ad" lineColor="black" type="endLine" angle="0" my="0.814706"/>
+            <point id="39" basePoint="38" typeLine="hair" mx="0.297329" length="20" name="Bd" lineColor="black" type="endLine" angle="30" my="0.319595"/>
+            <point id="40" firstPoint="38" typeLine="none" mx="1.23254" secondPoint="39" length="CurrentLength/2" name="Md" lineColor="black" type="alongLine" my="-0.175515"/>
+            <point id="41" firstPoint="40" typeLine="hair" mx="0.132292" secondPoint="38" length="10" name="Dd" lineColor="black" type="normal" angle="0" my="0.264583"/>
+            <point id="42" firstPoint="40" typeLine="none" mx="0.847452" secondPoint="39" length="5" name="Dd2" lineColor="black" type="alongLine" my="0.154558"/>
+            <point id="43" firstPoint="40" typeLine="none" mx="-1.13299" secondPoint="38" length="Line_Md_Dd2" name="Dd1" lineColor="black" type="alongLine" my="1.74992"/>
+            <point id="44" mx2="-3.93862" baseLineP2="39" baseLineP1="38" mx1="0.242317" dartP3="42" name1="Td1" dartP2="41" point2="46" point1="45" name2="Td2" my2="-0.175515" type="trueDarts" my1="-2.54104" dartP1="43"/>
+            <line id="47" firstPoint="38" typeLine="hair" secondPoint="45" lineColor="blue"/>
+            <line id="48" firstPoint="45" typeLine="hair" secondPoint="41" lineColor="blue"/>
+            <line id="49" firstPoint="41" typeLine="hair" secondPoint="46" lineColor="blue"/>
+            <line id="50" firstPoint="46" typeLine="hair" secondPoint="39" lineColor="blue"/>
+            <point id="51" basePoint="24" typeLine="none" mx="-1.46306" length="15" name="Ca1" lineColor="black" type="endLine" angle="90" my="2.07999"/>
+            <point id="52" basePoint="51" typeLine="none" mx="0.187304" length="20" name="Cb1" lineColor="black" type="endLine" angle="30" my="0.264583"/>
+            <spline id="53" angle2="138.403" length2="14.0301" angle1="329.987" length1="18.2062" point4="52" type="simpleInteractive" point1="51" color="blue"/>
+            <point id="54" spline="53" mx="0.196818" length="10" name="Cl1" type="cutSpline" my="0.264583"/>
+            <point id="55" basePoint="51" typeLine="hair" mx="0.906609" length="10" name="Ca2" lineColor="darkGreen" type="endLine" angle="50" my="0.522689"/>
+            <point id="56" basePoint="52" typeLine="hair" mx="0.132292" length="5" name="Cb2" lineColor="darkGreen" type="endLine" angle="280" my="0.200057"/>
+            <spline id="57" duplicate="1" point4="52" point2="55" point3="56" type="cubicBezier" point1="51" color="goldenrod"/>
+            <point id="58" basePoint="52" typeLine="hair" mx="0.132292" length="15" name="Cc1" lineColor="black" type="endLine" angle="-30" my="0.264583"/>
+            <spline id="59" type="pathInteractive" color="violet">
+                <pathPoint angle2="333.352" length2="25.9685" length1="0" angle1="153.352" pSpline="51"/>
+                <pathPoint angle2="82.712" length2="15.9887" length1="9.36267" angle1="262.712" pSpline="52"/>
+                <pathPoint angle2="254.923" length2="1.78344" length1="7.70133" angle1="74.9232" pSpline="58"/>
+            </spline>
+            <point id="60" mx="0.132292" splinePath="59" length="20" name="CI2" type="cutSplinePath" my="0.264583"/>
+            <point id="61" basePoint="58" typeLine="hair" mx="0.132292" length="10" name="Cd1" lineColor="black" type="endLine" angle="40" my="0.264583"/>
+            <point id="63" basePoint="61" typeLine="hair" mx="0.132292" length="10" name="Ce1" lineColor="black" type="endLine" angle="-50" my="0.264583"/>
+            <point id="64" basePoint="63" typeLine="hair" mx="0.132292" length="15" name="Cf1" lineColor="black" type="endLine" angle="70" my="0.264583"/>
+            <point id="65" basePoint="64" typeLine="hair" mx="0.132292" length="10" name="Cg1" lineColor="black" type="endLine" angle="-80" my="0.264583"/>
+            <spline id="66" type="cubicBezierPath" color="deepskyblue">
+                <pathPoint pSpline="51"/>
+                <pathPoint pSpline="52"/>
+                <pathPoint pSpline="58"/>
+                <pathPoint pSpline="61"/>
+                <pathPoint pSpline="63"/>
+                <pathPoint pSpline="64"/>
+                <pathPoint pSpline="65"/>
+            </spline>
+            <point id="67" mx="0.971135" curve1="59" vCrossPoint="1" curve2="66" hCrossPoint="1" name="Ci1" type="pointOfIntersectionCurves" my="-3.86511"/>
+            <point id="68" basePoint="64" typeLine="hair" mx="0.583977" name="Cax1" lineColor="blue" type="curveIntersectAxis" angle="10" curve="59" my="-3.15532"/>
+            <point id="71" basePoint="51" typeLine="none" mx="0.132292" length="40" name="A3" lineColor="black" type="endLine" angle="70" my="0.264583"/>
+            <arc id="72" radius="10" angle2="-30" center="71" angle1="30" type="simple" color="black"/>
+            <point id="73" mx="-3.79185" length="30" arc="72" name="Cl3" type="cutArc" my="1.41311"/>
+            <point id="76" basePoint="71" typeLine="none" mx="0.132292" length="15" name="A4" lineColor="black" type="endLine" angle="0" my="0.264583"/>
+            <arc id="77" radius="10" angle2="280" center="76" angle1="10" type="simple" color="black"/>
+            <point id="78" firstArc="72" mx="-1.39908" secondArc="77" crossPoint="1" name="Ci2" type="pointOfIntersectionArcs" my="2.65735"/>
+            <point id="79" c1Center="71" mx="0.132292" crossPoint="1" c1Radius="15" name="Ci3" c2Radius="18" type="pointOfIntersectionCircles" my="0.264583" c2Center="76"/>
+            <point id="80" basePoint="79" typeLine="hair" mx="-0.729105" name="Ci4" lineColor="black" type="curveIntersectAxis" angle="120" curve="72" my="-4.42524"/>
+            <point id="81" tangent="80" mx="-2.93045" cRadius="3" cCenter="71" crossPoint="1" name="Cp1" type="pointFromCircleAndTangent" my="-2.70245"/>
+            <line id="82" firstPoint="80" typeLine="hair" secondPoint="81" lineColor="blue"/>
+            <point id="83" basePoint="76" typeLine="none" mx="0.132292" length="15" name="A5" lineColor="black" type="endLine" angle="45" my="0.264583"/>
+            <point id="84" tangent="83" mx="-1.30337" crossPoint="1" arc="77" name="Ctan" type="pointFromArcAndTangent" my="1.79596"/>
+            <line id="85" firstPoint="83" typeLine="hair" secondPoint="84" lineColor="blue"/>
+            <arc id="86" radius="10" center="83" angle1="45" length="30" type="arcWithLength" color="black"/>
+            <elArc id="87" angle2="300" center="83" radius2="15" rotationAngle="60" radius1="10" angle1="30" type="simple" color="lime"/>
+            <point id="88" basePoint="1" typeLine="none" mx="-1.93185" length="50" name="A6" lineColor="black" type="endLine" angle="0" my="0.69914"/>
+            <point id="89" basePoint="88" typeLine="none" mx="1.00141" length="10" name="A7" lineColor="black" type="endLine" angle="0" my="0.0473046"/>
+            <point id="90" basePoint="89" typeLine="none" mx="0.132292" length="10" name="A8" lineColor="black" type="endLine" angle="120" my="0.264583"/>
+            <line id="91" firstPoint="88" typeLine="hair" secondPoint="90" lineColor="blue"/>
+            <point id="92" basePoint="90" typeLine="hair" mx="0.132292" p2Line="88" name="A1" p1Line="89" lineColor="black" type="height" my="0.264583"/>
+            <point id="93" basePoint="88" typeLine="hair" mx="0.132292" p2Line="90" name="A2" p1Line="89" lineColor="black" type="height" my="0.264583"/>
+            <point id="94" mx="-7.24225" p1Line2="90" p1Line1="88" name="A9" type="lineIntersect" my="-4.21798" p2Line1="93" p2Line2="92"/>
+            <line id="96" firstPoint="88" typeLine="hair" secondPoint="89" lineColor="blue"/>
+            <line id="97" firstPoint="89" typeLine="hair" secondPoint="90" lineColor="blue"/>
+            <operation id="101" center="94" suffix="rot" type="rotation" angle="30">
+                <source>
+                    <item idObject="88"/>
+                    <item idObject="89"/>
+                    <item idObject="90"/>
+                </source>
+                <destination>
+                    <item idObject="102" mx="-0.193626" my="0.738642"/>
+                    <item idObject="103" mx="1.08041" my="-1.1576"/>
+                    <item idObject="104" mx="-2.53431" my="-3.68593"/>
+                </destination>
+            </operation>
+            <line id="105" firstPoint="102" typeLine="hair" secondPoint="103" lineColor="deeppink"/>
+            <line id="106" firstPoint="103" typeLine="hair" secondPoint="104" lineColor="deeppink"/>
+            <line id="107" firstPoint="104" typeLine="hair" secondPoint="102" lineColor="deeppink"/>
+            <operation id="108" suffix="mir" p2Line="89" p1Line="88" type="flippingByLine">
+                <source>
+                    <item idObject="90"/>
+                </source>
+                <destination>
+                    <item idObject="109" mx="0.132292" my="0.264583"/>
+                </destination>
+            </operation>
+            <operation id="110" center="89" suffix="mir2" axisType="1" type="flippingByAxis">
+                <source>
+                    <item idObject="88"/>
+                    <item idObject="90"/>
+                </source>
+                <destination>
+                    <item idObject="111" mx="0.132292" my="0.264583"/>
+                    <item idObject="112" mx="0.132292" my="0.264583"/>
+                </destination>
+            </operation>
+            <operation id="113" suffix="mov" length="15" type="moving" angle="160">
+                <source>
+                    <item idObject="88"/>
+                </source>
+                <destination>
+                    <item idObject="114" mx="-1.4973" my="1.56825"/>
+                </destination>
+            </operation>
+        </calculation>
+        <modeling/>
+        <details/>
+        <groups>
+            <group id="100" visible="true" name="group1">
+                <item object="91" tool="91"/>
+                <item object="96" tool="96"/>
+                <item object="97" tool="97"/>
+            </group>
+        </groups>
+    </draw>
+</pattern>

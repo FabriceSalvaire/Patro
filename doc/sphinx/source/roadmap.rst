@@ -7,4 +7,4 @@
  Roadmap
 =========
 
-`Roadmap @Github <https://github.com/FabriceSalvaire/Patro/milestones>`_
+See `Roadmap @Github <https://github.com/FabriceSalvaire/Patro/milestones>`_

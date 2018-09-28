@@ -1,13 +1,26 @@
 .. -*- Mode: rst -*-
 
-.. |Python| replace:: Python
-.. _Python: http://python.org
+.. |Inkscape| replace:: Inkscape
+.. _Inkscape: https://inkscape.org
 
-.. |PyPI| replace:: PyPI
-.. _PyPI: https://pypi.python.org/pypi
+.. |Matplotlib| replace:: Matplotlib
+.. _Matplotlib: https://matplotlib.org
 
 .. |Numpy| replace:: Numpy
 .. _Numpy: http://www.numpy.org
 
+.. |PyPI| replace:: PyPI
+.. _PyPI: https://pypi.python.org/pypi
+
+.. |Python| replace:: Python
+.. _Python: https://python.org
+
+.. |Reportlab| replace:: Reportlab
+.. _Reportlab: https://www.reportlab.com/opensource/
+
 .. |Sphinx| replace:: Sphinx
 .. _Sphinx: http://sphinx-doc.org
+
+.. |Valentina| replace:: Valentina
+.. _Valentina: https://bitbucket.org/dismine/valentina
+
