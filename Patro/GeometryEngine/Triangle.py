@@ -24,6 +24,7 @@ import math
 
 from .Primitive import Primitive3P, Primitive2DMixin
 from .Line import Line2D
+from .Segment import Segment2D
 
 ####################################################################################################
 
@@ -70,7 +71,9 @@ def same_side(p1, p2, a, b):
 
 ####################################################################################################
 
-class Triangle2D( Primitive2DMixin, Primitive3P):
+class Triangle2D(Primitive2DMixin, Primitive3P):
+
+    """Class to implements 2D Triangle."""
 
     ##############################################
 
@@ -90,6 +93,21 @@ class Triangle2D( Primitive2DMixin, Primitive3P):
     @property
     def is_closed(self):
         return True
+
+    ##############################################
+
+    @property
+    def edges(self):
+
+        p0 = self._p0
+        p1 = self._p1
+        p2 = self._p2
+
+        return (
+            Segment2D(p0, p1),
+            Segment2D(p1, p2),
+            Segment2D(p2, p0),
+        )
 
     ##############################################
 

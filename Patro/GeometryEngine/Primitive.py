@@ -29,6 +29,8 @@ __all__ = [
 
 ####################################################################################################
 
+import collections
+
 from .BoundingBox import bounding_box_from_points
 
 ####################################################################################################
@@ -119,6 +121,8 @@ class Primitive:
 
         Return None if primitive is infinite.
         """
+
+        # Fixme: cache
 
         if self.is_infinite:
             return None
@@ -383,6 +387,9 @@ class PrimitiveNP(Primitive, ReversiblePrimitiveMixin):
     ##############################################
 
     def __init__(self, *points):
+
+        if len(points) == 1 and isinstance(points[0], collections.Iterable):
+            points = points[0]
 
         self._points = [self.__vector_cls__(p) for p in points]
 

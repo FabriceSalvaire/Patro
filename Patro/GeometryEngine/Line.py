@@ -74,9 +74,12 @@ class Line2D(Primitive2DMixin, Primitive):
 
     ##############################################
 
-    def point_at_s(self, s):
+    def interpolate(self, s):
         """Return the Point corresponding to the curvilinear abscissa s"""
         return self.p + (self.v * s)
+
+    point_at_s = interpolate
+    point_at_t = interpolate
 
     ##############################################
 
@@ -112,9 +115,9 @@ class Line2D(Primitive2DMixin, Primitive):
 
     # Fixme: is_parallel_to
 
-    def is_parallel(self, other):
+    def is_parallel(self, other, cross=False):
         """Self is parallel to other"""
-        return self.v.is_parallel(other.v)
+        return self.v.is_parallel(other.v, cross)
 
     ##############################################
 
@@ -140,7 +143,7 @@ class Line2D(Primitive2DMixin, Primitive):
 
         """Return the orthogonal line at abscissa s"""
 
-        point = self.point_at_s(s)
+        point = self.interpolate(s)
         vector = self.v.normal()
 
         return self.__class__(point, vector)
@@ -153,17 +156,20 @@ class Line2D(Primitive2DMixin, Primitive):
 
         # l1 = p1 + s1*v1
         # l2 = p2 + s2*v2
-        # delta = p2 - p1 = s2*v2 - s1*v1
-        # delta x v1 = s2*v2 x v1 = s2 *  - v1 x v2
-        # delta x v2 = s1*v1 x v2 = s1 *  v1 x v2
+        # at intersection l1 = l2
+        # p2 + s2*v2 = p1 + s1*v1
+        # delta = p2 - p1 = s1*v1 - s2*v2
+        # delta x v1 = - s2 * v2 x v1 = s2 * v1 x v2
+        # delta x v2                  = s1 * v1 x v2
 
-        if l1.is_parallel(l2):
+        test, cross = l1.is_parallel(l2, cross=True)
+        if test:
             return (None, None)
         else:
-            denominator = 1. / l1.v.cross(l2.v)
+            denominator = 1. / cross
             delta = l2.p - l1.p
             s1 = delta.cross(l2.v) * denominator
-            s2 = delta.cross(l1.v) * -denominator
+            s2 = delta.cross(l1.v) * denominator
             return (s1, s2)
 
     ##############################################
@@ -172,11 +178,11 @@ class Line2D(Primitive2DMixin, Primitive):
 
         """Return the intersection Point between self and other"""
 
-        s0, s1 = self.intersection_abscissae(other)
-        if s0 is None:
+        s1, s2 = self.intersection_abscissae(other)
+        if s1 is None:
             return None
         else:
-            return self.point_at_s(s0)
+            return self.interpolate(s1)
 
     ##############################################
 

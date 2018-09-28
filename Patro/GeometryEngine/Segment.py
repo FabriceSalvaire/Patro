@@ -75,7 +75,7 @@ class Segment2D(Primitive2DMixin, Primitive2P):
 
     ##############################################
 
-    def intersect(self, segment2):
+    def intersect_with(self, segment2):
 
         """Checks if the line segments intersect.
         return 1 if there is an intersection
@@ -94,3 +94,69 @@ class Segment2D(Primitive2DMixin, Primitive2P):
         return (((ccw11 * ccw12 < 0) and (ccw21 * ccw22 < 0))
                 # one ccw value is zero to detect an intersection
                 or (ccw11 * ccw12 * ccw21 * ccw22 == 0))
+
+    ##############################################
+
+    def intersection(self, segment2):
+
+        # P = (1-t) * Pa0 + t * Pa1 = Pa0 + t * (Pa1 - Pa0)
+        #   = (1-u) * Pb0 + u * Pb1 = Pb0 + u * (Pb1 - Pb0)
+
+        line1 = self.to_line()
+        line2 = segment2.to_line()
+
+        s1, s2 = line1.intersection_abscissae(line2)
+        if s1 is None:
+            return None
+        else:
+            intersect = (0 <= s1 <= 1) and (0 <= s2 <= 1)
+            return self.interpolate(s1), intersect
+
+    ##############################################
+
+    def share_vertex_with(self, segment2):
+
+        # return (
+        #     self._p0 == segment2._p0 or
+        #     self._p0 == segment2._p1 or
+        #     self._p1 == segment2._p0 or
+        #     self._p1 == segment2._p1
+        # )
+
+        if (self._p0 == segment2._p0 or
+            self._p0 == segment2._p1):
+            return self._p0
+        elif (self._p1 == segment2._p0 or
+              self._p1 == segment2._p1):
+            return self._p1
+        else:
+            return None
+
+    ##############################################
+
+    def side_of(self, point):
+
+        """Tests if a point is left/on/right of a line.
+
+        > 0 if point is left of the line
+        = 0 if point is on the line
+        < 0 if point is right of the line
+        """
+
+        v1 = self.vector
+        v2 = point - self._p0
+        return v1.cross(v2)
+
+    ##############################################
+
+    def left_of(self, point):
+        """Tests if a point is left a line"""
+        return self.side_of(point) > 0
+
+    def right_of(self, point):
+        """Tests if a point is right a line"""
+        return self.side_of(point) < 0
+
+    def is_collinear(self, point):
+        """Tests if a point is on line"""
+        return self.side_of(point) == 0

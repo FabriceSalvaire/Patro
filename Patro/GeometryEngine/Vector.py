@@ -361,15 +361,29 @@ class Vector2DFloatBase(Vector2DBase):
 
     ##############################################
 
+    # perp dot product
+    #   perp = (-y1, x1)
+    #   perp dot = -y1*x2 + x1*y2 = x1*y2 - x2*y1
+
+    perp_dot = cross
+
+    ##############################################
+
     def cross(self, other):
         """Return the cross product of self with other"""
         return float(np.cross(self._v, other.v))
 
     ##############################################
 
-    def is_parallel(self, other):
+    def is_parallel(self, other, cross=False):
         """Self is parallel with other"""
-        return round(self.cross(other), 7) == 0
+
+        cross = self.cross(other)
+        test = round(cross, 7) == 0
+        if cross:
+            return test, cross
+        else:
+            return test
 
     ##############################################
 
