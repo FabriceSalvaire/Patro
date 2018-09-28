@@ -3,3 +3,4 @@ astunparse
 lxml
 numpy
 reportlab
+sympy
