@@ -54,6 +54,145 @@ from Patro.GeometryEngine.Vector import Vector2D
 
 ####################################################################################################
 
+class ValentinaBuiltInVariables:
+
+    # defined in libs/ifc/ifcdef.cpp
+
+    current_length = 'CurrentLength'
+    current_seam_allowance = 'CurrentSeamAllowance'
+
+    angle_line  = 'AngleLine_'
+    increment   = 'Increment_'
+    line        = 'Line_'
+    measurement = 'M_'
+    seg         = 'Seg_'
+
+    arc         = 'ARC_'
+    elarc       = 'ELARC_'
+    spl         = 'SPL_'
+
+    angle1      = 'Angle1'
+    angle2      = 'Angle2'
+    c1_length   = 'C1Length'
+    c2_length   = 'C2Length'
+    radius      = 'Radius'
+    rotation    = 'Rotation'
+
+    spl_path    = 'SplPath'
+
+    angle1_arc         = angle1 + arc
+    angle1_elarc       = angle1 + elarc
+    angle1_spl_path    = angle1 + spl_path
+    angle1_spl         = angle1 + spl
+    angle2_arc         = angle2 + arc
+    angle2_elarc       = angle2 + elarc
+    angle2_spl_path    = angle2 + spl_path
+    angle2_spl         = angle2 + spl
+    c1_length_spl_path = c1_length + spl_path
+    c1_length_spl      = c1_length + spl
+    c2_length_spl_path = c2_length + spl_path
+    c2_length_spl      = c2_length + spl
+    radius1_elarc      = radius + '1' + elarc
+    radius2_elarc      = radius + '2' + elarc
+    radius_arc         = radius + arc
+    rotation_elarc     = rotation + elarc
+
+####################################################################################################
+
+VALENTINA_ATTRIBUTES = (
+    'aScale',
+    'angle',
+    'angle1',
+    'angle2',
+    'arc',
+    'axisP1',
+    'axisP2',
+    'axisType',
+    'baseLineP1',
+    'baseLineP2',
+    'basePoint',
+    'c1Center',
+    'c1Radius',
+    'c2Center',
+    'c2Radius',
+    'cCenter',
+    'cRadius',
+    'center',
+    'closed',
+    'color',
+    'crossPoint',
+    'curve',
+    'curve1',
+    'curve2',
+    'cut',
+    'dartP1',
+    'dartP2',
+    'dartP3',
+    'duplicate',
+    'firstArc',
+    'firstPoint',
+    'firstToCountour',
+    'forbidFlipping',
+    'forceFlipping',
+    'hCrossPoint',
+    'height',
+    'idObject',
+    'inLayout',
+    'kAsm1',
+    'kAsm2',
+    'kCurve',
+    'lastToCountour',
+    'length',
+    'length1',
+    'length2',
+    'lineColor',
+    'mx',
+    'mx1',
+    'mx2',
+    'my',
+    'my1',
+    'my2',
+    'name',
+    'name1',
+    'name2',
+    'p1Line',
+    'p1Line1',
+    'p1Line2',
+    'p2Line',
+    'p2Line1',
+    'p2Line2',
+    'pShoulder',
+    'pSpline',
+    'pathPoint',
+    'penStyle',
+    'placeLabelType',
+    'point1',
+    'point2',
+    'point3',
+    'point4',
+    'radius',
+    'radius1',
+    'radius2',
+    'rotationAngle',
+    'secondArc',
+    'secondPoint',
+    'showLabel',
+    'showLabel1',
+    'showLabel2',
+    'suffix',
+    'tangent',
+    'thirdPoint',
+    'type',
+    'typeLine',
+    'vCrossPoint',
+    'version',
+    'width',
+    'x',
+    'y',
+)
+
+####################################################################################################
+
 class MxMyMixin:
 
     __attributes__ = (
@@ -675,81 +814,3 @@ class DetailNode(XmlObjectAdaptator):
         StringAttribute('type'),
         BoolAttribute('reverse'),
     )
-
-####################################################################################################
-
-# angle
-# angle1
-# angle2
-# arc
-# axisP1
-# axisP2
-# axisType
-# baseLineP1
-# baseLineP2
-# basePoint
-# c1Center
-# c1Radius
-# c2Center
-# c2Radius
-# cCenter
-# center
-# color
-# cRadius
-# crossPoint
-# curve
-# curve1
-# curve2
-# dartP1
-# dartP2
-# dartP3
-# duplicate
-# firstArc
-# firstPoint
-# hCrossPoint
-# id
-# idObject
-# length
-# length1
-# length2
-# lineColor
-# mx
-# mx1
-# mx2
-# my
-# my1
-# my2
-# name
-# name1
-# name2
-# object (group)
-# p1Line
-# p1Line1
-# p1Line2
-# p2Line
-# p2Line1
-# p2Line2
-# point1
-# point2
-# point3
-# point4
-# pShoulder
-# pSpline
-# radius
-# radius1
-# radius2
-# rotationAngle
-# secondArc
-# secondPoint
-# spline
-# splinePath
-# suffix
-# tangent
-# thirdPoint
-# tool
-# type
-# typeLine
-# vCrossPoint
-# visible (group)
-# x
-# y
