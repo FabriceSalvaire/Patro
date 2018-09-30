@@ -40,13 +40,16 @@ The geometry engine implements:
 Pattern Engine
 ==============
 
+* Measurements can be imported from Valentina *.vit* or a YAML file.  We can merge several files to a measurement set.
+* Measurements are lazily evaluated using |Sympy|_ symbolic computation, which means we can compute
+  exact values and the order of definition doesn't matter.
+
 Graphic Engine
 ==============
 
 * show drawing on screen with : |Matplotlib|_
-* export drawing to : PDF, SVG, LaTeX Tikz
+* export drawing to : PDF, SVG, DXF, LaTeX Tikz
 * export tiled pattern on A4 sheets : PDF, LaTeX Tikz
-* **DXF is not yet supported**
 * PDF export is implemented with the help of the |Reportlab|_ package
 
 Pattern Format Support
