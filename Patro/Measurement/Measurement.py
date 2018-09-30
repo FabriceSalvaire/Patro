@@ -22,7 +22,8 @@
 
 import logging
 
-from .Calculator import Calculator, NamedExpression
+import sympy
+
 from .PersonalData import PersonalData
 
 ####################################################################################################
@@ -31,7 +32,7 @@ _module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
-class Measurement(NamedExpression):
+class Measurement:
 
     """Class to define a measurement"""
 
@@ -39,25 +40,24 @@ class Measurement(NamedExpression):
 
     def __init__(self, measurements, name, value, full_name='', description=''):
 
-        # Valentina defines custom measurement with a @ prefix
         name = str(name)
-        self._valentina_name = name
-        if self.is_custom():
-            name = '__custom__' + name[1:]
         for c in name:
             if not c.isalnum() and c != '_':
-                raise ValueError('Invalid measurement name "{}"'.format(self._valentina_name))
+                raise ValueError('Invalid measurement name "{}"'.format(name))
 
-        NamedExpression.__init__(self, name, value, calculator=measurements.calculator)
-
+        self._measurements = measurements
+        self._name = name
         self._full_name = str(full_name) # for human
         self._description = str(description) # describe the purpose of the measurement
+        self._expression = sympy.sympify(value)
+        self._evaluated_expression = None
+        self._value = None
 
     ##############################################
 
     @property
-    def valentina_name(self):
-        return self._valentina_name
+    def name(self):
+        return self._name
 
     @property
     def full_name(self):
@@ -67,22 +67,35 @@ class Measurement(NamedExpression):
     def description(self):
         return self._description
 
+    @property
+    def expression(self):
+        return self._expression
+
     ##############################################
 
-    def is_custom(self):
-        return self._valentina_name.startswith('@')
+    @property
+    def evaluated_expression(self):
+        if self._evaluated_expression is None:
+            # variable order doesn't matter, sympy do the job
+            self._evaluated_expression = self._expression.subs(self._measurements._expressions)
+        return self._evaluated_expression
 
-    ##############################################
+    @property
+    def value(self):
+        if self._value is None:
+            self._value = float(self.evaluated_expression.evalf(3)) # ensure a float or raise
+        return self._value
 
-    def eval(self):
-        super(Measurement, self).eval()
-        self._calculator._update_cache(self)
+    def __float__(self):
+        return self.value
 
 ####################################################################################################
 
 class Measurements:
 
     """Class to store a set of measurements"""
+
+    __measurement_cls__ = Measurement
 
     _logger = _module_logger.getChild('Measurements')
 
@@ -91,12 +104,12 @@ class Measurements:
     def __init__(self):
 
         self._unit = None
-        self._pattern_making_system = None
+        self._pattern_making_system = None # Fixme: purpose ???
         self._personal = PersonalData()
 
-        self._measures = []
-        self._measure_dict = {}
-        self._calculator = Calculator(self)
+        self._measures = [] # Measurement list
+        self._measure_dict = {} # name -> Measurement
+        self._expressions = {} # name -> expression  for sympy substitution
 
     ##############################################
 
@@ -144,26 +157,22 @@ class Measurements:
 
         # Fixme: name ?
 
-        measurement = Measurement(self, *args, **kgwars)
+        measurement = self.__measurement_cls__(self, *args, **kgwars)
         self._measures.append(measurement)
         self._measure_dict[measurement.name] = measurement
-        if measurement.is_custom():
-            self._measure_dict[measurement.valentina_name] = measurement
+        self._expressions[measurement.name] = measurement.expression
 
-    ##############################################
-
-    def eval(self):
-
-        # Fixme: eval / compute a graph from the ast to evaluate
-        self._logger.info('Eval all measurements')
-        for measure in self:
-            measure.eval()
+        return measurement
 
     ##############################################
 
     def dump(self):
 
         print("\nDump measurements:")
+        template = '''{0.name} = {0.expression}
+  = {0.evaluated_expression}
+  = {0.value}
+'''
+
         for measure in self:
-            print(measure.name, '=', measure.expression)
-            print('  =', measure.value)
+            print(template.format(measure))

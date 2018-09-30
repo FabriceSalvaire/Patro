@@ -7,7 +7,7 @@ Logging.setup_logging()
 
 from pathlib import Path
 
-from Patro.FileFormat.Valentina.Measurements import VitFile
+from Patro.FileFormat.Valentina.Measurement import VitFile
 
 ####################################################################################################
 

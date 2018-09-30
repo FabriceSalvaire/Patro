@@ -24,8 +24,8 @@ import logging
 
 from Patro.Common.Xml.Objectivity import StringAttribute, XmlObjectAdaptator
 from Patro.Common.Xml.XmlFile import XmlFileMixin
-from Patro.Pattern.Measurement import Measurements
-from Patro.Pattern.PersonalData import Gender
+from Patro.Measurement.ValentinaMeasurement import ValentinaMeasurements
+from Patro.Measurement.PersonalData import Gender
 
 ####################################################################################################
 
@@ -76,7 +76,7 @@ class VitFile(XmlFileMixin):
     def __init__(self, path):
 
         XmlFileMixin.__init__(self, path)
-        self._measurements = Measurements()
+        self._measurements = ValentinaMeasurements()
         self._read()
 
     ##############################################
@@ -116,5 +116,3 @@ class VitFile(XmlFileMixin):
                  measurements.add(**xml_measurement.to_dict())
              else:
                  raise NotImplementedError
-
-        measurements.eval()

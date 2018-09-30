@@ -1,0 +1,1272 @@
+A:
+  description: Direct Height
+  measurements:
+    A01:
+    - height
+    - 'Height: Total'
+    - Vertical distance from crown of head to floor.
+    - 0
+    A02:
+    - height_neck_back
+    - 'Height: Neck Back'
+    - Vertical distance from the Neck Back (cervicale vertebra) to the floor.
+    - 0
+    A03:
+    - height_scapula
+    - 'Height: Scapula'
+    - Vertical distance from the Scapula (Blade point) to the floor.
+    - 0
+    A04:
+    - height_armpit
+    - 'Height: Armpit'
+    - Vertical distance from the Armpit to the floor.
+    - 0
+    A05:
+    - height_waist_side
+    - 'Height: Waist Side'
+    - Vertical distance from the Waist Side to the floor.
+    - 0
+    A06:
+    - height_hip
+    - 'Height: Hip'
+    - Vertical distance from the Hip level to the floor.
+    - 0
+    A07:
+    - height_gluteal_fold
+    - 'Height: Gluteal Fold'
+    - Vertical distance from the Gluteal fold, where the Gluteal muscle meets the top of the back thigh, to the floor.
+    - 0
+    A08:
+    - height_knee
+    - 'Height: Knee'
+    - Vertical distance from the fold at the back of the Knee to the floor.
+    - 0
+    A09:
+    - height_calf
+    - 'Height: Calf'
+    - Vertical distance from the widest point of the calf to the floor.
+    - 0
+    A10:
+    - height_ankle_high
+    - 'Height: Ankle High'
+    - Vertical distance from the deepest indentation of the back of the ankle to the floor.
+    - 0
+    A11:
+    - height_ankle
+    - 'Height: Ankle'
+    - Vertical distance from point where the front leg meets the foot to the floor.
+    - 0
+    A12:
+    - height_highhip
+    - 'Height: Highhip'
+    - Vertical distance from the Highhip level, where front abdomen is most prominent, to the floor.
+    - 0
+    A13:
+    - height_waist_front
+    - 'Height: Waist Front'
+    - Vertical distance from the Waist Front to the floor.
+    - 0
+    A14:
+    - height_bustpoint
+    - 'Height: Bustpoint'
+    - Vertical distance from Bustpoint to the floor.
+    - 0
+    A15:
+    - height_shoulder_tip
+    - 'Height: Shoulder Tip'
+    - Vertical distance from the Shoulder Tip to the floor.
+    - 0
+    A16:
+    - height_neck_front
+    - 'Height: Neck Front'
+    - Vertical distance from the Neck Front to the floor.
+    - 0
+    A17:
+    - height_neck_side
+    - 'Height: Neck Side'
+    - Vertical distance from the Neck Side to the floor.
+    - 0
+    A18:
+    - height_neck_back_to_knee
+    - 'Height: Neck Back to Knee'
+    - Vertical distance from the Neck Back (cervicale vertebra) to the fold at the back of the knee.
+    - height_neck_back - height_knee
+    A19:
+    - height_waist_side_to_knee
+    - 'Height: Waist Side to Knee'
+    - Vertical distance from the Waist Side to the fold at the back of the knee.
+    - height_waist_side - height_knee
+    A20:
+    - height_waist_side_to_hip
+    - 'Height: Waist Side to Hip'
+    - Vertical distance from the Waist Side to the Hip level.
+    - height_waist_side - height_hip
+    A21:
+    - height_knee_to_ankle
+    - 'Height: Knee to Ankle'
+    - Vertical distance from the fold at the back of the knee to the point where the front leg meets the top of the foot.
+    - height_knee - height_ankle
+    A22:
+    - height_neck_back_to_waist_side
+    - 'Height: Neck Back to Waist Side'
+    - 'Vertical distance from Neck Back to Waist Side. (''Height: Neck Back'' - ''Height: Waist Side'').'
+    - height_neck_back - height_waist_side
+    A23:
+    - height_waist_back
+    - 'Height: Waist Back'
+    - 'Vertical height from Waist Back to floor. (''Height: Waist Front'''' - ''Leg: Crotch to floor'''').'
+    - height_waist_front - leg_crotch_to_floor
+B:
+  description: Direct Width
+  measurements:
+    B01:
+    - width_shoulder
+    - 'Width: Shoulder'
+    - Horizontal distance from Shoulder Tip to Shoulder Tip.
+    - 0
+    B02:
+    - width_bust
+    - 'Width: Bust'
+    - Horizontal distance from Bust Side to Bust Side.
+    - 0
+    B03:
+    - width_waist
+    - 'Width: Waist'
+    - Horizontal distance from Waist Side to Waist Side.
+    - 0
+    B04:
+    - width_hip
+    - 'Width: Hip'
+    - Horizontal distance from Hip Side to Hip Side.
+    - 0
+    B05:
+    - width_abdomen_to_hip
+    - 'Width: Abdomen to Hip'
+    - Horizontal distance from the greatest abdomen prominence to the greatest hip prominence.
+    - 0
+C:
+  description: Indentation
+  measurements:
+    C01:
+    - indent_neck_back
+    - 'Indent: Neck Back'
+    - Horizontal distance from Scapula (Blade point) to the Neck Back.
+    - 0
+    C02:
+    - indent_waist_back
+    - 'Indent: Waist Back'
+    - Horizontal distance between a flat stick, placed to touch Hip and Scapula, and Waist Back.
+    - 0
+    C03:
+    - indent_ankle_high
+    - 'Indent: Ankle High'
+    - Horizontal Distance between a flat stick, placed perpendicular to Heel, and the greatest indentation of Ankle.
+    - 0
+D:
+  description: Circumference and Arc
+  measurements:
+    D01:
+    - hand_palm_length
+    - 'Hand: Palm length'
+    - Length from Wrist line to base of middle finger.
+    - 0
+    D02:
+    - hand_length
+    - 'Hand: Length'
+    - Length from Wrist line to end of middle finger.
+    - 0
+    D03:
+    - hand_palm_width
+    - 'Hand: Palm width'
+    - Measure where Palm is widest.
+    - 0
+    D04:
+    - hand_palm_circ
+    - 'Hand: Palm circumference'
+    - Circumference where Palm is widest.
+    - 0
+    D05:
+    - hand_circ
+    - 'Hand: Circumference'
+    - Tuck thumb toward smallest finger, bring fingers close together. Measure circumference around widest part of hand.
+    - 0
+E:
+  description: Vertical
+  measurements:
+    E01:
+    - foot_width
+    - 'Foot: Width'
+    - Measure at widest part of foot.
+    - 0
+    E02:
+    - foot_length
+    - 'Foot: Length'
+    - Measure from back of heel to end of longest toe.
+    - 0
+    E03:
+    - foot_circ
+    - 'Foot: Circumference'
+    - Measure circumference around widest part of foot.
+    - 0
+    E04:
+    - foot_instep_circ
+    - 'Foot: Instep circumference'
+    - Measure circumference at tallest part of instep.
+    - 0
+F:
+  description: Horizontal
+  measurements:
+    F01:
+    - head_circ
+    - 'Head: Circumference'
+    - Measure circumference at largest level of head.
+    - 0
+    F02:
+    - head_length
+    - 'Head: Length'
+    - Vertical distance from Head Crown to bottom of jaw.
+    - 0
+    F03:
+    - head_depth
+    - 'Head: Depth'
+    - Horizontal distance from front of forehead to back of head.
+    - 0
+    F04:
+    - head_width
+    - 'Head: Width'
+    - Horizontal distance from Head Side to Head Side, where Head is widest.
+    - 0
+    F05:
+    - head_crown_to_neck_back
+    - 'Head: Crown to Neck Back'
+    - 'Vertical distance from Crown to Neck Back. (''Height: Total'' - ''Height: Neck Back'').'
+    - height - height_neck_back
+    F06:
+    - head_chin_to_neck_back
+    - 'Head: Chin to Neck Back'
+    - 'Vertical distance from Chin to Neck Back. (''Height'' - ''Height: Neck Back'' - ''Head: Length'')'
+    - height - height_neck_back - head_length
+G:
+  description: Bust
+  measurements:
+    G01:
+    - neck_mid_circ
+    - Neck circumference, midsection
+    - Circumference of Neck midsection, about halfway between jaw and torso.
+    - 0
+    G02:
+    - neck_circ
+    - Neck circumference
+    - Neck circumference at base of Neck, touching Neck Back, Neck Sides, and Neck Front.
+    - 0
+    G03:
+    - highbust_circ
+    - Highbust circumference
+    - Circumference at Highbust, following shortest distance between Armfolds across chest, high under armpits.
+    - 0
+    G04:
+    - bust_circ
+    - Bust circumference
+    - Circumference around Bust, parallel to floor.
+    - 0
+    G05:
+    - lowbust_circ
+    - Lowbust circumference
+    - Circumference around LowBust under the breasts, parallel to floor.
+    - 0
+    G06:
+    - rib_circ
+    - Rib circumference
+    - Circumference around Ribs at level of the lowest rib at the side, parallel to floor.
+    - 0
+    G07:
+    - waist_circ
+    - Waist circumference
+    - Circumference around Waist, following natural contours. Waists are  typically higher in back.
+    - 0
+    G08:
+    - highhip_circ
+    - Highhip circumference
+    - Circumference around Highhip, where Abdomen protrusion is  greatest, parallel to floor.
+    - 0
+    G09:
+    - hip_circ
+    - Hip circumference
+    - Circumference around Hip where Hip protrusion is greatest, parallel to floor.
+    - 0
+    G10:
+    - neck_arc_f
+    - Neck arc, front
+    - From Neck Side to Neck Side through Neck Front.
+    - 0
+    G11:
+    - highbust_arc_f
+    - Highbust arc, front
+    - From Highbust Side (Armpit) to HIghbust Side (Armpit) across chest.
+    - 0
+    G12:
+    - size
+    - Size
+    - Same as bust_arc_f.
+    - 0
+    G13:
+    - lowbust_arc_f
+    - Lowbust arc, front
+    - From Lowbust Side to Lowbust Side across front.
+    - 0
+    G14:
+    - rib_arc_f
+    - Rib arc, front
+    - From Rib Side to Rib Side, across front.
+    - 0
+    G15:
+    - waist_arc_f
+    - Waist arc, front
+    - From Waist Side to Waist Side across front.
+    - 0
+    G16:
+    - highhip_arc_f
+    - Highhip arc, front
+    - From Highhip Side to Highhip Side across front.
+    - 0
+    G17:
+    - hip_arc_f
+    - Hip arc, front
+    - From Hip Side to Hip Side across Front.
+    - 0
+    G18:
+    - neck_arc_half_f
+    - Neck arc, front, half
+    - Half of 'Neck arc, front'. ('Neck arc, front' / 2).
+    - neck_arc_f/2
+    G19:
+    - highbust_arc_half_f
+    - Highbust arc, front, half
+    - Half of 'Highbust arc, front'. From Highbust Front to Highbust Side. ('Highbust arc,  front' / 2).
+    - highbust_arc_f/2
+    G20:
+    - bust_arc_half_f
+    - Bust arc, front, half
+    - Half of 'Bust arc, front'. ('Bust arc, front'/2).
+    - bust_arc_f/2
+    G21:
+    - lowbust_arc_half_f
+    - Lowbust arc, front, half
+    - Half of 'Lowbust arc, front'.  ('Lowbust Arc, front' / 2).
+    - lowbust_arc_f/2
+    G22:
+    - rib_arc_half_f
+    - Rib arc, front, half
+    - Half of 'Rib arc, front'.   ('Rib Arc, front' / 2).
+    - rib_arc_f/2
+    G23:
+    - waist_arc_half_f
+    - Waist arc, front, half
+    - Half of 'Waist arc, front'. ('Waist arc, front' / 2).
+    - waist_arc_f/2
+    G24:
+    - highhip_arc_half_f
+    - Highhip arc, front, half
+    - Half of 'Highhip arc, front'.  ('Highhip arc, front' / 2).
+    - highhip_arc_f/2
+    G25:
+    - hip_arc_half_f
+    - Hip arc, front, half
+    - Half of 'Hip arc, front'. ('Hip arc, front' / 2).
+    - hip_arc_f/2
+    G26:
+    - neck_arc_b
+    - Neck arc, back
+    - From Neck Side to Neck Side across back. ('Neck circumference' - 'Neck arc, front').
+    - neck_circ - neck_arc_f
+    G27:
+    - highbust_arc_b
+    - Highbust arc, back
+    - From Highbust Side  to Highbust Side across back. ('Highbust circumference' - 'Highbust arc, front').
+    - highbust_circ - highbust_arc_f
+    G28:
+    - bust_arc_b
+    - Bust arc, back
+    - From Bust Side to Bust Side across back. ('Bust circumference' - 'Bust arc, front').
+    - bust_circ - bust_arc_f
+    G29:
+    - lowbust_arc_b
+    - Lowbust arc, back
+    - From Lowbust Side to Lowbust Side across back.  ('Lowbust circumference' - 'Lowbust arc, front').
+    - lowbust_circ - lowbust_arc_f
+    G30:
+    - rib_arc_b
+    - Rib arc, back
+    - From Rib Side to Rib side across back. ('Rib circumference' - 'Rib arc, front').
+    - rib_circ - rib_arc_f
+    G31:
+    - waist_arc_b
+    - Waist arc, back
+    - From Waist Side to Waist Side across back. ('Waist circumference' - 'Waist arc, front').
+    - waist_circ - waist_arc_f
+    G32:
+    - highhip_arc_b
+    - Highhip arc, back
+    - From Highhip Side to Highhip Side across back. ('Highhip circumference' - 'Highhip arc, front').
+    - highhip_circ - highhip_arc_f
+    G33:
+    - hip_arc_b
+    - Hip arc, back
+    - From Hip Side to Hip Side across back. ('Hip circumference' - 'Hip arc, front').
+    - hip_circ - hip_arc_f
+    G34:
+    - neck_arc_half_b
+    - Neck arc, back, half
+    - Half of 'Neck arc, back'. ('Neck arc, back' / 2).
+    - neck_arc_b/2
+    G35:
+    - highbust_arc_half_b
+    - Highbust arc, back, half
+    - Half of 'Highbust arc, back'. From Highbust Back to Highbust Side. ('Highbust arc, back' / 2).
+    - highbust_arc_b/2
+    G36:
+    - bust_arc_half_b
+    - Bust arc, back, half
+    - Half of 'Bust arc, back'. ('Bust arc, back' / 2).
+    - bust_arc_b/2
+    G37:
+    - lowbust_arc_half_b
+    - Lowbust arc, back, half
+    - Half of 'Lowbust Arc, back'. ('Lowbust arc, back' / 2).
+    - lowbust_arc_b/2
+    G38:
+    - rib_arc_half_b
+    - Rib arc, back, half
+    - Half of 'Rib arc, back'. ('Rib arc, back' / 2).
+    - rib_arc_b/2
+    G39:
+    - waist_arc_half_b
+    - Waist arc, back, half
+    - Half of 'Waist arc, back'. ('Waist  arc, back' / 2).
+    - waist_arc_b/2
+    G40:
+    - highhip_arc_half_b
+    - Highhip arc, back, half
+    - Half of 'Highhip arc, back'. From Highhip Back to Highbust Side. ('Highhip arc, back'/ 2).
+    - highhip_arc_b/2
+    G41:
+    - hip_arc_half_b
+    - Hip arc, back, half
+    - Half of 'Hip arc, back'. ('Hip arc, back' / 2).
+    - hip_arc_b/2
+    G42:
+    - hip_with_abdomen_arc_f
+    - Hip arc with Abdomen, front
+    - Curve stiff paper around front of abdomen, tape at sides. Measure from Hip Side to Hip Side overpaper across front.
+    - 0
+    G43:
+    - body_armfold_circ
+    - Body circumference at Armfold level
+    - Measure around arms and torso at Armfold level.
+    - 0
+    G44:
+    - body_bust_circ
+    - Body circumference at Bust level
+    - Measure around arms and torso at Bust level.
+    - 0
+    G45:
+    - body_torso_circ
+    - Body circumference of full torso
+    - Circumference around torso from mid-shoulder around crotch back up to mid-shoulder.
+    - 0
+    G46:
+    - hip_circ_with_abdomen
+    - Hip circumference, including Abdomen
+    - Measurement at Hip level, including the depth of the Abdomen. (Hip arc, back + Hip arc withabdomen, front).
+    - hip_arc_b + hip_with_abdomen_arc_f
+H:
+  description: Balance
+  measurements:
+    H01:
+    - neck_front_to_waist_f
+    - Neck Front to Waist Front
+    - From Neck Front, over tape between Breastpoints, down to Waist Front.
+    - 0
+    H02:
+    - neck_front_to_waist_flat_f
+    - Neck Front to Waist Front flat
+    - From Neck Front down between breasts to Waist Front.
+    - 0
+    H03:
+    - armpit_to_waist_side
+    - Armpit to Waist Side
+    - From Armpit down to Waist Side.
+    - 0
+    H04:
+    - shoulder_tip_to_waist_side_f
+    - Shoulder Tip to Waist Side, front
+    - From Shoulder Tip, curving around Armscye Front, then down to Waist Side.
+    - 0
+    H05:
+    - neck_side_to_waist_f
+    - Neck Side to Waist level, front
+    - From Neck Side straight down front to Waist level.
+    - 0
+    H06:
+    - neck_side_to_waist_bustpoint_f
+    - Neck Side to Waist level, through Bustpoint
+    - From Neck Side over Bustpoint to Waist level, forming a straight line.
+    - 0
+    H07:
+    - neck_front_to_highbust_f
+    - Neck Front to Highbust Front
+    - Neck Front down to Highbust Front.
+    - 0
+    H08:
+    - highbust_to_waist_f
+    - Highbust Front to Waist Front
+    - From Highbust Front to Waist Front. Use tape to bridge gap between Bustpoints. ('Neck Front toWaist Front' - 'Neck Front to Highbust Front').
+    - neck_front_to_waist_f - neck_front_to_highbust_f
+    H09:
+    - neck_front_to_bust_f
+    - Neck Front to Bust Front
+    - From Neck Front down to Bust Front. Requires tape to cover gap between Bustpoints.
+    - 0
+    H10:
+    - bust_to_waist_f
+    - Bust Front to Waist Front
+    - From Bust Front down to Waist level. ('Neck Front to Waist Front' - 'Neck Front to Bust Front').
+    - neck_front_to_waist_f - neck_front_to_bust_f
+    H11:
+    - lowbust_to_waist_f
+    - Lowbust Front to Waist Front
+    - From Lowbust Front down to Waist Front.
+    - 0
+    H12:
+    - rib_to_waist_side
+    - Rib Side to Waist Side
+    - From lowest rib at side down to Waist Side.
+    - 0
+    H13:
+    - shoulder_tip_to_armfold_f
+    - Shoulder Tip to Armfold Front
+    - From Shoulder Tip around Armscye down to Armfold Front.
+    - 0
+    H14:
+    - neck_side_to_bust_f
+    - Neck Side to Bust level, front
+    - From Neck Side straight down front to Bust level.
+    - 0
+    H15:
+    - neck_side_to_highbust_f
+    - Neck Side to Highbust level, front
+    - From Neck Side straight down front to Highbust level.
+    - 0
+    H16:
+    - shoulder_center_to_highbust_f
+    - Shoulder center to Highbust level, front
+    - From mid-Shoulder down front to Highbust level, aimed at Bustpoint.
+    - 0
+    H17:
+    - shoulder_tip_to_waist_side_b
+    - Shoulder Tip to Waist Side, back
+    - From Shoulder Tip, curving around Armscye Back, then down to Waist Side.
+    - 0
+    H18:
+    - neck_side_to_waist_b
+    - Neck Side to Waist level, back
+    - From Neck Side straight down back to Waist level.
+    - 0
+    H19:
+    - neck_back_to_waist_b
+    - Neck Back to Waist Back
+    - From Neck Back down to Waist Back.
+    - 0
+    H20:
+    - neck_side_to_waist_scapula_b
+    - Neck Side to Waist level, through Scapula
+    - From Neck Side across Scapula down to Waist level, forming a straight line.
+    - 0
+    H21:
+    - neck_back_to_highbust_b
+    - Neck Back to Highbust Back
+    - From Neck Back down to Highbust Back.
+    - 0
+    H22:
+    - highbust_to_waist_b
+    - Highbust Back to Waist Back
+    - From Highbust Back down to Waist Back. ('Neck Back to Waist Back' - 'Neck Back to Highbust Back').
+    - neck_back_to_waist_b - neck_back_to_highbust_b
+    H23:
+    - neck_back_to_bust_b
+    - Neck Back to Bust Back
+    - From Neck Back down to Bust Back.
+    - 0
+    H24:
+    - bust_to_waist_b
+    - Bust Back to Waist Back
+    - From Bust Back down to Waist level. ('Neck Back to Waist Back' - 'Neck Back to Bust Back').
+    - neck_back_to_waist_b - neck_back_to_bust_b
+    H25:
+    - lowbust_to_waist_b
+    - Lowbust Back to Waist Back
+    - From Lowbust Back down to Waist Back.
+    - 0
+    H26:
+    - shoulder_tip_to_armfold_b
+    - Shoulder Tip to Armfold Back
+    - From Shoulder Tip around Armscye down to Armfold Back.
+    - 0
+    H27:
+    - neck_side_to_bust_b
+    - Neck Side to Bust level, back
+    - From Neck Side straight down back to Bust level.
+    - 0
+    H28:
+    - neck_side_to_highbust_b
+    - Neck Side to Highbust level, back
+    - From Neck Side straight down back to Highbust level.
+    - 0
+    H29:
+    - shoulder_center_to_highbust_b
+    - Shoulder center to Highbust level, back
+    - From mid-Shoulder down back to Highbust level, aimed through Scapula.
+    - 0
+    H30:
+    - waist_to_highhip_f
+    - Waist Front to Highhip Front
+    - From Waist Front to Highhip Front.
+    - 0
+    H31:
+    - waist_to_hip_f
+    - Waist Front to Hip Front
+    - From Waist Front to Hip Front.
+    - 0
+    H32:
+    - waist_to_highhip_side
+    - Waist Side to Highhip Side
+    - From Waist Side to Highhip Side.
+    - 0
+    H33:
+    - waist_to_highhip_b
+    - Waist Back to Highhip Back
+    - From Waist Back down to Highhip Back.
+    - 0
+    H34:
+    - waist_to_hip_b
+    - Waist Back to Hip Back
+    - From Waist Back down to Hip Back. Requires tape to cover the gap between buttocks.
+    - 0
+    H35:
+    - waist_to_hip_side
+    - Waist Side to Hip Side
+    - From Waist Side to Hip Side.
+    - 0
+    H36:
+    - shoulder_slope_neck_side_angle
+    - Shoulder Slope Angle from Neck Side
+    - Angle formed by line from Neck Side to Shoulder Tip and line from Neck Side parallel to floor.
+    - 0
+    H37:
+    - shoulder_slope_neck_side_length
+    - Shoulder Slope length from Neck Side
+    - Vertical distance between Neck Side and Shoulder Tip.
+    - 0
+    H38:
+    - shoulder_slope_neck_back_angle
+    - Shoulder Slope Angle from Neck Back
+    - Angle formed by  line from Neck Back to Shoulder Tip and line from Neck Back parallel to floor.
+    - 0
+    H39:
+    - shoulder_slope_neck_back_height
+    - Shoulder Slope length from Neck Back
+    - Vertical distance between Neck Back and Shoulder Tip.
+    - 0
+    H40:
+    - shoulder_slope_shoulder_tip_angle
+    - Shoulder Slope Angle from Shoulder Tip
+    - Angle formed by line from Neck Side to Shoulder Tip and vertical line at Shoulder Tip.
+    - 0
+    H41:
+    - neck_back_to_across_back
+    - Neck Back to Across Back
+    - From neck back, down to level of Across Back measurement.
+    - 0
+    H42:
+    - across_back_to_waist_b
+    - Across Back to Waist back
+    - From middle of Across Back down to Waist back.
+    - neck_back_to_waist_b - neck_back_to_across_back
+I:
+  description: Arm
+  measurements:
+    I01:
+    - shoulder_length
+    - Shoulder length
+    - From Neck Side to Shoulder Tip.
+    - 0
+    I02:
+    - shoulder_tip_to_shoulder_tip_f
+    - Shoulder Tip to Shoulder Tip, front
+    - From Shoulder Tip to Shoulder Tip, across front.
+    - 0
+    I03:
+    - across_chest_f
+    - Across Chest
+    - From Armscye to Armscye at narrowest width across chest.
+    - 0
+    I04:
+    - armfold_to_armfold_f
+    - Armfold to Armfold, front
+    - From Armfold to Armfold, shortest distance between Armfolds, not parallel to floor.
+    - 0
+    I05:
+    - shoulder_tip_to_shoulder_tip_half_f
+    - Shoulder Tip to Shoulder Tip, front, half
+    - Half of' Shoulder Tip to Shoulder tip, front'. ('Shoulder Tip to Shoulder Tip, front' / 2).
+    - shoulder_tip_to_shoulder_tip_f/2
+    I06:
+    - across_chest_half_f
+    - Across Chest, half
+    - Half of 'Across Chest'. ('Across Chest' / 2).
+    - across_chest_f/2
+    I07:
+    - shoulder_tip_to_shoulder_tip_b
+    - Shoulder Tip to Shoulder Tip, back
+    - From Shoulder Tip to Shoulder Tip, across the back.
+    - 0
+    I08:
+    - across_back_b
+    - Across Back
+    - From Armscye to Armscye at the narrowest width of the back.
+    - 0
+    I09:
+    - armfold_to_armfold_b
+    - Armfold to Armfold, back
+    - From Armfold to Armfold across the back.
+    - 0
+    I10:
+    - shoulder_tip_to_shoulder_tip_half_b
+    - Shoulder Tip to Shoulder Tip, back, half
+    - Half of 'Shoulder Tip to Shoulder Tip, back'. ('Shoulder Tip to Shoulder Tip,  back' / 2).
+    - shoulder_tip_to_shoulder_tip_b/2
+    I11:
+    - across_back_half_b
+    - Across Back, half
+    - Half of 'Across Back'. ('Across Back' / 2).
+    - across_back_b/2
+    I12:
+    - neck_front_to_shoulder_tip_f
+    - Neck Front to Shoulder Tip
+    - From Neck Front to Shoulder Tip.
+    - 0
+    I13:
+    - neck_back_to_shoulder_tip_b
+    - Neck Back to Shoulder Tip
+    - From Neck Back to Shoulder Tip.
+    - 0
+    I14:
+    - neck_width
+    - Neck Width
+    - Measure between the 'legs' of an unclosed necklace or chain draped around the neck.
+    - 0
+J:
+  description: Leg
+  measurements:
+    J01:
+    - bustpoint_to_bustpoint
+    - Bustpoint to Bustpoint
+    - From Bustpoint to Bustpoint.
+    - 0
+    J02:
+    - bustpoint_to_neck_side
+    - Bustpoint to Neck Side
+    - From Neck Side to Bustpoint.
+    - 0
+    J03:
+    - bustpoint_to_lowbust
+    - Bustpoint to Lowbust
+    - From Bustpoint down to Lowbust level, following curve of bust or chest.
+    - 0
+    J04:
+    - bustpoint_to_waist
+    - Bustpoint to Waist level
+    - From Bustpoint to straight down to Waist level, forming a straight line (not curving along thebody).
+    - 0
+    J05:
+    - bustpoint_to_bustpoint_half
+    - Bustpoint to Bustpoint, half
+    - Half of 'Bustpoint to Bustpoint'. ('Bustpoint to Bustpoint' / 2).
+    - bustpoint_to_bustpoint/2
+    J06:
+    - bustpoint_neck_side_to_waist
+    - Bustpoint, Neck Side to Waist level
+    - From Neck Side to Bustpoint, then straight down to Waist level. ('Neck Side to Bustpoint' +'Bustpoint to Waist level').
+    - bustpoint_to_neck_side + bustpoint_to_waist
+    J07:
+    - bustpoint_to_shoulder_tip
+    - Bustpoint to Shoulder Tip
+    - From Bustpoint to Shoulder tip.
+    - 0
+    J08:
+    - bustpoint_to_waist_front
+    - Bustpoint to Waist Front
+    - From Bustpoint to Waist Front, in a straight line, not following the curves of the body.
+    - 0
+    J09:
+    - bustpoint_to_bustpoint_halter
+    - Bustpoint to Bustpoint Halter
+    - From Bustpoint around Neck Back down to other Bustpoint.
+    - 0
+    J10:
+    - bustpoint_to_shoulder_center
+    - Bustpoint to Shoulder Center
+    - From center of Shoulder to Bustpoint.
+    - 0
+K:
+  description: Crotch and Rise
+  measurements:
+    K01:
+    - shoulder_tip_to_waist_front
+    - Shoulder Tip to Waist Front
+    - From Shoulder Tip diagonal to Waist Front.
+    - 0
+    K02:
+    - neck_front_to_waist_side
+    - Neck Front to Waist Side
+    - From Neck Front diagonal to Waist Side.
+    - 0
+    K03:
+    - neck_side_to_waist_side_f
+    - Neck Side to Waist Side, front
+    - From Neck Side diagonal across front to Waist Side.
+    - 0
+    K04:
+    - shoulder_tip_to_waist_back
+    - Shoulder Tip to Waist Back
+    - From Shoulder Tip diagonal to Waist Back.
+    - 0
+    K05:
+    - shoulder_tip_to_waist_b_1in_offset
+    - Shoulder Tip to Waist Back, with 1in (2.54cm) offset
+    - Mark 1in (2.54cm) outward from Waist Back along Waist level. Measure from Shoulder Tip diagonal to mark.
+    - 0
+    K06:
+    - neck_back_to_waist_side
+    - Neck Back to Waist Side
+    - From Neck Back diagonal across back to Waist Side.
+    - 0
+    K07:
+    - neck_side_to_waist_side_b
+    - Neck Side to Waist Side, back
+    - From Neck Side diagonal across back to Waist Side.
+    - 0
+    K08:
+    - neck_side_to_armfold_f
+    - Neck Side to Armfold Front
+    - From Neck Side diagonal to Armfold Front.
+    - 0
+    K09:
+    - neck_side_to_armpit_f
+    - Neck Side to Highbust Side, front
+    - From Neck Side diagonal across front to Highbust Side (Armpit).
+    - 0
+    K10:
+    - neck_side_to_bust_side_f
+    - Neck Side to Bust Side, front
+    - Neck Side diagonal across front to Bust Side.
+    - 0
+    K11:
+    - neck_side_to_armfold_b
+    - Neck Side to Armfold Back
+    - From Neck Side diagonal to Armfold Back.
+    - 0
+    K12:
+    - neck_side_to_armpit_b
+    - Neck Side to Highbust Side, back
+    - From Neck Side diagonal across back to Highbust Side (Armpit).
+    - 0
+    K13:
+    - neck_side_to_bust_side_b
+    - Neck Side to Bust Side, back
+    - Neck Side diagonal across back to Bust Side.
+    - 0
+L:
+  description: Hand
+  measurements:
+    L01:
+    - arm_shoulder_tip_to_wrist_bent
+    - 'Arm: Shoulder Tip to Wrist, bent'
+    - Bend Arm, measure from Shoulder Tip around Elbow to radial Wrist bone.
+    - 0
+    L02:
+    - arm_shoulder_tip_to_elbow_bent
+    - 'Arm: Shoulder Tip to Elbow, bent'
+    - Bend Arm, measure from Shoulder Tip to Elbow Tip.
+    - 0
+    L03:
+    - arm_elbow_to_wrist_bent
+    - 'Arm: Elbow to Wrist, bent'
+    - 'Elbow tip to wrist. (''Arm: Shoulder Tip to Wrist, bent'' - ''Arm: Shoulder Tip to Elbow, bent'').'
+    - arm_shoulder_tip_to_wrist_bent - arm_shoulder_tip_to_elbow_bent
+    L04:
+    - arm_elbow_circ_bent
+    - 'Arm: Elbow circumference, bent'
+    - Elbow circumference, arm is bent.
+    - 0
+    L05:
+    - arm_shoulder_tip_to_wrist
+    - 'Arm: Shoulder Tip to Wrist'
+    - From Shoulder Tip to Wrist bone, arm straight.
+    - 0
+    L06:
+    - arm_shoulder_tip_to_elbow
+    - 'Arm: Shoulder Tip to Elbow'
+    - From Shoulder tip to Elbow Tip, arm straight.
+    - 0
+    L07:
+    - arm_elbow_to_wrist
+    - 'Arm: Elbow to Wrist'
+    - 'From Elbow to Wrist, arm straight. (''Arm: Shoulder Tip to Wrist'' - ''Arm: Shoulder Tip to Elbow'').'
+    - arm_shoulder_tip_to_wrist - arm_shoulder_tip_to_elbow
+    L08:
+    - arm_armpit_to_wrist
+    - 'Arm: Armpit to Wrist, inside'
+    - From Armpit to ulna Wrist bone, arm straight.
+    - 0
+    L09:
+    - arm_armpit_to_elbow
+    - 'Arm: Armpit to Elbow, inside'
+    - From Armpit to inner Elbow, arm straight.
+    - 0
+    L10:
+    - arm_elbow_to_wrist_inside
+    - 'Arm: Elbow to Wrist, inside'
+    - 'From inside Elbow to Wrist. (''Arm: Armpit to Wrist, inside'' - ''Arm: Armpit to Elbow, inside'').'
+    - arm_armpit_to_wrist - arm_armpit_to_elbow
+    L11:
+    - arm_upper_circ
+    - 'Arm: Upper Arm circumference'
+    - Arm circumference at Armpit level.
+    - 0
+    L12:
+    - arm_above_elbow_circ
+    - 'Arm: Above Elbow circumference'
+    - Arm circumference at Bicep level.
+    - 0
+    L13:
+    - arm_elbow_circ
+    - 'Arm: Elbow circumference'
+    - Elbow circumference, arm straight.
+    - 0
+    L14:
+    - arm_lower_circ
+    - 'Arm: Lower Arm circumference'
+    - Arm circumference where lower arm is widest.
+    - 0
+    L15:
+    - arm_wrist_circ
+    - 'Arm: Wrist circumference'
+    - Wrist circumference.
+    - 0
+    L16:
+    - arm_shoulder_tip_to_armfold_line
+    - 'Arm: Shoulder Tip to Armfold line'
+    - From Shoulder Tip down to Armpit level.
+    - 0
+    L17:
+    - arm_neck_side_to_wrist
+    - 'Arm: Neck Side to Wrist'
+    - 'From Neck Side to Wrist. (''Shoulder Length'' + ''Arm: Shoulder Tip to Wrist'').'
+    - shoulder_length + arm_shoulder_tip_to_wrist
+    L18:
+    - arm_neck_side_to_finger_tip
+    - 'Arm: Neck Side to Finger Tip'
+    - 'From Neck Side down arm to tip of middle finger. (''Shoulder Length'' + ''Arm: Shoulder Tip toWrist'' + ''Hand: Length'').'
+    - shoulder_length + arm_shoulder_tip_to_wrist + hand_length
+    L19:
+    - armscye_circ
+    - 'Armscye: Circumference'
+    - Let arm hang at side. Measure Armscye circumference through Shoulder Tip and Armpit.
+    - 0
+    L20:
+    - armscye_length
+    - 'Armscye: Length'
+    - Vertical distance from Shoulder Tip to Armpit.
+    - 0
+    L21:
+    - armscye_width
+    - 'Armscye: Width'
+    - Horizontal distance between Armscye Front and Armscye Back.
+    - 0
+    L22:
+    - arm_neck_side_to_outer_elbow
+    - 'Arm: Neck side to Elbow'
+    - 'From Neck Side over Shoulder Tip down to Elbow. (Shoulder length + Arm: Shoulder Tip to Elbow).'
+    - shoulder_length + arm_shoulder_tip_to_elbow
+M:
+  description: Foot
+  measurements:
+    M01:
+    - leg_crotch_to_floor
+    - 'Leg: Crotch to floor'
+    - Stand feet close together. Measure from crotch level (touching body, no extra space) down to floor.
+    - 0
+    M02:
+    - leg_waist_side_to_floor
+    - 'Leg: Waist Side to floor'
+    - From Waist Side along curve to Hip level then straight down to floor.
+    - 0
+    M03:
+    - leg_thigh_upper_circ
+    - 'Leg: Thigh Upper circumference'
+    - Thigh circumference at the fullest part of the upper Thigh near the Crotch.
+    - 0
+    M04:
+    - leg_thigh_mid_circ
+    - 'Leg: Thigh Middle circumference'
+    - Thigh circumference about halfway between Crotch and Knee.
+    - 0
+    M05:
+    - leg_knee_circ
+    - 'Leg: Knee circumference'
+    - Knee circumference with straight leg.
+    - 0
+    M06:
+    - leg_knee_small_circ
+    - 'Leg: Knee Small circumference'
+    - Leg circumference just below the knee.
+    - 0
+    M07:
+    - leg_calf_circ
+    - 'Leg: Calf circumference'
+    - Calf circumference at the largest part of lower leg.
+    - 0
+    M08:
+    - leg_ankle_high_circ
+    - 'Leg: Ankle High circumference'
+    - Ankle circumference where the indentation at the back of the ankle is the deepest.
+    - 0
+    M09:
+    - leg_ankle_circ
+    - 'Leg: Ankle circumference'
+    - Ankle circumference where front of leg meets the top of the foot.
+    - 0
+    M10:
+    - leg_knee_circ_bent
+    - 'Leg: Knee circumference, bent'
+    - Knee circumference with leg bent.
+    - 0
+    M11:
+    - leg_ankle_diag_circ
+    - 'Leg: Ankle diagonal circumference'
+    - Ankle circumference diagonal from top of foot to bottom of heel.
+    - 0
+    M12:
+    - leg_crotch_to_ankle
+    - 'Leg: Crotch to Ankle'
+    - 'From Crotch to Ankle. (''Leg: Crotch to Floor'' - ''Height: Ankle'').'
+    - leg_crotch_to_floor - height_ankle
+    M13:
+    - leg_waist_side_to_ankle
+    - 'Leg: Waist Side to Ankle'
+    - 'From Waist Side to Ankle. (''Leg: Waist Side to Floor'' - ''Height: Ankle'').'
+    - leg_waist_side_to_floor - height_ankle
+    M14:
+    - leg_waist_side_to_knee
+    - 'Leg: Waist Side to Knee'
+    - 'From Waist Side along curve to Hip level then straight down to  Knee level. (''Leg: Waist Side toFloor'' - ''Height Knee'').'
+    - leg_waist_side_to_floor - height_knee
+N:
+  description: Head
+  measurements:
+    N01:
+    - crotch_length
+    - Crotch length
+    - Put tape across gap between buttocks at Hip level. Measure from Waist Front down betwen legs and up to Waist Back.
+    - 0
+    N02:
+    - crotch_length_b
+    - Crotch length, back
+    - Put tape across gap between buttocks at Hip level. Measure from Waist Back to mid-Crotch, either at the vagina or between testicles and anus).
+    - 0
+    N03:
+    - crotch_length_f
+    - Crotch length, front
+    - From Waist Front to start of vagina or end of testicles. ('Crotch length' - 'Crotch length, back').
+    - crotch_length - crotch_length_b
+    N04:
+    - rise_length_side_sitting
+    - ''
+    - From Waist Side around hip curve down to surface, while seated on hard surface.
+    - 0
+    N05:
+    - rise_length_diag
+    - Rise length, diagonal
+    - Measure from Waist Side diagonally to a string tied at the top of the leg, seated on a hard surface.
+    - 0
+    N06:
+    - rise_length_b
+    - Rise length, back
+    - 'Vertical distance from Waist Back to Crotch level. (''Height: Waist Back'' - ''Leg: Crotch to Floor'')'
+    - height_waist_back - leg_crotch_to_floor
+    N07:
+    - rise_length_f
+    - Rise length, front
+    - 'Vertical Distance from Waist Front to Crotch level. (''Height: Waist Front'' - ''Leg: Crotch to Floor'')'
+    - height_waist_front - leg_crotch_to_floor
+    N08:
+    - rise_length_side
+    - Rise length, side
+    - 'Vertical distance from Waist side down to Crotch level. Use formula (Height: Waist side - Leg: Crotch to floor).'
+    - 0
+O:
+  description: Men & Tailoring
+  measurements:
+    O01:
+    - neck_back_to_waist_front
+    - Neck Back to Waist Front
+    - From Neck Back around Neck Side down to Waist Front.
+    - 0
+    O02:
+    - waist_to_waist_halter
+    - Waist to Waist Halter, around Neck Back
+    - From Waist level around Neck Back to Waist level.
+    - 0
+    O03:
+    - waist_natural_circ
+    - Natural Waist circumference
+    - Torso circumference at men's natural side Abdominal Obliques indentation, if Oblique indentation isn't found then just below the Navel level.
+    - 0
+    O04:
+    - waist_natural_arc_f
+    - Natural Waist arc, front
+    - From Side to Side at the Natural Waist level, across the front.
+    - 0
+    O05:
+    - waist_natural_arc_b
+    - Natural Waist arc, back
+    - From Side to Side at Natural Waist level, across the back. Calculate as ( Natural Waist circumference  - Natural Waist arc (front) ).
+    - waist_natural_circ - waist_natural_arc_f
+    O06:
+    - waist_to_natural_waist_f
+    - Waist Front to Natural Waist Front
+    - Length from Waist Front to Natural Waist Front.
+    - 0
+    O07:
+    - waist_to_natural_waist_b
+    - Waist Back to Natural Waist Back
+    - Length from Waist Back to Natural Waist Back.
+    - 0
+    O08:
+    - arm_neck_back_to_elbow_bent
+    - 'Arm: Neck Back to Elbow, high bend'
+    - Bend Arm with Elbow out, hand in front. Measure from Neck Back to Elbow Tip.
+    - 0
+    O09:
+    - arm_neck_back_to_wrist_bent
+    - 'Arm: Neck Back to Wrist, high bend'
+    - Bend Arm with Elbow out, hand in front. Measure from Neck Back to Elbow Tip to Wrist bone.
+    - 0
+    O10:
+    - arm_neck_side_to_elbow_bent
+    - 'Arm: Neck Side to Elbow, high bend'
+    - Bend Arm with Elbow out, hand in front. Measure from Neck Side to Elbow Tip.
+    - 0
+    O11:
+    - arm_neck_side_to_wrist_bent
+    - 'Arm: Neck Side to Wrist, high bend'
+    - Bend Arm with Elbow out, hand in front. Measure from Neck Side to Elbow Tip to Wrist bone.
+    - 0
+    O12:
+    - arm_across_back_center_to_elbow_bent
+    - 'Arm: Across Back Center to Elbow, high bend'
+    - Bend Arm with Elbow out, hand in front. Measure from Middle of Back to Elbow Tip.
+    - 0
+    O13:
+    - arm_across_back_center_to_wrist_bent
+    - 'Arm: Across Back Center to Wrist, high bend'
+    - Bend Arm with Elbow out, hand in front. Measure from Middle of Back to Elbow Tip to Wrist bone.
+    - 0
+    O14:
+    - arm_armscye_back_center_to_wrist_bent
+    - 'Arm: Armscye Back Center to Wrist, high bend'
+    - Bend Arm with Elbow out, hand in front. Measure from Armscye Back to Elbow Tip.
+    - 0
+P:
+  description: Historical & Specialty
+  measurements:
+    P01:
+    - neck_back_to_bust_front
+    - Neck Back to Bust Front
+    - From Neck Back, over Shoulder, to Bust Front.
+    - 0
+    P02:
+    - neck_back_to_armfold_front
+    - Neck Back to Armfold Front
+    - From Neck Back over Shoulder to Armfold Front.
+    - 0
+    P03:
+    - neck_back_to_armfold_front_to_waist_side
+    - Neck Back, over Shoulder, to Waist Side
+    - From Neck Back, over Shoulder, down chest to Waist Side.
+    - 0
+    P04:
+    - highbust_back_over_shoulder_to_armfold_front
+    - Highbust Back, over Shoulder, to Armfold Front
+    - From Highbust Back over Shoulder to Armfold Front.
+    - 0
+    P05:
+    - highbust_back_over_shoulder_to_waist_front
+    - Highbust Back, over Shoulder, to Waist Front
+    - From Highbust Back, over Shoulder touching  Neck Side, to Waist Front.
+    - 0
+    P06:
+    - neck_back_to_armfold_front_to_neck_back
+    - Neck Back, to Armfold Front, to Neck Back
+    - From Neck Back, over Shoulder to Armfold Front, under arm and return to start.
+    - 0
+    P07:
+    - across_back_center_to_armfold_front_to_across_back_center
+    - Across Back Center, circled around Shoulder
+    - From center of Across Back, over Shoulder, under Arm, and return to start.
+    - 0
+    P08:
+    - neck_back_to_armfold_front_to_highbust_back
+    - Neck Back, to Armfold Front, to Highbust Back
+    - From Neck Back over Shoulder to Armfold Front, under arm to Highbust Back.
+    - 0
+    P09:
+    - armfold_to_armfold_bust
+    - Armfold to Armfold, front, curved through Bust Front
+    - Measure in a curve from Armfold Left Front through Bust Front curved back up to Armfold Right Front.
+    - 0
+    P10:
+    - armfold_to_bust_front
+    - Armfold to Bust Front
+    - Measure from Armfold Front to Bust Front, shortest distance between the two, as straight as possible.
+    - 0
+    P11:
+    - highbust_b_over_shoulder_to_highbust_f
+    - Highbust Back, over Shoulder, to Highbust level
+    - From Highbust Back, over Shoulder, then aim at Bustpoint, stopping measurement at Highbust level.
+    - 0
+    P12:
+    - armscye_arc
+    - 'Armscye: Arc'
+    - From Armscye at Across Chest over ShoulderTip  to Armscye at Across Back.
+    - 0
+Q:
+  description: Patternmaking measurements
+  measurements:
+    Q01:
+    - dart_width_shoulder
+    - 'Dart Width: Shoulder'
+    - This information is pulled from pattern charts in some patternmaking systems, e.g. Winifred P.Aldrich's "Metric Pattern Cutting".
+    - 0
+    Q02:
+    - dart_width_bust
+    - 'Dart Width: Bust'
+    - This information is pulled from pattern charts in some patternmaking systems, e.g. Winifred P.Aldrich's "Metric Pattern Cutting".
+    - 0
+    Q03:
+    - dart_width_waist
+    - 'Dart Width: Waist'
+    - This information is pulled from pattern charts in some  patternmaking systems, e.g. Winifred P.Aldrich's "Metric Pattern Cutting".
+    - 0
+

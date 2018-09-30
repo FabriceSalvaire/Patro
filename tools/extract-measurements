@@ -1,0 +1,147 @@
+#! /usr/bin/env python
+# -*- Python -*-
+
+####################################################################################################
+#
+# PyValentina - A Python implementation of Valentina Pattern Drafting Software
+# Copyright (C) 2018 Salvaire Fabrice
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+####################################################################################################
+
+####################################################################################################
+
+from pathlib import Path
+import yaml
+import argparse
+import json
+
+####################################################################################################
+
+parser = argparse.ArgumentParser(description='Extract Valentina Measurement')
+parser.add_argument('valentina_path',  metavar='ValentinaPath',
+                    help='Valentina source path')
+
+args = parser.parse_args()
+
+####################################################################################################
+
+TOPICS = {
+    'A': 'Direct Height',
+    'B': 'Direct Width',
+    'C': 'Indentation',
+    'D': 'Circumference and Arc',
+    'E': 'Vertical',
+    'F': 'Horizontal',
+    'G': 'Bust',
+    'H': 'Balance',
+    'I': 'Arm',
+    'J': 'Leg',
+    'K': 'Crotch and Rise',
+    'L': 'Hand',
+    'M': 'Foot',
+    'N': 'Head',
+    'O': 'Men & Tailoring',
+    'P': 'Historical & Specialty',
+    'Q': 'Patternmaking measurements',
+}
+
+####################################################################################################
+
+cpp_file = Path(args.valentina_path).joinpath('src', 'libs', 'vpatterndb', 'vtranslatemeasurements.cpp')
+
+    # m = translate("VTranslateMeasurements", "height",
+    #               "Name in a formula. Don't use math symbols and space in name!!!!");
+    # g = translate("VTranslateMeasurements", "Height: Total", "Full measurement name.");
+    # d = translate("VTranslateMeasurements", "Vertical distance from crown of head to floor.",
+    #               "Full measurement description.");
+    # InitMeasurement(height_M, m, g, d, "A01");
+
+codes = {}
+names = {}
+complete = False
+with open(cpp_file, 'r') as fh:
+    offset = len('m = translate("VTranslateMeasurements", "')
+    for line in fh.readlines():
+        line = line.strip()
+        if line.startswith('m ='):
+            i = line.find('"', offset)
+            name = line[offset:i]
+        elif line.startswith('g ='):
+            i = line.find('"', offset)
+            full_name = line[offset:i]
+        elif line.startswith('d ='):
+            i = line.find('"', offset)
+            if i != -1:
+                description = line[offset:i]
+            else:
+                description = ''
+                complete = True
+            if not line.endswith(','):
+                complete = True
+        elif line.startswith('InitMeasurement'):
+            complete = False
+            i = line.find('"') + 1
+            if i:
+                j = line.find('"', i)
+                code = line[i:j]
+                description = description.replace('\\"', '"')
+                # measurements[code] = dict(name=name, full_name=full_name, description=description)
+                data = [name, full_name, description, 0]
+                codes[code] = data
+                names[name] = data
+        elif complete:
+            # ", "Full
+            i = line.find('"Full measurement description."')
+            if i == -1:
+                description += line[1:-2]
+            elif i > 0:
+                description += line[1:i-3]
+                complete = False
+
+####################################################################################################
+
+vit_file = Path(args.valentina_path).joinpath(
+    'src', 'app', 'share', 'tables', 'templates', 'template_all_measurements.vit')
+
+with open(vit_file, 'r') as fh:
+    # <m name="height" value="0"/>
+    offset = len('<m name="')
+    for line in fh.readlines():
+        line = line.strip()
+        if line.startswith('<m'):
+            i = line.find('"', offset)
+            name = line[offset:i]
+            j = line.find('"', i+1) +1
+            k = line.find('"', j)
+            value = line[j:k]
+            if name not in names:
+                raise NameError('{} is missing'.format(name))
+            if value != '0':
+                if value.startswith('('):
+                    value = value[1:-1]
+                names[name][3] = value
+
+####################################################################################################
+
+# Merge topics
+data = {topic:{'description':description, 'measurements':{}} for topic, description in TOPICS.items()}
+for code, code_dict in codes.items():
+    letter = code[0]
+    data[letter]['measurements'][code] = code_dict
+
+#print(json.dumps(data, indent=True))
+
+print(yaml.dump(data, default_flow_style=False, width=160))
