@@ -21,7 +21,7 @@ Overview
 What is Patro ?
 ---------------
 
-Patro is a Python module which implements pattern drafting for fashion design.
+Patro is a Python library which implements pattern drafting for fashion design.
 
 Where is the Documentation ?
 ----------------------------
@@ -31,7 +31,8 @@ The documentation is available on the |PatroHomePage|_.
 What are the main features ?
 ----------------------------
 
-.. include:: features.txt
+..
+  .. include:: features.txt
 
 .. image:: https://raw.github.com/FabriceSalvaire/Patro/master/test/output/pattern-a0.png
  :height: 600px

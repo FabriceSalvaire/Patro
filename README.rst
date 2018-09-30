@@ -66,17 +66,38 @@
 ..  https://img.shields.io/github/stars/badges/shields.svg?style=social&label=Star
 .. -*- Mode: rst -*-
 
-.. |Python| replace:: Python
-.. _Python: http://python.org
+.. |Inkscape| replace:: Inkscape
+.. _Inkscape: https://inkscape.org
 
-.. |PyPI| replace:: PyPI
-.. _PyPI: https://pypi.python.org/pypi
+.. |Matplotlib| replace:: Matplotlib
+.. _Matplotlib: https://matplotlib.org
 
 .. |Numpy| replace:: Numpy
 .. _Numpy: http://www.numpy.org
 
+.. |PyPI| replace:: PyPI
+.. _PyPI: https://pypi.python.org/pypi
+
+.. |Python| replace:: Python
+.. _Python: https://python.org
+
+.. |Qt| replace:: Qt
+.. _Qt: https://www.qt.io
+
+.. |PyQt| replace:: PyQt
+.. _PyQt: https://riverbankcomputing.com/software/pyqt/intro>
+
+.. |Reportlab| replace:: Reportlab
+.. _Reportlab: https://www.reportlab.com/opensource
+
 .. |Sphinx| replace:: Sphinx
 .. _Sphinx: http://sphinx-doc.org
+
+.. |Sympy| replace:: Sympy
+.. _Sympy: http://www.sympy.org
+
+.. |Valentina| replace:: Valentina
+.. _Valentina: https://bitbucket.org/dismine/valentina
 
 =======
  Patro
@@ -96,7 +117,7 @@ Overview
 What is Patro ?
 ---------------
 
-Patro is a Python module which implements pattern drafting for fashion design.
+Patro is a Python library which implements pattern drafting for fashion design.
 
 Where is the Documentation ?
 ----------------------------
@@ -106,21 +127,8 @@ The documentation is available on the |PatroHomePage|_.
 What are the main features ?
 ----------------------------
 
-.. -*- Mode: rst -*-
-
-The features of Patro are :
-
-* read/write *.val* and *.vit* file
-* `QMuParser <http://beltoforion.de/article.php?a=muparser>`_ expressions are translated to Python and evaluated on the fly
-* API to define patterns
-* compute the detail of a pattern
-* export the detail to latex/pgf as A0 or tiled A4 paper
-
-Missing features:
-
-* full operation support
-* direct PDF export
-* SVG export
+..
+  .. include:: features.txt
 
 .. image:: https://raw.github.com/FabriceSalvaire/Patro/master/test/output/pattern-a0.png
  :height: 600px
