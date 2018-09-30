@@ -1,6 +1,7 @@
 IntervalArithmetic
 PyYAML
 astunparse
+ezdxf
 lxml
 matplotlib
 numpy
