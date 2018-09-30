@@ -1,6 +1,8 @@
 IntervalArithmetic
+PyYAML
 astunparse
 lxml
+matplotlib
 numpy
 reportlab
 sympy
