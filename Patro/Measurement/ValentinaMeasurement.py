@@ -94,4 +94,4 @@ class ValentinaMeasurements(Measurements):
 
         measurement = super().add(*args, **kgwars)
         if measurement.is_custom():
-            self._measure_dict[measurement.valentina_name] = measurement
+            self._measurements[measurement.valentina_name] = measurement

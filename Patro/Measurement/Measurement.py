@@ -23,6 +23,7 @@
 import logging
 
 import sympy
+import yaml
 
 from .PersonalData import PersonalData
 
@@ -107,15 +108,10 @@ class Measurements:
         self._pattern_making_system = None # Fixme: purpose ???
         self._personal = PersonalData()
 
-        self._measures = [] # Measurement list
-        self._measure_dict = {} # name -> Measurement
+        self._measurements = {} # name -> Measurement
         self._expressions = {} # name -> expression  for sympy substitution
 
     ##############################################
-
-    @property
-    def calculator(self):
-        return self._calculator
 
     @property
     def personal(self):
@@ -144,12 +140,19 @@ class Measurements:
     ##############################################
 
     def __iter__(self):
-        return iter(self._measures)
+        return iter(self._measurements.values())
+
+    ##############################################
+
+    def sorted_iter(self):
+
+        for name in sorted(self._measurements.keys()):
+            yield self._measurements[name]
 
     ##############################################
 
     def __getitem__(self, name):
-        return self._measure_dict[name]
+        return self._measurements[name]
 
     ##############################################
 
@@ -158,8 +161,7 @@ class Measurements:
         # Fixme: name ?
 
         measurement = self.__measurement_cls__(self, *args, **kgwars)
-        self._measures.append(measurement)
-        self._measure_dict[measurement.name] = measurement
+        self._measurements[measurement.name] = measurement
         self._expressions[measurement.name] = measurement.expression
 
         return measurement
@@ -168,11 +170,46 @@ class Measurements:
 
     def dump(self):
 
-        print("\nDump measurements:")
         template = '''{0.name} = {0.expression}
   = {0.evaluated_expression}
   = {0.value}
 '''
 
-        for measure in self:
-            print(template.format(measure))
+        for measurement in self.sorted_iter():
+            print(template.format(measurement))
+
+    ##############################################
+
+    def save_as_yaml(self, yaml_path):
+
+        measurements = {}
+        for measurement in self.sorted_iter():
+        # for measurement in self:
+            expression = measurement.expression
+            if isinstance(expression, sympy.Integer):
+                expression = int(expression)
+            elif isinstance(expression, sympy.Float):
+                expression = float(expression)
+            else:
+                expression = str(expression)
+            data = [expression]
+            if measurement.full_name or measurement.description:
+                data += [measurement.full_name, measurement.description]
+            measurements[measurement.name] = data
+        with open(yaml_path, 'w') as fh:
+            yaml_string = yaml.dump(measurements, default_flow_style=False, width=160)
+            fh.write(yaml_string)
+
+    ##############################################
+
+    def load_yaml(self, yaml_path):
+
+        with open(yaml_path, 'r') as fh:
+            measurements = yaml.load(fh.read())
+            for name, data in measurements.items():
+                if len(data) > 1:
+                    value, full_name, description = data
+                else:
+                    value = data[0]
+                    full_name = description = ''
+                self.add(name, value, full_name, description)
