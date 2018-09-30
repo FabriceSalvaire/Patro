@@ -22,6 +22,10 @@ __all__ = [
     'SvgPainter',
 ]
 
+# See also
+#   https://github.com/mozman/svgwrite
+#   https://svgwrite.readthedocs.io/en/master/
+
 ####################################################################################################
 
 import logging
