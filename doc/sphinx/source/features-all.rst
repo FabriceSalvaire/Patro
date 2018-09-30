@@ -10,7 +10,7 @@ Patro implements several components:
 
 * a 2D Geometry Engine
 * a Pattern Engine
-* a Graphic Engine to export drawing to screen display, SVG and PDF file
+* a Graphic Engine to export drawing to screen display, SVG, PDF and DXF file
 * a submodule to read/write SVG file
 * import/export of the |Valentina|_ file format
 * import of SVG pattern (as well as PDF using a conversion tools like |Inkscape|_)
@@ -51,6 +51,7 @@ Graphic Engine
 * export drawing to : PDF, SVG, DXF, LaTeX Tikz
 * export tiled pattern on A4 sheets : PDF, LaTeX Tikz
 * PDF export is implemented with the help of the |Reportlab|_ package
+* DXF export is implemented with the help of the |ezdxf|_ package of `Manfred Moitzi <https://github.com/mozman>`_
 
 Pattern Format Support
 ======================
