@@ -24,7 +24,6 @@ import math
 
 from .Primitive import Primitive3P, Primitive2DMixin
 from .Line import Line2D
-from .Segment import Segment2D
 
 ####################################################################################################
 
@@ -98,6 +97,9 @@ class Triangle2D(Primitive2DMixin, Primitive3P):
 
     @property
     def edges(self):
+
+        # Fixme: circular import, Segment import triangle_orientation
+        from .Segment import Segment2D
 
         p0 = self._p0
         p1 = self._p1

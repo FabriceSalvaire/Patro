@@ -361,17 +361,17 @@ class Vector2DFloatBase(Vector2DBase):
 
     ##############################################
 
+    def cross(self, other):
+        """Return the cross product of self with other"""
+        return float(np.cross(self._v, other.v))
+
+    ##############################################
+
     # perp dot product
     #   perp = (-y1, x1)
     #   perp dot = -y1*x2 + x1*y2 = x1*y2 - x2*y1
 
     perp_dot = cross
-
-    ##############################################
-
-    def cross(self, other):
-        """Return the cross product of self with other"""
-        return float(np.cross(self._v, other.v))
 
     ##############################################
 
