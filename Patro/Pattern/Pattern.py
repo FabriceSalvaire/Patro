@@ -35,12 +35,6 @@ _module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
-def vector_to_interval2d(vector):
-    x, y = vector.x, vector.y
-    return Interval2D((x, x), (y, y))
-
-####################################################################################################
-
 class Pattern:
 
     _logger = _module_logger.getChild('Pattern')
@@ -140,10 +134,11 @@ class Pattern:
 
         """Compute the bounding box of the pattern."""
 
+        # Fixme: to function
         bounding_box = None
         for calculation in self._calculations:
             interval = calculation.geometry().bounding_box
-            print(calculation.geometry(), interval)
+            # print(calculation.geometry(), interval)
             if bounding_box is None:
                 bounding_box = interval
             else:

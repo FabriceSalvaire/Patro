@@ -92,7 +92,7 @@ class Measurement:
 
 ####################################################################################################
 
-class Measurements:
+class Measurements: # Fixme: -> MeasurementSet as well as file
 
     """Class to store a set of measurements"""
 
