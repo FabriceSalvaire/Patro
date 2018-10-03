@@ -323,6 +323,13 @@ class Circle2D(Primitive2DMixin, DomainMixin, Primitive):
 
         raise NotImplementedError
 
+    ##############################################
+
+    def distance_to_point(self, point):
+
+        # d = |P - C| - R
+        return (point - self._center).magnitude - self._radius
+
 ####################################################################################################
 
 class Conic2D(Primitive2DMixin, DomainMixin, Primitive):

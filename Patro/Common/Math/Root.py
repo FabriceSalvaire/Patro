@@ -26,6 +26,8 @@
 __all__ = [
     'quadratic_root',
     'cubic_root',
+    'fifth_root',
+    'fifth_root_normalised',
 ]
 
 ####################################################################################################
@@ -78,10 +80,25 @@ def cubic_root(a, b, c, d):
 
 def cubic_root_sympy(a, b, c, d):
 
-    x = sympy.Symbol('x')
+    x = sympy.Symbol('x', real=True)
     E = a*x**3 + b*x**2 + c*x + d
 
     return [i.n() for i in sympy.real_roots(E, x)]
+
+####################################################################################################
+
+def fifth_root_normalised(a, b, c, d, e):
+
+    x = sympy.Symbol('x', real=True)
+    E = x**5 + a*x**4 + b*x**3 + c*x**2 + d*x + e
+
+    return [i.n() for i in sympy.real_roots(E, x)]
+
+####################################################################################################
+
+def fifth_root(*args):
+    a = args[0]
+    return fifth_root_normalised(*[x/a for x in args[1:]])
 
 ####################################################################################################
 

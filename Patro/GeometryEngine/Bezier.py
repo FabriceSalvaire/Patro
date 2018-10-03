@@ -22,7 +22,7 @@
 
 from math import log, sqrt, pow
 
-from Patro.Common.Math.Root import quadratic_root, cubic_root
+from Patro.Common.Math.Root import quadratic_root, cubic_root, fifth_root
 from .Interpolation import interpolate_two_points
 from .Line import Line2D
 from .Primitive import Primitive3P, Primitive4P, Primitive2DMixin
@@ -31,7 +31,9 @@ from .Vector import Vector2D
 
 ####################################################################################################
 
-# Fixme: implement intersection
+# Fixme:
+#   max distance to the chord for linear approximation
+#   fitting
 
 ####################################################################################################
 
@@ -326,6 +328,77 @@ class QuadraticBezier2D(Primitive2DMixin, Primitive3P):
         points = [Vector2D(t, d) for t, f in zip(ts, distances)]
         return self.__class__(*points)
 
+    ##############################################
+
+    def closest_point(self, point):
+
+        # Reference:
+        #   https://hal.archives-ouvertes.fr/inria-00518379/document
+        #   Improved Algebraic Algorithm On Point Projection For Bézier Curves
+        #   Xiao-Diao Chen, Yin Zhou, Zhenyu Shu, Hua Su, Jean-Claude Paul
+
+        # Condition:
+        #   (P - B(t)) . B'(t) = 0   where t in [0,1]
+        #
+        #   P. B'(t) - B(t). B'(t) = 0
+
+        # A = P1 - P0
+        # B = P2 - P1 - A
+        # M = P0 - P
+
+        # Q(t)  = P0*(1-t)**2 + P1*2*t*(1-t) + P2*t**2
+        # Q'(t) = -2*P0*(1 - t) + 2*P1*(1 - 2*t) + 2*P2*t
+        #       = 2*(A + B*t)
+
+        # P0, P1, P2, P, t = symbols('P0 P1 P2 P t')
+        # Q = P0 * (1-t)**2  +  P1 * 2*t*(1-t)  +  P2 * t**2
+        # Qp = simplify(Q.diff(t))
+        # collect(expand((P*Qp - Q*Qp)/-2), t)
+
+        # (P0**2 - 4*P0*P1 + 2*P0*P2 + 4*P1**2 - 4*P1*P2 + P2**2) * t**3
+        # (-3*P0**2 + 9*P0*P1 - 3*P0*P2 - 6*P1**2 + 3*P1*P2) * t**2
+        # (-P*P0 + 2*P*P1 - P*P2 + 3*P0**2 - 6*P0*P1 + P0*P2 + 2*P1**2) * t
+        # P*P0 - P*P1 - P0**2 + P0*P1
+
+        # factorisation
+        # (P0 - 2*P1 + P2)**2 * t**3
+        # 3*(P1 - P0)*(P0 - 2*P1 + P2) * t**2
+        # ...
+        # (P0 - P)*(P1 - P0)
+
+        # B**2 * t**3
+        # 3*A*B * t**2
+        # (2*A**2 + M*B) * t
+        # M*A
+
+        A = self._p1 - self._p0
+        B = self._p2 - self._p1 - A
+        M = self._p0 - point
+
+        roots = cubic_root(
+            B.magnitude_square,
+            3*A.dot(B),
+            2*A.magnitude_square + M.dot(B),
+            M.dot(A),
+        )
+        t = [root for root in roots if 0 <= root <= 1]
+        if not t:
+            return None
+        elif len(t) > 1:
+            raise NameError("Found more than on root")
+        else:
+            return self.point_at_t(t)
+
+    ##############################################
+
+    def distance_to_point(self, point):
+
+        p = self.closest_point(point)
+        if p is not None:
+            return point - p
+        else:
+            return None
+
 ####################################################################################################
 
 _Sqrt3 = sqrt(3)
@@ -365,6 +438,8 @@ class CubicBezier2D(Primitive4P, QuadraticBezier2D):
                 (self._p1 - self._p0) * 3 * t  +
                 (self._p2 - self._p1 * 2 + self._p0) * 3 * t**2 +
                 (self._p3 - self._p2 * 3 + self._p1 * 3 - self._p0) * t**3)
+
+    # interpolate = point_at_t
 
     ##############################################
 
@@ -786,3 +861,55 @@ class CubicBezier2D(Primitive4P, QuadraticBezier2D):
         return (3 * ((y3 - y0) * (x1 + x2) - (x3 - x0) * (y1 + y2)
                      + y1 * (x0 - x2) - x1 * (y0 - y2)
                      + y3 * (x2 + x0 / 3) - x3 * (y2 + y0 / 3)) / 20)
+
+    ##############################################
+
+    def closest_point(self, point):
+
+        # Q(t) = (P3 - 3*P2 + 3*P1 - P0) * t**3 +
+        #        3*(P2 - 2*P1 + P0) * t**2 +
+        #        3*(P1 - P0) * t  +
+        #        P0
+
+        # n = P3 - 3*P2 + 3*P1 - P0
+        # r = 3*(P2 - 2*P1 + P0
+        # s = 3*(P1 - P0)
+        # v = P0
+
+        # Q(t)  = n*t**3 + r*t**2 + s*t + v
+        # Q'(t) = 3*n*t**2 + 2*r*t + s
+
+        # P0, P1, P2, P3, P, t = symbols('P0 P1 P2 P3 P t')
+        # n, r, s, v = symbols('n r s v')
+        # Q = n*t**3 + r*t**2 + s*t + v
+        # Qp = simplify(Q.diff(t))
+        # collect(expand((P*Qp - Q*Qp)), t)
+
+        # -3*n**2 * t**5
+        # -5*n*r * t**4
+        # -2*(2*n*s + r**2) * t**3
+        # 3*(P*n - n*v - r*s) * t**2
+        # (2*P*r - 2*r*v - s**2) * t
+        # P*s - s*v
+
+        n = self._p3 - 3*self._p2 + 3*self._p1 - self._p0
+        r = 3*(self._p2 - 2*self._p1 + self._p0)
+        s = 3*(self._p1 - self._p0)
+        v = self._p0
+
+        roots = fifth_root(
+            -3 * n.magnitude_square,
+            -5 * n.dot(r),
+            -2 * (2*n.dot(s) + r.magnitude_square),
+            3 * (point.dot(n) - n.dot(v) - r.dot(s)),
+            2*point.dot(r) - 2*r.dot(v) - s.magnitude_square,
+            point.dot(s) - s.dot(v),
+        )
+        # Fixme: to func
+        t = [root for root in roots if 0 <= root <= 1]
+        if not t:
+            return None
+        elif len(t) > 1:
+            raise NameError("Found more than on root")
+        else:
+            return self.point_at_t(t)
