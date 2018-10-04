@@ -31,7 +31,7 @@ from lxml import etree
 
 from Patro.Common.Xml.XmlFile import XmlFileMixin
 from Patro.Pattern.Pattern import Pattern
-from .Measurements import VitFile
+from .Measurement import VitFile
 from .VitFormat import (
     Point,
     Line,

@@ -89,9 +89,13 @@ class Calculator:
         self._measurements = measurements
 
         self._dag = DirectedAcyclicGraph()
-        self._cache  = {'__calculator__': self}
+        self._cache  = {'__calculator__': self} # used to eval expressions
         self._points = {}
-        self._current_operation = None
+        self._current_operation = None # Fixme: ???
+        self._current_segment = None
+
+        for measurement in measurements:
+            self._cache[measurement.name] = float(measurement)
 
     ##############################################
 
@@ -120,12 +124,6 @@ class Calculator:
 
     ##############################################
 
-    def _update_cache(self, named_expression):
-        # Fixme: private ???
-        self._cache[named_expression.name] = named_expression.value
-
-    ##############################################
-
     def add_point(self, point):
         self._points[point.name] = point
 
@@ -148,6 +146,9 @@ class Calculator:
     #
     # Define special functions
     #
+
+    # See in Valentina source
+    # libs/ifc/ifcdef.cpp
 
     # Fixme: special functions
     #   increments ?

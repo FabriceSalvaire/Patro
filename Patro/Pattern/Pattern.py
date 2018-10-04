@@ -28,6 +28,7 @@ from Patro.GeometryEngine.Vector import Vector2D
 from Patro.GraphicEngine.GraphicScene.GraphicItem import PathStyle
 from Patro.GraphicEngine.GraphicScene.Scene import GraphicScene
 from . import Calculation
+from .Calculator import Calculator
 
 ####################################################################################################
 
@@ -44,7 +45,7 @@ class Pattern:
     def __init__(self, measurements, unit):
 
         self._measurements = measurements
-        self._calculator = measurements.calculator
+        self._calculator = Calculator(self._measurements)
         self._calculations = []
         self._calculation_dict = {}
         self._unit = unit
