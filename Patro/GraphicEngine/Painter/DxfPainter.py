@@ -108,11 +108,11 @@ class EzdxfPainter(DxfPainterBase):
         self._dxf_version = dxf_version
         self._drawing = ezdxf.new(dxf_version)
         self._model_space= self._drawing.modelspace() # add new entities to the model space
-        self._model_space.page_setup(
-            size=(self._paper.widh, self._paper.height),
-            # margins=(top, right, bottom, left),
-            units='mm',
-        )
+        # self._model_space.page_setup(
+        #     size=(self._paper.width, self._paper.height),
+        #     # margins=(top, right, bottom, left)
+        #     units='mm',
+        # )
 
         # print('Available line types:')
         # for line_type in self._drawing.linetypes:
@@ -141,9 +141,11 @@ class EzdxfPainter(DxfPainterBase):
 
         # cf. https://ezdxf.readthedocs.io/en/latest/graphic_base_class.html#common-dxf-attributes-for-dxf-r13-or-later
 
-        path_syle = item.path_style
-        color = self.__COLOR__[path_syle.stroke_color] # see also true_color color_name (AutoCAD R2004)
-        line_type = self.__STROKE_STYLE__[path_syle.stroke_style]
+        path_style = item.path_style
+        if path_style.stroke_color is None:
+            return {'linetype': 'PHANTOM', 'color': 2} # Fixme:
+        color = self.__COLOR__[path_style.stroke_color] # see also true_color color_name (AutoCAD R2004)
+        line_type = self.__STROKE_STYLE__[path_style.stroke_style]
         # https://ezdxf.readthedocs.io/en/latest/graphic_base_class.html#GraphicEntity.dxf.lineweight
         # line_weight = float(path_syle.line_width.replace('pt', '')) / 3 # Fixme: pt ???
 
@@ -168,7 +170,7 @@ class EzdxfPainter(DxfPainterBase):
 
     def paint_SegmentItem(self, item):
 
-        positions = self._cast_position(item.positions)
+        positions = self._cast_positions(item.positions)
         self._model_space.add_line(
             *positions,
             dxfattribs=self._graphic_style(item),
@@ -178,10 +180,12 @@ class EzdxfPainter(DxfPainterBase):
 
     def paint_CubicBezierItem(self, item):
 
-        positions = self._cast_position(item.positions)
+        positions = self._cast_positions(item.positions)
+        for position in positions:
+            position.append(0)
         # https://ezdxf.readthedocs.io/en/latest/layouts.html#Layout.add_open_spline
         self._model_space.add_open_spline(
-            *positions,
+            positions,
             degree=3,
             dxfattribs=self._graphic_style(item),
         )
@@ -195,5 +199,6 @@ _driver_to_cls = {
 def DxfPainter(*args, **kwargs):
     """Wrapper to driver classes"""
     driver = kwargs.get('driver', 'ezdxf')
-    del kwargs['driver']
+    if 'driver' in kwargs:
+        del kwargs['driver']
     return _driver_to_cls[driver](*args, **kwargs)
