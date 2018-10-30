@@ -2,6 +2,7 @@
 *.val.lock
 *~
 __pycache__
+*.qmlc
 
 MANIFEST
 auto/

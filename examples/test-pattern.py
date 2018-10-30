@@ -12,10 +12,15 @@ from Patro.GraphicEngine.Painter.MplPainter import MplPainter
 from Patro.GraphicEngine.Painter.PdfPainter import PdfPainter
 from Patro.GraphicEngine.Painter.SvgPainter import SvgPainter
 from Patro.GraphicEngine.Painter.TexPainter import TexPainter
+from Patro.GraphicEngine.Painter.QtPainter import QtScene
 
 ####################################################################################################
 
-val_file = ValFile(Path('patterns', 'flat-city-trouser.val'))
+try:
+    val_path = Path(__file__).parent.joinpath('patterns', 'flat-city-trouser.val')
+except:
+    val_path = Path('examples', 'patterns', 'flat-city-trouser.val')
+val_file = ValFile(val_path)
 pattern = val_file.pattern
 
 pattern.dump()
@@ -32,7 +37,10 @@ output.mkdir(exist_ok=True)
 
 val_file.write(output.joinpath('write-test.val'))
 
-scene = pattern.detail_scene()
+kwargs = dict(scene_cls=QtScene)
+scene = pattern.detail_scene(**kwargs)
+
+application.qml_application.scene = scene
 
 # tex_path = output.joinpath('pattern-a0.tex')
 # paper = PaperSize('a0', 'portrait', 10)
@@ -58,6 +66,6 @@ scene = pattern.detail_scene()
 # svg_path = output.joinpath('pattern-a0.svg')
 # svg_painter = SvgPainter(svg_path, scene, paper)
 
-paper = PaperSize('a0', 'portrait', 10)
-dxf_path = output.joinpath('pattern.dxf')
-dxf_painter = DxfPainter(dxf_path, scene, paper)
+# paper = PaperSize('a0', 'portrait', 10)
+# dxf_path = output.joinpath('pattern.dxf')
+# dxf_painter = DxfPainter(dxf_path, scene, paper)

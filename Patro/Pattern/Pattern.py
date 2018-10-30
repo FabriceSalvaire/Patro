@@ -159,11 +159,11 @@ class Pattern:
 
     ##############################################
 
-    def detail_scene(self):
+    def detail_scene(self, scene_cls=GraphicScene):
 
         """Generate a graphic scene for the detail mode"""
 
-        scene = GraphicScene()
+        scene = scene_cls()
         # Fixme: scene bounding box
         scene.bounding_box = self.bounding_box
 

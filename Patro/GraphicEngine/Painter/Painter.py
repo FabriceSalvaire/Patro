@@ -93,6 +93,9 @@ class Painter:
 
     def paint(self):
 
+        if self._scene is None:
+            return
+
         for item in self._scene.root_scope:
             # Fixme: GraphicItemScope
             function = getattr(self, 'paint_' + item.__class__.__name__)
