@@ -22,6 +22,10 @@
 
 import logging
 
+import numpy as np
+
+from IntervalArithmetic import Interval2D
+
 from PyQt5.QtCore import (
     pyqtProperty, pyqtSignal, QObject,
     QRectF, QSizeF, QPointF, Qt,
@@ -78,9 +82,31 @@ class QtPainter(Painter):
 
         super().__init__(scene)
 
+        self._coordinates = {}
+
         # self._paper = paper
 
-        self._coordinates = {}
+        # self._translation = QPointF(0, 0)
+        # self._scale = 1
+
+    ##############################################
+
+    # @property
+    # def translation(self):
+    #     return self._translation
+
+    # @translation.setter
+    # def translation(self, value):
+    #     self._translation = value
+
+    # @property
+    # def scale(self):
+    #     return self._scale
+
+    # @scale.setter
+    # def scale(self, value):
+    #     print('set scale', value)
+    #     self._scale = value
 
     ##############################################
 
@@ -89,26 +115,19 @@ class QtPainter(Painter):
         self._logger.info('paint')
 
         self._painter = painter
-        if self._scene is not None:
-            bounding_box = self._scene.bounding_box
-            self._scene_offset = QPointF(-bounding_box.x.inf, bounding_box.y.sup)
-            self._view_offset = QPointF(30, 30)
-            # painter.resetTransform()
-            # painter.scale(1, -1) # filp font
-            # painter.scale(10, 10) # scale font
-            # bounding_box = self._scene.bounding_box
-            # painter.translate(-bounding_box.x.inf, bounding_box.y.sup)
         super().paint()
 
     ##############################################
 
-    def _cast_vector(self, position):
+    def scene_to_viewport(self, position):
+        # Note: painter.scale apply to text as well
+        raise NotImplementedError
 
-        point = QPointF(position.x, -position.y)
-        point += self._scene_offset
-        point *= 10
-        point += self._view_offset
-        return point
+        # point = QPointF(position.x, position.y)
+        # point += self._translation
+        # point *= self._scale
+        # point = QPointF(point.x(), -point.y())
+        # return point
 
     ##############################################
 
@@ -117,13 +136,13 @@ class QtPainter(Painter):
         if isinstance(position, str):
             return self._coordinates[position]
         elif isinstance(position, Vector2D):
-            return self._cast_vector(position)
+            return self.scene_to_viewport(position)
 
     ##############################################
 
     def paint_CoordinateItem(self, item):
 
-        self._coordinates[item.name] = self._cast_vector(item.position)
+        self._coordinates[item.name] = self.scene_to_viewport(item.position)
 
     ##############################################
 
@@ -188,7 +207,154 @@ class QtPainter(Painter):
 
 ####################################################################################################
 
-class QtQuickPaintedSceneItem(QQuickPaintedItem, QtPainter):
+class ViewportArea:
+
+    ##############################################
+
+    def __init__(self):
+
+        self._scene = None
+
+        # self._width = None
+        # self._height = None
+        self._viewport_size = None
+
+        self._scale = 1
+        self._center = None
+        self._area = None
+
+    ##############################################
+
+    def __bool__(self):
+
+        return self._scene is not None
+
+    ##############################################
+
+    @property
+    def viewport_size(self):
+        return self._viewport_size
+        # return (self._width, self._height)
+
+    @viewport_size.setter
+    def viewport_size(self, geometry):
+        # self._width = geometry.width()
+        # self._height = geometry.height()
+        self._viewport_size = np.array((geometry.width(), geometry.height()), dtype=np.float)
+        if self:
+            self._update_viewport_area()
+
+    ##############################################
+
+    @property
+    def scene(self):
+        return self._scene
+
+    @scene.setter
+    def scene(self, value):
+        self._scene = value
+
+    @property
+    def scene_area(self):
+        if self:
+            return self._scene.bounding_box
+        else:
+            return None
+
+    ##############################################
+
+    # @property
+    # def scale(self):
+    #     return self._scale # px / mm
+
+    @property
+    def scale_px_by_mm(self):
+        return self._scale
+
+    @property
+    def scale_mm_by_px(self):
+        return 1 / self._scale
+
+    @property
+    def center(self):
+        return self._center
+
+    # @property
+    # def center_as_point(self):
+    #     return QPointF(self._center[0], self._center[1])
+
+    @property
+    def area(self):
+        return self._area
+
+    ##############################################
+
+    def _update_viewport_area(self):
+
+        offset = self._viewport_size / 2 * self.scale_mm_by_px
+        x, y = list(self._center)
+        dx, dy = list(offset)
+
+        self._area = Interval2D(
+            (x - dx, x + dx),
+            (y - dy, y + dy),
+        )
+        # Fixme: QPointF ???
+        self._translation = - QPointF(self._area.x.inf, self._area.y.sup)
+
+        print('_update_viewport_area', self._center, self.scale_mm_by_px, self._area)
+
+    ##############################################
+
+    def _compute_scale_to_fit_scene(self, margin=None):
+
+        # width_scale = self._width / scene_area.x.length
+        # height_scale = self._height / scene_area.y.length
+        # scale = min(width_scale, height_scale)
+
+        # scale [px/mm]
+        axis_scale = self._viewport_size / np.array(self.scene_area.size, dtype=np.float)
+        axis = axis_scale.argmin()
+        scale = axis_scale[axis]
+
+        return scale, axis
+
+    ##############################################
+
+    def zoom_at(self, center, scale):
+
+        self._center = center
+        self._scale = scale
+        self._update_viewport_area()
+
+    ##############################################
+
+    def fit_scene(self):
+
+        if self:
+            center = np.array(self.scene_area.center, dtype=np.float)
+            scale, axis = self._compute_scale_to_fit_scene()
+            self.zoom_at(center, scale)
+
+    ##############################################
+
+    def scene_to_viewport(self, position):
+
+        point = QPointF(position.x, position.y)
+        point += self._translation
+        point *= self._scale
+        point = QPointF(point.x(), -point.y())
+        return point
+
+    ##############################################
+
+    def viewport_to_scene(self, position):
+
+        pass
+
+####################################################################################################
+
+class QtQuickPaintedSceneItem(QtPainter, QQuickPaintedItem):
 
     _logger = _module_logger.getChild('QtQuickPaintedSceneItem')
 
@@ -203,19 +369,66 @@ class QtQuickPaintedSceneItem(QQuickPaintedItem, QtPainter):
         # self.setRenderTarget(QQuickPaintedItem.Image) # high quality antialiasing
         self.setRenderTarget(QQuickPaintedItem.FramebufferObject) # use OpenGL
 
+        self._viewport_area = ViewportArea()
+
     ##############################################
 
-    scene_changed = pyqtSignal()
+    def geometryChanged(self, new_geometry, old_geometry):
 
-    @pyqtProperty(QtScene, notify=scene_changed)
+        print('geometryChanged', new_geometry, old_geometry)
+        self._viewport_area.viewport_size = new_geometry
+        # if self._scene:
+        #     self._update_transformation()
+
+    ##############################################
+
+    # def _update_transformation(self):
+
+    #     area = self._viewport_area.area
+    #     self.translation = - QPointF(area.x.inf, area.y.sup)
+    #     self.scale = self._viewport_area.scale_px_by_mm # QtPainter
+
+    ##############################################
+
+    def scene_to_viewport(self, position):
+        return self._viewport_area.scene_to_viewport(position)
+
+    ##############################################
+
+    sceneChanged = pyqtSignal()
+
+    @pyqtProperty(QtScene, notify=sceneChanged)
     def scene(self):
         return self._scene
 
     @scene.setter
     def scene(self, scene):
-        print('set scene', scene)
-        self._scene = scene
-        self.update()
+        if self._scene is not scene:
+            print('QtQuickPaintedSceneItem set scene', scene)
+            self._logger.info('set scene') # Fixme: don't print ???
+            self._scene = scene
+            self._viewport_area.scene = scene
+            self._viewport_area.fit_scene()
+            # self._update_transformation()
+            self.update()
+            self.sceneChanged.emit()
+
+    ##############################################
+
+    zoomChanged = pyqtSignal()
+
+    @pyqtProperty(float, notify=zoomChanged)
+    def zoom(self):
+        return self._zoom
+
+    @zoom.setter
+    def zoom(self, zoom):
+        if self._zoom != zoom:
+            print('QtQuickPaintedSceneItem zoom', zoom, self.width(), self.height())
+            self._zoom = zoom
+            self.set_transformation(zoom)
+            self.update()
+            self.zoomChanged.emit()
 
 ####################################################################################################
 

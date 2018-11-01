@@ -12,7 +12,6 @@ from Patro.GraphicEngine.Painter.MplPainter import MplPainter
 from Patro.GraphicEngine.Painter.PdfPainter import PdfPainter
 from Patro.GraphicEngine.Painter.SvgPainter import SvgPainter
 from Patro.GraphicEngine.Painter.TexPainter import TexPainter
-from Patro.GraphicEngine.Painter.QtPainter import QtScene
 
 ####################################################################################################
 
@@ -36,11 +35,6 @@ output = Path('output')
 output.mkdir(exist_ok=True)
 
 val_file.write(output.joinpath('write-test.val'))
-
-kwargs = dict(scene_cls=QtScene)
-scene = pattern.detail_scene(**kwargs)
-
-application.qml_application.scene = scene
 
 # tex_path = output.joinpath('pattern-a0.tex')
 # paper = PaperSize('a0', 'portrait', 10)

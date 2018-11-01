@@ -56,7 +56,7 @@ def quote(x):
 ###     ##############################################
 ###
 ###     def __init__(cls, class_name, super_classes, class_attribute_dict):
-###         # cls._logger.info(str((cls, class_name, super_classes, class_attribute_dict)))
+###         # cls._logger.debug(str((cls, class_name, super_classes, class_attribute_dict)))
 ###         type.__init__(cls, class_name, super_classes, class_attribute_dict)
 
 ####################################################################################################
@@ -133,7 +133,7 @@ class Calculation():
     ##############################################
 
     def eval(self):
-        self._logger.info('Eval {}'.format(self))
+        self._logger.debug('Eval {}'.format(self))
         self.eval_internal()
 
     ##############################################
@@ -364,7 +364,7 @@ class Point(Calculation):
     ##############################################
 
     def _post_eval_internal(self):
-        self._logger.info('{0._name} {0._vector}'.format(self))
+        self._logger.debug('{0._name} {0._vector}'.format(self))
 
     ##############################################
 
@@ -700,7 +700,7 @@ class SimpleInteractiveSpline(Calculation, LinePropertiesMixin, FirstSecondPoint
         control_point2_offset = Vector2D.from_angle(self._angle2.value)*self._length2.value
         self._control_point1 = self.first_point.vector + control_point1_offset
         self._control_point2 = self.second_point.vector + control_point2_offset
-        # self._logger.info("Control points : {} {}".format(self._control_point1, self._control_point2))
+        # self._logger.debug("Control points : {} {}".format(self._control_point1, self._control_point2))
 
     ##############################################
 

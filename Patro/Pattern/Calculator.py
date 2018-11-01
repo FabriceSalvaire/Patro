@@ -120,7 +120,7 @@ class Calculator:
 
     def unset_current_segment(self):
         self._current_segment = None
-        # self._logger.info('Unset current segment')
+        # self._logger.debug('Unset current segment')
 
     ##############################################
 
@@ -260,7 +260,7 @@ class Expression:
     def _compile(self):
 
         expression = self._expression
-        self._logger.info("expression '{}'".format(expression))
+        self._logger.debug("expression '{}'".format(expression))
 
         # Python don't accept identifier starting with @
         # Replace @foo by __custom__foo
@@ -297,16 +297,16 @@ class Expression:
                     break
                 else:
                     functions.append(name)
-        # self._logger.info('Functions ' + str(functions))
+        # self._logger.debug('Functions ' + str(functions))
         for function_call in functions:
             parts = function_call.split('_')
             function = parts[0]
             args = parts[1:]
             pythonised_function = '__calculator__._function_' + function + '(' + ', '.join(["'{}'".format(x) for x in args]) + ')'
-            # self._logger.info('Function {} {} -> {}'.format(function, args, pythonised_function))
+            # self._logger.debug('Function {} {} -> {}'.format(function, args, pythonised_function))
             expression = expression.replace(function_call, pythonised_function)
 
-        self._logger.info("Pythonised expression '{}'".format(expression))
+        self._logger.debug("Pythonised expression '{}'".format(expression))
 
         # Fixme: What is the (supported) grammar ?
         # http://beltoforion.de/article.php?a=muparser
@@ -344,7 +344,7 @@ class Expression:
         #     self._logger.warning(e)
         #     self._value = None
 
-        self._logger.info('Eval {} = {}'.format(self._expression, self._value))
+        self._logger.debug('Eval {} = {}'.format(self._expression, self._value))
 
     ##############################################
 

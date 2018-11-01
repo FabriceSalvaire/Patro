@@ -275,7 +275,7 @@ class ValFile(XmlFileMixin):
         for detail_element in self._get_xpath_element(tree, 'draw/details'):
             xml_detail = Detail(modeling, detail_element)
             details.append(xml_detail)
-            print(xml_detail)
+            # print(xml_detail)
             for element in detail_element:
                 if element.tag == 'nodes':
                     for node in element:
@@ -286,9 +286,9 @@ class ValFile(XmlFileMixin):
                     xml_modeling_item = self._detail_dispatcher.from_xml(element)
                     # Fixme: xml_detail. = xml_modeling_item
                     # print(xml_modeling_item)
-            for node, modeling_item in xml_detail.iter_on_nodes():
-                # print(node.object_id, '->', modeling_item, '->', modeling_item.object_id)
-                print(node, '->\n', modeling_item, '->\n', pattern.get_calculation(modeling_item.object_id))
+            # for node, modeling_item in xml_detail.iter_on_nodes():
+            #     # print(node.object_id, '->', modeling_item, '->', modeling_item.object_id)
+            #     print(node, '->\n', modeling_item, '->\n', pattern.get_calculation(modeling_item.object_id))
 
     ##############################################
 

@@ -28,14 +28,34 @@ ApplicationWindow {
     title: 'Patro'
     visible: true
 
+    width: 1000
+    height: 500
+
     Component.onCompleted: {
 	console.info('ApplicationWindow.onCompleted')
-	application_window.showMaximized()
+	// application_window.showMaximized()
     }
 
     PaintedSceneItem {
 	id: scene_view
 	anchors.fill: parent
 	scene: application.scene
+
+	MouseArea {
+            anchors.fill: parent
+	    acceptedButtons: Qt.LeftButton | Qt.RightButton
+	    onClicked: {
+		if (mouse.button == Qt.LeftButton)
+		    console.info('Mouse left', mouse.x, mouse.y)
+	    }
+	    onWheel: {
+		var direction = wheel.angleDelta.y > 0
+		console.info('Mouse wheel', wheel.x, wheel.y, direction)
+		if (direction)
+		    scene_view.zoom *= 2
+		else
+		    scene_view.zoom /= 2
+	    }
+	}
     }
 }
