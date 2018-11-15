@@ -36,8 +36,11 @@ from PyQt5.QtCore import (
 from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import qmlRegisterType, qmlRegisterUncreatableType, QQmlApplicationEngine
 from PyQt5.QtQuick import QQuickPaintedItem, QQuickView
+# from PyQt5.QtQuickControls2 import QQuickStyle
 
 from Patro.GraphicEngine.Painter.QtPainter import QtScene, QtQuickPaintedSceneItem
+
+from .rcc import PatroRessource
 
 ####################################################################################################
 
@@ -157,6 +160,8 @@ class Application(QObject):
         # QGuiApplication.setApplicationName(APPLICATION_NAME)
         # QGuiApplication.setOrganizationName(ORGANISATION_NAME)
         QGuiApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
+
+        # QQuickStyle.setStyle('Material')
 
     ##############################################
 

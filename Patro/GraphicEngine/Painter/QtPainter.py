@@ -27,7 +27,7 @@ import numpy as np
 from IntervalArithmetic import Interval2D
 
 from PyQt5.QtCore import (
-    pyqtProperty, pyqtSignal, QObject,
+    pyqtProperty, pyqtSignal, pyqtSlot, QObject,
     QRectF, QSizeF, QPointF, Qt,
 )
 from PyQt5.QtGui import QColor, QPainter, QPainterPath, QPen
@@ -350,11 +350,23 @@ class ViewportArea:
 
     def viewport_to_scene(self, position):
 
-        pass
+        point = QPointF(position.x(), -position.y())
+        point /= self._scale
+        point -= self._translation
+        return np.array((point.x(), point.y()), dtype=np.float)
+
+    ##############################################
+
+    def pan_delta_to_scene(self, position):
+
+        # Fixme:
+        point = QPointF(position.x(), position.y())
+        # point /= self._scale
+        return np.array((point.x(), point.y()), dtype=np.float)
 
 ####################################################################################################
 
-class QtQuickPaintedSceneItem(QtPainter, QQuickPaintedItem):
+class QtQuickPaintedSceneItem(QQuickPaintedItem, QtPainter):
 
     _logger = _module_logger.getChild('QtQuickPaintedSceneItem')
 
@@ -379,6 +391,7 @@ class QtQuickPaintedSceneItem(QtPainter, QQuickPaintedItem):
         self._viewport_area.viewport_size = new_geometry
         # if self._scene:
         #     self._update_transformation()
+        QQuickPaintedItem.geometryChanged(self, new_geometry, old_geometry)
 
     ##############################################
 
@@ -415,20 +428,64 @@ class QtQuickPaintedSceneItem(QtPainter, QQuickPaintedItem):
 
     ##############################################
 
-    zoomChanged = pyqtSignal()
+    # zoomChanged = pyqtSignal()
 
-    @pyqtProperty(float, notify=zoomChanged)
+    # @pyqtProperty(float, notify=zoomChanged)
+    # def zoom(self):
+    #     return self._zoom
+
+    # @zoom.setter
+    # def zoom(self, zoom):
+    #     if self._zoom != zoom:
+    #         print('QtQuickPaintedSceneItem zoom', zoom, self.width(), self.height())
+    #         self._zoom = zoom
+    #         self.set_transformation(zoom)
+    #         self.update()
+    #         self.zoomChanged.emit()
+
+    ##############################################
+
+    @pyqtProperty(float)
     def zoom(self):
-        return self._zoom
+        return self._viewport_area.scale_px_by_mm
 
-    @zoom.setter
-    def zoom(self, zoom):
-        if self._zoom != zoom:
-            print('QtQuickPaintedSceneItem zoom', zoom, self.width(), self.height())
-            self._zoom = zoom
-            self.set_transformation(zoom)
-            self.update()
-            self.zoomChanged.emit()
+    ##############################################
+
+    @pyqtSlot(QPointF, result=str)
+    def format_coordinate(self, position):
+        scene_position = self._viewport_area.viewport_to_scene(position)
+        return '{:.3f}, {:.3f}'.format(scene_position[0], scene_position[1])
+
+    ##############################################
+
+    @pyqtSlot(float)
+    def zoom_at_center(self, zoom):
+        self._viewport_area.zoom_at(self._viewport_area.center, zoom)
+        self.update()
+
+    ##############################################
+
+    @pyqtSlot(QPointF, float)
+    def zoom_at(self, position, zoom):
+        print('zoom_at', position, zoom)
+        scene_position = self._viewport_area.viewport_to_scene(position)
+        self._viewport_area.zoom_at(scene_position, zoom)
+        self.update()
+
+    ##############################################
+
+    @pyqtSlot()
+    def fit_scene(self):
+        self._viewport_area.fit_scene()
+        self.update()
+
+    ##############################################
+
+    @pyqtSlot(QPointF)
+    def pan(self, dxy):
+        position = self._viewport_area.center + self._viewport_area.pan_delta_to_scene(dxy)
+        self._viewport_area.zoom_at(position, self._viewport_area.scale_px_by_mm)
+        self.update()
 
 ####################################################################################################
 

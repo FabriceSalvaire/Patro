@@ -20,6 +20,7 @@
 
 import QtQuick 2.11
 import QtQuick.Controls 2.4
+import QtQuick.Layouts 1.11
 
 import Patro 1.0
 
@@ -31,9 +32,64 @@ ApplicationWindow {
     width: 1000
     height: 500
 
+    property int zoom_step: 10
+
     Component.onCompleted: {
 	console.info('ApplicationWindow.onCompleted')
 	// application_window.showMaximized()
+    }
+
+    menuBar: MenuBar {
+        Menu {
+            title: qsTr('&File')
+            Action { text: qsTr('&Open') }
+            MenuSeparator { }
+            Action {
+		text: qsTr('&Quit')
+		onTriggered: application_window.close()
+	    }
+        }
+        Menu {
+            title: qsTr('&Help')
+            Action { text: qsTr('&About') }
+        }
+    }
+
+    header: ToolBar {
+        RowLayout {
+            anchors.fill: parent
+            ToolButton {
+		icon.source: 'qrc:/icons/36x36/settings-overscan-black.png'
+		onClicked: scene_view.fit_scene()
+            }
+            ToolButton {
+		icon.source: 'qrc:/icons/36x36/zoom-in-black.png'
+		onClicked: {
+		    var zoom_factor = 1 + application_window.zoom_step/100
+		    scene_view.zoom_at_center(scene_view.zoom*zoom_factor)
+		}
+            }
+            ToolButton {
+		icon.source: 'qrc:/icons/36x36/zoom-out-black.png'
+		onClicked: {
+		    var zoom_factor = 1 - application_window.zoom_step/100
+		    scene_view.zoom_at_center(scene_view.zoom*zoom_factor)
+		}
+            }
+	    Item {
+		Layout.fillWidth: true
+	    }
+        }
+    }
+
+    footer: ToolBar {
+        RowLayout {
+            anchors.fill: parent
+            Text {
+		id: position_label
+		text: ''
+            }
+        }
     }
 
     PaintedSceneItem {
@@ -42,20 +98,53 @@ ApplicationWindow {
 	scene: application.scene
 
 	MouseArea {
+	    id: scene_mouse_area
             anchors.fill: parent
+	    hoverEnabled: true
 	    acceptedButtons: Qt.LeftButton | Qt.RightButton
-	    onClicked: {
-		if (mouse.button == Qt.LeftButton)
+	    // var point ???
+	    property var mouse_start
+	    Component.onCompleted: {
+		mouse_start = null
+	    }
+	    // onClicked: {
+	    // 	if (mouse.button == Qt.LeftButton) {
+	    // 	    console.info('Mouse left', mouse.x, mouse.y)
+	    // 	}
+	    // }
+	    onPressed: {
+		if (mouse.button == Qt.LeftButton) {
 		    console.info('Mouse left', mouse.x, mouse.y)
+		    mouse_start = Qt.point(mouse.x, mouse.y)
+		}
 	    }
-	    onWheel: {
-		var direction = wheel.angleDelta.y > 0
-		console.info('Mouse wheel', wheel.x, wheel.y, direction)
-		if (direction)
-		    scene_view.zoom *= 2
-		else
-		    scene_view.zoom /= 2
+	    onReleased: {
+		mouse_start = null
 	    }
+	    onPositionChanged: {
+		console.info('onPositionChanged', mouse.button, mouse_start)
+		if (mouse_start !== null) {
+		    var dx = mouse.x - mouse_start.x
+		    var dy = mouse.y - mouse_start.y
+		    var dxy = Qt.point(dx, dy)
+		    console.info('pan', dxy)
+		    // if (dx^2 + dy^2 > 100)
+		    scene_view.pan(dxy)
+		    mouse_start = Qt.point(mouse.x, mouse.y)
+		} else {
+		    position_label.text = scene_view.format_coordinate(Qt.point(mouse.x, mouse.y))
+		}
+	    }
+    	    onWheel: {
+    		var direction = wheel.angleDelta.y > 0
+    		console.info('Mouse wheel', wheel.x, wheel.y, direction)
+    		var zoom = scene_view.zoom
+    		if (direction)
+    	    	    zoom *= 2
+    		else
+    	    	    zoom /= 2
+    		scene_view.zoom_at(Qt.point(wheel.x, wheel.y), zoom)
+    	    }
 	}
     }
 }

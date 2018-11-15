@@ -1,0 +1,28 @@
+#! /bin/bash
+
+category=$1
+name=$2
+dp="36"
+
+mdi_path="/home/doc/material-design-ressources/material-design-icons"
+
+function copy_link() {
+  colour=$1
+  dpi=$2
+  scale=$3
+
+  subdir="${category}/drawable-${dpi}"
+  subdir_dest="../${dp}x${dp}"
+  src="ic_${name}_${colour}_${dp}dp.png"
+  target=$(tr "_" "-" <<<"${name}-${colour}${scale}.png")
+  mkdir -p ${subdir_dest}
+  cp ${mdi_path}/${subdir}/${src} ${subdir_dest}/${target}
+  # pushd ${subdir_dest}
+  # rm -f ${target}
+  # ln -sf ${src} ${target}
+  # popd
+}
+
+for colour in black ; do
+  copy_link ${colour} mdpi
+done

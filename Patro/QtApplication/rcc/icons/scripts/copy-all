@@ -1,0 +1,43 @@
+#! /bin/bash
+
+# see https://material.io/icons/
+
+PATH=$PWD/scripts:$PATH
+
+# copy-icon action star_rate
+copy-icon action book
+copy-icon action delete
+copy-icon action description
+copy-icon action find_in_page
+copy-icon action open_in_new
+copy-icon action search
+copy-icon action settings
+copy-icon action settings_overscan
+copy-icon action zoom_in
+copy-icon action zoom_out
+copy-icon alert error
+copy-icon alert error_outline
+copy-icon alert warning
+copy-icon av playlist_add
+copy-icon content add
+copy-icon content add_box
+copy-icon content add_circle
+copy-icon content clear
+copy-icon content create
+copy-icon editor title
+copy-icon image image
+copy-icon file folder
+copy-icon file folder_open
+copy-icon navigation arrow_back
+copy-icon navigation arrow_downward
+copy-icon navigation arrow_forward
+copy-icon navigation arrow_upward
+copy-icon navigation cancel
+copy-icon navigation chevron_left
+copy-icon navigation chevron_right
+copy-icon navigation close
+copy-icon navigation first_page
+copy-icon navigation last_page
+copy-icon navigation refresh
+copy-icon toggle star
+copy-icon toggle star_border

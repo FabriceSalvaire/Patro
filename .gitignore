@@ -3,6 +3,8 @@
 *~
 __pycache__
 *.qmlc
+.directory
+
 
 MANIFEST
 auto/
@@ -23,6 +25,7 @@ todo.txt
 tools/upload-www
 trash/
 
+Patro/QtApplication/rcc/icons/36x36-unused/
 Patro/GraphicEngine/TeX/__MERGE_MUSICA__
 examples/output-2017/
 examples/patterns/veravenus-little-bias-dress.pattern-a0.pdf
