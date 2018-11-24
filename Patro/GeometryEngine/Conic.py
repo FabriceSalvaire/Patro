@@ -432,6 +432,7 @@ class Conic2D(Primitive2DMixin, DomainMixin, Primitive):
 
     @property
     def bounding_box(self):
+        # conic -> rectangle -> apply rotation
         raise NotImplementedError
 
     ##############################################
@@ -447,4 +448,10 @@ class Conic2D(Primitive2DMixin, DomainMixin, Primitive):
     ##############################################
 
     def intersect_conic(self, conic):
+        raise NotImplementedError
+
+    ##############################################
+
+    def distance_to_point(self, point):
+        # ray ?
         raise NotImplementedError

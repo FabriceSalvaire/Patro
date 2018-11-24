@@ -50,7 +50,7 @@ class Segment2D(Primitive2DMixin, Primitive2P):
 
     @property
     def length(self):
-        return self.vector.magnitude()
+        return self.vector.magnitude
 
     @property
     def center(self):
@@ -67,6 +67,7 @@ class Segment2D(Primitive2DMixin, Primitive2P):
     ##############################################
 
     def to_line(self):
+        # Fixme: cache
         return Line2D.from_two_points(self._p1, self._p0)
 
     ##############################################
@@ -160,3 +161,19 @@ class Segment2D(Primitive2DMixin, Primitive2P):
     def is_collinear(self, point):
         """Tests if a point is on line"""
         return self.side_of(point) == 0
+
+    ##############################################
+
+    def distance_to_point(self, point):
+
+        line = self.to_line()
+        d, s = line.distance_and_abscissa_to_line(point)
+        print('Segment2.distance_to_point', d, s)
+        if 0 <= s <= self.length:
+            return d
+        else:
+            if s < 0:
+                p = self._p0
+            else:
+                p = self._p1
+            return (p - point).magnitude

@@ -108,3 +108,8 @@ class Rectangle2D(Primitive2DMixin, Primitive2P):
         bounding_box = self.bounding_box
         return (point.x in bounding_box.x and
                 point.y in bounding_box.y)
+
+    ##############################################
+
+    def distance_to_point(self, point):
+        raise NotImplementedError

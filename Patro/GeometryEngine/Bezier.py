@@ -216,7 +216,7 @@ class QuadraticBezier2D(Primitive2DMixin, Primitive3P):
 
         return curve
 
-    ##############################################
+   ##############################################
 
     @property
     def tangent0(self):
@@ -395,7 +395,7 @@ class QuadraticBezier2D(Primitive2DMixin, Primitive3P):
 
         p = self.closest_point(point)
         if p is not None:
-            return point - p
+            return (point - p).magnitude
         else:
             return None
 
@@ -436,8 +436,8 @@ class CubicBezier2D(Primitive4P, QuadraticBezier2D):
         #     raise ValueError()
         return (self._p0 +
                 (self._p1 - self._p0) * 3 * t  +
-                (self._p2 - self._p1 * 2 + self._p0) * 3 * t**2 +
-                (self._p3 - self._p2 * 3 + self._p1 * 3 - self._p0) * t**3)
+                (self._p2 - self._p1*2 + self._p0) * 3 * t**2 +
+                (self._p3 - self._p2*3 + self._p1*3 - self._p0) * t**3)
 
     # interpolate = point_at_t
 
@@ -445,7 +445,7 @@ class CubicBezier2D(Primitive4P, QuadraticBezier2D):
 
     def _q_point(self):
         """Return the control point for mid-point quadratic approximation"""
-        return (self._p2 * 3 - self._p3 + self._p1 * 3 - self._p0) / 4
+        return (self._p2*3 - self._p3 + self._p1*3 - self._p0) / 4
 
     ##############################################
 
@@ -892,9 +892,9 @@ class CubicBezier2D(Primitive4P, QuadraticBezier2D):
         # (2*P*r - 2*r*v - s**2) * t
         # P*s - s*v
 
-        n = self._p3 - 3*self._p2 + 3*self._p1 - self._p0
-        r = 3*(self._p2 - 2*self._p1 + self._p0)
-        s = 3*(self._p1 - self._p0)
+        n = self._p3 - self._p2*3 + self._p1*3 - self._p0
+        r = (self._p2 - self._p1*2 + self._p0)*3
+        s = (self._p1 - self._p0)*3
         v = self._p0
 
         roots = fifth_root(
@@ -912,4 +912,4 @@ class CubicBezier2D(Primitive4P, QuadraticBezier2D):
         elif len(t) > 1:
             raise NameError("Found more than on root")
         else:
-            return self.point_at_t(t)
+            return self.point_at_t(t[0])
