@@ -487,10 +487,19 @@ class QtQuickPaintedSceneItem(QQuickPaintedItem, QtPainter):
     @pyqtSlot(QPointF)
     def item_at(self, position):
 
+        # Fixme: 1 = 1 cm
+        #   as f of zoom ?
+        radius = 0.3
+
         self._scene.update_rtree()
         scene_position = Vector2D(self._viewport_area.viewport_to_scene(position))
-        items = self._scene.item_at(scene_position, radius=1)
-        print('item_at', position, scene_position, items)
+        items = self._scene.item_at(scene_position, radius)
+        if items:
+            distance, nearest_item = items[0]
+            print('nearest item at {} #{:6.2f} {} {}'.format(scene_position, len(items), distance, nearest_item.user_data))
+            for pair in items[1:]:
+                distance, item = pair
+                print('  {:6.2f} {}'.format(distance, item.user_data))
 
 ####################################################################################################
 

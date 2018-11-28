@@ -42,18 +42,7 @@ import rtree
 from Patro.GeometryEngine.Transformation import AffineTransformation2D
 from Patro.GeometryEngine.Vector import Vector2D
 from . import GraphicItem
-from .GraphicItem import  (
-#    CircleItem,
-    CoordinateItem,
-#    CubicBezierItem,
-#    EllipseItem,
-#    ImageItem,
-##   PathItem,
-##   PolygonItem,
-#    RectangleItem,
-#    SegmentItem,
-#    TextItem,
-)
+from .GraphicItem import CoordinateItem
 
 ####################################################################################################
 
@@ -97,6 +86,7 @@ class GraphicSceneScope:
     ##############################################
 
     def __iter__(self):
+        # must be an ordered item list
         return iter(self._items.values())
 
     ##############################################
@@ -130,7 +120,8 @@ class GraphicSceneScope:
 
     ##############################################
 
-    def _add_item(self, cls, *args, **kwargs):
+    def add_item(self, cls, *args, **kwargs):
+
         item = cls(self, *args, **kwargs)
         # print(item, item.user_data, hash(item))
         # if item in self._items:
@@ -148,13 +139,12 @@ class GraphicSceneScope:
     ##############################################
 
     # Fixme: ???
-    def item(self, item):
-        return self._items[item]
+    # def item(self, item):
+    #     return self._items[item]
 
     ##############################################
 
     def update_rtree(self):
-
         for item in self._items.values():
             if item.dirty:
                 self.update_rtree_item(item)
@@ -170,7 +160,7 @@ class GraphicSceneScope:
         if insert:
             # try:
             bounding_box = item.bounding_box.bounding_box # Fixme: name
-            print(item, bounding_box)
+            # print(item, bounding_box)
             self._rtree.insert(item_id, bounding_box)
             self._item_bounding_box_cache[item_id] = bounding_box
             # except AttributeError:
@@ -182,7 +172,7 @@ class GraphicSceneScope:
     def item_in_bounding_box(self, bounding_box):
 
         # Fixme: Interval2D ok ?
-        print('item_in_bounding_box', bounding_box)
+        # print('item_in_bounding_box', bounding_box)
         item_ids = self._rtree.intersection(bounding_box)
         if item_ids:
             return [self._items[item_id] for item_id in item_ids]
@@ -202,7 +192,7 @@ class GraphicSceneScope:
         for item in self.item_in_bounding_box(bounding_box):
             try: # Fixme
                 distance = item.distance_to_point(position)
-                print('distance_to_point', item, distance)
+                # print('distance_to_point {:6.2f} {}'.format(distance, item))
                 if distance <= radius:
                     items.append((distance, item))
             except NotImplementedError:
@@ -213,40 +203,13 @@ class GraphicSceneScope:
 
     # Fixme: !!!
     # def add_scope(self, *args, **kwargs):
-    #     return self._add_item(GraphicSceneScope, self, *args, **kwargs)
+    #     return self.add_item(GraphicSceneScope, self, *args, **kwargs)
 
     ##############################################
 
-    # def circle(self, *args, **kwargs):
-    #     return self._add_item(CircleItem, *args, **kwargs)
-
-    # def cubic_bezier(self, *args, **kwargs):
-    #     return self._add_item(CubicBezierItem, *args, **kwargs)
-
-    # def ellipse(self, *args, **kwargs):
-    #     return self._add_item(EllipseItem, *args, **kwargs)
-
-    # def image(self, *args, **kwargs):
-    #     return self._add_item(ImageItem, *args, **kwargs)
-
-    # def path(self, *args, **kwargs):
-    #     return self._add_item(PathItem, *args, **kwargs)
-
-    # def polygon(self, *args, **kwargs):
-    #     return self._add_item(PolygonItem, *args, **kwargs)
-
-    # def rectangle(self, *args, **kwargs):
-    #     return self._add_item(RectangleItem, *args, **kwargs)
-
-    # def segment(self, *args, **kwargs):
-    #     return self._add_item(SegmentItem, *args, **kwargs)
-
-    # def text(self, *args, **kwargs):
-    #     return self._add_item(TextItem, *args, **kwargs)
-
 def make_add_item_wrapper(cls):
     def wrapper(self, *args, **kwargs):
-        return self._add_item(cls, *args, **kwargs)
+        return self.add_item(cls, *args, **kwargs)
     return wrapper
 
 for name, cls in GraphicSceneScope.__ITEM_CTOR__.items():

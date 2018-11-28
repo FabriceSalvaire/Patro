@@ -325,10 +325,17 @@ class Circle2D(Primitive2DMixin, DomainMixin, Primitive):
 
     ##############################################
 
-    def distance_to_point(self, point):
-
+    def signed_distance_to_point(self, point):
         # d = |P - C| - R
+        #   < 0 if inside
+        #   = 0    on circle
+        #   > 0 if outside
         return (point - self._center).magnitude - self._radius
+
+    ##############################################
+
+    def distance_to_point(self, point):
+        return abs(self.signed_distance_to_point(point))
 
 ####################################################################################################
 
