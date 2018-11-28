@@ -133,7 +133,7 @@ ApplicationWindow {
 		    var dy = mouse.y - mouse_start.y
                     // - so as to have a natural pan
                     // pan at right using a mouse move at right
-		    var dxy = Qt.point(-dx, -dy)
+		    var dxy = Qt.point(dx, -dy)
 		    console.info('pan', dxy)
 		    // if (dx^2 + dy^2 > 100)
 		    scene_view.pan(dxy)
