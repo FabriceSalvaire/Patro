@@ -24,8 +24,9 @@ import logging
 
 from IntervalArithmetic import Interval2D
 
-from Patro.GeometryEngine.Vector import Vector2D
 from Patro.Common.Math.Functions import ceil_int
+from Patro.GeometryEngine.Vector import Vector2D
+from Patro.GraphicEngine.GraphicScene.GraphicItem import GraphicItem
 
 ####################################################################################################
 
@@ -76,6 +77,22 @@ class Painter:
 
     ##############################################
 
+    def __init_subclass__(cls, **kwargs):
+
+        super().__init_subclass__(**kwargs)
+
+        # Register paint methods
+        paint_method = {}
+        for item_cls in GraphicItem.__subclasses__:
+            name = 'paint_' + item_cls.__name__
+            try:
+                paint_method[item_cls] = getattr(cls, name)
+            except AttributeError:
+                pass
+        cls.__paint_method__ = paint_method
+
+    ##############################################
+
     def __init__(self, scene):
         self._scene = scene
 
@@ -96,10 +113,20 @@ class Painter:
         if self._scene is None:
             return
 
-        for item in self._scene.root_scope:
-            # Fixme: GraphicItemScope
-            function = getattr(self, 'paint_' + item.__class__.__name__)
-            function(item)
+        # Fixme: GraphicItemScope
+        for item in self._scene:
+            if item.visible:
+                self.__paint_method__[item.__class__](self, item)
+
+    ##############################################
+
+    def cast_position(self, position):
+        return self._scene.cast_position(position)
+
+    ##############################################
+
+    def cast_item_positions(self, item):
+        return [self.cast_position(position) for position in item.positions]
 
     ##############################################
 

@@ -25,7 +25,7 @@ import logging
 from IntervalArithmetic import Interval2D
 
 from Patro.GeometryEngine.Vector import Vector2D
-from Patro.GraphicEngine.GraphicScene.GraphicItem import PathStyle
+from Patro.GraphicEngine.GraphicScene.GraphicItem import GraphicStyle
 from Patro.GraphicEngine.GraphicScene.Scene import GraphicScene
 from . import Calculation
 from .Calculator import Calculator
@@ -151,7 +151,7 @@ class Pattern:
 
     def _calculation_to_path_style(self, calculation, **kwargs):
 
-        return PathStyle(
+        return GraphicStyle(
             stroke_style=calculation.line_style,
             stroke_color=calculation.line_color,
             **kwargs
@@ -173,37 +173,45 @@ class Pattern:
 
             if isinstance(calculation, Calculation.Point):
                 scene.add_coordinate(calculation.name, calculation.vector)
-                scene.add_circle(calculation.name, '1pt', PathStyle(fill_color='black'))
+                scene.circle(calculation.name, '1pt', GraphicStyle(fill_color='black'),
+                             user_data=calculation)
                 label_offset = calculation.label_offset
                 offset = Vector2D(label_offset.x, -label_offset.y) # Fixme: ???
                 label_position = calculation.vector + offset
                 if offset:
                     # arrow must point to the label center and be clipped
-                    scene.add_segment(calculation.vector, label_position, PathStyle(line_width='.5pt'))
-                scene.add_text(label_position, calculation.name)
+                    scene.segment(calculation.vector, label_position, GraphicStyle(line_width='.5pt'),
+                                  user_data=calculation)
+                    scene.text(label_position, calculation.name, user_data=calculation)
 
                 if isinstance(calculation, Calculation.LinePropertiesMixin):
                     path_style = self._calculation_to_path_style(calculation, line_width='2pt')
                     if isinstance(calculation, Calculation.AlongLinePoint):
-                        scene.add_segment(calculation.first_point.name, calculation.name, path_style)
+                        scene.segment(calculation.first_point.name, calculation.name, path_style,
+                                      user_data=calculation)
                     elif isinstance(calculation, Calculation.EndLinePoint):
-                        scene.add_segment(calculation.base_point.name, calculation.name, path_style)
+                        scene.segment(calculation.base_point.name, calculation.name, path_style,
+                                      user_data=calculation)
                     # elif isinstance(calculation, LineIntersectPoint):
-                    #     scene.add_segment(calculation.point1_line1.name, calculation.name, path_style)
+                    #     scene.segment(calculation.point1_line1.name, calculation.name, path_style)
                     #     source += r'\draw[{0}] ({1.point1_line1.name}) -- ({1.name});'.format(style, calculation) + '\n'
                     elif isinstance(calculation, Calculation.NormalPoint):
-                        scene.add_segment(calculation.first_point.name, calculation.name, path_style)
+                        scene.segment(calculation.first_point.name, calculation.name, path_style,
+                                      user_data=calculation)
 
             elif isinstance(calculation, Calculation.Line):
                 path_style = self._calculation_to_path_style(calculation, line_width='4pt')
-                scene.add_segment(calculation.first_point.name, calculation.second_point.name, path_style)
+                scene.segment(calculation.first_point.name, calculation.second_point.name, path_style,
+                              user_data=calculation)
 
             elif isinstance(calculation, Calculation.SimpleInteractiveSpline):
                 path_style = self._calculation_to_path_style(calculation, line_width='4pt')
-                scene.add_cubic_bezier(calculation.first_point.name,
-                                       calculation.control_point1, calculation.control_point2,
-                                       calculation.second_point.name,
-                                       path_style)
+                scene.cubic_bezier(calculation.first_point.name,
+                                   calculation.control_point1, calculation.control_point2,
+                                   calculation.second_point.name,
+                                   path_style,
+                                   user_data=calculation,
+                )
 
         return scene
 

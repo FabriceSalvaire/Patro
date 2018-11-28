@@ -101,7 +101,7 @@ ApplicationWindow {
 	    id: scene_mouse_area
             anchors.fill: parent
 	    hoverEnabled: true
-	    acceptedButtons: Qt.LeftButton | Qt.RightButton
+	    acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
 	    // var point ???
 	    property var mouse_start
 	    Component.onCompleted: {
@@ -114,7 +114,12 @@ ApplicationWindow {
 	    // }
 	    onPressed: {
 		if (mouse.button == Qt.LeftButton) {
-		    console.info('Mouse left', mouse.x, mouse.y)
+		    // console.info('Mouse left', mouse.x, mouse.y)
+		    var position = Qt.point(mouse.x, mouse.y)
+                    scene_view.item_at(position)
+                }
+		else if (mouse.button == Qt.MiddleButton) {
+		    // console.info('Mouse left', mouse.x, mouse.y)
 		    mouse_start = Qt.point(mouse.x, mouse.y)
 		}
 	    }
@@ -122,11 +127,13 @@ ApplicationWindow {
 		mouse_start = null
 	    }
 	    onPositionChanged: {
-		console.info('onPositionChanged', mouse.button, mouse_start)
+		// console.info('onPositionChanged', mouse.button, mouse_start)
 		if (mouse_start !== null) {
 		    var dx = mouse.x - mouse_start.x
 		    var dy = mouse.y - mouse_start.y
-		    var dxy = Qt.point(dx, dy)
+                    // - so as to have a natural pan
+                    // pan at right using a mouse move at right
+		    var dxy = Qt.point(-dx, -dy)
 		    console.info('pan', dxy)
 		    // if (dx^2 + dy^2 > 100)
 		    scene_view.pan(dxy)

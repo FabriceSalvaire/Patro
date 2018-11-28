@@ -22,7 +22,10 @@
 
 import logging
 
-# from Patro.GeometryPatro.Engine.Vector import Vector2D
+from Patro.GeometryEngine.Bezier import CubicBezier2D
+from Patro.GeometryEngine.Conic import Circle2D, Conic2D
+from Patro.GeometryEngine.Rectangle import Rectangle2D
+from Patro.GeometryEngine.Segment import Segment2D
 
 ####################################################################################################
 
@@ -30,7 +33,7 @@ _module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
-class PathStyle:
+class GraphicStyle:
 
     ##############################################
 
@@ -77,16 +80,6 @@ class PathStyle:
 
 ####################################################################################################
 
-class GraphicItem:
-    pass
-
-    ##############################################
-
-    # def __init__(self):
-    #     pass
-
-####################################################################################################
-
 class PositionMixin:
 
     ##############################################
@@ -109,6 +102,10 @@ class PositionMixin:
     def positions(self):
         return (self._position)
 
+    @property
+    def casted_position(self):
+        return self._scene.cast_position(self._position)
+
 ####################################################################################################
 
 class TwoPositionMixin:
@@ -116,7 +113,6 @@ class TwoPositionMixin:
     ##############################################
 
     def __init__(self, position1, position2):
-        # Fixme: could be Vector2D or name
         self._position1 = position1
         self._position2 = position2
 
@@ -161,13 +157,42 @@ class FourPositionMixin(TwoPositionMixin):
 
 ####################################################################################################
 
-class CoordinateItem(GraphicItem, PositionMixin):
+class StartStopAngleMixin:
+
+    ##############################################
+
+    def __init__(self, start_angle=0, stop_angle=360):
+        self._start_angle = start_angle
+        self._stop_angle = stop_angle
+
+    ##############################################
+
+    @property
+    def start_angle(self):
+        return self._start_angle
+
+    # @start_angle.setter
+    # def start_angle(self, value):
+    #     self._start_angle = value
+
+    @property
+    def stop_angle(self):
+        return self._stop_angle
+
+    # @stop_angle.setter
+    # def stop_angle(self, value):
+    #     self._stop_angle = value
+
+####################################################################################################
+
+class CoordinateItem(PositionMixin):
 
     ##############################################
 
     def __init__(self, name, position):
-        GraphicItem.__init__(self)
+
         PositionMixin.__init__(self, position)
+
         self._name = str(name)
 
     ##############################################
@@ -178,13 +203,136 @@ class CoordinateItem(GraphicItem, PositionMixin):
 
 ####################################################################################################
 
-class TextItem(GraphicItem, PositionMixin):
+class GraphicItem:
+
+    # clipping
+    # opacity
+
+    __subclasses__ = []
+
+    def __init_subclass__(cls, **kwargs):
+        super().__init_subclass__(**kwargs)
+        cls.__subclasses__.append(cls)
 
     ##############################################
 
-    def __init__(self, position, text):
-        GraphicItem.__init__(self)
+    def __init__(self, scene, user_data):
+
+        self._scene = scene
+        self._user_data = user_data
+
+        self._visible = True
+        self._selected = False
+
+        self._dirty = True
+        self._geometry = None
+        self._bounding_box = None
+
+    ##############################################
+
+    @property
+    def scene(self):
+        return self._scene
+
+    @property
+    def user_data(self):
+        return self._user_data
+
+    ##############################################
+
+    def __hash__(self):
+        return hash(self._user_data)
+
+    ##############################################
+
+    @property
+    def visible(self):
+        return self._visible
+
+    @visible.setter
+    def visible(self, value):
+        self._visible = value
+
+    @property
+    def selected(self):
+        return self._selected
+
+    @selected.setter
+    def selected(self, value):
+        self._selected = value
+
+    ##############################################
+
+    @property
+    def positions(self):
+        raise NotImplementedError
+
+    ##############################################
+
+    @property
+    def casted_positions(self):
+        cast = self._scene.cast_position
+        return [cast(position) for position in self.positions]
+
+    ##############################################
+
+    @property
+    def dirty(self):
+        return self._dirty
+
+    @dirty.setter
+    def dirty(self, value):
+
+        if bool(value):
+            self._dirty = True
+        else:
+            self._dirty = True
+            self._geometry = None
+            self._bounding_box = None
+
+    ##############################################
+
+    @property
+    def bounding_box(self):
+        if self._bounding_box is None:
+            self._bounding_box = self.get_bounding_box()
+        return self._bounding_box
+
+    @property
+    def geometry(self):
+        if self._geometry is None:
+            self._geometry = self.get_geometry()
+            self._dirty = False
+        return self._geometry
+
+    ##############################################
+
+    def get_geometry(self):
+        raise NotImplementedError
+
+    ##############################################
+
+    def get_bounding_box(self):
+        return self.geometry.bounding_box
+
+    ##############################################
+
+    def distance_to_point(self, point):
+        return self.geometry.distance_to_point(point)
+
+####################################################################################################
+
+class TextItem(PositionMixin, GraphicItem):
+
+    # font
+
+    ##############################################
+
+    def __init__(self, scene, position, text, user_data):
+
+        GraphicItem.__init__(self, scene, user_data)
         PositionMixin.__init__(self, position)
+
         self._text = str(text)
 
     ##############################################
@@ -197,13 +345,23 @@ class TextItem(GraphicItem, PositionMixin):
     # def text(self, value):
     #     self._text = value
 
+    ##############################################
+
+    def get_geometry(self):
+        position = self.casted_position
+        # Fixme:
+        return Rectangle2D(position, position)
+
 ####################################################################################################
 
-class PathItem:
+class PathStyleItemMixin(GraphicItem):
 
     ##############################################
 
-    def __init__(self, path_style):
+    def __init__(self, scene, path_style, user_data):
+
+        GraphicItem.__init__(self, scene, user_data)
+
         self._path_style = path_style
 
     ##############################################
@@ -218,13 +376,23 @@ class PathItem:
 
 ####################################################################################################
 
-class CircleItem(PathItem, PositionMixin):
+class CircleItem(PositionMixin, StartStopAngleMixin, PathStyleItemMixin):
 
     ##############################################
 
-    def __init__(self, position, radius, path_style):
-        PathItem.__init__(self, path_style)
+    def __init__(self, scene, position, radius, path_style, user_data,
+                 start_angle=0, # Fixme: kwargs ?
+                 stop_angle=360,
+    ):
+
+        PathStyleItemMixin.__init__(self, scene, path_style, user_data)
         PositionMixin.__init__(self, position)
+        StartStopAngleMixin.__init__(self, start_angle, stop_angle)
+
+        # Fixme: radius = 1pt !!!
+        if radius == '1pt':
+            radius = 10
+
         self._radius = radius
 
     ##############################################
@@ -237,37 +405,129 @@ class CircleItem(PathItem, PositionMixin):
     # def radius(self, value):
     #     self._radius = value
 
+    ##############################################
+
+    def get_geometry(self):
+        position = self.casted_position
+        return Circle2D(position, self._radius) # Fixme: radius
+
 ####################################################################################################
 
-class SegmentItem(PathItem, TwoPositionMixin):
+class EllipseItem(PositionMixin, StartStopAngleMixin, PathStyleItemMixin):
 
     ##############################################
 
-    def __init__(self, position1, position2, path_style): # segment
-        PathItem.__init__(self, path_style)
+    def __init__(self, scene, position, x_radius, y_radius, path_style, user_data,
+                 start_angle=0,
+                 stop_angle=360,
+    ):
+
+        PathStyleItemMixin.__init__(self, scene, path_style, user_data)
+        PositionMixin.__init__(self, position)
+        StartStopAngleMixin.__init__(self, start_angle, stop_angle)
+
+        self._x_radius = x_radius
+        self._y_radius = y_radius
+
+    ##############################################
+
+    @property
+    def x_radius(self):
+        return self._x_radius
+
+    # @x_radius.setter
+    # def x_radius(self, value):
+    #     self._x_radius = value
+
+    @property
+    def y_radius(self):
+        return self._y_radius
+
+    # @y_radius.setter
+    # def y_radius(self, value):
+    #     self._y_radius = value
+
+    ##############################################
+
+    def get_geometry(self):
+        position = self.casted_position
+        return Conic2D(position, self._x_radius, self._y_radius) # Fixme: radius, angle
+
+####################################################################################################
+
+class SegmentItem(TwoPositionMixin, PathStyleItemMixin):
+
+    ##############################################
+
+    def __init__(self, scene, position1, position2, path_style, user_data):
+
+        PathStyleItemMixin.__init__(self, scene, path_style, user_data)
         TwoPositionMixin.__init__(self, position1, position2)
-        # super(SegmentItem, self).__init__(path_style)
-        # self._segment = segment
 
     ##############################################
 
-    # @property
-    # def segment(self):
-    #     return self._segment
-
-    # @segment.setter
-    # def segment(self, value):
-    #     self._segment = value
+    def get_geometry(self):
+        positions = self.casted_positions
+        return Segment2D(*positions)
 
 ####################################################################################################
 
-class CubicBezierItem(PathItem, FourPositionMixin):
+class RectangleItem(TwoPositionMixin, PathStyleItemMixin):
 
     ##############################################
 
-    def __init__(self, position1, position2, position3, position4, path_style): # , curve
+    def __init__(self, scene, position1, position2, path_style, user_data):
+
+        # Fixme: position or W H
+        PathStyleItemMixin.__init__(self, scene, path_style, user_data)
+        TwoPositionMixin.__init__(self, position1, position2)
+
+    ##############################################
+
+    def get_geometry(self):
+        positions = self.casted_positions
+        return Rectangle2D(*positions)
+
+####################################################################################################
+
+class ImageItem(TwoPositionMixin, GraphicItem):
+
+    ##############################################
+
+    def __init__(self, scene, position1, position2, image, user_data):
+
+        # Fixme: position or W H
+        GraphicItem.__init__(self, scene, user_data)
+        TwoPositionMixin.__init__(self, position1, position2)
+
+        self._image = image
+
+    ##############################################
+
+    @property
+    def image(self):
+        return self._image
+
+    # @image.setter
+    # def image(self, value):
+    #     self._image = value
+
+    ##############################################
+
+    def get_geometry(self):
+        positions = self.casted_positions
+        return Rectangle2D(*positions)
+
+####################################################################################################
+
+class CubicBezierItem(FourPositionMixin, PathStyleItemMixin):
+
+    ##############################################
+
+    def __init__(self, scene, position1, position2, position3, position4, path_style, user_data): # , curve
+
         # Fixme: curve vs path
-        PathItem.__init__(self, path_style)
+        PathStyleItemMixin.__init__(self, scene, path_style, user_data)
         FourPositionMixin.__init__(self, position1, position2, position3, position4)
 
         # super(CubicBezierItem, self).__init__(path_style)
@@ -282,3 +542,9 @@ class CubicBezierItem(PathItem, FourPositionMixin):
     # @curve.setter
     # def curve(self, value):
     #     self._curve = value
+
+    ##############################################
+
+    def get_geometry(self):
+        positions = self.casted_positions
+        return CubicBezier2D(*positions)

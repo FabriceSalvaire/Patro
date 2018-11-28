@@ -82,8 +82,6 @@ class QtPainter(Painter):
 
         super().__init__(scene)
 
-        self._coordinates = {}
-
         # self._paper = paper
 
         # self._translation = QPointF(0, 0)
@@ -131,12 +129,9 @@ class QtPainter(Painter):
 
     ##############################################
 
-    def _cast_position(self, position):
-
-        if isinstance(position, str):
-            return self._coordinates[position]
-        elif isinstance(position, Vector2D):
-            return self.scene_to_viewport(position)
+    def cast_position(self, position):
+        position = super().cast_position(position)
+        return self.scene_to_viewport(position)
 
     ##############################################
 
@@ -148,7 +143,7 @@ class QtPainter(Painter):
 
     def paint_TextItem(self, item):
 
-        position = self._cast_position(item.position)
+        position = self.cast_position(item.position)
         # Fixme: anchor position
         self._painter.drawText(position, item.text)
 
@@ -171,7 +166,7 @@ class QtPainter(Painter):
 
     def paint_CircleItem(self, item):
 
-        center = self._cast_position(item.position)
+        center = self.cast_position(item.position)
         radius = 5
 
         # rectangle = QRectF(
@@ -191,7 +186,7 @@ class QtPainter(Painter):
     def paint_SegmentItem(self, item):
 
         self._set_pen(item)
-        vertices = [self._cast_position(position) for position in item.positions]
+        vertices = self.cast_item_positions(item)
         self._painter.drawLine(*vertices)
 
     ##############################################
@@ -199,7 +194,7 @@ class QtPainter(Painter):
     def paint_CubicBezierItem(self, item):
 
         self._set_pen(item)
-        vertices = [self._cast_position(position) for position in item.positions]
+        vertices = self.cast_item_positions(item)
         path = QPainterPath()
         path.moveTo(vertices[0])
         path.cubicTo(*vertices[1:])
@@ -486,6 +481,16 @@ class QtQuickPaintedSceneItem(QQuickPaintedItem, QtPainter):
         position = self._viewport_area.center + self._viewport_area.pan_delta_to_scene(dxy)
         self._viewport_area.zoom_at(position, self._viewport_area.scale_px_by_mm)
         self.update()
+
+    ##############################################
+
+    @pyqtSlot(QPointF)
+    def item_at(self, position):
+
+        self._scene.update_rtree()
+        scene_position = Vector2D(self._viewport_area.viewport_to_scene(position))
+        items = self._scene.item_at(scene_position, radius=1)
+        print('item_at', position, scene_position, items)
 
 ####################################################################################################
 

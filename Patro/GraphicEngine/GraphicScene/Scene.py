@@ -18,12 +18,42 @@
 #
 ####################################################################################################
 
+# Item
+# bounding box, rtree
+# distance to point
+
+# nearest item to point
+# item in point, radius
+
+# line path
+# polygon rect
+
+# item -> user data
+# user data -> item
+
+# remove item
+
 ####################################################################################################
 
 import logging
 
+import rtree
+
 from Patro.GeometryEngine.Transformation import AffineTransformation2D
-from .GraphicItem import CoordinateItem, TextItem, CircleItem, SegmentItem, CubicBezierItem
+from Patro.GeometryEngine.Vector import Vector2D
+from . import GraphicItem
+from .GraphicItem import  (
+#    CircleItem,
+    CoordinateItem,
+#    CubicBezierItem,
+#    EllipseItem,
+#    ImageItem,
+##   PathItem,
+##   PolygonItem,
+#    RectangleItem,
+#    SegmentItem,
+#    TextItem,
+)
 
 ####################################################################################################
 
@@ -33,6 +63,18 @@ _module_logger = logging.getLogger(__name__)
 
 class GraphicSceneScope:
 
+    __ITEM_CTOR__ = {
+        'circle': GraphicItem.CircleItem,
+        'cubic_bezier': GraphicItem.CubicBezierItem,
+        'ellipse': GraphicItem.EllipseItem,
+        'image': GraphicItem.ImageItem,
+        # 'path': GraphicItem.PathItem,
+        # 'polygon': GraphicItem.PolygonItem,
+        'rectangle': GraphicItem.RectangleItem,
+        'segment': GraphicItem.SegmentItem,
+        'text': GraphicItem.TextItem,
+    }
+
     ##############################################
 
     def __init__(self, transformation=None):
@@ -40,7 +82,11 @@ class GraphicSceneScope:
         if transformation is None:
             transformation = AffineTransformation2D.Identity()
         self._transformation = transformation
-        self._items = []
+
+        self._coordinates = {}
+        self._items = {} # used to retrieve item from item_id, e.g. for rtree query
+        self._rtree = rtree.index.Index()
+        self._item_bounding_box_cache = {}
 
     ##############################################
 
@@ -48,90 +94,165 @@ class GraphicSceneScope:
     def transformation(self):
         return self._transformation
 
-    # @transformation.setter
-    # def transformation(self, value):
-    #     self._transformation = value
-
     ##############################################
 
     def __iter__(self):
-        return iter(self._items)
+        return iter(self._items.values())
 
     ##############################################
 
-    def _add_item(self, cls, *args, **kwargs):
+    def add_coordinate(self, name, position):
 
-        item = cls(*args, **kwargs)
-        self._items.append(item)
+        item = CoordinateItem(name, position)
+        self._coordinates[name] = item
         return item
 
     ##############################################
 
-    def add_scope(self, *args, **kwargs):
-        return self._add_item(GraphicSceneScope, self, *args, **kwargs)
+    def remove_coordinate(self, name):
+        del self._coordinates[name]
 
-    def add_coordinate(self, *args, **kwargs):
-        return self._add_item(CoordinateItem, *args, **kwargs)
+    ##############################################
 
-    def add_text(self, *args, **kwargs):
-        return self._add_item(TextItem, *args, **kwargs)
+    def coordinate(self, name):
+        return self._coordinates[name]
 
-    def add_segment(self, *args, **kwargs):
-        return self._add_item(SegmentItem, *args, **kwargs)
+    ##############################################
 
-    def add_circle(self, *args, **kwargs):
-        return self._add_item(CircleItem, *args, **kwargs)
+    def cast_position(self, position):
 
-    def add_cubic_bezier(self, *args, **kwargs):
-        return self._add_item(CubicBezierItem, *args, **kwargs)
+        # Fixme: cache ?
+        if isinstance(position, str):
+            vector = self._coordinates[position].position
+        elif isinstance(position, Vector2D):
+            vector = position
+        return self._transformation * vector
+
+    ##############################################
+
+    def _add_item(self, cls, *args, **kwargs):
+        item = cls(self, *args, **kwargs)
+        # print(item, item.user_data, hash(item))
+        # if item in self._items:
+        #     print('Warning duplicate', item.user_data)
+        item_id = id(item) # Fixme: hash ???
+        self._items[item_id] = item
+        return item
+
+    ##############################################
+
+    def remove_item(self, item):
+        self.update_rtree(item, insert=False)
+        del self._items[item]
+
+    ##############################################
+
+    # Fixme: ???
+    def item(self, item):
+        return self._items[item]
+
+    ##############################################
+
+    def update_rtree(self):
+
+        for item in self._items.values():
+            if item.dirty:
+                self.update_rtree_item(item)
+
+    ##############################################
+
+    def update_rtree_item(self, item, insert=True):
+
+        item_id = id(item)
+        old_bounding_box = self._item_bounding_box_cache.pop(item_id, None)
+        if old_bounding_box is not None:
+            self._rtree.delete(item_id, old_bounding_box)
+        if insert:
+            # try:
+            bounding_box = item.bounding_box.bounding_box # Fixme: name
+            print(item, bounding_box)
+            self._rtree.insert(item_id, bounding_box)
+            self._item_bounding_box_cache[item_id] = bounding_box
+            # except AttributeError:
+            #     print('bounding_box not implemented for', item)
+            #     pass # Fixme:
+
+    ##############################################
+
+    def item_in_bounding_box(self, bounding_box):
+
+        # Fixme: Interval2D ok ?
+        print('item_in_bounding_box', bounding_box)
+        item_ids = self._rtree.intersection(bounding_box)
+        if item_ids:
+            return [self._items[item_id] for item_id in item_ids]
+        else:
+            return None
+
+    ##############################################
+
+    def item_at(self, position, radius):
+
+        x, y = list(position)
+        bounding_box = (
+            x - radius, y - radius,
+            x + radius, y + radius,
+        )
+        items = []
+        for item in self.item_in_bounding_box(bounding_box):
+            try: # Fixme
+                distance = item.distance_to_point(position)
+                print('distance_to_point', item, distance)
+                if distance <= radius:
+                    items.append((distance, item))
+            except NotImplementedError:
+                pass
+        return sorted(items, key=lambda pair: pair[0])
+
+    ##############################################
+
+    # Fixme: !!!
+    # def add_scope(self, *args, **kwargs):
+    #     return self._add_item(GraphicSceneScope, self, *args, **kwargs)
+
+    ##############################################
+
+    # def circle(self, *args, **kwargs):
+    #     return self._add_item(CircleItem, *args, **kwargs)
+
+    # def cubic_bezier(self, *args, **kwargs):
+    #     return self._add_item(CubicBezierItem, *args, **kwargs)
+
+    # def ellipse(self, *args, **kwargs):
+    #     return self._add_item(EllipseItem, *args, **kwargs)
+
+    # def image(self, *args, **kwargs):
+    #     return self._add_item(ImageItem, *args, **kwargs)
+
+    # def path(self, *args, **kwargs):
+    #     return self._add_item(PathItem, *args, **kwargs)
+
+    # def polygon(self, *args, **kwargs):
+    #     return self._add_item(PolygonItem, *args, **kwargs)
+
+    # def rectangle(self, *args, **kwargs):
+    #     return self._add_item(RectangleItem, *args, **kwargs)
+
+    # def segment(self, *args, **kwargs):
+    #     return self._add_item(SegmentItem, *args, **kwargs)
+
+    # def text(self, *args, **kwargs):
+    #     return self._add_item(TextItem, *args, **kwargs)
+
+def make_add_item_wrapper(cls):
+    def wrapper(self, *args, **kwargs):
+        return self._add_item(cls, *args, **kwargs)
+    return wrapper
+
+for name, cls in GraphicSceneScope.__ITEM_CTOR__.items():
+    setattr(GraphicSceneScope, name, make_add_item_wrapper(cls))
 
 ####################################################################################################
 
-class GraphicScene:
-
-    ##############################################
-
-    def __init__(self):
-
-        # Fixme: root scope ???
-        self._root_scope = GraphicSceneScope()
-        # Fixme: don't want to reimplement bounding box for graphic item
-        #   - solution 1 : pass geometric object
-        #     but we want to use named coordinate -> Coordinate union of Vector2D or name
-        #   - solution 2 : item -> geometric object -> bounding box
-        #     need to convert coordinate to vector2d
-        self._bounding_box = None
-
-    ##############################################
-
-    @property
-    def root_scope(self):
-        return self._root_scope
-
-    @property
-    def bounding_box(self):
-        return self._bounding_box
-
-    @bounding_box.setter
-    def bounding_box(self, value):
-        self._bounding_box = value
-
-    ##############################################
-
-    def add_scope(self, *args, **kwargs):
-        return self._root_scope.add_scope(*args, **kwargs)
-
-    def add_coordinate(self, *args, **kwargs):
-        return self._root_scope.add_coordinate(*args, **kwargs)
-
-    def add_text(self, *args, **kwargs):
-        return self._root_scope.add_text(*args, **kwargs)
-
-    def add_circle(self, *args, **kwargs):
-        return self._root_scope.add_circle(*args, **kwargs)
-
-    def add_segment(self, *args, **kwargs):
-        return self._root_scope.add_segment(*args, **kwargs)
-
-    def add_cubic_bezier(self, *args, **kwargs):
-        return self._root_scope.add_cubic_bezier(*args, **kwargs)
+class GraphicScene(GraphicSceneScope):
+    pass
