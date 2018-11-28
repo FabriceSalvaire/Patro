@@ -30,7 +30,7 @@ from PyQt5.QtCore import (
     pyqtProperty, pyqtSignal, pyqtSlot, QObject,
     QRectF, QSizeF, QPointF, Qt,
 )
-from PyQt5.QtGui import QColor, QPainter, QPainterPath, QPen
+from PyQt5.QtGui import QColor, QPainter, QPainterPath, QBrush, QPen
 # from PyQt5.QtQml import qmlRegisterType
 from PyQt5.QtQuick import QQuickPaintedItem
 
@@ -152,15 +152,25 @@ class QtPainter(Painter):
     def _set_pen(self, item):
 
         path_syle = item.path_style
-        color = self.__COLOR__[path_syle.stroke_color]
+        if item.selected:
+            print('SELECTED', item)
+            color = QColor('red')
+        else:
+            color = self.__COLOR__[path_syle.stroke_color]
         line_style = self.__STROKE_STYLE__[path_syle.stroke_style]
         line_width = float(path_syle.line_width.replace('pt', '')) / 3 # Fixme: pt ???
-        # pen = QPen(
-        #     color,
-        #     line_width,
-        #     line_style,
-        # )
-        # self._painter.setPen(pen)
+
+        if color is not None and line_style is not None:
+            brush = QBrush(color)
+            pen = QPen(
+                brush,
+                line_width,
+                line_style,
+            )
+            self._painter.setPen(pen)
+        else:
+            # print('Warning Pen:', item, item.user_data, color, line_style)
+            pass
 
     ##############################################
 
@@ -173,11 +183,12 @@ class QtPainter(Painter):
         #     center - QPointF(1, 1)*radius,
         #     QSizeF(1, 1)*2*radius,
         # )
-        # self._painter.setPen(QPen(
-        #     QColor('black'),
-        #     1,
-        #     Qt::SolidLine,
-        # )
+        pen = QPen(
+            QColor('black'), # QBrush()
+            1,
+            Qt.SolidLine,
+        )
+        self._painter.setPen(pen)
         # self._painter.drawArc(rectangle, 0, 360)
         self._painter.drawEllipse(center, radius, radius)
 
@@ -492,14 +503,17 @@ class QtQuickPaintedSceneItem(QQuickPaintedItem, QtPainter):
         radius = 0.3
 
         self._scene.update_rtree()
+        self._scene.unselect_items()
         scene_position = Vector2D(self._viewport_area.viewport_to_scene(position))
         items = self._scene.item_at(scene_position, radius)
         if items:
             distance, nearest_item = items[0]
             print('nearest item at {} #{:6.2f} {} {}'.format(scene_position, len(items), distance, nearest_item.user_data))
+            nearest_item.selected = True
             for pair in items[1:]:
                 distance, item = pair
                 print('  {:6.2f} {}'.format(distance, item.user_data))
+        self.update()
 
 ####################################################################################################
 

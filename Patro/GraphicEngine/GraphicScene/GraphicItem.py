@@ -259,7 +259,7 @@ class GraphicItem:
 
     @selected.setter
     def selected(self, value):
-        self._selected = value
+        self._selected = bool(value)
 
     ##############################################
 

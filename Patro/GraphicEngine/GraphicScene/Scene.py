@@ -73,8 +73,12 @@ class GraphicSceneScope:
         self._transformation = transformation
 
         self._coordinates = {}
-        self._items = {} # used to retrieve item from item_id, e.g. for rtree query
+        self._items = {} # id(item) -> item, e.g. for rtree query
+
+        self._user_data_map = {}
+
         self._rtree = rtree.index.Index()
+        # item_id -> bounding_box, used to delete item in rtree (cf. rtree api)
         self._item_bounding_box_cache = {}
 
     ##############################################
@@ -88,6 +92,19 @@ class GraphicSceneScope:
     def __iter__(self):
         # must be an ordered item list
         return iter(self._items.values())
+
+    ##############################################
+
+    @property
+    def selected_items(self):
+        # Fixme: cache ?
+        return [item for item in self._items.values() if item.selected]
+
+    ##############################################
+
+    def unselect_items(self):
+        for item in self.selected_items:
+            item.selected = False
 
     ##############################################
 
@@ -126,21 +143,35 @@ class GraphicSceneScope:
         # print(item, item.user_data, hash(item))
         # if item in self._items:
         #     print('Warning duplicate', item.user_data)
+
         item_id = id(item) # Fixme: hash ???
         self._items[item_id] = item
+
+        user_data = item.user_data
+        if user_data is not None:
+            user_data_id = id(user_data) # Fixme: hash ???
+            items = self._user_data_map.setdefault(user_data_id, [])
+            items.append(item)
+
         return item
 
     ##############################################
 
     def remove_item(self, item):
+
         self.update_rtree(item, insert=False)
+
+        items = self.item_for_user_data(item.user_data)
+        if items:
+            items.remove(item)
+
         del self._items[item]
 
     ##############################################
 
-    # Fixme: ???
-    # def item(self, item):
-    #     return self._items[item]
+    def item_for_user_data(self, user_data):
+        user_data_id = id(user_data)
+        return self._user_data_map.get(user_data_id, None)
 
     ##############################################
 
@@ -206,6 +237,8 @@ class GraphicSceneScope:
     #     return self.add_item(GraphicSceneScope, self, *args, **kwargs)
 
     ##############################################
+
+# Register a method in GraphicSceneScope class for each type of graphic item
 
 def make_add_item_wrapper(cls):
     def wrapper(self, *args, **kwargs):
