@@ -141,14 +141,6 @@ class QtPainter(Painter):
 
     ##############################################
 
-    def paint_TextItem(self, item):
-
-        position = self.cast_position(item.position)
-        # Fixme: anchor position
-        self._painter.drawText(position, item.text)
-
-    ##############################################
-
     def _set_pen(self, item):
 
         path_syle = item.path_style
@@ -168,9 +160,8 @@ class QtPainter(Painter):
                 line_style,
             )
             self._painter.setPen(pen)
-        else:
-            # print('Warning Pen:', item, item.user_data, color, line_style)
-            pass
+        # else: # invisible item
+        #     print('Warning Pen:', item, item.user_data, color, line_style)
 
     ##############################################
 
@@ -194,14 +185,6 @@ class QtPainter(Painter):
 
     ##############################################
 
-    def paint_SegmentItem(self, item):
-
-        self._set_pen(item)
-        vertices = self.cast_item_positions(item)
-        self._painter.drawLine(*vertices)
-
-    ##############################################
-
     def paint_CubicBezierItem(self, item):
 
         self._set_pen(item)
@@ -210,6 +193,22 @@ class QtPainter(Painter):
         path.moveTo(vertices[0])
         path.cubicTo(*vertices[1:])
         self._painter.drawPath(path)
+
+    ##############################################
+
+    def paint_SegmentItem(self, item):
+
+        self._set_pen(item)
+        vertices = self.cast_item_positions(item)
+        self._painter.drawLine(*vertices)
+
+    ##############################################
+
+    def paint_TextItem(self, item):
+
+        position = self.cast_position(item.position)
+        # Fixme: anchor position
+        self._painter.drawText(position, item.text)
 
 ####################################################################################################
 
@@ -510,6 +509,7 @@ class QtQuickPaintedSceneItem(QQuickPaintedItem, QtPainter):
             distance, nearest_item = items[0]
             print('nearest item at {} #{:6.2f} {} {}'.format(scene_position, len(items), distance, nearest_item.user_data))
             nearest_item.selected = True
+            # Fixme: z_value ???
             for pair in items[1:]:
                 distance, item = pair
                 print('  {:6.2f} {}'.format(distance, item.user_data))
