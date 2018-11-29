@@ -95,6 +95,22 @@ class GraphicSceneScope:
 
     ##############################################
 
+    def z_value_iter(self):
+
+        # Fixme: cache ???
+        # Group by z_value and keep inserting order
+        z_map = {}
+        for item in self._items.values():
+            if item.visible:
+                items = z_map.setdefault(item.z_value, [])
+                items.append(item)
+
+        for z_value in sorted(z_map.keys()):
+            for item in z_map[z_value]:
+                yield item
+
+    ##############################################
+
     @property
     def selected_items(self):
         # Fixme: cache ?

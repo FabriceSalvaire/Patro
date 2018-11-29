@@ -221,6 +221,8 @@ class GraphicItem:
         self._scene = scene
         self._user_data = user_data
 
+        self._z_value = 0
+
         self._visible = True
         self._selected = False
 
@@ -244,6 +246,14 @@ class GraphicItem:
         return hash(self._user_data)
 
     ##############################################
+
+    @property
+    def z_value(self):
+        return self._z_value
+
+    @z_value.setter
+    def z_value(self, value):
+        self._z_value = value
 
     @property
     def visible(self):

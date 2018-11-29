@@ -114,9 +114,8 @@ class Painter:
             return
 
         # Fixme: GraphicItemScope
-        for item in self._scene:
-            if item.visible:
-                self.__paint_method__[item.__class__](self, item)
+        for item in self._scene.z_value_iter():
+            self.__paint_method__[item.__class__](self, item)
 
     ##############################################
 
