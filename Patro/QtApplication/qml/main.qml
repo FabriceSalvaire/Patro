@@ -96,6 +96,21 @@ ApplicationWindow {
 	id: scene_view
 	anchors.fill: parent
 	scene: application.scene
+	focus: true
+
+	property int pan_speed: 10
+	property int pan_step: 10
+
+	Keys.onLeftPressed: scene_view.pan_x_y(-pan_step, 0)
+	Keys.onRightPressed: scene_view.pan_x_y(pan_step, 0)
+	Keys.onDownPressed: scene_view.pan_x_y(0, -pan_step)
+	Keys.onUpPressed: scene_view.pan_x_y(0, pan_step)
+
+	function pan_x_y(dx, dy) {
+	    var dxy = Qt.point(dx, dy)
+	    console.info('pan', dxy)
+	    scene_view.pan(dxy)
+	}
 
 	MouseArea {
 	    id: scene_mouse_area
@@ -104,15 +119,19 @@ ApplicationWindow {
 	    acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
 	    // var point ???
 	    property var mouse_start
+
 	    Component.onCompleted: {
 		mouse_start = null
 	    }
+
 	    // onClicked: {
 	    // 	if (mouse.button == Qt.LeftButton) {
 	    // 	    console.info('Mouse left', mouse.x, mouse.y)
 	    // 	}
 	    // }
+
 	    onPressed: {
+		scene_view.focus = true
 		if (mouse.button == Qt.LeftButton) {
 		    // console.info('Mouse left', mouse.x, mouse.y)
 		    var position = Qt.point(mouse.x, mouse.y)
@@ -123,25 +142,24 @@ ApplicationWindow {
 		    mouse_start = Qt.point(mouse.x, mouse.y)
 		}
 	    }
+
 	    onReleased: {
 		mouse_start = null
 	    }
+
 	    onPositionChanged: {
 		// console.info('onPositionChanged', mouse.button, mouse_start)
 		if (mouse_start !== null) {
-		    var dx = mouse.x - mouse_start.x
-		    var dy = mouse.y - mouse_start.y
-                    // - so as to have a natural pan
-                    // pan at right using a mouse move at right
-		    var dxy = Qt.point(dx, -dy)
-		    console.info('pan', dxy)
+		    var dx = (mouse.x - mouse_start.x) / scene_view.pan_speed
+		    var dy = (mouse_start.y - mouse.y) / scene_view.pan_speed
 		    // if (dx^2 + dy^2 > 100)
-		    scene_view.pan(dxy)
+		    scene_view.pan_x_y(dx, dy)
 		    mouse_start = Qt.point(mouse.x, mouse.y)
 		} else {
 		    position_label.text = scene_view.format_coordinate(Qt.point(mouse.x, mouse.y))
 		}
 	    }
+
     	    onWheel: {
     		var direction = wheel.angleDelta.y > 0
     		console.info('Mouse wheel', wheel.x, wheel.y, direction)
