@@ -243,17 +243,22 @@ class ValFile(XmlFileMixin):
 
         tree = self._parse()
 
-        measurements_path = Path(self._get_xpath_element(tree, 'measurements').text)
-        if not measurements_path.exists():
-            measurements_path = self._path.parent.joinpath(measurements_path)
+        measurements_path = self._get_xpath_element(tree, 'measurements').text
+        if measurements_path is not None:
+            measurements_path = Path(measurements_path)
+            if not measurements_path.exists():
+                measurements_path = self._path.parent.joinpath(measurements_path)
             if not measurements_path.exists():
                 raise NameError("Cannot find {}".format(measurements_path))
-
-        self._vit_file = VitFile(measurements_path)
+            self._vit_file = VitFile(measurements_path)
+            measurements = self._vit_file.measurements
+        else:
+            self._vit_file = None
+            measurements = None
 
         unit = self._get_xpath_element(tree, 'unit').text
 
-        pattern = Pattern(self._vit_file.measurements, unit)
+        pattern = Pattern(measurements, unit)
         self._pattern = pattern
 
         for element in self._get_xpath_element(tree, 'draw/calculation'):

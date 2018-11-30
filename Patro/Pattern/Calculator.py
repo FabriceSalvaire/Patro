@@ -94,8 +94,9 @@ class Calculator:
         self._current_operation = None # Fixme: ???
         self._current_segment = None
 
-        for measurement in measurements:
-            self._cache[measurement.name] = float(measurement)
+        if measurements is not None:
+            for measurement in measurements:
+                self._cache[measurement.name] = float(measurement)
 
     ##############################################
 
