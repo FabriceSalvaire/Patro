@@ -332,18 +332,28 @@ class GraphicItem:
 
 ####################################################################################################
 
-class TextItem(PositionMixin, GraphicItem):
-
-    # font
+class Font:
 
     ##############################################
 
-    def __init__(self, scene, position, text, user_data):
+    def __init__(self, family, point_size):
+
+        self.family = family
+        self.point_size = point_size
+
+####################################################################################################
+
+class TextItem(PositionMixin, GraphicItem):
+
+    ##############################################
+
+    def __init__(self, scene, position, text, font, user_data):
 
         GraphicItem.__init__(self, scene, user_data)
         PositionMixin.__init__(self, position)
 
         self._text = str(text)
+        self._font = font
 
     ##############################################
 
@@ -355,11 +365,20 @@ class TextItem(PositionMixin, GraphicItem):
     # def text(self, value):
     #     self._text = value
 
+    @property
+    def font(self):
+        return self._font
+
+    # @font.setter
+    # def font(self, value):
+    #     self._font = value
+
     ##############################################
 
     def get_geometry(self):
         position = self.casted_position
-        # Fixme:
+        # Fixme: require metric !
+        # QFontMetrics(font).width(self._text)
         return Rectangle2D(position, position)
 
 ####################################################################################################

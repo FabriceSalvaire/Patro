@@ -25,7 +25,7 @@ import logging
 from IntervalArithmetic import Interval2D
 
 from Patro.GeometryEngine.Vector import Vector2D
-from Patro.GraphicEngine.GraphicScene.GraphicItem import GraphicStyle
+from Patro.GraphicEngine.GraphicScene.GraphicItem import GraphicStyle, Font
 from Patro.GraphicEngine.GraphicScene.Scene import GraphicScene
 from . import Calculation
 from .Calculator import Calculator
@@ -172,6 +172,8 @@ class Pattern:
 
         # Fixme: implement a transformer class to prevent if ... ?
 
+        font = Font('', 16)
+
         for calculation in self._calculations:
 
             if isinstance(calculation, Calculation.Point):
@@ -185,7 +187,7 @@ class Pattern:
                     # arrow must point to the label center and be clipped
                     scene.segment(calculation.vector, label_position, GraphicStyle(line_width='.5pt'),
                                   user_data=calculation)
-                    scene.text(label_position, calculation.name, user_data=calculation)
+                    scene.text(label_position, calculation.name, font, user_data=calculation)
 
                 if isinstance(calculation, Calculation.LinePropertiesMixin):
                     path_style = self._calculation_to_path_style(calculation, line_width='2pt')
