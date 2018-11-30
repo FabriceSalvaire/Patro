@@ -30,7 +30,7 @@ from PyQt5.QtCore import (
     pyqtProperty, pyqtSignal, pyqtSlot, QObject,
     QRectF, QSizeF, QPointF, Qt,
 )
-from PyQt5.QtGui import QColor, QPainter, QPainterPath, QBrush, QPen
+from PyQt5.QtGui import QColor, QFont, QFontMetrics, QImage, QPainter, QPainterPath, QBrush, QPen
 # from PyQt5.QtQml import qmlRegisterType
 from PyQt5.QtQuick import QQuickPaintedItem
 
@@ -67,11 +67,6 @@ class QtPainter(Painter):
         'none': None,
 
         'solid': Qt.SolidLine,
-    }
-
-    __COLOR__ = {
-        None : None,
-        'black': QColor('black'),
     }
 
     _logger = _module_logger.getChild('QtPainter')
@@ -148,9 +143,17 @@ class QtPainter(Painter):
             print('SELECTED', item)
             color = QColor('red')
         else:
-            color = self.__COLOR__[path_syle.stroke_color]
+            color = path_syle.stroke_color
+            if color is not None:
+                color = QColor(color)
+            else:
+                color = None
         line_style = self.__STROKE_STYLE__[path_syle.stroke_style]
         line_width = float(path_syle.line_width.replace('pt', '')) / 3 # Fixme: pt ???
+
+        # Fixme: selection style
+        if item.selected:
+            line_width *= 4
 
         if color is not None and line_style is not None:
             brush = QBrush(color)
@@ -196,6 +199,20 @@ class QtPainter(Painter):
 
     ##############################################
 
+    def paint_ImageItem(self, item):
+
+        vertices = self.cast_item_positions(item)
+        rec = QRectF(vertices[0], vertices[1])
+
+        image = item.image
+        height, width, bytes_per_line = image.shape
+        bytes_per_line *= width
+        qimage = QImage(image, width, height, bytes_per_line, QImage.Format_RGB888)
+
+        self._painter.drawImage(rec, qimage)
+
+    ##############################################
+
     def paint_SegmentItem(self, item):
 
         self._set_pen(item)
@@ -207,7 +224,16 @@ class QtPainter(Painter):
     def paint_TextItem(self, item):
 
         position = self.cast_position(item.position)
+
+        font = item.font
+        qfont = QFont(font.family, font.point_size) # weight, italic = False
+
         # Fixme: anchor position
+        # font_metrics = QFontMetrics(qfont)
+        # height = font_metrics.height()
+        # width = font_metrics.width(item.text)
+
+        self._painter.setFont(qfont)
         self._painter.drawText(position, item.text)
 
 ####################################################################################################
