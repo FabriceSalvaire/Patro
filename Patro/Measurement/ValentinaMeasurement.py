@@ -23,7 +23,7 @@
 import logging
 
 from .Measurement import Measurement, Measurements
-from .StandardMeasurement import ValentinaStandardMeasurement
+from .ValentinaStandardMeasurement import ValentinaStandardMeasurement
 
 ####################################################################################################
 
