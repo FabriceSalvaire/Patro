@@ -18,6 +18,11 @@
 #
 ####################################################################################################
 
+# Fixme: calculation
+#  a) the process or an act of calculating
+#  b) the result of an act of calculating
+#  synonym of computation
+
 """This module defines all the calculations supported by the pattern engine, e.g. the intersection
 between two lines.
 
@@ -62,7 +67,7 @@ def quote(x):
 ####################################################################################################
 
 # metaclass = CalculationMetaClass
-class Calculation():
+class Calculation:
 
     """Baseclass for calculation"""
 

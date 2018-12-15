@@ -213,7 +213,9 @@ class CalculationMixin:
     ##############################################
 
     def call_calculation_function(self, pattern, kwargs):
-        return getattr(pattern, self.__calculation__.__name__)(**kwargs)
+        # Fixme: map valentina name -> ...
+        method = getattr(pattern, self.__calculation__.__name__)
+        return method(**kwargs)
 
     ##############################################
 

@@ -79,28 +79,6 @@ class Measurement:
 
 ####################################################################################################
 
-class ValentinaMeasurement(Measurement):
-
-    ##############################################
-
-    def __init__(self, code, name, full_name, description, default_value):
-
-        super().__init__(name, full_name, description, default_value)
-
-        self._code = code
-
-    ##############################################
-
-    @property
-    def code(self):
-        return self._code
-
-    @code.setter
-    def code(self, value):
-        self._code = value
-
-####################################################################################################
-
 class StandardMeasurement:
 
     ##############################################
@@ -150,21 +128,3 @@ class StandardMeasurement:
 
         for measurement in self:
             print(template.format(measurement))
-
-####################################################################################################
-
-class ValentinaStandardMeasurement(StandardMeasurement):
-
-    ##############################################
-
-    def __init__(self):
-
-        super().__init__()
-
-        yaml_path = Path(__file__).parent.joinpath('data', 'valentina-standard-measurements.yaml')
-        with open(yaml_path, 'r') as fh:
-            data = yaml.load(fh.read())
-            for topic in data.values():
-                for code, measurement_data in topic['measurements'].items():
-                    measurement = ValentinaMeasurement(code, *measurement_data)
-                    self.add(measurement)

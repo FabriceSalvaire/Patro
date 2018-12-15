@@ -18,11 +18,12 @@
 #
 ####################################################################################################
 
+"""
+"""
+
 ####################################################################################################
 
 import logging
-
-from IntervalArithmetic import Interval2D
 
 from Patro.GeometryEngine.Vector import Vector2D
 from Patro.GraphicEngine.GraphicScene.GraphicItem import GraphicStyle, Font
@@ -76,6 +77,7 @@ class Pattern:
 
         # Works as a post init
         self._calculations.append(calculation)
+        # Fixme: calculation id, only for valentina ?
         self._calculation_dict[calculation.id] = calculation
         if hasattr(calculation, 'name'):
             self._calculation_dict[calculation.name] = calculation
@@ -94,11 +96,6 @@ class Pattern:
 
     def get_calculation(self, id):
         return self._calculation_dict[id]
-
-    ##############################################
-
-    def get_point(self, name):
-        return self._points[name]
 
     ##############################################
 
@@ -136,10 +133,10 @@ class Pattern:
         """Compute the bounding box of the pattern."""
 
         # Fixme: to function
+        #        cache ???
         bounding_box = None
         for calculation in self._calculations:
             interval = calculation.geometry().bounding_box
-            # print(calculation.geometry(), interval)
             if bounding_box is None:
                 bounding_box = interval
             else:
@@ -150,6 +147,8 @@ class Pattern:
     ##############################################
 
     def _calculation_to_path_style(self, calculation, **kwargs):
+
+        """Generate a :class:`GraphicStyle` instance for a calculation"""
 
         return GraphicStyle(
             stroke_style=calculation.line_style,
@@ -163,7 +162,7 @@ class Pattern:
 
         """Generate a graphic scene for the detail mode
 
-        We can customise the scene class using the *scene_cls* parameter.
+        Scene class can be customised using the *scene_cls* parameter.
         """
 
         scene = scene_cls()
@@ -177,37 +176,53 @@ class Pattern:
         for calculation in self._calculations:
 
             if isinstance(calculation, Calculation.Point):
+                # Register coordinate
                 scene.add_coordinate(calculation.name, calculation.vector)
-                scene.circle(calculation.name, '1pt', GraphicStyle(fill_color='black'),
-                             user_data=calculation)
+                # Draw point and label
+                scene.circle(calculation.name, '1pt',
+                             GraphicStyle(fill_color='black'),
+                             user_data=calculation,
+                )
                 label_offset = calculation.label_offset
                 offset = Vector2D(label_offset.x, -label_offset.y) # Fixme: ???
                 label_position = calculation.vector + offset
                 if offset:
                     # arrow must point to the label center and be clipped
-                    scene.segment(calculation.vector, label_position, GraphicStyle(line_width='.5pt'),
-                                  user_data=calculation)
+                    scene.segment(calculation.vector, label_position,
+                                  GraphicStyle(line_width='.5pt'),
+                                  user_data=calculation,
+                    )
                     scene.text(label_position, calculation.name, font, user_data=calculation)
 
                 if isinstance(calculation, Calculation.LinePropertiesMixin):
                     path_style = self._calculation_to_path_style(calculation, line_width='2pt')
                     if isinstance(calculation, Calculation.AlongLinePoint):
-                        scene.segment(calculation.first_point.name, calculation.name, path_style,
-                                      user_data=calculation)
+                        scene.segment(calculation.first_point.name, calculation.name,
+                                      path_style,
+                                      user_data=calculation,
+                        )
                     elif isinstance(calculation, Calculation.EndLinePoint):
-                        scene.segment(calculation.base_point.name, calculation.name, path_style,
-                                      user_data=calculation)
+                        scene.segment(calculation.base_point.name, calculation.name,
+                                      path_style,
+                                      user_data=calculation,
+                        )
                     # elif isinstance(calculation, LineIntersectPoint):
                     #     scene.segment(calculation.point1_line1.name, calculation.name, path_style)
                     #     source += r'\draw[{0}] ({1.point1_line1.name}) -- ({1.name});'.format(style, calculation) + '\n'
                     elif isinstance(calculation, Calculation.NormalPoint):
-                        scene.segment(calculation.first_point.name, calculation.name, path_style,
-                                      user_data=calculation)
+                        scene.segment(calculation.first_point.name, calculation.name,
+                                      path_style,
+                                      user_data=calculation,
+                        )
+
+            # Draw path item like segments and Bézier curves
 
             elif isinstance(calculation, Calculation.Line):
                 path_style = self._calculation_to_path_style(calculation, line_width='4pt')
-                scene.segment(calculation.first_point.name, calculation.second_point.name, path_style,
-                              user_data=calculation)
+                scene.segment(calculation.first_point.name, calculation.second_point.name,
+                              path_style,
+                              user_data=calculation,
+                )
 
             elif isinstance(calculation, Calculation.SimpleInteractiveSpline):
                 path_style = self._calculation_to_path_style(calculation, line_width='4pt')

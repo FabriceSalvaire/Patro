@@ -91,7 +91,8 @@ def convex_hull(points):
     convex_hull = []
     sorted_points = _sort_point_for_graham_scan(points)
     for p in sorted_points:
-        # if we turn clockwise to reach this point, pop the last point from the stack, else, append this point to it.
+        # if we turn clockwise to reach this point,
+        # pop the last point from the stack, else, append this point to it.
         while len(convex_hull) > 1 and _ccw(convex_hull[-1], convex_hull[-2], p) >= 0: # Fixme: check
             convex_hull.pop()
         convex_hull.append(p)

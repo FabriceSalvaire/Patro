@@ -55,7 +55,6 @@ class NodeVisitor(ast.NodeVisitor):
     ##############################################
 
     # def visit(self, node):
-
     #     print(node)
     #     super(NodeVisitor, self).visit(node)
 
@@ -71,7 +70,9 @@ class NodeVisitor(ast.NodeVisitor):
             dag = self._calculator.dag
             if function.attr == '_function_Line': # catched _function_Line.__calculator__
                 for arg in node.args:
-                    self._dependencies.append(self._calculator._name_to_point(arg.s))
+                    dependence = self._calculator._name_to_point(arg.s)
+                    self._dependencies.append(dependence)
+
         self.generic_visit(node)
 
 ####################################################################################################
@@ -116,8 +117,6 @@ class Calculator:
 
     def set_current_segment(self, vector):
         self._current_segment = vector
-
-    ##############################################
 
     def unset_current_segment(self):
         self._current_segment = None
