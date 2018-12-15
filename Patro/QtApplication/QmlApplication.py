@@ -29,14 +29,16 @@ import logging
 import sys
 from pathlib import Path
 
-from PyQt5.QtCore import (
-    pyqtProperty, pyqtSignal, QObject,
+from QtShim.QtCore import (
+    Property, Signal, QObject,
     Qt, QTimer, QUrl,
 )
-from PyQt5.QtGui import QGuiApplication
-from PyQt5.QtQml import qmlRegisterType, qmlRegisterUncreatableType, QQmlApplicationEngine
-from PyQt5.QtQuick import QQuickPaintedItem, QQuickView
-# from PyQt5.QtQuickControls2 import QQuickStyle
+from QtShim.QtGui import QGuiApplication
+from QtShim.QtQml import qmlRegisterType, QQmlApplicationEngine
+# Fixme: PYSIDE-574 qmlRegisterSingletonType and qmlRegisterUncreatableType missing in QtQml
+from QtShim.QtQml import qmlRegisterUncreatableType
+from QtShim.QtQuick import QQuickPaintedItem, QQuickView
+# from QtShim.QtQuickControls2 import QQuickStyle
 
 from Patro.GraphicEngine.Painter.QtPainter import QtScene, QtQuickPaintedSceneItem
 
@@ -63,9 +65,9 @@ class QmlApplication(QObject):
 
     ##############################################
 
-    sceneChanged = pyqtSignal()
+    sceneChanged = Signal()
 
-    @pyqtProperty(QtScene, notify=sceneChanged)
+    @Property(QtScene, notify=sceneChanged)
     def scene(self):
         return self._scene
 
@@ -209,6 +211,8 @@ class Application(QObject):
 
         qmlRegisterUncreatableType(QmlApplication, 'Patro', 1, 0, 'QmlApplication', 'Cannot create QmlApplication')
         qmlRegisterUncreatableType(QtScene, 'Patro', 1, 0, 'QtScene', 'Cannot create QtScene')
+        # qmlRegisterType(QmlApplication, 'Patro', 1, 0, 'QmlApplication')
+        # qmlRegisterType(QtScene, 'Patro', 1, 0, 'QtScene')
 
         qmlRegisterType(QtQuickPaintedSceneItem, 'Patro', 1, 0, 'PaintedSceneItem')
 
