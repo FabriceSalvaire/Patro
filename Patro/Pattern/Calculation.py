@@ -34,6 +34,7 @@ A calculation must be build from the corresponding method of the Pattern class.
 
 import logging
 
+from Patro.Common.Object import ObjectIdMixin
 from Patro.GeometryEngine.Bezier import CubicBezier2D
 from Patro.GeometryEngine.Line import Line2D
 from Patro.GeometryEngine.Segment import Segment2D
@@ -67,7 +68,7 @@ def quote(x):
 ####################################################################################################
 
 # metaclass = CalculationMetaClass
-class Calculation:
+class Calculation(ObjectIdMixin):
 
     """Baseclass for calculation"""
 
@@ -81,22 +82,23 @@ class Calculation:
 
         # Valentina set an incremental integer id for each calculation (entity)
         # A calculation which generate a point has also a name
-        if id is None:
-            self._id = pattern.get_calculation_id()
-        else:
-            if pattern.has_calculation_id(id):
-                raise NameError("calculation id {} is already attributed".format(id))
-            else:
-                self._id = id
+        super().__init__(id)
 
         self._dag_node = self._dag.add_node(pyid(self), data=self)
         self._dependencies = set()
 
     ##############################################
 
-    @property
-    def id(self):
-        return self._id
+    def new_id(self):
+        return self._pattern.new_claculation_id()
+
+    ##############################################
+
+    def check_id(self, id):
+        if self._pattern.has_calculation_id(id):
+            raise NameError("calculation id {} is already attributed".format(id))
+
+    ##############################################
 
     @property
     def pattern(self):
@@ -109,16 +111,6 @@ class Calculation:
     @property
     def dependencies(self):
         return self._dependencies
-
-    ##############################################
-
-    def __repr__(self):
-        return self.__class__.__name__ + ' {0._id}'.format(self)
-
-    ##############################################
-
-    def __int__(self):
-        return self._id
 
     ##############################################
 

@@ -84,10 +84,8 @@ class Pattern:
 
     ##############################################
 
-    def get_calculation_id(self):
+    def new_calculation_id(self):
         return len(self._calculations) + 1 # id > 0
-
-    ##############################################
 
     def has_calculation_id(self, id):
         return id in self._calculation_dict
