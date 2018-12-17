@@ -24,6 +24,23 @@ and the calculation API.
 The purpose of each XmlObjectAdaptator sub-classes is to serve as a bidirectional adaptor between
 the XML format and the API.
 
+Valentina File Format Concept
+
+* all entities which are referenced later in the file are identified by a unique positive integer
+  over the file, usually incremented from 1.
+
+* a file contains one or several "pieces"
+
+  * pieces correspond to independent scopes, one cannot access calculations of another piece
+  * pieces share the same referential, usually the root point of a piece is placed next
+    to the previous piece
+
+* a piece has "calculations" and "details"
+
+  * a calculations corresponds to a point, a segment, or a Bézier curve ...
+  * a detail corresponds to a garment piece defined by segments and curves
+  * one can define several details within a piece
+
 """
 
 ####################################################################################################

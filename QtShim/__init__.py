@@ -2,6 +2,16 @@
 
 Forked from https://github.com/mottosso/Qt.py under MIT License.
 Copyright (c) 2016 Marcus Ottosson
+
+Changes
+
+* Dropped Python2 and Qt4 support
+* Focus on last Python 3 release
+* Focus on last Qt API : QML
+
+Requirements
+
+* make use of lazy loading to speed up startup time !
 """
 
 # Fixme: ressource file Patro/QtApplication/rcc/PatroRessource.py
@@ -34,6 +44,7 @@ QT_PREFERRED_BINDING = os.getenv('QT_PREFERRED_BINDING', '')
 if QT_PREFERRED_BINDING:
     QT_PREFERRED_BINDING = list(x for x in QT_PREFERRED_BINDING.split(',') if x)
 else:
+    # on dec 2018, PySide2 is still not fully operational
     QT_PREFERRED_BINDING = ('PyQt5', 'PySide2')
 
 ####################################################################################################
@@ -173,7 +184,7 @@ def _reassign_misplaced_members(binding):
 ####################################################################################################
 
 def _build_compatibility_members(binding, decorators=None):
-    '''Apply `binding` to QtCompat
+    """Apply `binding` to QtCompat
 
     Arguments:
         binding (str): Top level binding in _compatibility_members.
@@ -183,7 +194,7 @@ def _build_compatibility_members(binding, decorators=None):
             be the classname, the value is a dict where the keys are the
             target method names, and the values are the decorator functions.
 
-    '''
+    """
 
     decorators = decorators or dict()
 
