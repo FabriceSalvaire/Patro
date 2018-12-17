@@ -18,9 +18,79 @@
 #
 ####################################################################################################
 
+__all__ = ['ObjectNameMixin', 'ObjectGlobalIdMixin']
+
 ####################################################################################################
 
-class ObjectIdMixin:
+from .AtomicCounter import AtomicCounter
+
+####################################################################################################
+
+class ObjectNameMixin:
+
+    """Mixin for object with name"""
+
+    ##############################################
+
+    def __init__(self, name=None):
+        self.name = name
+
+    ##############################################
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, value):
+        if value is None:
+            self._name = None
+        else:
+            self._name = str(value)
+
+    ##############################################
+
+    def __repr__(self):
+        return self.__class__.__name__ + ' {0._name}'.format(self)
+
+    ##############################################
+
+    def __str__(self):
+        return self._name
+
+####################################################################################################
+
+class ObjectGlobalIdMixin:
+
+    """Mixin for object with a global id"""
+
+    __object_counter__ = AtomicCounter(-1)
+
+    ##############################################
+
+    def __init__(self):
+        # Note: sub-classes share the same counter !
+        self._id = ObjectGlobalIdMixin.__object_counter__.increment()
+
+    ##############################################
+
+    @property
+    def id(self):
+        return self._id
+
+    ##############################################
+
+    def __int__(self):
+        return self._id
+
+    ##############################################
+
+    def __repr__(self):
+        return self.__class__.__name__ + ' {0._id}'.format(self)
+
+####################################################################################################
+
+class ObjectCkeckedIdMixin:
 
     """Mixin for object with id"""
 
