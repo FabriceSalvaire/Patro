@@ -61,9 +61,9 @@ class Dispatcher:
 
     def from_xml(self, element):
 
-        tag_class = self.__TAGS__[element.tag]
-        if tag_class is not None:
-            return tag_class(element)
+        tag_cls = self.__TAGS__[element.tag]
+        if tag_cls is not None:
+            return tag_cls(element)
         else:
             raise NotImplementedError
 
@@ -94,35 +94,35 @@ class CalculationDispatcher:
 
     ##############################################
 
-    def _register_mapping(self, xml_class):
+    def _register_mapping(self, xml_cls):
 
-        calculation_class = xml_class.__calculation__
-        if calculation_class:
-            self._mapping[xml_class] = calculation_class
-            self._mapping[calculation_class] = xml_class
+        operation_cls = xml_cls.__operation__
+        if operation_cls:
+            self._mapping[xml_cls] = operation_cls
+            self._mapping[operation_cls] = xml_cls
 
     ##############################################
 
     def _init_mapper(self):
 
-        for tag_class in self.__TAGS__.values():
-            if tag_class is not None:
-                if hasattr(tag_class, '__TYPES__'):
-                    for xml_class in tag_class.__TYPES__.values():
-                        if xml_class is not None:
-                            self._register_mapping(xml_class)
+        for tag_cls in self.__TAGS__.values():
+            if tag_cls is not None:
+                if hasattr(tag_cls, '__TYPES__'):
+                    for xml_cls in tag_cls.__TYPES__.values():
+                        if xml_cls is not None:
+                            self._register_mapping(xml_cls)
                 else:
-                    self._register_mapping(tag_class)
+                    self._register_mapping(tag_cls)
 
     ##############################################
 
     def from_xml(self, element):
 
-        tag_class = self.__TAGS__[element.tag]
-        if hasattr(tag_class, '__TYPES__'):
-            cls = tag_class.__TYPES__[element.attrib['type']]
+        tag_cls = self.__TAGS__[element.tag]
+        if hasattr(tag_cls, '__TYPES__'):
+            cls = tag_cls.__TYPES__[element.attrib['type']]
         else:
-            cls = tag_class
+            cls = tag_cls
         if cls is not None:
             return cls(element)
         else:
@@ -130,8 +130,8 @@ class CalculationDispatcher:
 
     ##############################################
 
-    def from_calculation(self, calculation):
-        return self._mapping[calculation.__class__].from_calculation(calculation)
+    def from_operation(self, operation):
+        return self._mapping[operation.__class__].from_operation(operation)
 
 ####################################################################################################
 
@@ -184,6 +184,8 @@ class ValFile(XmlFileMixin):
     _calculation_dispatcher = CalculationDispatcher()
     _modeling_dispatcher = ModelingDispatcher()
     _detail_dispatcher = DetailDispatcher()
+
+    VAL_VERSION = '0.7.10'
 
     ##############################################
 
@@ -241,6 +243,8 @@ class ValFile(XmlFileMixin):
         #     </draw>
         # </pattern>
 
+        self._logger.info('Read Valentina file "{}"'.format(self.path))
+
         tree = self._parse()
 
         measurements_path = self._get_xpath_element(tree, 'measurements').text
@@ -261,39 +265,45 @@ class ValFile(XmlFileMixin):
         pattern = Pattern(measurements, unit)
         self._pattern = pattern
 
-        for element in self._get_xpath_element(tree, 'draw/calculation'):
-            try:
-                xml_calculation = self._calculation_dispatcher.from_xml(element)
-                xml_calculation.to_calculation(pattern)
-            except NotImplementedError:
-                self._logger.warning('Not implemented calculation\n' +  str(etree.tostring(element)))
+        for piece in self._get_xpath_elements(tree, 'draw'):
+            piece_name = piece.attrib['name']
+            self._logger.info('Create scope "{}"'.format(piece_name))
+            scope = pattern.add_scope(piece_name)
 
-        pattern.eval()
+            sketch = scope.sketch
+            for element in self._get_xpath_element(piece, 'calculation'):
+                try:
+                    xml_calculation = self._calculation_dispatcher.from_xml(element)
+                    operation = xml_calculation.to_operation(sketch)
+                    self._logger.info('Add operation {}'.format(operation))
+                except NotImplementedError:
+                    self._logger.warning('Not implemented calculation\n' +  str(etree.tostring(element)))
+            sketch.eval()
 
-        modeling = Modeling()
-        for element in self._get_xpath_element(tree, 'draw/modeling'):
-            xml_modeling_item = self._modeling_dispatcher.from_xml(element)
-            modeling.append(xml_modeling_item)
-            # print(xml_modeling_item)
-
-        details = []
-        for detail_element in self._get_xpath_element(tree, 'draw/details'):
-            xml_detail = Detail(modeling, detail_element)
-            details.append(xml_detail)
-            # print(xml_detail)
-            for element in detail_element:
-                if element.tag == 'nodes':
-                    for node in element:
-                        xml_node = DetailNode(node)
-                        # print(xml_node)
-                        xml_detail.append_node(xml_node)
-                else:
-                    xml_modeling_item = self._detail_dispatcher.from_xml(element)
-                    # Fixme: xml_detail. = xml_modeling_item
-                    # print(xml_modeling_item)
-            # for node, modeling_item in xml_detail.iter_on_nodes():
-            #     # print(node.object_id, '->', modeling_item, '->', modeling_item.object_id)
-            #     print(node, '->\n', modeling_item, '->\n', pattern.get_calculation(modeling_item.object_id))
+###        modeling = Modeling()
+###        for element in self._get_xpath_element(tree, 'draw/modeling'):
+###            xml_modeling_item = self._modeling_dispatcher.from_xml(element)
+###            modeling.append(xml_modeling_item)
+###            # print(xml_modeling_item)
+###
+###        details = []
+###        for detail_element in self._get_xpath_element(tree, 'draw/details'):
+###            xml_detail = Detail(modeling, detail_element)
+###            details.append(xml_detail)
+###            # print(xml_detail)
+###            for element in detail_element:
+###                if element.tag == 'nodes':
+###                    for node in element:
+###                        xml_node = DetailNode(node)
+###                        # print(xml_node)
+###                        xml_detail.append_node(xml_node)
+###                else:
+###                    xml_modeling_item = self._detail_dispatcher.from_xml(element)
+###                    # Fixme: xml_detail. = xml_modeling_item
+###                    # print(xml_modeling_item)
+###            # for node, modeling_item in xml_detail.iter_on_nodes():
+###            #     # print(node.object_id, '->', modeling_item, '->', modeling_item.object_id)
+###            #     print(node, '->\n', modeling_item, '->\n', pattern.get_operation(modeling_item.object_id))
 
     ##############################################
 
@@ -302,27 +312,29 @@ class ValFile(XmlFileMixin):
         root = etree.Element('pattern')
         root.append(etree.Comment('Pattern created with Patro (https://github.com/FabriceSalvaire/Patro)'))
 
-        etree.SubElement(root, 'version').text = '0.4.0'
+        etree.SubElement(root, 'version').text = self.VAL_VERSION
         etree.SubElement(root, 'unit').text = self._pattern.unit
         etree.SubElement(root, 'author')
         etree.SubElement(root, 'description')
         etree.SubElement(root, 'notes')
-        etree.SubElement(root, 'measurements').text = str(self._vit_file.path)
+        measurements = etree.SubElement(root, 'measurements')
+        if self._vit_file is not None:
+            measurements.text = str(self._vit_file.path)
         etree.SubElement(root, 'increments')
 
-        draw_element = etree.SubElement(root, 'draw') # Fixme:
-        draw_element.attrib['name'] = 'Pattern piece 1' # Fixme:
+        for scope in self._pattern.scopes:
+            draw_element = etree.SubElement(root, 'draw')
+            draw_element.attrib['name'] = scope.name
+            calculation_element = etree.SubElement(draw_element, 'calculation')
+            modeling_element = etree.SubElement(draw_element, 'modeling')
+            details_element = etree.SubElement(draw_element, 'details')
+            # group_element = etree.SubElement(draw_element, 'groups')
 
-        calculation_element = etree.SubElement(draw_element, 'calculation')
-        modeling_element = etree.SubElement(draw_element, 'modeling')
-        details_element = etree.SubElement(draw_element, 'details')
-        # group_element = etree.SubElement(draw_element, 'groups')
-
-        for calculation in self._pattern.calculations:
-            xml_calculation = self._calculation_dispatcher.from_calculation(calculation)
-            # print(xml_calculation)
-            # print(xml_calculation.to_xml_string())
-            calculation_element.append(xml_calculation.to_xml())
+            for operation in scope.sketch.operations:
+                xml_calculation = self._calculation_dispatcher.from_operation(operation)
+                # print(xml_calculation)
+                # print(xml_calculation.to_xml_string())
+                calculation_element.append(xml_calculation.to_xml())
 
         if path is None:
             path = self.path

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pattern>
+    <!--Pattern created with Valentina v0.6.0.912b (https://valentinaproject.bitbucket.io/).-->
+    <version>0.7.10</version>
+    <unit>cm</unit>
+    <description/>
+    <notes/>
+    <measurements/>
+    <increments/>
+    <previewCalculations/>
+    <draw name="Pattern piece 1">
+        <calculation>
+            <point id="1" mx="0.132292" my="0.264583" name="A" showLabel="true" type="single" x="0.79375" y="1.05833"/>
+            <point angle="0" basePoint="1" id="2" length="10" lineColor="black" mx="0.132292" my="0.264583" name="A1" showLabel="true" type="endLine" typeLine="hair"/>
+            <point angle="270" basePoint="2" id="3" length="10&#10;" lineColor="black" mx="0.132292" my="0.264583" name="A2" showLabel="true" type="endLine" typeLine="hair"/>
+            <point firstPoint="1" id="4" mx="0.132292" my="0.264583" name="A3" secondPoint="3" showLabel="true" type="pointOfIntersection"/>
+            <line firstPoint="3" id="5" lineColor="black" secondPoint="4" typeLine="hair"/>
+            <line firstPoint="4" id="6" lineColor="black" secondPoint="1" typeLine="hair"/>
+        </calculation>
+        <modeling>
+            <point id="13" idObject="1" inUse="false" mx="0.132292" my="0.264583" showLabel="true" type="modeling"/>
+            <point id="14" idObject="2" inUse="false" mx="0.132292" my="0.264583" showLabel="true" type="modeling"/>
+            <point id="15" idObject="3" inUse="false" mx="0.132292" my="0.264583" showLabel="true" type="modeling"/>
+            <point id="16" idObject="4" inUse="false" mx="0.132292" my="0.264583" showLabel="true" type="modeling"/>
+            <point id="22" idObject="1" inUse="true" mx="0.132292" my="0.264583" showLabel="true" type="modeling"/>
+            <point id="23" idObject="2" inUse="true" mx="0.132292" my="0.264583" showLabel="true" type="modeling"/>
+            <point id="24" idObject="4" inUse="true" mx="0.132292" my="0.264583" showLabel="true" type="modeling"/>
+        </modeling>
+        <details>
+            <detail forbidFlipping="false" forceFlipping="false" hideMainPath="false" id="17" inLayout="true" mx="0" my="0" name="Detail 1" seamAllowance="false" united="false" version="2" width="1">
+                <data annotation="" foldPosition="" fontSize="0" height="1" letter="" mx="0" my="0" onFold="false" orientation="" quantity="1" rotation="0" rotationWay="" tilt="" visible="false" width="1"/>
+                <patternInfo fontSize="0" height="1" mx="0" my="0" rotation="0" visible="false" width="1"/>
+                <grainline arrows="0" length="1" mx="0" my="0" rotation="90" visible="false"/>
+                <nodes>
+                    <node idObject="13" type="NodePoint"/>
+                    <node idObject="14" type="NodePoint"/>
+                    <node idObject="15" type="NodePoint"/>
+                    <node idObject="16" type="NodePoint"/>
+                </nodes>
+            </detail>
+            <detail forbidFlipping="false" forceFlipping="false" hideMainPath="false" id="25" inLayout="true" mx="0" my="0" name="Detail 11" seamAllowance="false" united="false" version="2" width="1">
+                <data annotation="" foldPosition="" fontSize="0" height="1" letter="" mx="0" my="0" onFold="false" orientation="" quantity="1" rotation="0" rotationWay="" tilt="" visible="false" width="1"/>
+                <patternInfo fontSize="0" height="1" mx="0" my="0" rotation="0" visible="false" width="1"/>
+                <grainline arrows="0" length="1" mx="0" my="0" rotation="90" visible="false"/>
+                <nodes>
+                    <node idObject="22" type="NodePoint"/>
+                    <node idObject="23" type="NodePoint"/>
+                    <node idObject="24" type="NodePoint"/>
+                </nodes>
+            </detail>
+        </details>
+        <groups/>
+    </draw>
+    <draw name="Pattern piece 2">
+        <calculation>
+            <point id="7" mx="0.132292" my="0.264583" name="B" showLabel="true" type="single" x="13.6961" y="1.05833"/>
+            <point angle="0" basePoint="7" id="8" length="5" lineColor="black" mx="0.132292" my="0.264583" name="B1" showLabel="true" type="endLine" typeLine="hair"/>
+            <point firstPoint="7" id="9" length="CurrentLength/2" lineColor="black" mx="0.132292" my="0.264583" name="B2" secondPoint="8" showLabel="true" type="alongLine" typeLine="none"/>
+            <point angle="0" firstPoint="9" id="10" length="-5&#10;" lineColor="black" mx="0.132292" my="0.264583" name="B3" secondPoint="8" showLabel="true" type="normal" typeLine="hair"/>
+            <line firstPoint="7" id="11" lineColor="black" secondPoint="10" typeLine="hair"/>
+            <line firstPoint="10" id="12" lineColor="black" secondPoint="8" typeLine="hair"/>
+        </calculation>
+        <modeling>
+            <point id="18" idObject="7" inUse="false" mx="0.132292" my="0.264583" showLabel="true" type="modeling"/>
+            <point id="19" idObject="8" inUse="false" mx="0.132292" my="0.264583" showLabel="true" type="modeling"/>
+            <point id="20" idObject="10" inUse="false" mx="0.132292" my="0.264583" showLabel="true" type="modeling"/>
+        </modeling>
+        <details>
+            <detail forbidFlipping="false" forceFlipping="false" hideMainPath="false" id="21" inLayout="true" mx="0" my="-0.0264583" name="Detail 2" seamAllowance="false" united="false" version="2" width="1">
+                <data annotation="" foldPosition="" fontSize="0" height="1" letter="" mx="0" my="0" onFold="false" orientation="" quantity="1" rotation="0" rotationWay="" tilt="" visible="false" width="1"/>
+                <patternInfo fontSize="0" height="1" mx="0" my="0" rotation="0" visible="false" width="1"/>
+                <grainline arrows="0" length="1" mx="0" my="0" rotation="90" visible="false"/>
+                <nodes>
+                    <node idObject="18" type="NodePoint"/>
+                    <node idObject="19" type="NodePoint"/>
+                    <node idObject="20" type="NodePoint"/>
+                </nodes>
+            </detail>
+        </details>
+        <groups/>
+    </draw>
+</pattern>

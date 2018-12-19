@@ -53,3 +53,12 @@ class AtomicCounter:
         with self._lock:
             self._value += value
         return self._value
+
+    ##############################################
+
+    def set(self, value):
+        """Atomically set the counter to a value."""
+        with self._lock:
+            if value <= self._value:
+                raise ValueError
+            self._value = value

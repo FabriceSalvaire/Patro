@@ -18,15 +18,10 @@
 #
 ####################################################################################################
 
-# Fixme: calculation
-#  a) the process or an act of calculating
-#  b) the result of an act of calculating
-#  synonym of computation
+"""This module defines all the sketch operations supported by the pattern engine, e.g. the
+intersection between two lines.
 
-"""This module defines all the calculations supported by the pattern engine, e.g. the intersection
-between two lines.
-
-A calculation must be build from the corresponding method of the Pattern class.
+A sketch operation must be build from the corresponding method of the Pattern class.
 
 """
 
@@ -34,7 +29,7 @@ A calculation must be build from the corresponding method of the Pattern class.
 
 import logging
 
-from Patro.Common.Object import ObjectIdMixin
+from Patro.Common.Object import ObjectGlobalIdMixin
 from Patro.GeometryEngine.Bezier import CubicBezier2D
 from Patro.GeometryEngine.Line import Line2D
 from Patro.GeometryEngine.Segment import Segment2D
@@ -55,9 +50,9 @@ def quote(x):
 
 ####################################################################################################
 
-### class CalculationMetaClass:
+### class SketchOperationMetaClass:
 ###
-###     _logger = _module_logger.getChild('CalculationMetaClass')
+###     _logger = _module_logger.getChild('SketchOperationMetaClass')
 ###
 ###     ##############################################
 ###
@@ -67,46 +62,39 @@ def quote(x):
 
 ####################################################################################################
 
-# metaclass = CalculationMetaClass
-class Calculation(ObjectIdMixin):
+# metaclass = SketchOperationMetaClass
+class SketchOperation(ObjectGlobalIdMixin):
 
-    """Baseclass for calculation"""
+    """Baseclass for sketch operation"""
 
-    _logger = _module_logger.getChild('Calculation')
+    _logger = _module_logger.getChild('SketchOperation')
 
     ##############################################
 
-    def __init__(self, pattern, id=None):
+    def __init__(self, sketch, id=None):
 
-        self._pattern = pattern
+        self._sketch = sketch
 
         # Valentina set an incremental integer id for each calculation (entity)
+        # id is used to identify operation, see _get_operation
         # A calculation which generate a point has also a name
-        super().__init__(id)
+        try:
+            super().__init__(id)
+        except ValueError:
+            raise NameError("id {} is already attributed".format(id))
 
         self._dag_node = self._dag.add_node(pyid(self), data=self)
         self._dependencies = set()
 
     ##############################################
 
-    def new_id(self):
-        return self._pattern.new_claculation_id()
-
-    ##############################################
-
-    def check_id(self, id):
-        if self._pattern.has_calculation_id(id):
-            raise NameError("calculation id {} is already attributed".format(id))
-
-    ##############################################
-
     @property
-    def pattern(self):
-        return self._pattern
+    def sketch(self):
+        return self._sketch
 
     @property
     def _dag(self):
-        return self._pattern.calculator.dag
+        return self._sketch.calculator.dag
 
     @property
     def dependencies(self):
@@ -114,18 +102,18 @@ class Calculation(ObjectIdMixin):
 
     ##############################################
 
-    def _get_calculation(self, calculation):
+    def _get_operation(self, operation):
 
-        """Return the corresponding :obj:`Calculation` object where *calculation* can be
-        :obj:`Calculation` instance, an id or a name.
+        """Return the corresponding :obj:`SketchOperation` object where *operation* can be
+        :obj:`SketchOperation` instance, an id or a name.
 
         """
 
-        if isinstance(calculation, Calculation):
-            return calculation
-        # elif isinstance(calculation, (int, str)):
+        if isinstance(operation, SketchOperation):
+            return operation
+        # elif isinstance(operation, (int, str)):
         else: # must be id or string
-            return self._pattern.get_calculation(calculation)
+            return self._sketch.get_operation(operation)
 
     ##############################################
 
@@ -136,7 +124,7 @@ class Calculation(ObjectIdMixin):
     ##############################################
 
     def eval_internal(self):
-        """Code to evaluate the calculation in subclasses, i.e. to compute internal states like points."""
+        """Code to evaluate the operation in subclasses, i.e. to compute internal states like points."""
         pass
 
     ##############################################
@@ -146,30 +134,30 @@ class Calculation(ObjectIdMixin):
         # cf. to_python
 
         args = self.__init__.__code__.co_varnames
-        args = args[2:-1] # remove self, pattern, id
+        args = args[2:-1] # remove self, sketch, id
         return args
 
     ##############################################
 
     def to_python(self):
 
-        """Return the Python code for the calculation"""
+        """Return the Python code for the operation"""
 
         args = self._init_args()
         values = []
         for arg in args:
             value = getattr(self, arg)
-            # if arg == 'pattern':
-            #     value_str = 'pattern'
-            # if isinstance(value, Pattern):
-            #     value_str = 'pattern'
+            # if arg == 'sketch':
+            #     value_str = 'sketch'
+            # if isinstance(value, Sketch):
+            #     value_str = 'sketch'
             if value is  None:
                 value_str = 'None'
             elif isinstance(value, (int, float)):
                 value_str = str(value)
             elif isinstance(value, str):
                 value_str = quote(value)
-            # elif isinstance(value, Calculation):
+            # elif isinstance(value, SketchOperation):
             #     value_str = str(value.id)
             elif isinstance(value, Point):
                 value_str = quote(value.name)
@@ -183,7 +171,7 @@ class Calculation(ObjectIdMixin):
             else:
                 value_str = ''
             values.append(value_str)
-        kwargs = ', '.join(['pattern'] + [key + '=' + value for key, value in zip(args, values)])
+        kwargs = ', '.join(['sketch'] + [key + '=' + value for key, value in zip(args, values)])
         return self.__class__.__name__ + '(' + kwargs + ')'
 
     ##############################################
@@ -256,8 +244,8 @@ class FirstSecondPointMixin:
     ##############################################
 
     def __init__(self, first_point, second_point):
-        self._first_point = self._get_calculation(first_point)
-        self._second_point = self._get_calculation(second_point)
+        self._first_point = self._get_operation(first_point)
+        self._second_point = self._get_operation(second_point)
         self._connect_ancestor(self._first_point, self._second_point)
 
     ##############################################
@@ -277,7 +265,7 @@ class BasePointMixin:
     ##############################################
 
     def __init__(self, base_point):
-        self._base_point = self._get_calculation(base_point)
+        self._base_point = self._get_operation(base_point)
         self._connect_ancestor(self._base_point)
 
     ##############################################
@@ -293,7 +281,7 @@ class LengthMixin:
     ##############################################
 
     def __init__(self, length):
-        self._length = Expression(length, self._pattern.calculator)
+        self._length = Expression(length, self._sketch.calculator)
         # self._connect_ancestor_for_expressions(self._length)
 
     ##############################################
@@ -309,7 +297,7 @@ class AngleMixin:
     ##############################################
 
     def __init__(self, angle):
-        self._angle = Expression(angle, self._pattern.calculator)
+        self._angle = Expression(angle, self._sketch.calculator)
         # self._connect_ancestor_for_expressions(self._angle)
 
     ##############################################
@@ -330,15 +318,15 @@ class LengthAngleMixin(LengthMixin, AngleMixin):
 
 ####################################################################################################
 
-class Point(Calculation):
+class Point(SketchOperation):
 
     """Base class for point."""
 
     ##############################################
 
-    def __init__(self, pattern, name, label_offset, id=None):
+    def __init__(self, sketch, name, label_offset, id=None):
 
-        Calculation.__init__(self, pattern, id)
+        SketchOperation.__init__(self, sketch, id)
         self._name = name
         self._label_offset = label_offset
 
@@ -376,15 +364,15 @@ class SinglePoint(Point):
 
     ##############################################
 
-    def __init__(self, pattern, name,
+    def __init__(self, sketch, name,
                  x, y,
                  label_offset,
                  id=None
     ):
 
-        Point.__init__(self, pattern, name, label_offset, id)
-        self._x = Expression(x, pattern.calculator)
-        self._y = Expression(y, pattern.calculator)
+        Point.__init__(self, sketch, name, label_offset, id)
+        self._x = Expression(x, sketch.calculator)
+        self._y = Expression(y, sketch.calculator)
         # self._connect_ancestor_for_expressions(self._x, self._y)
 
     ##############################################
@@ -416,14 +404,14 @@ class AlongLinePoint(Point, LinePropertiesMixin, FirstSecondPointMixin, LengthMi
 
     ##############################################
 
-    def __init__(self, pattern, name,
+    def __init__(self, sketch, name,
                  first_point, second_point, length,
                  label_offset,
                  line_style=None, line_color=None,
                  id=None,
                  ):
 
-        Point.__init__(self, pattern, name, label_offset, id)
+        Point.__init__(self, sketch, name, label_offset, id)
         LinePropertiesMixin.__init__(self, line_style, line_color)
         FirstSecondPointMixin.__init__(self, first_point, second_point)
         LengthMixin.__init__(self, length)
@@ -438,9 +426,9 @@ class AlongLinePoint(Point, LinePropertiesMixin, FirstSecondPointMixin, LengthMi
     def eval_internal(self):
 
         vector = self._second_point.vector - self._first_point.vector
-        self._pattern.calculator.set_current_segment(vector)
+        self._sketch.calculator.set_current_segment(vector)
         self._vector = self._first_point.vector + vector.to_normalised()*self._length.value
-        self._pattern.calculator.unset_current_segment()
+        self._sketch.calculator.unset_current_segment()
         self._post_eval_internal()
 
 ####################################################################################################
@@ -451,14 +439,14 @@ class EndLinePoint(Point, LinePropertiesMixin, BasePointMixin, LengthAngleMixin)
 
     ##############################################
 
-    def __init__(self, pattern, name,
+    def __init__(self, sketch, name,
                  base_point, angle, length,
                  label_offset,
                  line_style=None, line_color=None,
                  id=None,
     ):
 
-        Point.__init__(self, pattern, name, label_offset, id)
+        Point.__init__(self, sketch, name, label_offset, id)
         LinePropertiesMixin.__init__(self, line_style, line_color)
         BasePointMixin.__init__(self, base_point)
         LengthAngleMixin.__init__(self, length, angle)
@@ -483,17 +471,17 @@ class LineIntersectPoint(Point):
 
     ##############################################
 
-    def __init__(self, pattern, name,
+    def __init__(self, sketch, name,
                  point1_line1, point2_line1, point1_line2, point2_line2,
                  label_offset,
                  id=None,
     ):
 
-        Point.__init__(self, pattern, name, label_offset, id)
-        self._point1_line1 = self._get_calculation(point1_line1)
-        self._point2_line1 = self._get_calculation(point2_line1)
-        self._point1_line2 = self._get_calculation(point1_line2)
-        self._point2_line2 = self._get_calculation(point2_line2)
+        Point.__init__(self, sketch, name, label_offset, id)
+        self._point1_line1 = self._get_operation(point1_line1)
+        self._point2_line1 = self._get_operation(point2_line1)
+        self._point1_line2 = self._get_operation(point1_line2)
+        self._point2_line2 = self._get_operation(point2_line2)
         self._connect_ancestor(self._point1_line1, self._point2_line1,
                                self._point1_line2, self._point2_line2)
 
@@ -537,14 +525,14 @@ class NormalPoint(Point, LinePropertiesMixin, FirstSecondPointMixin, LengthAngle
 
     ##############################################
 
-    def __init__(self, pattern, name,
+    def __init__(self, sketch, name,
                  first_point, second_point, angle, length,
                  label_offset,
                  line_style=None, line_color=None,
                  id=None,
     ):
 
-        Point.__init__(self, pattern, name, label_offset, id)
+        Point.__init__(self, sketch, name, label_offset, id)
         LinePropertiesMixin.__init__(self, line_style, line_color)
         FirstSecondPointMixin.__init__(self, first_point, second_point)
         LengthAngleMixin.__init__(self, length, angle)
@@ -559,14 +547,14 @@ class NormalPoint(Point, LinePropertiesMixin, FirstSecondPointMixin, LengthAngle
     def eval_internal(self):
 
         vector = self._second_point.vector - self._first_point.vector
-        self._pattern.calculator.set_current_segment(vector)
+        self._sketch.calculator.set_current_segment(vector)
         direction = vector.to_normalised()
         direction = direction.normal
         angle = self._angle.value
         if angle:
             direction = direction.rotate(angle)
         self._vector = self._first_point.vector + direction*self._length.value
-        self._pattern.calculator.unset_current_segment()
+        self._sketch.calculator.unset_current_segment()
         self._post_eval_internal()
 
 ####################################################################################################
@@ -577,13 +565,13 @@ class PointOfIntersection(Point, FirstSecondPointMixin):
 
     ##############################################
 
-    def __init__(self, pattern, name,
+    def __init__(self, sketch, name,
                  first_point, second_point,
                  label_offset,
                  id=None,
     ):
 
-        Point.__init__(self, pattern, name, label_offset, id)
+        Point.__init__(self, sketch, name, label_offset, id)
         FirstSecondPointMixin.__init__(self, first_point, second_point)
 
     ##############################################
@@ -599,19 +587,19 @@ class PointOfIntersection(Point, FirstSecondPointMixin):
 
 ####################################################################################################
 
-class Line(Calculation, LinePropertiesMixin, FirstSecondPointMixin):
+class Line(SketchOperation, LinePropertiesMixin, FirstSecondPointMixin):
 
     """Construct a line defined by two points"""
 
     ##############################################
 
-    def __init__(self, pattern,
+    def __init__(self, sketch,
                  first_point, second_point,
                  line_style='solid', line_color='black',
                  id=None,
     ):
 
-        Calculation.__init__(self, pattern, id)
+        SketchOperation.__init__(self, sketch, id)
         LinePropertiesMixin.__init__(self, line_style, line_color)
         FirstSecondPointMixin.__init__(self, first_point, second_point)
 
@@ -632,13 +620,13 @@ class Line(Calculation, LinePropertiesMixin, FirstSecondPointMixin):
 
 ####################################################################################################
 
-class SimpleInteractiveSpline(Calculation, LinePropertiesMixin, FirstSecondPointMixin):
+class SimpleInteractiveSpline(SketchOperation, LinePropertiesMixin, FirstSecondPointMixin):
 
     """"Construct a quadratic Bezier curve from two extremity points and two control points"""
 
     ##############################################
 
-    def __init__(self, pattern,
+    def __init__(self, sketch,
                  first_point, second_point,
                  angle1, length1,
                  angle2, length2,
@@ -646,13 +634,13 @@ class SimpleInteractiveSpline(Calculation, LinePropertiesMixin, FirstSecondPoint
                  id=None,
     ):
 
-        Calculation.__init__(self, pattern, id)
+        SketchOperation.__init__(self, sketch, id)
         LinePropertiesMixin.__init__(self, line_style, line_color)
         FirstSecondPointMixin.__init__(self, first_point, second_point)
-        self._angle1 = Expression(angle1, pattern.calculator)
-        self._length1 = Expression(length1, pattern.calculator)
-        self._angle2 = Expression(angle2, pattern.calculator)
-        self._length2 = Expression(length2, pattern.calculator)
+        self._angle1 = Expression(angle1, sketch.calculator)
+        self._length1 = Expression(length1, sketch.calculator)
+        self._angle2 = Expression(angle2, sketch.calculator)
+        self._length2 = Expression(length2, sketch.calculator)
         # self._connect_ancestor_for_expressions(self._angle1, self._length1, self._angle2, self._length2)
 
         self._control_point1 = None # Fixme: not yet computed

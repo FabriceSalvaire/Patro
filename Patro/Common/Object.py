@@ -68,9 +68,14 @@ class ObjectGlobalIdMixin:
 
     ##############################################
 
-    def __init__(self):
+    def __init__(self, id=None):
+
         # Note: sub-classes share the same counter !
-        self._id = ObjectGlobalIdMixin.__object_counter__.increment()
+        if id is not None:
+            ObjectGlobalIdMixin.__object_counter__.set(id)
+            self._id = id
+        else:
+            self._id = ObjectGlobalIdMixin.__object_counter__.increment()
 
     ##############################################
 

@@ -59,6 +59,13 @@ class XmlFileMixin:
     ##############################################
 
     @staticmethod
+    def _get_xpath_elements(root, path):
+        """Utility function to get elements from a xpath and a root"""
+        return root.xpath(path)
+
+    ##############################################
+
+    @staticmethod
     def _get_xpath_element(root, path):
         """Utility function to get an element from a xpath and a root"""
         return root.xpath(path)[0]

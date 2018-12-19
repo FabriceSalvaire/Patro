@@ -26,29 +26,29 @@
 
 import inspect
 
-from . import Calculation
-from .Pattern import Pattern
+from . import SketchOperation
+from .Sketch import Sketch
 
 ####################################################################################################
 
-def _get_calculations(module):
+def _get_sketch_operations(module):
     return [item
             for item  in module.__dict__.values()
-            if inspect.isclass(item) and issubclass(item, Calculation.Calculation)]
+            if inspect.isclass(item) and issubclass(item, SketchOperation.SketchOperation)]
 
 ####################################################################################################
 
-_calculations = _get_calculations(Calculation)
+_sketch_operations = _get_sketch_operations(SketchOperation)
 
-for calculation_class in _calculations:
+for operation_cls in _sketch_operations:
 
-    def _make_function(calculation_class):
+    def _make_function(operation_cls):
         def function(self, *args, **kwargs):
-            calculation = calculation_class(self, *args, **kwargs)
-            self._add_calculation(calculation)
-            return calculation
+            sketch_operation = operation_cls(self, *args, **kwargs)
+            self._add_operation(sketch_operation)
+            return sketch_operation
         return function
 
-    function_name = calculation_class.__name__
+    function_name = operation_cls.__name__
 
-    setattr(Pattern, function_name, _make_function(calculation_class))
+    setattr(Sketch, function_name, _make_function(operation_cls))

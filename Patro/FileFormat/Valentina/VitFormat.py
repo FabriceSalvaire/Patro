@@ -60,7 +60,7 @@ __all__ = [
 
 ####################################################################################################
 
-import Patro.Pattern.Calculation as Calculation
+import Patro.Pattern.SketchOperation as SketchOperation
 from Patro.Common.Xml.Objectivity import (
     BoolAttribute,
     IntAttribute, FloatAttribute,
@@ -225,24 +225,24 @@ class CalculationMixin:
         IntAttribute('id'),
     )
 
-    __calculation__ = None # calculation's class
+    __operation__ = None # operation's class
 
     ##############################################
 
-    def call_calculation_function(self, pattern, kwargs):
+    def call_operation_function(self, sketch, kwargs):
         # Fixme: map valentina name -> ...
-        method = getattr(pattern, self.__calculation__.__name__)
+        method = getattr(sketch, self.__operation__.__name__)
         return method(**kwargs)
 
     ##############################################
 
-    def to_calculation(self, pattern):
+    def to_operation(self, sketch):
         raise NotImplementedError
 
     ##############################################
 
     @classmethod
-    def from_calculation(calculation):
+    def from_operation(operation):
         raise NotImplementedError
 
 ####################################################################################################
@@ -353,19 +353,19 @@ class PointMixin(CalculationTypeMixin, MxMyMixin):
 
     ##############################################
 
-    def to_calculation(self, pattern):
+    def to_operation(self, sketch):
 
         kwargs = self.to_dict(exclude=('mx', 'my')) # id'
         kwargs['label_offset'] = Vector2D(self.mx, self.my)
-        return self.call_calculation_function(pattern, kwargs)
+        return self.call_operation_function(sketch, kwargs)
 
     ##############################################
 
     @classmethod
-    def from_calculation(cls, calculation):
+    def from_operation(cls, operation):
 
-        kwargs = cls.get_dict(calculation, exclude=('mx', 'my'))
-        label_offset = calculation.label_offset
+        kwargs = cls.get_dict(operation, exclude=('mx', 'my'))
+        label_offset = operation.label_offset
         kwargs['mx'] = label_offset.x
         kwargs['my'] = label_offset.y
         return cls(**kwargs)
@@ -383,7 +383,7 @@ class AlongLinePoint(PointLinePropertiesMixin, FirstSecondPointMixin, LengthMixi
     # length="-Line_Bt_Ct" name="Dt" lineColor="black" type="alongLine" my="0.2"/>
 
     __type__ = 'alongLine'
-    __calculation__ = Calculation.AlongLinePoint
+    __operation__ = SketchOperation.AlongLinePoint
 
 ####################################################################################################
 
@@ -393,7 +393,7 @@ class BissectorPoint(PointLinePropertiesMixin, FirstSecondThirdPointMixin, Lengt
     # length="Line_A_X" name="B" lineColor="deepskyblue" type="bisector" my="0.2"/>
 
     __type__ = 'bisector'
-    # __calculation__ = Calculation.BissectorPoint
+    # __operation__ = SketchOperation.BissectorPoint
 
 ####################################################################################################
 
@@ -418,7 +418,7 @@ class EndLinePoint(PointLinePropertiesMixin, BasePointMixin, LengthAngleMixin, X
     # lineColor="blue" type="endLine" angle="360" my="0.25"/>
 
     __type__ = 'endLine'
-    __calculation__ = Calculation.EndLinePoint
+    __operation__ = SketchOperation.EndLinePoint
 
 ####################################################################################################
 
@@ -428,7 +428,7 @@ class HeightPoint(PointLinePropertiesMixin, BasePointMixin, Line1Mixin, XmlObjec
     # lineColor="mediumseagreen" type="height" my="0.2"/>
 
     __type__ = 'height'
-    # __calculation__ = Calculation.HeightPoint
+    # __operation__ = SketchOperation.HeightPoint
 
 ####################################################################################################
 
@@ -438,7 +438,7 @@ class LineIntersectPoint(PointMixin, Line12Mixin, XmlObjectAdaptator):
     # p2Line1="12" p2Line2="14"/>
 
     __type__ = 'lineIntersect'
-    __calculation__ = Calculation.LineIntersectPoint
+    __operation__ = SketchOperation.LineIntersectPoint
 
 ####################################################################################################
 
@@ -448,7 +448,7 @@ class LineIntersectAxisPoint(PointLinePropertiesMixin, BasePointMixin, Line1Mixi
     # lineColor="goldenrod" type="lineIntersectAxis" angle="150" my="-1.8"/>
 
     __type__ = 'lineIntersectAxis'
-    # __calculation__ = Calculation.LineIntersectAxisPoint
+    # __operation__ = SketchOperation.LineIntersectAxisPoint
 
 ####################################################################################################
 
@@ -458,7 +458,7 @@ class NormalPoint(PointLinePropertiesMixin, FirstSecondPointMixin, LengthAngleMi
     # name="Ct" lineColor="blue" type="normal" angle="0" my="0.1"/>
 
     __type__ = 'normal'
-    __calculation__ = Calculation.NormalPoint
+    __operation__ = SketchOperation.NormalPoint
 
 ####################################################################################################
 
@@ -478,7 +478,7 @@ class PointOfIntersection(PointMixin, FirstSecondPointMixin, XmlObjectAdaptator)
     # <point id="14" firstPoint="2" mx="0.1" secondPoint="5" name="XY" type="pointOfIntersection" my="0.2"/>
 
     __type__ = 'pointOfIntersection'
-    __calculation__ = Calculation.PointOfIntersection
+    __operation__ = SketchOperation.PointOfIntersection
 
 ####################################################################################################
 
@@ -501,7 +501,7 @@ class ShoulderPoint(PointLinePropertiesMixin, Line1Mixin, LengthMixin, XmlObject
     # p1Line="5" lineColor="lightsalmon" type="shoulder" my="-1.3"/>
 
     __type__ = 'shoulder'
-    # __calculation__ = Calculation.ShoulderPoint
+    # __operation__ = SketchOperation.ShoulderPoint
     __attributes__ = (
         IntAttribute('shoulder_point', 'pShoulder'),
     )
@@ -513,7 +513,7 @@ class SinglePoint(PointMixin, XyMixin, XmlObjectAdaptator):
     # <point id="1" mx="0.1" x="0.79375" y="1.05833" name="A" type="single" my="0.2"/>
 
     __type__ = 'single'
-    __calculation__ = Calculation.SinglePoint
+    __operation__ = SketchOperation.SinglePoint
 
 ####################################################################################################
 
@@ -563,18 +563,18 @@ class Line(CalculationMixin, LinePropertiesMixin, FirstSecondPointMixin, XmlObje
     # <line id="47" firstPoint="38" typeLine="hair" secondPoint="45" lineColor="blue"/>
 
     __tag__ = 'line'
-    __calculation__ = Calculation.Line
+    __operation__ = SketchOperation.Line
 
     ##############################################
 
-    def to_calculation(self, pattern):
-        return self.call_calculation_function(pattern, self.to_dict()) # exclude=('id')
+    def to_operation(self, sketch):
+        return self.call_operation_function(sketch, self.to_dict()) # exclude=('id')
 
     ##############################################
 
     @classmethod
-    def from_calculation(cls, calculation):
-        kwargs = cls.get_dict(calculation)
+    def from_operation(cls, operation):
+        kwargs = cls.get_dict(operation)
         return cls(**kwargs)
 
 ####################################################################################################
@@ -599,18 +599,18 @@ class SimpleInteractiveSpline(SplineMixin, XmlObjectAdaptator):
         StringAttribute('angle2'),
         StringAttribute('line_color', 'color'),
     )
-    __calculation__ = Calculation.SimpleInteractiveSpline
+    __operation__ = SketchOperation.SimpleInteractiveSpline
 
     ##############################################
 
-    def to_calculation(self, pattern):
-        return self.call_calculation_function(pattern, self.to_dict()) # exclude=('id')
+    def to_operation(self, sketch):
+        return self.call_operation_function(sketch, self.to_dict()) # exclude=('id')
 
     ##############################################
 
     @classmethod
-    def from_calculation(cls, calculation):
-        kwargs = cls.get_dict(calculation)
+    def from_operation(cls, operation):
+        kwargs = cls.get_dict(operation)
         return cls(**kwargs)
 
 ####################################################################################################
