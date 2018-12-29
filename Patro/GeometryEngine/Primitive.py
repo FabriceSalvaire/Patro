@@ -31,6 +31,8 @@ __all__ = [
 
 import collections
 
+import numpy as np
+
 from .BoundingBox import bounding_box_from_points
 
 ####################################################################################################
@@ -142,6 +144,17 @@ class Primitive:
         #     point *= transformation # don't work
 
         self._set_points([transformation*p for p in self.points])
+
+    ##############################################
+
+    @property
+    def geometry_matrix(self):
+        return np.array(list(self.points)).transpose()
+
+    ##############################################
+
+    def is_close(self, other):
+        return np.allclose(self.geometry_matrix, other.geometry_matrix)
 
 ####################################################################################################
 

@@ -18,9 +18,19 @@
 #
 ####################################################################################################
 
+# C0 = continuous
+# G1 = geometric continuity
+#    Tangents point to the same direction
+# C1 = parametric continuity
+#    Tangents are the same, implies G1
+# C2 = curvature continuity
+#    Tangents and their derivatives are the same
+
 ####################################################################################################
 
 from math import log, sqrt, pow
+
+import numpy as np
 
 from Patro.Common.Math.Root import quadratic_root, cubic_root, fifth_root
 from .Interpolation import interpolate_two_points
@@ -84,7 +94,7 @@ class QuadraticBezier2D(Primitive2DMixin, Primitive3P):
 
         A0 = self._p1 - self._p0
         A1 = self._p0 - self._p1 * 2 + self._p2
-        if A1.magnitude_square() != 0:
+        if A1.magnitude_square != 0:
             c = 4 * A1.dot(A1)
             b = 8 * A0.dot(A1)
             a = 4 * A0.dot(A0)
@@ -96,7 +106,7 @@ class QuadraticBezier2D(Primitive2DMixin, Primitive3P):
             return (m0 * (two_cb * sqrt(sum_cba) - b * sqrt(a)) +
                     m1 * (log(2 * sqrt(c * sum_cba) + two_cb) - log(2 * sqrt(c * a) + b)))
         else:
-            return 2 * A0.magnitude()
+            return 2 * A0.magnitude
 
     ##############################################
 
@@ -105,14 +115,14 @@ class QuadraticBezier2D(Primitive2DMixin, Primitive3P):
         # Length of the curve obtained via line interpolation
 
         if dt is None:
-            dt = self.LineInterpolationPrecision / (self.end_point - self.start_point).magnitude()
+            dt = self.LineInterpolationPrecision / (self.end_point - self.start_point).magnitude
 
         length = 0
         t = 0
         while t < 1:
             t0 = t
             t = min(t + dt, 1)
-            length += (self.point_at_t(t) - self.point_at_t(t0)).magnitude()
+            length += (self.point_at_t(t) - self.point_at_t(t0)).magnitude
 
         return length
 
@@ -412,6 +422,26 @@ class CubicBezier2D(Primitive4P, QuadraticBezier2D):
 
     InterpolationPrecision = 0.001
 
+    # Q(t) = Transformation * Control * Basis * T(t)
+    #
+    #           / P1x P2x P3x P4x \  / 1 -3  3 -1 \ / 1    \
+        # Q(t) = Tr | P1y P2x P3x P4x |  | 0  3 -6  3 | | t    |
+    #           |  0   0   0   0  |  | 0  0  3 -3 | | t**2 |
+    #           \  1   1   1   1  /  \ 0  0  0  1 / \ t**3 /
+
+    BASIS = np.array((
+        (1, -3,  3, -1),
+        (0,  3, -6,  3),
+        (0,  0,  3, -3),
+        (0,  0,  0,  1),
+    ))
+    INVERSE_BASIS = np.array((
+        (1,    1,   1, 1),
+        (0,  1/3, 2/3, 1),
+        (0,    0, 1/3, 1),
+        (0,    0,   0, 1),
+    ))
+
     #######################################
 
     def __init__(self, p0, p1, p2, p3):
@@ -422,6 +452,14 @@ class CubicBezier2D(Primitive4P, QuadraticBezier2D):
 
     def __repr__(self):
         return self.__class__.__name__ + '({0._p0}, {0._p1}, {0._p2}, {0._p3})'.format(self)
+
+    ##############################################
+
+    def to_spline(self):
+
+        basis = np.dot(self.BASIS, CubicSpline2D.INVERSE_BASIS)
+        points = np.dot(self.geometry_matrix, basis).transpose()
+        return CubicSpline2D(*points)
 
     ##############################################
 
@@ -474,7 +512,7 @@ class CubicBezier2D(Primitive4P, QuadraticBezier2D):
 
     def _d01(self):
         """Return the distance between 0 and 1 quadratic aproximations"""
-        return (self._p3 - self._p2 * 3 + self._p1 * 3 - self._p0).magnitude() / 2
+        return (self._p3 - self._p2 * 3 + self._p1 * 3 - self._p0).magnitude / 2
 
     ##############################################
 
@@ -913,3 +951,58 @@ class CubicBezier2D(Primitive4P, QuadraticBezier2D):
             raise NameError("Found more than on root")
         else:
             return self.point_at_t(t[0])
+
+####################################################################################################
+
+class CubicSpline2D(Primitive2DMixin, Primitive4P):
+
+    """Class to implements 2D Cubic Spline Curve."""
+
+    BASIS = np.array((
+        (1, -3,  3, -1),
+        (4,  0, -6,  3),
+        (1,  3,  3, -3),
+        (0,  0,  0,  1),
+    )) / 6
+    INVERSE_BASIS = np.array((
+        (  1,    1,    1,     1),
+        ( -1,    0,    1,     2),
+        (2/3, -1/3,  2/3,  11/3),
+        (  0,    0,    0,     6),
+    ))
+
+    #######################################
+
+    def __init__(self, p0, p1, p2, p3):
+        Primitive4P.__init__(self, p0, p1, p2, p3)
+
+    ##############################################
+
+    def __repr__(self):
+        return self.__class__.__name__ + '({0._p0}, {0._p1}, {0._p2}, {0._p3})'.format(self)
+
+    ##############################################
+
+    def to_bezier(self):
+
+        basis = np.dot(self.BASIS, CubicBezier2D.INVERSE_BASIS)
+        points = np.dot(self.geometry_matrix, basis).transpose()
+        return CubicSpline2D(*points)
+
+    ##############################################
+
+    def point_at_t(self, t):
+
+        # Q(t) = (
+        #          P0 *  (1-t)**3                      +
+        #          P1 * (  3*t**3 - 6*t**2       + 4 ) +
+        #          P2 * ( -3*t**3 + 3*t**2 + 3*t + 1 ) +
+        #          P3 *      t**3
+        #        ) / 6
+        #
+        #     = P0*(-t + 1)**3/6 + P1*(3*t**3 - 6*t**2 + 4)/6 + P2*(-3*t**3 + 3*t**2 + 3*t + 1)/6 + P3*t**3/6
+
+        return (self._p0/6 + 2*self._p1/3 + self._p2/6 +
+                (-self._p0/2 + self._p2/2)*t +
+                (self._p0/2 - self._p1 + self._p2/2)*t**2 +
+                (-self._p0/6 + self._p1/2 - self._p2/2 + self._p3/6)*t**3)
