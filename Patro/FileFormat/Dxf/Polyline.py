@@ -20,6 +20,13 @@
 
 ####################################################################################################
 
+from Patro.Common.Math.Functions import sign
+from Patro.GeometryEngine.Conic import Circle2D
+from Patro.GeometryEngine.Segment import Segment2D
+from Patro.GeometryEngine.Vector import Vector2D
+
+####################################################################################################
+
 import math
 
 ####################################################################################################
@@ -66,6 +73,12 @@ class PolylineVertex:
     @property
     def bulge(self):
         return self._bulge
+
+    ##############################################
+
+    @property
+    def vector(self):
+        return Vector2D(self._x, self._y)
 
     ##############################################
 
@@ -162,3 +175,32 @@ class Polyline:
 
     def __str__(self):
         return ' '.join(['{:5.2f}'.format(vertex) for vertex in self])
+
+    ##############################################
+
+    def iter_on_segment(self):
+        for i in range(len(self._vertices) -1):
+            yield self._vertices[i], self._vertices[i+1]
+        if self._closed:
+            yield self._vertices[-1], self._vertices[0]
+
+    ##############################################
+
+    def geometry(self):
+
+        items = []
+        for vertice1, vertice2 in self.iter_on_segment():
+            segment = Segment2D(vertice1.vector, vertice2.vector)
+            if vertice1.bulge:
+                segment_center = segment.center
+                direction = (vertice2.vector - vertice1.vector).normalise() # Fixme: line ?
+                normal = direction.normal
+                offset = sign(vertice1.bulge) * (vertice1.bulge_radius - vertice1.sagitta)
+                center = segment_center + normal * offset
+                print('>>>', vertice2.vector, vertice1.vector, segment_center, normal, offset, center)
+                # Fixme: domain
+                arc = Circle2D(center, vertice1.bulge_radius, domain=None)
+                items.append(arc)
+            else:
+                items.append(segment)
+        return items

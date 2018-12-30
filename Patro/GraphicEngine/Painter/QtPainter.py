@@ -171,7 +171,8 @@ class QtPainter(Painter):
     def paint_CircleItem(self, item):
 
         center = self.cast_position(item.position)
-        radius = 5
+        # radius = 5 # Fixme:
+        radius = item.radius * 10 # Fixme: !!!! zoom ???
 
         # rectangle = QRectF(
         #     center - QPointF(1, 1)*radius,

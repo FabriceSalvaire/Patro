@@ -55,7 +55,7 @@ class Segment2D(Primitive2DMixin, Primitive2P):
     @property
     def center(self):
         # midpoint, barycenter
-        return (self._p0 * self._p1) / 2
+        return (self._p0 + self._p1) / 2
 
     ##############################################
 

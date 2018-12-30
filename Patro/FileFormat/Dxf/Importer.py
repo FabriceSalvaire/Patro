@@ -45,6 +45,17 @@ class DxfImporter:
 
     ##############################################
 
+    def __len__(self):
+        return len(self._items)
+
+    def __iter__(self):
+        return iter(self._items)
+
+    def __getitem__(self, slice_):
+        return self._items[slice_]
+
+    ##############################################
+
     @staticmethod
     def _to_vector(point):
         return Vector2D(point[:2])
@@ -86,7 +97,7 @@ class DxfImporter:
     def _on_circle(self, item, is_arc):
 
         if is_arc:
-            # Fixme:
+            # Fixme:  start > stop, don't fit in Interval
             # domain = Interval(item.dxf.start_angle, item.dxf.end_angle)
             domain = None
         else:
@@ -96,13 +107,14 @@ class DxfImporter:
 
     ##############################################
 
-    def _on_circle(self, item, is_arc):
+    def _on_ellipse(self, item):
 
-        # domain = (item.dxf.start_param, item.dxf.end_param
+        # domain = (item.dxf.start_param, item.dxf.end_param)
         domain = None
         major_axis = self._to_vector(item.dxf.major_axis)
         minor_axis = major_axis * item.dxf.ratio
-        # ellipse = Circle2D(self._to_vector(item.dxf.center), major_axis, minor_axis, domain=domain)
+        # Fixme:
+        # ellipse = Conic2D(self._to_vector(item.dxf.center), major_axis, minor_axis, domain=domain)
         # self._add(ellipse)
 
     ##############################################
@@ -112,20 +124,15 @@ class DxfImporter:
         polyline = Polyline(item.closed)
         for x, y, s, e, b in item.get_points():
             polyline.add(x, y, b)
-
-            # for item in polyline:
-            #     if item.bulge:
-            #         # item.demi_chord, item.bulge_radius, item.angle
-            #         pass
-            #     else:
-            #         pass
+        geometry = polyline.geometry()
+        self._add(geometry)
 
     ##############################################
 
     def _on_spline(self, item):
 
-        # print(item.closed)
         with item.edit_data() as data:
             points = self._to_vectors(data.control_points)
+        # Fixme: item.closed
         spline = CubicSpline2D(points) # Fixme: cubic ???
         self._add(spline)

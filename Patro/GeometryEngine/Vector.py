@@ -499,6 +499,7 @@ class Vector2D(Vector2DFloatBase):
     def normalise(self):
         """Normalise the vector"""
         self._v /= self.magnitude
+        return self
 
     ##############################################
 

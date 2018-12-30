@@ -154,6 +154,7 @@ class Primitive:
     ##############################################
 
     def is_close(self, other):
+        # Fixme: verus is_closed
         return np.allclose(self.geometry_matrix, other.geometry_matrix)
 
 ####################################################################################################
