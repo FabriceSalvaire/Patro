@@ -18,7 +18,7 @@
 #
 ####################################################################################################
 
-"""This module implements the val XML file format.
+"""This module implements the Valentina val XML file format.
 
 """
 
@@ -51,6 +51,32 @@ _module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
+# Last valentina version supported
+VAL_VERSION = '0.7.10'
+
+####################################################################################################
+
+class Modeling:
+
+    """Class to implement a modeling mapper."""
+
+    ##############################################
+
+    def __init__(self):
+        self._id_map = {}
+
+    ##############################################
+
+    def __getitem__(self, id):
+        return self._id_map[id]
+
+    ##############################################
+
+    def add(self, item):
+        self._id_map[item.id] = item
+
+####################################################################################################
+
 class Dispatcher:
 
     """Baseclass to dispatch XML to Python class."""
@@ -69,7 +95,7 @@ class Dispatcher:
 
 ####################################################################################################
 
-class CalculationDispatcher:
+class CalculationDispatcher(Dispatcher):
 
     """Class to implement a dispatcher for calculations."""
 
@@ -135,28 +161,9 @@ class CalculationDispatcher:
 
 ####################################################################################################
 
-class Modeling:
-
-    ##############################################
-
-    def __init__(self):
-        self._items = []
-        self._id_map = {}
-
-    ##############################################
-
-    def __getitem__(self, id):
-        return self._id_map[id]
-
-    ##############################################
-
-    def append(self, item):
-        self._items.append(item)
-        self._id_map[item.id] = item
-
-####################################################################################################
-
 class ModelingDispatcher(Dispatcher):
+
+    """Class to implement a dispatcher for modeling."""
 
     __TAGS__ = {
         'point': ModelingPoint,
@@ -167,6 +174,8 @@ class ModelingDispatcher(Dispatcher):
 
 class DetailDispatcher(Dispatcher):
 
+    """Class to implement a dispatcher for detail."""
+
     __TAGS__ = {
         'grainline': DetailGrainline,
         'patternInfo': DetailPatternInfo,
@@ -175,67 +184,62 @@ class DetailDispatcher(Dispatcher):
 
 ####################################################################################################
 
-class ValFile(XmlFileMixin):
+_calculation_dispatcher = CalculationDispatcher()
+_modeling_dispatcher = ModelingDispatcher()
+_detail_dispatcher = DetailDispatcher()
 
-    """Class to read/write val file."""
+####################################################################################################
 
-    _logger = _module_logger.getChild('ValFile')
+class ValFileReaderInternal(XmlFileMixin):
 
-    _calculation_dispatcher = CalculationDispatcher()
-    _modeling_dispatcher = ModelingDispatcher()
-    _detail_dispatcher = DetailDispatcher()
+    """Class to read val file."""
 
-    VAL_VERSION = '0.7.10'
+    _logger = _module_logger.getChild('ValFileReader')
 
     ##############################################
 
-    def __init__(self, path=None):
+    def __init__(self, path):
 
-        # Fixme: path
-        if path is None:
-            path = ''
         XmlFileMixin.__init__(self, path)
-        self._vit_file = None
-        self._pattern = None
-        # Fixme:
-        # if path is not None:
-        if path != '':
-            self._read()
 
-    ##############################################
+        self.root = None
+        self.attribute = {}
+        self.vit_file = None
+        self.pattern = None
 
-    def Write(self, path, vit_file, pattern):
-
-        # Fixme: write
-        self._vit_file = vit_file
-        self._pattern = pattern
-        self.write(path)
+        self.read()
 
     ##############################################
 
     @property
     def measurements(self):
-        return self._vit_file.measurements
-
-    @property
-    def pattern(self):
-        return self._pattern
+        if self.vit_file is not None:
+            return self.vit_file.measurements
+        else:
+            return None
 
     ##############################################
 
-    def _read(self):
+    def read(self):
 
-        # <?xml version='1.0' encoding='UTF-8'?>
+        # <?xml version="1.0" encoding="UTF-8"?>
         # <pattern>
-        #     <!--Pattern created with Valentina (http://www.valentina-project.org/).-->
-        #     <version>0.4.0</version>
+        #     <!--Pattern created with Valentina v0.6.0.912b (https://valentinaproject.bitbucket.io/).-->
+        #     <version>0.7.10</version>
         #     <unit>cm</unit>
-        #     <author/>
         #     <description/>
         #     <notes/>
-        #     <measurements/>
+        #     <patternName>pattern name</patternName>
+        #     <patternNumber>pattern number</patternNumber>
+        #     <company>company/Designer name</company>
+        #     <patternLabel>
+        #         <line alignment="0" bold="true" italic="false" sfIncrement="4" text="%author%"/>
+        #     </patternLabel>
+        #     <patternMaterials/>
+        #     <measurements>measurements.vit</measurements>
         #     <increments/>
-        #     <draw name="Pattern piece 1">
+        #     <previewCalculations/>
+        #     <draw name="...">
         #         <calculation/>
         #         <modeling/>
         #         <details/>
@@ -245,69 +249,146 @@ class ValFile(XmlFileMixin):
 
         self._logger.info('Read Valentina file "{}"'.format(self.path))
 
-        tree = self._parse()
+        self.root = self.parse()
+        self.read_attributes()
+        self.read_measurements()
+        # patternLabel
+        # patternMaterials
+        # increments
+        # previewCalculations
 
-        measurements_path = self._get_xpath_element(tree, 'measurements').text
-        if measurements_path is not None:
-            measurements_path = Path(measurements_path)
-            if not measurements_path.exists():
-                measurements_path = self._path.parent.joinpath(measurements_path)
-            if not measurements_path.exists():
-                raise NameError("Cannot find {}".format(measurements_path))
-            self._vit_file = VitFile(measurements_path)
-            measurements = self._vit_file.measurements
-        else:
-            self._vit_file = None
-            measurements = None
+        self.pattern = Pattern(self.measurements, self.attribute['unit'])
 
-        unit = self._get_xpath_element(tree, 'unit').text
-
-        pattern = Pattern(measurements, unit)
-        self._pattern = pattern
-
-        for piece in self._get_xpath_elements(tree, 'draw'):
-            piece_name = piece.attrib['name']
-            self._logger.info('Create scope "{}"'.format(piece_name))
-            scope = pattern.add_scope(piece_name)
-
-            sketch = scope.sketch
-            for element in self._get_xpath_element(piece, 'calculation'):
-                try:
-                    xml_calculation = self._calculation_dispatcher.from_xml(element)
-                    operation = xml_calculation.to_operation(sketch)
-                    self._logger.info('Add operation {}'.format(operation))
-                except NotImplementedError:
-                    self._logger.warning('Not implemented calculation\n' +  str(etree.tostring(element)))
-            sketch.eval()
-
-###        modeling = Modeling()
-###        for element in self._get_xpath_element(tree, 'draw/modeling'):
-###            xml_modeling_item = self._modeling_dispatcher.from_xml(element)
-###            modeling.append(xml_modeling_item)
-###            # print(xml_modeling_item)
-###
-###        details = []
-###        for detail_element in self._get_xpath_element(tree, 'draw/details'):
-###            xml_detail = Detail(modeling, detail_element)
-###            details.append(xml_detail)
-###            # print(xml_detail)
-###            for element in detail_element:
-###                if element.tag == 'nodes':
-###                    for node in element:
-###                        xml_node = DetailNode(node)
-###                        # print(xml_node)
-###                        xml_detail.append_node(xml_node)
-###                else:
-###                    xml_modeling_item = self._detail_dispatcher.from_xml(element)
-###                    # Fixme: xml_detail. = xml_modeling_item
-###                    # print(xml_modeling_item)
-###            # for node, modeling_item in xml_detail.iter_on_nodes():
-###            #     # print(node.object_id, '->', modeling_item, '->', modeling_item.object_id)
-###            #     print(node, '->\n', modeling_item, '->\n', pattern.get_operation(modeling_item.object_id))
+        for piece in self.get_xpath_elements(self.root, 'draw'):
+            self.read_piece(piece)
 
     ##############################################
 
-    def write(self, path=None):
+    def read_measurements(self):
+
+        measurements_path = self.get_xpath_element(self.root, 'measurements').text
+        if measurements_path is not None:
+            measurements_path = Path(measurements_path)
+            if not measurements_path.exists():
+                measurements_path = self.path.parent.joinpath(measurements_path)
+            if not measurements_path.exists():
+                raise NameError("Cannot find {}".format(measurements_path))
+            self.vit_file = VitFile(measurements_path)
+        else:
+            self.vit_file = None
+
+    ##############################################
+
+    def read_attributes(self):
+
+        required_attributes = (
+            'unit',
+        )
+        optional_attributes = (
+            'description',
+            'notes',
+            'patternName',
+            'patternNumber',
+            'company',
+        )
+        attribute_names = list(required_attributes) + list(optional_attributes)
+        self.attribute = {name:self.get_text_element(self.root, name) for name in attribute_names}
+        for name in required_attributes:
+            if self.attribute[name] is None:
+                raise NameError('{} is undefined'.format(name))
+
+    ##############################################
+
+    def read_piece(self, piece):
+
+        piece_name = piece.attrib['name']
+        self._logger.info('Create scope "{}"'.format(piece_name))
+        scope = self.pattern.add_scope(piece_name)
+
+        sketch = scope.sketch
+        for element in self.get_xpath_element(piece, 'calculation'):
+            try:
+                xml_calculation = _calculation_dispatcher.from_xml(element)
+                operation = xml_calculation.to_operation(sketch)
+                self._logger.info('Add operation {}'.format(operation))
+            except NotImplementedError:
+                self._logger.warning('Not implemented calculation\n' +  str(etree.tostring(element)))
+        sketch.eval()
+
+        modeling = Modeling()
+        for element in self.get_xpath_element(piece, 'modeling'):
+            xml_modeling_item = _modeling_dispatcher.from_xml(element)
+            modeling.add(xml_modeling_item)
+            self._logger.info('Modeling {}'.format(xml_modeling_item))
+
+        # details = []
+        for detail_element in self.get_xpath_element(piece, 'details'):
+            self.read_detail(scope, modeling, detail_element)
+            # details.append(xml_detail)
+
+    ##############################################
+
+    def read_detail(self, scope, modeling, detail_element):
+
+        xml_detail = Detail(modeling, detail_element)
+        self._logger.info('Detail {}'.format(xml_detail))
+        for element in detail_element:
+            if element.tag == 'nodes':
+                for node in element:
+                    xml_node = DetailNode(node)
+                    xml_detail.append_node(xml_node)
+            else:
+                xml_modeling_item = _detail_dispatcher.from_xml(element)
+                # Fixme: xml_detail. = xml_modeling_item
+                print(xml_modeling_item)
+
+        for node, modeling_item in xml_detail.iter_on_nodes():
+            # print(node.object_id, '->', modeling_item, '->', modeling_item.object_id)
+            print(node, '->\n', modeling_item, '->\n', scope.sketch.get_operation(modeling_item.object_id))
+
+####################################################################################################
+
+class ValFileReader:
+
+    """Class to read val file."""
+
+    ##############################################
+
+    def __init__(self, path):
+        self._internal = ValFileReaderInternal(path)
+
+    ##############################################
+
+    @property
+    def measurements(self):
+        return self._internal.measurements
+
+    @property
+    def pattern(self):
+        return self._internal.pattern
+
+####################################################################################################
+
+class ValFileWriter:
+
+    """Class to write val file."""
+
+    _logger = _module_logger.getChild('ValFileWriter')
+
+    ##############################################
+
+    def __init__(self, path, vit_file, pattern):
+
+        self._path = str(path)
+        self._vit_file = vit_file
+        self._pattern = pattern
+
+        root = self._build_xml_tree()
+        self._write(root)
+
+    ##############################################
+
+    def _build_xml_tree(self):
 
         root = etree.Element('pattern')
         root.append(etree.Comment('Pattern created with Patro (https://github.com/FabriceSalvaire/Patro)'))
@@ -331,13 +412,17 @@ class ValFile(XmlFileMixin):
             # group_element = etree.SubElement(draw_element, 'groups')
 
             for operation in scope.sketch.operations:
-                xml_calculation = self._calculation_dispatcher.from_operation(operation)
+                xml_calculation = _calculation_dispatcher.from_operation(operation)
                 # print(xml_calculation)
                 # print(xml_calculation.to_xml_string())
                 calculation_element.append(xml_calculation.to_xml())
 
-        if path is None:
-            path = self.path
-        with open(str(path), 'wb') as f:
+        return root
+
+    ##############################################
+
+    def _write(self, root):
+
+        with open(self._path, 'wb') as fh:
             # ElementTree.write() ?
-            f.write(etree.tostring(root, pretty_print=True))
+            fh.write(etree.tostring(root, pretty_print=True))

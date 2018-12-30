@@ -50,7 +50,7 @@ class XmlFileMixin:
 
     ##############################################
 
-    def _parse(self):
+    def parse(self):
         """Parse a XML file and return the etree"""
         with open(str(self._path), 'rb') as f:
             source = f.read()
@@ -59,13 +59,24 @@ class XmlFileMixin:
     ##############################################
 
     @staticmethod
-    def _get_xpath_elements(root, path):
+    def get_xpath_elements(root, path):
         """Utility function to get elements from a xpath and a root"""
         return root.xpath(path)
 
     ##############################################
 
     @staticmethod
-    def _get_xpath_element(root, path):
+    def get_xpath_element(root, path):
         """Utility function to get an element from a xpath and a root"""
         return root.xpath(path)[0]
+
+    ##############################################
+
+    @classmethod
+    def get_text_element(cls, root, path):
+        """Utility function to a text element from a xpath and a root"""
+        element = cls.get_xpath_element(root, path)
+        if hasattr(element, 'text'):
+            return element.text
+        else:
+            return None

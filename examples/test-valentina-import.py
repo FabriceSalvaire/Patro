@@ -5,16 +5,19 @@ from pathlib import Path
 from Patro.Common.Logging import Logging
 Logging.setup_logging()
 
-from Patro.FileFormat.Valentina.Pattern import ValFile
+from Patro.FileFormat.Valentina.Pattern import ValFileReader
 
 ####################################################################################################
 
-parts = ('patterns', 'several-pieces.val')
+# val_file = 'several-pieces.val'
+val_file = 'flat-city-trouser.val'
+
+parts = ('patterns', val_file)
 try:
     val_path = Path(__file__).parent.joinpath(*parts)
 except:
     val_path = Path('examples', *parts)
-val_file = ValFile(val_path)
+val_file = ValFileReader(val_path)
 pattern = val_file.pattern
 
 # pattern.dump()
@@ -26,7 +29,7 @@ pattern = val_file.pattern
 # for node in nodes:
 #     print(node.data)
 
-output = Path('output')
-output.mkdir(exist_ok=True)
+# output = Path('output')
+# output.mkdir(exist_ok=True)
 
-val_file.write(output.joinpath('write-test.val'))
+# val_file.write(output.joinpath('write-test.val'))

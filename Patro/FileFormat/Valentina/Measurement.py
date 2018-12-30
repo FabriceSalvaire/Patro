@@ -67,7 +67,7 @@ class XmlMeasurement(XmlObjectAdaptator):
 
 ####################################################################################################
 
-class VitFile(XmlFileMixin):
+class VitFileInternal(XmlFileMixin):
 
     _logger = _module_logger.getChild('VitFile')
 
@@ -76,43 +76,52 @@ class VitFile(XmlFileMixin):
     def __init__(self, path):
 
         XmlFileMixin.__init__(self, path)
-        self._measurements = ValentinaMeasurements()
-        self._read()
+        self.measurements = ValentinaMeasurements()
+        self.read()
 
     ##############################################
 
-    @property
-    def measurements(self):
-        return self._measurements
-
-    ##############################################
-
-    def _read(self):
+    def read(self):
 
         self._logger.info('Load measurements from ' + str(self._path))
 
-        tree = self._parse()
+        tree = self.parse()
 
-        measurements = self._measurements
+        measurements = self.measurements
 
-        version = self._get_xpath_element(tree, 'version').text
-        # self._read_only = self._get_xpath_element(tree, 'read-only').text
-        # self._notes = self._get_xpath_element(tree, 'notes').text
-        self.unit = self._get_xpath_element(tree, 'unit').text
-        self.pattern_making_system = self._get_xpath_element(tree, 'pm_system').text
+        version = self.get_xpath_element(tree, 'version').text
+        # self.read_only = self.get_xpath_element(tree, 'read-only').text
+        # self.notes = self.get_xpath_element(tree, 'notes').text
+        self.unit = self.get_xpath_element(tree, 'unit').text
+        self.pattern_making_system = self.get_xpath_element(tree, 'pm_system').text
 
         personal = measurements.personal
-        personal_element = self._get_xpath_element(tree, 'personal')
-        personal.last_name = self._get_xpath_element(personal_element, 'family-name').text
-        personal.first_name = self._get_xpath_element(personal_element, 'given-name').text
-        personal.birth_date = self._get_xpath_element(personal_element, 'birth-date').text
-        personal.gender = Gender[self._get_xpath_element(personal_element, 'gender').text.upper()]
-        personal.email = self._get_xpath_element(personal_element, 'email').text
+        personal_element = self.get_xpath_element(tree, 'personal')
+        personal.last_name = self.get_xpath_element(personal_element, 'family-name').text
+        personal.first_name = self.get_xpath_element(personal_element, 'given-name').text
+        personal.birth_date = self.get_xpath_element(personal_element, 'birth-date').text
+        personal.gender = Gender[self.get_xpath_element(personal_element, 'gender').text.upper()]
+        personal.email = self.get_xpath_element(personal_element, 'email').text
 
-        elements = self._get_xpath_element(tree, 'body-measurements')
+        elements = self.get_xpath_element(tree, 'body-measurements')
         for element in elements:
              if element.tag == XmlMeasurement.__tag__:
                  xml_measurement = XmlMeasurement(element)
                  measurements.add(**xml_measurement.to_dict())
              else:
                  raise NotImplementedError
+
+####################################################################################################
+
+class VitFile:
+
+    ##############################################
+
+    def __init__(self, path):
+        self._interval = VitFileInternal(path)
+
+    ##############################################
+
+    @property
+    def measurements(self):
+        return self._interval.measurements
