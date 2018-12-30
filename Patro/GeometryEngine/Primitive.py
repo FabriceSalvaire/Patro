@@ -399,11 +399,17 @@ class PrimitiveNP(Primitive, ReversiblePrimitiveMixin):
 
     ##############################################
 
-    def __init__(self, *points):
-
+    @staticmethod
+    def handle_points(points):
         if len(points) == 1 and isinstance(points[0], collections.Iterable):
             points = points[0]
+        return points
 
+    ##############################################
+
+    def __init__(self, *points):
+
+        points = self.handle_points(points)
         self._points = [self.__vector_cls__(p) for p in points]
 
     ##############################################
@@ -441,3 +447,13 @@ class PrimitiveNP(Primitive, ReversiblePrimitiveMixin):
 
     def __getitem__(self, _slice):
         return self._points[_slice]
+
+    ##############################################
+
+    def iter_on_nuplets(self, size):
+
+        if size > self.number_of_points:
+            raise ValueError('size {} > number of points {}'.format(size, self.number_of_points))
+
+        for i in range(self.number_of_points - size +1):
+            yield self._points[i:i+size]

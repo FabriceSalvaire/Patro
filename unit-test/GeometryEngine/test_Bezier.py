@@ -77,7 +77,7 @@ class TestCubicSpline(unittest.TestCase):
 
     ##############################################
 
-    def test(self):
+    def test_spline_part(self):
 
         p0 = Vector2D(0, 0)
         p1 = Vector2D(3, 5)
@@ -89,6 +89,22 @@ class TestCubicSpline(unittest.TestCase):
         bezier2 = spline.to_bezier()
 
         self.assertTrue(bezier2.is_close(bezier))
+
+    ##############################################
+
+    def test_spline(self):
+
+        points = (
+            Vector2D(0, 0),
+            Vector2D(3, 5),
+            Vector2D(6, 6),
+            Vector2D(10, 8),
+            Vector2D(15, 10),
+            Vector2D(19, 15),
+        )
+        spline = CubicSpline2D(points)
+        for part in spline.iter_on_parts():
+            print(part)
 
 ####################################################################################################
 

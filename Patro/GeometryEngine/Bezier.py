@@ -35,7 +35,7 @@ import numpy as np
 from Patro.Common.Math.Root import quadratic_root, cubic_root, fifth_root
 from .Interpolation import interpolate_two_points
 from .Line import Line2D
-from .Primitive import Primitive3P, Primitive4P, Primitive2DMixin
+from .Primitive import Primitive3P, Primitive4P, PrimitiveNP, Primitive2DMixin
 from .Transformation import AffineTransformation
 from .Vector import Vector2D
 
@@ -435,6 +435,7 @@ class CubicBezier2D(Primitive4P, QuadraticBezier2D):
         (0,  0,  3, -3),
         (0,  0,  0,  1),
     ))
+
     INVERSE_BASIS = np.array((
         (1,    1,   1, 1),
         (0,  1/3, 2/3, 1),
@@ -456,10 +457,9 @@ class CubicBezier2D(Primitive4P, QuadraticBezier2D):
     ##############################################
 
     def to_spline(self):
-
-        basis = np.dot(self.BASIS, CubicSpline2D.INVERSE_BASIS)
+        basis = np.dot(self.BASIS, CubicSplinePart2D.INVERSE_BASIS)
         points = np.dot(self.geometry_matrix, basis).transpose()
-        return CubicSpline2D(*points)
+        return CubicSplinePart2D(*points)
 
     ##############################################
 
@@ -954,7 +954,7 @@ class CubicBezier2D(Primitive4P, QuadraticBezier2D):
 
 ####################################################################################################
 
-class CubicSpline2D(Primitive2DMixin, Primitive4P):
+class CubicSplinePart2D(Primitive2DMixin, Primitive4P):
 
     """Class to implements 2D Cubic Spline Curve."""
 
@@ -964,6 +964,7 @@ class CubicSpline2D(Primitive2DMixin, Primitive4P):
         (1,  3,  3, -3),
         (0,  0,  0,  1),
     )) / 6
+
     INVERSE_BASIS = np.array((
         (  1,    1,    1,     1),
         ( -1,    0,    1,     2),
@@ -984,10 +985,9 @@ class CubicSpline2D(Primitive2DMixin, Primitive4P):
     ##############################################
 
     def to_bezier(self):
-
         basis = np.dot(self.BASIS, CubicBezier2D.INVERSE_BASIS)
         points = np.dot(self.geometry_matrix, basis).transpose()
-        return CubicSpline2D(*points)
+        return CubicBezier2D(*points)
 
     ##############################################
 
@@ -1000,9 +1000,44 @@ class CubicSpline2D(Primitive2DMixin, Primitive4P):
         #          P3 *      t**3
         #        ) / 6
         #
-        #     = P0*(-t + 1)**3/6 + P1*(3*t**3 - 6*t**2 + 4)/6 + P2*(-3*t**3 + 3*t**2 + 3*t + 1)/6 + P3*t**3/6
+        #     = P0*(1-t)**3/6 + P1*(3*t**3 - 6*t**2 + 4)/6 + P2*(-3*t**3 + 3*t**2 + 3*t + 1)/6 + P3*t**3/6
 
         return (self._p0/6 + 2*self._p1/3 + self._p2/6 +
                 (-self._p0/2 + self._p2/2)*t +
                 (self._p0/2 - self._p1 + self._p2/2)*t**2 +
                 (-self._p0/6 + self._p1/2 - self._p2/2 + self._p3/6)*t**3)
+
+####################################################################################################
+
+class CubicSpline2D(Primitive2DMixin, PrimitiveNP):
+
+    """Class to implements 2D Cubic Spline Curve."""
+
+    __number_of_points__ = 4
+    __part_cls__ = CubicSplinePart2D
+
+    #######################################
+
+    def __init__(self, *points):
+
+        points = self.handle_points(points)
+        PrimitiveNP.__init__(self, points)
+        if len(self) < self.__number_of_points__:
+            raise ValueError('Require at least 4 points')
+
+    ##############################################
+
+    def number_of_parts(self):
+        return self.number_of_points - self.__number_of_points__
+
+    ##############################################
+
+    def iter_on_parts(self):
+        for points in self.iter_on_nuplets(self.__number_of_points__):
+            yield self.__part_cls__(*points)
+
+    ##############################################
+
+    def get_part(self, i):
+        points = self._points[i:i+self.__number_of_points__]
+        return self.__part_cls__(*points)
