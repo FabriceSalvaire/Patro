@@ -47,8 +47,12 @@ class PolylineVertex:
     # r = (s**2 + l**2) / (2*s)
     # b = s / l
     #
+    # s = b*l
     # r = ((b*l)**2 + l**2) / (2*b*l)
     #   = l/2 * (b + 1/b)
+    #
+    # r - s = l/2 * (b + 1/b) - b*l
+    #       = l/2 * (1/b - b)
 
     ##############################################
 
@@ -107,9 +111,14 @@ class PolylineVertex:
     ##############################################
 
     @property
+    def segment_vector(self):
+        return self.next.vector - self.vector
+
+    ##############################################
+
+    @property
     def demi_chord(self):
-        next_vertex = self.next
-        return math.sqrt((next_vertex.x - self._x)**2 + (next_vertex.y - self._y)**2)
+        return self.segment_vector.magnitude / 2
 
     ##############################################
 
@@ -125,6 +134,15 @@ class PolylineVertex:
             return 0
         else:
             return self.demi_chord/2 * (self._bulge + 1/self._bulge)
+
+    ##############################################
+
+    @property
+    def sagitta_dual(self):
+        if self._bulge == 0:
+            return 0
+        else:
+            return self.demi_chord/2 * (1/self._bulge - self._bulge)
 
     ##############################################
 
@@ -193,11 +211,11 @@ class Polyline:
             segment = Segment2D(vertice1.vector, vertice2.vector)
             if vertice1.bulge:
                 segment_center = segment.center
-                direction = (vertice2.vector - vertice1.vector).normalise() # Fixme: line ?
+                direction = vertice1.segment_vector.normalise()
                 normal = direction.normal
-                offset = sign(vertice1.bulge) * (vertice1.bulge_radius - vertice1.sagitta)
-                center = segment_center + normal * offset
-                print('>>>', vertice2.vector, vertice1.vector, segment_center, normal, offset, center)
+                # offset = vertice1.bulge_radius - vertice1.sagitta
+                offset = vertice1.sagitta_dual
+                center = segment_center + normal * sign(vertice1.bulge) * offset
                 # Fixme: domain
                 arc = Circle2D(center, vertice1.bulge_radius, domain=None)
                 items.append(arc)
