@@ -28,7 +28,7 @@
 
 ####################################################################################################
 
-from math import log, sqrt, pow
+from math import log, sqrt
 
 import numpy as np
 
@@ -52,6 +52,28 @@ class QuadraticBezier2D(Primitive2DMixin, Primitive3P):
     """Class to implements 2D Quadratic Bezier Curve."""
 
     LineInterpolationPrecision = 0.05
+
+    # Q(t) = Transformation * Control * Basis * T(t)
+    #
+    #           / P1x P2x P3x \  / 1 -2  1 \ / 1    \
+    # Q(t) = Tr | P1y P2x P3x |  | 0  2 -2 | | t    |
+    #           \  1   1   1  /  \ 0  0  1 / \ t**2 /
+    #
+    # Q(t) =    P0 * (1 - 2*t + t**2) +
+    #           P1 * (    2*t - t**2) +
+    #           P2 *            t**2
+
+    BASIS = np.array((
+        (1, -2,  1),
+        (0,  2, -2),
+        (0,  0,  1),
+    ))
+
+    INVERSE_BASIS = np.array((
+        (-2,  1, -2),
+        (-1, -3,  1),
+        (-1, -1, -2),
+    ))
 
     ##############################################
 
@@ -425,7 +447,7 @@ class CubicBezier2D(Primitive4P, QuadraticBezier2D):
     # Q(t) = Transformation * Control * Basis * T(t)
     #
     #           / P1x P2x P3x P4x \  / 1 -3  3 -1 \ / 1    \
-        # Q(t) = Tr | P1y P2x P3x P4x |  | 0  3 -6  3 | | t    |
+    # Q(t) = Tr | P1y P2x P3x P4x |  | 0  3 -6  3 | | t    |
     #           |  0   0   0   0  |  | 0  0  3 -3 | | t**2 |
     #           \  1   1   1   1  /  \ 0  0  0  1 / \ t**3 /
 
@@ -954,10 +976,107 @@ class CubicBezier2D(Primitive4P, QuadraticBezier2D):
 
 ####################################################################################################
 
+class QuadraticSplinePart2D(Primitive2DMixin, Primitive3P):
+
+    """Class to implements 2D Quadratic Spline Curve."""
+
+    BASIS = np.array((
+        (1, -2,  1),
+        (1,  2, -2),
+        (0,  0,  1),
+    ))
+
+    INVERSE_BASIS = np.array((
+        (-2,  1, -2),
+        (-2, -3,  1),
+        (-1, -1, -2),
+    ))
+
+    #######################################
+
+    def __init__(self, p0, p1, p2):
+        Primitive3P.__init__(self, p0, p1, p2)
+
+    ##############################################
+
+    def __repr__(self):
+        return self.__class__.__name__ + '({0._p0}, {0._p1}, {0._p2})'.format(self)
+
+    ##############################################
+
+    def to_bezier(self):
+        basis = np.dot(self.BASIS, QuadraticBezier2D.INVERSE_BASIS)
+        points = np.dot(self.geometry_matrix, basis).transpose()
+        return QuadraticBezier2D(*points)
+
+    ##############################################
+
+    def point_at_t(self, t):
+
+        # Q(t) = (
+        #          P0 *  (1-t)**3                      +
+        #          P1 * (  3*t**3 - 6*t**2       + 4 ) +
+        #          P2 * ( -3*t**3 + 3*t**2 + 3*t + 1 ) +
+        #          P3 *      t**3
+        #        ) / 6
+        #
+        #     = P0*(1-t)**3/6 + P1*(3*t**3 - 6*t**2 + 4)/6 + P2*(-3*t**3 + 3*t**2 + 3*t + 1)/6 + P3*t**3/6
+
+        return (self._p0/6 + self._p1*2/3 + self._p2/6 +
+                (-self._p0/2 + self._p2/2)*t +
+                (self._p0/2 - self._p1 + self._p2/2)*t**2 +
+                (-self._p0/6 + self._p1/2 - self._p2/2 + self._p3/6)*t**3)
+
+####################################################################################################
+
+class QuadraticSpline2D(Primitive2DMixin, PrimitiveNP):
+
+    """Class to implements 2D Quadratic Spline Curve."""
+
+    # control points define the curve shape
+    # knots are part extremities on the curve
+
+    __number_of_points__ = 3
+    __part_cls__ = QuadraticSplinePart2D
+
+    #######################################
+
+    def __init__(self, *points):
+
+        points = self.handle_points(points)
+        PrimitiveNP.__init__(self, points)
+        if len(self) < self.__number_of_points__:
+            raise ValueError('Require at least 4 points')
+
+    ##############################################
+
+    def number_of_parts(self):
+        return self.number_of_points - self.__number_of_points__
+
+    ##############################################
+
+    def iter_on_parts(self):
+        for points in self.iter_on_nuplets(self.__number_of_points__):
+            print(points)
+            yield self.__part_cls__(*points)
+
+    ##############################################
+
+    def get_part(self, i):
+        points = self._points[i:i+self.__number_of_points__]
+        return self.__part_cls__(*points)
+
+####################################################################################################
+
 class CubicSplinePart2D(Primitive2DMixin, Primitive4P):
 
     """Class to implements 2D Cubic Spline Curve."""
 
+    # T = (1 t t**2 t**3)
+    # P = (Pi Pi+2 Pi+2 Pi+3)
+    # Q(t) = T M Pt
+    #      = P Mt Tt
+    # Basis = Mt
     BASIS = np.array((
         (1, -3,  3, -1),
         (4,  0, -6,  3),
@@ -1002,42 +1121,16 @@ class CubicSplinePart2D(Primitive2DMixin, Primitive4P):
         #
         #     = P0*(1-t)**3/6 + P1*(3*t**3 - 6*t**2 + 4)/6 + P2*(-3*t**3 + 3*t**2 + 3*t + 1)/6 + P3*t**3/6
 
-        return (self._p0/6 + 2*self._p1/3 + self._p2/6 +
+        return (self._p0/6 + self._p1*2/3 + self._p2/6 +
                 (-self._p0/2 + self._p2/2)*t +
                 (self._p0/2 - self._p1 + self._p2/2)*t**2 +
                 (-self._p0/6 + self._p1/2 - self._p2/2 + self._p3/6)*t**3)
 
 ####################################################################################################
 
-class CubicSpline2D(Primitive2DMixin, PrimitiveNP):
+class CubicSpline2D(QuadraticSpline2D):
 
     """Class to implements 2D Cubic Spline Curve."""
 
     __number_of_points__ = 4
     __part_cls__ = CubicSplinePart2D
-
-    #######################################
-
-    def __init__(self, *points):
-
-        points = self.handle_points(points)
-        PrimitiveNP.__init__(self, points)
-        if len(self) < self.__number_of_points__:
-            raise ValueError('Require at least 4 points')
-
-    ##############################################
-
-    def number_of_parts(self):
-        return self.number_of_points - self.__number_of_points__
-
-    ##############################################
-
-    def iter_on_parts(self):
-        for points in self.iter_on_nuplets(self.__number_of_points__):
-            yield self.__part_cls__(*points)
-
-    ##############################################
-
-    def get_part(self, i):
-        points = self._points[i:i+self.__number_of_points__]
-        return self.__part_cls__(*points)
