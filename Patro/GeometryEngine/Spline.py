@@ -18,7 +18,88 @@
 #
 ####################################################################################################
 
-"""Module to implement Spline curve.
+r"""Module to implement Spline curve.
+
+B-spline Basis
+--------------
+
+A nonuniform, nonrational B-spline of order `n` is a piece-wise polynomial function of degree
+:math:`n - 1` in a variable `t`.  It is defined over :math:`n + 1` locations :math:`t_j`, called
+knots, which must be in non-descending order :math:`t_j \leq t_{j+1}`.  The B-spline contributes
+only in the range between the first and last of these knots and is zero elsewhere.
+
+If each knot is separated by the same distance `h` (where :math:`h = t_{j+1} - t_j`) from its
+predecessor, the knot vector and the corresponding B-splines are called "uniform".
+
+B-spline Curve
+--------------
+
+A spline function of order `n` on a given set of knots `K` can be expressed as a linear combination
+of B-splines:
+
+.. math::
+    S_{n,K}(t) = \sum_{i=0}^{n-1} p_i  B_i^n(t)
+
+where :math:`B_{i, n}` are B-spline basis functions defined by the Cox-de Boor recursion formula:
+
+.. math::
+    B_i^0(t) = 1, \textrm{if $t_i \le t < t_{i+1}$, otherwise $0$,}
+
+    B_i^k(t) = \frac{t - t_i}{t_{i+k} - t_i} B_i^{k-1}(t)
+             + \frac{t_{i+k+1} - t}{t_{i+k+1} - t_{i+1}} B_{i+1}^{k-1}(t)
+
+
+
+The DeBoor-Cox algorithm permits to evaluate recursively a B-Spline in a similar way to the De
+Casteljaud algorithm for Bézier curves.
+
+Given `k` the degree of the B-spline, `n + 1` control points :math:`p_0, \ldots, p_n`, and an
+increasing series of scalars :math:`t_0 \le t_1 \le \ldots \le t_m` with :math:`m = n + k + 1`,
+called knots.
+
+The number of points must respect the condition :math:`n + 1 \le k`, e.g. a B-spline of degree 3
+must have 4 control points.
+
+A B-spline :math:`S(t)` curve is defined by:
+
+.. math::
+    S(t) = \sum_{i=0}^n p_i B_i^k(t) \;\textrm{with}\; t \in [t_k , t_{n+1}]
+
+The functions :math:`B_i^k(t)` are B-splines functions defined by:
+
+.. math::
+    B_i^0(t) =
+    \left\lbrace
+    \begin{array}{l}
+       1 \;\textrm{if}\; t \in [t_i, t_{i+1}] \\
+       0 \;\textrm{else}
+    \end{array}
+    \right.
+
+.. math::
+   B_i^k(t) = w_i^k(t) B_i^{k-1}(t) + [1 - w_{i+1}^k(t)] B_{i+1}^{k-1}(t)
+
+with
+
+.. math::
+    w_i^k(t) =
+    \left\lbrace
+    \begin{array}{l}
+       \frac{t - t_i}{t_{i+k} - t_i} \;\textrm{if}\; t_i < t_{i+k} \\
+       0 \;\textrm{else}
+    \end{array}
+    \right.
+
+DeBoor-Cox Algorithm (1972)
+
+:math:`S(t) = p_j^k` for :math:`t \in [t_j , t_{j+1}[` for :math:`k \le j \le n` with the following relation:
+
+.. math::
+    \begin{split}
+    p_i^{r+1} &= \frac{t - t_i}{t_{i+k-r} - t} p_i^r + \frac{t_{i+k-r} - t_i}{t_{i+k-r} - t_i} p_{i-1}^r \\
+              &= w_i^{k-r}(t) p_i^r +  (1 - w_i^{k-r}(t)) p_{i-1}^r
+    \end{split}
+
 """
 
 ####################################################################################################
@@ -157,81 +238,7 @@ class CubicUniformSpline2D(Primitive2DMixin, Primitive4P):
 
 class BSpline:
 
-    r"""B-Spline
-
-    A nonuniform, nonrational B-spline of order `n` is a piecewise polynomial function of degree
-    :math:`n - 1` in a variable `t`. It is defined over :math:`n + 1` locations :math:`t_j`, called
-    knots, which must be in non-descending order :math:`t_j \leq t_{j+1}`.  The B-spline contributes
-    only in the range between the first and last of these knots and is zero elsewhere.
-
-    If each knot is separated by the same distance `h` (where :math:`h = t_{j+1} - t_j`) from its
-    predecessor, the knot vector and the corresponding B-splines are called "uniform".
-
-    A spline function of order `n` on a given set of knots `K` can be expressed as a linear combination
-    of B-splines:
-
-    .. math::
-        S_{n,K}(t) = \sum_{i=0}^{n-1} p_i  B_i^n(t)
-
-    where :math:`B_{i, n}` are B-spline basis functions defined by the Cox-de Boor recursion formula:
-
-    .. math::
-        B_i^0(t) = 1, \textrm{if $t_i \le t < t_{i+1}$, otherwise $0$,}
-
-        B_i^k(t) = \frac{t - t_i}{t_{i+k} - t_i} B_i^{k-1}(t)
-                 + \frac{t_{i+k+1} - t}{t_{i+k+1} - t_{i+1}} B_{i+1}^{k-1}(t)
-
-
-
-    The DeBoor-Cox algorithm permits to evaluate recursively a B-Spline in a similar way to the De
-    Casteljaud algorithm for Bézier curves.
-
-    Given `k` the degree of the B-spline, `n + 1` control points :math:`p_0, \ldots, p_n`, and an
-    increasing series of scalars :math:`t_0 \le t_1 \le \ldots \le t_m` with :math:`m = n + k + 1`,
-    called knots.
-
-    The number of points must respect the condition :math:`n + 1 \le k`, e.g. a B-spline of degree 3
-    must have 4 control points.
-
-    A B-spline :math:`S(t)` curve is defined by:
-
-    .. math::
-        S(t) = \sum_{i=0}^n p_i B_i^k(t) \;\textrm{with}\; t \in [t_k , t_{n+1}]
-
-    The functions :math:`B_i^k(t)` are B-splines functions defined by:
-
-    .. math::
-        B_i^0(t) =
-        \left\lbrace
-        \begin{array}{l}
-           1 \;\textrm{if}\; t \in [t_i, t_{i+1}] \\
-           0 \;\textrm{else}
-        \end{array}
-        \right.
-
-    .. math::
-       B_i^k(t) = w_i^k(t) B_i^{k-1}(t) + [1 - w_{i+1}^k(t)] B_{i+1}^{k-1}(t)
-
-    with
-
-    .. math::
-        w_i^k(t) =
-        \left\lbrace
-        \begin{array}{l}
-           \frac{t - t_i}{t_{i+k} - t_i} \;\textrm{if}\; t_i < t_{i+k} \\
-           0 \;\textrm{else}
-        \end{array}
-        \right.
-
-    DeBoor-Cox Algorithm (1972)
-
-    :math:`S(t) = p_j^k` for :math:`t \in [t_j , t_{j+1}[` for :math:`k \le j \le n` with the following relation:
-
-    .. math::
-        \begin{split}
-        p_i^{r+1} &= \frac{t - t_i}{t_{i+k-r} - t} p_i^r + \frac{t_{i+k-r} - t_i}{t_{i+k-r} - t_i} p_{i-1}^r \\
-                  &= w_i^{k-r}(t) p_i^r +  (1 - w_i^{k-r}(t)) p_{i-1}^r
-        \end{split}
+    """Class to implement B-Spline curve.
 
     """
 
