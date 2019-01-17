@@ -171,32 +171,37 @@ class BSpline:
     of B-splines:
 
     .. math::
-        S_{n,K}(t) = \sum_{i=0}^{n-1} \alpha_i  B_{i, n}(t)
+        S_{n,K}(t) = \sum_{i=0}^{n-1} p_i  B_i^n(t)
 
     where :math:`B_{i, n}` are B-spline basis functions defined by the Cox-de Boor recursion formula:
 
     .. math::
-        B_{i, 0}(t) = 1, \textrm{if $t_i \le t < t_{i+1}$, otherwise $0$,}
+        B_i^0(t) = 1, \textrm{if $t_i \le t < t_{i+1}$, otherwise $0$,}
 
-        B_{i, k}(t) = \frac{t - t_i}{t_{i+k} - t_i} B_{i, k-1}(t)
-                    + \frac{t_{i+k+1} - t}{t_{i+k+1} - t_{i+1}} B_{i+1, k-1}(t)
+        B_i^k(t) = \frac{t - t_i}{t_{i+k} - t_i} B_i^{k-1}(t)
+                 + \frac{t_{i+k+1} - t}{t_{i+k+1} - t_{i+1}} B_{i+1}^{k-1}(t)
 
 
 
     The DeBoor-Cox algorithm permits to evaluate recursively a B-Spline in a similar way to the De
     Casteljaud algorithm for Bézier curves.
 
-    Given `n + 1` control points `d0`, …, `dn`, `k` the degree of the B-spline and an increasing
-    series of :math:`m = n + k + 1` scalars :math:`t_0 \le t_1 \le \ldots \le t_m` called knots, a
-    B-spline :math:`S(t)` curve is defined by:
+    Given `k` the degree of the B-spline, `n + 1` control points :math:`p_0, \ldots, p_n`, and an
+    increasing series of scalars :math:`t_0 \le t_1 \le \ldots \le t_m` with :math:`m = n + k + 1`,
+    called knots.
+
+    The number of points must respect the condition :math:`n + 1 \le k`, e.g. a B-spline of degree 3
+    must have 4 control points.
+
+    A B-spline :math:`S(t)` curve is defined by:
 
     .. math::
-        S(t) = \sum_{i=0}^n d_i N_i^k(t) \;\textrm{with}\; t \in [t_k , t_{n+1}]
+        S(t) = \sum_{i=0}^n p_i B_i^k(t) \;\textrm{with}\; t \in [t_k , t_{n+1}]
 
-    The functions :math:`N_i^k(t)` are B-splines functions defined by:
+    The functions :math:`B_i^k(t)` are B-splines functions defined by:
 
     .. math::
-        N_i^0(t) =
+        B_i^0(t) =
         \left\lbrace
         \begin{array}{l}
            1 \;\textrm{if}\; t \in [t_i, t_{i+1}] \\
@@ -205,12 +210,12 @@ class BSpline:
         \right.
 
     .. math::
-       N_i^k(t) = w_{i,k}(t) N_i^{k-1}(t) + [1 - w_{i+1,k}(t)] N_{i+1}^{k-1}
+       B_i^k(t) = w_i^k(t) B_i^{k-1}(t) + [1 - w_{i+1}^k(t)] B_{i+1}^{k-1}(t)
 
     with
 
     .. math::
-        w_{i,k}(t) =
+        w_i^k(t) =
         \left\lbrace
         \begin{array}{l}
            \frac{t - t_i}{t_{i+k} - t_i} \;\textrm{if}\; t_i < t_{i+k} \\
@@ -220,12 +225,12 @@ class BSpline:
 
     DeBoor-Cox Algorithm (1972)
 
-    :math:`S(t) = d_j^k` for :math:`t \in [t_j , t_{j+1}[` for :math:`k \le j \le n` with the following relation:
+    :math:`S(t) = p_j^k` for :math:`t \in [t_j , t_{j+1}[` for :math:`k \le j \le n` with the following relation:
 
     .. math::
         \begin{split}
-        d_i^{r+1} &= \frac{t - t_i}{t_{i+k-r} - t} d_i^r + \frac{t_{i+k-r} - t_i}{t_{i+k-r} - t_i} d_{i-1}^r \\
-                  &= w_{i,k-r}(t) d_i^r +  (1 - w_{i,k-r}(t))  d_{i-1}^r
+        p_i^{r+1} &= \frac{t - t_i}{t_{i+k-r} - t} p_i^r + \frac{t_{i+k-r} - t_i}{t_{i+k-r} - t_i} p_{i-1}^r \\
+                  &= w_i^{k-r}(t) p_i^r +  (1 - w_i^{k-r}(t)) p_{i-1}^r
         \end{split}
 
     """
