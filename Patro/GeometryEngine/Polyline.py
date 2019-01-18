@@ -57,3 +57,13 @@ class Polyline2D(Primitive2DMixin, PrimitiveNP):
     def length(self):
         return sum([edge.magnitude for edge in self.edges])
 
+    ##############################################
+
+    def distance_to_point(self, point):
+
+        distance = None
+        for edge in edges:
+            edge_distance = edge.distance_to_point(point)
+            if distance is None or edge_distance < distance:
+                distance = edge_distance
+        return distance
