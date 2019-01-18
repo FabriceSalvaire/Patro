@@ -18,14 +18,18 @@
 #
 ####################################################################################################
 
+# Fixme: get_geometry / as argument
+
 ####################################################################################################
 
 import logging
 
 from Patro.GeometryEngine.Bezier import CubicBezier2D
 from Patro.GeometryEngine.Conic import Circle2D, Conic2D
+from Patro.GeometryEngine.Polyline import Polyline2D
 from Patro.GeometryEngine.Rectangle import Rectangle2D
 from Patro.GeometryEngine.Segment import Segment2D
+from Patro.GraphicStyle import Colors, StrokeStyle
 
 ####################################################################################################
 
@@ -33,16 +37,40 @@ _module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
-class GraphicStyle:
+class GraphicPathStyle:
 
     ##############################################
 
-    def __init__(self, stroke_style=None, line_width=None, stroke_color=None, fill_color=None):
+    def __init__(self,
+                 stroke_style=StrokeStyle.SolidLine,
+                 line_width=1.0,
+                 stroke_color=Colors.black,
+                 fill_color=None, # only for closed path
+    ):
 
-        self._stroke_style = stroke_style
-        self._line_width = line_width
-        self._stroke_color = stroke_color
-        self._fill_color = fill_color
+        """*color* can be a defined color name, a '#rrggbb' string or a :class:`Color` instance.
+
+        """
+
+        self.stroke_style = stroke_style
+        self.line_width = line_width
+        self.stroke_color = stroke_color
+        self.fill_color = fill_color
+
+    ##############################################
+
+    def clone(self):
+        return self.__class__(
+            self._stroke_style,
+            self._line_width,
+            self._stroke_color,
+            self._fill_color,
+        )
+
+    ##############################################
+
+    def __repr__(self):
+        return 'GraphicPathStyle({0._stroke_style}, {0._line_width}, {0._stroke_color}, {0._fill_color})'.format(self)
 
     ##############################################
 
@@ -52,7 +80,9 @@ class GraphicStyle:
 
     @stroke_style.setter
     def stroke_style(self, value):
-        self._stroke_style = value
+        self._stroke_style = StrokeStyle(value)
+
+    ##############################################
 
     @property
     def line_width(self):
@@ -60,7 +90,20 @@ class GraphicStyle:
 
     @line_width.setter
     def line_width(self, value):
-        self._line_width = value
+        self._line_width = value # Fixme: float ???
+
+    @property
+    def line_width_as_float(self):
+        line_width = self._line_width
+        # Fixme: use scale ?
+        if isinstance(line_width, float):
+            return line_width
+        else:
+            line_width = line_width.replace('pt', '')
+            line_width = line_width.replace('px', '')
+            return float(line_width)
+
+    ##############################################
 
     @property
     def stroke_color(self):
@@ -68,7 +111,9 @@ class GraphicStyle:
 
     @stroke_color.setter
     def stroke_color(self, value):
-        self._stroke_color = value
+        self._stroke_color = Colors.ensure_color(value)
+
+    ##############################################
 
     @property
     def fill_color(self):
@@ -76,7 +121,60 @@ class GraphicStyle:
 
     @fill_color.setter
     def fill_color(self, value):
-        self._fill_color = value
+        self._fill_color = Colors.ensure_color(value)
+
+####################################################################################################
+
+class GraphicBezierStyle(GraphicPathStyle):
+
+    ##############################################
+
+    def __init__(self,
+                 # Fixme: duplicate
+                 stroke_style=StrokeStyle.SolidLine,
+                 line_width=1.0,
+                 stroke_color=Colors.black,
+                 fill_color=None, # only for closed path
+                 #
+                 show_control=False,
+                 control_color=None,
+    ):
+
+        super().__init__(stroke_style, line_width, stroke_color, fill_color)
+        self._show_control = show_control
+        self._control_color = Colors.ensure_color(control_color)
+
+    ##############################################
+
+    def clone(self):
+        return self.__class__(
+            self.stroke_style,
+            self.line_width,
+            self.stroke_color,
+            self.fill_color,
+            self._show_control,
+            self._control_color,
+        )
+
+    ##############################################
+
+    @property
+    def show_control(self):
+        return self._show_control
+
+    @show_control.setter
+    def show_control(self, value):
+        self._show_control = value
+
+    ##############################################
+
+    @property
+    def control_color(self):
+        return self._control_color
+
+    @control_color.setter
+    def control_color(self, value):
+        self._control_color = value
 
 ####################################################################################################
 
@@ -154,6 +252,21 @@ class FourPositionMixin(TwoPositionMixin):
     @property
     def positions(self):
         return (self._position1, self._position2, self._position3, self._position4)
+
+####################################################################################################
+
+class NPositionMixin:
+
+    ##############################################
+
+    def __init__(self, positions):
+        self._positions = list(positions)
+
+    ##############################################
+
+    @property
+    def positions(self): # Fixme: versus points
+        return self._positions # Fixme: iter list ???
 
 ####################################################################################################
 
@@ -519,6 +632,23 @@ class RectangleItem(TwoPositionMixin, PathStyleItemMixin):
 
 ####################################################################################################
 
+class PolylineItem(NPositionMixin, PathStyleItemMixin):
+
+    ##############################################
+
+    def __init__(self, scene, positions, path_style, user_data):
+
+        PathStyleItemMixin.__init__(self, scene, path_style, user_data)
+        NPositionMixin.__init__(self, positions)
+
+    ##############################################
+
+    def get_geometry(self):
+        positions = self.casted_positions
+        return Polyline2D(*positions)
+
+####################################################################################################
+
 class ImageItem(TwoPositionMixin, GraphicItem):
 
     ##############################################
@@ -553,7 +683,12 @@ class CubicBezierItem(FourPositionMixin, PathStyleItemMixin):
 
     ##############################################
 
-    def __init__(self, scene, position1, position2, position3, position4, path_style, user_data): # , curve
+    def __init__(self,
+                 scene,
+                 position1, position2, position3, position4,
+                 path_style,
+                 user_data,
+    ):
 
         # Fixme: curve vs path
         PathStyleItemMixin.__init__(self, scene, path_style, user_data)

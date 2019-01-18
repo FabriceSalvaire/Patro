@@ -61,6 +61,7 @@ class GraphicSceneScope:
         # 'polygon': GraphicItem.PolygonItem,
         'rectangle': GraphicItem.RectangleItem,
         'segment': GraphicItem.SegmentItem,
+        'polyline': GraphicItem.PolylineItem,
         'text': GraphicItem.TextItem,
     }
 
@@ -143,6 +144,11 @@ class GraphicSceneScope:
     ##############################################
 
     def cast_position(self, position):
+
+        """Cast coordinate and apply scope transformation, *position* can be a coordinate name string of
+        a:class:`Vector2D`.
+
+        """
 
         # Fixme: cache ?
         if isinstance(position, str):
@@ -251,6 +257,35 @@ class GraphicSceneScope:
     # Fixme: !!!
     # def add_scope(self, *args, **kwargs):
     #     return self.add_item(GraphicSceneScope, self, *args, **kwargs)
+
+    ##############################################
+
+    def bezier_path(self, points, degree, *args, **kwargs):
+
+        if degree == 1:
+            method = self.segment
+        elif degree == 2:
+            method = self.quadratic_bezier
+        elif degree == 3:
+            method = self.cubic_bezier
+        else:
+            raise ValueError('Unsupported degree for Bezier curve: {}'.format(degree))
+
+        # Fixme: generic code
+
+        number_of_points = len(points)
+        n = number_of_points -1
+        if n % degree:
+            raise ValueError('Wrong number of points for Bezier {} curve: {}'.format(degree, number_of_points))
+
+        items = []
+        for i in range(number_of_points // degree):
+            j = degree * i
+            k = j + degree
+            item = method(*points[j:k+1], *args, **kwargs)
+            items.append(item)
+
+        return items
 
     ##############################################
 

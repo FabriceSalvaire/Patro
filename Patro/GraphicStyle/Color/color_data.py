@@ -1,7 +1,7 @@
 ####################################################################################################
 #
 # Patro - A Python library to make patterns for fashion design
-# Copyright (C) 2017 Fabrice Salvaire
+# Copyright (C) 2018 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,17 +20,86 @@
 
 # from Matplotlib, Valentina, Qt
 
+__all__ = [
+    'BASE_COLORS',
+    'TABLEAU_COLORS',
+    'XKCD_COLORS',
+    'CSS4_COLORS',
+    'QML_COLORS',
+    'VALENTINA_COLORS',
+]
+
+####################################################################################################
+
+# aqua            #00ffff vs #13eac9
+# aquamarine      #7fffd4 vs #04d8b2
+# azure           #f0ffff vs #069af3
+# beige           #f5f5dc vs #e6daa6
+# blue            #0343df vs #0000ff
+# blue            #1f77b4 vs #0000ff
+# brown           #653700 vs #8c564b
+# brown           #a52a2a vs #8c564b
+# chartreuse      #7fff00 vs #c1f80a
+# chocolate       #d2691e vs #3d1c02
+# coral           #ff7f50 vs #fc5a50
+# crimson         #dc143c vs #8c000f
+# cyan            #17becf vs #00ffff
+# darkblue        #00008b vs #030764
+# darkgreen       #006400 vs #054907
+# fuchsia         #ff00ff vs #ed0dd9
+# goldenrod       #daa520 vs #fac205
+# gold            #ffd700 vs #dbb40c
+# gray            #808080 vs #7f7f7f
+# green           #008000 vs #00ff00
+# green           #15b01a vs #00ff00
+# green           #2ca02c vs #00ff00
+# grey            #808080 vs #929591
+# indigo          #4b0082 vs #380282
+# ivory           #fffff0 vs #ffffcb
+# khaki           #f0e68c vs #aaa662
+# lavender        #e6e6fa vs #c79fef
+# lightblue       #add8e6 vs #7bc8f6
+# lightgreen      #90ee90 vs #76ff7b
+# lime            #00ff00 vs #aaff32
+# magenta         #c20078 vs #ff00ff
+# maroon          #800000 vs #650021
+# navy            #000080 vs #01153e
+# olive           #6e750e vs #bcbd22
+# olive           #808000 vs #bcbd22
+# orange          #f97306 vs #ff7f0e
+# orange          #ffa500 vs #ff7f0e
+# orangered       #ff4500 vs #fe420f
+# orchid          #da70d6 vs #c875c4
+# pink            #ff81c0 vs #e377c2
+# pink            #ffc0cb vs #e377c2
+# plum            #dda0dd vs #580f41
+# purple          #7e1e9c vs #9467bd
+# purple          #800080 vs #9467bd
+# red             #d62728 vs #ff0000
+# red             #e50000 vs #ff0000
+# salmon          #fa8072 vs #ff796c
+# sienna          #a0522d vs #a9561e
+# silver          #c0c0c0 vs #c5c9c7
+# tan             #d2b48c vs #d1b26f
+# teal            #008080 vs #029386
+# tomato          #ff6347 vs #ef4026
+# turquoise       #40e0d0 vs #06c2ac
+# violet          #ee82ee vs #9a0eea
+# wheat           #f5deb3 vs #fbdd7e
+# yellow          #ffff14 vs #ffff00
+# yellowgreen     #9acd32 vs #bbf90f
+
 ####################################################################################################
 
 BASE_COLORS = {
-    'black':   (0, 0, 0),
-    'blue':    (0, 0, 1),
-    'green':   (0, 1, 0),
-    'cyan':    (0, 1, 1),
-    'red':     (1, 0, 0),
-    'magenta': (1, 0, 1),
-    'yellow':  (1, 1, 0),
-    'white':   (1, 1, 1),
+    'black':   '#000000',
+    'blue':    '#0000ff',
+    'green':   '#00ff00',
+    'cyan':    '#00ffff',
+    'red':     '#ff0000',
+    'magenta': '#ff00ff',
+    'yellow':  '#ffff00',
+    'white':   '#ffffff',
 }
 
 ####################################################################################################
@@ -783,7 +852,7 @@ XKCD_COLORS = {
     'purple grey': '#866f85',
     'purple pink': '#e03fd8',
     'purple red': '#990147',
-    'purple': '#7e1e9c,
+    'purple': '#7e1e9c',
     'purple/blue': '#5d21d0',
     'purple/pink': '#d725de',
     'purpleish blue': '#6140ef',

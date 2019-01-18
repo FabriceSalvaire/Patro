@@ -62,12 +62,63 @@ __all__ = [
 
 import Patro.Pattern.SketchOperation as SketchOperation
 from Patro.Common.Xml.Objectivity import (
+    Attribute,
     BoolAttribute,
     IntAttribute, FloatAttribute,
     StringAttribute,
     XmlObjectAdaptator
 )
 from Patro.GeometryEngine.Vector import Vector2D
+from Patro.GraphicStyle import Colors, StrokeStyle
+
+####################################################################################################
+
+class ColorAttribute(Attribute):
+
+    __COLORS__ = (
+        'black',
+        'blue',
+        'cornflowerblue',
+        'darkBlue',
+        'darkGreen',
+        'darkRed',
+        'darkviolet',
+        'deeppink',
+        'deepskyblue',
+        'goldenrod',
+        'green',
+        'lightsalmon',
+        'lime',
+        'mediumseagreen',
+        'orange',
+        'violet',
+        'yellow',
+    )
+
+    ##############################################
+
+    @classmethod
+    def from_xml(cls, value):
+        return Colors.ensure_color(value)
+
+####################################################################################################
+
+class StrokeStyleAttribute(Attribute):
+
+    __STROKE_STYLE__ = {
+        'dashDotDotLine': StrokeStyle.DashDotDotLine,
+        'dashDotLine': StrokeStyle.DashDotLine,
+        'dashLine': StrokeStyle.DashLine,
+        'dotLine': StrokeStyle.DotLine,
+        'hair': StrokeStyle.SolidLine, # should be solid
+        'none': StrokeStyle.NoPen,
+    }
+
+    ##############################################
+
+    @classmethod
+    def from_xml(cls, value):
+        return cls.__STROKE_STYLE__[value]
 
 ####################################################################################################
 
@@ -259,37 +310,8 @@ class CalculationTypeMixin(CalculationMixin):
 class LinePropertiesMixin:
 
     __attributes__ = (
-        StringAttribute('line_color', 'lineColor'),
-        StringAttribute('line_style', 'typeLine'),
-    )
-
-    __COLORS__ = (
-        'black',
-        'blue',
-        'cornflowerblue',
-        'darkBlue',
-        'darkGreen',
-        'darkRed',
-        'darkviolet',
-        'deeppink',
-        'deepskyblue',
-        'goldenrod',
-        'green',
-        'lightsalmon',
-        'lime',
-        'mediumseagreen',
-        'orange',
-        'violet',
-        'yellow',
-    )
-
-    __LINE_STYLE__ = (
-        'dashDotDotLine',
-        'dashDotLine',
-        'dashLine',
-        'dotLine',
-        'hair', # should be solid
-        'none',
+        ColorAttribute('line_color', 'lineColor'),
+        StrokeStyleAttribute('line_style', 'typeLine'),
     )
 
 class XyMixin:

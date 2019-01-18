@@ -34,9 +34,10 @@ from QtShim.QtGui import QColor, QFont, QFontMetrics, QImage, QPainter, QPainter
 # from QtShim.QtQml import qmlRegisterType
 from QtShim.QtQuick import QQuickPaintedItem
 
+from .Painter import Painter
 from Patro.GeometryEngine.Vector import Vector2D
 from Patro.GraphicEngine.GraphicScene.Scene import GraphicScene
-from .Painter import Painter
+from Patro.GraphicStyle import StrokeStyle
 
 ####################################################################################################
 
@@ -60,13 +61,13 @@ class QtScene(QObject, GraphicScene):
 class QtPainter(Painter):
 
     __STROKE_STYLE__ = {
-        None: None,
-        'dashDotLine': Qt.DashLine,
-        'dotLine': Qt.DotLine,
-        'hair': Qt.SolidLine,
-        'none': None,
-
-        'solid': Qt.SolidLine,
+        None: None, # Fixme: ???
+        StrokeStyle.NoPen: Qt.NoPen,
+        StrokeStyle.SolidLine: Qt.SolidLine,
+        StrokeStyle.DashLine: Qt.DashLine,
+        StrokeStyle.DotLine: Qt.DotLine,
+        StrokeStyle.DashDotLine: Qt.DashDotLine,
+        StrokeStyle.DashDotDotLine: Qt.DashDotDotLine,
     }
 
     _logger = _module_logger.getChild('QtPainter')
@@ -76,6 +77,8 @@ class QtPainter(Painter):
     def __init__(self, scene=None):
 
         super().__init__(scene)
+
+        self._show_grid = True
 
         # self._paper = paper
 
@@ -108,9 +111,18 @@ class QtPainter(Painter):
         self._logger.info('paint')
 
         self._painter = painter
+        if self._show_grid:
+            self._paint_grid()
         super().paint()
 
     ##############################################
+
+    def length_scene_to_viewport(self, length):
+        raise NotImplementedError
+
+    @property
+    def scene_area(self):
+        raise NotImplementedError
 
     def scene_to_viewport(self, position):
         # Note: painter.scale apply to text as well
@@ -125,78 +137,156 @@ class QtPainter(Painter):
     ##############################################
 
     def cast_position(self, position):
+        """Cast coordinate, apply scope transformation and convert scene to viewport, *position* can be a
+        coordinate name string of a:class:`Vector2D`.
+
+        """
         position = super().cast_position(position)
         return self.scene_to_viewport(position)
-
-    ##############################################
-
-    def paint_CoordinateItem(self, item):
-
-        self._coordinates[item.name] = self.scene_to_viewport(item.position)
 
     ##############################################
 
     def _set_pen(self, item):
 
         path_syle = item.path_style
+        print('_set_pen', item, path_syle)
         if item.selected:
-            print('SELECTED', item)
-            color = QColor('red')
+            color = QColor('red') # Fixme: style
         else:
             color = path_syle.stroke_color
             if color is not None:
-                color = QColor(color)
+                color = QColor(str(color))
             else:
                 color = None
         line_style = self.__STROKE_STYLE__[path_syle.stroke_style]
-        line_width = float(path_syle.line_width.replace('pt', '')) / 3 # Fixme: pt ???
+        line_width = path_syle.line_width_as_float
 
         # Fixme: selection style
         if item.selected:
             line_width *= 4
 
-        if color is not None and line_style is not None:
-            brush = QBrush(color)
+        print(item, color, line_style)
+        if color is None or line_style is StrokeStyle.NoPen:
+            # invisible item
+            pen = QPen(Qt.NoPen)
+            # print('Warning Pen:', item, item.user_data, color, line_style)
+        else:
             pen = QPen(
-                brush,
+                QBrush(color),
                 line_width,
                 line_style,
             )
             self._painter.setPen(pen)
-        # else: # invisible item
-        #     print('Warning Pen:', item, item.user_data, color, line_style)
+            return pen
+
+        fill_color = path_syle.fill_color
+        if fill_color is not None:
+            color = QColor(str(fill_color))
+            self._painter.setBrush(color)
+        else:
+            self._painter.setBrush(Qt.NoBrush)
+
+        return None
+
+    ##############################################
+
+    def _paint_grid(self):
+
+        area = self.scene_area
+        xinf, xsup = area.x.inf, area.x.sup
+        yinf, ysup = area.y.inf, area.y.sup
+
+        color = QColor('black')
+        brush = QBrush(color)
+        pen = QPen(brush, .75)
+        self._painter.setPen(pen)
+        self._painter.setBrush(Qt.NoBrush)
+
+        step = 10
+        self._paint_axis_grid(xinf, xsup, yinf, ysup, True, step)
+        self._paint_axis_grid(yinf, ysup, xinf, xsup, False, step)
+
+        color = QColor('black')
+        brush = QBrush(color)
+        pen = QPen(brush, .25)
+        self._painter.setPen(pen)
+        self._painter.setBrush(Qt.NoBrush)
+
+        step = 1
+        self._paint_axis_grid(xinf, xsup, yinf, ysup, True, step)
+        self._paint_axis_grid(yinf, ysup, xinf, xsup, False, step)
+
+    ##############################################
+
+    def _paint_axis_grid(self, xinf, xsup, yinf, ysup, is_x, step):
+
+        for i in range(int(xinf // step), int(xsup // step) +1):
+            x = i*step
+            if xinf <= x <= xsup:
+                if is_x:
+                    p0 = Vector2D(x, yinf)
+                    p1 = Vector2D(x, ysup)
+                else:
+                    p0 = Vector2D(yinf, x)
+                    p1 = Vector2D(ysup, x)
+                p0 = self.cast_position(p0)
+                p1 = self.cast_position(p1)
+                self._painter.drawLine(p0, p1)
+
+    ##############################################
+
+    def paint_CoordinateItem(self, item):
+        self._coordinates[item.name] = self.scene_to_viewport(item.position)
 
     ##############################################
 
     def paint_CircleItem(self, item):
 
         center = self.cast_position(item.position)
-        # radius = 5 # Fixme:
-        radius = item.radius * 10 # Fixme: !!!! zoom ???
+        radius = self.length_scene_to_viewport(item.radius)
 
-        # rectangle = QRectF(
-        #     center - QPointF(1, 1)*radius,
-        #     QSizeF(1, 1)*2*radius,
-        # )
-        pen = QPen(
-            QColor('black'), # QBrush()
-            1,
-            Qt.SolidLine,
+        pen = self._set_pen(item)
+
+        # self._painter.drawEllipse(center, radius, radius)
+        rectangle = QRectF(
+            center + QPointF(-radius, radius),
+            center + QPointF(radius, -radius),
         )
-        self._painter.setPen(pen)
-        # self._painter.drawArc(rectangle, 0, 360)
-        self._painter.drawEllipse(center, radius, radius)
+        self._painter.drawArc(rectangle, 0, 360*16)
+        ## self._painter.drawArc(center.x, center.y, radius, radius, 0, 360)
 
     ##############################################
 
     def paint_CubicBezierItem(self, item):
 
-        self._set_pen(item)
         vertices = self.cast_item_positions(item)
+
+        pen = self._set_pen(item)
         path = QPainterPath()
         path.moveTo(vertices[0])
         path.cubicTo(*vertices[1:])
         self._painter.drawPath(path)
+
+        path_style = item.path_style
+        # if path_style.show_control:
+        if getattr(path_style, 'show_control', False):
+            color = QColor(str(path_style.control_color))
+            brush = QBrush(color)
+            pen = QPen(brush, 1) # Fixme
+            self._painter.setPen(pen)
+            self._painter.setBrush(Qt.NoBrush)
+            path = QPainterPath()
+            path.moveTo(vertices[0])
+            for vertex in vertices[1:]:
+                path.lineTo(vertex)
+            self._painter.drawPath(path)
+
+            # Fixme:
+            radius = 3
+            self._painter.setBrush(brush)
+            for vertex in vertices:
+                self._painter.drawEllipse(vertex, radius, radius)
+            self._painter.setBrush(Qt.NoBrush) # Fixme:
 
     ##############################################
 
@@ -219,6 +309,18 @@ class QtPainter(Painter):
         self._set_pen(item)
         vertices = self.cast_item_positions(item)
         self._painter.drawLine(*vertices)
+
+    ##############################################
+
+    def paint_PolylineItem(self, item):
+
+        self._set_pen(item)
+        vertices = self.cast_item_positions(item)
+        path = QPainterPath()
+        path.moveTo(vertices[0])
+        for vertex in vertices[1:]:
+            path.lineTo(vertex)
+        self._painter.drawPath(path)
 
     ##############################################
 
@@ -380,6 +482,11 @@ class ViewportArea:
 
     ##############################################
 
+    def length_scene_to_viewport(self, length):
+        return length * self._scale
+
+    ##############################################
+
     def viewport_to_scene(self, position):
 
         point = QPointF(position.x(), -position.y())
@@ -435,8 +542,19 @@ class QtQuickPaintedSceneItem(QQuickPaintedItem, QtPainter):
 
     ##############################################
 
+    @property
+    def scene_area(self):
+        return self._viewport_area.area
+
+    ##############################################
+
     def scene_to_viewport(self, position):
         return self._viewport_area.scene_to_viewport(position)
+
+    ##############################################
+
+    def length_scene_to_viewport(self, length):
+        return self._viewport_area.length_scene_to_viewport(length)
 
     ##############################################
 

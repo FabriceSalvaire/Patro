@@ -120,6 +120,10 @@ class Painter:
     ##############################################
 
     def cast_position(self, position):
+        """Call :meth:`GraphicSceneScope.cast_position`, cast coordinate and apply scope transformation,
+        *position* can be a coordinate name string of a:class:`Vector2D`.
+
+        """
         return self._scene.cast_position(position)
 
     ##############################################

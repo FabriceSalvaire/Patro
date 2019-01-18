@@ -26,7 +26,7 @@
 import logging
 
 from Patro.GeometryEngine.Vector import Vector2D
-from Patro.GraphicEngine.GraphicScene.GraphicItem import GraphicStyle, Font
+from Patro.GraphicEngine.GraphicScene.GraphicItem import GraphicPathStyle, Font
 from Patro.GraphicEngine.GraphicScene.Scene import GraphicScene
 from . import SketchOperation
 from .Calculator import Calculator
@@ -153,9 +153,9 @@ class Sketch:
 
     def _operation_to_path_style(self, operation, **kwargs):
 
-        """Generate a :class:`GraphicStyle` instance for a operation"""
+        """Generate a :class:`GraphicPathStyle` instance for a operation"""
 
-        return GraphicStyle(
+        return GraphicPathStyle(
             stroke_style=operation.line_style,
             stroke_color=operation.line_color,
             **kwargs
@@ -185,7 +185,7 @@ class Sketch:
                 scene.add_coordinate(operation.name, operation.vector)
                 # Draw point and label
                 scene.circle(operation.name, '1pt',
-                             GraphicStyle(fill_color='black'),
+                             GraphicPathStyle(fill_color='black'),
                              user_data=operation,
                 )
                 label_offset = operation.label_offset
@@ -194,7 +194,7 @@ class Sketch:
                 if offset:
                     # arrow must point to the label center and be clipped
                     scene.segment(operation.vector, label_position,
-                                  GraphicStyle(line_width='.5pt'),
+                                  GraphicPathStyle(line_width='.5pt'),
                                   user_data=operation,
                     )
                     scene.text(label_position, operation.name, font, user_data=operation)
