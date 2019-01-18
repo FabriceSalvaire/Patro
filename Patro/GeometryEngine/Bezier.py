@@ -18,6 +18,9 @@
 #
 ####################################################################################################
 
+"""Module to implement Bézier curve.
+"""
+
 # C0 = continuous
 # G1 = geometric continuity
 #    Tangents point to the same direction
@@ -47,88 +50,11 @@ from .Vector import Vector2D
 
 ####################################################################################################
 
-class QuadraticBezier2D(Primitive2DMixin, Primitive3P):
+class BezierMixin2D(Primitive2DMixin):
 
-    """Class to implements 2D Quadratic Bezier Curve."""
+    """Mixin to implements 2D Bezier Curve."""
 
     LineInterpolationPrecision = 0.05
-
-    # Q(t) = Transformation * Control * Basis * T(t)
-    #
-    #           / P1x P2x P3x \  / 1 -2  1 \ / 1    \
-    # Q(t) = Tr | P1y P2x P3x |  | 0  2 -2 | | t    |
-    #           \  1   1   1  /  \ 0  0  1 / \ t**2 /
-    #
-    # Q(t) =    P0 * (1 - 2*t + t**2) +
-    #           P1 * (    2*t - t**2) +
-    #           P2 *            t**2
-
-    BASIS = np.array((
-        (1, -2,  1),
-        (0,  2, -2),
-        (0,  0,  1),
-    ))
-
-    INVERSE_BASIS = np.array((
-        (-2,  1, -2),
-        (-1, -3,  1),
-        (-1, -1, -2),
-    ))
-
-    ##############################################
-
-    def __init__(self, p0, p1, p2):
-
-        Primitive3P.__init__(self, p0, p1, p2)
-
-    ##############################################
-
-    def __repr__(self):
-        return self.__class__.__name__ + '({0._p0}, {0._p1}, {0._p2})'.format(self)
-
-    ##############################################
-
-    @property
-    def length(self):
-
-        # Algorithm:
-        #
-        # http://www.gamedev.net/topic/551455-length-of-a-generalized-quadratic-bezier-curve-in-3d
-        # Dave Eberly Posted October 25, 2009
-        #
-        # The quadratic Bezier is
-        #   (x(t),y(t)) = (1-t)^2*(x0,y0) + 2*t*(1-t)*(x1,y1) + t^2*(x2,y2)
-        #
-        # The derivative is
-        #   (x'(t),y'(t)) = -2*(1-t)*(x0,y0) + (2-4*t)*(x1,y1) + 2*t*(x2,y2)
-        #
-        # The length of the curve for 0 <= t <= 1 is
-        #   Integral[0,1] sqrt((x'(t))^2 + (y'(t))^2) dt
-        # The integrand is of the form sqrt(c*t^2 + b*t + a)
-        #
-        # You have three separate cases: c = 0, c > 0, or c < 0.
-        # * The case c = 0 is easy.
-        # * For the case c > 0, an antiderivative is
-        #     (2*c*t+b)*sqrt(c*t^2+b*t+a)/(4*c) + (0.5*k)*log(2*sqrt(c*(c*t^2+b*t+a)) + 2*c*t + b)/sqrt(c)
-        #   where k = 4*c/q with q = 4*a*c - b*b.
-        # * For the case c < 0, an antiderivative is
-        #    (2*c*t+b)*sqrt(c*t^2+b*t+a)/(4*c) - (0.5*k)*arcsin((2*c*t+b)/sqrt(-q))/sqrt(-c)
-
-        A0 = self._p1 - self._p0
-        A1 = self._p0 - self._p1 * 2 + self._p2
-        if A1.magnitude_square != 0:
-            c = 4 * A1.dot(A1)
-            b = 8 * A0.dot(A1)
-            a = 4 * A0.dot(A0)
-            q = 4 * a * c - b * b
-            two_cb = 2 * c + b
-            sum_cba = c + b + a
-            m0 = 0.25 / c
-            m1 = q / (8 * c**1.5)
-            return (m0 * (two_cb * sqrt(sum_cba) - b * sqrt(a)) +
-                    m1 * (log(2 * sqrt(c * sum_cba) + two_cb) - log(2 * sqrt(c * a) + b)))
-        else:
-            return 2 * A0.magnitude
 
     ##############################################
 
@@ -204,6 +130,143 @@ class QuadraticBezier2D(Primitive2DMixin, Primitive3P):
 
     ##############################################
 
+    def split_at_two_t(self, t1, t2):
+
+        if t1 == t2:
+            return self.point_at_t(t1)
+
+        if t2 < t1:
+            # Fixme: raise ?
+            t1, t2 = t2, t1
+
+        # curve = self
+        # if t1 > 0:
+        curve = self.split_at_t(t1)[1] # right
+        if t2 < 1:
+            # Interpolate the parameter at t2 in the new curve
+            t = (t2 - t1) / (1 - t1)
+            curve = curve.split_at_t(t)[0] # left
+
+        return curve
+
+    ##############################################
+
+    def _map_to_line(self, line):
+
+        transformation = AffineTransformation.Rotation(-line.v.orientation)
+        # Fixme: use __vector_cls__
+        transformation *= AffineTransformation.Translation(Vector2D(0, -line.p.y))
+        # Fixme: better API ?
+        return self.clone().transform(transformation)
+
+    ##############################################
+
+    def non_parametric_curve(self, line):
+
+        """Return the non-parametric Bezier curve D(ti, di(t)) where di(t) is the distance of the curve from
+        the baseline of the fat-line, ti is equally spaced in [0, 1].
+
+        """
+
+        ts = np.arange(0, 1, 1/(self.number_of_points-1))
+        distances = [line.distance_to_line(p) for p in self.points]
+        points = [Vector2D(t, d) for t, f in zip(ts, distances)]
+        return self.__class__(*points)
+
+    ##############################################
+
+    def distance_to_point(self, point):
+
+        p = self.closest_point(point)
+        if p is not None:
+            return (point - p).magnitude
+        else:
+            return None
+
+####################################################################################################
+
+class QuadraticBezier2D(BezierMixin2D, Primitive3P):
+
+    """Class to implements 2D Quadratic Bezier Curve."""
+
+    # Q(t) = Transformation * Control * Basis * T(t)
+    #
+    #           / P1x P2x P3x \  / 1 -2  1 \ / 1    \
+    # Q(t) = Tr | P1y P2x P3x |  | 0  2 -2 | | t    |
+    #           \  1   1   1  /  \ 0  0  1 / \ t**2 /
+    #
+    # Q(t) =    P0 * (1 - 2*t + t**2) +
+    #           P1 * (    2*t - t**2) +
+    #           P2 *            t**2
+
+    BASIS = np.array((
+        (1, -2,  1),
+        (0,  2, -2),
+        (0,  0,  1),
+    ))
+
+    INVERSE_BASIS = np.array((
+        (-2,  1, -2),
+        (-1, -3,  1),
+        (-1, -1, -2),
+    ))
+
+    ##############################################
+
+    def __init__(self, p0, p1, p2):
+        Primitive3P.__init__(self, p0, p1, p2)
+
+    ##############################################
+
+    def __repr__(self):
+        return self.__class__.__name__ + '({0._p0}, {0._p1}, {0._p2})'.format(self)
+
+    ##############################################
+
+    @property
+    def length(self):
+
+        # Algorithm:
+        #
+        # http://www.gamedev.net/topic/551455-length-of-a-generalized-quadratic-bezier-curve-in-3d
+        # Dave Eberly Posted October 25, 2009
+        #
+        # The quadratic Bezier is
+        #   (x(t),y(t)) = (1-t)^2*(x0,y0) + 2*t*(1-t)*(x1,y1) + t^2*(x2,y2)
+        #
+        # The derivative is
+        #   (x'(t),y'(t)) = -2*(1-t)*(x0,y0) + (2-4*t)*(x1,y1) + 2*t*(x2,y2)
+        #
+        # The length of the curve for 0 <= t <= 1 is
+        #   Integral[0,1] sqrt((x'(t))^2 + (y'(t))^2) dt
+        # The integrand is of the form sqrt(c*t^2 + b*t + a)
+        #
+        # You have three separate cases: c = 0, c > 0, or c < 0.
+        # * The case c = 0 is easy.
+        # * For the case c > 0, an antiderivative is
+        #     (2*c*t+b)*sqrt(c*t^2+b*t+a)/(4*c) + (0.5*k)*log(2*sqrt(c*(c*t^2+b*t+a)) + 2*c*t + b)/sqrt(c)
+        #   where k = 4*c/q with q = 4*a*c - b*b.
+        # * For the case c < 0, an antiderivative is
+        #    (2*c*t+b)*sqrt(c*t^2+b*t+a)/(4*c) - (0.5*k)*arcsin((2*c*t+b)/sqrt(-q))/sqrt(-c)
+
+        A0 = self._p1 - self._p0
+        A1 = self._p0 - self._p1 * 2 + self._p2
+        if A1.magnitude_square != 0:
+            c = 4 * A1.dot(A1)
+            b = 8 * A0.dot(A1)
+            a = 4 * A0.dot(A0)
+            q = 4 * a * c - b * b
+            two_cb = 2 * c + b
+            sum_cba = c + b + a
+            m0 = 0.25 / c
+            m1 = q / (8 * c**1.5)
+            return (m0 * (two_cb * sqrt(sum_cba) - b * sqrt(a)) +
+                    m1 * (log(2 * sqrt(c * sum_cba) + two_cb) - log(2 * sqrt(c * a) + b)))
+        else:
+            return 2 * A0.magnitude
+
+    ##############################################
+
     def point_at_t(self, t):
         # if 0 < t or 1 < t:
         #     raise ValueError()
@@ -226,27 +289,6 @@ class QuadraticBezier2D(Primitive2DMixin, Primitive3P):
             p = interpolate_two_points(p01, p12, t) # p = p012
             # p = self.point_at_t(t)
             return (QuadraticBezier2D(self._p0, p01, p), QuadraticBezier2D(p, p12, self._p2))
-
-    ##############################################
-
-    def split_at_two_t(self, t1, t2):
-
-        if t1 == t2:
-            return self.point_at_t(t1)
-
-        if t2 < t1:
-            # Fixme: raise ?
-            t1, t2 = t2, t1
-
-        # curve = self
-        # if t1 > 0:
-        curve = self.split_at_t(t1)[1] # right
-        if t2 < 1:
-            # Interpolate the parameter at t2 in the new curve
-            t = (t2 - t1) / (1 - t1)
-            curve = curve.split_at_t(t)[0] # left
-
-        return curve
 
    ##############################################
 
@@ -277,16 +319,6 @@ class QuadraticBezier2D(Primitive2DMixin, Primitive3P):
     def tangent_at(self, t):
         u = 1 - t
         return (self._p1 - self._p0) * u + (self._p2 - self._p1) * t
-
-    ##############################################
-
-    def _map_to_line(self, line):
-
-        transformation = AffineTransformation.Rotation(-line.v.orientation)
-        # Fixme: use __vector_cls__
-        transformation *= AffineTransformation.Translation(Vector2D(0, -line.p.y))
-        # Fixme: better API ?
-        return self.clone().transform(transformation)
 
     ##############################################
 
@@ -345,20 +377,6 @@ class QuadraticBezier2D(Primitive2DMixin, Primitive3P):
         d_max = max(0, d1 / 2)
 
         return (line, d_min, d_max)
-
-    ##############################################
-
-    def non_parametric_curve(self, line):
-
-        """Return the non-parametric Bezier curve D(ti, di(t)) where di(t) is the distance of the curve from
-        the baseline of the fat-line, ti is equally spaced in [0, 1].
-
-        """
-
-        ts = np.arange(0, 1, 1/(self.number_of_points-1))
-        distances = [line.distance_to_line(p) for p in self.points]
-        points = [Vector2D(t, d) for t, f in zip(ts, distances)]
-        return self.__class__(*points)
 
     ##############################################
 
@@ -421,16 +439,6 @@ class QuadraticBezier2D(Primitive2DMixin, Primitive3P):
         else:
             return self.point_at_t(t)
 
-    ##############################################
-
-    def distance_to_point(self, point):
-
-        p = self.closest_point(point)
-        if p is not None:
-            return (point - p).magnitude
-        else:
-            return None
-
 ####################################################################################################
 
 _Sqrt3 = sqrt(3)
@@ -438,7 +446,7 @@ _Div18Sqrt3 = 18 / _Sqrt3
 _OneThird = 1 / 3
 _Sqrt3Div36 = _Sqrt3 / 36
 
-class CubicBezier2D(Primitive4P, QuadraticBezier2D):
+class CubicBezier2D(BezierMixin2D, Primitive4P):
 
     """Class to implements 2D Cubic Bezier Curve."""
 
@@ -468,7 +476,6 @@ class CubicBezier2D(Primitive4P, QuadraticBezier2D):
     #######################################
 
     def __init__(self, p0, p1, p2, p3):
-
         Primitive4P.__init__(self, p0, p1, p2, p3)
 
     ##############################################
@@ -479,9 +486,10 @@ class CubicBezier2D(Primitive4P, QuadraticBezier2D):
     ##############################################
 
     def to_spline(self):
-        basis = np.dot(self.BASIS, CubicSplinePart2D.INVERSE_BASIS)
+        from .Spline import CubicUniformSpline2D
+        basis = np.dot(self.BASIS, CubicUniformSpline2D.INVERSE_BASIS)
         points = np.dot(self.geometry_matrix, basis).transpose()
-        return CubicSplinePart2D(*points)
+        return CubicUniformSpline2D(*points)
 
     ##############################################
 
@@ -973,164 +981,3 @@ class CubicBezier2D(Primitive4P, QuadraticBezier2D):
             raise NameError("Found more than on root")
         else:
             return self.point_at_t(t[0])
-
-####################################################################################################
-
-class QuadraticSplinePart2D(Primitive2DMixin, Primitive3P):
-
-    """Class to implements 2D Quadratic Spline Curve."""
-
-    BASIS = np.array((
-        (1, -2,  1),
-        (1,  2, -2),
-        (0,  0,  1),
-    ))
-
-    INVERSE_BASIS = np.array((
-        (-2,  1, -2),
-        (-2, -3,  1),
-        (-1, -1, -2),
-    ))
-
-    #######################################
-
-    def __init__(self, p0, p1, p2):
-        Primitive3P.__init__(self, p0, p1, p2)
-
-    ##############################################
-
-    def __repr__(self):
-        return self.__class__.__name__ + '({0._p0}, {0._p1}, {0._p2})'.format(self)
-
-    ##############################################
-
-    def to_bezier(self):
-        basis = np.dot(self.BASIS, QuadraticBezier2D.INVERSE_BASIS)
-        points = np.dot(self.geometry_matrix, basis).transpose()
-        return QuadraticBezier2D(*points)
-
-    ##############################################
-
-    def point_at_t(self, t):
-
-        # Q(t) = (
-        #          P0 *  (1-t)**3                      +
-        #          P1 * (  3*t**3 - 6*t**2       + 4 ) +
-        #          P2 * ( -3*t**3 + 3*t**2 + 3*t + 1 ) +
-        #          P3 *      t**3
-        #        ) / 6
-        #
-        #     = P0*(1-t)**3/6 + P1*(3*t**3 - 6*t**2 + 4)/6 + P2*(-3*t**3 + 3*t**2 + 3*t + 1)/6 + P3*t**3/6
-
-        return (self._p0/6 + self._p1*2/3 + self._p2/6 +
-                (-self._p0/2 + self._p2/2)*t +
-                (self._p0/2 - self._p1 + self._p2/2)*t**2 +
-                (-self._p0/6 + self._p1/2 - self._p2/2 + self._p3/6)*t**3)
-
-####################################################################################################
-
-class QuadraticSpline2D(Primitive2DMixin, PrimitiveNP):
-
-    """Class to implements 2D Quadratic Spline Curve."""
-
-    # control points define the curve shape
-    # knots are part extremities on the curve
-
-    __number_of_points__ = 3
-    __part_cls__ = QuadraticSplinePart2D
-
-    #######################################
-
-    def __init__(self, *points):
-
-        points = self.handle_points(points)
-        PrimitiveNP.__init__(self, points)
-        if len(self) < self.__number_of_points__:
-            raise ValueError('Require at least 4 points')
-
-    ##############################################
-
-    def number_of_parts(self):
-        return self.number_of_points - self.__number_of_points__
-
-    ##############################################
-
-    def iter_on_parts(self):
-        for points in self.iter_on_nuplets(self.__number_of_points__):
-            print(points)
-            yield self.__part_cls__(*points)
-
-    ##############################################
-
-    def get_part(self, i):
-        points = self._points[i:i+self.__number_of_points__]
-        return self.__part_cls__(*points)
-
-####################################################################################################
-
-class CubicSplinePart2D(Primitive2DMixin, Primitive4P):
-
-    """Class to implements 2D Cubic Spline Curve."""
-
-    # T = (1 t t**2 t**3)
-    # P = (Pi Pi+2 Pi+2 Pi+3)
-    # Q(t) = T M Pt
-    #      = P Mt Tt
-    # Basis = Mt
-    BASIS = np.array((
-        (1, -3,  3, -1),
-        (4,  0, -6,  3),
-        (1,  3,  3, -3),
-        (0,  0,  0,  1),
-    )) / 6
-
-    INVERSE_BASIS = np.array((
-        (  1,    1,    1,     1),
-        ( -1,    0,    1,     2),
-        (2/3, -1/3,  2/3,  11/3),
-        (  0,    0,    0,     6),
-    ))
-
-    #######################################
-
-    def __init__(self, p0, p1, p2, p3):
-        Primitive4P.__init__(self, p0, p1, p2, p3)
-
-    ##############################################
-
-    def __repr__(self):
-        return self.__class__.__name__ + '({0._p0}, {0._p1}, {0._p2}, {0._p3})'.format(self)
-
-    ##############################################
-
-    def to_bezier(self):
-        basis = np.dot(self.BASIS, CubicBezier2D.INVERSE_BASIS)
-        points = np.dot(self.geometry_matrix, basis).transpose()
-        return CubicBezier2D(*points)
-
-    ##############################################
-
-    def point_at_t(self, t):
-
-        # Q(t) = (
-        #          P0 *  (1-t)**3                      +
-        #          P1 * (  3*t**3 - 6*t**2       + 4 ) +
-        #          P2 * ( -3*t**3 + 3*t**2 + 3*t + 1 ) +
-        #          P3 *      t**3
-        #        ) / 6
-        #
-        #     = P0*(1-t)**3/6 + P1*(3*t**3 - 6*t**2 + 4)/6 + P2*(-3*t**3 + 3*t**2 + 3*t + 1)/6 + P3*t**3/6
-
-        return (self._p0/6 + self._p1*2/3 + self._p2/6 +
-                (-self._p0/2 + self._p2/2)*t +
-                (self._p0/2 - self._p1 + self._p2/2)*t**2 +
-                (-self._p0/6 + self._p1/2 - self._p2/2 + self._p3/6)*t**3)
-
-####################################################################################################
-
-class CubicSpline2D(QuadraticSpline2D):
-
-    """Class to implements 2D Cubic Spline Curve."""
-
-    __number_of_points__ = 4
-    __part_cls__ = CubicSplinePart2D
