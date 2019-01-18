@@ -22,9 +22,9 @@
 
 import ezdxf
 
-from Patro.GeometryEngine.Bezier import CubicSpline2D, QuadraticSpline2D
 from Patro.GeometryEngine.Conic import Circle2D, Conic2D, Interval
 from Patro.GeometryEngine.Segment import Segment2D
+from Patro.GeometryEngine.Spline import BSpline2D
 from Patro.GeometryEngine.Vector import Vector2D
 
 from .Polyline import Polyline
@@ -138,6 +138,5 @@ class DxfImporter:
         dxf = item.dxf
         print('DXF spline', dxf.degree, dxf.n_knots, dxf.n_fit_points, dxf.n_control_points)
         # Fixme: item.closed
-        spline = CubicSpline2D(points)
-        # spline = QuadraticSpline2D(points)
+        spline = BSpline2D(points, dxf.degree)
         self._add(spline)
