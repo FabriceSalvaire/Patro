@@ -1,6 +1,7 @@
 *.aux
 *.qmlc
 *.val.lock
+*.vit.bak
 *~
 .directory
 __pycache__
@@ -33,6 +34,14 @@ examples/patterns/operations-demo.draw.png
 examples/patterns/path-bezier.draw.png
 
 examples/output/
+output/
+
+examples/dxf/protection-circulaire-seul-v1.dxf
+examples/dxf/protection-circulaire.dxf
+examples/dxf/protection-rectangulaire-v1.dxf
+examples/dxf/protection-rectangulaire-v2.dxf
+examples/dxf/test-dxf-r15.pdf
+tmp.py
 
 Patro/GraphicEngine/TeX/__MERGE_MUSICA__
 Patro/Pattern/dev/
