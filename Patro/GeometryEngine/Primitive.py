@@ -412,6 +412,7 @@ class PrimitiveNP(Primitive, ReversiblePrimitiveMixin):
 
         points = self.handle_points(points)
         self._points = [self.__vector_cls__(p) for p in points]
+        self._point_array = None
 
     ##############################################
 
@@ -441,8 +442,17 @@ class PrimitiveNP(Primitive, ReversiblePrimitiveMixin):
 
     ##############################################
 
+    @property
+    def point_array(self):
+        if self._point_array is None:
+            self._point_array = np.array([point for point in self._points])
+        return self._point_array
+
+    ##############################################
+
     def _set_points(self, points):
         self._points = points
+        self._point_array = None
 
     ##############################################
 
