@@ -45,9 +45,8 @@ class Polyline2D(Primitive2DMixin, PrimitiveNP):
     def edges(self):
 
         if self._edges is None:
-            for i in range(self.number_of_points -1):
-                edge = Segment2D(self._points[i], self._points[i+1])
-                self._edges.append(edge)
+            self._edges = [Segment2D(self._points[i], self._points[i+1])
+                           for i in range(self.number_of_points -1)]
 
         return iter(self._edges)
 
@@ -62,7 +61,7 @@ class Polyline2D(Primitive2DMixin, PrimitiveNP):
     def distance_to_point(self, point):
 
         distance = None
-        for edge in edges:
+        for edge in self.edges:
             edge_distance = edge.distance_to_point(point)
             if distance is None or edge_distance < distance:
                 distance = edge_distance
