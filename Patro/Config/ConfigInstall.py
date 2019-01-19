@@ -23,9 +23,10 @@
 import os
 import sys
 
-####################################################################################################
+from pathlib import Path
 
-import Patro.Common.Path as PathTools # Fixme: why ?
+# Fixme: why ?
+import Patro.Common.Path as PathTools # due to Path class
 
 ####################################################################################################
 
@@ -64,12 +65,12 @@ OS = OsFactory()
 
 ####################################################################################################
 
-_this_file = PathTools.to_absolute_path(__file__)
+_this_file = Path(__file__).resolve()
 
 class Path:
 
-    musica_module_directory = PathTools.parent_directory_of(_this_file, step=2)
-    config_directory = os.path.dirname(_this_file)
+    patro_module_directory = _this_file.parents[1]
+    config_directory = _this_file.parent
 
 ####################################################################################################
 
