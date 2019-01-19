@@ -18,26 +18,102 @@
 #
 ####################################################################################################
 
-# domain =  45 -> 270
-#          270 ->  45
+"""Module to implement conic geometry.
+
+"""
 
 ####################################################################################################
 
-from math import sqrt, radians, cos, sin, fabs, pi
+__all__ = [
+    'AngularDomain',
+    'Circle2D',
+    'Ellipse2D',
+]
+
+####################################################################################################
+
+import math
+from math import fabs, sqrt, radians, pi, cos, sin # , degrees
 
 import numpy as np
 
-from IntervalArithmetic import Interval
+from IntervalArithmetic import Interval2D
 
 from Patro.Common.Math.Functions import sign
+from .BoundingBox import bounding_box_from_points
 from .Line import Line2D
 from .Primitive import Primitive, Primitive2DMixin
 from .Segment import Segment2D
-from .Vector import Vector2D
 
 ####################################################################################################
 
-class DomainMixin:
+class AngularDomain:
+
+    """Class to define an angular domain"""
+
+    ##############################################
+
+    def __init__(self, start=0, stop=360, degrees=True):
+
+        if not degrees:
+            start = math.degrees(start)
+            stop = math.degrees(stop)
+
+        self.start = start
+        self.stop = stop
+
+    ##############################################
+
+    def __clone__(self):
+        return self.__class__(self._start, self._stop)
+
+    ##############################################
+
+    @property
+    def start(self):
+        return self._start
+
+    @start.setter
+    def start(self, value):
+        self._start = float(value)
+
+    @property
+    def stop(self):
+        return self._stop
+
+    @stop.setter
+    def stop(self, value):
+        self._stop = float(value)
+
+    @property
+    def start_radians(self):
+        return radians(self._start)
+
+    @property
+    def stop_radians(self):
+        return radians(self._stop)
+
+    ##############################################
+
+    @property
+    def is_closed(self):
+        return abs(self._stop - self._start) >= 360
+
+    @property
+    def is_over_closed(self):
+        return abs(self._stop - self._start) > 360
+
+    @property
+    def is_counterclockwise(self):
+        return self.start < self.stop
+
+    @property
+    def is_clockwise(self):
+        return self.stop < self.start
+
+####################################################################################################
+
+class AngularDomainMixin:
 
     ##############################################
 
@@ -46,9 +122,9 @@ class DomainMixin:
         return self._domain
 
     @domain.setter
-    def domain(self, interval):
-        if interval is not None and interval.length < 360:
-            self._domain = Interval(interval)
+    def domain(self, value):
+        if value is not None:
+            self._domain = value # Fixme: AngularDomain() ??
         else:
             self._domain = None
 
@@ -63,7 +139,7 @@ class DomainMixin:
     def start_stop_point(self, start=True):
 
         if self._domain is not None:
-            angle = self.domain.inf if start else self.domain.sup
+            angle = self.domain.start if start else self.domain.stop
             return self.point_at_angle(angle)
         else:
             return None
@@ -82,7 +158,7 @@ class DomainMixin:
 
 ####################################################################################################
 
-class Circle2D(Primitive2DMixin, DomainMixin, Primitive):
+class Circle2D(Primitive2DMixin, AngularDomainMixin, Primitive):
 
     """Class to implements 2D Circle."""
 
@@ -134,7 +210,7 @@ class Circle2D(Primitive2DMixin, DomainMixin, Primitive):
 
     @center.setter
     def center(self, value):
-        self._center = Vector2D(value)
+        self._center = self.__vector_cls__(value)
 
     @property
     def radius(self):
@@ -165,12 +241,12 @@ class Circle2D(Primitive2DMixin, DomainMixin, Primitive):
     ##############################################
 
     def point_at_angle(self, angle):
-        return Vector2D.from_polar(self._radius, angle) + self._center
+        return self.__vector_cls__.from_polar(self._radius, angle) + self._center
 
     ##############################################
 
     def tangent_at_angle(self, angle):
-        point = Vector2D.from_polar(self._radius, angle) + self._center
+        point = self.__vector_cls__.from_polar(self._radius, angle) + self._center
         tangent = (point - self._center).normal
         return Line2D(point, tangent)
 
@@ -220,6 +296,7 @@ class Circle2D(Primitive2DMixin, DomainMixin, Primitive):
         # solution = nonlinsolve(system, vars)
         # solution.subs(dx**2 + dy**2, dr**2)
 
+        Vector2D = self.__vector_cls__
         discriminant = self.radius**2 * dr2 - D**2
         if discriminant < 0:
             return None
@@ -342,19 +419,48 @@ class Circle2D(Primitive2DMixin, DomainMixin, Primitive):
 
 ####################################################################################################
 
-class Conic2D(Primitive2DMixin, DomainMixin, Primitive):
+class Ellipse2D(Primitive2DMixin, AngularDomainMixin, Primitive):
 
-    """Class to implements 2D Conic."""
+    """Class to implements 2D Ellipse.
+
+    A general ellipse in 2D is represented by a center point `C`, an orthonormal set of
+    axis-direction vectors :math:`{U_0 , U_1 }`, and associated extents :math:`e_i` with :math:`e_0
+    \ge e_1 > 0`. The ellipse points are
+
+    .. math::
+         P = C + x_0 U_0 + x_1 U_1
+
+    where
+
+    .. math::
+
+        \left(\frac{x_0}{e_0}\right)^2 + \left(\frac{x_1}{e_1}\right)^2 = 1
+
+    If :math:`e_0 = e_1`, then the ellipse is a circle with center `C` and radius :math:`e_0`. The
+    orthonormality of the axis directions and Equation (1) imply :math:`x_i = U_i \dot (P −
+    C)`. Substituting this into Equation (2) we obtain
+
+    .. math::
+
+        (P − C)^T M (P − C) = 1
+
+    where :math:`M = R D R^T`, `R` is an orthogonal matrix whose columns are :math:`U_0` and
+    :math:`U_1` , and `D` is a diagonal matrix whose diagonal entries are :math:`1/e_0^2` and
+    :math:`1/e_1^2`.
+
+    """
 
     #######################################
 
     def __init__(self, center, x_radius, y_radius, angle, domain=None):
 
         self.center = center
-        self._x_radius = x_radius
-        self._y_radius = y_radius
-        self._angle = angle
-        self.domain = Interval(domain)
+        self.x_radius = x_radius
+        self.y_radius = y_radius
+        self.angle = angle
+        self.domain = domain
+
+        self._bounding_box = None
 
     ##############################################
 
@@ -364,7 +470,7 @@ class Conic2D(Primitive2DMixin, DomainMixin, Primitive):
 
     @center.setter
     def center(self, value):
-        self._center = Vector2D(value)
+        self._center = self.__vector_cls__(value)
 
     @property
     def x_radius(self):
@@ -372,7 +478,7 @@ class Conic2D(Primitive2DMixin, DomainMixin, Primitive):
 
     @x_radius.setter
     def x_radius(self, value):
-        self._x_radius = value
+        self._x_radius = float(value)
 
     @property
     def y_radius(self):
@@ -380,7 +486,7 @@ class Conic2D(Primitive2DMixin, DomainMixin, Primitive):
 
     @y_radius.setter
     def y_radius(self, value):
-        self._y_radius = value
+        self._y_radius = float(value)
 
     @property
     def angle(self):
@@ -388,7 +494,17 @@ class Conic2D(Primitive2DMixin, DomainMixin, Primitive):
 
     @angle.setter
     def angle(self, value):
-        self._angle = value
+        self._angle = float(value)
+
+    @property
+    def major_vector(self):
+        # Fixme: x < y
+        return self._center + self.__vector_cls__.from_polar(self._angle, self._x_radius)
+
+    @property
+    def minor_vector(self):
+        # Fixme: x < y
+        return self._center + self.__vector_cls__.from_polar(self._angle + 90, self._y_radius)
 
     ##############################################
 
@@ -436,14 +552,34 @@ class Conic2D(Primitive2DMixin, DomainMixin, Primitive):
     ##############################################
 
     def point_at_angle(self, angle):
-        raise NotImplementedError
+        raise NotImplementedError # Fixme:
 
     ##############################################
 
     @property
     def bounding_box(self):
-        # conic -> rectangle -> apply rotation
-        raise NotImplementedError
+
+        if self._bounding_box is None:
+            x_radius, y_radius = self._x_radius, self._y_radius
+            if self._angle == 0:
+                bounding_box = self._center.bounding_box
+                bounding_box.x.enlarge(x_radius)
+                bounding_box.y.enlarge(y_radius)
+                self._bounding_box = bounding_box
+            else:
+                angle_x = self._angle
+                angle_y = angle_x + 90
+                Vector2D = self.__vector_cls__
+                points = [self._center + offset for offset in (
+                    Vector2D.from_polar(angle_x,  x_radius),
+                    Vector2D.from_polar(angle_x, -x_radius),
+                    Vector2D.from_polar(angle_y,  y_radius),
+                    Vector2D.from_polar(angle_y, -y_radius),
+                )]
+                self._bounding_box = bounding_box_from_points(points)
+
+        print(self._bounding_box)
+        return self._bounding_box
 
     ##############################################
 
@@ -462,6 +598,102 @@ class Conic2D(Primitive2DMixin, DomainMixin, Primitive):
 
     ##############################################
 
+    def point_in_ellipse_frame(self, point):
+        return (point - self._center).rotate(-self._angle)
+
+    ##############################################
+
+    @staticmethod
+    def _robust_length(x, y):
+        if x < y:
+            x, y = y, x
+        return abs(x) * math.srqt(1 + (y/x)**2)
+
+    ##############################################
+
+    def _distance_point_bisection(self, r0,  z0,  z1,  g):
+
+        n0 = r0 * z0
+        s0 = z1 - 1
+        if g < 0:
+            s1 = 0
+        else:
+            s1 = self._robust_length(n0 , z1) - 1
+
+        s = 0
+        MAX_ITERATION = 1074 # for double
+        for i in range(MAX_ITERATION):
+            s = (s0 + s1) / 2
+            if s == s0 or s == s1:
+                break
+            ratio0 = n0 / (s + r0)
+            ratio1 = z1 / (s + 1)
+            g = ratio0**2 + ratio1**2 -1
+            if g > 0:
+                s0 = s
+            elif g < 0:
+                s1 = s
+            else:
+                break
+
+        return s
+
+    ##############################################
+
+    def _eberly_distance(self, point):
+
+        """Compute distance to point.
+
+        The preconditions are e0 ≥ e1 > 0, y0 ≥ 0, and y1 ≥ 0.
+
+        The point is expressed in the ellipse coordinate system.
+        """
+
+        y0, y1 = point
+        e0, e1 = self._x_radius, self._y_radius
+
+        if y1 > 0:
+            if  y0 > 0:
+                z0 = y0 / e0
+                z1 = y1 / e1
+                g = z0**2 + z1**2 - 1
+                if g != 0:
+                    r0 = (e0 / e1)**2
+                    sbar = self._distance_point_bisection(r0, z0, z1, g)
+                    x0 = r0 * y0 / (sbar + r0)
+                    x1 = y1 / (sbar + 1)
+                    distance = math.sqrt((x0 - y0)**2 + (x1 - y1)**2)
+                else:
+                    x0 = y0
+                    x1 = y1
+                    distance = 0
+            else:
+                # y0 == 0
+                x0 = 0
+                x1 = e1
+                distance = abs(y1 - e1)
+        else:
+            # y1 == 0
+            numer0 = e0 * y0
+            denom0 = e0**2 - e1**2
+            if numer0 < denom0:
+                xde0 = numer0 / denom0
+                x0 = e0 * xde0
+                x1 = e1 * math.sqrt(1 - xde0**2)
+                distance = math.sqrt((x0 - y0)**2 + x1**2)
+            else:
+                x0 = e0
+                x1 = 0
+                distance = abs(y0 - e0)
+
+        return distance, self.__vector_cls__(x0, x1)
+
+    ##############################################
+
     def distance_to_point(self, point):
-        # ray ?
-        raise NotImplementedError
+
+        point_in_frame = self.point_in_ellipse_frame(point)
+        point_in_frame_abs = self.__vector_cls__(abs(point_in_frame.x), abs(point_in_frame.y))
+        distance, point_in_ellipse = self._eberly_distance(point_in_frame_abs)
+        return distance
+

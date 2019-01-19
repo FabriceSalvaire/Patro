@@ -25,7 +25,7 @@
 import logging
 
 from Patro.GeometryEngine.Bezier import CubicBezier2D
-from Patro.GeometryEngine.Conic import Circle2D, Conic2D
+from Patro.GeometryEngine.Conic import Circle2D, Ellipse2D
 from Patro.GeometryEngine.Polyline import Polyline2D
 from Patro.GeometryEngine.Rectangle import Rectangle2D
 from Patro.GeometryEngine.Segment import Segment2D
@@ -559,7 +559,10 @@ class EllipseItem(PositionMixin, StartStopAngleMixin, PathStyleItemMixin):
 
     ##############################################
 
-    def __init__(self, scene, position, x_radius, y_radius, path_style, user_data,
+    def __init__(self, scene, position,
+                 x_radius, y_radius,
+                 angle,
+                 path_style, user_data,
                  start_angle=0,
                  stop_angle=360,
     ):
@@ -570,6 +573,7 @@ class EllipseItem(PositionMixin, StartStopAngleMixin, PathStyleItemMixin):
 
         self._x_radius = x_radius
         self._y_radius = y_radius
+        self._angle = angle
 
     ##############################################
 
@@ -589,11 +593,15 @@ class EllipseItem(PositionMixin, StartStopAngleMixin, PathStyleItemMixin):
     # def y_radius(self, value):
     #     self._y_radius = value
 
+    @property
+    def angle(self):
+        return self._angle
+
     ##############################################
 
     def get_geometry(self):
         position = self.casted_position
-        return Conic2D(position, self._x_radius, self._y_radius) # Fixme: radius, angle
+        return Ellipse2D(position, self._x_radius, self._y_radius, self._angle)
 
 ####################################################################################################
 

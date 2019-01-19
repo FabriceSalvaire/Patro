@@ -247,13 +247,24 @@ class QtPainter(Painter):
 
         pen = self._set_pen(item)
 
-        # self._painter.drawEllipse(center, radius, radius)
         rectangle = QRectF(
             center + QPointF(-radius, radius),
             center + QPointF(radius, -radius),
         )
         self._painter.drawArc(rectangle, 0, 360*16)
         ## self._painter.drawArc(center.x, center.y, radius, radius, 0, 360)
+
+    ##############################################
+
+    def paint_EllipseItem(self, item):
+
+        center = self.cast_position(item.position)
+        x_radius = self.length_scene_to_viewport(item.x_radius)
+        y_radius = self.length_scene_to_viewport(item.y_radius)
+
+        pen = self._set_pen(item)
+
+        self._painter.drawEllipse(center, x_radius, y_radius)
 
     ##############################################
 
