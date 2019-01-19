@@ -18,11 +18,19 @@
 #
 ####################################################################################################
 
+"""Module to handle the DXF file format.
+
+"""
+
 ####################################################################################################
 
-import ezdxf
+__all__ = ['DxfImporter']
 
-from Patro.GeometryEngine.Conic import Circle2D, Conic2D, Interval
+####################################################################################################
+
+import ezdxf # Python packahe to read/write DXF
+
+from Patro.GeometryEngine.Conic import Circle2D, Ellipse2D, AngularDomain
 from Patro.GeometryEngine.Segment import Segment2D
 from Patro.GeometryEngine.Spline import BSpline2D
 from Patro.GeometryEngine.Vector import Vector2D
@@ -32,6 +40,9 @@ from .Polyline import Polyline
 ####################################################################################################
 
 class DxfImporter:
+
+    """Class to implement a DXF importer.
+    """
 
     ##############################################
 
@@ -85,37 +96,51 @@ class DxfImporter:
                 self._on_polyline(item)
             elif dxf_type == 'SPLINE':
                 self._on_spline(item)
+            # else skip
 
     ##############################################
 
     def _on_line(self, item):
-        segment = Segment2D(*self._to_vectors((item.dxf.start, item.dxf.end)))
+        item_dxf = item.dxf
+        segment = Segment2D(*self._to_vectors((item_dxf.start, item_dxf.end)))
         self._add(segment)
+
 
     ##############################################
 
     def _on_circle(self, item, is_arc):
 
+        item_dxf = item.dxf
+        center = self._to_vector(item_dxf.center)
         if is_arc:
-            # Fixme:  start > stop, don't fit in Interval
-            # domain = Interval(item.dxf.start_angle, item.dxf.end_angle)
-            domain = None
+            domain = AngularDomain(item_dxf.start_angle, item_dxf.end_angle)
         else:
             domain = None
-        circle = Circle2D(self._to_vector(item.dxf.center), item.dxf.radius, domain=domain)
+        circle = Circle2D(center, item_dxf.radius, domain=domain)
         self._add(circle)
 
     ##############################################
 
     def _on_ellipse(self, item):
 
-        # domain = (item.dxf.start_param, item.dxf.end_param)
-        domain = None
-        major_axis = self._to_vector(item.dxf.major_axis)
-        minor_axis = major_axis * item.dxf.ratio
-        # Fixme:
-        # ellipse = Conic2D(self._to_vector(item.dxf.center), major_axis, minor_axis, domain=domain)
-        # self._add(ellipse)
+        item_dxf = item.dxf
+        center = self._to_vector(item_dxf.center)
+        major_axis = self._to_vector(item_dxf.major_axis)
+        minor_axis = major_axis * item_dxf.ratio
+        domain = AngularDomain(item_dxf.start_param, item_dxf.end_param, degrees=False)
+        x_radius, y_radius = major_axis.magnitude, minor_axis.magnitude
+        angle = major_axis.orientation
+        if angle == 90:
+            x_radius, y_radius = y_radius, x_radius
+            angle = 0
+        # Fixme: ...
+        ellipse = Ellipse2D(
+            center,
+            x_radius, y_radius,
+            angle,
+            domain=domain,
+        )
+        self._add(ellipse)
 
     ##############################################
 
@@ -133,10 +158,6 @@ class DxfImporter:
 
         with item.edit_data() as data:
             points = self._to_vectors(data.control_points)
-            print(points)
-            print(data.knot_values, data.weights, data.fit_points)
-        dxf = item.dxf
-        print('DXF spline', dxf.degree, dxf.n_knots, dxf.n_fit_points, dxf.n_control_points)
-        # Fixme: item.closed
-        spline = BSpline2D(points, dxf.degree)
+        item_dxf = item.dxf
+        spline = BSpline2D(points, item_dxf.degree, item.closed)
         self._add(spline)
