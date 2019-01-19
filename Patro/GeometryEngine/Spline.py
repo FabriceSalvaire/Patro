@@ -273,7 +273,7 @@ References
 
 ####################################################################################################
 
-__all__ = ['BSpline']
+__all__ = ['BSpline2D']
 
 ####################################################################################################
 
@@ -429,12 +429,14 @@ class BSpline2D(Primitive2DMixin, PrimitiveNP):
 
     ##############################################
 
-    def __init__(self, points, degree, knots=None):
+    def __init__(self, points, degree, closed=False, knots=None):
 
         points = self.handle_points(points)
         PrimitiveNP.__init__(self, points)
 
         self._degree = int(degree)
+        self._closed = bool(closed) # Fixme: not implemented
+
         if knots is not None:
             self._knots = list(knots)
             if not np.all(np.diff(self._knots) >= 0):
@@ -458,6 +460,10 @@ class BSpline2D(Primitive2DMixin, PrimitiveNP):
     @property
     def order(self):
         return self._degree +1
+
+    @property
+    def is_closed(self):
+        return self._closed
 
     @property
     def uniform(self):
@@ -491,7 +497,10 @@ class BSpline2D(Primitive2DMixin, PrimitiveNP):
     @property
     def number_of_spans(self):
         if self._uniform:
-            return self.number_of_points - self._degree
+            count = self.number_of_points - self._degree
+            if self._closed:
+                count += 1
+            return count
         else:
             # multiplicity
             raise NotImplementedError
@@ -645,7 +654,7 @@ class BSpline2D(Primitive2DMixin, PrimitiveNP):
         # l += degree
         knots = self._knots[:l+1] + [t] + self._knots[l+1:]
 
-        return self.__class__(new_points, self._degree, knots)
+        return self.__class__(new_points, self._degree, knots=knots)
 
     ##############################################
 
