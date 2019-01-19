@@ -238,6 +238,8 @@ class Vector2DFloatBase(Vector2DBase):
     @property
     def magnitude(self):
         """Return the magnitude of the vector"""
+        # Note: To avoid float overflow use
+        #   abs(x) * sqrt(1 + (y/x)**2)  if x > y
         return math.sqrt(self.magnitude_square)
 
     ##############################################
