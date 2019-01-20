@@ -6,7 +6,7 @@ from Patro.Common.Logging import Logging
 Logging.setup_logging()
 
 from Patro.FileFormat.Dxf.Importer import DxfImporter
-from Patro.GeometryEngine.Conic import Circle2D, Conic2D
+from Patro.GeometryEngine.Conic import Circle2D, Ellipse2D
 from Patro.GeometryEngine.Segment import Segment2D
 from Patro.GeometryEngine.Spline import BSpline2D
 from Patro.GeometryEngine.Vector import Vector2D
@@ -160,13 +160,18 @@ class SceneImporter:
                 control_color=Colors.red,
             ) # Fixme
             for bezier in item.to_bezier():
-                print(bezier)
                 self._scene.cubic_bezier(*bezier.points,
                                          path_style,
                                          user_data=item,
                 )
-        # elif isinstance(item, Conic2D):
-        #     pass
+        elif isinstance(item, Ellipse2D):
+            self._scene.ellipse(item.center,
+                                item.x_radius,
+                                item.y_radius,
+                                item.angle,
+                                path_style,
+                                user_data=item,
+            )
         elif isinstance(item, list):
             for segment in item:
                 self._add_item(segment)
