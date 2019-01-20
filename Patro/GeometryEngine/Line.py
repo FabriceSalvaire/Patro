@@ -58,13 +58,13 @@ class Line2D(Primitive2DMixin, Primitive):
 
     def __str__(self):
 
-        text = '''Line
-  Point  %s
-  Vector %s
-    magnitude %g
+        str_format = '''Line
+  Point  {0.p}
+  Vector {0.v}
+    magnitude {1}
 '''
 
-        return text % (str(self.p), str(self.v), self.v.magnitude())
+        return str_format.format(self, self.v.magnitude)
 
     ##############################################
 
@@ -230,10 +230,12 @@ class Line2D(Primitive2DMixin, Primitive):
         """Return the distance of a point to the line"""
 
         delta = point - self.p
-        d = delta.deviation_with(self.v)
-        s = delta.projection_on(self.v)
-
-        return (d, s) # distance to line, abscissa
+        if delta.magnitude_square == 0:
+            return 0, 0
+        else:
+            d = delta.deviation_with(self.v)
+            s = delta.projection_on(self.v)
+            return d, s # distance to line, abscissa
 
     ##############################################
 

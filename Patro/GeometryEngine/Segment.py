@@ -167,6 +167,10 @@ class Segment2D(Primitive2DMixin, Primitive2P):
     def distance_to_point(self, point):
 
         line = self.to_line()
+
+        if line.v.magnitude_square == 0:
+            return (self._p0 - point).magnitude
+
         d, s = line.distance_and_abscissa_to_line(point)
         if 0 <= s <= self.length:
             return abs(d)
