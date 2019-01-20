@@ -204,6 +204,11 @@ class Circle2D(Primitive2DMixin, AngularDomainMixin, Primitive):
 
     ##############################################
 
+    def __repr__(self):
+        return '{0}({1._center}, {1._radius})'.format(self.__class__.__name__, self)
+
+    ##############################################
+
     @property
     def center(self):
         return self._center
@@ -464,6 +469,11 @@ class Ellipse2D(Primitive2DMixin, AngularDomainMixin, Primitive):
 
     ##############################################
 
+    def __repr__(self):
+        return '{0}({1._center}, {1._x_radius}, {1._x_radius}, {1._angle})'.format(self.__class__.__name__, self)
+
+    ##############################################
+
     @property
     def center(self):
         return self._center
@@ -607,7 +617,7 @@ class Ellipse2D(Primitive2DMixin, AngularDomainMixin, Primitive):
     def _robust_length(x, y):
         if x < y:
             x, y = y, x
-        return abs(x) * math.srqt(1 + (y/x)**2)
+        return abs(x) * math.sqrt(1 + (y/x)**2)
 
     ##############################################
 
