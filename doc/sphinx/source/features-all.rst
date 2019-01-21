@@ -16,9 +16,11 @@ Patro implements several components:
 * import of SVG pattern (as well as PDF using a conversion tools like |Inkscape|_)
 * digitalisation of patterns acquired with a camera **ACTUALLY NOT RELEASED WITH OPEN SOURCE LICENCE**
 
-.. note:: Patro is just a core engine actually. It doesn't implement a GUI similar to |Valentina|_.
+.. note:: Patro is just a core engine actually. It doesn't implement a full featured GUI similar to
+          |Valentina|_.
 
-.. note:: Patro doesn't implement 3D feature actually, like automatic clothe fitting on avatar and tension map.
+.. note:: Patro doesn't implement 3D feature actually, like automatic clothe fitting on avatar and
+          tension map.
 
 Geometry Engine
 ===============
@@ -28,10 +30,13 @@ The geometry engine implements:
 * 2D vector and usual transformations
 * usual 2D primitives:
 
- * point, segment, line
+ * point, segment, line, polyline
  * triangle, rectangle, polygon
- * circle and conic
+ * circle and ellipse
  * quadratic and cubic Bézier curve
+ * B-spline curve
+ * path made of linear segments with an optional bulge at breaks, as well as quadratic and cubic
+   Bézier curve segments.
 
 * perimeter and area
 * primitive intersection
@@ -40,30 +45,47 @@ The geometry engine implements:
 Pattern Engine
 ==============
 
-* Measurements can be imported from Valentina *.vit* or a YAML file.  We can merge several files to a measurement set.
+* Measurements can be imported from Valentina *.vit* or a YAML file.  We can merge several files to
+  a measurement set.
 * Measurements are lazily evaluated using |Sympy|_ symbolic computation, which means we can compute
   exact values and the order of definition doesn't matter.
 
 Graphic Engine
 ==============
 
-* show drawing on screen with : |Matplotlib|_
+Patro features a basic |Qt|_ user interface which can display a graphic scene and features item
+selection so as to provide the minimum to work with.
+
+The graphic engine implement a 2D graphic scene which is rendered by a painter.  A scene contains
+graphic items like text, image line, circle and Bézier curve.
+
+A painter is responsible to render the scene on the screen or a graphic file format. The graphic
+engine is able to render on the following:
+
+* show drawing on screen with : |Matplotlib|_, |Qt|_
 * export drawing to : PDF, SVG, DXF, LaTeX Tikz
 * export tiled pattern on A4 sheets : PDF, LaTeX Tikz
+
+Also the graphic engine is able to render a DXF made of these graphic items: line, circle, arc,
+ellipse, lwpolyline and spline.
+
+Implementation details:
+
 * PDF export is implemented with the help of the |Reportlab|_ package
-* DXF export is implemented with the help of the |ezdxf|_ package of `Manfred Moitzi <https://github.com/mozman>`_
+* DXF import/export is implemented with the help of the |ezdxf|_ package of `Manfred Moitzi
+  <https://github.com/mozman>`_
 
 Pattern Format Support
 ======================
 
 * |Valentina|_ format: read/write *.val* and *.vit* file, but partially implemented, cf. supra for details
-* import pattern from SVG
-* **DXF is not yet supported**
+* import pattern from SVG and DXF (**partially implemented**)
 
 .. note:: PDF and SVG format are convertible to each other without data loss
           (font handling require more attention).
 
-.. note:: The |Inkscape|_ free software is able to import a lot of file formats like PDF, DXF and to save it to SVG.
+.. note:: The |Inkscape|_ free software is able to import a lot of file formats like PDF, DXF and to
+          save it to SVG.
 
 Pattern Format Compatibility
 ----------------------------
