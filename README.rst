@@ -66,6 +66,9 @@
 ..  https://img.shields.io/github/stars/badges/shields.svg?style=social&label=Star
 .. -*- Mode: rst -*-
 
+.. |ezdxf| replace:: ezdxf
+.. _ezdxf: https://ezdxf.readthedocs.io/en/latest
+
 .. |Inkscape| replace:: Inkscape
 .. _Inkscape: https://inkscape.org
 
