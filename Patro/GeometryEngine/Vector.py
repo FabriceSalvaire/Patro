@@ -466,6 +466,19 @@ class Vector2D(Vector2DFloatBase):
     ##############################################
 
     @staticmethod
+    def from_ellipse(x_radius, y_radius, angle):
+
+        """Create the vector (x_radius*cos(angle), y_radius*sin(angle)).  *angle* is in degree."""
+
+        angle = math.radians(angle)
+        x = x_radius * cos(angle)
+        y = y_radius * sin(angle)
+
+        return Vector2D(x, y) # Fixme: classmethod
+
+    ##############################################
+
+    @staticmethod
     def middle(p0, p1):
         """Return the middle point."""
         return Vector2D(p0 + p1) * .5 # Fixme: classmethod

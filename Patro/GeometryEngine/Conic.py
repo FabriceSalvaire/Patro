@@ -18,7 +18,18 @@
 #
 ####################################################################################################
 
-"""Module to implement conic geometry.
+"""Module to implement conic geometry like circle and ellipse.
+
+Valentina Requirements
+
+* circle with angular domain
+* circle with start angle and arc length
+* curvilinear distance on circle
+* line-circle intersection
+* circle-circle intersection
+* point constructed from a virtual circle and a point on a tangent : right triangle
+* point from tangent circle and segment ???
+* ellipse with angular domain and rotation
 
 """
 
@@ -96,6 +107,10 @@ class AngularDomain:
     ##############################################
 
     @property
+    def is_null(self):
+        return self._stop == self._start
+
+    @property
     def is_closed(self):
         return abs(self._stop - self._start) >= 360
 
@@ -105,11 +120,28 @@ class AngularDomain:
 
     @property
     def is_counterclockwise(self):
-        return self.start < self.stop
+        """Return True if start <= stop, e.g. 10 <= 300"""
+        # Fixme: name ???
+        return self.start <= self.stop
 
     @property
     def is_clockwise(self):
+        """Return True if stop < start, e.g. 300 < 10"""
         return self.stop < self.start
+
+    ##############################################
+
+    @property
+    def length(self):
+        """Return the length for an unitary circle"""
+        if self.is_closed:
+            return 2*pi
+        else:
+            length = self.stop_radians - self.start_radians
+            if self.is_counterclockwise:
+                return length
+            else:
+                return 2*pi - length
 
 ####################################################################################################
 
@@ -185,22 +217,49 @@ class Circle2D(Primitive2DMixin, AngularDomainMixin, Primitive):
 
     ##############################################
 
+    # @classmethod
+    # def from_start_angle_distance(cls, center, radius, start_angle, distance):
+    #     """Construct a circle from a center point, a starting angle and a distance point"""
+    #     if distance > 2*pi*radius:
+    #         domain = None
+    #     else:
+    #         stop_angle = start_angle + math.degrees(distance / radius)
+    #         domain = AngularDomain(start_angle, stop_angle)
+    #     return cls(center, radius, domain)
+
+    ##############################################
+
     # Fixme: tangent constructs ...
 
     ##############################################
 
-    def __init__(self, center, radius, domain=None, diameter=False):
+    def __init__(self, center, radius,
+                 domain=None,
+                 diameter=False,
+                 start_angle=None,
+                 distance=None,
+    ):
 
         """Construct a 2D circle from a center point and a radius.
 
-        If the circle is not closed, *domain* is an interval in degrees.
+        If the circle is not closed, *domain* is a an :class:`AngularDomain` instance in degrees.
+        If *start_angle and *distance* is given then the stop angle is computed from them.
+
         """
 
         if diameter:
             radius /= 2
         self._radius = radius
         self.center = center
-        self.domain = domain # Fixme: name ???
+
+        if start_angle is not None and distance is not None:
+            if distance > 2*pi*radius:
+                self._domain = None
+            else:
+                stop_angle = start_angle + math.degrees(distance / radius)
+                self._domain = AngularDomain(start_angle, stop_angle)
+        else:
+            self.domain = domain # Fixme: name ???
 
     ##############################################
 
@@ -237,16 +296,26 @@ class Circle2D(Primitive2DMixin, AngularDomainMixin, Primitive):
 
     @property
     def perimeter(self):
-        return 2 * pi * self._radius
+        if self._domain is not None:
+            return 2*pi * self._radius
+        else:
+            return self._radius * self._domain.length
 
     @property
     def area(self):
+        # Fixme: domain
         return pi * self._radius**2
 
     ##############################################
 
     def point_at_angle(self, angle):
         return self.__vector_cls__.from_polar(self._radius, angle) + self._center
+
+    ##############################################
+
+    def point_at_distance(self, distance):
+        angle = math.degrees(distance / self._radius)
+        return self.point_at_angle(angle)
 
     ##############################################
 
@@ -263,6 +332,20 @@ class Circle2D(Primitive2DMixin, AngularDomainMixin, Primitive):
 
     ##############################################
 
+    def signed_distance_to_point(self, point):
+        # d = |P - C| - R
+        #   < 0 if inside
+        #   = 0    on circle
+        #   > 0 if outside
+        return (point - self._center).magnitude - self._radius
+
+    ##############################################
+
+    def distance_to_point(self, point):
+        return abs(self.signed_distance_to_point(point))
+
+    ##############################################
+
     def is_point_inside(self, point):
         return (point - self._center).magnitude_square <= self._radius**2
 
@@ -270,21 +353,35 @@ class Circle2D(Primitive2DMixin, AngularDomainMixin, Primitive):
 
     def intersect_segment(self, segment):
 
+        r"""Compute the intersection of a circle and a segment.
+
+        Reference
+
+             * http://mathworld.wolfram.com/Circle-LineIntersection.html
+             * Rhoad et al. 1984, p. 429
+             * Rhoad, R.; Milauskas, G.; and Whipple, R. Geometry for Enjoyment and Challenge,
+             * rev. ed. Evanston, IL: McDougal, Littell & Company, 1984.
+
+        System of equations
+
+        .. math::
+           \begin{split}
+           x^2 + y^2 = r^2 \\
+           dx \times y = dy \times x - D
+           \end{split}
+
+        where
+
+        .. math::
+           \begin{align}
+            dx &= x1 - x0 \\
+            dy &= y1 - y0 \\
+            D  &= x0 \times y1 - x1 \times y0
+           \end{align}
+
+        """
+
         # Fixme: check domain !!!
-
-        # http://mathworld.wolfram.com/Circle-LineIntersection.html
-        # Reference: Rhoad et al. 1984, p. 429
-        #            Rhoad, R.; Milauskas, G.; and Whipple, R. Geometry for Enjoyment and Challenge,
-        #            rev. ed. Evanston, IL: McDougal, Littell & Company, 1984.
-
-        # Definitions
-        #   dx = x1 - x0
-        #   dy = y1 - y0
-        #   D = x0 * y1 - x1 * y0
-
-        # Equations
-        #   x**2 + y**2 = r**2
-        #   dx * y = dy * x - D
 
         dx = segment.vector.x
         dy = segment.vector.y
@@ -408,25 +505,11 @@ class Circle2D(Primitive2DMixin, AngularDomainMixin, Primitive):
 
         raise NotImplementedError
 
-    ##############################################
-
-    def signed_distance_to_point(self, point):
-        # d = |P - C| - R
-        #   < 0 if inside
-        #   = 0    on circle
-        #   > 0 if outside
-        return (point - self._center).magnitude - self._radius
-
-    ##############################################
-
-    def distance_to_point(self, point):
-        return abs(self.signed_distance_to_point(point))
-
 ####################################################################################################
 
 class Ellipse2D(Primitive2DMixin, AngularDomainMixin, Primitive):
 
-    """Class to implements 2D Ellipse.
+    r"""Class to implements 2D Ellipse.
 
     A general ellipse in 2D is represented by a center point `C`, an orthonormal set of
     axis-direction vectors :math:`{U_0 , U_1 }`, and associated extents :math:`e_i` with :math:`e_0
@@ -509,12 +592,12 @@ class Ellipse2D(Primitive2DMixin, AngularDomainMixin, Primitive):
     @property
     def major_vector(self):
         # Fixme: x < y
-        return self._center + self.__vector_cls__.from_polar(self._angle, self._x_radius)
+        return self.__vector_cls__.from_polar(self._angle, self._x_radius)
 
     @property
     def minor_vector(self):
         # Fixme: x < y
-        return self._center + self.__vector_cls__.from_polar(self._angle + 90, self._y_radius)
+        return self.__vector_cls__.from_polar(self._angle + 90, self._y_radius)
 
     ##############################################
 
@@ -554,15 +637,27 @@ class Ellipse2D(Primitive2DMixin, AngularDomainMixin, Primitive):
         E = -B*xc - 2*C*yc
         F = A*xc2 + B*xc*yc + C*yc2 - a2*b2
 
-        return np.array(((  A, B/2, D/2),
-                         (B/2,   C, E/2),
-                         (D/2, E/2,   F),
+        return np.array((
+            (  A, B/2, D/2),
+            (B/2,   C, E/2),
+            (D/2, E/2,   F),
         ))
 
     ##############################################
 
+    def point_in_ellipse_frame(self, point):
+        return (point - self._center).rotate(-self._angle)
+
+    def point_from_ellipse_frame(self, point):
+        return self._center + point.rotate(self._angle)
+
+    ##############################################
+
     def point_at_angle(self, angle):
-        raise NotImplementedError # Fixme:
+        # point = self.__vector_cls__.from_ellipse(self._x_radius, self._y_radius, angle)
+        # return self.point_from_ellipse_frame(point)
+        point = self.__vector_cls__.from_ellipse(self._x_radius, self._y_radius, self._angle + angle)
+        return self._center + point
 
     ##############################################
 
@@ -588,28 +683,7 @@ class Ellipse2D(Primitive2DMixin, AngularDomainMixin, Primitive):
                 )]
                 self._bounding_box = bounding_box_from_points(points)
 
-        print(self._bounding_box)
         return self._bounding_box
-
-    ##############################################
-
-    def is_point_inside(self, point):
-        raise NotImplementedError
-
-    ##############################################
-
-    def intersect_segment(self, segment):
-        raise NotImplementedError
-
-    ##############################################
-
-    def intersect_conic(self, conic):
-        raise NotImplementedError
-
-    ##############################################
-
-    def point_in_ellipse_frame(self, point):
-        return (point - self._center).rotate(-self._angle)
 
     ##############################################
 
@@ -652,12 +726,20 @@ class Ellipse2D(Primitive2DMixin, AngularDomainMixin, Primitive):
 
     def _eberly_distance(self, point):
 
-        """Compute distance to point.
+        """Compute distance to point using the algorithm described in
 
-        The preconditions are e0 ≥ e1 > 0, y0 ≥ 0, and y1 ≥ 0.
+            Distance from a Point to an Ellipse, an Ellipsoid, or a Hyperellipsoid
+            David Eberly, Geometric Tools, Redmond WA 98052
+            September 28, 2018
+            https://www.geometrictools.com/Documentation/Documentation.html
+            https://www.geometrictools.com/Documentation/DistancePointEllipseEllipsoid.pdf
 
         The point is expressed in the ellipse coordinate system.
+        The preconditions are e0 ≥ e1 > 0, y0 ≥ 0, and y1 ≥ 0.
+
         """
+
+        # Fixme: make a 3D plot to check the algorithm on a 2D grid and rotated ellipse
 
         y0, y1 = point
         e0, e1 = self._x_radius, self._y_radius
@@ -700,10 +782,68 @@ class Ellipse2D(Primitive2DMixin, AngularDomainMixin, Primitive):
 
     ##############################################
 
-    def distance_to_point(self, point):
+    def distance_to_point(self, point, return_point=False, is_inside=False):
+
+        # Fixme: can be transform the problem to a circle using transformation ???
 
         point_in_frame = self.point_in_ellipse_frame(point)
         point_in_frame_abs = self.__vector_cls__(abs(point_in_frame.x), abs(point_in_frame.y))
         distance, point_in_ellipse = self._eberly_distance(point_in_frame_abs)
-        return distance
 
+        if is_inside:
+            # Fixme: right ???
+            return (
+                (point_in_frame_abs - self._center).magnitude_square
+                <=
+                (point_in_ellipse - self._center).magnitude_square
+            )
+        elif return_point:
+            point_in_ellipse = self.__vector_cls__(
+                sign(point_in_frame.x)*(point_in_ellipse.x),
+                sign(point_in_frame.y)*(point_in_ellipse.y),
+            )
+            point_in_ellipse = self.point_from_ellipse_frame(point_in_ellipse)
+            return distance, point_in_ellipse
+        else:
+            return distance
+
+    ##############################################
+
+    def is_point_inside(self, point):
+        return self.distance_to_point(point, is_inside=True)
+
+    ##############################################
+
+    def intersect_segment(self, segment):
+
+        # Fixme: to be checked
+
+        # Map segment in ellipse frame and scale y axis so as to transform the ellipse to a circle
+        y_scale = self._x_radius / self._y_radius
+        points = [self.point_in_ellipse_frame(point) for point in segment.points]
+        points = [self.__vector_cls__(point.x, point.y * y_scale) for point in points]
+        segment_in_frame = Segment2D(*points)
+        circle = Circle2D(self.__vector_cls__(0, 0), self._x_radius)
+
+        points = circle.intersect_segment(segment_in_frame)
+        points = [self.__vector_cls__(point.x, point.y / y_scale) for point in points]
+        points = [self.point_from_ellipse_frame(point) for point in points]
+
+        return points
+
+    ##############################################
+
+    def intersect_conic(self, conic):
+
+        """
+        Reference
+
+            * Intersection of Ellipses
+            * David Eberly, Geometric Tools, Redmond WA 98052
+            * June 23, 2015
+            * https://www.geometrictools.com/
+            * https://www.geometrictools.com/Documentation/IntersectionOfEllipses.pdf
+
+        """
+
+        raise NotImplementedError
