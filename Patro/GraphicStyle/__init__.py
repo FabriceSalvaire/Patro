@@ -18,17 +18,28 @@
 #
 ####################################################################################################
 
+"""Module to define graphic styles like colours and stroke styles.
+
+This module import :class:`Color.Colors`.
+
+"""
+
+####################################################################################################
+
 __all__ = ['Colors', 'StrokeStyle']
 
 ####################################################################################################
 
 from enum import Enum, auto
 
+#: Colour Database Singleton as an instance of :class:`ColorDataBase`
 from .Color import Colors
 
 ####################################################################################################
 
 class StrokeStyle(Enum):
+
+     """Enum class to define stroke styles"""
 
      NoPen = auto()
      SolidLine = auto()

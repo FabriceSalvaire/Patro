@@ -18,20 +18,14 @@
 #
 ####################################################################################################
 
-# Item
-# bounding box, rtree
-# distance to point
+"""Module to implement a graphic scene.
 
-# nearest item to point
-# item in point, radius
+"""
 
-# line path
-# polygon rect
+####################################################################################################
 
-# item -> user data
-# user data -> item
 
-# remove item
+__class__ = ['GraphicScene']
 
 ####################################################################################################
 
@@ -51,6 +45,8 @@ _module_logger = logging.getLogger(__name__)
 ####################################################################################################
 
 class GraphicSceneScope:
+
+    """Class to implement a graphic scene."""
 
     __ITEM_CTOR__ = {
         'circle': GraphicItem.CircleItem,
@@ -145,8 +141,8 @@ class GraphicSceneScope:
 
     def cast_position(self, position):
 
-        """Cast coordinate and apply scope transformation, *position* can be a coordinate name string of
-        a:class:`Vector2D`.
+        """Cast coordinate and apply scope transformation, *position* can be a coordinate name string of a
+        :class:`Patro.GeometryEngine.Vector.Vector2D`.
 
         """
 
@@ -291,15 +287,16 @@ class GraphicSceneScope:
 
 # Register a method in GraphicSceneScope class for each type of graphic item
 
-def make_add_item_wrapper(cls):
+def _make_add_item_wrapper(cls):
     def wrapper(self, *args, **kwargs):
         return self.add_item(cls, *args, **kwargs)
     return wrapper
 
 for name, cls in GraphicSceneScope.__ITEM_CTOR__.items():
-    setattr(GraphicSceneScope, name, make_add_item_wrapper(cls))
+    setattr(GraphicSceneScope, name, _make_add_item_wrapper(cls))
 
 ####################################################################################################
 
 class GraphicScene(GraphicSceneScope):
+    """Class to implement a graphic scene."""
     pass

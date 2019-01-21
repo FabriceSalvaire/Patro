@@ -18,13 +18,36 @@
 #
 ####################################################################################################
 
+"""Module to implement a colour database.
+
+"""
+
+####################################################################################################
+
 __all__ = ['Color', 'ColorDataBase']
 
 ####################################################################################################
 
 class Color:
 
-    STR_FORMAT = '#' + '{:02x}'*3
+    """Class to define a colour
+
+    Usage::
+
+         color.red
+         color.blue
+         color.green
+
+         color.name
+
+         # to get a '#rrggbb' string
+         str(color)
+
+         color1 == color2
+
+    """
+
+    __STR_FORMAT__ = '#' + '{:02x}'*3
 
     ##############################################
 
@@ -64,7 +87,7 @@ class Color:
     ##############################################
 
     def __str__(self):
-        return self.STR_FORMAT.format(self._red, self._green, self._blue)
+        return self.__STR_FORMAT__.format(self._red, self._green, self._blue)
 
     ##############################################
 
@@ -127,6 +150,22 @@ class Color:
 
 class ColorDataBase:
 
+    """Class to implement a colour database.
+
+    The class implements a dictionary API::
+
+      color_database['black']
+      'black' in 'color_database
+
+       for color in color_database:
+           pass
+
+    We can get a color directly using::
+
+        color_database.black
+
+    """
+
     ##############################################
 
     def __init__(self):
@@ -150,17 +189,22 @@ class ColorDataBase:
         return self._colors[name]
 
     ##############################################
+
     def iter_names(self):
         return iter(self._colors.keys())
 
     ##############################################
 
     def add(self, name, color):
+        """Register a :class:`Color` instance"""
+        # Fixme: color.name ???
         self._colors[str(name)] = color
 
     ##############################################
 
     def ensure_color(self, color):
+
+        """Ensure *color* is a :class:`Color` instance"""
 
         if color is None:
             return None
