@@ -29,8 +29,11 @@ __all__ = [
 
 ####################################################################################################
 
+import math
+
 from .Primitive import Primitive1P, Primitive2DMixin
 from .Bezier import QuadraticBezier2D, CubicBezier2D
+from .Conic import Circle2D, AngularDomain
 from .Segment import Segment2D
 from .Vector import Vector2D
 
@@ -104,9 +107,157 @@ class PathPart:
 
 class LinearSegment(PathPart):
 
+    r"""
+
+    Bulge
+
+    Let `P0`, `P1`, `P2` the vertices and `R` the bulge radius.
+
+    The deflection :math:`\theta = 2 \alpha` at the corner is
+
+    .. math::
+
+       D_1 \cdot D_0 = (P_2 - P_1) \cdot (P_1 - P_0) = \cos \theta
+
+    The bisector direction is
+
+    .. math::
+
+       Bis = D_1 - D_0 = (P_2 - P_1) - (P_1 - P_0) = P_2 -2 P_1 + P_0
+
+    Bulge Center is
+
+    .. math::
+
+        C = P_1 + Bis \times \frac{R}{\sin \alpha}
+
+    Extremities are
+
+        \prime P_1 = P_1 - d_0 \times \frac{R}{\tan \alpha}
+        \prime P_1 = P_1 + d_1 \times \frac{R}{\tan \alpha}
+
+    """
+
+    ##############################################
+
+    def __init__(self, path, position, radius):
+
+        super().__init__(path, position)
+
+        self._bissector = None
+        self._direction = None
+
+        self.radius = radius
+        if self._radius is not None:
+            if not isinstance(self.prev_part, LinearSegment):
+                raise ValueError('Previous path segment must be linear')
+            self._bulge_angle = None
+            self._bulge_center = None
+            self._start_bulge_point = None
+            self._stop_bulge_point = None
+
+    ##############################################
+
     @property
     def points(self):
-        return self.start_point, self.stop_point
+
+        if self._radius is not None:
+            start_point = self.bulge_stop_point
+        else:
+            start_point = self.start_point
+
+        next_part = self.next_part
+        if isinstance(next_part, LinearSegment) and next_part.radius is not None:
+            stop_point = next_part.bulge_start_point
+        else:
+            stop_point = self.stop_point
+
+        return start_point, stop_point
+
+    ##############################################
+
+    @property
+    def radius(self):
+        return self._radius
+
+    @radius.setter
+    def radius(self, value):
+        if value is not None:
+            self._radius = float(value)
+        else:
+            self._radius = None
+
+    ##############################################
+
+    @property
+    def direction(self):
+        if self._direction is None:
+            self._direction = (self.stop_point - self.start_point).normalise()
+        return self._direction
+
+    @property
+    def bissector(self):
+        if self._radius is None:
+            return None
+        else:
+            if self._bissector is None:
+                # self._bissector = (self.prev_part.direction + self.direction).normalise().normal
+                self._bissector = (self.direction - self.prev_part.direction).normalise()
+            return self._bissector
+
+    ##############################################
+
+    @property
+    def bulge_angle_rad(self):
+        if self._bulge_angle is None:
+            angle = self.direction.orientation_with(self.prev_part.direction)
+            self._bulge_angle = math.radians(angle)
+        return self._bulge_angle
+
+    @property
+    def bulge_angle(self):
+        return math.degrees(self.bulge_angle_rad)
+
+    @property
+    def half_bulge_angle(self):
+        return abs(self.bulge_angle_rad / 2)
+
+    ##############################################
+
+    @property
+    def bulge_center(self):
+        if self._bulge_center is None:
+            offset = self.bissector * self._radius / math.sin(self.half_bulge_angle)
+            self._bulge_center = self.start_point + offset
+        return self._bulge_center
+
+    ##############################################
+
+    @property
+    def bulge_start_point(self):
+        if self._start_bulge_point is None:
+            offset = self.prev_part.direction * self._radius / math.tan(self.half_bulge_angle)
+            self._start_bulge_point = self.start_point - offset
+        return self._start_bulge_point
+
+    @property
+    def bulge_stop_point(self):
+        if self._stop_bulge_point is None:
+            offset = self.direction * self._radius / math.tan(self.half_bulge_angle)
+            self._stop_bulge_point = self.start_point + offset
+        return self._stop_bulge_point
+
+    ##############################################
+
+    @property
+    def bulge_geometry(self):
+        arc = Circle2D(self.bulge_center, self._radius)
+        start_angle, stop_angle = [arc.angle_for_point(point)
+                                   for point in (self.bulge_start_point, self.bulge_stop_point)]
+        if self.bulge_angle < 0:
+            start_angle, stop_angle = stop_angle, start_angle
+        arc.domain = AngularDomain(start_angle, stop_angle)
+        return arc
 
 ####################################################################################################
 
@@ -114,9 +265,10 @@ class PathSegment(LinearSegment):
 
     ##############################################
 
-    def __init__(self, path, position, point):
-        PathPart.__init__(path, position)
+    def __init__(self, path, position, point, radius=None, absolute=False):
+        super().__init__(path, position, radius)
         self.point = point
+        self._absolute = bool(absolute)
 
     ##############################################
 
@@ -132,7 +284,10 @@ class PathSegment(LinearSegment):
 
     @property
     def stop_point(self):
-        return self._point + self.start_point
+        if self._absolute:
+            return self._point
+        else:
+            return self._point + self.start_point
 
     ##############################################
 
@@ -149,8 +304,8 @@ class DirectionalSegment(LinearSegment):
 
     ##############################################
 
-    def __init__(self, path, position, length):
-        PathPart.__init__(self, path, position)
+    def __init__(self, path, position, length, radius=None):
+        super().__init__(path, position, radius)
         self.length = length
 
     ##############################################
@@ -238,7 +393,9 @@ class QuadraticBezierSegment(PathPart, TwoPointsMixin):
     ##############################################
 
     def __init__(self, path, position, point1, point2):
+
         PathPart.__init__(self, path, position)
+
         self.point1 = point1
         self.point2 = point2
 
@@ -266,7 +423,9 @@ class CubicBezierSegment(PathPart, TwoPointsMixin):
     ##############################################
 
     def __init__(self, path, position, point1, point2, point3):
+
         PathPart.__init__(self, path, position)
+
         self.point1 = point1
         self.point2 = point2
         self.point3 = point3
@@ -333,8 +492,8 @@ class Path2D(Primitive2DMixin, Primitive1P):
 
     ##############################################
 
-    def _add_part(self, part_cls, *args):
-        obj = part_cls(self, len(self._parts), *args)
+    def _add_part(self, part_cls, *args, **kwargs):
+        obj = part_cls(self, len(self._parts), *args, **kwargs)
         self._parts.append(obj)
         return obj
 
@@ -345,43 +504,43 @@ class Path2D(Primitive2DMixin, Primitive1P):
 
     ##############################################
 
-    def horizontal_to(self, distance):
-        return self._add_part(HorizontalSegment, distance)
+    def horizontal_to(self, distance, radius=None):
+        return self._add_part(HorizontalSegment, distance, radius)
 
-    def vertical_to(self, distance):
-        return self._add_part(VerticalSegment, distance)
+    def vertical_to(self, distance, radius=None):
+        return self._add_part(VerticalSegment, distance, radius)
 
-    def north_to(self, distance):
-        return self._add_part(NorthSegment, distance)
+    def north_to(self, distance, radius=None):
+        return self._add_part(NorthSegment, distance, radius)
 
-    def south_to(self, distance):
-        return self._add_part(SouthSegment, distance)
+    def south_to(self, distance, radius=None):
+        return self._add_part(SouthSegment, distance, radius)
 
-    def west_to(self, distance):
-        return self._add_part(WestSegment, distance)
+    def west_to(self, distance, radius=None):
+        return self._add_part(WestSegment, distance, radius)
 
-    def east_to(self, distance):
-        return self._add_part(EastSegment, distance)
+    def east_to(self, distance, radius=None):
+        return self._add_part(EastSegment, distance, radius)
 
-    def north_east_to(self, distance):
-        return self._add_part(NorthEastSegment, distance)
+    def north_east_to(self, distance, radius=None):
+        return self._add_part(NorthEastSegment, distance, radius)
 
-    def south_east_to(self, distance):
-        return self._add_part(SouthEastSegment, distance)
+    def south_east_to(self, distance, radius=None):
+        return self._add_part(SouthEastSegment, distance, radius)
 
-    def north_west_to(self, distance):
-        return self._add_part(NorthWestSegment, distance)
+    def north_west_to(self, distance, radius=None):
+        return self._add_part(NorthWestSegment, distance, radius)
 
-    def south_west_to(self, distance):
-        return self._add_part(SouthWestSegment, distance)
+    def south_west_to(self, distance, radius=None):
+        return self._add_part(SouthWestSegment, distance, radius)
 
     ##############################################
 
-    def line_to(self, point):
-        return self._add_part(PathSegment, point)
+    def line_to(self, point, radius=None):
+        return self._add_part(PathSegment, point, radius)
 
-    def close(self):
-        return self._add_part(PathSegment, self._p0)
+    def close(self, radius=None):
+        return self._add_part(PathSegment, self._p0, radius)
 
     ##############################################
 
