@@ -148,7 +148,7 @@ class DxfImporter:
 
         polyline = Polyline(item.closed)
         for x, y, s, e, b in item.get_points():
-            polyline.add(x, y, b)
+            polyline.add(Vector2D(x, y), b)
         geometry = polyline.geometry()
         self._add(geometry)
 

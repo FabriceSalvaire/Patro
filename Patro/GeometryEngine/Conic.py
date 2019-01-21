@@ -50,7 +50,7 @@ import numpy as np
 
 from IntervalArithmetic import Interval2D
 
-from Patro.Common.Math.Functions import sign
+from Patro.Common.Math.Functions import sign, epsilon_float
 from .BoundingBox import bounding_box_from_points
 from .Line import Line2D
 from .Primitive import Primitive, Primitive2DMixin
@@ -77,6 +77,11 @@ class AngularDomain:
 
     def __clone__(self):
         return self.__class__(self._start, self._stop)
+
+    ##############################################
+
+    def __repr__(self):
+        return '{0}({1._start}, {1._stop})'.format(self.__class__.__name__, self)
 
     ##############################################
 
@@ -143,6 +148,15 @@ class AngularDomain:
             else:
                 return 2*pi - length
 
+    ##############################################
+
+    def is_inside(self, angle):
+        if self.is_counterclockwise:
+            return self._start <= angle <= self._stop
+        else:
+            # Fixme: check !!!
+            return not(self._stop < angle < self._start)
+
 ####################################################################################################
 
 class AngularDomainMixin:
@@ -187,6 +201,12 @@ class AngularDomainMixin:
     @property
     def stop_point(self):
         return self.start_stop_point(start=False)
+
+
+####################################################################################################
+
+class PointNotOnCircleError(ValueError):
+    pass
 
 ####################################################################################################
 
@@ -264,7 +284,7 @@ class Circle2D(Primitive2DMixin, AngularDomainMixin, Primitive):
     ##############################################
 
     def __repr__(self):
-        return '{0}({1._center}, {1._radius})'.format(self.__class__.__name__, self)
+        return '{0}({1._center}, {1._radius}, {1._domain})'.format(self.__class__.__name__, self)
 
     ##############################################
 
@@ -311,6 +331,26 @@ class Circle2D(Primitive2DMixin, AngularDomainMixin, Primitive):
     def point_at_angle(self, angle):
         return self.__vector_cls__.from_polar(self._radius, angle) + self._center
 
+
+    ##############################################
+
+    def point_in_circle_frame(self, point):
+        return point - self._center
+
+    ##############################################
+
+    def angle_for_point(self, point):
+
+        offset = self.point_in_circle_frame(point)
+        # distance = offset.magnitude_square
+        # if not epsilon_float(distance, self._radius**2):
+        #     raise PointNotOnCircleError # ValueError('Point is not on circle')
+        # Fixme:
+        orientation = offset.orientation
+        if orientation < 0:
+            orientation = 360 + orientation
+        return orientation
+
     ##############################################
 
     def point_at_distance(self, distance):
@@ -328,6 +368,7 @@ class Circle2D(Primitive2DMixin, AngularDomainMixin, Primitive):
 
     @property
     def bounding_box(self):
+        # Fixme: wrong for arc
         return self._center.bounding_box.enlarge(self._radius)
 
     ##############################################
@@ -341,8 +382,26 @@ class Circle2D(Primitive2DMixin, AngularDomainMixin, Primitive):
 
     ##############################################
 
-    def distance_to_point(self, point):
+    def _circle_distance_to_point(self, point):
         return abs(self.signed_distance_to_point(point))
+
+    ##############################################
+
+    def distance_to_point(self, point):
+        if self._domain is not None:
+            # Fixme: check !!!
+            # try:
+            angle = self.angle_for_point(point)
+            # print('distance_to_circle', point, angle)
+            if self._domain.is_inside(angle):
+                # print('point is inside')
+                return self._circle_distance_to_point(point)
+            # except PointNotOnCircleError:
+            #     pass
+            # print('point is outside')
+            return min([(point - vertex).magnitude for vertex in (self.start_point, self.stop_point)])
+        else:
+            return self._circle_distance_to_point(point)
 
     ##############################################
 

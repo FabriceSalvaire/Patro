@@ -140,9 +140,13 @@ class SceneImporter:
                                 user_data=item,
             )
         elif isinstance(item, Circle2D):
+            kwargs = dict(user_data=item)
+            if item.domain:
+                kwargs['start_angle'] = item.domain.start
+                kwargs['stop_angle'] = item.domain.stop
             self._scene.circle(item.center, item.radius,
                                path_style,
-                               user_data=item,
+                               **kwargs,
             )
         elif isinstance(item, BSpline2D):
             path_style = GraphicPathStyle(
@@ -176,8 +180,7 @@ class SceneImporter:
             for segment in item:
                 self._add_item(segment)
 
-        if not isinstance(item, Circle2D):
-            self._update_bounding_box(item)
+        self._update_bounding_box(item)
 
 ####################################################################################################
 

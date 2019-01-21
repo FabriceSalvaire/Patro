@@ -25,7 +25,7 @@
 import logging
 
 from Patro.GeometryEngine.Bezier import CubicBezier2D
-from Patro.GeometryEngine.Conic import Circle2D, Ellipse2D
+from Patro.GeometryEngine.Conic import Circle2D, Ellipse2D, AngularDomain
 from Patro.GeometryEngine.Polyline import Polyline2D
 from Patro.GeometryEngine.Rectangle import Rectangle2D
 from Patro.GeometryEngine.Segment import Segment2D
@@ -551,7 +551,9 @@ class CircleItem(PositionMixin, StartStopAngleMixin, PathStyleItemMixin):
 
     def get_geometry(self):
         position = self.casted_position
-        return Circle2D(position, self._radius) # Fixme: radius
+        # Fixme: radius
+        domain = AngularDomain(self._start_angle, self._stop_angle)
+        return Circle2D(position, self._radius, domain=domain)
 
 ####################################################################################################
 

@@ -149,7 +149,7 @@ class QtPainter(Painter):
     def _set_pen(self, item):
 
         path_syle = item.path_style
-        print('_set_pen', item, path_syle)
+        # print('_set_pen', item, path_syle)
         if item.selected:
             color = QColor('red') # Fixme: style
         else:
@@ -165,7 +165,7 @@ class QtPainter(Painter):
         if item.selected:
             line_width *= 4
 
-        print(item, color, line_style)
+        # print(item, color, line_style)
         if color is None or line_style is StrokeStyle.NoPen:
             # invisible item
             pen = QPen(Qt.NoPen)
@@ -251,7 +251,11 @@ class QtPainter(Painter):
             center + QPointF(-radius, radius),
             center + QPointF(radius, -radius),
         )
-        self._painter.drawArc(rectangle, 0, 360*16)
+        start_angle, stop_angle = [int(angle*16) for angle in (item.start_angle, item.stop_angle)]
+        span_angle = stop_angle - start_angle
+        if span_angle < 0:
+            span_angle = 5760 + span_angle
+        self._painter.drawArc(rectangle, start_angle, span_angle)
         ## self._painter.drawArc(center.x, center.y, radius, radius, 0, 360)
 
     ##############################################

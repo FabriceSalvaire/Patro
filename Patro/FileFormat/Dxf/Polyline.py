@@ -21,7 +21,7 @@
 ####################################################################################################
 
 from Patro.Common.Math.Functions import sign
-from Patro.GeometryEngine.Conic import Circle2D
+from Patro.GeometryEngine.Conic import Circle2D, AngularDomain
 from Patro.GeometryEngine.Segment import Segment2D
 from Patro.GeometryEngine.Vector import Vector2D
 
@@ -56,33 +56,30 @@ class PolylineVertex:
 
     ##############################################
 
-    def __init__(self, polyline, index, x, y, bulge=0):
+    def __init__(self, polyline, index, point, bulge=0):
 
         self._polyline = polyline
         self._index = index
-        self._x = x
-        self._y = y
+        self._point = point
         self._bulge = bulge
 
     ##############################################
 
     @property
+    def point(self):
+        return self._point
+
+    @property
     def x(self):
-        return self._x
+        return self._point.x
 
     @property
     def y(self):
-        return self._y
+        return self._point.y
 
     @property
     def bulge(self):
         return self._bulge
-
-    ##############################################
-
-    @property
-    def vector(self):
-        return Vector2D(self._x, self._y)
 
     ##############################################
 
@@ -106,13 +103,13 @@ class PolylineVertex:
     ##############################################
 
     def __str__(self):
-        return '({0._x:5.2f} {0._y:5.2f} {0._bulge:5.2f})'.format(self)
+        return '({0.x:5.2f} {0.y:5.2f} {0._bulge:5.2f})'.format(self)
 
     ##############################################
 
     @property
     def segment_vector(self):
-        return self.next.vector - self.vector
+        return self.next.point - self._point
 
     ##############################################
 
@@ -207,17 +204,26 @@ class Polyline:
     def geometry(self):
 
         items = []
-        for vertice1, vertice2 in self.iter_on_segment():
-            segment = Segment2D(vertice1.vector, vertice2.vector)
-            if vertice1.bulge:
+        for vertex1, vertex2 in self.iter_on_segment():
+            segment = Segment2D(vertex1.point, vertex2.point)
+            if vertex1.bulge:
                 segment_center = segment.center
-                direction = vertice1.segment_vector.normalise()
+                direction = vertex1.segment_vector.normalise()
                 normal = direction.normal
-                # offset = vertice1.bulge_radius - vertice1.sagitta
-                offset = vertice1.sagitta_dual
-                center = segment_center + normal * sign(vertice1.bulge) * offset
-                # Fixme: domain
-                arc = Circle2D(center, vertice1.bulge_radius, domain=None)
+                # offset = vertex1.bulge_radius - vertex1.sagitta
+                offset = vertex1.sagitta_dual
+                center = segment_center + normal * sign(vertex1.bulge) * offset
+                arc = Circle2D(center, vertex1.bulge_radius)
+                start_angle, stop_angle = [arc.angle_for_point(vertex.point) for vertex in (vertex1, vertex2)]
+                if start_angle < 0:
+                    start_angle += 360
+                if stop_angle < 0:
+                    stop_angle += 360
+                if vertex1.bulge < 0:
+                    start_angle, stop_angle = stop_angle, start_angle
+                print('bulb', vertex1, vertex2, vertex1.bulge, start_angle, stop_angle)
+                arc.domain = AngularDomain(start_angle, stop_angle)
+                # arc = Circle2D(center, vertex1.bulge_radius, domain=AngularDomain(start_angle, stop_angle))
                 items.append(arc)
             else:
                 items.append(segment)
