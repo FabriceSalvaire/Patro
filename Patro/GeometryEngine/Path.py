@@ -251,6 +251,7 @@ class LinearSegment(PathPart):
 
     @property
     def bulge_geometry(self):
+        # Fixme: check start and stop are within segment
         arc = Circle2D(self.bulge_center, self._radius)
         start_angle, stop_angle = [arc.angle_for_point(point)
                                    for point in (self.bulge_start_point, self.bulge_stop_point)]
@@ -540,7 +541,8 @@ class Path2D(Primitive2DMixin, Primitive1P):
         return self._add_part(PathSegment, point, radius)
 
     def close(self, radius=None):
-        return self._add_part(PathSegment, self._p0, radius)
+        # Fixme: radius must apply to start and stop
+        return self._add_part(PathSegment, self._p0, radius, absolute=True)
 
     ##############################################
 

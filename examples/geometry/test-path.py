@@ -27,6 +27,7 @@ class SceneBuilder:
                 self._make_path1(),
                 self._make_path2(),
                 self._make_path3(),
+                self._make_path4(),
                 ):
             self._add_path(path)
         self._scene.bounding_box = self._bounding_box # Fixme:
@@ -72,12 +73,12 @@ class SceneBuilder:
 
         start_point = Vector2D(20, 0)
         path = Path2D(start_point)
-        path.line_to(Vector2D(10, 0))
-        path.line_to(Vector2D(0, 10), radius=5)
-        path.line_to(Vector2D(10, 0), radius=5)
-        path.line_to(Vector2D(0, 20), radius=5)
-        path.line_to(Vector2D(-10, 0), radius=5)
-        path.line_to(Vector2D(0, -10), radius=5)
+        path.horizontal_to(10)
+        path.vertical_to(10)
+        path.north_east_to(10)
+        path.north_west_to(10)
+        path.south_west_to(10)
+        path.south_east_to(5)
 
         return path
 
@@ -87,12 +88,28 @@ class SceneBuilder:
 
         start_point = Vector2D(40, 0)
         path = Path2D(start_point)
-        path.horizontal_to(10)
-        path.vertical_to(10)
-        path.north_east_to(10)
-        path.north_west_to(10)
-        path.south_west_to(10)
-        path.south_east_to(5)
+        path.line_to(Vector2D(10, 0))
+        path.line_to(Vector2D(0, 10), radius=5)
+        path.line_to(Vector2D(10, 0), radius=5)
+        path.line_to(Vector2D(0, 20), radius=5)
+        path.line_to(Vector2D(-10, 0), radius=5)
+        path.line_to(Vector2D(0, -10), radius=5)
+        path.close(radius=0) # Fixme:
+
+        return path
+
+    ##############################################
+
+    def _make_path4(self):
+
+        start_point = Vector2D(70, 0)
+        path = Path2D(start_point)
+        # path.line_to(Vector2D(10, 0))
+        # path.line_to(Vector2D(0, 10), radius=5)
+        # path.line_to(Vector2D(-10, 0), radius=5)
+        path.east_to(10)
+        path.north_to(10, radius=5)
+        path.west_to(10, radius=5)
 
         return path
 
