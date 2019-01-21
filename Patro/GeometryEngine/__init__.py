@@ -18,8 +18,35 @@
 #
 ####################################################################################################
 
-"""This module implements a 2D geometry engine suitable for a low number of graphic entities. It
-implements standard primitives like line, segment and Bezier curve.
+"""This module implements a 2D geometry engine which implement standard primitives like line, conic
+and Bézier curve.
+
+.. note:: This module is a candidate for a dedicated project.
+
+Purpose
+-------
+
+The purpose of this module is to provide all the required algorithms in Python language for a 2D
+geometry engine.  In particular it must avoid the use of a third-party libraries which could be over
+sized for our purpose and challenging to trust.
+
+It is not designed to provide optimised algorithms for a large number of graphic entities.  Such
+optimisations could be provided in addition, in particular if the Python implementation has dramatic
+performances.
+
+Bibliographical References
+--------------------------
+
+All complex algorithms in this module should have strong references matching theses criteria by
+preference order:
+
+* a citation to an article from a well known peer reviewed journal,
+* a citation to a reference book authored by a well known author,
+* a well written article which can be easily trusted ( in this case an electronic copy of this
+  article should be added to the repository).
+
+However a Wikipedia article will usually not fulfils the criteria due to the weakness of this
+collaborative encyclopedia: article quality, review process, content modification over time.
 
 """
 
