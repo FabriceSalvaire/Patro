@@ -42,6 +42,8 @@ _module_logger = logging.getLogger(__name__)
 
 class GraphicPathStyle:
 
+    """Class to define path style"""
+
     ##############################################
 
     def __init__(self, **kwargs):
@@ -176,6 +178,8 @@ class GraphicPathStyle:
 
 class GraphicBezierStyle(GraphicPathStyle):
 
+    """Class to define Bézier curve style"""
+
     ##############################################
 
     def __init__(self, **kwargs):
@@ -215,6 +219,8 @@ class GraphicBezierStyle(GraphicPathStyle):
 ####################################################################################################
 
 class Font:
+
+    """Class to define font style"""
 
     ##############################################
 
