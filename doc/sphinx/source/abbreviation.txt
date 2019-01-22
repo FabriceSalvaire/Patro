@@ -35,3 +35,6 @@
 
 .. |Valentina| replace:: Valentina
 .. _Valentina: https://bitbucket.org/dismine/valentina
+
+.. |Tikz| replace:: Tikz
+.. _Tikz: https://ctan.org/pkg/pgf?lang=en

@@ -63,14 +63,27 @@ A painter is responsible to render the scene on the screen or a graphic file for
 engine is able to render on the following:
 
 * show drawing on screen with : |Matplotlib|_, |Qt|_
-* export drawing to : PDF, SVG, DXF, LaTeX Tikz
-* export tiled pattern on A4 sheets : PDF, LaTeX Tikz
+* export drawing to : SVG, PDF, DXF, LaTeX |Tikz|_
+* export tiled pattern on A4 sheets : PDF, LaTeX |Tikz|_
+
+.. duplicated note
+
+.. note:: PDF and SVG format are convertible to each other without data loss
+          (font handling require more attention).
+
+.. note:: The |Inkscape|_ free software is able to import from / export to a lot of file formats
+          like SVG, PDF, DXF and to render the drawing to an image format.  This job can be done in
+          batch from command line.
 
 Also the graphic engine is able to render a DXF made of these graphic items: line, circle, arc,
 ellipse, lwpolyline and spline.
 
+For expert, the LaTeX output can be used to modify the drawing using the power of the |Tikz|_ (PGF)
+graphic package.
+
 Implementation details:
 
+* SVG can be rendered using the SVG and Qt painter
 * PDF export is implemented with the help of the |Reportlab|_ package
 * DXF import/export is implemented with the help of the |ezdxf|_ package of `Manfred Moitzi
   <https://github.com/mozman>`_
