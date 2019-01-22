@@ -40,6 +40,7 @@ from QtShim.QtQml import qmlRegisterUncreatableType
 from QtShim.QtQuick import QQuickPaintedItem, QQuickView
 # from QtShim.QtQuickControls2 import QQuickStyle
 
+from Patro.Common.Platform import QtPlatform
 from Patro.GraphicEngine.Painter.QtPainter import QtScene, QtQuickPaintedSceneItem
 
 from .rcc import PatroRessource
@@ -129,6 +130,9 @@ class Application(QObject):
         self._engine = QQmlApplicationEngine()
         self._qml_application = QmlApplication(self)
 
+        self._platform = QtPlatform()
+        self._logger.info('\n' + str(self._platform))
+
         self._scene = None
 
         # self._load_translation()
@@ -153,6 +157,10 @@ class Application(QObject):
     @property
     def qml_application(self):
         return self._qml_application
+
+    @property
+    def platform(self):
+        return self._platform
 
     ##############################################
 
