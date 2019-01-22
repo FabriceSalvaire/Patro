@@ -28,7 +28,7 @@ from IntervalArithmetic import Interval2D
 
 from QtShim.QtCore import (
     Property, Signal, Slot, QObject,
-    QRectF, QSizeF, QPointF, Qt,
+    QRectF, QSize, QSizeF, QPointF, Qt,
 )
 from QtShim.QtGui import QColor, QFont, QFontMetrics, QImage, QPainter, QPainterPath, QBrush, QPen
 # from QtShim.QtQml import qmlRegisterType
@@ -119,6 +119,38 @@ class QtPainter(Painter):
 
     ##############################################
 
+    def to_svg(self, path, scale=10, dpi=100, title='', description=''):
+
+        """Render the scene to SVG"""
+
+        from QtShim.QtSvg import QSvgGenerator
+
+        generator = QSvgGenerator()
+        generator.setFileName(str(path))
+
+        generator.setTitle(str(title))
+        generator.setDescription(str(description))
+        generator.setResolution(dpi)
+
+        # Fixme: scale
+        # Scale applied to (x,y) and radius but not line with
+        self._scale = scale
+
+        bounding_box = self._scene.bounding_box
+        size = QSize(*[x*self._scale for x in bounding_box.size])
+        view_box = QRectF(*[x*self._scale for x in bounding_box.rect])
+        generator.setSize(size)
+        generator.setViewBox(view_box)
+
+        painter = QPainter()
+        painter.begin(generator)
+        self.paint(painter)
+        painter.end()
+
+        self._scale = None
+
+    ##############################################
+
     def paint(self, painter):
 
         self._logger.info('paint')
@@ -131,15 +163,16 @@ class QtPainter(Painter):
     ##############################################
 
     def length_scene_to_viewport(self, length):
-        raise NotImplementedError
+        return length * self._scale
 
     @property
     def scene_area(self):
-        raise NotImplementedError
+        return None
 
     def scene_to_viewport(self, position):
+        return QPointF(position.x * self._scale, position.y * self._scale)
+
         # Note: painter.scale apply to text as well
-        raise NotImplementedError
 
         # point = QPointF(position.x, position.y)
         # point += self._translation
@@ -210,6 +243,10 @@ class QtPainter(Painter):
     def _paint_grid(self):
 
         area = self.scene_area
+        # Fixme:
+        if area is None:
+            return
+
         xinf, xsup = area.x.inf, area.x.sup
         yinf, ysup = area.y.inf, area.y.sup
 

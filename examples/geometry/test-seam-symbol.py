@@ -25,6 +25,7 @@ class SceneBuilder:
         self._scene = QtScene()
 
         self._bounding_box = None
+        self._line_width = 5.
         for path in self._make_figure1():
             self._add_item(path)
         self._scene.bounding_box = self._bounding_box # Fixme:
@@ -100,7 +101,7 @@ class SceneBuilder:
     def _add_path(self, path):
 
         path_style = GraphicPathStyle(
-            line_width=3.0,
+            line_width=self._line_width,
             stroke_color=Colors.black,
             stroke_style=StrokeStyle.SolidLine,
             cap_style=CapStyle.RoundCap,
@@ -144,7 +145,7 @@ class SceneBuilder:
     def _add_circle(self, circle):
 
         path_style = GraphicPathStyle(
-            line_width=3.0,
+            line_width=self._line_width,
             stroke_color=Colors.black,
             stroke_style=StrokeStyle.SolidLine,
         )
@@ -163,3 +164,7 @@ scene = QtScene()
 scene_builder = SceneBuilder()
 
 application.qml_application.scene = scene_builder.scene
+
+# from Patro.GraphicEngine.Painter.QtPainter import QtPainter
+# painter = QtPainter(scene_builder.scene)
+# painter.to_svg('out.svg')
