@@ -12,7 +12,7 @@ from Patro.GeometryEngine.Transformation import Transformation2D
 from Patro.GeometryEngine.Vector import Vector2D
 from Patro.GraphicEngine.GraphicScene.GraphicStyle import GraphicPathStyle, GraphicBezierStyle
 from Patro.GraphicEngine.Painter.QtPainter import QtScene
-from Patro.GraphicStyle import Colors, StrokeStyle
+from Patro.GraphicStyle import Colors, StrokeStyle, CapStyle
 
 ####################################################################################################
 
@@ -103,6 +103,7 @@ class SceneBuilder:
             line_width=3.0,
             stroke_color=Colors.black,
             stroke_style=StrokeStyle.SolidLine,
+            cap_style=CapStyle.RoundCap,
         )
 
         for item in path:

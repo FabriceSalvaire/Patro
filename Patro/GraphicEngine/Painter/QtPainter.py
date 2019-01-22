@@ -37,7 +37,7 @@ from QtShim.QtQuick import QQuickPaintedItem
 from .Painter import Painter
 from Patro.GeometryEngine.Vector import Vector2D
 from Patro.GraphicEngine.GraphicScene.Scene import GraphicScene
-from Patro.GraphicStyle import StrokeStyle
+from Patro.GraphicStyle import StrokeStyle, CapStyle, JoinStyle
 
 ####################################################################################################
 
@@ -68,6 +68,19 @@ class QtPainter(Painter):
         StrokeStyle.DotLine: Qt.DotLine,
         StrokeStyle.DashDotLine: Qt.DashDotLine,
         StrokeStyle.DashDotDotLine: Qt.DashDotDotLine,
+    }
+
+    __CAP_STYLE__ = {
+        CapStyle.FlatCap: Qt.FlatCap,
+        CapStyle.SquareCap: Qt.SquareCap,
+        CapStyle.RoundCap: Qt.RoundCap,
+    }
+
+    __JOIN_STYLE__ = {
+        JoinStyle.MiterJoin: Qt.MiterJoin,
+        JoinStyle.BevelJoin: Qt.BevelJoin,
+        JoinStyle.RoundJoin: Qt.RoundJoin,
+        JoinStyle.SvgMiterJoin: Qt.SvgMiterJoin,
     }
 
     _logger = _module_logger.getChild('QtPainter')
@@ -156,6 +169,7 @@ class QtPainter(Painter):
             color = path_syle.stroke_color
             if color is not None:
                 color = QColor(str(color))
+                color.setAlphaF(path_syle.stroke_alpha)
             else:
                 color = None
         line_style = self.__STROKE_STYLE__[path_syle.stroke_style]
@@ -168,6 +182,7 @@ class QtPainter(Painter):
         fill_color = path_syle.fill_color
         if fill_color is not None:
             color = QColor(str(fill_color))
+            color.setAlphaF(path_syle.fill_alpha)
             self._painter.setBrush(color)
             # return None
         else:
@@ -184,6 +199,8 @@ class QtPainter(Painter):
                 QBrush(color),
                 line_width,
                 line_style,
+                self.__CAP_STYLE__[path_syle.cap_style],
+                self.__JOIN_STYLE__[path_syle.join_style],
             )
             self._painter.setPen(pen)
             return pen

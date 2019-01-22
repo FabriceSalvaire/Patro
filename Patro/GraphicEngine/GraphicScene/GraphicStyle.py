@@ -32,7 +32,7 @@ __all__= ['GraphicPathStyle', 'GraphicBezierStyle', 'Font']
 
 import logging
 
-from Patro.GraphicStyle import Colors, StrokeStyle
+from Patro.GraphicStyle import Colors, StrokeStyle, CapStyle, JoinStyle
 
 ####################################################################################################
 
@@ -44,36 +44,48 @@ class GraphicPathStyle:
 
     ##############################################
 
-    def __init__(self,
-                 stroke_style=StrokeStyle.SolidLine,
-                 line_width=1.0,
-                 stroke_color=Colors.black,
-                 fill_color=None, # only for closed path
-    ):
+    def __init__(self, **kwargs):
 
         """*color* can be a defined color name, a '#rrggbb' string or a :class:`Color` instance.
 
         """
 
-        self.stroke_style = stroke_style
-        self.line_width = line_width
-        self.stroke_color = stroke_color
-        self.fill_color = fill_color
+        self.stroke_style = kwargs.get('stroke_style', StrokeStyle.SolidLine)
+        self.line_width = kwargs.get('line_width', 1.0)
+        self.stroke_color = kwargs.get('stroke_color', Colors.black)
+        self.stroke_alpha = kwargs.get('stroke_alpha', 1.0)
+
+        self.fill_color = kwargs.get('fill_color', None) # only for closed path
+        self.fill_alpa = kwargs.get('fill_alpha', 1.0)
+
+        # This is default Qt
+        self.cap_style =  kwargs.get('cap_style', CapStyle.SquareCap)
+        self.join_style =  kwargs.get('join_style', JoinStyle.BevelJoin)
 
     ##############################################
 
-    def clone(self):
-        return self.__class__(
-            self._stroke_style,
-            self._line_width,
-            self._stroke_color,
-            self._fill_color,
+    def _dict_keys(self):
+        return (
+            'stroke_style',
+            'line_width',
+            'stroke_color',
+            'fill_color',
         )
 
     ##############################################
 
+    def _to_dict(self):
+        return {name:getattr(self, '_' + name) for name in self._dict_keys()}
+
+    ##############################################
+
+    def clone(self):
+        return self.__class__(**self._to_dict())
+
+    ##############################################
+
     def __repr__(self):
-        return 'GraphicPathStyle({0._stroke_style}, {0._line_width}, {0._stroke_color}, {0._fill_color})'.format(self)
+        return '{0}({1})'.format(self.__class__.__name__, self._to_dict())
 
     ##############################################
 
@@ -116,6 +128,14 @@ class GraphicPathStyle:
     def stroke_color(self, value):
         self._stroke_color = Colors.ensure_color(value)
 
+    @property
+    def stroke_alpha(self):
+        return self._stroke_alpha
+
+    @stroke_alpha.setter
+    def stroke_alpha(self, value):
+        self._stroke_alpha = float(value) # Fixme: check < 1
+
     ##############################################
 
     @property
@@ -126,37 +146,50 @@ class GraphicPathStyle:
     def fill_color(self, value):
         self._fill_color = Colors.ensure_color(value)
 
+    @property
+    def fill_alpha(self):
+        return self._fill_alpha
+
+    @fill_alpha.setter
+    def fill_alpha(self, value):
+        self._fill_alpha = float(value)
+
+    ##############################################
+
+    @property
+    def cap_style(self):
+        return self._cap_style
+
+    @cap_style.setter
+    def cap_style(self, value):
+        self._cap_style = CapStyle(value)
+
+    @property
+    def join_style(self):
+        return self._join_style
+
+    @join_style.setter
+    def join_style(self, value):
+        self._join_style = JoinStyle(value)
+
 ####################################################################################################
 
 class GraphicBezierStyle(GraphicPathStyle):
 
     ##############################################
 
-    def __init__(self,
-                 # Fixme: duplicate
-                 stroke_style=StrokeStyle.SolidLine,
-                 line_width=1.0,
-                 stroke_color=Colors.black,
-                 fill_color=None, # only for closed path
-                 #
-                 show_control=False,
-                 control_color=None,
-    ):
+    def __init__(self, **kwargs):
 
         super().__init__(stroke_style, line_width, stroke_color, fill_color)
-        self._show_control = show_control
-        self._control_color = Colors.ensure_color(control_color)
+        self.show_control = kwargs.get('show_control', False)
+        self.control_color = kwargs.get('control_color', None)
 
     ##############################################
 
-    def clone(self):
-        return self.__class__(
-            self.stroke_style,
-            self.line_width,
-            self.stroke_color,
-            self.fill_color,
-            self._show_control,
-            self._control_color,
+    def _dict_keys(self):
+        return (
+            'show_control',
+            'control_color'
         )
 
     ##############################################
@@ -167,7 +200,7 @@ class GraphicBezierStyle(GraphicPathStyle):
 
     @show_control.setter
     def show_control(self, value):
-        self._show_control = value
+        self._show_control = bool(value)
 
     ##############################################
 
@@ -177,7 +210,7 @@ class GraphicBezierStyle(GraphicPathStyle):
 
     @control_color.setter
     def control_color(self, value):
-        self._control_color = value
+        self._control_color = Colors.ensure_color(value)
 
 ####################################################################################################
 

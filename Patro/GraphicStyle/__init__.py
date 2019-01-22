@@ -60,7 +60,7 @@ class CapStyle(Enum):
      #: a square line end that covers the end point and extends beyond it by half the line width
      SquareCap = auto()
      #: a rounded line end.
-     roundCap = auto()
+     RoundCap = auto()
 
 ####################################################################################################
 
