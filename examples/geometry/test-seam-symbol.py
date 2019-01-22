@@ -3,6 +3,7 @@
 from Patro.Common.Logging import Logging
 Logging.setup_logging()
 
+from Patro.GeometryEngine.Conic import Circle2D
 from Patro.GeometryEngine.Path import (
     Path2D,
     LinearSegment, QuadraticBezierSegment, CubicBezierSegment
@@ -56,30 +57,34 @@ class SceneBuilder:
         height = 4
         radius = 2
 
-        start_point = Vector2D(short_arm_length + space/2, -height/2)
-        path1 = Path2D(start_point)
+        vertical_seam_position = short_arm_length * 2 / 3
+        vertical_seam_length = height * 1.5
+
+        right_side_length = width / 4
+        y_right_side = height * 1.5
+        right_side_circle_radius = 1
+
+        path1 = Path2D((short_arm_length + space/2, -height/2))
         path1.west_to(short_arm_length)
         path1.north_to(height, radius=radius)
         path1.east_to(long_arm_length, radius=radius)
 
-        path2 = path1.clone()
-        # Fixme: path.x_mirror() ???
-        path2.transform(Transformation2D.XReflection())
+        path2 = path1.x_mirror(clone=True)
 
-        start_point = Vector2D(-seam_length/2, 0)
-        path3 = Path2D(start_point)
+        path3 = Path2D((-seam_length/2, 0))
         path3.east_to(seam_length)
 
-        vertival_seam_position = short_arm_length * 2 / 3
-        vertival_seam_length = height * 1.5
-        start_point = Vector2D(vertival_seam_position, -vertival_seam_length/2)
-        path4 = Path2D(start_point)
-        path4.north_to(vertival_seam_length)
+        path4 = Path2D((vertical_seam_position, -vertical_seam_length/2))
+        path4.north_to(vertical_seam_length)
 
-        path5 = path4.clone()
-        path5.transform(Transformation2D.XReflection())
+        path5 = path4.x_mirror(clone=True)
 
-        return [path1, path2, path3, path4, path5]
+        path6 = Path2D((-right_side_length/2, y_right_side))
+        path6.east_to(right_side_length)
+
+        circle = Circle2D((0, y_right_side), right_side_circle_radius)
+
+        return [path1, path2, path3, path4, path5, path6, circle]
 
     ##############################################
 
@@ -87,6 +92,8 @@ class SceneBuilder:
 
         if isinstance(item, Path2D):
             self._add_path(item)
+        elif isinstance(item, Circle2D):
+            self._add_circle(item)
 
     ##############################################
 
@@ -130,6 +137,23 @@ class SceneBuilder:
                 )
         # Fixme: why here ???
         self._update_bounding_box(item)
+
+    ##############################################
+
+    def _add_circle(self, circle):
+
+        path_style = GraphicPathStyle(
+            line_width=3.0,
+            stroke_color=Colors.black,
+            stroke_style=StrokeStyle.SolidLine,
+        )
+
+        kwargs = dict(user_data=circle)
+        if circle.domain:
+            kwargs['start_angle'] = circle.domain.start
+            kwargs['stop_angle'] = circle.domain.stop
+        self._scene.circle(circle.center, circle.radius, path_style, **kwargs)
+        self._update_bounding_box(circle)
 
 ####################################################################################################
 

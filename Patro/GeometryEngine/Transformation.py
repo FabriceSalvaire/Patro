@@ -201,7 +201,9 @@ class Transformation2D(Transformation):
     ##############################################
 
     @classmethod
-    def Scale(cls, x_scale, y_scale):
+    def Scale(cls, x_scale, y_scale=None):
+        if y_scale is None:
+            y_scale = x_scale
         transformation_type = cls.type_for_scale(x_scale, y_scale)
         return cls(np.array(((x_scale, 0), (0,  y_scale))), transformation_type)
 

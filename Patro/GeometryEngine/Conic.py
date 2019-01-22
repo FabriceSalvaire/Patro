@@ -288,7 +288,7 @@ class Circle2D(Primitive2DMixin, AngularDomainMixin, Primitive):
 
     ##############################################
 
-    def transform(self, transformation):
+    def apply_transformation(self, transformation):
         self._center = transformation * self._center
         # Fixme: shear -> ellipse
         if self._radius is not None:
@@ -633,7 +633,7 @@ class Ellipse2D(Primitive2DMixin, AngularDomainMixin, Primitive):
 
     ##############################################
 
-    def transform(self, transformation):
+    def apply_transformation(self, transformation):
         self._center = transformation * self._center
         self._x_radius = transformation * self._x_radius
         self._y_radius = transformation * self._y_radius

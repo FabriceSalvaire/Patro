@@ -290,7 +290,7 @@ class PathSegment(LinearSegment):
 
     ##############################################
 
-    def transform(self, transformation):
+    def apply_transformation(self, transformation):
         self._point = transformation * self._point
         if self._radius is not None:
             self._radius = transformation * self._radius
@@ -335,7 +335,7 @@ class DirectionalSegment(LinearSegment):
 
     ##############################################
 
-    def transform(self, transformation):
+    def apply_transformation(self, transformation):
         # Since a rotation will change the direction
         # DirectionalSegment must be casted to PathSegment
         raise NotImplementedError
@@ -433,7 +433,7 @@ class TwoPointsMixin:
 
     ##############################################
 
-    def transform(self, transformation):
+    def apply_transformation(self, transformation):
         self._point1 = transformation * self._point1
         self._point2 = transformation * self._point2
 
@@ -495,7 +495,7 @@ class CubicBezierSegment(PathPart, TwoPointsMixin):
 
     ##############################################
 
-    def transform(self, transformation):
+    def apply_transformation(self, transformation):
         TwoPointsMixin.transform(self, transformation)
         self._point3 = transformation * self._point3
 
@@ -581,7 +581,7 @@ class Path2D(Primitive2DMixin, Primitive1P):
 
     ##############################################
 
-    def transform(self, transformation):
+    def apply_transformation(self, transformation):
 
         self._p0 = transformation * self._p0
 
@@ -593,7 +593,7 @@ class Path2D(Primitive2DMixin, Primitive1P):
                 # DirectionalSegment must be casted to PathSegment
                 part = part.to_path_segment()
                 self._parts[i] = part
-            part.transform(transformation)
+            part.apply_transformation(transformation)
 
     ##############################################
 

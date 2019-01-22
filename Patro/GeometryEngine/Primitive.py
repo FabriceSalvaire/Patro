@@ -34,6 +34,8 @@ import collections
 import numpy as np
 
 from .BoundingBox import bounding_box_from_points
+# Fixme: circular import
+# from .Transformation import Transformation2D
 
 ####################################################################################################
 
@@ -141,12 +143,51 @@ class Primitive:
 
     ##############################################
 
-    def transform(self, transformation):
+    def transform(self, transformation, clone=False):
+        """Apply a transformation to the primitive.
 
+        If *clone* is set then the primitive is cloned.
+
+        """
+        obj = self.clone() if clone else self
+        # for point in obj.points:
+        #     point *= transformation # don't work
+        obj.apply_transformation(transformation)
+        return obj
+
+    ##############################################
+
+    def apply_transformation(self, transformation):
+        """Apply a transformation to the primitive.
+
+        If *clone* is set then the primitive is cloned.
+
+        """
         # for point in self.points:
         #     point *= transformation # don't work
-
         self._set_points([transformation*p for p in self.points])
+
+    ##############################################
+
+    def mirror(self, clone=False):
+        from .Transformation import Transformation2D
+        return self.transform(Transformation2D.Parity(), clone)
+
+    def x_mirror(self, clone=False):
+        from .Transformation import Transformation2D
+        return self.transform(Transformation2D.XReflection(), clone)
+
+    def y_mirror(self, clone=False):
+        from .Transformation import Transformation2D
+        return self.transform(Transformation2D.YReflection(), clone)
+
+    def rotate(self, angle, clone=False):
+        from .Transformation import Transformation2D
+        return self.transform(Transformation2D.Rotation(angle), clone)
+
+    def scale(self, x_factor, y_factor=None, clone=False):
+        from .Transformation import Transformation2D
+        return self.transform(Transformation2D.Scale(x_factor, y_factor), clone)
 
     ##############################################
 
