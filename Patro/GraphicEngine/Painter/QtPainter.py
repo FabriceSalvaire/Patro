@@ -165,11 +165,20 @@ class QtPainter(Painter):
         if item.selected:
             line_width *= 4
 
+        fill_color = path_syle.fill_color
+        if fill_color is not None:
+            color = QColor(str(fill_color))
+            self._painter.setBrush(color)
+            # return None
+        else:
+            self._painter.setBrush(Qt.NoBrush)
+
         # print(item, color, line_style)
         if color is None or line_style is StrokeStyle.NoPen:
             # invisible item
             pen = QPen(Qt.NoPen)
             # print('Warning Pen:', item, item.user_data, color, line_style)
+            return None
         else:
             pen = QPen(
                 QBrush(color),
@@ -178,15 +187,6 @@ class QtPainter(Painter):
             )
             self._painter.setPen(pen)
             return pen
-
-        fill_color = path_syle.fill_color
-        if fill_color is not None:
-            color = QColor(str(fill_color))
-            self._painter.setBrush(color)
-        else:
-            self._painter.setBrush(Qt.NoBrush)
-
-        return None
 
     ##############################################
 
@@ -247,16 +247,20 @@ class QtPainter(Painter):
 
         pen = self._set_pen(item)
 
-        rectangle = QRectF(
-            center + QPointF(-radius, radius),
-            center + QPointF(radius, -radius),
-        )
-        start_angle, stop_angle = [int(angle*16) for angle in (item.start_angle, item.stop_angle)]
-        span_angle = stop_angle - start_angle
-        if span_angle < 0:
-            span_angle = 5760 + span_angle
-        self._painter.drawArc(rectangle, start_angle, span_angle)
-        ## self._painter.drawArc(center.x, center.y, radius, radius, 0, 360)
+        if item.is_closed:
+            self._painter.drawEllipse(center, radius, radius)
+        else:
+            # drawArc cannot be filled !
+            rectangle = QRectF(
+                center + QPointF(-radius, radius),
+                center + QPointF(radius, -radius),
+            )
+            start_angle, stop_angle = [int(angle*16) for angle in (item.start_angle, item.stop_angle)]
+            span_angle = stop_angle - start_angle
+            if span_angle < 0:
+                span_angle = 5760 + span_angle
+            self._painter.drawArc(rectangle, start_angle, span_angle)
+            # self._painter.drawArc(center.x, center.y, radius, radius, start_angle, stop_angle)
 
     ##############################################
 

@@ -300,6 +300,12 @@ class StartStopAngleMixin:
     # def stop_angle(self, value):
     #     self._stop_angle = value
 
+    ##############################################
+
+    @property
+    def is_closed(self):
+        return abs(self._stop_angle - self.start_angle) >= 360
+
 ####################################################################################################
 
 class CoordinateItem(PositionMixin):
