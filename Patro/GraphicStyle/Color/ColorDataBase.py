@@ -88,7 +88,7 @@ class Color:
                 red, green, blue = colorsys.hsv_to_rgb(hue, saturation, value)
             else:
                 raise ValueError('Missing color parameter')
-            self._red, self._green, self._blue = [self._check_value(x) for x in red, green, blue]
+            self._red, self._green, self._blue = [self._check_value(x) for x in (red, green, blue)]
 
         # self._name = kwargs.get('name', None)
         if 'name' in kwargs:
@@ -104,7 +104,7 @@ class Color:
     ##############################################
 
     def __str__(self):
-        return self.__STR_FORMAT__.format(self._red, self._green, self._blue)
+        return self.__STR_FORMAT__.format(self.red, self.green, self.blue)
 
     ##############################################
 
