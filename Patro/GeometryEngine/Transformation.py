@@ -20,11 +20,29 @@
 
 ####################################################################################################
 
+from enum import Enum, auto
 from math import sin, cos, radians, degrees
 
 import numpy as np
 
 from .Vector import Vector2D, HomogeneousVector2D
+
+####################################################################################################
+
+class TransformationType(Enum):
+
+    Identity = auto()
+
+    Scale = auto() # same scale factor across axes
+    Shear = auto() # different scale factor
+
+    Parity = auto()
+    XParity = auto()
+    YParity = auto()
+
+    Rotation = auto()
+
+    Generic = auto()
 
 ####################################################################################################
 
@@ -37,12 +55,11 @@ class Transformation:
 
     @classmethod
     def Identity(cls):
-
-        return cls(np.identity(cls.__size__))
+        return cls(np.identity(cls.__size__), TransformationType.Identity)
 
     ##############################################
 
-    def __init__(self, obj):
+    def __init__(self, obj, transformation_type=TransformationType.Generic):
 
         if isinstance(obj, Transformation):
             if self.same_dimension(obj):
@@ -57,7 +74,9 @@ class Transformation:
         else:
             array = np.array((self.__size__, self.__size__))
             array[...] = obj
+
         self._m = np.array(array)
+        self._type = transformation_type
 
     ##############################################
 
@@ -72,6 +91,10 @@ class Transformation:
     @property
     def array(self):
         return self._m
+
+    @property
+    def type(self):
+        return self._type
 
     ##############################################
 
@@ -98,6 +121,14 @@ class Transformation:
         elif isinstance(obj, Vector2D):
             array = np.matmul(self._m, np.transpose(obj.v))
             return Vector2D(array)
+        elif isinstance(obj, (int, float)):
+            # Scalar can only be scaled if the frame is not sheared
+            if self._type in (TransformationType.Identity, TransformationType.Rotation):
+                return obj
+            elif self._type not in (TransformationType.Shear, TransformationType.Generic):
+                return abs(self._m[0,0]) * obj
+            else:
+                raise ValueError('Transformation is sheared')
         else:
             raise ValueError
 
@@ -106,7 +137,22 @@ class Transformation:
     def __imul__(self, obj):
 
         if isinstance(obj, Transformation):
-            self._m = np.matmul(self._m, obj.array)
+            if obj._type != TransformationType.Identity:
+                self._m = np.matmul(self._m, obj.array)
+                # Fixme: check matrix value ???
+                #   usage identity/rotation, scale/parity test
+                #   metric test ?
+                # if t in (parity, xparity, yparity) t*t = Id
+                # if t in (rotation, scale) t*t = t
+                if self._type == obj._type:
+                    if self._type in (TransformationType.Parity,
+                                      TransformationType.XParity,
+                                      TransformationType.YParity):
+                        self._type = TransformationType.Identity
+                    elif self._type not in (TransformationType.Rotation, TransformationType.Scale):
+                        self._type = TransformationType.Generic
+                else: # shear, generic
+                    self._type = TransformationType.Generic
         else:
             raise ValueError
 
@@ -128,13 +174,36 @@ class Transformation2D(Transformation):
         c = cos(angle)
         s = sin(angle)
 
-        return cls(np.array(((c, -s), (s,  c))))
+        return cls(np.array(((c, -s), (s,  c))), TransformationType.Rotation)
+
+    ##############################################
+
+    @classmethod
+    def type_for_scale(cls, x_scale, y_scale):
+
+        if x_scale == y_scale:
+            if x_scale == 1:
+                transformation_type = TransformationType.Identity
+            elif x_scale == -1:
+                transformation_type = TransformationType.Parity
+            else:
+                transformation_type = TransformationType.Scale
+        else:
+            if x_scale == -1 and y_scale == 1:
+                transformation_type = TransformationType.XParity
+            elif x_scale == 1 and y_scale == -1:
+                transformation_type = TransformationType.YParity
+            else:
+                transformation_type = TransformationType.Shear
+
+        return transformation_type
 
     ##############################################
 
     @classmethod
     def Scale(cls, x_scale, y_scale):
-        return cls(np.array(((x_scale, 0), (0,  y_scale))))
+        transformation_type = cls.type_for_scale(x_scale, y_scale)
+        return cls(np.array(((x_scale, 0), (0,  y_scale))), transformation_type)
 
     ##############################################
 
@@ -201,6 +270,7 @@ class AffineTransformation2D(AffineTransformation):
 
         transformation = cls.Identity()
         transformation.matrix_part[...] = Transformation2D.Rotation(angle).array
+        transformation._type = TransformationType.Rotation
         return transformation
 
     ##############################################
@@ -212,6 +282,7 @@ class AffineTransformation2D(AffineTransformation):
 
         transformation = cls.Identity()
         transformation.matrix_part[...] = Transformation2D.Scale(x_scale, y_scale).array
+        transformation._type = cls.type_for_scale(x_scale, y_scale)
         return transformation
 
     #######################################

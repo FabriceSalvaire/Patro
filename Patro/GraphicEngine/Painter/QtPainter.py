@@ -480,6 +480,7 @@ class ViewportArea:
 
     def fit_scene(self):
 
+        # Fixme: AttributeError: 'NoneType' object has no attribute 'center'
         if self:
             center = np.array(self.scene_area.center, dtype=np.float)
             scale, axis = self._compute_scale_to_fit_scene()

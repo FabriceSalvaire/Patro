@@ -283,6 +283,19 @@ class Circle2D(Primitive2DMixin, AngularDomainMixin, Primitive):
 
     ##############################################
 
+    def clone(self):
+        return self.__class__(self._center, self._radius, self._domain)
+
+    ##############################################
+
+    def transform(self, transformation):
+        self._center = transformation * self._center
+        # Fixme: shear -> ellipse
+        if self._radius is not None:
+            self._radius = transformation * self._radius
+
+    ##############################################
+
     def __repr__(self):
         return '{0}({1._center}, {1._radius}, {1._domain})'.format(self.__class__.__name__, self)
 
@@ -330,7 +343,6 @@ class Circle2D(Primitive2DMixin, AngularDomainMixin, Primitive):
 
     def point_at_angle(self, angle):
         return self.__vector_cls__.from_polar(self._radius, angle) + self._center
-
 
     ##############################################
 
@@ -607,6 +619,24 @@ class Ellipse2D(Primitive2DMixin, AngularDomainMixin, Primitive):
         self.angle = angle
         self.domain = domain
 
+        self._bounding_box = None
+
+    ##############################################
+
+    def clone(self):
+        return self.__class__(
+            self._center,
+            self._x_radius, self._y_radius,
+            self._angle,
+            self._domain,
+        )
+
+    ##############################################
+
+    def transform(self, transformation):
+        self._center = transformation * self._center
+        self._x_radius = transformation * self._x_radius
+        self._y_radius = transformation * self._y_radius
         self._bounding_box = None
 
     ##############################################

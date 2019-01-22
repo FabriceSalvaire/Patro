@@ -50,6 +50,11 @@ class PathPart:
 
     ##############################################
 
+    def clone(self, path):
+        raise NotImplementedError
+
+    ##############################################
+
     def __repr__(self):
         return self.__class__.__name__
 
@@ -81,6 +86,7 @@ class PathPart:
 
     @property
     def start_point(self):
+        # Fixme: cache ???
         prev_part = self.prev_part
         if prev_part is not None:
             return prev_part.stop_point
@@ -151,10 +157,16 @@ class LinearSegment(PathPart):
         if self._radius is not None:
             if not isinstance(self.prev_part, LinearSegment):
                 raise ValueError('Previous path segment must be linear')
-            self._bulge_angle = None
-            self._bulge_center = None
-            self._start_bulge_point = None
-            self._stop_bulge_point = None
+            self._reset_cache()
+
+    ##############################################
+
+    def _reset_cache(self):
+
+        self._bulge_angle = None
+        self._bulge_center = None
+        self._start_bulge_point = None
+        self._stop_bulge_point = None
 
     ##############################################
 
@@ -273,6 +285,18 @@ class PathSegment(LinearSegment):
 
     ##############################################
 
+    def clone(self, path):
+        return self.__class__(path, self._position, self._point, self._radius, self._absolute)
+
+    ##############################################
+
+    def transform(self, transformation):
+        self._point = transformation * self._point
+        if self._radius is not None:
+            self._radius = transformation * self._radius
+
+    ##############################################
+
     @property
     def point(self):
         return self._point
@@ -311,6 +335,18 @@ class DirectionalSegment(LinearSegment):
 
     ##############################################
 
+    def transform(self, transformation):
+        # Since a rotation will change the direction
+        # DirectionalSegment must be casted to PathSegment
+        raise NotImplementedError
+
+    ##############################################
+
+    def clone(self, path):
+        return self.__class__(path, self._position, self._length, self._radius)
+
+    ##############################################
+
     @property
     def length(self):
         return self._length
@@ -322,9 +358,14 @@ class DirectionalSegment(LinearSegment):
     ##############################################
 
     @property
+    def offset(self):
+        # Fixme: cache ???
+        return Vector2D.from_polar(self._length, self.__angle__)
+
+    @property
     def stop_point(self):
         # Fixme: cache ???
-        return self.start_point + Vector2D.from_polar(self._length, self.__angle__)
+        return self.start_point + self.offset
 
     ##############################################
 
@@ -332,6 +373,11 @@ class DirectionalSegment(LinearSegment):
     def geometry(self):
         # Fixme: cache ???
         return Segment2D(self.start_point, self.stop_point)
+
+    ##############################################
+
+    def to_path_segment(self):
+        return PathSegment(self._path, self._position, self.offset, self._radius, absolute=False)
 
 ####################################################################################################
 
@@ -385,6 +431,12 @@ class TwoPointsMixin:
     def point2(self, value):
         self._point2 = Vector2D(value)
 
+    ##############################################
+
+    def transform(self, transformation):
+        self._point1 = transformation * self._point1
+        self._point2 = transformation * self._point2
+
 ####################################################################################################
 
 class QuadraticBezierSegment(PathPart, TwoPointsMixin):
@@ -399,6 +451,11 @@ class QuadraticBezierSegment(PathPart, TwoPointsMixin):
 
         self.point1 = point1
         self.point2 = point2
+
+    ##############################################
+
+    def clone(self, path):
+        return self.__class__(path, self._position, self._point1, self._point2)
 
     ##############################################
 
@@ -430,6 +487,17 @@ class CubicBezierSegment(PathPart, TwoPointsMixin):
         self.point1 = point1
         self.point2 = point2
         self.point3 = point3
+
+    ##############################################
+
+    def clone(self, path):
+        return self.__class__(path, self._position, self._point1, self._point2, self._point3)
+
+    ##############################################
+
+    def transform(self, transformation):
+        TwoPointsMixin.transform(self, transformation)
+        self._point3 = transformation * self._point3
 
     ##############################################
 
@@ -474,6 +542,19 @@ class Path2D(Primitive2DMixin, Primitive1P):
 
     ##############################################
 
+    def clone(self):
+
+        obj = self.__class__(self._p0)
+
+        # parts must be added sequentially to the path for bulge check
+        parts = obj._parts
+        for part in self._parts:
+            parts.append(part.clone(obj))
+
+        return obj
+
+    ##############################################
+
     def __len__(self):
         return len(self._parts)
 
@@ -497,6 +578,22 @@ class Path2D(Primitive2DMixin, Primitive1P):
         obj = part_cls(self, len(self._parts), *args, **kwargs)
         self._parts.append(obj)
         return obj
+
+    ##############################################
+
+    def transform(self, transformation):
+
+        self._p0 = transformation * self._p0
+
+        for i, part in enumerate(self._parts):
+            if isinstance(part, PathSegment):
+                part._reset_cache()
+            if isinstance(part, DirectionalSegment):
+                # Since a rotation will change the direction
+                # DirectionalSegment must be casted to PathSegment
+                part = part.to_path_segment()
+                self._parts[i] = part
+            part.transform(transformation)
 
     ##############################################
 

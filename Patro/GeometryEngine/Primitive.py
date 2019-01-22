@@ -92,6 +92,9 @@ class Primitive:
 
     ##############################################
 
+    # Fixme: part of the API imply points
+    #  it is not true for Path2D
+
     @property
     def points(self):
         raise NotImplementedError
