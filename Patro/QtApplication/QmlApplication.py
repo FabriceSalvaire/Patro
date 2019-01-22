@@ -131,7 +131,7 @@ class Application(QObject):
         self._qml_application = QmlApplication(self)
 
         self._platform = QtPlatform()
-        self._logger.info('\n' + str(self._platform))
+        # self._logger.info('\n' + str(self._platform))
 
         self._scene = None
 
