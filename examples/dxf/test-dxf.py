@@ -10,7 +10,7 @@ from Patro.GeometryEngine.Conic import Circle2D, Ellipse2D
 from Patro.GeometryEngine.Segment import Segment2D
 from Patro.GeometryEngine.Spline import BSpline2D
 from Patro.GeometryEngine.Vector import Vector2D
-from Patro.GraphicEngine.GraphicScene.GraphicItem import GraphicPathStyle, GraphicBezierStyle
+from Patro.GraphicEngine.GraphicScene.GraphicStyle import GraphicPathStyle, GraphicBezierStyle
 from Patro.GraphicEngine.Painter.QtPainter import QtScene
 from Patro.GraphicStyle import Colors, StrokeStyle
 

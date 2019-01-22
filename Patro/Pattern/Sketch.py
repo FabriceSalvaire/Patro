@@ -26,7 +26,7 @@
 import logging
 
 from Patro.GeometryEngine.Vector import Vector2D
-from Patro.GraphicEngine.GraphicScene.GraphicItem import GraphicPathStyle, Font
+from Patro.GraphicEngine.GraphicScene.GraphicStyle import GraphicPathStyle, Font
 from Patro.GraphicEngine.GraphicScene.Scene import GraphicScene
 from . import SketchOperation
 from .Calculator import Calculator
