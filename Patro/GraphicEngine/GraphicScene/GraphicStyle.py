@@ -184,7 +184,7 @@ class GraphicBezierStyle(GraphicPathStyle):
 
     def __init__(self, **kwargs):
 
-        super().__init__(stroke_style, line_width, stroke_color, fill_color)
+        super().__init__(**kwargs)
         self.show_control = kwargs.get('show_control', False)
         self.control_color = kwargs.get('control_color', None)
 
