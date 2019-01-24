@@ -194,6 +194,11 @@ cancelled in :math:`\mathbf{P'}_i`.
 
 """
 
+# Fixme:
+#   max distance to the chord for linear approximation
+#   fitting
+
+
 # C0 = continuous
 # G1 = geometric continuity
 #    Tangents point to the same direction
@@ -226,12 +231,6 @@ from .Vector import Vector2D
 
 ####################################################################################################
 
-# Fixme:
-#   max distance to the chord for linear approximation
-#   fitting
-
-####################################################################################################
-
 class BezierMixin2D(Primitive2DMixin):
 
     """Mixin to implements 2D Bezier Curve."""
@@ -242,7 +241,7 @@ class BezierMixin2D(Primitive2DMixin):
 
     def interpolated_length(self, dt=None):
 
-        # Length of the curve obtained via line interpolation
+        """Length of the curve obtained via line interpolation"""
 
         if dt is None:
             dt = self.LineInterpolationPrecision / (self.end_point - self.start_point).magnitude
@@ -506,11 +505,14 @@ class QuadraticBezier2D(BezierMixin2D, Primitive3P):
 
     def intersect_line(self, line):
 
-        """Find the intersections of the curve with a line."""
+        """Find the intersections of the curve with a line.
 
-        # Algorithm:
-        #   Apply a transformation to the curve that maps the line onto the X-axis.
-        #   Then we only need to test the Y-values for a zero.
+        Algorithm
+
+        * Apply a transformation to the curve that maps the line onto the X-axis.
+        * Then we only need to test the Y-values for a zero.
+
+        """
 
         # t, p0, p1, p2, p3 = symbols('t p0 p1 p2 p3')
         # u = 1 - t
@@ -564,10 +566,15 @@ class QuadraticBezier2D(BezierMixin2D, Primitive3P):
 
     def closest_point(self, point):
 
-        # Reference:
-        #   https://hal.archives-ouvertes.fr/inria-00518379/document
-        #   Improved Algebraic Algorithm On Point Projection For Bézier Curves
-        #   Xiao-Diao Chen, Yin Zhou, Zhenyu Shu, Hua Su, Jean-Claude Paul
+        """Return the closest point on the curve to the given *point*.
+
+        Reference
+
+        * https://hal.archives-ouvertes.fr/inria-00518379/document
+          Improved Algebraic Algorithm On Point Projection For Bézier Curves
+          Xiao-Diao Chen, Yin Zhou, Zhenyu Shu, Hua Su, Jean-Claude Paul
+
+        """
 
         # Condition:
         #   (P - B(t)) . B'(t) = 0   where t in [0,1]
@@ -1053,11 +1060,12 @@ class CubicBezier2D(BezierMixin2D, Primitive4P):
 
          *flatness* is the maximum error allowed for the straight line to deviate from the curve.
 
-         """
+         Reference
 
-         # Reference:
-         #  Kaspar Fischer and Roger Willcocks  http://hcklbrrfnn.files.wordpress.com/2012/08/bez.pdf
-         #  PostScript Language Reference. Addison- Wesley, third edition, 1999
+         * Kaspar Fischer and Roger Willcocks  http://hcklbrrfnn.files.wordpress.com/2012/08/bez.pdf
+         * PostScript Language Reference. Addison- Wesley, third edition, 1999
+
+         """
 
          # We define the flatness of the curve as the argmax of the distance from the curve to the
          # line passing by the start and stop point.
