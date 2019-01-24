@@ -18,6 +18,10 @@
 #
 ####################################################################################################
 
+"""Module to implement path.
+
+"""
+
 ####################################################################################################
 
 __all__ = [
@@ -143,6 +147,11 @@ class LinearSegment(PathPart):
         \prime P_1 = P_1 + d_1 \times \frac{R}{\tan \alpha}
 
     """
+
+    # Fixme:
+    #
+    #    If two successive vertices share the same circle, then it should be merged to one.
+    #
 
     ##############################################
 
@@ -638,6 +647,7 @@ class Path2D(Primitive2DMixin, Primitive1P):
         return self._add_part(PathSegment, point, radius)
 
     def close(self, radius=None):
+        # Fixme: identify as close for SVG export
         # Fixme: radius must apply to start and stop
         return self._add_part(PathSegment, self._p0, radius, absolute=True)
 

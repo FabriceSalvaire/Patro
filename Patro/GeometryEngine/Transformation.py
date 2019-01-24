@@ -18,6 +18,20 @@
 #
 ####################################################################################################
 
+"""Module to implement transformations like scale, rotation and translation.
+
+"""
+
+####################################################################################################
+
+__all__ = [
+    'TransformationType',
+    'Transformation',
+    'Transformation2D',
+    'AffineTransformation',
+    'AffineTransformation2D',
+]
+
 ####################################################################################################
 
 from enum import Enum, auto

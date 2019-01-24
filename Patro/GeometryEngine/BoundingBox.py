@@ -19,6 +19,7 @@
 ####################################################################################################
 
 """Module to compute bounding box and convex hull for a set of points.
+
 """
 
 ####################################################################################################
@@ -73,19 +74,24 @@ def _sort_point_for_graham_scan(points):
 ####################################################################################################
 
 def _ccw(p1, p2, p3):
-    # Three points are a counter-clockwise turn if ccw > 0, clockwise if ccw < 0, and collinear if
-    # ccw = 0 because ccw is a determinant that gives twice the signed area of the triangle formed
-    # by p1, p2 and p3.
+    """Three points are a counter-clockwise turn if ccw > 0, clockwise if ccw < 0, and collinear if ccw
+     = 0 because ccw is a determinant that gives twice the signed area of the triangle formed by p1,
+     p2 and p3.
+
+    """
     return (p2.x - p1.x)*(p3.y - p1.y) - (p2.y - p1.y)*(p3.x - p1.x)
 
 ####################################################################################################
 
 def convex_hull(points):
 
-    """Return the convex hull of the list of points using Graham Scan algorithm."""
+    """Return the convex hull of the list of points using Graham Scan algorithm.
 
-    # Reference: Graham Scan Algorithm
-    #   https://en.wikipedia.org/wiki/Graham_scan
+     References
+
+     * https://en.wikipedia.org/wiki/Graham_scan
+
+    """
 
    # convex_hull is a stack of points beginning with the leftmost point.
     convex_hull = []
