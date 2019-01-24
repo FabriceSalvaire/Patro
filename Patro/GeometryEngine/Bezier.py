@@ -212,8 +212,6 @@ cancelled in :math:`\mathbf{P'}_i`.
 __all__ = [
     'QuadraticBezier2D',
     'CubicBezier2D',
-
-    'BezierMixin2D', # sphinx
 ]
 
 ####################################################################################################
@@ -631,7 +629,25 @@ class QuadraticBezier2D(BezierMixin2D, Primitive3P):
     ##############################################
 
     def to_cubic(self):
-        raise NotImplementedError
+
+        r"""Elevate the quadratic Bézier curve to a cubic Bézier cubic with the same shape.
+
+        The new control points are
+
+        .. math::
+            \begin{align}
+            \mathbf{P'}_0 &= \mathbf{P}_0 \\
+            \mathbf{P'}_1 &= \mathbf{P}_0 + \frac{2}{3} (\mathbf{P}_1 - \mathbf{P}_0) \\
+            \mathbf{P'}_1 &= \mathbf{P}_2 + \frac{2}{3} (\mathbf{P}_1 - \mathbf{P}_2) \\
+            \mathbf{P'}_2 &= \mathbf{P}_2
+            \end{align}
+
+        """
+
+        p1 = (self._p0 + self._p1 * 2) / 3
+        p2 = (self._p2 + self._p1 * 2) / 3
+
+        return CubicBezier2D(self._p0, p1, p2, self._p3)
 
 ####################################################################################################
 
