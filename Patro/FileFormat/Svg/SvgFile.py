@@ -48,30 +48,108 @@ _module_logger = logging.getLogger(__name__)
 
 class RenderState:
 
+    # Fixme: convert type !!!
+
+    STATES = [name for name in SvgFormat.PresentationAttributes.__dict__.keys()
+              if not name.startswith('_')]
+
+    ##############################################
+
+    @classmethod
+    def pytonify_keys(cls, kwargs):
+        return {key.replace('-', '_'):value for key, value in kwargs.items()}
+
+    ##############################################
+
+    def __init__(self, item=None):
+
+        # Init from item else use default value
+        for state in self.STATES:
+            if item is not None and hasattr(item, state):
+                src = item
+            else:
+                src = SvgFormat.PresentationAttributes
+            value = getattr(src, state)
+            setattr(self, state, value)
+
+    ##############################################
+
+    def clone(self):
+        return self.__class__(self)
+
+    ##############################################
+
+    def to_dict(self, all=False):
+
+        if all:
+            return {state:getattr(self, state) for state in self.STATES}
+        else:
+            d = {}
+            for state in self.STATES:
+                value = getattr(self, state)
+                if value is not None:
+                    d[state] = value
+            return d
+
+    ##############################################
+
+    def merge(self, item):
+
+        for state in self.STATES:
+            if hasattr(item, state):
+                value = getattr(item, state)
+                if state == 'transform':
+                    if value is not None:
+                        self.transform = value * self.transform
+                elif state == 'style':
+                    pass
+                else:
+                    setattr(self, state, value)
+
+        # Merge style
+        style = getattr(item, 'style', None)
+        if style is not None:
+            for pair in style.split(';'):
+                state, value = [x.strip() for x in pair.split(':')]
+                state = state.replace('-', '_')
+                if value == 'none':
+                    value = None
+                setattr(self, state, value)
+
+        return self
+
+    ##############################################
+
+    def __str__(self):
+        return str(self.to_dict())
+
+####################################################################################################
+
+class RenderStateStack:
+
     ##############################################
 
     def __init__(self):
 
-        self._transformations = [AffineTransformation2D.Identity()]
+        self._stack = [RenderState()]
 
     ##############################################
 
     @property
-    def is_identity_transform(self):
-        return len(self._transformations) == 0
-
-    @property
-    def transform(self):
-        return self._transformations[-1]
+    def state(self):
+        return self._stack[-1]
 
     ##############################################
 
-    def push_transformation(self, transformation):
-        new_transformation = transformation * self.transform
-        self._transformations.append(new_transformation)
+    def push(self, kwargs):
+        new_state = self.state.clone()
+        new_state.merge(kwargs)
+        self._stack.append(new_state)
 
-    def pop_transformation(self):
-        self._transformations.pop()
+    ##############################################
+
+    def pop(self):
+        self._stack.pop()
 
 ####################################################################################################
 
@@ -124,12 +202,22 @@ class SvgDispatcher:
 
     ##############################################
 
-    def __init__(self, reader, root):
+    def __init__(self, reader):
 
         self._reader =reader
-        self._state = RenderState()
+        self.reset()
+        # self.on_root(root)
 
-        self.on_root(root)
+    ##############################################
+
+    def reset(self):
+        self._state_stack = RenderStateStack()
+
+    ##############################################
+
+    @property
+    def state(self):
+        return self._state_stack.state
 
     ##############################################
 
@@ -170,17 +258,18 @@ class SvgDispatcher:
         # self._logger.info('Group: {}\n{}'.format(group.id, group))
         self._reader.on_group(group)
 
-        if group.transform is not None:
-            self._state.push_transformation(group.transform)
+        self._state_stack.push(group)
+        self._logger.info('State:\n' + str(self.state))
 
         self.on_root(element)
 
     ##############################################
 
     def on_graphic_item(self, element):
+
         item = self.from_xml(element)
         # self._logger.info('Item: {}\n{}'.format(item.id, item))
-        self._reader.on_group(item)
+        self._reader.on_graphic_item(item)
 
 ####################################################################################################
 
@@ -206,6 +295,10 @@ class SvgFileInternal(XmlFileMixin, SvgFileMixin):
     def __init__(self, path=None):
 
         super().__init__(path)
+
+        # Fixme: API
+        #  purpose of dispatcher, where must be state ???
+        self._dispatcher = self.__dispatcher_cls__(self)
         self._read()
 
     ##############################################
@@ -221,8 +314,7 @@ class SvgFileInternal(XmlFileMixin, SvgFileMixin):
         # ></svg>
 
         tree = self.parse()
-        dispatch = self.__dispatcher_cls__(self, tree)
-        # Fixme: ...
+        self._dispatcher.on_root(tree)
 
     ##############################################
 
@@ -233,6 +325,8 @@ class SvgFileInternal(XmlFileMixin, SvgFileMixin):
 
     def on_graphic_item(self, item):
         self._logger.info('Item: {}\n{}'.format(item.id, item))
+        state = self._dispatcher.state.clone().merge(item)
+        self._logger.info('Item State:\n' + str(state))
 
 ####################################################################################################
 

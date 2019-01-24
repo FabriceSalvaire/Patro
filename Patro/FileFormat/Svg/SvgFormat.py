@@ -128,69 +128,76 @@ class IdMixin:
 ####################################################################################################
 
 ####################################################################################################
-#
-# Presentation Attributes
-#  alignment-baseline
-#  baseline-shift
-#  clip
-#  clip-path
-#  clip-rule
-#  color
-#  color-interpolation
-#  color-interpolation-filters
-#  color-profile
-#  color-rendering
-#  cursor
-#  direction
-#  display
-#  dominant-baseline
-#  enable-background
-#  fill
-#  fill-opacity
-#  fill-rule
-#  filter
-#  flood-color
-#  flood-opacity
-#  font-family
-#  font-size
-#  font-size-adjust
-#  font-stretch
-#  font-style
-#  font-variant
-#  font-weight
-#  glyph-orientation-horizontal
-#  glyph-orientation-vertical
-#  image-rendering
-#  kerning
-#  letter-spacing
-#  lighting-color
-#  marker-end
-#  marker-mid
-#  marker-start
-#  mask
-#  opacity
-#  overflow
-#  pointer-events
-#  shape-rendering
-#  stop-color
-#  stop-opacity
-#  stroke
-#  stroke-dasharray
-#  stroke-dashoffset
-#  stroke-linecap
-#  stroke-linejoin
-#  stroke-miterlimit
-#  stroke-opacity
-#  stroke-width
-#  text-anchor
-#  text-decoration
-#  text-rendering
-#  unicode-bidi
-#  visibility
-#  word-spacing
-#  writing-mode
-#
-####################################################################################################
+
+class PresentationAttributes:
+
+    # https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute
+
+    # Fixme: type !!!
+
+    alignment_baseline = None # check
+    baseline_shift = None # check
+    clip = None # check
+    clip_path = None # check
+    clip_rule = None # check
+    color = None # check
+    color_interpolation = None # check
+    color_interpolation_filters = None # check
+    color_profile = None # check
+    color_rendering = None # check
+    cursor = None # check
+    direction = None # check
+    display = None # check
+    dominant_baseline = None # check
+    enable_background = None # check
+    fill = None
+    fill_opacity = 1
+    fill_rule = 'nonzero'
+    #! filter = None # check
+    flood_color = None # check
+    flood_opacity = None # check
+    font_family = None # check
+    font_size = None # check
+    font_size_adjust = None # check
+    font_stretch = None # check
+    font_style = None # check
+    font_variant = None # check
+    font_weight = None # check
+    glyph_orientation_horizontal = None # check
+    glyph_orientation_vertical = None # check
+    image_rendering = None # check
+    kerning = None # check
+    letter_spacing = None # check
+    lighting_color = None # check
+    marker_end = None # check
+    marker_mid = None # check
+    marker_start = None # check
+    mask = None # check
+    opacity = 1
+    overflow = None # check
+    paint_order = None
+    pointer_events = None # check
+    shape_rendering = None # check
+    stop_color = None # check
+    stop_opacity = None # check
+    stroke = None
+    stroke_dasharray = None # check
+    stroke_dashoffset = None # check
+    stroke_linecap = 'butt'
+    stroke_linejoin = 'miter'
+    stroke_miterlimit = 4
+    stroke_opacity = 1
+    stroke_width = 1 # px
+    style = None
+    text_anchor = None # check
+    text_decoration = None # check
+    text_rendering = None # check
+    transform = AffineTransformation2D.Identity()
+    unicode_bidi = None # check
+    vector_effect = None
+    visibility = None # check
+    word_spacing = None # check
+    writing_mode = None # check
 
 ####################################################################################################
 
