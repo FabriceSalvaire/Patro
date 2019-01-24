@@ -139,16 +139,38 @@ pygments_style = 'sphinx'
 # Options for Autodoc
 #
 
+# http://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html
+
 # Show both class-level docstring and __init__ docstring in class documentation
 autoclass_content = 'both'
-autodoc_default_flags = [
-    'members',
-    'undoc-members',
-    # 'private-members',
-    # 'special-members',
-    # 'inherited-members',
-    # 'show-inheritance',
-    ]
+
+autodoc_member_order = 'alphabetical' # groupwise bysource
+
+# autodoc_default_flags = [
+#     'members',
+#     'undoc-members',
+#
+#     # 'members',
+#     # 'undoc-members',
+#     # 'private-members',
+#     # 'special-members',
+#     # 'inherited-members',
+#     # 'show-inheritance',
+#     # 'ignore-module-all',
+#     # 'exclude-members',
+# ]
+
+autodoc_default_options = {
+    'members': None,
+    # 'member-order': 'alphabetical' ,
+    'undoc-members': None,
+    # 'private-members': ,
+    # 'special-members': ,
+    # 'inherited-members': ,
+    # 'show-inheritance': ,
+    'ignore-module-all': None,
+    # 'exclude-members': ,
+}
 
 ####################################################################################################
 #
