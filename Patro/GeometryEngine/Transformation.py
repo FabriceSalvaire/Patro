@@ -18,9 +18,70 @@
 #
 ####################################################################################################
 
-"""Module to implement transformations like scale, rotation and translation.
+r"""Module to implement transformations like scale, rotation and translation.
+
+Transformation matrices
+-----------------------
+
+To transform a vector, we multiply the vector with a transformation matrix
+
+.. math::
+     \begin{bmatrix} x' \\ y' \end{bmatrix} = \mathbf{T} \begin{bmatrix} x \\ y \end{bmatrix}
+
+Usual transformation matrices in 2D are
+
+.. math::
+    \begin{align}
+    \mathbf{Id} &= \begin{bmatrix}
+      1 & 0 \\
+      0 & 1
+    \end{bmatrix} \\[1em]
+    \mathbf{Scale}(s_x, s_y) &= \begin{bmatrix}
+       s_x & 0 \\
+       0   & s_y
+    \end{bmatrix} \\[1em]
+    \mathbf{Rotation}(\theta) &= \begin{bmatrix}
+       \cos\theta & \sin\theta \\
+      -\sin\theta & \cos\theta
+    \end{bmatrix} \\[1em]
+    \end{align}
+
+For translation and affine transformation, we must introduce the concept of homogeneous coordinate
+which add a virtual third dimension:
+
+.. math::
+    \mathbf{V} = \begin{bmatrix}
+       x \\
+       y \\
+       1
+    \end{bmatrix}
+
+Then the translation and affine transformation matrix are expressed as:
+
+.. math::
+    \begin{align}
+    \mathbf{Translation}(t_x, t_y) &= \begin{bmatrix}
+       1 & 0 & t_x \\
+       0 & 1 & t_y \\
+       0 & 0 & 1
+    \end{bmatrix} \\[1em]
+    \mathbf{Generic} &= \begin{bmatrix}
+       r_{11} & r_{12} & t_x \\
+       r_{12} & r_{22} & t_y \\
+       0 & 0 & 1
+    \end{bmatrix}
+    \end{align}
+
+To compose transformations, we must multiply the transformations in this order:
+
+.. math::
+     \mathbf{T} = \mathbf{T_n} \ldots \mathbf{T_2} \mathbf{T_1}
+
+Note the matrix multiplication is not commutative.
 
 """
+
+# Fixme: check composition order !!!
 
 ####################################################################################################
 
@@ -60,6 +121,11 @@ class TransformationType(Enum):
 
 ####################################################################################################
 
+class IncompatibleArrayDimension(ValueError):
+    pass
+
+####################################################################################################
+
 class Transformation:
 
     __dimension__ = None
@@ -79,12 +145,18 @@ class Transformation:
             if self.same_dimension(obj):
                 array = obj.array # *._m
             else:
-                raise ValueError
+                raise IncompatibleArrayDimension
         elif isinstance(obj, np.ndarray):
             if obj.shape == (self.__size__, self.__size__):
                 array = obj
             else:
-                raise ValueError
+                raise IncompatibleArrayDimension
+        elif isinstance(obj, (list, tuple)):
+            if len(obj) == self.__size__ **2:
+                array = np.array(obj)
+                array.shape = (self.__size__, self.__size__)
+            else:
+                raise IncompatibleArrayDimension
         else:
             array = np.array((self.__size__, self.__size__))
             array[...] = obj
@@ -125,13 +197,36 @@ class Transformation:
     def same_dimension(self, other):
         return self.__size__ == other.dimension
 
+    ##############################################
+
+    def _mul_type(self, obj):
+
+        # Fixme: check matrix value ???
+        #   usage identity/rotation, scale/parity test
+        #   metric test ?
+        # if t in (parity, xparity, yparity) t*t = Id
+        # if t in (rotation, scale) t*t = t
+
+        if self._type == obj._type:
+            if self._type in (
+                    TransformationType.Parity,
+                    TransformationType.XParity,
+                    TransformationType.YParity
+            ):
+                return TransformationType.Identity
+            elif self._type not in (TransformationType.Rotation, TransformationType.Scale):
+                return TransformationType.Generic
+        else: # shear, generic
+            return TransformationType.Generic
+
     #######################################
 
     def __mul__(self, obj):
 
         if isinstance(obj, Transformation):
+            # Fixme: order ???
             array = np.matmul(self._m, obj.array)
-            return self.__class__(array)
+            return self.__class__(array, self._mul_type(obj))
         elif isinstance(obj, Vector2D):
             array = np.matmul(self._m, np.transpose(obj.v))
             return Vector2D(array)
@@ -152,21 +247,9 @@ class Transformation:
 
         if isinstance(obj, Transformation):
             if obj._type != TransformationType.Identity:
+                # Fixme: order ???
                 self._m = np.matmul(self._m, obj.array)
-                # Fixme: check matrix value ???
-                #   usage identity/rotation, scale/parity test
-                #   metric test ?
-                # if t in (parity, xparity, yparity) t*t = Id
-                # if t in (rotation, scale) t*t = t
-                if self._type == obj._type:
-                    if self._type in (TransformationType.Parity,
-                                      TransformationType.XParity,
-                                      TransformationType.YParity):
-                        self._type = TransformationType.Identity
-                    elif self._type not in (TransformationType.Rotation, TransformationType.Scale):
-                        self._type = TransformationType.Generic
-                else: # shear, generic
-                    self._type = TransformationType.Generic
+                self._type = self._mul_type(obj)
         else:
             raise ValueError
 
