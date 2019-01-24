@@ -1,3 +1,6 @@
 [submodule "non-public-submodule"]
 	path = non-public-submodule
 	url = ./non-public-submodule
+[submodule "examples/data"]
+	path = examples/data
+	url = git@github.com:FabriceSalvaire/Patro-data.git
