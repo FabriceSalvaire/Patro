@@ -337,9 +337,15 @@ class SvgFileInternal(XmlFileMixin, SvgFileMixin):
     ##############################################
 
     def on_graphic_item(self, item):
+
         self._logger.info('Item: {}\n{}'.format(item.id, item))
         state = self._dispatcher.state.clone().merge(item)
         self._logger.info('Item State:\n' + str(state))
+
+        # if isinstance(item, SvgFormat.Path):
+        #     path = item.path_data
+        #     for part in path:
+        #         print(part)
 
 ####################################################################################################
 

@@ -66,7 +66,8 @@ __all__ = [
 
 ####################################################################################################
 
-# import logging
+import logging
+
 from Patro.Common.Xml.Objectivity import (
     # BoolAttribute,
     IntAttribute, FloatAttribute,
@@ -76,8 +77,14 @@ from Patro.Common.Xml.Objectivity import (
     TextXmlObjectAdaptator,
 )
 
+# Fixme: should we mix SVG format and ... ???
+from Patro.GeometryEngine.Path import Path2D
 from Patro.GeometryEngine.Transformation import AffineTransformation2D
 from Patro.GeometryEngine.Vector import Vector2D
+
+####################################################################################################
+
+_module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
@@ -944,6 +951,8 @@ class PathDataAttribute(StringAttribute):
 
     COMMANDS = ''.join(NUMBER_OF_ARGS.keys())
 
+    _logger = _module_logger.getChild('PathDataAttribute')
+
     ##############################################
 
     @classmethod
@@ -984,7 +993,12 @@ class PathDataAttribute(StringAttribute):
             commands.append((command, points))
             i = next_i
 
-        return commands
+        # return commands
+        try:
+            return cls.to_geometry(commands)
+        except NotImplementedError:
+            self._logger.warning('Not Implemented Error on path')
+            return None
 
     ##############################################
 
@@ -997,6 +1011,57 @@ class PathDataAttribute(StringAttribute):
                 path_data += ' '
             path_data += ' '.join(list(command[0]) + [str(x) for x in command[1]])
         return path_data
+
+    ##############################################
+
+    @classmethod
+    def as_vector(cls, args):
+
+        number_of_args = len(args)
+        number_of_vectors = number_of_args // 2
+        if number_of_args != number_of_vectors * 2:
+            raise ValueError('len(args) is not // 2: {}'.format(number_of_args))
+        return [Vector2D(args[i:i+2]) for i in range(0, number_of_args, 2)]
+
+    ##############################################
+
+    @classmethod
+    def to_geometry(cls, commands):
+
+        cls._logger.info('Path:\n' + str(commands))
+        path = None
+        for command, args in commands:
+            command_lower = command.lower()
+            is_lower = command_lower == command
+            if is_lower:
+                cls._logger.warning('incremental command')
+            if path is None:
+                if command_lower != 'm':
+                    raise NameError('Path must start with m')
+                # Fixme: m ???
+                path = Path2D(args) # Vector2D()
+            else:
+                if command_lower == 'l':
+                    path.line_to(args)
+                elif command_lower == 'h':
+                    path.horizontal_to(*args)
+                elif command_lower == 'v':
+                    path.vertical_to(*args)
+                elif command_lower == 'c':
+                    print(args)
+                    path.cubic_to(*cls.as_vector(args))
+                elif command_lower == 's':
+                    raise NotImplementedError
+                elif command_lower == 'q':
+                    path.quadratic_to(*cls.as_vector(args))
+                elif command_lower == 't':
+                    raise NotImplementedError
+                elif command_lower == 'a':
+                    raise NotImplementedError
+                elif command_lower == 'z':
+                    path.close()
+
+        return path
 
 ####################################################################################################
 
