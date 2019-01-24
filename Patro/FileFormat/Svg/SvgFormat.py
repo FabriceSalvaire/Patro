@@ -76,8 +76,8 @@ from Patro.Common.Xml.Objectivity import (
     TextXmlObjectAdaptator,
 )
 
-# from Patro.GeometryEngine.Vector import Vector2D
 from Patro.GeometryEngine.Transformation import AffineTransformation2D
+from Patro.GeometryEngine.Vector import Vector2D
 
 ####################################################################################################
 
@@ -439,13 +439,59 @@ class TransformAttribute(StringAttribute):
                 values = [float(x) for x in value[pos0+1:-1].split(',')]
                 transforms.append((transform_type, values))
                 # Fixme:
-            return transforms
+
+            # return transforms
+            return cls.to_python(transforms, concat=True)
 
     ##############################################
 
     @classmethod
     def to_xml(cls, value):
-        return 'matrix({})'.format(' '.join([str(x) for x in value.to_list()])) # Fixme: to func
+        # Fixme: wrong if value is AffineTransformation2D !!!
+        # Fixme: to func
+        return 'matrix({})'.format(' '.join([str(x) for x in value.to_list()]))
+
+    ##############################################
+
+    @classmethod
+    def to_python(cls, transforms, concat=True):
+
+        def complete(values, size):
+            return values + [0]*(size - len(values))
+
+        global_transform = AffineTransformation2D.Identity()
+        py_transforms = []
+        for name, values in transforms:
+            transform = None
+            if name == 'matrix':
+                array = [values[i] for i in (0, 2, 4, 1, 3, 5)] + [0, 0, 1]
+                transform = AffineTransformation2D(array)
+            elif name == 'translate':
+                vector = Vector2D(complete(values, 2))
+                transform = AffineTransformation2D.Translation(vector)
+            elif name == 'scale':
+                transform = AffineTransformation2D.Scale(*values)
+            elif name == 'rotate':
+                angle, *vector = complete(values, 2)
+                vector = Vector2D(vector)
+                transform = AffineTransformation2D.RotationAt(vector, angle)
+            elif name == 'skewX':
+                angle = values[0]
+                raise NotImplementedError
+            elif name == 'skewY':
+                angle = values[0]
+                raise NotImplementedError
+            else:
+                raise NotImplementedError
+            if concat:
+                global_transform = transform * global_transform
+            else:
+                py_transforms.append(transform)
+
+        if concat:
+            return global_transform
+        else:
+            return py_transforms
 
 ####################################################################################################
 
@@ -894,20 +940,20 @@ class PathDataAttribute(StringAttribute):
     ##############################################
 
     @classmethod
-    def from_xml(cls, value):
+    def from_xml(cls, svg_path):
 
         # Replace comma separator by space
-        value = value.replace(',', ' ')
+        cleaned_svg_path = svg_path.replace(',', ' ')
         # Add space after letter
         data_path = ''
-        for c in value:
+        for c in cleaned_svg_path:
             data_path += c
             if c.isalpha:
                 data_path += ' '
-        # Convert float
+        # Convert float values
         parts = []
-        for part in split_space_list(value):
-            if not(len(part) == 1 and part.isalpha):
+        for part in split_space_list(cleaned_svg_path):
+            if not(len(part) == 1 and part.isalpha()):
                 part = float(part)
             parts.append(part)
 
@@ -921,7 +967,7 @@ class PathDataAttribute(StringAttribute):
                 command = part
                 command_lower = command.lower()
                 if command_lower not in cls.COMMANDS:
-                    raise ValueError('Invalid path instruction')
+                    raise ValueError("Invalid path instruction: '{}' in\n{}".format(command, svg_path))
                 number_of_args = cls.NUMBER_OF_ARGS[command_lower]
             # else repeated instruction
             next_i = i + number_of_args + 1

@@ -18,19 +18,24 @@
 #
 ####################################################################################################
 
+__all__ = ['find_data_path']
+
 ####################################################################################################
 
 from pathlib import Path
-
-from Patro.Common.Logging import Logging
-Logging.setup_logging()
-
-from Patro.FileFormat.Svg.SvgFile import SvgFile
-from PatroExample import find_data_path
+import os
 
 ####################################################################################################
 
-# svg_path = find_data_path('patterns-svg', 'veravenus-little-bias-dress.pattern-a0.svg')
-svg_path = find_data_path('svg', 'demo.svg')
+_root_path = Path(__file__).resolve().parents[2]
+_data_path = _root_path.joinpath('examples', 'data')
+# print(_root_path)
 
-svg_file = SvgFile(svg_path)
+####################################################################################################
+
+def find_data_path(*args):
+    path =  _data_path.joinpath(*args)
+    if path.exists():
+        return path
+    else:
+        raise NameError("File {} don't exists".format(path))

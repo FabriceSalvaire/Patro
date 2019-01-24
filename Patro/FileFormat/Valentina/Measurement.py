@@ -75,7 +75,7 @@ class VitFileInternal(XmlFileMixin):
 
     def __init__(self, path):
 
-        XmlFileMixin.__init__(self, path)
+        super().__init__(path)
         self.measurements = ValentinaMeasurements()
         self.read()
 

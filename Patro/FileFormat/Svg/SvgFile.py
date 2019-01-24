@@ -27,6 +27,7 @@ Import Algorithm:
 * line with a small polygon at extremities is a grainline
 * expect pieces are delimited by a path
 * check for paths sharing vertexes and stroke style
+
 """
 
 ####################################################################################################
@@ -36,6 +37,7 @@ import logging
 from lxml import etree
 
 from Patro.Common.Xml.XmlFile import XmlFileMixin
+from Patro.GeometryEngine.Transformation import AffineTransformation2D
 from . import SvgFormat
 
 ####################################################################################################
@@ -50,12 +52,23 @@ class RenderState:
 
     def __init__(self):
 
-        self._transformations = []
+        self._transformations = [AffineTransformation2D.Identity()]
+
+    ##############################################
+
+    @property
+    def is_identity_transform(self):
+        return len(self._transformations) == 0
+
+    @property
+    def transform(self):
+        return self._transformations[-1]
 
     ##############################################
 
     def push_transformation(self, transformation):
-        self._transformations.append(transformation)
+        new_transformation = transformation * self.transform
+        self._transformations.append(new_transformation)
 
     def pop_transformation(self):
         self._transformations.pop()
@@ -107,10 +120,13 @@ class SvgDispatcher:
         # 'use',
     ]
 
+    _logger = _module_logger.getChild('SvgDispatcher')
+
     ##############################################
 
-    def __init__(self, root):
+    def __init__(self, reader, root):
 
+        self._reader =reader
         self._state = RenderState()
 
         self.on_root(root)
@@ -118,7 +134,6 @@ class SvgDispatcher:
     ##############################################
 
     def element_tag(self, element):
-
         tag = element.tag
         if '{' in tag:
             tag = tag[tag.find('}')+1:]
@@ -131,7 +146,7 @@ class SvgDispatcher:
         tag = self.element_tag(element)
         tag_class = self.__TAGS__[tag]
         if tag_class is not None:
-            print(element, tag_class)
+            # self._logger.info('\n{}  /  {}'.format(element, tag_class))
             return tag_class(element)
         else:
             raise NotImplementedError
@@ -149,44 +164,49 @@ class SvgDispatcher:
 
     ##############################################
 
-    def on_group(self, group):
+    def on_group(self, element):
 
-        self.on_root(group)
+        group = self.from_xml(element)
+        # self._logger.info('Group: {}\n{}'.format(group.id, group))
+        self._reader.on_group(group)
+
+        if group.transform is not None:
+            self._state.push_transformation(group.transform)
+
+        self.on_root(element)
 
     ##############################################
 
     def on_graphic_item(self, element):
-
         item = self.from_xml(element)
-        print(item)
+        # self._logger.info('Item: {}\n{}'.format(item.id, item))
+        self._reader.on_group(item)
 
 ####################################################################################################
 
-class SvgFile(XmlFileMixin):
-
-    """Class to read/write SVG file."""
-
-    _logger = _module_logger.getChild('SvgFile')
+class SvgFileMixin:
 
     SVG_DOCTYPE = '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">'
     SVG_xmlns = 'http://www.w3.org/2000/svg'
     SVG_xmlns_xlink = 'http://www.w3.org/1999/xlink'
     SVG_version = '1.1'
 
+####################################################################################################
+
+class SvgFileInternal(XmlFileMixin, SvgFileMixin):
+
+    """Class to read/write SVG file."""
+
+    _logger = _module_logger.getChild('SvgFile')
+
+    __dispatcher_cls__ = SvgDispatcher
+
     ##############################################
 
     def __init__(self, path=None):
 
-        # Fixme: path
-        if path is None:
-            path = ''
-
-        XmlFileMixin.__init__(self, path)
-
-        # Fixme:
-        # if path is not None:
-        if path != '':
-            self._read()
+        super().__init__(path)
+        self._read()
 
     ##############################################
 
@@ -200,14 +220,42 @@ class SvgFile(XmlFileMixin):
         #      width="1000.0pt" height="1000.0" viewBox="0 0 1000.0 1000.0"
         # ></svg>
 
-        tree = self._parse()
-        dispatch = SvgDispatcher(tree)
+        tree = self.parse()
+        dispatch = self.__dispatcher_cls__(self, tree)
         # Fixme: ...
 
     ##############################################
 
+    def on_group(self, group):
+        self._logger.info('Group: {}\n{}'.format(group.id, group))
+
+    ##############################################
+
+    def on_graphic_item(self, item):
+        self._logger.info('Item: {}\n{}'.format(item.id, item))
+
+####################################################################################################
+
+class SvgFileWriter(SvgFileMixin):
+
+    """Class to write a SVF file."""
+
+    _logger = _module_logger.getChild('SvgFileWriter')
+
+    COMMENT = 'Pattern created with Patro (https://github.com/FabriceSalvaire/Patro)'
+
+    ##############################################
+
+    def __init__(self, path, paper, root_tree, transformation=None):
+
+        self._path = str(path)
+
+        self._write(paper, root_tree, transformation)
+
+    ##############################################
+
     @classmethod
-    def new_root(cls, paper):
+    def _new_root(cls, paper):
 
         nsmap = {
             None: cls.SVG_xmlns,
@@ -223,15 +271,15 @@ class SvgFile(XmlFileMixin):
         attrib['viewBox'] = '0 0 {:.3f} {:.3f}'.format(paper.width, paper.height)
 
         # Fixme: from conf
-        root.append(etree.Comment('Pattern created with Patro (https://github.com/FabriceSalvaire/Patro)'))
+        root.append(etree.Comment(cls.COMMENT))
 
         return root
 
     ##############################################
 
-    def write(self, paper, root_tree, transformation=None, path=None):
+    def _write(self, paper, root_tree, transformation=None):
 
-        root = self.new_root(paper)
+        root = self._new_root(paper)
 
         # Fixme: implement tree, look at lxml
         if transformation:
@@ -244,14 +292,20 @@ class SvgFile(XmlFileMixin):
         for element in root_tree:
             group.append(element.to_xml())
 
-        if path is None:
-            path = self.path
-
         tree = etree.ElementTree(root)
-        tree.write(str(path),
+        tree.write(self._path,
                    pretty_print=True,
                    xml_declaration=True,
                    encoding='utf-8',
                    standalone=False,
                    doctype=self.SVG_DOCTYPE,
         )
+
+####################################################################################################
+
+class SvgFile:
+
+    ##############################################
+
+    def __init__(self, path):
+        self._interval = SvgFileInternal(path)
