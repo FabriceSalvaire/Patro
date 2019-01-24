@@ -56,8 +56,24 @@ class RenderState:
     ##############################################
 
     @classmethod
-    def pytonify_keys(cls, kwargs):
-        return {key.replace('-', '_'):value for key, value in kwargs.items()}
+    def to_python(cls, value):
+
+        # Fixme: move ???
+
+        if isinstance(value, str):
+            if value == 'none':
+                return None
+            else:
+                try:
+                    float_value = float(value)
+                    if '.' in value:
+                        return float_value
+                    else:
+                        return int(float_value)
+                except ValueError:
+                    pass
+
+        return value
 
     ##############################################
 
@@ -66,10 +82,9 @@ class RenderState:
         # Init from item else use default value
         for state in self.STATES:
             if item is not None and hasattr(item, state):
-                src = item
+                value = self.to_python(getattr(item, state))
             else:
-                src = SvgFormat.PresentationAttributes
-            value = getattr(src, state)
+                value = getattr(SvgFormat.PresentationAttributes, state)
             setattr(self, state, value)
 
     ##############################################
@@ -104,7 +119,7 @@ class RenderState:
                 elif state == 'style':
                     pass
                 else:
-                    setattr(self, state, value)
+                    setattr(self, state, self.to_python(value))
 
         # Merge style
         style = getattr(item, 'style', None)
@@ -112,9 +127,7 @@ class RenderState:
             for pair in style.split(';'):
                 state, value = [x.strip() for x in pair.split(':')]
                 state = state.replace('-', '_')
-                if value == 'none':
-                    value = None
-                setattr(self, state, value)
+                setattr(self, state, self.to_python(value))
 
         return self
 
