@@ -24,8 +24,11 @@
 
 ####################################################################################################
 
-
-__class__ = ['GraphicScene']
+__all__ = [
+    'GraphicScene',
+    # sphinx
+    'GraphicSceneScope',
+]
 
 ####################################################################################################
 
@@ -33,6 +36,18 @@ import logging
 
 import rtree
 
+from Patro.GeometryEngine import (
+    Bezier,
+    Conic,
+    Line,
+    Path,
+    Polygon,
+    Polyline,
+    Rectangle,
+    Segment,
+    Spline,
+    Triangle,
+)
 from Patro.GeometryEngine.Transformation import AffineTransformation2D
 from Patro.GeometryEngine.Vector import Vector2D
 from . import GraphicItem
@@ -256,12 +271,104 @@ class GraphicSceneScope:
 
     ##############################################
 
+    def add_geometry(self, item, path_style):
+
+        """Add a geometry primitive"""
+
+        ctor = None
+        points = None
+        args = []
+        args_tail = [path_style]
+        kwargs = dict(user_data=item)
+
+        # Bezier
+        if isinstance(item, Bezier.QuadraticBezier2D):
+            # ctor = self._scene.quadratic_bezier
+            # raise NotImplementedError
+            ctor = self._scene.cubic_bezier
+            points = list(item.to_cubic().points)
+
+        elif isinstance(item, Bezier.CubicBezierItem):
+            ctor = self._scene.cubic_bezier
+
+        # Conic
+        elif isinstance(item, Conic.Circle2D):
+            ctor = self._scene.circle
+            args = [item.radius]
+            if item.domain:
+                kwargs['start_angle'] = item.domain.start
+                kwargs['stop_angle'] = item.domain.stop
+
+        elif isinstance(item, Conic.Ellipse2D):
+            ctor = self._scene.ellipse
+            args = [item.x_radius, item.y_radius, item.angle]
+
+        # Line
+        elif isinstance(item, Line.Line2D):
+            # Fixme: extent ???
+            raise NotImplementedError
+
+        # Path
+        elif isinstance(item, Path.Path2D):
+            raise NotImplementedError
+
+        # Polygon
+        elif isinstance(item, Path.Polygon2D):
+            # Fixme: to path
+            raise NotImplementedError
+
+        # Polyline
+        elif isinstance(item, Polyline.Polyline2D):
+            ctor = self._scene.polyline
+            # fixme: to path
+
+        # Rectangle
+        elif isinstance(item, Rectangle.Rectangle2D):
+            ctor = self._scene.rectangle
+            # Fixme: to path
+
+        # Segment
+        if isinstance(item, Segment.Segment2D):
+            ctor = self._scene.segment
+
+        # Spline
+        elif isinstance(item, Spline.BSpline2D):
+            return self._add_spline(item, path_style)
+
+        # Triangle
+        if isinstance(item, Triangle.Triangle2D):
+            # Fixme: to path
+            raise NotImplementedError
+
+        # Not implemented
+        else:
+            raise NotImplementedError
+
+        if ctor is not None:
+            if points is None:
+                points = list(item.points)
+            return ctor(*points, *args, *args_tail, **kwargs)
+
+    ##############################################
+
+    def add_spline(self, item, path_style):
+        return [
+            self._scene.cubic_bezier(*bezier.points, path_style, user_data=item)
+            for bezier in item.to_bezier()
+        ]
+
+    ##############################################
+
     def bezier_path(self, points, degree, *args, **kwargs):
+
+        """Add a Bézier curve with the given control points and degree"""
 
         if degree == 1:
             method = self.segment
         elif degree == 2:
+            # Fixme:
             method = self.quadratic_bezier
+            raise NotImplementedError
         elif degree == 3:
             method = self.cubic_bezier
         else:
