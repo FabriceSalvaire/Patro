@@ -76,6 +76,8 @@ class GraphicSceneScope:
         'text': GraphicItem.TextItem,
     }
 
+    _logger = _module_logger.getChild('GraphicSceneScope')
+
     ##############################################
 
     def __init__(self, transformation=None):
@@ -98,6 +100,15 @@ class GraphicSceneScope:
     @property
     def transformation(self):
         return self._transformation
+
+    ##############################################
+
+    def __len__(self):
+        return self.number_of_items
+
+    @property
+    def number_of_items(self):
+        return len(self._items)
 
     ##############################################
 
@@ -257,7 +268,8 @@ class GraphicSceneScope:
             try: # Fixme
                 distance = item.distance_to_point(position)
                 # print('distance_to_point {:6.2f} {}'.format(distance, item))
-                if distance <= radius:
+                # Fixme: distance is None
+                if distance is not None and distance <= radius:
                     items.append((distance, item))
             except NotImplementedError:
                 pass
@@ -310,7 +322,7 @@ class GraphicSceneScope:
 
         # Path
         elif isinstance(item, Path.Path2D):
-            raise NotImplementedError
+            self.add_path(item, path_style)
 
         # Polygon
         elif isinstance(item, Path.Polygon2D):
@@ -351,11 +363,47 @@ class GraphicSceneScope:
 
     ##############################################
 
-    def add_spline(self, item, path_style):
+    def add_spline(self, spline, path_style):
         return [
             self._scene.cubic_bezier(*bezier.points, path_style, user_data=item)
-            for bezier in item.to_bezier()
+            for bezier in spline.to_bezier()
         ]
+
+    ##############################################
+
+    def add_path(self, path, path_style):
+
+        items = []
+        for segment in path:
+            if isinstance(segment, Path.LinearSegment):
+                if segment.radius is not None:
+                    arc = segment.bulge_geometry
+                    arc_item = self.circle(
+                        arc.center, arc.radius,
+                        path_style,
+                        start_angle=arc.domain.start,
+                        stop_angle=arc.domain.stop,
+                        user_data=segment,
+                    )
+                    items.append(arc_item)
+                item = self.segment(
+                    *segment.points,
+                    path_style,
+                    user_data=segment,
+                )
+            elif isinstance(segment, Path.QuadraticBezierSegment):
+                item = self.quadratic_bezier(
+                    *segment.points,
+                    path_style,
+                    user_data=segment,
+                )
+            elif isinstance(segment, Path.CubicBezierSegment):
+                item = self.cubic_bezier(
+                    *segment.points,
+                    path_style,
+                    user_data=segment,
+                )
+            items.append(item)
 
     ##############################################
 
