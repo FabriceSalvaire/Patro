@@ -127,7 +127,10 @@ class RenderState:
             for pair in style.split(';'):
                 state, value = [x.strip() for x in pair.split(':')]
                 state = state.replace('-', '_')
-                setattr(self, state, self.to_python(value))
+                if state == 'transform':
+                    self.transform = value * self.transform
+                else:
+                    setattr(self, state, self.to_python(value))
 
         return self
 
@@ -272,7 +275,7 @@ class SvgDispatcher:
         self._reader.on_group(group)
 
         self._state_stack.push(group)
-        self._logger.info('State:\n' + str(self.state))
+        # self._logger.info('State:\n' + str(self.state))
 
         self.on_root(element)
 
@@ -341,11 +344,6 @@ class SvgFileInternal(XmlFileMixin, SvgFileMixin):
         self._logger.info('Item: {}\n{}'.format(item.id, item))
         state = self._dispatcher.state.clone().merge(item)
         self._logger.info('Item State:\n' + str(state))
-
-        # if isinstance(item, SvgFormat.Path):
-        #     path = item.path_data
-        #     for part in path:
-        #         print(part)
 
 ####################################################################################################
 

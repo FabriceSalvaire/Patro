@@ -1028,27 +1028,28 @@ class PathDataAttribute(StringAttribute):
     @classmethod
     def to_geometry(cls, commands):
 
-        cls._logger.info('Path:\n' + str(commands))
+        # cls._logger.info('Path:\n' + str(commands))
         path = None
         for command, args in commands:
             command_lower = command.lower()
-            is_lower = command_lower == command
-            if is_lower:
-                cls._logger.warning('incremental command')
+            absolute = command_lower != command
+            # if is_lower:
+            #     cls._logger.warning('incremental command')
+            #     raise NotImplementedError
             if path is None:
                 if command_lower != 'm':
                     raise NameError('Path must start with m')
                 # Fixme: m ???
                 path = Path2D(args) # Vector2D()
             else:
+                # Fixme: incremental and (q t a) need Path support
                 if command_lower == 'l':
-                    path.line_to(args)
+                    path.line_to(args, absolute=absolute)
                 elif command_lower == 'h':
                     path.horizontal_to(*args)
                 elif command_lower == 'v':
                     path.vertical_to(*args)
                 elif command_lower == 'c':
-                    print(args)
                     path.cubic_to(*cls.as_vector(args))
                 elif command_lower == 's':
                     raise NotImplementedError
