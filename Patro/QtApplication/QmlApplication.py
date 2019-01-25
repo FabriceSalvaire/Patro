@@ -29,9 +29,12 @@ import logging
 import sys
 from pathlib import Path
 
+# Fixme:
+from PyQt5 import QtCore
+
 from QtShim.QtCore import (
     Property, Signal, QObject,
-    Qt, QTimer, QUrl,
+    Qt, QTimer, QUrl
 )
 from QtShim.QtGui import QGuiApplication
 from QtShim.QtQml import qmlRegisterType, QQmlApplicationEngine
@@ -75,7 +78,7 @@ class QmlApplication(QObject):
     @scene.setter
     def scene(self, scene):
         if self._scene is not scene:
-            print('QmlApplication set scene', scene)
+            # print('QmlApplication set scene', scene)
             self._logger.info('set scene') # Fixme: don't print ???
             self._scene = scene
             self.sceneChanged.emit()
@@ -124,6 +127,8 @@ class Application(QObject):
 
         super().__init__()
 
+        QtCore.qInstallMessageHandler(self._message_handler)
+
         self._parse_arguments()
 
         self._appplication = QGuiApplication(sys.argv)
@@ -161,6 +166,24 @@ class Application(QObject):
     @property
     def platform(self):
         return self._platform
+
+    ##############################################
+
+    def _message_handler(self, msg_type, context, msg):
+
+        if msg_type == QtCore.QtDebugMsg:
+            method = self._logger.debug
+        elif msg_type == QtCore.QtInfoMsg:
+            method = self._logger.info
+        elif msg_type == QtCore.QtWarningMsg:
+            method = self._logger.warning
+        elif msg_type in (QtCore.QtCriticalMsg, QtCore.QtFatalMsg):
+            method = self._logger.critical
+
+        # local_msg = msg.toLocal8Bit()
+        # localMsg.constData()
+        file_path = Path(context.file)
+        method('{1} {3} — {0}'.format(msg, file_path.name, context.line, context.function))
 
     ##############################################
 
@@ -270,13 +293,16 @@ class Application(QObject):
         """
 
         script_path = Path(script_path).absolute()
-        self._logger.info('Execute user script: {}'.format(script_path))
+        self._logger.info('Execute user script:\n  {}'.format(script_path))
         try:
             source = open(script_path).read()
         except FileNotFoundError:
             self._logger.info('File {} not found'.format(script_path))
             sys.exit(1)
-        bytecode = compile(source, script_path, 'exec')
-        exec(bytecode, {'application':self})
+        try:
+            bytecode = compile(source, script_path, 'exec')
+            exec(bytecode, {'application':self})
+        except Exception as exception:
+            self._logger.info(exception)
+            sys.exit(1)
         self._logger.info('User script done')
-
