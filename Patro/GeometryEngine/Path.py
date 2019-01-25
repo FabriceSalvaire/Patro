@@ -505,7 +505,7 @@ class CubicBezierSegment(PathPart, TwoPointsMixin):
     ##############################################
 
     def apply_transformation(self, transformation):
-        TwoPointsMixin.transform(self, transformation)
+        TwoPointsMixin.apply_transformation(self, transformation)
         self._point3 = transformation * self._point3
 
     ##############################################
@@ -643,8 +643,8 @@ class Path2D(Primitive2DMixin, Primitive1P):
 
     ##############################################
 
-    def line_to(self, point, radius=None):
-        return self._add_part(PathSegment, point, radius)
+    def line_to(self, point, radius=None, absolute=False):
+        return self._add_part(PathSegment, point, radius, absolute=absolute)
 
     def close(self, radius=None):
         # Fixme: identify as close for SVG export

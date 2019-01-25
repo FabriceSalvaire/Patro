@@ -622,7 +622,8 @@ class QuadraticBezier2D(BezierMixin2D, Primitive3P):
         if not t:
             return None
         elif len(t) > 1:
-            raise NameError("Found more than on root")
+            # Fixme: crash application !!!
+            raise NameError("Found more than one root")
         else:
             return self.point_at_t(t)
 

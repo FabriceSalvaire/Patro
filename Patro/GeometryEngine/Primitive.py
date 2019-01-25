@@ -158,7 +158,8 @@ class Primitive:
         obj = self.clone() if clone else self
         # for point in obj.points:
         #     point *= transformation # don't work
-        obj.apply_transformation(transformation)
+        if not transformation.is_identity:
+            obj.apply_transformation(transformation)
         return obj
 
     ##############################################

@@ -182,6 +182,10 @@ class Transformation:
     def type(self):
         return self._type
 
+    @property
+    def is_identity(self):
+        return self._type == TransformationType.Identity
+
     ##############################################
 
     def __repr__(self):
@@ -393,7 +397,8 @@ class AffineTransformation2D(AffineTransformation):
             return obj.__class__(array)
         elif isinstance(obj, Vector2D):
             array = np.matmul(self._m, HomogeneousVector2D(obj).v)
-            return HomogeneousVector2D(array)
+            # return HomogeneousVector2D(array).to_vector()
+            return Vector2D(array[:2])
         else:
             return super(AffineTransformation, self).__mul__(obj)
 

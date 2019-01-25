@@ -113,7 +113,7 @@ class GraphicPathStyle:
     def line_width_as_float(self):
         line_width = self._line_width
         # Fixme: use scale ?
-        if isinstance(line_width, float):
+        if isinstance(line_width, (int, float)):
             return line_width
         else:
             line_width = line_width.replace('pt', '')

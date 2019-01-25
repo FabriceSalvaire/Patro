@@ -21,6 +21,7 @@
 ####################################################################################################
 
 import logging
+import math
 
 import numpy as np
 
@@ -249,6 +250,7 @@ class QtPainter(Painter):
 
         xinf, xsup = area.x.inf, area.x.sup
         yinf, ysup = area.y.inf, area.y.sup
+        length = min(area.x.length, area.y.length)
 
         color = QColor('black')
         brush = QBrush(color)
@@ -256,7 +258,8 @@ class QtPainter(Painter):
         self._painter.setPen(pen)
         self._painter.setBrush(Qt.NoBrush)
 
-        step = 10
+        step = max(10**int(math.log10(length)), 10)
+        # print('Grid', length, step)
         self._paint_axis_grid(xinf, xsup, yinf, ysup, True, step)
         self._paint_axis_grid(yinf, ysup, xinf, xsup, False, step)
 
@@ -266,7 +269,7 @@ class QtPainter(Painter):
         self._painter.setPen(pen)
         self._painter.setBrush(Qt.NoBrush)
 
-        step = 1
+        step /= 10
         self._paint_axis_grid(xinf, xsup, yinf, ysup, True, step)
         self._paint_axis_grid(yinf, ysup, xinf, xsup, False, step)
 
@@ -509,7 +512,7 @@ class ViewportArea:
         # Fixme: QPointF ???
         self._translation = - QPointF(self._area.x.inf, self._area.y.sup)
 
-        print('_update_viewport_area', self._center, self.scale_mm_by_px, self._area)
+        # print('_update_viewport_area', self._center, self.scale_mm_by_px, self._area)
 
     ##############################################
 
@@ -600,7 +603,7 @@ class QtQuickPaintedSceneItem(QQuickPaintedItem, QtPainter):
 
     def geometryChanged(self, new_geometry, old_geometry):
 
-        print('geometryChanged', new_geometry, old_geometry)
+        # print('geometryChanged', new_geometry, old_geometry)
         self._viewport_area.viewport_size = new_geometry
         # if self._scene:
         #     self._update_transformation()
@@ -641,7 +644,7 @@ class QtQuickPaintedSceneItem(QQuickPaintedItem, QtPainter):
     @scene.setter
     def scene(self, scene):
         if self._scene is not scene:
-            print('QtQuickPaintedSceneItem set scene', scene)
+            # print('QtQuickPaintedSceneItem set scene', scene)
             self._logger.info('set scene') # Fixme: don't print ???
             self._scene = scene
             self._viewport_area.scene = scene
@@ -691,7 +694,7 @@ class QtQuickPaintedSceneItem(QQuickPaintedItem, QtPainter):
 
     @Slot(QPointF, float)
     def zoom_at(self, position, zoom):
-        print('zoom_at', position, zoom)
+        # print('zoom_at', position, zoom)
         scene_position = self._viewport_area.viewport_to_scene(position)
         self._viewport_area.zoom_at(scene_position, zoom)
         self.update()
@@ -726,12 +729,12 @@ class QtQuickPaintedSceneItem(QQuickPaintedItem, QtPainter):
         items = self._scene.item_at(scene_position, radius)
         if items:
             distance, nearest_item = items[0]
-            print('nearest item at {} #{:6.2f} {} {}'.format(scene_position, len(items), distance, nearest_item.user_data))
+            # print('nearest item at {} #{:6.2f} {} {}'.format(scene_position, len(items), distance, nearest_item.user_data))
             nearest_item.selected = True
             # Fixme: z_value ???
             for pair in items[1:]:
                 distance, item = pair
-                print('  {:6.2f} {}'.format(distance, item.user_data))
+                # print('  {:6.2f} {}'.format(distance, item.user_data))
         self.update()
 
 ####################################################################################################
