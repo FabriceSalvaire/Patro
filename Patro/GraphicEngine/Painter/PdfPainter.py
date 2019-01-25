@@ -127,7 +127,7 @@ class ReportlabPainter(PdfPainterBase):
         # self._canvas.setSubject(subject)
 
         bounding_box = scene.bounding_box
-        print(bounding_box, bounding_box.x.length, bounding_box.y.length)
+        # print(bounding_box, bounding_box.x.length, bounding_box.y.length)
         self._canvas.translate(-bounding_box.x.inf*cm, -bounding_box.y.inf*cm)
         self._canvas.translate(1*cm, 1*cm) # Fixme: margin
 

@@ -221,7 +221,7 @@ class Polyline:
                     stop_angle += 360
                 if vertex1.bulge < 0:
                     start_angle, stop_angle = stop_angle, start_angle
-                print('bulb', vertex1, vertex2, vertex1.bulge, start_angle, stop_angle)
+                # print('bulb', vertex1, vertex2, vertex1.bulge, start_angle, stop_angle)
                 arc.domain = AngularDomain(start_angle, stop_angle)
                 # arc = Circle2D(center, vertex1.bulge_radius, domain=AngularDomain(start_angle, stop_angle))
                 items.append(arc)
