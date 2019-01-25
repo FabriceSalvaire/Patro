@@ -958,6 +958,8 @@ class PathDataAttribute(StringAttribute):
     @classmethod
     def from_xml(cls, svg_path):
 
+        # cls._logger.debug('SVG path:\n'+ svg_path)
+
         # Replace comma separator by space
         cleaned_svg_path = svg_path.replace(',', ' ')
         # Add space after letter
@@ -985,9 +987,10 @@ class PathDataAttribute(StringAttribute):
                 if command_lower not in cls.COMMANDS:
                     raise ValueError("Invalid path instruction: '{}' in\n{}".format(command, svg_path))
                 number_of_args = cls.NUMBER_OF_ARGS[command_lower]
+                i += 1 # move to first arg
             # else repeated instruction
-            next_i = i + number_of_args + 1
-            values = parts[i+1:next_i]
+            next_i = i + number_of_args
+            values = parts[i:next_i]
             #! points = [Vector2D(values[2*i], values[2*i+1]) for i in range(number_of_args / 2)]
             points = values
             commands.append((command, points))
@@ -1028,7 +1031,7 @@ class PathDataAttribute(StringAttribute):
     @classmethod
     def to_geometry(cls, commands):
 
-        # cls._logger.info('Path:\n' + str(commands))
+        # cls._logger.debug('Path:\n' + str(commands))
         path = None
         for command, args in commands:
             command_lower = command.lower()
