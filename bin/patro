@@ -22,8 +22,12 @@
 
 ####################################################################################################
 
+import logging
 from Patro.Common.Logging import Logging
 Logging.setup_logging()
+
+_module_logger = logging.getLogger(__name__)
+_module_logger.info('Started Patro')
 
 ####################################################################################################
 
