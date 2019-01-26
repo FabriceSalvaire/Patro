@@ -28,6 +28,7 @@ __all__ = ['Polyline2D']
 
 ####################################################################################################
 
+from .Path import Path2D
 from .Primitive import PrimitiveNP, Primitive2DMixin
 from .Segment import Segment2D
 
@@ -74,3 +75,13 @@ class Polyline2D(Primitive2DMixin, PrimitiveNP):
             if distance is None or edge_distance < distance:
                 distance = edge_distance
         return distance
+
+    ##############################################
+
+    def to_path(self):
+
+        path = Path2D(self.start_point)
+        for point in self.iter_from_second_point():
+            path.line_to(point)
+
+        return path

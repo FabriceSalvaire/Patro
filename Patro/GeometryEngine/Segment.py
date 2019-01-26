@@ -76,7 +76,7 @@ class Segment2D(Primitive2DMixin, Primitive2P):
 
     def to_line(self):
         # Fixme: cache
-        return Line2D.from_two_points(self._p1, self._p0)
+        return Line2D.from_two_points(self._p0, self._p1)
 
     ##############################################
 
@@ -116,7 +116,7 @@ class Segment2D(Primitive2DMixin, Primitive2P):
 
         s1, s2 = line1.intersection_abscissae(line2)
         if s1 is None:
-            return None
+            return None, None
         else:
             intersect = (0 <= s1 <= 1) and (0 <= s2 <= 1)
             return self.interpolate(s1), intersect

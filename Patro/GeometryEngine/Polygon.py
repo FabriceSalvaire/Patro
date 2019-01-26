@@ -19,6 +19,7 @@
 ####################################################################################################
 
 """Module to implement polygon.
+
 """
 
 ####################################################################################################
@@ -29,14 +30,18 @@ __all__ = ['Polygon2D']
 
 import math
 
-from Patro.Common.Math.Functions import sign
-from .Primitive import PrimitiveNP, Primitive2DMixin
+import numpy as np
+
+from .Primitive import PrimitiveNP, ClosedPrimitiveMixin, PathMixin, Primitive2DMixin
 from .Segment import Segment2D
 from .Triangle import Triangle2D
+from Patro.Common.Math.Functions import sign
 
 ####################################################################################################
 
-class Polygon2D(Primitive2DMixin, PrimitiveNP):
+# Fixme: PrimitiveNP last ???
+
+class Polygon2D(Primitive2DMixin, ClosedPrimitiveMixin, PathMixin, PrimitiveNP):
 
     """Class to implements 2D Polygon."""
 
@@ -86,11 +91,14 @@ class Polygon2D(Primitive2DMixin, PrimitiveNP):
         self._is_simple = None
         self._is_convex = None
 
-    ##############################################
+        self._area = None
+        # self._cross = None
+        # self._barycenter = None
 
-    @property
-    def is_closed(self):
-        return True
+        # self._major_axis_angle = None
+        self._major_axis = None
+        # self._minor_axis = None
+        # self._axis_ratio = None
 
     ##############################################
 
@@ -106,20 +114,17 @@ class Polygon2D(Primitive2DMixin, PrimitiveNP):
 
     ##############################################
 
-    # barycenter
-    # momentum
-
-    ##############################################
-
     @property
     def edges(self):
 
         if self._edges is None:
+            edges = []
             N = self.number_of_points
             for i in range(N):
                 j = (i+1) % N
                 edge = Segment2D(self._points[i], self._points[j])
-                self._edges.append(edge)
+                edges.append(edge)
+            self._edges = edges
 
         return iter(self._edges)
 
@@ -147,6 +152,7 @@ class Polygon2D(Primitive2DMixin, PrimitiveNP):
                             # two edge intersect
                             # intersections.append(intersection)
                             return False
+        return True
 
     ##############################################
 
@@ -192,29 +198,258 @@ class Polygon2D(Primitive2DMixin, PrimitiveNP):
 
     @property
     def perimeter(self):
-        return sum([edge.magnitude for edge in self.edges])
+        return sum([edge.length for edge in self.edges])
+
+    ##############################################
+
+    @property
+    def point_barycenter(self):
+        center = self.start_point
+        for point in self.iter_from_second_point():
+            center += point
+        return center / self.number_of_points
+
+    ##############################################
+
+    def _compute_area_barycenter(self):
+
+        r"""Compute polygon area and barycenter.
+
+        Polygon area is determined by
+
+        .. math::
+            \begin{align}
+             \mathbf{A} &= \frac{1}{2} \sum_{i=0}^{n-1} P_i \otimes P_{i+1} \\
+                        &= \frac{1}{2} \sum_{i=0}^{n-1}
+                        \begin{vmatrix}
+                         x_i & x_{i+1} \\
+                         y_i & y_{i+1}
+                        \end{vmatrix} \\
+                        &= \frac{1}{2} \sum_{i=0}^{n-1} x_i y_{i+1} - x_{i+1} y_i
+            \end{align}
+
+        where :math:`x_n = x_0`
+
+        Polygon barycenter is determined by
+
+        .. math::
+            \begin{align}
+            \mathbf{C} &= \frac{1}{6\mathbf{A}} \sum_{i=0}^{n-1}
+                          (P_i + P_{i+1}) \times (P_i \otimes P_{i+1}) \\
+                       &= \frac{1}{6\mathbf{A}} \sum_{i=0}^{n-1}
+                          \begin{pmatrix}
+                              (x_i + x_{i+1}) (x_i y_{i+1} - x_{i+1} y_i) \\
+                              (y_i + y_{i+1}) (x_i y_{i+1} - x_{i+1} y_i)
+                          \end{pmatrix}
+            \end{align}
+
+        References
+
+          * On the Calculation of Arbitrary Moments of Polygons,
+            Carsten Steger,
+            Technical Report FGBV–96–05,
+            October 1996
+          * http://mathworld.wolfram.com/PolygonArea.html
+          * https://en.wikipedia.org/wiki/Polygon#Area_and_centroid
+
+        """
+
+        if not self.is_simple:
+            return None
+
+        # area = self._points[-1].cross(self._points[0])
+        # for i in range(self.number_of_points):
+        #     area *= self._points[i].cross(self._points[i+1])
+
+        # P0, P1, Pn-1, P0
+        points = self.closed_point_array
+
+        # from 0 to n-1 : P0, ..., Pn-1
+        xi  = points[0,:-1]
+        yi  = points[1,:-1]
+        # from 1 to n : P1, ..., Pn-1, P0
+        xi1 = points[0,1:]
+        yi1 = points[1,1:]
+
+        # Fixme: np.cross ???
+        cross = xi * yi1 - xi1 * yi
+        self._cross = cross
+
+        area = .5 * np.sum(cross)
+
+        if area == 0:
+            # print('Null area')
+            self._area = 0
+            self._barycenter = self.start_point
+        else:
+            factor = 1 / (6*area)
+            x = factor * np.sum((xi + xi1) * cross)
+            y = factor * np.sum((yi + yi1) * cross)
+
+            # area of a convex polygon is defined to be positive if the points are arranged in a
+            # counterclockwise order, and negative if they are in clockwise order (Beyer 1987).
+            self._area = abs(area)
+            self._barycenter = self.__vector_cls__(x, y)
+
+    ##############################################
+
+    def _compute_inertia_moment(self):
+
+        r"""Compute inertia moment on vertices.
+
+        .. warning:: untrusted formulae
+
+        .. math::
+             \begin{align}
+             I_x    &= \frac{1}{12} \sum (y_i^2 + y_i y_{i+1} + y_{i+1}^2) (x_i y_{i+1} - x_{i+1} y_i) \\
+             I_y    &= \frac{1}{12} \sum (x_i^2 + x_i x_{i+1} + x_{i+1}^2) (x_i y_{i+1} - x_{i+1} y_i) \\
+             I_{xy} &= \frac{1}{24} \sum (x_i y_{i+1} + 2 x_i y_i + 2 x_{i+1} y_{i+1} + x_{i+1} y_i) (x_i y_{i+1} - x_{i+1} y_i)
+             \end{align}
+
+        Reference
+
+          * https://en.wikipedia.org/wiki/Second_moment_of_area#Any_cross_section_defined_as_polygon
+
+        """
+
+        # self.recenter()
+
+        # Fixme: duplicated code
+        # P0, P1, Pn-1, P0
+        points = self.closed_point_array
+
+        # from 0 to n-1 : P0, ..., Pn-1
+        xi  = points[0,:-1]
+        yi  = points[1,:-1]
+        # from 1 to n : P1, ..., Pn-1, P0
+        xi1 = points[0,1:]
+        yi1 = points[1,1:]
+
+        # computation on vertices
+        number_of_points = self.number_of_points
+        Ix =    np.sum(yi**2) / number_of_points
+        Iy =    np.sum(xi**2) / number_of_points
+        Ixy = - np.sum(xi*yi) / number_of_points
+
+        # cross = xi * yi1 - xi1 * yi
+        # cross = self._cross
+        # Ix  = 1/(12*self._area) * np.sum((yi**2 + yi*yi1 + yi1**2) * cross)
+        # Iy  = 1/(12*self._area) * np.sum((xi**2 + xi*xi1 + xi1**2) * cross)
+        # Ixy = 1/(24*self._area) * np.sum((xi*yi1 + 2*(xi*yi + xi1*yi1) + xi1*yi) * cross)
+        # cx, cy = self._barycenter
+        # Ix -= cy**2
+        # Iy -= cx**2
+        # Ixy -= cx*cy
+        # Ix = -Ix
+        # Iy = -Iy
+        # print(Ix, Iy, Ixy)
+
+        if Ixy == 0:
+            if Iy >= Ix:
+                self._major_axis_angle = 0
+
+                lambda1 = Iy
+                lambda2 = Ix
+
+                vx  = 0
+                v1y = 1
+                v2y = 0
+            else:
+                self._major_axis_angle = 90
+
+                lambda1 = Ix
+                lambda2 = Iy
+
+                vx  = 1
+                v1y = 0
+                v2y = 1
+        else:
+            Is = Iy + Ix
+            Id = Ix - Iy
+
+            sqrt0 = math.sqrt(Id*Id + 4*Ixy*Ixy)
+
+            lambda1 = (Is + sqrt0) / 2
+            lambda2 = (Is - sqrt0) / 2
+
+            vx  = Ixy
+            v1y = (Id + sqrt0) / 2
+            v2y = (Id - sqrt0) / 2
+
+            if lambda1 < lambda2:
+                v1y, v2y = v2y, v1y
+                lambda1, lambda2 = lambda2, lambda1
+
+            self._major_axis_angle = - math.degrees(math.atan(v1y/vx))
+
+        self._major_axis = 4 * math.sqrt(math.fabs(lambda1))
+        self._minor_axis = 4 * math.sqrt(math.fabs(lambda2))
+
+        if self._minor_axis != 0:
+            self._axis_ratio = self._major_axis / self._minor_axis
+        else:
+            self._axis_ratio = 0
+
+    ##############################################
+
+    def _check_area(self):
+        if self.is_simple and self._area is None:
+            self._compute_area_barycenter()
 
     ##############################################
 
     @property
     def area(self):
+        """Return polygon area."""
+        self._check_area()
+        return self._area
 
-        if not self.is_simple:
-            return None
+    ##############################################
 
-        # http://mathworld.wolfram.com/PolygonArea.html
+    @property
+    def barycenter(self):
+        """Return polygon barycenter."""
+        self._check_area()
+        return self._barycenter
 
-        # A = 1/2 (x1*y2 - x2*y1 + x2*y3 - x3*y2 + ... + x(n-1)*yn - xn*y(n-1) + xn*y1 - x1*yn)
-        #           determinant
+    ##############################################
 
-        area = self._points[-1].cross(self._points[0])
-        for i in range(self.number_of_points):
-            area *= self._points[i].cross(self._points[i+1])
+    def recenter(self):
+        """Recenter the polygon to the barycenter."""
+        # if self._centred:
+        #     return
+        barycenter = self._barycenter
+        for point in self._points:
+            point -= barycenter
+        # self._centred = True
 
-        # area of a convex polygon is defined to be positive if the points are arranged in a
-        # counterclockwise order, and negative if they are in clockwise order (Beyer 1987).
+    ##############################################
 
-        return abs(area) / 2
+    def _check_moment(self):
+        if self.is_simple and self._major_axis is None:
+            self._compute_inertia_moment()
+
+    ##############################################
+
+    @property
+    def major_axis_angle(self):
+        self._check_moment()
+        return self._major_axis_angle
+
+    @property
+    def major_axis(self):
+        self._check_moment()
+        return self._major_axis
+
+    @property
+    def minor_axis(self):
+        self._check_moment()
+        return self._minor_axis
+
+    @property
+    def axis_ratio(self):
+        self._check_moment()
+        return self._axis_ratio
 
     ##############################################
 

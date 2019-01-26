@@ -30,7 +30,7 @@ __all__ = ['Triangle2D']
 
 import math
 
-from .Primitive import Primitive3P, Primitive2DMixin
+from .Primitive import Primitive3P, ClosedPrimitiveMixin, PathMixin, PolygonMixin, Primitive2DMixin
 from .Line import Line2D
 
 ####################################################################################################
@@ -78,7 +78,7 @@ def same_side(p1, p2, a, b):
 
 ####################################################################################################
 
-class Triangle2D(Primitive2DMixin, Primitive3P):
+class Triangle2D(Primitive2DMixin, ClosedPrimitiveMixin, PathMixin, PolygonMixin, Primitive3P):
 
     """Class to implements 2D Triangle."""
 
@@ -215,7 +215,6 @@ class Triangle2D(Primitive2DMixin, Primitive3P):
 
     @property
     def is_isosceles(self):
-
         self._cache_length()
         # two sides of equal length
         return not(self.is_equilateral) and not(self.is_scalene)
@@ -224,7 +223,6 @@ class Triangle2D(Primitive2DMixin, Primitive3P):
 
     @property
     def is_right(self):
-
         self._cache_angle()
         # one angle = 90
         raise NotImplementedError
@@ -233,7 +231,6 @@ class Triangle2D(Primitive2DMixin, Primitive3P):
 
     @property
     def is_obtuse(self):
-
         self._cache_angle()
         # one angle > 90
         return max(self._a10, self._a21, self._a02) > 90
@@ -242,7 +239,6 @@ class Triangle2D(Primitive2DMixin, Primitive3P):
 
     @property
     def is_acute(self):
-
         self._cache_angle()
         # all angle < 90
         return max(self._a10, self._a21, self._a02) < 90
@@ -251,7 +247,6 @@ class Triangle2D(Primitive2DMixin, Primitive3P):
 
     @property
     def is_oblique(self):
-
         return not self.is_equilateral
 
     ##############################################

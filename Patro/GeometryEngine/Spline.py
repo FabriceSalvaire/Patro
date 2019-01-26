@@ -316,7 +316,7 @@ class QuadraticUniformSpline2D(Primitive2DMixin, Primitive3P):
 
     def to_bezier(self):
         basis = np.dot(self.BASIS, QuadraticBezier2D.INVERSE_BASIS)
-        points = np.dot(self.geometry_matrix, basis).transpose()
+        points = np.dot(self.point_array, basis).transpose()
         return QuadraticBezier2D(*points)
 
     ##############################################
@@ -376,7 +376,7 @@ class CubicUniformSpline2D(Primitive2DMixin, Primitive4P):
 
     def to_bezier(self):
         basis = np.dot(self.BASIS, CubicBezier2D.INVERSE_BASIS)
-        points = np.dot(self.geometry_matrix, basis).transpose()
+        points = np.dot(self.point_array, basis).transpose()
         if self._start:
             # list(self.points)[:2]
             points[:2] = self._p0, self._p1

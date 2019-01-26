@@ -22,6 +22,10 @@
 
 """
 
+# Fixme:
+#  length, interpolate path
+#  area
+
 ####################################################################################################
 
 __all__ = [
@@ -35,7 +39,7 @@ __all__ = [
 
 ####################################################################################################
 
-import collections
+from collections import abc as collections
 
 import numpy as np
 
@@ -45,17 +49,9 @@ from .BoundingBox import bounding_box_from_points
 
 ####################################################################################################
 
-# Fixme:
-#  length, interpolate path
-#  area
-
-####################################################################################################
-
 class Primitive:
 
     """Base class for geometric primitive"""
-
-    # __dimension__ = None # in [2, 3] for 2D / 3D primitive
 
     __vector_cls__ = None
 
@@ -134,9 +130,7 @@ class Primitive:
 
         Return None if primitive is infinite.
         """
-
         # Fixme: cache
-
         if self.is_infinite:
             return None
         else:
@@ -156,8 +150,6 @@ class Primitive:
 
         """
         obj = self.clone() if clone else self
-        # for point in obj.points:
-        #     point *= transformation # don't work
         if not transformation.is_identity:
             obj.apply_transformation(transformation)
         return obj
@@ -199,26 +191,80 @@ class Primitive:
     ##############################################
 
     @property
-    def geometry_matrix(self):
+    def point_array(self):
+        r"""Return the geometry matrix as a Numpy array.
+
+        .. math::
+           \mathrm{Geometry\ Matrix} =
+           \begin{bmatrix}
+           x_0  & x_1 & \ldots & x_{n-1} \\
+           y_0  & y_1 & \ldots & y_{n-1}
+           \end{bmatrix}
+
+        """
+        # Fixme: geometry_matrix vs point_array
+        # Fixme: cache ??? but point set and init
+        # if self._point_array is None:
+        #     self._point_array = np.array(list(self.points)).transpose()
+        # return self._point_array
         return np.array(list(self.points)).transpose()
 
     ##############################################
 
-    def is_close(self, other):
+    def is_point_close(self, other):
         # Fixme: verus is_closed
-        return np.allclose(self.geometry_matrix, other.geometry_matrix)
+        #  is_similar
+        return np.allclose(self.point_array, other.point_array)
 
 ####################################################################################################
 
 class Primitive2DMixin:
 
-    # __dimension__ = 2
-
     __vector_cls__ = None # Fixme: due to import, done in module's __init__.py
 
+    # __dimension__ = 2
     @property
     def dimension(self):
         return 2
+
+####################################################################################################
+
+class ClosedPrimitiveMixin:
+
+    # Fixme: should be reversible
+
+    ##############################################
+
+    @property
+    def is_closed(self):
+        """True if the primitive is a closed path."""
+        return True
+
+    ##############################################
+
+    @property
+    def closed_points(self):
+        points = list(self.points)
+        points.append(self.start_point)
+        return points
+
+    ##############################################
+
+    @property
+    def closed_point_array(self):
+        r"""Return the geometry matrix as a Numpy array for a closed primitive.
+
+        .. math::
+           \mathrm{Geometry\ Matrix} =
+           \begin{bmatrix}
+           x_0  & x_1 & \ldots & x_{n-1} & x_0 \\
+           y_0  & y_1 & \ldots & y_{n-1} & y_0
+           \end{bmatrix}
+
+        """
+        # Fixme: place, func for closed_point
+        # Fixme: cache ???
+        return np.array(self.closed_points).transpose()
 
 ####################################################################################################
 
@@ -259,7 +305,6 @@ class Primitive1P(Primitive):
     ##############################################
 
     def __init__(self, p0):
-
         self.p0 = p0
 
     ##############################################
@@ -298,7 +343,6 @@ class Primitive2P(Primitive1P, ReversiblePrimitiveMixin):
     ##############################################
 
     def __init__(self, p0, p1):
-
         # We don't call super().__init__(p0) for speed
         self.p0 = p0
         self.p1 = p1
@@ -357,7 +401,6 @@ class Primitive3P(Primitive2P):
     ##############################################
 
     def __init__(self, p0, p1, p2):
-
         self.p0 = p0
         self.p1 = p1
         self.p2 = p2
@@ -390,7 +433,12 @@ class Primitive3P(Primitive2P):
 
     @property
     def reversed_points(self):
+        # Fixme: share code ???
         return iter((self._p2, self._p1, self._p0))
+
+    def iter_from_second_point(self):
+        # Fixme: share code ???
+        return iter(self._p1, self._p2)
 
     ##############################################
 
@@ -404,7 +452,6 @@ class Primitive4P(Primitive3P):
     ##############################################
 
     def __init__(self, p0, p1, p2, p3):
-
         self.p0 = p0
         self.p1 = p1
         self.p2 = p2
@@ -439,6 +486,9 @@ class Primitive4P(Primitive3P):
     @property
     def reversed_points(self):
         return iter((self._p3, self._p2, self._p1, self._p0))
+
+    def iter_from_second_point(self):
+        return iter(self._p1, self._p2, self._p3)
 
     ##############################################
 
@@ -491,13 +541,8 @@ class PrimitiveNP(Primitive, ReversiblePrimitiveMixin):
     def reversed_points(self):
         return reversed(self._points)
 
-    ##############################################
-
-    @property
-    def point_array(self):
-        if self._point_array is None:
-            self._point_array = np.array([point for point in self._points])
-        return self._point_array
+    def iter_from_second_point(self):
+        return iter(self._points[1:])
 
     ##############################################
 
@@ -519,3 +564,33 @@ class PrimitiveNP(Primitive, ReversiblePrimitiveMixin):
 
         for i in range(self.number_of_points - size +1):
             yield self._points[i:i+size]
+
+####################################################################################################
+
+class PolygonMixin:
+
+    ##############################################
+
+    def to_polygon(self):
+        from .Polygon import Polygon2D
+        return Polygon2D(self.points)
+
+####################################################################################################
+
+class PathMixin:
+
+    ##############################################
+
+    def to_path(self):
+
+        from .Path import Path2D
+
+        path = Path2D(self.start_point)
+        for point in self.iter_from_second_point():
+            path.line_to(point)
+        if self.is_closed:
+            path.close()
+
+        return path
+
+

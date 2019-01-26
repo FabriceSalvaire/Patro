@@ -422,12 +422,12 @@ class Vector2DFloatBase(Vector2DBase):
 
     ##############################################
 
-    def is_parallel(self, other, cross=False):
+    def is_parallel(self, other, return_cross=False):
         """Self is parallel with other"""
 
         cross = self.cross(other)
         test = round(cross, 7) == 0
-        if cross:
+        if return_cross:
             return test, cross
         else:
             return test

@@ -123,9 +123,9 @@ class Line2D(Primitive2DMixin, Primitive):
 
     # Fixme: is_parallel_to
 
-    def is_parallel(self, other, cross=False):
+    def is_parallel(self, other, return_cross=False):
         """Self is parallel to other"""
-        return self.v.is_parallel(other.v, cross)
+        return self.v.is_parallel(other.v, return_cross)
 
     ##############################################
 
@@ -170,7 +170,7 @@ class Line2D(Primitive2DMixin, Primitive):
         # delta x v1 = - s2 * v2 x v1 = s2 * v1 x v2
         # delta x v2                  = s1 * v1 x v2
 
-        test, cross = l1.is_parallel(l2, cross=True)
+        test, cross = l1.is_parallel(l2, return_cross=True)
         if test:
             return (None, None)
         else:

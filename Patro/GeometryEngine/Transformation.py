@@ -26,7 +26,7 @@ Transformation matrices
 To transform a vector, we multiply the vector with a transformation matrix
 
 .. math::
-     \begin{bmatrix} x' \\ y' \end{bmatrix} = \mathbf{T} \begin{bmatrix} x \\ y \end{bmatrix}
+     \begin{pmatrix} x' \\ y' \end{pmatrix} = \mathbf{T} \begin{pmatrix} x \\ y \end{pmatrix}
 
 Usual transformation matrices in 2D are
 

@@ -699,7 +699,7 @@ class CubicBezier2D(BezierMixin2D, Primitive4P):
     def to_spline(self):
         from .Spline import CubicUniformSpline2D
         basis = np.dot(self.BASIS, CubicUniformSpline2D.INVERSE_BASIS)
-        points = np.dot(self.geometry_matrix, basis).transpose()
+        points = np.dot(self.point_array, basis).transpose()
         return CubicUniformSpline2D(*points)
 
     ##############################################

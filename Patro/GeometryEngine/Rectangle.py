@@ -30,12 +30,13 @@ __all__ = ['Rectangle2D']
 
 import math
 
-from .Primitive import Primitive2P, Primitive2DMixin
+from .Path import Path2D
+from .Primitive import Primitive2P, ClosedPrimitiveMixin, PathMixin, PolygonMixin, Primitive2DMixin
 from .Segment import Segment2D
 
 ####################################################################################################
 
-class Rectangle2D(Primitive2DMixin, Primitive2P):
+class Rectangle2D(Primitive2DMixin, ClosedPrimitiveMixin, PathMixin, PolygonMixin, Primitive2P):
 
     """Class to implements 2D Rectangle."""
 
