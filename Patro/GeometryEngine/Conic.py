@@ -20,16 +20,16 @@
 
 """Module to implement conic geometry like circle and ellipse.
 
-Valentina Requirements
+*Valentina Requirements*
 
-* circle with angular domain
-* circle with start angle and arc length
-* curvilinear distance on circle
-* line-circle intersection
-* circle-circle intersection
-* point constructed from a virtual circle and a point on a tangent : right triangle
-* point from tangent circle and segment ???
-* ellipse with angular domain and rotation
+  * circle with angular domain
+  * circle with start angle and arc length
+  * curvilinear distance on circle
+  * line-circle intersection
+  * circle-circle intersection
+  * point constructed from a virtual circle and a point on a tangent : right triangle
+  * point from tangent circle and segment ???
+  * ellipse with angular domain and rotation
 
 """
 
@@ -59,6 +59,7 @@ from .Line import Line2D
 from .Mixin import AngularDomainMixin, CenterMixin, AngularDomain
 from .Primitive import Primitive, Primitive2DMixin
 from .Segment import Segment2D
+from .Transformation import Transformation2D
 
 ####################################################################################################
 
@@ -436,27 +437,116 @@ class Ellipse2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
     \ge e_1 > 0`. The ellipse points are
 
     .. math::
-         P = C + x_0 U_0 + x_1 U_1
+        \begin{equation}
+        P = C + x_0 U_0 + x_1 U_1
+        \end{equation}
 
     where
 
     .. math::
-
+        \begin{equation}
         \left(\frac{x_0}{e_0}\right)^2 + \left(\frac{x_1}{e_1}\right)^2 = 1
+        \end{equation}
 
-    If :math:`e_0 = e_1`, then the ellipse is a circle with center `C` and radius :math:`e_0`. The
-    orthonormality of the axis directions and Equation (1) imply :math:`x_i = U_i \dot (P −
+    If :math:`e_0 = e_1`, then the ellipse is a circle with center `C` and radius :math:`e_0`.
+
+    The orthonormality of the axis directions and Equation (1) imply :math:`x_i = U_i \dot (P −
     C)`. Substituting this into Equation (2) we obtain
 
     .. math::
-
         (P − C)^T M (P − C) = 1
 
     where :math:`M = R D R^T`, `R` is an orthogonal matrix whose columns are :math:`U_0` and
     :math:`U_1` , and `D` is a diagonal matrix whose diagonal entries are :math:`1/e_0^2` and
     :math:`1/e_1^2`.
 
+    An ellipse can also be parameterised by an angle :math:`\theta`
+
+    .. math::
+        \begin{pmatrix} x \\ y \end{pmatrix} =
+        \begin{bmatrix}
+        \cos\phi & \sin\phi \\
+        -\sin\phi & \cos\phi
+        \end{bmatrix}
+        \begin{pmatrix} r_x \cos\theta \\ r_y \sin\theta \end{pmatrix}
+        + \begin{pmatrix} C_x \\ C_y \end{pmatrix}
+
+    where :math:`\phi` is the angle from the x-axis, :math:`r_x` is the semi-major and :math:`r_y`
+    semi-minor axes.
+
     """
+
+    ##############################################
+
+    @classmethod
+    def svg_arc(cls, point1, point2, large_arc, sweep, x_radius, y_radius, angle):
+
+        """Implement SVG Arc.
+
+        Parameters
+
+          * *point1* is the start point and *point2* is the end point.
+          * *x_radius* and *y_radius* are the radii of the ellipse, also known as its semi-major and
+            semi-minor axes.
+          * *angle* is the angle from the x-axis of the current coordinate system to the x-axis of the ellipse.
+          * if the *large arc* flag is unset then arc spanning less than or equal to 180 degrees is
+            chosen, else an arc spanning greater than 180 degrees is chosen.
+          * if the *sweep* flag is unset then the line joining centre to arc sweeps through decreasing
+            angles, else if it sweeps through increasing angles.
+
+        References
+
+          * https://www.w3.org/TR/SVG/implnote.html#ArcConversionEndpointToCenter
+          * https://www.w3.org/TR/SVG/implnote.html#ArcCorrectionOutOfRangeRadii
+
+        """
+
+        # Ensure radii are non-zero
+        if x_radius == 0 or y_radius == 0:
+            return Segment2D(point1, point2)
+
+        # Ensure radii are positive
+        x_radius = abs(x_radius)
+        y_radius = abs(y_radius)
+
+        # step 1
+
+        x_radius2 = x_radius**2
+        y_radius2 = y_radius**2
+
+        point1_prime = Transformation2D.Rotation(angle) * (point1 - point2)/2
+
+        # Ensure radii are large enough
+        radii_scale = point1_prime.x**2/x_radius2 + point1_prime.y**2/y_radius2
+        if radii_scale > 1:
+            radii_scale = math.sqrt(radii_scale)
+            x_radius = radii_scale * x_radius
+            y_radius = radii_scale * y_radius
+            x_radius2 = x_radius**2
+            y_radius2 = y_radius**2
+
+        # step 2
+
+        den = x_radius2 * point1_prime.y**2 + y_radius2 * point1_prime.x**2
+        num = x_radius2*y_radius2 - den
+
+        ratio = x_radius/y_radius
+
+        sign = -1 if large_arc == sweep else 1
+        center_prime = sign * math.sqrt(num / den) * point1_prime.anti_normal.divide(ratio, 1/ratio)
+        center = Transformation2D.Rotation(-angle) * center_prime + (point1 + point2)/2
+
+        vector1 =   (point1_prime - center_prime).divide(x_radius, y_radius)
+        vector2 = - (point1_prime + center_prime).divide(x_radius, y_radius)
+        theta = cls.__vector_cls__(1, 0).angle_with(vector1)
+        delta_theta = vector1.angle_with(vector2) % 360
+        if not sweep and delta_theta > 0:
+            delta_theta -= 360
+        elif sweep and delta_theta < 0:
+            delta_theta += 360
+        domain = domain=AngularDomain(theta, theta + delta_theta)
+
+        return cls(center, x_radius, y_radius, angle, domain)
 
     #######################################
 
