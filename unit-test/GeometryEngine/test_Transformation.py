@@ -25,6 +25,7 @@ import unittest
 import numpy.testing as np_testing
 
 from Patro.GeometryEngine.Transformation import *
+from Patro.GeometryEngine.Vector import Vector2D
 
 ####################################################################################################
 
@@ -50,11 +51,19 @@ class TestTransformation(unittest.TestCase):
         p1_true = Vector2D(20, 30)
         self.assertTrue(p1.almost_equal(p1_true))
 
+        # Test composition with *= and *
         p0 = Vector2D(20, 10)
         center = Vector2D(10, 10)
-        rotation_at = AffineTransformation2D.RotationAt(center, 90)
+        angle = 90
+        rotation_at = AffineTransformation2D.RotationAt(center, angle)
         p1 = rotation_at * p0
         p1_true = Vector2D(10, 20)
+        self.assertTrue(p1.almost_equal(p1_true))
+
+        rotation_at = (AffineTransformation2D.Translation(center) *
+                       AffineTransformation2D.Rotation(angle) *
+                       AffineTransformation2D.Translation(-center))
+        p1 = rotation_at * p0
         self.assertTrue(p1.almost_equal(p1_true))
 
         # np_testing.assert_almost_equal()

@@ -32,7 +32,7 @@ class TestVector2D(unittest.TestCase):
 
     ##############################################
 
-    def test(self):
+    def test_ctor(self):
 
         v1 = Vector2D(10, 20)
         v1 = Vector2D((10, 20))
@@ -42,7 +42,11 @@ class TestVector2D(unittest.TestCase):
         self.assertEqual(v1.x, 10)
         self.assertEqual(v1.y, 20)
 
-        self.assertEqual(v1, v1.copy())
+        self.assertEqual(v1, v1.clone())
+
+    ##############################################
+
+    def test_math_operations(self):
 
         v1 = Vector2D(10, 20)
         v2 = Vector2D(20, 30)
@@ -71,50 +75,57 @@ class TestVector2D(unittest.TestCase):
         #?# v1 /= 10
         #?# self.assertEqual(v1, Vector2D(1, 2))
 
-        v1 = Vector2D(10, 20)
-        self.assertEqual(v1.magnitude_square(), 10**2 + 20**2)
+    ##############################################
+
+    def test_properties(self):
 
         v1 = Vector2D(10, 20)
-        self.assertEqual(v1.magnitude(), sqrt(10**2 + 20**2))
+        self.assertEqual(v1.magnitude_square, 10**2 + 20**2)
+
+        v1 = Vector2D(10, 20)
+        self.assertEqual(v1.magnitude, sqrt(10**2 + 20**2))
 
         v1 = Vector2D(10, 0)
-        self.assertEqual(v1.orientation(), 0)
+        self.assertEqual(v1.orientation, 0)
         v1 = Vector2D(-10, 0)
-        v1.orientation()
-        self.assertEqual(v1.orientation(), 180)
+        self.assertEqual(v1.orientation, 180)
         v1 = Vector2D(0, 10)
-        self.assertEqual(v1.orientation(), 90)
+        self.assertEqual(v1.orientation, 90)
         v1 = Vector2D(0, -10)
-        self.assertEqual(v1.orientation(), -90)
+        self.assertEqual(v1.orientation, -90)
 
         v1 = Vector2D(10, 10)
-        self.assertEqual(v1.orientation(), 45)
+        self.assertEqual(v1.orientation, 45)
         v1 = Vector2D(10, -10)
-        self.assertEqual(v1.orientation(), -45)
+        self.assertEqual(v1.orientation, -45)
         v1 = Vector2D(-10, 10)
-        self.assertEqual(v1.orientation(), 135)
+        self.assertEqual(v1.orientation, 135)
         v1 = Vector2D(-10, -10)
-        self.assertEqual(v1.orientation(), -135)
+        self.assertEqual(v1.orientation, -135)
 
         v1 = Vector2D.from_angle(25)
-        self.assertAlmostEqual(v1.orientation(), 25)
+        self.assertAlmostEqual(v1.orientation, 25)
         v1 = Vector2D.from_angle(-25)
-        self.assertAlmostEqual(v1.orientation(), -25)
+        self.assertAlmostEqual(v1.orientation, -25)
 
         v1 = Vector2D.from_angle(60)
-        self.assertAlmostEqual(v1.orientation(), 60)
+        self.assertAlmostEqual(v1.orientation, 60)
         v1 = Vector2D.from_angle(-60)
-        self.assertAlmostEqual(v1.orientation(), -60)
+        self.assertAlmostEqual(v1.orientation, -60)
 
         v1 = Vector2D.from_angle(100)
-        self.assertAlmostEqual(v1.orientation(), 100)
+        self.assertAlmostEqual(v1.orientation, 100)
         v1 = Vector2D.from_angle(-100)
-        self.assertAlmostEqual(v1.orientation(), -100)
+        self.assertAlmostEqual(v1.orientation, -100)
 
         v1 = Vector2D.from_angle(160)
-        self.assertAlmostEqual(v1.orientation(), 160)
+        self.assertAlmostEqual(v1.orientation, 160)
         v1 = Vector2D.from_angle(-160)
-        self.assertAlmostEqual(v1.orientation(), -160)
+        self.assertAlmostEqual(v1.orientation, -160)
+
+    ##############################################
+
+    def test_two_vector_operations(self):
 
         v1 = Vector2D(10, 10)
         v2 = Vector2D(-10, 10)

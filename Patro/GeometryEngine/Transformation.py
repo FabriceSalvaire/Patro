@@ -81,8 +81,6 @@ Note the matrix multiplication is not commutative.
 
 """
 
-# Fixme: check composition order !!!
-
 ####################################################################################################
 
 __all__ = [
@@ -116,6 +114,8 @@ class TransformationType(Enum):
     YParity = auto()
 
     Rotation = auto()
+
+    Translation = auto()
 
     Generic = auto()
 
@@ -228,7 +228,7 @@ class Transformation:
     def __mul__(self, obj):
 
         if isinstance(obj, Transformation):
-            # Fixme: order ???
+            # T = T1 * T2
             array = np.matmul(self._m, obj.array)
             return self.__class__(array, self._mul_type(obj))
         elif isinstance(obj, Vector2D):
@@ -250,9 +250,11 @@ class Transformation:
     def __imul__(self, obj):
 
         if isinstance(obj, Transformation):
-            if obj._type != TransformationType.Identity:
-                # Fixme: order ???
-                self._m = np.matmul(self._m, obj.array)
+            if obj.type != TransformationType.Identity:
+                # (T = T1) *= T2
+                # T = T2 * T1
+                # order is inverted !
+                self._m = np.matmul(obj.array, self._m)
                 self._type = self._mul_type(obj)
         else:
             raise ValueError
@@ -337,6 +339,7 @@ class AffineTransformation(Transformation):
 
         transformation = cls.Identity()
         transformation.translation_part[...] = vector.v[...]
+        transformation._type = TransformationType.Translation
         return transformation
 
     ##############################################
@@ -344,9 +347,11 @@ class AffineTransformation(Transformation):
     @classmethod
     def RotationAt(cls, center, angle):
 
-        transformation = cls.Translation(center)
+        # return cls.Translation(center) * cls.Rotation(angle) * cls.Translation(-center)
+
+        transformation = cls.Translation(-center)
         transformation *= cls.Rotation(angle)
-        transformation *= cls.Translation(-center)
+        transformation *= cls.Translation(center)
         return transformation
 
     ##############################################
@@ -381,7 +386,7 @@ class AffineTransformation2D(AffineTransformation):
     @classmethod
     def Scale(cls, x_scale, y_scale):
 
-        # Fixme: others, use *= ?
+        # Fixme: others, use *= ? (comment means ???)
 
         transformation = cls.Identity()
         transformation.matrix_part[...] = Transformation2D.Scale(x_scale, y_scale).array

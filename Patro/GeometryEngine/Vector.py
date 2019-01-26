@@ -117,7 +117,7 @@ class Vector2DBase(Primitive, Primitive2DMixin):
 
     ##############################################
 
-    def copy(self):
+    def clone(self):
         """ Return a copy of self """
         return self.__class__(self._v)
 
@@ -340,6 +340,20 @@ class Vector2DFloatBase(Vector2DBase):
     ##############################################
 
     @property
+    def permute(self):
+
+        """Return a new vector where x and y are permuted.
+
+        """
+
+        xp = self._v[1]
+        yp = self._v[0]
+
+        return self.__class__((xp, yp))
+
+    ##############################################
+
+    @property
     def parity(self):
 
         """Return a new vector equal to self rotated of 180 degree
@@ -437,10 +451,7 @@ class Vector2DFloatBase(Vector2DBase):
 
     ##############################################
 
-    def orientation_with(self, direction):
-
-        # Fixme: check all cases
-        # -> angle_with
+    def angle_with(self, direction):
 
         """Return the angle of self on direction"""
 
@@ -448,6 +459,8 @@ class Vector2DFloatBase(Vector2DBase):
         angle_sign = sign(self.sin_with(direction))
 
         return angle_sign * math.degrees(angle)
+
+    orientation_with = angle_with
 
 ####################################################################################################
 
@@ -520,6 +533,14 @@ class Vector2D(Vector2DFloatBase):
         """Scale self by 1/scale"""
         self._v /= scale
         return self
+
+    ##############################################
+
+    def divide(self, scale_x, scale_y):
+        """Scale self by 1/scale"""
+        obj = self.clone()
+        obj._v /= np.array((scale_x, scale_y))
+        return obj
 
     ##############################################
 

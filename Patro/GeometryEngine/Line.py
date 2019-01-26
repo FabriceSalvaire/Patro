@@ -111,13 +111,13 @@ class Line2D(Primitive2DMixin, Primitive):
 
     def get_y_from_x(self, x):
         """Return y corresponding to x"""
-        return self.v.tan() * (x - self.p.x) + self.p.y
+        return self.v.tan * (x - self.p.x) + self.p.y
 
     ##############################################
 
     def get_x_from_y(self, y):
         """Return x corresponding to y"""
-        return self.v.inverse_tan() * (y - self.p.y) + self.p.x
+        return self.v.inverse_tan * (y - self.p.y) + self.p.x
 
     ##############################################
 
@@ -139,7 +139,7 @@ class Line2D(Primitive2DMixin, Primitive):
 
         """Return the shifted parallel line"""
 
-        n = self.v.normal()
+        n = self.v.normal
         n.normalise()
         point = self.p + n*shift
 
@@ -152,7 +152,7 @@ class Line2D(Primitive2DMixin, Primitive):
         """Return the orthogonal line at abscissa s"""
 
         point = self.interpolate(s)
-        vector = self.v.normal()
+        vector = self.v.normal
 
         return self.__class__(point, vector)
 
@@ -255,7 +255,7 @@ class Line2D(Primitive2DMixin, Primitive):
 
         left, bottom, right, top = interval.bounding_box()
         vb = Vector2D(interval.size())
-        if abs(self.v.tan()) > vb.tan():
+        if abs(self.v.tan) > vb.tan:
             x_min, y_min = self.get_x_from_y(bottom), bottom
             x_max, y_max = self.get_x_from_y(top), top
         else:
