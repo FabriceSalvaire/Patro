@@ -479,14 +479,14 @@ class Ellipse2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
     ##############################################
 
     @classmethod
-    def svg_arc(cls, point1, point2, large_arc, sweep, x_radius, y_radius, angle):
+    def svg_arc(cls, point1, point2, large_arc, sweep, radius_x, radius_y, angle):
 
         """Implement SVG Arc.
 
         Parameters
 
           * *point1* is the start point and *point2* is the end point.
-          * *x_radius* and *y_radius* are the radii of the ellipse, also known as its semi-major and
+          * *radius_x* and *radius_y* are the radii of the ellipse, also known as its semi-major and
             semi-minor axes.
           * *angle* is the angle from the x-axis of the current coordinate system to the x-axis of the ellipse.
           * if the *large arc* flag is unset then arc spanning less than or equal to 180 degrees is
@@ -502,42 +502,42 @@ class Ellipse2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
         """
 
         # Ensure radii are non-zero
-        if x_radius == 0 or y_radius == 0:
+        if radius_x == 0 or radius_y == 0:
             return Segment2D(point1, point2)
 
         # Ensure radii are positive
-        x_radius = abs(x_radius)
-        y_radius = abs(y_radius)
+        radius_x = abs(radius_x)
+        radius_y = abs(radius_y)
 
         # step 1
 
-        x_radius2 = x_radius**2
-        y_radius2 = y_radius**2
+        radius_x2 = radius_x**2
+        radius_y2 = radius_y**2
 
         point1_prime = Transformation2D.Rotation(angle) * (point1 - point2)/2
 
         # Ensure radii are large enough
-        radii_scale = point1_prime.x**2/x_radius2 + point1_prime.y**2/y_radius2
+        radii_scale = point1_prime.x**2/radius_x2 + point1_prime.y**2/radius_y2
         if radii_scale > 1:
             radii_scale = math.sqrt(radii_scale)
-            x_radius = radii_scale * x_radius
-            y_radius = radii_scale * y_radius
-            x_radius2 = x_radius**2
-            y_radius2 = y_radius**2
+            radius_x = radii_scale * radius_x
+            radius_y = radii_scale * radius_y
+            radius_x2 = radius_x**2
+            radius_y2 = radius_y**2
 
         # step 2
 
-        den = x_radius2 * point1_prime.y**2 + y_radius2 * point1_prime.x**2
-        num = x_radius2*y_radius2 - den
+        den = radius_x2 * point1_prime.y**2 + radius_y2 * point1_prime.x**2
+        num = radius_x2*radius_y2 - den
 
-        ratio = x_radius/y_radius
+        ratio = radius_x/radius_y
 
         sign = -1 if large_arc == sweep else 1
         center_prime = sign * math.sqrt(num / den) * point1_prime.anti_normal.divide(ratio, 1/ratio)
         center = Transformation2D.Rotation(-angle) * center_prime + (point1 + point2)/2
 
-        vector1 =   (point1_prime - center_prime).divide(x_radius, y_radius)
-        vector2 = - (point1_prime + center_prime).divide(x_radius, y_radius)
+        vector1 =   (point1_prime - center_prime).divide(radius_x, radius_y)
+        vector2 = - (point1_prime + center_prime).divide(radius_x, radius_y)
         theta = cls.__vector_cls__(1, 0).angle_with(vector1)
         delta_theta = vector1.angle_with(vector2) % 360
         if not sweep and delta_theta > 0:
@@ -546,15 +546,15 @@ class Ellipse2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
             delta_theta += 360
         domain = domain=AngularDomain(theta, theta + delta_theta)
 
-        return cls(center, x_radius, y_radius, angle, domain)
+        return cls(center, radius_x, radius_y, angle, domain)
 
     #######################################
 
-    def __init__(self, center, x_radius, y_radius, angle, domain=None):
+    def __init__(self, center, radius_x, radius_y, angle, domain=None):
 
         self.center = center
-        self.x_radius = x_radius
-        self.y_radius = y_radius
+        self.radius_x = radius_x
+        self.radius_y = radius_y
         self.angle = angle
         self.domain = domain
 
@@ -565,7 +565,7 @@ class Ellipse2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
     def clone(self):
         return self.__class__(
             self._center,
-            self._x_radius, self._y_radius,
+            self._radius_x, self._radius_y,
             self._angle,
             self._domain,
         )
@@ -574,32 +574,32 @@ class Ellipse2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
 
     def apply_transformation(self, transformation):
         self._center = transformation * self._center
-        self._x_radius = transformation * self._x_radius
-        self._y_radius = transformation * self._y_radius
+        self._radius_x = transformation * self._radius_x
+        self._radius_y = transformation * self._radius_y
         self._bounding_box = None
 
     ##############################################
 
     def __repr__(self):
-        return '{0}({1._center}, {1._x_radius}, {1._x_radius}, {1._angle})'.format(self.__class__.__name__, self)
+        return '{0}({1._center}, {1._radius_x}, {1._radius_x}, {1._angle})'.format(self.__class__.__name__, self)
 
     ##############################################
 
     @property
-    def x_radius(self):
-        return self._x_radius
+    def radius_x(self):
+        return self._radius_x
 
-    @x_radius.setter
-    def x_radius(self, value):
-        self._x_radius = float(value)
+    @radius_x.setter
+    def radius_x(self, value):
+        self._radius_x = float(value)
 
     @property
-    def y_radius(self):
-        return self._y_radius
+    def radius_y(self):
+        return self._radius_y
 
-    @y_radius.setter
-    def y_radius(self, value):
-        self._y_radius = float(value)
+    @radius_y.setter
+    def radius_y(self, value):
+        self._radius_y = float(value)
 
     @property
     def angle(self):
@@ -612,21 +612,21 @@ class Ellipse2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
     @property
     def major_vector(self):
         # Fixme: x < y
-        return self.__vector_cls__.from_polar(self._angle, self._x_radius)
+        return self.__vector_cls__.from_polar(self._angle, self._radius_x)
 
     @property
     def minor_vector(self):
         # Fixme: x < y
-        return self.__vector_cls__.from_polar(self._angle + 90, self._y_radius)
+        return self.__vector_cls__.from_polar(self._angle + 90, self._radius_y)
 
     ##############################################
 
     @property
     def eccentricity(self):
         # focal distance
-        # c = sqrt(self._x_radius**2 - self._y_radius**2)
+        # c = sqrt(self._radius_x**2 - self._radius_y**2)
         # e = c / a
-        return sqrt(1 - (self._y_radius/self._x_radius)**2)
+        return sqrt(1 - (self._radius_y/self._radius_x)**2)
 
     ##############################################
 
@@ -640,8 +640,8 @@ class Ellipse2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
         c2 = c**2
         s2 = s**2
 
-        a = self._x_radius
-        b = self._y_radius
+        a = self._radius_x
+        b = self._radius_y
         a2 = a**2
         b2 = b**2
 
@@ -674,9 +674,9 @@ class Ellipse2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
     ##############################################
 
     def point_at_angle(self, angle):
-        # point = self.__vector_cls__.from_ellipse(self._x_radius, self._y_radius, angle)
+        # point = self.__vector_cls__.from_ellipse(self._radius_x, self._radius_y, angle)
         # return self.point_from_ellipse_frame(point)
-        point = self.__vector_cls__.from_ellipse(self._x_radius, self._y_radius, self._angle + angle)
+        point = self.__vector_cls__.from_ellipse(self._radius_x, self._radius_y, self._angle + angle)
         return self._center + point
 
     ##############################################
@@ -685,21 +685,21 @@ class Ellipse2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
     def bounding_box(self):
 
         if self._bounding_box is None:
-            x_radius, y_radius = self._x_radius, self._y_radius
+            radius_x, radius_y = self._radius_x, self._radius_y
             if self._angle == 0:
                 bounding_box = self._center.bounding_box
-                bounding_box.x.enlarge(x_radius)
-                bounding_box.y.enlarge(y_radius)
+                bounding_box.x.enlarge(radius_x)
+                bounding_box.y.enlarge(radius_y)
                 self._bounding_box = bounding_box
             else:
                 angle_x = self._angle
                 angle_y = angle_x + 90
                 Vector2D = self.__vector_cls__
                 points = [self._center + offset for offset in (
-                    Vector2D.from_polar(angle_x,  x_radius),
-                    Vector2D.from_polar(angle_x, -x_radius),
-                    Vector2D.from_polar(angle_y,  y_radius),
-                    Vector2D.from_polar(angle_y, -y_radius),
+                    Vector2D.from_polar(angle_x,  radius_x),
+                    Vector2D.from_polar(angle_x, -radius_x),
+                    Vector2D.from_polar(angle_y,  radius_y),
+                    Vector2D.from_polar(angle_y, -radius_y),
                 )]
                 self._bounding_box = bounding_box_from_points(points)
 
@@ -762,7 +762,7 @@ class Ellipse2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
         # Fixme: make a 3D plot to check the algorithm on a 2D grid and rotated ellipse
 
         y0, y1 = point
-        e0, e1 = self._x_radius, self._y_radius
+        e0, e1 = self._radius_x, self._radius_y
 
         if y1 > 0:
             if  y0 > 0:
@@ -839,11 +839,11 @@ class Ellipse2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
         # Fixme: to be checked
 
         # Map segment in ellipse frame and scale y axis so as to transform the ellipse to a circle
-        y_scale = self._x_radius / self._y_radius
+        y_scale = self._radius_x / self._radius_y
         points = [self.point_in_ellipse_frame(point) for point in segment.points]
         points = [self.__vector_cls__(point.x, point.y * y_scale) for point in points]
         segment_in_frame = Segment2D(*points)
-        circle = Circle2D(self.__vector_cls__(0, 0), self._x_radius)
+        circle = Circle2D(self.__vector_cls__(0, 0), self._radius_x)
 
         points = circle.intersect_segment(segment_in_frame)
         points = [self.__vector_cls__(point.x, point.y / y_scale) for point in points]

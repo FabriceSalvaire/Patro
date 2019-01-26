@@ -324,12 +324,12 @@ class QtPainter(Painter):
     def paint_EllipseItem(self, item):
 
         center = self.cast_position(item.position)
-        x_radius = self.length_scene_to_viewport(item.x_radius)
-        y_radius = self.length_scene_to_viewport(item.y_radius)
+        radius_x = self.length_scene_to_viewport(item.radius_x)
+        radius_y = self.length_scene_to_viewport(item.radius_y)
 
         pen = self._set_pen(item)
 
-        self._painter.drawEllipse(center, x_radius, y_radius)
+        self._painter.drawEllipse(center, radius_x, radius_y)
 
     ##############################################
 

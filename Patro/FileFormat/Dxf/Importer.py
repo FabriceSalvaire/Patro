@@ -128,15 +128,15 @@ class DxfImporter:
         major_axis = self._to_vector(item_dxf.major_axis)
         minor_axis = major_axis * item_dxf.ratio
         domain = AngularDomain(item_dxf.start_param, item_dxf.end_param, degrees=False)
-        x_radius, y_radius = major_axis.magnitude, minor_axis.magnitude
+        radius_x, radius_y = major_axis.magnitude, minor_axis.magnitude
         angle = major_axis.orientation
         if angle == 90:
-            x_radius, y_radius = y_radius, x_radius
+            radius_x, radius_y = radius_y, radius_x
             angle = 0
         # Fixme: ...
         ellipse = Ellipse2D(
             center,
-            x_radius, y_radius,
+            radius_x, radius_y,
             angle,
             domain=domain,
         )

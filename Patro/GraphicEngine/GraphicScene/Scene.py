@@ -313,7 +313,7 @@ class GraphicSceneScope:
 
         elif isinstance(item, Conic.Ellipse2D):
             ctor = self._scene.ellipse
-            args = [item.x_radius, item.y_radius, item.angle]
+            args = [item.radius_x, item.radius_y, item.angle]
 
         # Line
         elif isinstance(item, Line.Line2D):

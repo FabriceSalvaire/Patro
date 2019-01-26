@@ -510,13 +510,13 @@ class Vector2D(Vector2DFloatBase):
     ##############################################
 
     @staticmethod
-    def from_ellipse(x_radius, y_radius, angle):
+    def from_ellipse(radius_x, radius_y, angle):
 
-        """Create the vector (x_radius*cos(angle), y_radius*sin(angle)).  *angle* is in degree."""
+        """Create the vector (radius_x*cos(angle), radius_y*sin(angle)).  *angle* is in degree."""
 
         angle = math.radians(angle)
-        x = x_radius * cos(angle)
-        y = y_radius * sin(angle)
+        x = radius_x * cos(angle)
+        y = radius_y * sin(angle)
 
         return Vector2D(x, y) # Fixme: classmethod
 

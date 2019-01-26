@@ -151,7 +151,7 @@ class EllipseItem(PositionMixin, StartStopAngleMixin, PathStyleItemMixin):
     ##############################################
 
     def __init__(self, scene, position,
-                 x_radius, y_radius,
+                 radius_x, radius_y,
                  angle,
                  path_style, user_data,
                  start_angle=0,
@@ -162,27 +162,27 @@ class EllipseItem(PositionMixin, StartStopAngleMixin, PathStyleItemMixin):
         PositionMixin.__init__(self, position)
         StartStopAngleMixin.__init__(self, start_angle, stop_angle)
 
-        self._x_radius = x_radius
-        self._y_radius = y_radius
+        self._radius_x = radius_x
+        self._radius_y = radius_y
         self._angle = angle
 
     ##############################################
 
     @property
-    def x_radius(self):
-        return self._x_radius
+    def radius_x(self):
+        return self._radius_x
 
-    # @x_radius.setter
-    # def x_radius(self, value):
-    #     self._x_radius = value
+    # @radius_x.setter
+    # def radius_x(self, value):
+    #     self._radius_x = value
 
     @property
-    def y_radius(self):
-        return self._y_radius
+    def radius_y(self):
+        return self._radius_y
 
-    # @y_radius.setter
-    # def y_radius(self, value):
-    #     self._y_radius = value
+    # @radius_y.setter
+    # def radius_y(self, value):
+    #     self._radius_y = value
 
     @property
     def angle(self):
@@ -192,7 +192,7 @@ class EllipseItem(PositionMixin, StartStopAngleMixin, PathStyleItemMixin):
 
     def get_geometry(self):
         position = self.casted_position
-        return Ellipse2D(position, self._x_radius, self._y_radius, self._angle)
+        return Ellipse2D(position, self._radius_x, self._radius_y, self._angle)
 
 ####################################################################################################
 
