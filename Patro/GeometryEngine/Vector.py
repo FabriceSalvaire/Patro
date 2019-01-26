@@ -20,6 +20,36 @@
 
 """Module to implement vector.
 
+Example of usage::
+
+  v = Vector2D(10, 20)
+  v = Vector2D((10, 20))
+  v = Vector2D([10, 20])
+  v = Vector2D(iterable)
+  v = Vector2D(v)
+
+  v.x
+  v.y
+
+  # array interface
+  v[0], v[1]
+  iter(v)
+
+  -v
+
+  v + v
+  v += v
+
+  v - v
+  v -= v
+
+  v * 2
+  2 * v
+  v *= 2
+
+  v / 2
+  v /= 2
+
 """
 
 ####################################################################################################
@@ -50,17 +80,6 @@ class Vector2DBase(Primitive, Primitive2DMixin):
     ##############################################
 
     def __init__(self, *args):
-
-        """
-        Example of usage::
-
-          Vector(1, 3)
-          Vector((1, 3))
-          Vector([1, 3])
-          Vector(iterable)
-          Vector(vector)
-
-        """
 
         array = self._check_arguments(args)
 
@@ -516,6 +535,12 @@ class Vector2D(Vector2DFloatBase):
 
     ##############################################
 
+    def __rmul__(self, scale):
+        """Return a new vector equal to the self scaled by scale"""
+        return self.__mul__(scale)
+
+    ##############################################
+
     def __imul__(self, scale):
         """Scale self by scale"""
         self._v *= scale
@@ -584,6 +609,12 @@ class NormalisedVector2D(Vector2DFloatBase):
     def __mul__(self, scale):
         """ Return a new vector equal to the self scaled by scale """
         return self.__class__(scale * self._v) # Fixme: Vector2D ?
+
+    ##############################################
+
+    def __rmul__(self, scale):
+        """ Return a new vector equal to the self scaled by scale """
+        return self.__mul__(scale)
 
 ####################################################################################################
 

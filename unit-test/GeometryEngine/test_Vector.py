@@ -92,13 +92,15 @@ class TestVector2D(unittest.TestCase):
 
         a, b, c = 10, 20, 30
 
+        # unary -
+        v1 = Vector2D(a, b)
+        self.assertEqual(-v1, Vector2D(-a, -b))
+
+        # binary + +=
         v1 = Vector2D(a, b)
         v2 = Vector2D(b, c)
         self.assertEqual(v1 + v2, Vector2D(a+b, b+c))
-
-        v1 = Vector2D(a, b)
-        v2 = Vector2D(b, c)
-        self.assertEqual(v1 - v2, Vector2D(-a, -a))
+        self.assertEqual(v1 - v2, Vector2D(a-b, b-c))
 
         v1 = Vector2D(a, b)
         v1 += Vector2D(b, c)
@@ -106,18 +108,21 @@ class TestVector2D(unittest.TestCase):
 
         v1 = Vector2D(a, b)
         v1 -= Vector2D(b, c)
-        self.assertEqual(v1, Vector2D(-a, -a))
+        self.assertEqual(v1, Vector2D(a-b, b-c))
 
+        # scale *
         v1 = Vector2D(a, b)
-        self.assertEqual(v1 * a, Vector2D(a*a, b*a))
+        v2 = Vector2D(a*a, b*a)
+        self.assertEqual(v1 * a, v2)
+        self.assertEqual(a * v1, v2)
 
         v1 = Vector2D(a, b)
         v1 *= a
-        self.assertEqual(v1, Vector2D(a*a, b*a))
+        self.assertEqual(v1, v2)
 
-        #?# v1 = Vector2D(a, b)
-        #?# v1 /= a
-        #?# self.assertEqual(v1, Vector2D(1, 2))
+        v1 = Vector2D(a, b)
+        v1 /= a
+        self.assertEqual(v1, Vector2D(1, b/a))
 
     ##############################################
 
