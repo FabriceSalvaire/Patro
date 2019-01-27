@@ -98,8 +98,8 @@ ApplicationWindow {
 	scene: application.scene
 	focus: true
 
-	property int pan_speed: 10
-	property int pan_step: 10
+	property real pan_speed: 1.5 // scale to speedup the mouse paning
+	property int pan_step: 10 // px
 
 	Keys.onLeftPressed: scene_view.pan_x_y(-pan_step, 0)
 	Keys.onRightPressed: scene_view.pan_x_y(pan_step, 0)
@@ -108,7 +108,7 @@ ApplicationWindow {
 
 	function pan_x_y(dx, dy) {
 	    var dxy = Qt.point(dx, dy)
-	    console.info('pan', dxy)
+	    // console.info('pan', dxy)
 	    scene_view.pan(dxy)
 	}
 
@@ -150,8 +150,10 @@ ApplicationWindow {
 	    onPositionChanged: {
 		// console.info('onPositionChanged', mouse.button, mouse_start)
 		if (mouse_start !== null) {
-		    var dx = (mouse.x - mouse_start.x) / scene_view.pan_speed
-		    var dy = (mouse_start.y - mouse.y) / scene_view.pan_speed
+		    var dx = (mouse.x - mouse_start.x)
+		    var dy = (mouse_start.y - mouse.y)
+		    dx *= scene_view.pan_speed
+		    dy *= scene_view.pan_speed
 		    // if (dx^2 + dy^2 > 100)
 		    scene_view.pan_x_y(dx, dy)
 		    mouse_start = Qt.point(mouse.x, mouse.y)
@@ -162,7 +164,7 @@ ApplicationWindow {
 
     	    onWheel: {
     		var direction = wheel.angleDelta.y > 0
-    		console.info('Mouse wheel', wheel.x, wheel.y, direction)
+    		// console.info('Mouse wheel', wheel.x, wheel.y, direction)
     		var zoom = scene_view.zoom
     		if (direction)
     	    	    zoom *= 2

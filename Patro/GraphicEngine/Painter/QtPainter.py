@@ -18,6 +18,10 @@
 #
 ####################################################################################################
 
+"""Module to implement a Qt Painter.
+
+"""
+
 ####################################################################################################
 
 import logging
@@ -48,18 +52,21 @@ _module_logger = logging.getLogger(__name__)
 
 class QtScene(QObject, GraphicScene):
 
+    """Class to add Qt Object features to GraphicScene ."""
+
     _logger = _module_logger.getChild('QtScene')
 
     ##############################################
 
     def __init__(self):
-
         QObject.__init__(self)
         GraphicScene.__init__(self)
 
 ####################################################################################################
 
 class QtPainter(Painter):
+
+    """Class to implement a Qt painter."""
 
     __STROKE_STYLE__ = {
         None: None, # Fixme: ???
@@ -95,7 +102,6 @@ class QtPainter(Painter):
         self._show_grid = True
 
         # self._paper = paper
-
         # self._translation = QPointF(0, 0)
         # self._scale = 1
 
@@ -155,7 +161,6 @@ class QtPainter(Painter):
     def paint(self, painter):
 
         self._logger.info('paint')
-
         self._painter = painter
         if self._show_grid:
             self._paint_grid()
@@ -259,7 +264,8 @@ class QtPainter(Painter):
         self._painter.setBrush(Qt.NoBrush)
 
         step = max(10**int(math.log10(length)), 10)
-        # print('Grid', length, step)
+        small_step = step // 10
+        self._logger.info('Grid of {}/{} for {:.1f} mm'.format(step, small_step, length))
         self._paint_axis_grid(xinf, xsup, yinf, ysup, True, step)
         self._paint_axis_grid(yinf, ysup, xinf, xsup, False, step)
 
@@ -269,9 +275,8 @@ class QtPainter(Painter):
         self._painter.setPen(pen)
         self._painter.setBrush(Qt.NoBrush)
 
-        step /= 10
-        self._paint_axis_grid(xinf, xsup, yinf, ysup, True, step)
-        self._paint_axis_grid(yinf, ysup, xinf, xsup, False, step)
+        self._paint_axis_grid(xinf, xsup, yinf, ysup, True, small_step)
+        self._paint_axis_grid(yinf, ysup, xinf, xsup, False, small_step)
 
     ##############################################
 
@@ -419,6 +424,10 @@ class QtPainter(Painter):
 
 class ViewportArea:
 
+    """Class to implement a viewport."""
+
+    _logger = _module_logger.getChild('ViewportArea')
+
     ##############################################
 
     def __init__(self):
@@ -436,8 +445,21 @@ class ViewportArea:
     ##############################################
 
     def __bool__(self):
-
         return self._scene is not None
+
+    ##############################################
+
+    @classmethod
+    def _to_np_array(cls, *args):
+        if len(args) == 1:
+            args = args[0]
+        return np.array(args, dtype=np.float)
+
+    ##############################################
+
+    @classmethod
+    def _point_to_np(cls, point):
+        return cls._to_np_array(point.x(), point.y())
 
     ##############################################
 
@@ -450,7 +472,7 @@ class ViewportArea:
     def viewport_size(self, geometry):
         # self._width = geometry.width()
         # self._height = geometry.height()
-        self._viewport_size = np.array((geometry.width(), geometry.height()), dtype=np.float)
+        self._viewport_size = self._to_np_array(geometry.width(), geometry.height())
         if self:
             self._update_viewport_area()
 
@@ -462,6 +484,8 @@ class ViewportArea:
 
     @scene.setter
     def scene(self, value):
+        if not isinstance(value, GraphicScene):
+            raise ValueError
         self._scene = value
 
     @property
@@ -479,6 +503,7 @@ class ViewportArea:
 
     @property
     def scale_px_by_mm(self):
+        # Fixme: assume unit is mm
         return self._scale
 
     @property
@@ -502,8 +527,8 @@ class ViewportArea:
     def _update_viewport_area(self):
 
         offset = self._viewport_size / 2 * self.scale_mm_by_px
-        x, y = list(self._center)
-        dx, dy = list(offset)
+        x, y = self._center
+        dx, dy = offset
 
         self._area = Interval2D(
             (x - dx, x + dx),
@@ -512,7 +537,7 @@ class ViewportArea:
         # Fixme: QPointF ???
         self._translation = - QPointF(self._area.x.inf, self._area.y.sup)
 
-        # print('_update_viewport_area', self._center, self.scale_mm_by_px, self._area)
+        # self._logger.debug('_update_viewport_area', self._center, self.scale_mm_by_px, self._area)
 
     ##############################################
 
@@ -523,7 +548,7 @@ class ViewportArea:
         # scale = min(width_scale, height_scale)
 
         # scale [px/mm]
-        axis_scale = self._viewport_size / np.array(self.scene_area.size, dtype=np.float)
+        axis_scale = self._viewport_size / self._to_np_array(self.scene_area.size)
         axis = axis_scale.argmin()
         scale = axis_scale[axis]
 
@@ -532,7 +557,6 @@ class ViewportArea:
     ##############################################
 
     def zoom_at(self, center, scale):
-
         self._center = center
         self._scale = scale
         self._update_viewport_area()
@@ -543,7 +567,7 @@ class ViewportArea:
 
         # Fixme: AttributeError: 'NoneType' object has no attribute 'center'
         if self:
-            center = np.array(self.scene_area.center, dtype=np.float)
+            center = self._to_np_array(self.scene_area.center)
             scale, axis = self._compute_scale_to_fit_scene()
             self.zoom_at(center, scale)
 
@@ -559,30 +583,35 @@ class ViewportArea:
 
     ##############################################
 
-    def length_scene_to_viewport(self, length):
-        return length * self._scale
-
-    ##############################################
-
     def viewport_to_scene(self, position):
 
         point = QPointF(position.x(), -position.y())
         point /= self._scale
         point -= self._translation
-        return np.array((point.x(), point.y()), dtype=np.float)
+        return self._point_to_np(point)
+
+    ##############################################
+
+    def length_scene_to_viewport(self, length):
+        return length * self._scale
+
+    ##############################################
+
+    def length_viewport_to_scene(self, length):
+        return length / self._scale
 
     ##############################################
 
     def pan_delta_to_scene(self, position):
-
-        # Fixme:
-        point = QPointF(position.x(), position.y())
-        # point /= self._scale
-        return np.array((point.x(), point.y()), dtype=np.float)
+        point = self._point_to_np(position)
+        point *= self.scale_mm_by_px
+        return point
 
 ####################################################################################################
 
 class QtQuickPaintedSceneItem(QQuickPaintedItem, QtPainter):
+
+    """Class to implement a painter as Qt Quick item"""
 
     _logger = _module_logger.getChild('QtQuickPaintedSceneItem')
 
@@ -593,6 +622,7 @@ class QtQuickPaintedSceneItem(QQuickPaintedItem, QtPainter):
         QQuickPaintedItem.__init__(self, parent)
         QtPainter.__init__(self)
 
+        # Setup backend rendering
         self.setAntialiasing(True)
         # self.setRenderTarget(QQuickPaintedItem.Image) # high quality antialiasing
         self.setRenderTarget(QQuickPaintedItem.FramebufferObject) # use OpenGL
@@ -603,7 +633,7 @@ class QtQuickPaintedSceneItem(QQuickPaintedItem, QtPainter):
 
     def geometryChanged(self, new_geometry, old_geometry):
 
-        # print('geometryChanged', new_geometry, old_geometry)
+        # self._logger.info('geometryChanged', new_geometry, old_geometry)
         self._viewport_area.viewport_size = new_geometry
         # if self._scene:
         #     self._update_transformation()
@@ -612,7 +642,6 @@ class QtQuickPaintedSceneItem(QQuickPaintedItem, QtPainter):
     ##############################################
 
     # def _update_transformation(self):
-
     #     area = self._viewport_area.area
     #     self.translation = - QPointF(area.x.inf, area.y.sup)
     #     self.scale = self._viewport_area.scale_px_by_mm # QtPainter
@@ -635,6 +664,11 @@ class QtQuickPaintedSceneItem(QQuickPaintedItem, QtPainter):
 
     ##############################################
 
+    def length_viewport_to_scene(self, length):
+        return self._viewport_area.length_viewport_to_scene(length)
+
+    ##############################################
+
     sceneChanged = Signal()
 
     @Property(QtScene, notify=sceneChanged)
@@ -644,7 +678,7 @@ class QtQuickPaintedSceneItem(QQuickPaintedItem, QtPainter):
     @scene.setter
     def scene(self, scene):
         if self._scene is not scene:
-            # print('QtQuickPaintedSceneItem set scene', scene)
+            # self._logger.info('QtQuickPaintedSceneItem set scene', scene)
             self._logger.info('set scene') # Fixme: don't print ???
             self._scene = scene
             self._viewport_area.scene = scene
@@ -717,15 +751,13 @@ class QtQuickPaintedSceneItem(QQuickPaintedItem, QtPainter):
     ##############################################
 
     @Slot(QPointF)
-    def item_at(self, position):
-
-        # Fixme: 1 = 1 cm
-        #   as f of zoom ?
-        radius = 0.3
+    def item_at(self, position, radius_px=10):
 
         self._scene.update_rtree()
         self._scene.unselect_items()
         scene_position = Vector2D(self._viewport_area.viewport_to_scene(position))
+        radius = self.length_viewport_to_scene(radius_px)
+        self._logger.info('Item selection at {} with radius {:1f} mm'.format(scene_position, radius))
         items = self._scene.item_at(scene_position, radius)
         if items:
             distance, nearest_item = items[0]
