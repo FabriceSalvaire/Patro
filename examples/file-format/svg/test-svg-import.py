@@ -25,8 +25,10 @@ import logging
 from pathlib import Path
 
 # Disable if executed by patro
-# from Patro.Common.Logging import Logging
-# Logging.setup_logging()
+use_qt = True
+if not use_qt:
+    from Patro.Common.Logging import Logging
+    Logging.setup_logging()
 
 from Patro.FileFormat.Svg import SvgFormat
 from Patro.FileFormat.Svg.SvgFile import SvgFile, SvgFileInternal
@@ -81,15 +83,15 @@ class SceneImporter(SvgFileInternal):
     ##############################################
 
     def on_group(self, group):
-        pass
         # self._logger.info('Group: {}\n{}'.format(group.id, group))
+        pass
 
     ##############################################
 
     def on_graphic_item(self, item):
 
-        # self._logger.info('Item: {}\n{}'.format(item.id, item))
         state = self._dispatcher.state.clone().merge(item)
+        self._logger.info('Item: {}\n{}'.format(item.id, item))
         # self._logger.info('Item State:\n' + str(state))
 
         self._item_counter += 1
@@ -109,19 +111,24 @@ class SceneImporter(SvgFileInternal):
         if isinstance(item, SvgFormat.Path):
             # and state.stroke_dasharray is None
             path = item.path_data
-            path = path.transform(transformation)
-            # Fixme:
-            for part in path:
-                self._update_bounding_box(part)
+            if path is not None: # Fixme:
+                # path = path.transform(transformation)
+                # Fixme:
+                for part in path:
+                    self._update_bounding_box(part)
+                self._scene.add_path(path, path_style)
+        elif isinstance(item, SvgFormat.Rect):
+            path = item.geometry
             self._scene.add_path(path, path_style)
 
 ####################################################################################################
 
-# svg_path = find_data_path('svg', 'demo.svg')
-svg_path = find_data_path('patterns-svg', 'veravenus-little-bias-dress.pattern-a0.svg')
-# svg_path = find_data_path('patterns-svg', 'test.svg')
+svg_path = find_data_path('svg', 'demo.svg')
+# svg_path = find_data_path('patterns-svg', 'veravenus-little-bias-dress.pattern-a0.svg')
+# svg_path = find_data_path('patterns-svg', 'veravenus-little-bias-dress.pattern-a0.no-text-zaggy.svg')
 
 # svg_file = SvgFile(svg_path)
 
 scene_importer = SceneImporter(svg_path)
-application.qml_application.scene = scene_importer.scene
+if use_qt:
+    application.qml_application.scene = scene_importer.scene

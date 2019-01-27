@@ -47,10 +47,10 @@ class PathPart:
 
     ##############################################
 
-    def __init__(self, path, position):
+    def __init__(self, path, index):
 
         self._path = path
-        self._position = position
+        self._index = index
 
     ##############################################
 
@@ -60,7 +60,7 @@ class PathPart:
     ##############################################
 
     def __repr__(self):
-        return self.__class__.__name__
+        return '{0}(@{1._index})'.format(self.__class__.__name__, self)
 
     ##############################################
 
@@ -69,22 +69,22 @@ class PathPart:
         return self._path
 
     @property
-    def position(self):
-        return self._position
+    def index(self):
+        return self._index
 
-    @position.setter
-    def position(self, value):
-        self._position = int(value)
+    @index.setter
+    def index(self, value):
+        self._index = int(value)
 
     ##############################################
 
     @property
     def prev_part(self):
-        return self._path[self._position -1]
+        return self._path[self._index -1]
 
     @property
     def next_part(self):
-        return self._path[self._position +1]
+        return self._path[self._index +1]
 
     ##############################################
 
@@ -112,6 +112,60 @@ class PathPart:
     @property
     def bounding_box(self):
         return self.geometry.bounding_box
+
+####################################################################################################
+
+class OnePointMixin:
+
+    ##############################################
+
+    @property
+    def point(self):
+        return self._point
+
+    @point.setter
+    def point(self, value):
+        self._point = Vector2D(value) # self._path.__vector_cls__
+
+    ##############################################
+
+    @property
+    def stop_point(self):
+        if self._absolute:
+            return self._point
+        else:
+            return self._point + self.start_point
+
+    ##############################################
+
+    def apply_transformation(self, transformation):
+        self._point = transformation * self._point
+
+####################################################################################################
+
+class TwoPointMixin:
+
+    @property
+    def point1(self):
+        return self._point1
+
+    @point1.setter
+    def point1(self, value):
+        self._point1 = Vector2D(value) # self._path.__vector_cls__
+
+    @property
+    def point2(self):
+        return self._point2
+
+    @point2.setter
+    def point2(self, value):
+        self._point2 = Vector2D(value)
+
+    ##############################################
+
+    def apply_transformation(self, transformation):
+        self._point1 = transformation * self._point1
+        self._point2 = transformation * self._point2
 
 ####################################################################################################
 
@@ -155,13 +209,15 @@ class LinearSegment(PathPart):
 
     ##############################################
 
-    def __init__(self, path, position, radius):
+    def __init__(self, path, index, radius, closing=False):
 
-        super().__init__(path, position)
+        super().__init__(path, index)
 
         self._bissector = None
         self._direction = None
 
+        self._start_radius = False
+        self._closing = bool(closing)
         self.radius = radius
         if self._radius is not None:
             if not isinstance(self.prev_part, LinearSegment):
@@ -176,6 +232,31 @@ class LinearSegment(PathPart):
         self._bulge_center = None
         self._start_bulge_point = None
         self._stop_bulge_point = None
+
+    ##############################################
+
+    def close(self, radius):
+        self.radius = radius
+        self._reset_cache()
+        self._start_radius = True
+        print('set close', self, self.__dict__)
+
+    ##############################################
+
+    @property
+    def prev_part(self):
+        if self._start_radius:
+            return self._path.stop_segment # or [-1] don't work
+        else:
+            # Fixme: super
+            return self._path[self._index -1]
+
+    @property
+    def next_part(self):
+        if self._closing:
+            return self._path.start_segment # or [0]
+        else:
+            return self._path[self._index +1]
 
     ##############################################
 
@@ -283,45 +364,26 @@ class LinearSegment(PathPart):
 
 ####################################################################################################
 
-class PathSegment(LinearSegment):
+class PathSegment(OnePointMixin, LinearSegment):
 
     ##############################################
 
-    def __init__(self, path, position, point, radius=None, absolute=False):
-        super().__init__(path, position, radius)
+    def __init__(self, path, index, point, radius=None, absolute=False, closing=False):
+        super().__init__(path, index, radius, closing)
         self.point = point
         self._absolute = bool(absolute)
 
     ##############################################
 
     def clone(self, path):
-        return self.__class__(path, self._position, self._point, self._radius, self._absolute)
+        return self.__class__(path, self._index, self._point, self._radius, self._absolute)
 
     ##############################################
 
     def apply_transformation(self, transformation):
-        self._point = transformation * self._point
+        OnePointMixin.apply_transformation(self, transformation)
         if self._radius is not None:
             self._radius = transformation * self._radius
-
-    ##############################################
-
-    @property
-    def point(self):
-        return self._point
-
-    @point.setter
-    def point(self, value):
-        self._point = Vector2D(value) # self._path.__vector_cls__
-
-    ##############################################
-
-    @property
-    def stop_point(self):
-        if self._absolute:
-            return self._point
-        else:
-            return self._point + self.start_point
 
     ##############################################
 
@@ -338,8 +400,8 @@ class DirectionalSegment(LinearSegment):
 
     ##############################################
 
-    def __init__(self, path, position, length, radius=None):
-        super().__init__(path, position, radius)
+    def __init__(self, path, index, length, radius=None):
+        super().__init__(path, index, radius)
         self.length = length
 
     ##############################################
@@ -352,7 +414,7 @@ class DirectionalSegment(LinearSegment):
     ##############################################
 
     def clone(self, path):
-        return self.__class__(path, self._position, self._length, self._radius)
+        return self.__class__(path, self._index, self._length, self._radius)
 
     ##############################################
 
@@ -386,7 +448,7 @@ class DirectionalSegment(LinearSegment):
     ##############################################
 
     def to_path_segment(self):
-        return PathSegment(self._path, self._position, self.offset, self._radius, absolute=False)
+        return PathSegment(self._path, self._index, self.offset, self._radius, absolute=False)
 
 ####################################################################################################
 
@@ -422,41 +484,15 @@ class SouthWestSegment(DirectionalSegment):
 
 ####################################################################################################
 
-class TwoPointsMixin:
-
-    @property
-    def point1(self):
-        return self._point1
-
-    @point1.setter
-    def point1(self, value):
-        self._point1 = Vector2D(value) # self._path.__vector_cls__
-
-    @property
-    def point2(self):
-        return self._point2
-
-    @point2.setter
-    def point2(self, value):
-        self._point2 = Vector2D(value)
-
-    ##############################################
-
-    def apply_transformation(self, transformation):
-        self._point1 = transformation * self._point1
-        self._point2 = transformation * self._point2
-
-####################################################################################################
-
-class QuadraticBezierSegment(PathPart, TwoPointsMixin):
+class QuadraticBezierSegment(PathPart, TwoPointMixin):
 
     # Fixme: abs / inc
 
     ##############################################
 
-    def __init__(self, path, position, point1, point2):
+    def __init__(self, path, index, point1, point2, absolute=False):
 
-        PathPart.__init__(self, path, position)
+        PathPart.__init__(self, path, index)
 
         self.point1 = point1
         self.point2 = point2
@@ -464,7 +500,7 @@ class QuadraticBezierSegment(PathPart, TwoPointsMixin):
     ##############################################
 
     def clone(self, path):
-        return self.__class__(path, self._position, self._point1, self._point2)
+        return self.__class__(path, self._index, self._point1, self._point2)
 
     ##############################################
 
@@ -485,13 +521,13 @@ class QuadraticBezierSegment(PathPart, TwoPointsMixin):
 
 ####################################################################################################
 
-class CubicBezierSegment(PathPart, TwoPointsMixin):
+class CubicBezierSegment(PathPart, TwoPointMixin):
 
     ##############################################
 
-    def __init__(self, path, position, point1, point2, point3):
+    def __init__(self, path, index, point1, point2, point3, absolute=False):
 
-        PathPart.__init__(self, path, position)
+        PathPart.__init__(self, path, index)
 
         self.point1 = point1
         self.point2 = point2
@@ -500,12 +536,12 @@ class CubicBezierSegment(PathPart, TwoPointsMixin):
     ##############################################
 
     def clone(self, path):
-        return self.__class__(path, self._position, self._point1, self._point2, self._point3)
+        return self.__class__(path, self._index, self._point1, self._point2, self._point3)
 
     ##############################################
 
     def apply_transformation(self, transformation):
-        TwoPointsMixin.apply_transformation(self, transformation)
+        TwoPointMixin.apply_transformation(self, transformation)
         self._point3 = transformation * self._point3
 
     ##############################################
@@ -537,6 +573,102 @@ class CubicBezierSegment(PathPart, TwoPointsMixin):
 
 ####################################################################################################
 
+class StringedQuadtraticBezierSegment(PathPart, TwoPointMixin):
+
+    ##############################################
+
+    def __init__(self, path, index, point1, absolute=False):
+
+        PathPart.__init__(self, path, index)
+
+        self.point1 = point1
+
+    ##############################################
+
+    def clone(self, path):
+        return self.__class__(path, self._index, self._point1)
+
+    ##############################################
+
+    @property
+    def geometry(self):
+        # Fixme: cache ???
+        # Fixme: !!!
+        return Segment2D(self.start_point, self._point2)
+        # return CubicBezier2D(self.start_point, self._point1, self._point2, self._point3)
+
+####################################################################################################
+
+class StringedCubicBezierSegment(PathPart, TwoPointMixin):
+
+    ##############################################
+
+    def __init__(self, path, index, point1, point2, absolute=False):
+
+        PathPart.__init__(self, path, index)
+
+        # self.point1 = point1
+
+    ##############################################
+
+    def clone(self, path):
+        return self.__class__(path, self._index, self._point1, self._point2)
+
+    ##############################################
+
+    @property
+    def geometry(self):
+        # Fixme: cache ???
+        # Fixme: !!!
+        return Segment2D(self.start_point, self._point2)
+        # return CubicBezier2D(self.start_point, self._point1, self._point2, self._point3)
+
+####################################################################################################
+
+class ArcSegment(OnePointMixin, PathPart):
+
+    ##############################################
+
+    def __init__(self, path, index, point, radius_x, radius_y, angle, large_arc, sweep, absolute=False):
+
+        PathPart.__init__(self, path, index)
+
+        self.point = point
+        self._absolute = bool(absolute)
+
+        self._large_arc = bool(large_arc)
+        self._sweep = bool(sweep)
+        self._radius_x = radius_x
+        self._radius_y = radius_y
+        self._angle = angle
+
+    ##############################################
+
+    def clone(self, path):
+        return self.__class__(
+            path,
+            self._index,
+            self._point,
+            self._large_arc, self._sweep,
+            self._radius_x, self._radius_y,
+            self._angle
+        )
+
+    ##############################################
+
+    @property
+    def points(self):
+        return self.start_point, self.stop_point
+
+    ##############################################
+
+    @property
+    def geometry(self):
+        # Fixme: !!!
+        return Segment2D(self.start_point, self.stop_point)
+
+####################################################################################################
+
 class Path2D(Primitive2DMixin, Primitive1P):
 
     """Class to implements 2D Path."""
@@ -547,7 +679,8 @@ class Path2D(Primitive2DMixin, Primitive1P):
 
         Primitive1P.__init__(self, start_point)
 
-        self._parts = []
+        self._parts = [] # Fixme: segment ???
+        self._is_closed = False
 
     ##############################################
 
@@ -570,16 +703,38 @@ class Path2D(Primitive2DMixin, Primitive1P):
     def __iter__(self):
         return iter(self._parts)
 
-    def __getitem__(self, position):
+    def __getitem__(self, index):
         # try:
         #     return self._parts[slice_]
         # except IndexError:
         #     return None
-        position = int(position)
-        if 0 <= position < len(self._parts):
-            return self._parts[position]
-        else:
-            return None
+        index = int(index)
+        number_of_parts = len(self._parts)
+        if 0 <= index < number_of_parts:
+            return self._parts[index]
+        # elif self._is_closed:
+        #     if index == -1:
+        #         return self.start_segment
+        #     elif index == number_of_parts:
+        #         return self.stop_segment
+        return None
+
+    ##############################################
+
+    @property
+    def start_segment(self):
+        # Fixme: start_part ???
+        return self._parts[0]
+
+    @property
+    def stop_segment(self):
+        return self._parts[-1]
+
+    ##############################################
+
+    @property
+    def is_closed(self):
+        return self._is_closed
 
     ##############################################
 
@@ -606,16 +761,43 @@ class Path2D(Primitive2DMixin, Primitive1P):
 
     ##############################################
 
+    @property
+    def bounding_box(self):
+
+        # Fixme: cache
+        bounding_box = None
+        for item in self._parts:
+            interval = item.geometry.bounding_box
+            if bounding_box is None:
+                bounding_box = interval
+            else:
+                bounding_box |= interval
+        return bounding_box
+
+    ##############################################
+
     def move_to(self, point):
         self.p0 = point
 
     ##############################################
 
-    def horizontal_to(self, distance, radius=None):
-        return self._add_part(HorizontalSegment, distance, radius)
+    def horizontal_to(self, distance, radius=None, absolute=False):
+        if absolute:
+            return self._add_part(PathSegment, self.__vector_cls__(distance, 0), radius,
+                                  absolute=True)
+        else:
+            return self._add_part(HorizontalSegment, distance, radius)
 
-    def vertical_to(self, distance, radius=None):
-        return self._add_part(VerticalSegment, distance, radius)
+    ##############################################
+
+    def vertical_to(self, distance, radius=None, absolute=False):
+        if absolute:
+            return self._add_part(PathSegment, self.__vector_cls__(0, distance), radius,
+                                  absolute=True)
+        else:
+            return self._add_part(VerticalSegment, distance, radius)
+
+    ##############################################
 
     def north_to(self, distance, radius=None):
         return self._add_part(NorthSegment, distance, radius)
@@ -646,17 +828,40 @@ class Path2D(Primitive2DMixin, Primitive1P):
     def line_to(self, point, radius=None, absolute=False):
         return self._add_part(PathSegment, point, radius, absolute=absolute)
 
-    def close(self, radius=None):
-        # Fixme: identify as close for SVG export
+    ##############################################
+
+    def close(self, radius=None, close_radius=None):
+        # Fixme: identify as close for SVG export <-- meaning ???
         # Fixme: radius must apply to start and stop
-        return self._add_part(PathSegment, self._p0, radius, absolute=True)
+        closing = close_radius is not None
+        segment = self._add_part(PathSegment, self._p0, radius, absolute=True, closing=closing)
+        if closing:
+            self.start_segment.close(close_radius)
+        self._is_closed = True
+        return segment
 
     ##############################################
 
-    def quadratic_to(self, point1, point2):
-        return self._add_part(QuadraticBezierSegment, point1, point2)
+    def quadratic_to(self, point1, point2, absolute=True):
+        return self._add_part(QuadraticBezierSegment, point1, point2, absolute=absolute)
 
     ##############################################
 
-    def cubic_to(self, point1, point2, point3):
-        return self._add_part(CubicBezierSegment, point1, point2, point3)
+    def cubic_to(self, point1, point2, point3, absolute=True):
+        return self._add_part(CubicBezierSegment, point1, point2, point3, absolute=absolute)
+
+    ##############################################
+
+    def stringed_quadratic_to(self, point, absolute=True):
+        return self._add_part(StringedQuadraticBezierSegment, point, absolute=absolute)
+
+    ##############################################
+
+    def stringed_cubic_to(self, point1, point2, absolute=True):
+        return self._add_part(StringedCubicBezierSegment, point1, point2, absolute=absolute)
+
+    ##############################################
+
+    def arc_to(self, point, radius_x, radius_y, angle, large_arc, sweep, absolute=True):
+        return self._add_part(ArcSegment, point, radius_x, radius_y, angle, large_arc, sweep,
+                              absolute=absolute)

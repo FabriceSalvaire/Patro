@@ -997,11 +997,7 @@ class PathDataAttribute(StringAttribute):
             i = next_i
 
         # return commands
-        try:
-            return cls.to_geometry(commands)
-        except NotImplementedError:
-            self._logger.warning('Not Implemented Error on path')
-            return None
+        return cls.to_geometry(commands)
 
     ##############################################
 
@@ -1031,11 +1027,11 @@ class PathDataAttribute(StringAttribute):
     @classmethod
     def to_geometry(cls, commands):
 
-        # cls._logger.debug('Path:\n' + str(commands))
+        cls._logger.info('Path:\n' + str(commands).replace('), ', '),\n '))
         path = None
         for command, args in commands:
             command_lower = command.lower()
-            absolute = command_lower != command
+            absolute = command_lower != command # Upper case means absolute
             # if is_lower:
             #     cls._logger.warning('incremental command')
             #     raise NotImplementedError
@@ -1045,23 +1041,24 @@ class PathDataAttribute(StringAttribute):
                 # Fixme: m ???
                 path = Path2D(args) # Vector2D()
             else:
-                # Fixme: incremental and (q t a) need Path support
                 if command_lower == 'l':
                     path.line_to(args, absolute=absolute)
                 elif command_lower == 'h':
-                    path.horizontal_to(*args)
+                    path.horizontal_to(*args, absolute=absolute)
                 elif command_lower == 'v':
-                    path.vertical_to(*args)
+                    path.vertical_to(*args, absolute=absolute)
                 elif command_lower == 'c':
-                    path.cubic_to(*cls.as_vector(args))
+                    path.cubic_to(*cls.as_vector(args), absolute=absolute)
                 elif command_lower == 's':
-                    raise NotImplementedError
+                    path.stringed_quadratic_to(*cls.as_vector(args), absolute=absolute)
                 elif command_lower == 'q':
-                    path.quadratic_to(*cls.as_vector(args))
+                    path.quadratic_to(*cls.as_vector(args), absolute=absolute)
                 elif command_lower == 't':
-                    raise NotImplementedError
+                    path.stringed_cubic_to(*cls.as_vector(args), absolute=absolute)
                 elif command_lower == 'a':
-                    raise NotImplementedError
+                    radius_x, radius_y, angle, large_arc, sweep, x, y = args
+                    point = Vector2D(x, y)
+                    path.arc_to(point, radius_x, radius_y, angle, bool(large_arc), bool(sweep), absolute=absolute)
                 elif command_lower == 'z':
                     path.close()
 
@@ -1149,6 +1146,32 @@ class Rect(PositionMixin, RadiusMixin, SizeMixin, PathMixin, SvgElementMixin, Xm
     """Defines a rectangle"""
 
     __tag__ = 'rect'
+
+    ##############################################
+
+    @property
+    def geometry(self):
+
+        # Fixme: width is str
+        width = float(self.width)
+        height = float(self.height)
+
+        # Fixme: which one ???
+        radius_x = self.rx
+        radius_y = self.ry
+        if radius_y == 0:
+            radius = None
+        else:
+            radius = radius_y
+
+        point = Vector2D(self.x, self.y)
+        path = Path2D(point)
+        path.horizontal_to(width)
+        path.vertical_to(height, radius=radius)
+        path.horizontal_to(-width, radius=radius)
+        path.close(radius=radius_y, close_radius=radius)
+
+        return path
 
 ####################################################################################################
 

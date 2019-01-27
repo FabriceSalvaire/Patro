@@ -375,36 +375,57 @@ class GraphicSceneScope:
     def add_path(self, path, path_style):
 
         items = []
-        for segment in path:
-            if isinstance(segment, Path.LinearSegment):
-                if segment.radius is not None:
-                    arc = segment.bulge_geometry
-                    arc_item = self.circle(
-                        arc.center, arc.radius,
-                        path_style,
-                        start_angle=arc.domain.start,
-                        stop_angle=arc.domain.stop,
-                        user_data=segment,
-                    )
-                    items.append(arc_item)
-                item = self.segment(
-                    *segment.points,
-                    path_style,
-                    user_data=segment,
-                )
-            elif isinstance(segment, Path.QuadraticBezierSegment):
-                item = self.quadratic_bezier(
-                    *segment.points,
-                    path_style,
-                    user_data=segment,
-                )
-            elif isinstance(segment, Path.CubicBezierSegment):
-                item = self.cubic_bezier(
-                    *segment.points,
-                    path_style,
-                    user_data=segment,
-                )
+
+        def add_bulge(segment):
+            arc = segment.bulge_geometry
+            arc_item = self.circle(
+                arc.center, arc.radius,
+                path_style,
+                start_angle=arc.domain.start,
+                stop_angle=arc.domain.stop,
+                user_data=segment,
+            )
+            items.append(arc_item)
+
+        def add_by_method(method, segment):
+            item = method(
+                *segment.points,
+                path_style,
+                user_data=segment,
+            )
             items.append(item)
+
+        def add_segment(segment):
+            add_by_method(self.segment, segment)
+
+        def add_quadratic(segment):
+            add_by_method(self.quadratic_bezier, segment)
+
+        def add_cubic(segment):
+            add_by_method(self.cubic_bezier, segment)
+
+        for segment in path:
+            item = None
+            if isinstance(segment, Path.LinearSegment):
+                # if segment._start_radius is True:
+                #     continue
+                if segment.radius is not None:
+                    add_bulge(segment)
+                # if segment._closing is True:
+                #     start_segment = path.start_segment
+                #     add_bulge(start_segment)
+                #     add_segment(start_segment)
+                add_segment(segment)
+            elif isinstance(segment, Path.QuadraticBezierSegment):
+                add_quadratic(segment)
+            elif isinstance(segment, Path.CubicBezierSegment):
+                add_cubic(segment)
+            elif isinstance(segment, Path.ArcSegment):
+                add_segment(segment)
+            elif isinstance(segment, Path.StringedQuadtraticBezierSegment):
+                pass
+            elif isinstance(segment, Path.StringedCubicBezierSegment):
+                pass
 
     ##############################################
 
