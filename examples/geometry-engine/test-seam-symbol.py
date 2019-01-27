@@ -1,15 +1,30 @@
 ####################################################################################################
+#
+# Patro - A Python library to make patterns for fashion design
+# Copyright (C) 2017 Fabrice Salvaire
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+####################################################################################################
+
+####################################################################################################
 
 from Patro.Common.Logging import Logging
 Logging.setup_logging()
 
 from Patro.GeometryEngine.Conic import Circle2D
-from Patro.GeometryEngine.Path import (
-    Path2D,
-    LinearSegment, QuadraticBezierSegment, CubicBezierSegment
-)
-from Patro.GeometryEngine.Transformation import Transformation2D
-from Patro.GeometryEngine.Vector import Vector2D
+from Patro.GeometryEngine.Path import Path2D
 from Patro.GraphicEngine.GraphicScene.GraphicStyle import GraphicPathStyle, GraphicBezierStyle
 from Patro.GraphicEngine.Painter.QtPainter import QtScene
 from Patro.GraphicStyle import Colors, StrokeStyle, CapStyle
@@ -107,38 +122,9 @@ class SceneBuilder:
             cap_style=CapStyle.RoundCap,
         )
 
-        for item in path:
-            # print('Path part:', item)
-            if isinstance(item, LinearSegment):
-                # print('linear', item.start_point, item.stop_point, item.points)
-                if item.radius is not None:
-                    print('-'*10)
-                    print(item.bissector)
-                    print(item.bulge_angle, item.bulge_center, item.start_point, item.stop_point)
-                    print(item.bulge_geometry)
-                    arc = item.bulge_geometry
-                    self._scene.circle(arc.center, arc.radius,
-                                       path_style,
-                                       start_angle=arc.domain.start,
-                                       stop_angle=arc.domain.stop,
-                                       user_data=item,
-                    )
-                self._scene.segment(*item.points,
-                                    path_style,
-                                    user_data=item,
-                )
-            elif isinstance(item, QuadraticBezierSegment):
-                self._scene.quadratic_bezier(*item.points,
-                                             path_style,
-                                             user_data=item,
-                )
-            elif isinstance(item, CubicBezierSegment):
-                self._scene.cubic_bezier(*item.points,
-                                         path_style,
-                                         user_data=item,
-                )
+        self._scene.add_path(path, path_style)
         # Fixme: why here ???
-        self._update_bounding_box(item)
+        self._update_bounding_box(path)
 
     ##############################################
 
@@ -150,11 +136,7 @@ class SceneBuilder:
             stroke_style=StrokeStyle.SolidLine,
         )
 
-        kwargs = dict(user_data=circle)
-        if circle.domain:
-            kwargs['start_angle'] = circle.domain.start
-            kwargs['stop_angle'] = circle.domain.stop
-        self._scene.circle(circle.center, circle.radius, path_style, **kwargs)
+        self._scene.add_geometry(circle, path_style)
         self._update_bounding_box(circle)
 
 ####################################################################################################
@@ -162,7 +144,6 @@ class SceneBuilder:
 scene = QtScene()
 
 scene_builder = SceneBuilder()
-
 application.qml_application.scene = scene_builder.scene
 
 # from Patro.GraphicEngine.Painter.QtPainter import QtPainter
