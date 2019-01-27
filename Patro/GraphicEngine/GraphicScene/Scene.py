@@ -295,24 +295,24 @@ class GraphicSceneScope:
 
         # Bezier
         if isinstance(item, Bezier.QuadraticBezier2D):
-            # ctor = self._scene.quadratic_bezier
+            # ctor = self.quadratic_bezier
             # raise NotImplementedError
-            ctor = self._scene.cubic_bezier
+            ctor = self.cubic_bezier
             points = list(item.to_cubic().points)
 
-        elif isinstance(item, Bezier.CubicBezierItem):
-            ctor = self._scene.cubic_bezier
+        elif isinstance(item, Bezier.CubicBezier2D):
+            ctor = self.cubic_bezier
 
         # Conic
         elif isinstance(item, Conic.Circle2D):
-            ctor = self._scene.circle
+            ctor = self.circle
             args = [item.radius]
             if item.domain:
                 kwargs['start_angle'] = item.domain.start
                 kwargs['stop_angle'] = item.domain.stop
 
         elif isinstance(item, Conic.Ellipse2D):
-            ctor = self._scene.ellipse
+            ctor = self.ellipse
             args = [item.radius_x, item.radius_y, item.angle]
 
         # Line
@@ -325,35 +325,36 @@ class GraphicSceneScope:
             self.add_path(item, path_style)
 
         # Polygon
-        elif isinstance(item, Path.Polygon2D):
+        elif isinstance(item, Polygon.Polygon2D):
             # Fixme: to path
             raise NotImplementedError
 
         # Polyline
         elif isinstance(item, Polyline.Polyline2D):
-            ctor = self._scene.polyline
+            ctor = self.polyline
             # fixme: to path
 
         # Rectangle
         elif isinstance(item, Rectangle.Rectangle2D):
-            ctor = self._scene.rectangle
+            ctor = self.rectangle
             # Fixme: to path
 
         # Segment
-        if isinstance(item, Segment.Segment2D):
-            ctor = self._scene.segment
+        elif isinstance(item, Segment.Segment2D):
+            ctor = self.segment
 
         # Spline
         elif isinstance(item, Spline.BSpline2D):
-            return self._add_spline(item, path_style)
+            return self.add_spline(item, path_style)
 
         # Triangle
-        if isinstance(item, Triangle.Triangle2D):
+        elif isinstance(item, Triangle.Triangle2D):
             # Fixme: to path
             raise NotImplementedError
 
         # Not implemented
         else:
+            self._logger.warning('Not implemented item {}'.format(item))
             raise NotImplementedError
 
         if ctor is not None:
@@ -365,7 +366,7 @@ class GraphicSceneScope:
 
     def add_spline(self, spline, path_style):
         return [
-            self._scene.cubic_bezier(*bezier.points, path_style, user_data=item)
+            self.cubic_bezier(*bezier.points, path_style, user_data=spline)
             for bezier in spline.to_bezier()
         ]
 
