@@ -160,16 +160,22 @@ autodoc_member_order = 'alphabetical' # groupwise bysource
 #     # 'exclude-members',
 # ]
 
+excluded_members = [
+    '__dict__',
+    '__module__',
+    '__weakref__',
+]
+
 autodoc_default_options = {
     'members': None,
     # 'member-order': 'alphabetical' ,
     'undoc-members': None,
-    # 'private-members': ,
-    # 'special-members': ,
+    'private-members': None,
+    'special-members': None,
     # 'inherited-members': ,
-    # 'show-inheritance': ,
+    'show-inheritance': None,
     'ignore-module-all': None,
-    # 'exclude-members': ,
+    'exclude-members': ','.join(excluded_members),
 }
 
 ####################################################################################################
