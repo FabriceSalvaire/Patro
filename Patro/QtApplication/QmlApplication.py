@@ -18,6 +18,12 @@
 #
 ####################################################################################################
 
+"""Module to implement a Qt Application.
+
+"""
+
+####################################################################################################
+
 __all__ = [
     'QmlApplication',
 ]
@@ -44,6 +50,7 @@ from QtShim.QtQuick import QQuickPaintedItem, QQuickView
 # from QtShim.QtQuickControls2 import QQuickStyle
 
 from Patro.Common.Platform import QtPlatform
+from Patro.Common.ArgparseAction import PathAction
 from Patro.GraphicEngine.Painter.QtPainter import QtScene, QtQuickPaintedSceneItem
 
 from .rcc import PatroRessource
@@ -55,6 +62,8 @@ _module_logger = logging.getLogger(__name__)
 ####################################################################################################
 
 class QmlApplication(QObject):
+
+    """Class to implement a Qt QML Application."""
 
     _logger = _module_logger.getChild('QmlApplication')
 
@@ -78,31 +87,15 @@ class QmlApplication(QObject):
     @scene.setter
     def scene(self, scene):
         if self._scene is not scene:
-            # print('QmlApplication set scene', scene)
-            self._logger.info('set scene') # Fixme: don't print ???
+            self._logger.info('set scene {}'.format(scene))
             self._scene = scene
             self.sceneChanged.emit()
 
 ####################################################################################################
 
-class PathAction(argparse.Action):
-
-    ##############################################
-
-    def __call__(self, parser, namespace, values, option_string=None):
-
-        if values is not None:
-            if isinstance(values, list):
-                path = [Path(x) for x in values]
-            else:
-                path = Path(values)
-        else:
-            path = None
-        setattr(namespace, self.dest, path)
-
-####################################################################################################
-
 class Application(QObject):
+
+    """Class to implement a Qt Application."""
 
     instance = None
 
@@ -182,8 +175,12 @@ class Application(QObject):
 
         # local_msg = msg.toLocal8Bit()
         # localMsg.constData()
-        file_path = Path(context.file)
-        method('{1} {3} — {0}'.format(msg, file_path.name, context.line, context.function))
+        context_file = context.file
+        if context_file is not None:
+            file_path = Path(context_file).name
+        else:
+            file_path = ''
+        method('{1} {3} — {0}'.format(msg, file_path, context.line, context.function))
 
     ##############################################
 
@@ -250,7 +247,6 @@ class Application(QObject):
     ##############################################
 
     def _set_context_properties(self):
-
         context = self._engine.rootContext()
         context.setContextProperty('application', self._qml_application)
 
@@ -261,25 +257,29 @@ class Application(QObject):
         # self._engine.addImportPath('qrc:///qml')
 
         qml_path = Path(__file__).parent.joinpath('qml', 'main.qml')
-        qml_url = QUrl.fromLocalFile(str(qml_path))
+        self._qml_url = QUrl.fromLocalFile(str(qml_path))
         # QUrl('qrc:/qml/main.qml')
-        self._engine.load(qml_url)
+        self._engine.objectCreated.connect(self._check_qml_is_loaded)
+        self._engine.load(self._qml_url)
+
+    ##############################################
+
+    def _check_qml_is_loaded(self, obj, url):
+        # See https://bugreports.qt.io/browse/QTBUG-39469
+        if (obj is None and url == self._qml_url):
+            sys.exit(-1)
 
     ##############################################
 
     def exec_(self):
-
         # self._view.show()
         sys.exit(self._appplication.exec_())
 
     ##############################################
 
     def _post_init(self):
-
         # Fixme: ui refresh ???
-
         self._logger.info('post init')
-
         if self._args.user_script is not None:
             self.execute_user_script(self._args.user_script)
 
@@ -287,8 +287,8 @@ class Application(QObject):
 
     def execute_user_script(self, script_path):
 
-        """Execute an user script provided by file *script_path* in a context where is defined a variable
-        *application* that is a reference to the application instance.
+        """Execute an user script provided by file *script_path* in a context where is defined a
+        variable *application* that is a reference to the application instance.
 
         """
 
