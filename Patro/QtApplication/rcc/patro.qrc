@@ -4,6 +4,8 @@
         <file>qtquickcontrols2.conf</file>
     </qresource>
     <qresource prefix="/">
+	<file>icons/svg/logo.svg</file>
+	<file>icons/logo-256.png</file>
         <file>icons/36x36/settings-overscan-black.png</file>
         <file>icons/36x36/zoom-fit-width.png</file>
 	<file>icons/36x36/zoom-out-black.png</file>

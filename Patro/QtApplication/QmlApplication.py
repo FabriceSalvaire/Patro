@@ -42,7 +42,7 @@ from QtShim.QtCore import (
     Property, Signal, QObject,
     Qt, QTimer, QUrl
 )
-from QtShim.QtGui import QGuiApplication
+from QtShim.QtGui import QGuiApplication, QIcon
 from QtShim.QtQml import qmlRegisterType, QQmlApplicationEngine
 # Fixme: PYSIDE-574 qmlRegisterSingletonType and qmlRegisterUncreatableType missing in QtQml
 from QtShim.QtQml import qmlRegisterUncreatableType
@@ -127,6 +127,9 @@ class Application(QObject):
         self._appplication = QGuiApplication(sys.argv)
         self._engine = QQmlApplicationEngine()
         self._qml_application = QmlApplication(self)
+
+        logo_path = ':/icons/logo-256.png'
+        self._appplication.setWindowIcon(QIcon(logo_path))
 
         self._platform = QtPlatform()
         # self._logger.info('\n' + str(self._platform))
