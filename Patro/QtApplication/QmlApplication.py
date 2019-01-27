@@ -33,6 +33,7 @@ __all__ = [
 import argparse
 import logging
 import sys
+import traceback
 from pathlib import Path
 
 # Fixme:
@@ -306,6 +307,6 @@ class Application(QObject):
             bytecode = compile(source, script_path, 'exec')
             exec(bytecode, {'application':self})
         except Exception as exception:
-            self._logger.info(exception)
+            traceback.print_exc()
             sys.exit(1)
         self._logger.info('User script done')
