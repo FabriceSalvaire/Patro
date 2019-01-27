@@ -479,7 +479,7 @@ class Ellipse2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
     ##############################################
 
     @classmethod
-    def svg_arc(cls, point1, point2, large_arc, sweep, radius_x, radius_y, angle):
+    def svg_arc(cls, point1, point2, radius_x, radius_y, angle, large_arc, sweep):
 
         """Implement SVG Arc.
 
