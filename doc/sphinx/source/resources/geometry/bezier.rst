@@ -6,6 +6,8 @@
  Bézier Curves
 ===============
 
+.. contents:: :local:
+
 Definitions
 -----------
 
@@ -256,3 +258,109 @@ Symbolic Calculation
     >>> B3 = (1-t)*B2_012 + t*B2_123
     >>> collect(expand(B2), t)
     P0 + t**3*(-P0 + 3*P1 - 3*P2 + P3) + t**2*(3*P0 - 6*P1 + 3*P2) + t*(-3*P0 + 3*P1)
+
+.. _bezier-curve-length-section:
+
+Curve Length
+------------
+
+Reference
+
+  * http://www.gamedev.net/topic/551455-length-of-a-generalized-quadratic-bezier-curve-in-3d
+  * Dave Eberly Posted October 25, 2009
+
+The quadratic Bézier is
+
+.. math::
+    \mathbf{B}(t) = (1-t)^2 \mathbf{P}_0 + 2t(1-t) \mathbf{P}_1 + t^2 \mathbf{P}_2
+
+The derivative is
+
+.. math::
+    \mathbf{B'}(t) = -2(1-t) \mathbf{P}_0 + (2-4t) \mathbf{P}_1 + 2t \mathbf{P}_2
+
+The length of the curve for :math:`0 <= t <= 1` is
+
+.. math::
+    \int_0^1 \sqrt{(x'(t))^2 + (y'(t))^2} dt
+
+The integrand is of the form :math:`\sqrt{c t^2 + b t + a}`
+
+You have three separate cases: :math:`c = 0`, :math:`c > 0`, or :math:`c < 0`.
+
+The case :math:`c = 0` is easy.
+
+For the case :math:`c > 0`, an antiderivative is
+
+.. math::
+    \frac{2ct + b}{4c} \sqrt{ct^2 + bt + a}  +  \frac{k}{2\sqrt{c}} \ln{\left(2\sqrt{c(ct^2 + bt + a)} + 2ct + b\right)}
+
+For the case :math:`c < 0`, an antiderivative is
+
+.. math::
+    \frac{2ct + b}{4c} \sqrt{ct^2 + bt + a}  -  \frac{k}{2\sqrt{-c}} \arcsin{\frac{2ct + b}{\sqrt{-q}}}
+
+where :math:`k = \frac{4c}{q}` with :math:`q = 4ac - b^2`.
+
+.. _bezier-curve-flatness-section:
+
+Determine the curve flatness
+----------------------------
+
+Reference
+
+  * Kaspar Fischer and Roger Willcocks  http://hcklbrrfnn.files.wordpress.com/2012/08/bez.pdf
+  * PostScript Language Reference. Addison- Wesley, third edition, 1999
+
+*flatness* is the maximum error allowed for the straight line to deviate from the curve.
+
+Algorithm
+
+We define the flatness of the curve as the argmax of the distance from the curve to the
+line passing by the start and stop point.
+
+:math:`\mathrm{flatness} = argmax(d(t))` for :math:`t \in [0, 1]` where :math:`d(t) = \vert B(t) - L(t) \vert`
+
+The line equation is
+
+.. math::
+    L = (1-t) \mathbf{P}_0 + t \mathbf{P}_1
+
+Let
+
+.. math::
+    \begin{align}
+    u &= 3\mathbf{P}_1 - 2\mathbf{P}_0 - \mathbf{P}_3 \\
+    v &= 3\mathbf{P}_2 - \mathbf{P}_0 - 2\mathbf{P}_3
+    \end{align}
+
+The distance is
+
+.. math::
+    \begin{align}
+    d(t) &= (1-t)^2 t \left(3\mathbf{P}_1 - 2\mathbf{P}_0 - \mathbf{P}_3\right)  +  (1-t) t^2 (3\mathbf{P}_2 - \mathbf{P}_0 - 2\mathbf{P}_3) \\
+         &= (1-t)^2 t u  +  (1-t) t^2 v
+    \end{align}
+
+The square of the distance is
+
+.. math::
+    d(t)^2 = (1 - t)^2 t^2 (((1 - t) ux + t vx)^2 + ((1 - t) uy + t vy)^2
+
+From
+
+.. math::
+    \begin{align}
+    argmax((1 - t)^2 t^2)   &= \frac{1}{16} \\
+    argmax((1 - t) a + t b) &= argmax(a, b)
+    \end{align}
+
+we can express a bound on the flatness
+
+.. math::
+    \mathrm{flatness}^2 = argmax(d(t)^2) \leq \frac{1}{16} (argmax(ux^2, vx^2) + argmax(uy^2, vy^2))
+
+Thus an upper bound of :math:`16\,\mathrm{flatness}^2` is
+
+.. math::
+    argmax(ux^2, vx^2) + argmax(uy^2, vy^2)

@@ -6,6 +6,8 @@
  Spline Curves
 ===============
 
+.. contents:: :local:
+
 B-spline Basis
 --------------
 
