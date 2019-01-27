@@ -60,7 +60,12 @@ curves from :math:`\mathbf{P}_0` to :math:`\mathbf{P}_1` and from :math:`\mathbf
 Rearranging the preceding equation yields:
 
 .. math::
-    \mathbf{B}(t) = (1 - t)^{2} \mathbf{P}_0 + 2(1 - t)t \mathbf{P}_1 + t^{2} \mathbf{P}_2
+    \begin{align}
+    \mathbf{B}(t) &= (1 - t)^{2} \mathbf{P}_0 + 2(1 - t)t \mathbf{P}_1 + t^{2} \mathbf{P}_2 \\
+                  &= (\mathbf{P}_0 - 2\mathbf{P}_1 + \mathbf{P}_2) t^2 +
+                     (-2\mathbf{P}_0 + 2\mathbf{P}_1) t +
+                     \mathbf{P}_0
+    \end{align}
 
 This can be written in a way that highlights the symmetry with respect to :math:`\mathbf{P}_1`:
 
@@ -105,7 +110,13 @@ Bézier curve can be defined as an affine combination of two quadratic Bézier c
 The explicit form of the curve is:
 
 .. math::
-    \mathbf{B}(t) = (1-t)^3 \mathbf{P}_0 + 3(1-t)^2t \mathbf{P}_1 + 3(1-t)t^2 \mathbf{P}_2 + t^3\mathbf{P}_3
+    \begin{align}
+    \mathbf{B}(t) &= (1-t)^3 \mathbf{P}_0 + 3(1-t)^2t \mathbf{P}_1 + 3(1-t)t^2 \mathbf{P}_2 + t^3\mathbf{P}_3 \\
+                  &= (\mathbf{P}_3 - 3\mathbf{P}_2 + 3\mathbf{P}_1 - \mathbf{P}_0) t^3 +
+                     3(\mathbf{P}_2 - 2\mathbf{P}_1 + \mathbf{P}_0) t^2 +
+                     3(\mathbf{P}_1 - \mathbf{P}_0) t  +
+                     \mathbf{P}_0
+    \end{align}
 
 For some choices of :math:`\mathbf{P}_1` and :math:`\mathbf{P}_2` the curve may intersect itself, or
 contain a cusp.
@@ -240,6 +251,25 @@ Matrix Forms
 .. B(t) = P0 (1 - 2t + t^2) +
           P1 (    2t - t^2) +
           P2           t^2
+
+Symbolic Calculation
+--------------------
+
+.. code-block:: py3
+
+    >>> from sympy import *
+
+    >>> P0, P1, P2, P3, P, t = symbols('P0 P1 P2 P3 P t')
+
+    >>> B2 = (1-t)*((1-t)*P0 + t*P1) + t*((1-t)*P1 + t*P2)
+    >>> collect(expand(B2), t)
+    P0 + t**2*(P0 - 2*P1 + P2) + t*(-2*P0 + 2*P1)
+
+    >>> B2_012 = (1-t)*((1-t)*P0 + t*P1) + t*((1-t)*P1 + t*P2)
+    >>> B2_123 = (1-t)*((1-t)*P1 + t*P2) + t*((1-t)*P2 + t*P3)
+    >>> B3 = (1-t)*B2_012 + t*B2_123
+    >>> collect(expand(B2), t)
+    P0 + t**3*(-P0 + 3*P1 - 3*P2 + P3) + t**2*(3*P0 - 6*P1 + 3*P2) + t*(-3*P0 + 3*P1)
 
 """
 
@@ -569,7 +599,6 @@ class QuadraticBezier2D(BezierMixin2D, Primitive3P):
 
         """
 
-        # t, p0, p1, p2, p3 = symbols('t p0 p1 p2 p3')
         # u = 1 - t
         # B = p0 * u**2  +  p1 * 2*t*u  +  p2 * t**2
         # collect(expand(B), t)
@@ -644,7 +673,6 @@ class QuadraticBezier2D(BezierMixin2D, Primitive3P):
         # Q'(t) = -2*P0*(1 - t) + 2*P1*(1 - 2*t) + 2*P2*t
         #       = 2*(A + B*t)
 
-        # P0, P1, P2, P, t = symbols('P0 P1 P2 P t')
         # Q = P0 * (1-t)**2  +  P1 * 2*t*(1-t)  +  P2 * t**2
         # Qp = simplify(Q.diff(t))
         # collect(expand((P*Qp - Q*Qp)/-2), t)
@@ -855,7 +883,6 @@ class CubicBezier2D(BezierMixin2D, Primitive4P):
 
         # Algorithm: same as for quadratic
 
-        # t, p0, p1, p2, p3, p4 = symbols('t p0 p1 p2 p3 p4')
         # u = 1 - t
         # B = p0 *     u**3        +
         #     p1 * 3 * u**2 * t    +
@@ -1229,11 +1256,6 @@ class CubicBezier2D(BezierMixin2D, Primitive4P):
 
     def closest_point(self, point):
 
-        # Q(t) = (P3 - 3*P2 + 3*P1 - P0) * t**3 +
-        #        3*(P2 - 2*P1 + P0) * t**2 +
-        #        3*(P1 - P0) * t  +
-        #        P0
-
         # n = P3 - 3*P2 + 3*P1 - P0
         # r = 3*(P2 - 2*P1 + P0
         # s = 3*(P1 - P0)
@@ -1242,7 +1264,6 @@ class CubicBezier2D(BezierMixin2D, Primitive4P):
         # Q(t)  = n*t**3 + r*t**2 + s*t + v
         # Q'(t) = 3*n*t**2 + 2*r*t + s
 
-        # P0, P1, P2, P3, P, t = symbols('P0 P1 P2 P3 P t')
         # n, r, s, v = symbols('n r s v')
         # Q = n*t**3 + r*t**2 + s*t + v
         # Qp = simplify(Q.diff(t))
