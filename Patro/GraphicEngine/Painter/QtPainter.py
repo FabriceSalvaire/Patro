@@ -160,11 +160,12 @@ class QtPainter(Painter):
 
     def paint(self, painter):
 
-        self._logger.info('paint')
+        self._logger.info('Start painting')
         self._painter = painter
         if self._show_grid:
             self._paint_grid()
         super().paint()
+        self._logger.info('Paint done')
 
     ##############################################
 

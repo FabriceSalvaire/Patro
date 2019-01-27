@@ -1,4 +1,4 @@
-.. include:: ../abbreviation.txt
+.. include:: /abbreviation.txt
 
 .. _ressources-page:
 

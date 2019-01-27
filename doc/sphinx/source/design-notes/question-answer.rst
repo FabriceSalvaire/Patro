@@ -1,10 +1,10 @@
-.. include:: abbreviation.txt
+.. include:: /abbreviation.txt
 
-.. _design-note-page:
+.. _design-note-question-answer-page:
 
-==============
- Design Notes
-==============
+==================================
+ Design Notes Questions & Answers
+==================================
 
 Originally, Patro was a Python implementation of the Valentina pattern making software, which only
 focus to implement the core engine and not the graphical user interface.

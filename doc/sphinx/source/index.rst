@@ -146,9 +146,9 @@ If you want to donate to the project or need a more professional support.
   news.rst
   roadmap.rst
   installation.rst
-  examples.rst
+  examples/index.rst
   faq.rst
-  design-notes.rst
+  design-notes/index.rst
   resources/index.rst
   reference-manual.rst
   development.rst
