@@ -165,7 +165,7 @@ the same shape.
 To do degree elevation, we use the equality
 
 .. math::
-       \mathbf{B}(t) = (1-t) \mathbf{B}(t) + t \mathbf{B}(t)`
+       \mathbf{B}(t) = (1-t) \mathbf{B}(t) + t \mathbf{B}(t)
 
 Each component :math:`\mathbf{b}_{i,n}(t) \mathbf{P}_i` is multiplied by :math:`(1-t)` and
 :math:`t`, thus increasing a degree by one, without changing the value.
@@ -192,12 +192,60 @@ Therefore the new control points are
 It introduces two arbitrary points :math:`\mathbf{P}_{-1}` and :math:`\mathbf{P}_{n+1}` which are
 cancelled in :math:`\mathbf{P'}_i`.
 
+Matrix Forms
+------------
+
+.. math::
+     \mathbf{B}(t) = \mathbf{Transformation} \; \mathbf{Control} \; \mathbf{Basis} \; \mathbf{T}(t)
+
+.. math::
+     \begin{align}
+     \mathbf{B^2}(t) &= \mathbf{Tr}
+                        \begin{pmatrix}
+                          P_{1x} & P_{2x} & P_{3x} \\
+                          P_{1y} & P_{2x} & P_{3x} \\
+                          1      & 1      & 1
+                        \end{pmatrix}
+                        \begin{pmatrix}
+                          1 & -2 &  1 \\
+                          0 &  2 & -2 \\
+                          0 &  0 &  1
+                        \end{pmatrix}
+                        \begin{pmatrix}
+                          1 \\
+                          t \\
+                          t^2
+                        \end{pmatrix} \\[1em]
+     \mathbf{B^3}(t) &= \mathbf{Tr}
+                        \begin{pmatrix}
+                          P_{1x} & P_{2x} & P_{3x} & P_{4x} \\
+                          P_{1y} & P_{2x} & P_{3x} & P_{4x} \\
+                          0      & 0      & 0      & 0      \\
+                          1      & 1      & 1      & 1
+                        \end{pmatrix}
+                        \begin{pmatrix}
+                          1 & -3 &  3 & -1 \\
+                          0 &  3 & -6 &  3 \\
+                          0 &  0 &  3 & -3 \\
+                          0 &  0 &  0 &  1
+                        \end{pmatrix}
+                        \begin{pmatrix}
+                          1 \\
+                          t \\
+                          t^2 \\
+                          t^3
+                        \end{pmatrix}
+    \end{align}
+
+.. B(t) = P0 (1 - 2t + t^2) +
+          P1 (    2t - t^2) +
+          P2           t^2
+
 """
 
 # Fixme:
 #   max distance to the chord for linear approximation
 #   fitting
-
 
 # C0 = continuous
 # G1 = geometric continuity
@@ -368,16 +416,6 @@ class QuadraticBezier2D(BezierMixin2D, Primitive3P):
 
     """Class to implements 2D Quadratic Bezier Curve."""
 
-    # Q(t) = Transformation * Control * Basis * T(t)
-    #
-    #           / P1x P2x P3x \  / 1 -2  1 \ / 1    \
-    # Q(t) = Tr | P1y P2x P3x |  | 0  2 -2 | | t    |
-    #           \  1   1   1  /  \ 0  0  1 / \ t**2 /
-    #
-    # Q(t) =    P0 * (1 - 2*t + t**2) +
-    #           P1 * (    2*t - t**2) +
-    #           P2 *            t**2
-
     BASIS = np.array((
         (1, -2,  1),
         (0,  2, -2),
@@ -405,28 +443,47 @@ class QuadraticBezier2D(BezierMixin2D, Primitive3P):
     @property
     def length(self):
 
-        # Algorithm:
-        #
-        # http://www.gamedev.net/topic/551455-length-of-a-generalized-quadratic-bezier-curve-in-3d
-        # Dave Eberly Posted October 25, 2009
-        #
-        # The quadratic Bezier is
-        #   (x(t),y(t)) = (1-t)^2*(x0,y0) + 2*t*(1-t)*(x1,y1) + t^2*(x2,y2)
-        #
-        # The derivative is
-        #   (x'(t),y'(t)) = -2*(1-t)*(x0,y0) + (2-4*t)*(x1,y1) + 2*t*(x2,y2)
-        #
-        # The length of the curve for 0 <= t <= 1 is
-        #   Integral[0,1] sqrt((x'(t))^2 + (y'(t))^2) dt
-        # The integrand is of the form sqrt(c*t^2 + b*t + a)
-        #
-        # You have three separate cases: c = 0, c > 0, or c < 0.
-        # * The case c = 0 is easy.
-        # * For the case c > 0, an antiderivative is
-        #     (2*c*t+b)*sqrt(c*t^2+b*t+a)/(4*c) + (0.5*k)*log(2*sqrt(c*(c*t^2+b*t+a)) + 2*c*t + b)/sqrt(c)
-        #   where k = 4*c/q with q = 4*a*c - b*b.
-        # * For the case c < 0, an antiderivative is
-        #    (2*c*t+b)*sqrt(c*t^2+b*t+a)/(4*c) - (0.5*k)*arcsin((2*c*t+b)/sqrt(-q))/sqrt(-c)
+        r"""Compute the length of the curve.
+
+        Algorithm
+
+          * http://www.gamedev.net/topic/551455-length-of-a-generalized-quadratic-bezier-curve-in-3d
+          * Dave Eberly Posted October 25, 2009
+
+        The quadratic Bezier is
+
+        .. math::
+            \mathbf{B}(t) = (1-t)^2 \mathbf{P}_0 + 2t(1-t) \mathbf{P}_1 + t^2 \mathbf{P}_2
+
+        The derivative is
+
+        .. math::
+            \mathbf{B'}(t) = -2(1-t) \mathbf{P}_0 + (2-4t) \mathbf{P}_1 + 2t \mathbf{P}_2
+
+        The length of the curve for :math:`0 <= t <= 1` is
+
+        .. math::
+            \int_0^1 \sqrt{(x'(t))^2 + (y'(t))^2} dt
+
+        The integrand is of the form :math:`\sqrt{c t^2 + b t + a}`
+
+        You have three separate cases: :math:`c = 0`, :math:`c > 0`, or :math:`c < 0`.
+
+        The case :math:`c = 0` is easy.
+
+        For the case :math:`c > 0`, an antiderivative is
+
+        .. math::
+            \frac{2ct + b}{4c} \sqrt{ct^2 + bt + a}  +  \frac{k}{2\sqrt{c}} \ln{\left(2\sqrt{c(ct^2 + bt + a)} + 2ct + b\right)}
+
+        For the case :math:`c < 0`, an antiderivative is
+
+        .. math::
+            \frac{2ct + b}{4c} \sqrt{ct^2 + bt + a}  -  \frac{k}{2\sqrt{-c}} \arcsin{\frac{2ct + b}{\sqrt{-q}}}
+
+        where :math:`k = \frac{4c}{q}` with :math:`q = 4ac - b^2`.
+
+        """
 
         A0 = self._p1 - self._p0
         A1 = self._p0 - self._p1 * 2 + self._p2
@@ -662,13 +719,6 @@ class CubicBezier2D(BezierMixin2D, Primitive4P):
     """Class to implements 2D Cubic Bezier Curve."""
 
     InterpolationPrecision = 0.001
-
-    # Q(t) = Transformation * Control * Basis * T(t)
-    #
-    #           / P1x P2x P3x P4x \  / 1 -3  3 -1 \ / 1    \
-    # Q(t) = Tr | P1y P2x P3x P4x |  | 0  3 -6  3 | | t    |
-    #           |  0   0   0   0  |  | 0  0  3 -3 | | t**2 |
-    #           \  1   1   1   1  /  \ 0  0  0  1 / \ t**3 /
 
     BASIS = np.array((
         (1, -3,  3, -1),
@@ -978,10 +1028,15 @@ class CubicBezier2D(BezierMixin2D, Primitive4P):
             locations=[],
     ) :
 
-        # Code inspired from
-        #   https://github.com/paperjs/paper.js/blob/master/src/path/Curve.js
-        #   http://nbviewer.jupyter.org/gist/hkrish/0a128f21a5b9e5a7a914 The Bezier Clipping Algorithm
-        #   https://gist.github.com/hkrish/5ef0f2da7f9882341ee5 hkrish/bezclip_manual.py
+        """Compute the intersection of two Bézier curves.
+
+        Code inspired from
+
+          *  https://github.com/paperjs/paper.js/blob/master/src/path/Curve.js
+          *  http://nbviewer.jupyter.org/gist/hkrish/0a128f21a5b9e5a7a914 The Bezier Clipping Algorithm
+          *  https://gist.github.com/hkrish/5ef0f2da7f9882341ee5 hkrish/bezclip_manual.py
+
+        """
 
         # Note:
         #   see https://github.com/paperjs/paper.js/issues/565
@@ -1072,10 +1127,61 @@ class CubicBezier2D(BezierMixin2D, Primitive4P):
 
     def is_flat_enough(self, flatness):
 
-         """Determines if a curve is sufficiently flat, meaning it appears as a straight line and has
+         r"""Determines if a curve is sufficiently flat, meaning it appears as a straight line and has
          curve-time that is enough linear, as specified by the given *flatness* parameter.
 
          *flatness* is the maximum error allowed for the straight line to deviate from the curve.
+
+         Algorithm
+
+         We define the flatness of the curve as the argmax of the distance from the curve to the
+         line passing by the start and stop point.
+
+         :math:`\mathrm{flatness} = argmax(d(t))` for :math:`t \in [0, 1]` where :math:`d(t) = \vert B(t) - L(t) \vert`
+
+         The line equation is
+
+         .. math::
+             L = (1-t) \mathbf{P}_0 + t \mathbf{P}_1
+
+         Let
+
+         .. math::
+             \begin{align}
+             u &= 3\mathbf{P}_1 - 2\mathbf{P}_0 - \mathbf{P}_3 \\
+             v &= 3\mathbf{P}_2 - \mathbf{P}_0 - 2\mathbf{P}_3
+             \end{align}
+
+         The distance is
+
+         .. math::
+             \begin{align}
+             d(t) &= (1-t)^2 t \left(3\mathbf{P}_1 - 2\mathbf{P}_0 - \mathbf{P}_3\right)  +  (1-t) t^2 (3\mathbf{P}_2 - \mathbf{P}_0 - 2\mathbf{P}_3) \\
+                  &= (1-t)^2 t u  +  (1-t) t^2 v
+             \end{align}
+
+         The square of the distance is
+
+         .. math::
+             d(t)^2 = (1 - t)^2 t^2 (((1 - t) ux + t vx)^2 + ((1 - t) uy + t vy)^2
+
+         From
+
+         .. math::
+             \begin{align}
+             argmax((1 - t)^2 t^2)   &= \frac{1}{16} \\
+             argmax((1 - t) a + t b) &= argmax(a, b)
+             \end{align}
+
+         we can express a bound on the flatness
+
+         .. math::
+             \mathrm{flatness}^2 = argmax(d(t)^2) \leq \frac{1}{16} (argmax(ux^2, vx^2) + argmax(uy^2, vy^2))
+
+         Thus an upper bound of :math:`16\,\mathrm{flatness}^2` is
+
+         .. math::
+             argmax(ux^2, vx^2) + argmax(uy^2, vy^2)
 
          Reference
 
@@ -1083,29 +1189,6 @@ class CubicBezier2D(BezierMixin2D, Primitive4P):
          * PostScript Language Reference. Addison- Wesley, third edition, 1999
 
          """
-
-         # We define the flatness of the curve as the argmax of the distance from the curve to the
-         # line passing by the start and stop point.
-         #
-         # flatness = argmax(d(t)) for t in [0, 1] where d(t) = | B(t) - L(t) |
-         #
-         # L = (1-t)*P0 + t*P1
-         #
-         # Let
-         #   u = 3*P1 - 2*P0 - P3
-         #   v = 3*P2 - P0 - 2*P3
-         #
-         # d(t) = (1-t)**2 * t * (3*P1 - 2*P0 - P3)  +  (1-t) * t**2 * (3*P2 - P0 - 2*P3)
-         #      = (1-t)**2 * t * u  +  (1-t) * t**2 * v
-         #
-         # d(t)**2 = (1 - t)**2 * t**2 * (((1 - t)*ux + t*vx)**2 + ((1 - t)*uy + t*vy)**2
-         #
-         # argmax((1 - t)**2 * t**2) = 1/16
-         # argmax((1 - t)*a + t*b)   = argmax(a, b)
-         #
-         # flatness**2 = argmax(d(t)**2) <= 1/16 * (argmax(ux**2, vx**2) + argmax(uy**2, vy**2))
-         #
-         # argmax(ux**2, vx**2) + argmax(uy**2, vy**2) is thus an upper bound of 16 * flatness**2
 
          # x0, y0 = list(self._p0)
          # x1, y1 = list(self._p1)
