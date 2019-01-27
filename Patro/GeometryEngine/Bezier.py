@@ -51,6 +51,8 @@ __all__ = [
 
 ####################################################################################################
 
+import logging
+
 from math import log, sqrt
 
 import numpy as np
@@ -64,11 +66,17 @@ from .Vector import Vector2D
 
 ####################################################################################################
 
+_module_logger = logging.getLogger(__name__)
+
+####################################################################################################
+
 class BezierMixin2D(Primitive2DMixin):
 
     """Mixin to implements 2D Bezier Curve."""
 
     LineInterpolationPrecision = 0.05
+
+    _logger = _module_logger.getChild('BezierMixin2D')
 
     ##############################################
 
@@ -214,6 +222,8 @@ class QuadraticBezier2D(BezierMixin2D, Primitive3P):
         (-1, -3,  1),
         (-1, -1, -2),
     ))
+
+    _logger = _module_logger.getChild('QuadraticBezier2D')
 
     ##############################################
 
@@ -383,8 +393,8 @@ class QuadraticBezier2D(BezierMixin2D, Primitive3P):
         if not t:
             return None
         elif len(t) > 1:
-            # Fixme: crash application !!!
-            raise NameError("Found more than one root: {}".format(t))
+            self._logger.warning("Found more than one root {} for {} and point {}".format(t, self, point))
+            return None
         else:
             return self.point_at_t(t)
 
@@ -429,6 +439,8 @@ class CubicBezier2D(BezierMixin2D, Primitive4P):
         (0,    0, 1/3, 1),
         (0,    0,   0, 1),
     ))
+
+    _logger = _module_logger.getChild('CubicMixin2D')
 
     #######################################
 
@@ -829,13 +841,18 @@ class CubicBezier2D(BezierMixin2D, Primitive4P):
 
          """
 
-         u = 3*P1 - 2*P0 - P3
-         v = 3*P2 - 2*P3 - P0
+         u = 3*self._p1 - 2*self._p0 - self._p3
+         v = 3*self._p2 - 2*self._p3 - self._p0
 
-         return max(u.x**2, v.x**2) + max(u.y**2, v.y**2) <= 16 * flatness**2
+         criterion = max(u.x**2, v.x**2) + max(u.y**2, v.y**2)
+         threshold = 16 * flatness**2
+
+         self._logger.warning("is flat {} <= {} with flatness {}".format(criterion, threshold, flatness))
+
+         return criterion <= threshold
 
     ##############################################
-
+    
     @property
     def area(self):
 
@@ -858,6 +875,12 @@ class CubicBezier2D(BezierMixin2D, Primitive4P):
 
     def closest_point(self, point):
 
+        """Return the closest point on the curve to the given *point*.
+
+        For more details see :ref:`this section <bezier-curve-closest-point-section>`.
+
+        """
+
         n = self._p3 - self._p2*3 + self._p1*3 - self._p0
         r = (self._p2 - self._p1*2 + self._p0)*3
         s = (self._p1 - self._p0)*3
@@ -876,6 +899,18 @@ class CubicBezier2D(BezierMixin2D, Primitive4P):
         if not t:
             return None
         elif len(t) > 1:
-            raise NameError("Found more than one root: {}".format(t))
+            # Fixme:
+            # Found more than one root [0, 0.516373783749732]
+            # for CubicBezier2D(
+            #   Vector2D[1394.4334 1672.0004], Vector2D[1394.4334 1672.0004],
+            #   Vector2D[1585.0004 1624.9634], Vector2D[1585.0004 1622.0004])
+            # and point Vector2D[1495.11502887 1649.7386517 ]
+            # raise NameError("Found more than one root: {}".format(t))
+            self._logger.warning("Found more than one root {} for {} and point {}".format(t, self, point))
+            # self._logger.warning("is flat {}".format(self.is_flat_enough(.1)))
+            if len(t) == 2 and t[0] == 0:
+                return self.point_at_t(t[1])
+            else:
+                return None
         else:
             return self.point_at_t(t[0])
