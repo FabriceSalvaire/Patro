@@ -5,8 +5,8 @@
 ============
  DXF Import
 ============
-
-This screenshot show the file :file:`.dxf`.
+x
+This screenshot show the file :file:`test-dxf-r15.dxf` used as a test case.
 
 .. image:: /_static/patro-dxf-import.png
    :alt: Patro DXF Import
