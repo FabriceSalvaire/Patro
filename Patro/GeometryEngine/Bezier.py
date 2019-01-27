@@ -24,6 +24,12 @@ For resources on Bézier curve see :ref:`this section <bezier-geometry-ressource
 
 """
 
+####################################################################################################
+#
+# Notes: algorithm details are on bezier.rst
+#
+####################################################################################################
+
 # Fixme:
 #   max distance to the chord for linear approximation
 #   fitting
@@ -307,17 +313,9 @@ class QuadraticBezier2D(BezierMixin2D, Primitive3P):
 
         """Find the intersections of the curve with a line.
 
-        Algorithm
-
-        * Apply a transformation to the curve that maps the line onto the X-axis.
-        * Then we only need to test the Y-values for a zero.
+        For more details see :ref:`this section <bezier-curve-line-intersection-section>`.
 
         """
-
-        # u = 1 - t
-        # B = p0 * u**2  +  p1 * 2*t*u  +  p2 * t**2
-        # collect(expand(B), t)
-        # solveset(B, t)
 
         curve = self._map_to_line(line)
 
@@ -367,46 +365,9 @@ class QuadraticBezier2D(BezierMixin2D, Primitive3P):
 
         """Return the closest point on the curve to the given *point*.
 
-        Reference
-
-        * https://hal.archives-ouvertes.fr/inria-00518379/document
-          Improved Algebraic Algorithm On Point Projection For Bézier Curves
-          Xiao-Diao Chen, Yin Zhou, Zhenyu Shu, Hua Su, Jean-Claude Paul
+        For more details see :ref:`this section <bezier-curve-closest-point-section>`.
 
         """
-
-        # Condition:
-        #   (P - B(t)) . B'(t) = 0   where t in [0,1]
-        #
-        #   P. B'(t) - B(t). B'(t) = 0
-
-        # A = P1 - P0
-        # B = P2 - P1 - A
-        # M = P0 - P
-
-        # Q(t)  = P0*(1-t)**2 + P1*2*t*(1-t) + P2*t**2
-        # Q'(t) = -2*P0*(1 - t) + 2*P1*(1 - 2*t) + 2*P2*t
-        #       = 2*(A + B*t)
-
-        # Q = P0 * (1-t)**2  +  P1 * 2*t*(1-t)  +  P2 * t**2
-        # Qp = simplify(Q.diff(t))
-        # collect(expand((P*Qp - Q*Qp)/-2), t)
-
-        # (P0**2 - 4*P0*P1 + 2*P0*P2 + 4*P1**2 - 4*P1*P2 + P2**2) * t**3
-        # (-3*P0**2 + 9*P0*P1 - 3*P0*P2 - 6*P1**2 + 3*P1*P2) * t**2
-        # (-P*P0 + 2*P*P1 - P*P2 + 3*P0**2 - 6*P0*P1 + P0*P2 + 2*P1**2) * t
-        # P*P0 - P*P1 - P0**2 + P0*P1
-
-        # factorisation
-        # (P0 - 2*P1 + P2)**2 * t**3
-        # 3*(P1 - P0)*(P0 - 2*P1 + P2) * t**2
-        # ...
-        # (P0 - P)*(P1 - P0)
-
-        # B**2 * t**3
-        # 3*A*B * t**2
-        # (2*A**2 + M*B) * t
-        # M*A
 
         A = self._p1 - self._p0
         B = self._p2 - self._p1 - A
@@ -433,15 +394,7 @@ class QuadraticBezier2D(BezierMixin2D, Primitive3P):
 
         r"""Elevate the quadratic Bézier curve to a cubic Bézier cubic with the same shape.
 
-        The new control points are
-
-        .. math::
-            \begin{align}
-            \mathbf{P'}_0 &= \mathbf{P}_0 \\
-            \mathbf{P'}_1 &= \mathbf{P}_0 + \frac{2}{3} (\mathbf{P}_1 - \mathbf{P}_0) \\
-            \mathbf{P'}_1 &= \mathbf{P}_2 + \frac{2}{3} (\mathbf{P}_1 - \mathbf{P}_2) \\
-            \mathbf{P'}_2 &= \mathbf{P}_2
-            \end{align}
+        For more details see :ref:`this section <bezier-curve-degree-elevation-section>`.
 
         """
 
@@ -876,16 +829,6 @@ class CubicBezier2D(BezierMixin2D, Primitive4P):
 
          """
 
-         # x0, y0 = list(self._p0)
-         # x1, y1 = list(self._p1)
-         # x2, y2 = list(self._p2)
-         # x3, y3 = list(self._p3)
-
-         # ux = 3*x1 - 2*x0 - x3
-         # uy = 3*y1 - 2*y0 - y3
-         # vx = 3*x2 - 2*x3 - x0
-         # vy = 3*y2 - 2*y3 - y0
-
          u = 3*P1 - 2*P0 - P3
          v = 3*P2 - 2*P3 - P0
 
@@ -914,26 +857,6 @@ class CubicBezier2D(BezierMixin2D, Primitive4P):
     ##############################################
 
     def closest_point(self, point):
-
-        # n = P3 - 3*P2 + 3*P1 - P0
-        # r = 3*(P2 - 2*P1 + P0
-        # s = 3*(P1 - P0)
-        # v = P0
-
-        # Q(t)  = n*t**3 + r*t**2 + s*t + v
-        # Q'(t) = 3*n*t**2 + 2*r*t + s
-
-        # n, r, s, v = symbols('n r s v')
-        # Q = n*t**3 + r*t**2 + s*t + v
-        # Qp = simplify(Q.diff(t))
-        # collect(expand((P*Qp - Q*Qp)), t)
-
-        # -3*n**2 * t**5
-        # -5*n*r * t**4
-        # -2*(2*n*s + r**2) * t**3
-        # 3*(P*n - n*v - r*s) * t**2
-        # (2*P*r - 2*r*v - s**2) * t
-        # P*s - s*v
 
         n = self._p3 - self._p2*3 + self._p1*3 - self._p0
         r = (self._p2 - self._p1*2 + self._p0)*3

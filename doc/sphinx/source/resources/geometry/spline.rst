@@ -8,6 +8,23 @@
 
 .. contents:: :local:
 
+
+..  The DeBoor-Cox algorithm permits to evaluate recursively a B-Spline in a similar way to the De
+    Casteljaud algorithm for Bézier curves.
+
+    Given `k` the degree of the B-spline, `n + 1` control points :math:`p_0, \ldots, p_n`, and an
+    increasing series of scalars :math:`t_0 \le t_1 \le \ldots \le t_m` with :math:`m = n + k + 1`,
+    called knots.
+
+    The number of points must respect the condition :math:`n + 1 \le k`, e.g. a B-spline of degree 3
+    must have 4 control points.
+
+References
+----------
+
+* Computer Graphics, Principle and Practice, Foley et al., Adison Wesley
+* http://web.mit.edu/hyperbook/Patrikalakis-Maekawa-Cho/node15.html
+
 B-spline Basis
 --------------
 
@@ -240,9 +257,3 @@ will become :math:`C^{k-p-1}`, where `p` is the multiplicity of the knot.
 
 The B-spline curve can be subdivided into Bézier segments by knot insertion at each internal knot
 until the multiplicity of each internal knot is equal to `k`.
-
-References
-----------
-
-* Computer Graphics, Principle and Practice, Foley et al., Adison Wesley
-* http://web.mit.edu/hyperbook/Patrikalakis-Maekawa-Cho/node15.html

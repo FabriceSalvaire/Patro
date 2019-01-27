@@ -24,15 +24,11 @@ For resources on Spline curve see :ref:`this section <spline-geometry-ressources
 
 """
 
-# The DeBoor-Cox algorithm permits to evaluate recursively a B-Spline in a similar way to the De
-# Casteljaud algorithm for Bézier curves.
+####################################################################################################
 #
-# Given `k` the degree of the B-spline, `n + 1` control points :math:`p_0, \ldots, p_n`, and an
-# increasing series of scalars :math:`t_0 \le t_1 \le \ldots \le t_m` with :math:`m = n + k + 1`,
-# called knots.
+# Notes: algorithm details are on spline.rst
 #
-# The number of points must respect the condition :math:`n + 1 \le k`, e.g. a B-spline of degree 3
-# must have 4 control points.
+####################################################################################################
 
 ####################################################################################################
 
