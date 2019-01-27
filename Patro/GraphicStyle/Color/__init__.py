@@ -46,6 +46,7 @@ def __init__():
             _color_data.VALENTINA_COLORS ,
     ):
         for name, value in color_set.items():
+            name = name.replace(' ', '_')
             color = Color(value, name=name)
             if name in Colors and color != Colors[name]:
                 pass
