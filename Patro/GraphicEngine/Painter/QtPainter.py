@@ -549,7 +549,9 @@ class ViewportArea:
         # scale = min(width_scale, height_scale)
 
         # scale [px/mm]
-        axis_scale = self._viewport_size / self._to_np_array(self.scene_area.size)
+        # Add 2% to scene for margin
+        margin_scale = 1 + 2 / 100
+        axis_scale = self._viewport_size / (self._to_np_array(self.scene_area.size) * margin_scale)
         axis = axis_scale.argmin()
         scale = axis_scale[axis]
 
