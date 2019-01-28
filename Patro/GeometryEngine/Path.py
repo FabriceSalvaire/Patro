@@ -20,6 +20,8 @@
 
 """Module to implement path.
 
+For resources on path see :ref:`this section <path-geometry-ressources-page>`.
+
 """
 
 ####################################################################################################
@@ -33,13 +35,19 @@ __all__ = [
 
 ####################################################################################################
 
+import logging
 import math
 
+from Patro.Common.Math.Functions import sign
 from .Primitive import Primitive1P, Primitive2DMixin
 from .Bezier import QuadraticBezier2D, CubicBezier2D
 from .Conic import Circle2D, AngularDomain
 from .Segment import Segment2D
 from .Vector import Vector2D
+
+####################################################################################################
+
+_module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
@@ -51,6 +59,11 @@ class PathPart:
 
         self._path = path
         self._index = index
+
+    ##############################################
+
+    def _init_absolute(self, absolute):
+        self._absolute = bool(absolute)
 
     ##############################################
 
@@ -103,6 +116,17 @@ class PathPart:
     def stop_point(self):
         raise NotImplementedError
 
+    ##############################################
+
+    def to_absolute_point(self, point):
+        # Fixme: cache ???
+        if self._absolute:
+            return point
+        else:
+            return point + self.start_point
+
+    ##############################################
+
     @property
     def geometry(self):
         raise NotImplementedError
@@ -131,31 +155,33 @@ class OnePointMixin:
 
     @property
     def stop_point(self):
-        if self._absolute:
-            return self._point
-        else:
-            return self._point + self.start_point
+        return self.to_absolute_point(self._point)
 
     ##############################################
 
     def apply_transformation(self, transformation):
+        # Fixme: right for relative ???
         self._point = transformation * self._point
 
 ####################################################################################################
 
 class TwoPointMixin:
 
+    ##############################################
+
     @property
     def point1(self):
-        return self._point1
+        return self.to_absolute_point(self._point1)
 
     @point1.setter
     def point1(self, value):
         self._point1 = Vector2D(value) # self._path.__vector_cls__
 
+    ##############################################
+
     @property
     def point2(self):
-        return self._point2
+        return self.to_absolute_point(self._point2)
 
     @point2.setter
     def point2(self, value):
@@ -164,41 +190,36 @@ class TwoPointMixin:
     ##############################################
 
     def apply_transformation(self, transformation):
+        # Fixme: right for relative ???
         self._point1 = transformation * self._point1
         self._point2 = transformation * self._point2
 
 ####################################################################################################
 
+class ThreePointMixin(TwoPointMixin):
+
+    ##############################################
+
+    @property
+    def point3(self):
+        return self.to_absolute_point(self._point3)
+
+    @point3.setter
+    def point3(self, value):
+        self._point3 = Vector2D(value) # self._path.__vector_cls__
+
+    ##############################################
+
+    def apply_transformation(self, transformation):
+        # Fixme: right for relative ???
+        TwoPointMixin.apply_transformation(self, transformation)
+        self._point3 = transformation * self._point3
+
+####################################################################################################
+
 class LinearSegment(PathPart):
 
-    r"""
-
-    Bulge
-
-    Let `P0`, `P1`, `P2` the vertices and `R` the bulge radius.
-
-    The deflection :math:`\theta = 2 \alpha` at the corner is
-
-    .. math::
-
-       D_1 \cdot D_0 = (P_2 - P_1) \cdot (P_1 - P_0) = \cos \theta
-
-    The bisector direction is
-
-    .. math::
-
-       Bis = D_1 - D_0 = (P_2 - P_1) - (P_1 - P_0) = P_2 -2 P_1 + P_0
-
-    Bulge Center is
-
-    .. math::
-
-        C = P_1 + Bis \times \frac{R}{\sin \alpha}
-
-    Extremities are
-
-        \prime P_1 = P_1 - d_0 \times \frac{R}{\tan \alpha}
-        \prime P_1 = P_1 + d_1 \times \frac{R}{\tan \alpha}
+    """Class to implement a linear segment.
 
     """
 
@@ -206,6 +227,8 @@ class LinearSegment(PathPart):
     #
     #    If two successive vertices share the same circle, then it should be merged to one.
     #
+
+    _logger = _module_logger.getChild('LinearSegment')
 
     ##############################################
 
@@ -216,7 +239,7 @@ class LinearSegment(PathPart):
         self._bissector = None
         self._direction = None
 
-        self._start_radius = False
+        self._start_bulge = False
         self._closing = bool(closing)
         self.radius = radius
         if self._radius is not None:
@@ -236,16 +259,16 @@ class LinearSegment(PathPart):
     ##############################################
 
     def close(self, radius):
+        """Set the bulge radius at the closure"""
         self.radius = radius
         self._reset_cache()
-        self._start_radius = True
-        print('set close', self, self.__dict__)
+        self._start_bulge = True
 
     ##############################################
 
     @property
     def prev_part(self):
-        if self._start_radius:
+        if self._start_bulge:
             return self._path.stop_segment # or [-1] don't work
         else:
             # Fixme: super
@@ -285,9 +308,10 @@ class LinearSegment(PathPart):
     @radius.setter
     def radius(self, value):
         if value is not None:
-            self._radius = float(value)
-        else:
-            self._radius = None
+            value = abs(float(value))
+            if value == 0:
+                radius = None
+        self._radius = value
 
     ##############################################
 
@@ -312,7 +336,12 @@ class LinearSegment(PathPart):
     @property
     def bulge_angle_rad(self):
         if self._bulge_angle is None:
-            angle = self.direction.orientation_with(self.prev_part.direction)
+            # Fixme: rad vs degree
+            angle = self.direction.angle_with(self.prev_part.direction)
+            if angle >= 0:
+                angle = 180 - angle
+            else:
+                angle = -(180 + angle)
             self._bulge_angle = math.radians(angle)
         return self._bulge_angle
 
@@ -322,15 +351,16 @@ class LinearSegment(PathPart):
 
     @property
     def half_bulge_angle(self):
-        return abs(self.bulge_angle_rad / 2)
+        return self.bulge_angle_rad / 2
 
     ##############################################
 
     @property
     def bulge_center(self):
         if self._bulge_center is None:
-            offset = self.bissector * self._radius / math.sin(self.half_bulge_angle)
+            offset = self.bissector * self._radius / math.sin(abs(self.half_bulge_angle))
             self._bulge_center = self.start_point + offset
+            # Note: -offset create external loop
         return self._bulge_center
 
     ##############################################
@@ -338,15 +368,18 @@ class LinearSegment(PathPart):
     @property
     def bulge_start_point(self):
         if self._start_bulge_point is None:
-            offset = self.prev_part.direction * self._radius / math.tan(self.half_bulge_angle)
-            self._start_bulge_point = self.start_point - offset
+            angle = self.half_bulge_angle
+            offset = self.prev_part.direction * self._radius / math.tan(angle)
+            self._start_bulge_point = self.start_point - sign(angle) *offset
+            # Note: -offset create internal loop
         return self._start_bulge_point
 
     @property
     def bulge_stop_point(self):
         if self._stop_bulge_point is None:
+            angle = self.half_bulge_angle
             offset = self.direction * self._radius / math.tan(self.half_bulge_angle)
-            self._stop_bulge_point = self.start_point + offset
+            self._stop_bulge_point = self.start_point + sign(angle) * offset
         return self._stop_bulge_point
 
     ##############################################
@@ -360,7 +393,16 @@ class LinearSegment(PathPart):
         if self.bulge_angle < 0:
             start_angle, stop_angle = stop_angle, start_angle
         arc.domain = AngularDomain(start_angle, stop_angle)
+        # self._dump_bulge(arc)
         return arc
+
+    ##############################################
+
+    def _dump_bulge(self, arc):
+        self._logger.info(
+            'Bulge @{}\n'.format(self._index) +
+            str(arc)
+        )
 
 ####################################################################################################
 
@@ -371,12 +413,22 @@ class PathSegment(OnePointMixin, LinearSegment):
     def __init__(self, path, index, point, radius=None, absolute=False, closing=False):
         super().__init__(path, index, radius, closing)
         self.point = point
-        self._absolute = bool(absolute)
+        self._init_absolute(absolute)
 
     ##############################################
 
     def clone(self, path):
-        return self.__class__(path, self._index, self._point, self._radius, self._absolute)
+
+        # Fixme: check
+        if obj._start_bulge:
+            radius = None
+        else:
+            radius = self._radius
+        obj = self.__class__(path, self._index, self._point, radius, self._absolute, self._closing)
+        if obj._start_bulge:
+            self.close(self._radius)
+
+        return obj
 
     ##############################################
 
@@ -493,6 +545,7 @@ class QuadraticBezierSegment(PathPart, TwoPointMixin):
     def __init__(self, path, index, point1, point2, absolute=False):
 
         PathPart.__init__(self, path, index)
+        self._init_absolute(absolute)
 
         self.point1 = point1
         self.point2 = point2
@@ -500,34 +553,35 @@ class QuadraticBezierSegment(PathPart, TwoPointMixin):
     ##############################################
 
     def clone(self, path):
-        return self.__class__(path, self._index, self._point1, self._point2)
+        return self.__class__(path, self._index, self._point1, self._point2, self._absolute)
 
     ##############################################
 
     @property
     def stop_point(self):
-        return self._point2
+        return self.point2
 
     @property
     def points(self):
-        return (self.start_point, self._point1, self._point2)
+        return (self.start_point, self.point1, self.point2)
 
     ##############################################
 
     @property
     def geometry(self):
         # Fixme: cache ???
-        return QuadraticBezier2D(self.start_point, self._point1, self._point2)
+        return QuadraticBezier2D(*self.points)
 
 ####################################################################################################
 
-class CubicBezierSegment(PathPart, TwoPointMixin):
+class CubicBezierSegment(PathPart, ThreePointMixin):
 
     ##############################################
 
     def __init__(self, path, index, point1, point2, point3, absolute=False):
 
         PathPart.__init__(self, path, index)
+        self._init_absolute(absolute)
 
         self.point1 = point1
         self.point2 = point2
@@ -536,40 +590,24 @@ class CubicBezierSegment(PathPart, TwoPointMixin):
     ##############################################
 
     def clone(self, path):
-        return self.__class__(path, self._index, self._point1, self._point2, self._point3)
-
-    ##############################################
-
-    def apply_transformation(self, transformation):
-        TwoPointMixin.apply_transformation(self, transformation)
-        self._point3 = transformation * self._point3
-
-    ##############################################
-
-    @property
-    def point3(self):
-        return self._point3
-
-    @point3.setter
-    def point3(self, value):
-        self._point3 = Vector2D(value) # self._path.__vector_cls__
+        return self.__class__(path, self._index, self._point1, self._point2, self._point3, absolute)
 
     ##############################################
 
     @property
     def stop_point(self):
-        return self._point3
+        return self.point3
 
     @property
     def points(self):
-        return (self.start_point, self._point1, self._point2, self._point3)
+        return (self.start_point, self.point1, self.point2, self.point3)
 
     ##############################################
 
     @property
     def geometry(self):
         # Fixme: cache ???
-        return CubicBezier2D(self.start_point, self._point1, self._point2, self._point3)
+        return CubicBezier2D(*self.points)
 
 ####################################################################################################
 
@@ -580,13 +618,14 @@ class StringedQuadtraticBezierSegment(PathPart, TwoPointMixin):
     def __init__(self, path, index, point1, absolute=False):
 
         PathPart.__init__(self, path, index)
+        self._init_absolute(absolute)
 
         self.point1 = point1
 
     ##############################################
 
     def clone(self, path):
-        return self.__class__(path, self._index, self._point1)
+        return self.__class__(path, self._index, self._point1, absolute)
 
     ##############################################
 
@@ -606,13 +645,14 @@ class StringedCubicBezierSegment(PathPart, TwoPointMixin):
     def __init__(self, path, index, point1, point2, absolute=False):
 
         PathPart.__init__(self, path, index)
+        self._init_absolute(absolute)
 
         # self.point1 = point1
 
     ##############################################
 
     def clone(self, path):
-        return self.__class__(path, self._index, self._point1, self._point2)
+        return self.__class__(path, self._index, self._point1, self._point2, absolute)
 
     ##############################################
 
@@ -632,9 +672,9 @@ class ArcSegment(OnePointMixin, PathPart):
     def __init__(self, path, index, point, radius_x, radius_y, angle, large_arc, sweep, absolute=False):
 
         PathPart.__init__(self, path, index)
+        self._init_absolute(absolute)
 
         self.point = point
-        self._absolute = bool(absolute)
 
         self._large_arc = bool(large_arc)
         self._sweep = bool(sweep)
@@ -649,9 +689,10 @@ class ArcSegment(OnePointMixin, PathPart):
             path,
             self._index,
             self._point,
-            self._large_arc, self._sweep,
             self._radius_x, self._radius_y,
-            self._angle
+            self._angle,
+            self._large_arc, self._sweep,
+            self._absolute,
         )
 
     ##############################################
@@ -739,9 +780,10 @@ class Path2D(Primitive2DMixin, Primitive1P):
     ##############################################
 
     def _add_part(self, part_cls, *args, **kwargs):
-        obj = part_cls(self, len(self._parts), *args, **kwargs)
-        self._parts.append(obj)
-        return obj
+        if not self._is_closed:
+            obj = part_cls(self, len(self._parts), *args, **kwargs)
+            self._parts.append(obj)
+            return obj
 
     ##############################################
 
@@ -831,37 +873,66 @@ class Path2D(Primitive2DMixin, Primitive1P):
     ##############################################
 
     def close(self, radius=None, close_radius=None):
+
         # Fixme: identify as close for SVG export <-- meaning ???
-        # Fixme: radius must apply to start and stop
+
         closing = close_radius is not None
         segment = self._add_part(PathSegment, self._p0, radius, absolute=True, closing=closing)
         if closing:
             self.start_segment.close(close_radius)
         self._is_closed = True
+
         return segment
 
     ##############################################
 
-    def quadratic_to(self, point1, point2, absolute=True):
+    def quadratic_to(self, point1, point2, absolute=False):
         return self._add_part(QuadraticBezierSegment, point1, point2, absolute=absolute)
 
     ##############################################
 
-    def cubic_to(self, point1, point2, point3, absolute=True):
+    def cubic_to(self, point1, point2, point3, absolute=False):
         return self._add_part(CubicBezierSegment, point1, point2, point3, absolute=absolute)
 
     ##############################################
 
-    def stringed_quadratic_to(self, point, absolute=True):
+    def stringed_quadratic_to(self, point, absolute=False):
         return self._add_part(StringedQuadraticBezierSegment, point, absolute=absolute)
 
     ##############################################
 
-    def stringed_cubic_to(self, point1, point2, absolute=True):
+    def stringed_cubic_to(self, point1, point2, absolute=False):
         return self._add_part(StringedCubicBezierSegment, point1, point2, absolute=absolute)
 
     ##############################################
 
-    def arc_to(self, point, radius_x, radius_y, angle, large_arc, sweep, absolute=True):
+    def arc_to(self, point, radius_x, radius_y, angle, large_arc, sweep, absolute=False):
         return self._add_part(ArcSegment, point, radius_x, radius_y, angle, large_arc, sweep,
                               absolute=absolute)
+
+    ##############################################
+
+    @classmethod
+    def rounded_rectangle(cls, point, width, height, radius=None):
+
+        path = cls(point)
+        path.horizontal_to(width)
+        path.vertical_to(height, radius=radius)
+        path.horizontal_to(-width, radius=radius)
+        path.close(radius=radius, close_radius=radius)
+
+        return path
+
+    ##############################################
+
+    @classmethod
+    def circle(cls, point, radius):
+
+        diameter = 2*float(radius)
+        path = cls(point)
+        path.horizontal_to(diameter)
+        path.vertical_to(diameter, radius=radius)
+        path.horizontal_to(-diameter, radius=radius)
+        path.close(radius=radius, close_radius=radius)
+
+        return path
