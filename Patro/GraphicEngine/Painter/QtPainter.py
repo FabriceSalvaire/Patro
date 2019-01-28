@@ -339,9 +339,7 @@ class QtPainter(Painter):
 
     ##############################################
 
-    def paint_CubicBezierItem(self, item):
-
-        vertices = self.cast_item_positions(item)
+    def _paint_cubic(self, item, vertices):
 
         pen = self._set_pen(item)
         path = QPainterPath()
@@ -369,6 +367,20 @@ class QtPainter(Painter):
             for vertex in vertices:
                 self._painter.drawEllipse(vertex, radius, radius)
             self._painter.setBrush(Qt.NoBrush) # Fixme:
+
+    ##############################################
+
+    def paint_QuadraticBezierItem(self, item):
+
+        vertices = [self.cast_position(position) for position in item.cubic_positions]
+        self._paint_cubic(item, vertices)
+
+    ##############################################
+
+    def paint_CubicBezierItem(self, item):
+
+        vertices = self.cast_item_positions(item)
+        self._paint_cubic(item, vertices)
 
     ##############################################
 

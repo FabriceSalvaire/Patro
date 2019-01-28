@@ -73,6 +73,7 @@ class GraphicSceneScope:
         'rectangle': GraphicItem.RectangleItem,
         'segment': GraphicItem.SegmentItem,
         'polyline': GraphicItem.PolylineItem,
+        'quadratic_bezier': GraphicItem.QuadraticBezierItem,
         'text': GraphicItem.TextItem,
     }
 
@@ -295,10 +296,7 @@ class GraphicSceneScope:
 
         # Bezier
         if isinstance(item, Bezier.QuadraticBezier2D):
-            # ctor = self.quadratic_bezier
-            # raise NotImplementedError
-            ctor = self.cubic_bezier
-            points = list(item.to_cubic().points)
+            ctor = self.quadratic_bezier
 
         elif isinstance(item, Bezier.CubicBezier2D):
             ctor = self.cubic_bezier
@@ -361,6 +359,13 @@ class GraphicSceneScope:
             if points is None:
                 points = list(item.points)
             return ctor(*points, *args, *args_tail, **kwargs)
+
+    ##############################################
+
+    # def add_quadratic_bezier(self, curve, *args, **kwargs):
+    #     # Fixme:
+    #     cubic = curve.to_cubic()
+    #     return self.cubic_bezier(*cubic.points, *args, **kwargs)
 
     ##############################################
 
@@ -429,6 +434,13 @@ class GraphicSceneScope:
 
     ##############################################
 
+    # def quadratic_bezier(self, p0, p1, p2, *args, **kwargs):
+    #     # Fixme:
+    #     cubic = Bezier.QuadraticBezier2D(p0, p1, p2).to_cubic()
+    #     return self.add_cubic(cubic, *args, **kwargs)
+
+    ##############################################
+
     def bezier_path(self, points, degree, *args, **kwargs):
 
         """Add a Bézier curve with the given control points and degree"""
@@ -438,7 +450,6 @@ class GraphicSceneScope:
         elif degree == 2:
             # Fixme:
             method = self.quadratic_bezier
-            raise NotImplementedError
         elif degree == 3:
             method = self.cubic_bezier
         else:

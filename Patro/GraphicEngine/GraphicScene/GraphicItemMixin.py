@@ -240,20 +240,35 @@ class TwoPositionMixin:
 
 ####################################################################################################
 
-class FourPositionMixin(TwoPositionMixin):
+class ThreePositionMixin(TwoPositionMixin):
 
     ##############################################
 
-    def __init__(self, position1, position2, position3, position4):
+    def __init__(self, position1, position2, position3):
         TwoPositionMixin.__init__(self, position1, position2)
         self._position3 = position3
-        self._position4 = position4
 
     ##############################################
 
     @property
     def position3(self):
         return self._position3
+
+    @property
+    def positions(self):
+        return (self._position1, self._position2, self._position3)
+
+####################################################################################################
+
+class FourPositionMixin(ThreePositionMixin):
+
+    ##############################################
+
+    def __init__(self, position1, position2, position3, position4):
+        ThreePositionMixin.__init__(self, position1, position2, position3)
+        self._position4 = position4
+
+    ##############################################
 
     @property
     def position4(self):

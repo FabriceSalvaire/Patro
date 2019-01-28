@@ -23,12 +23,13 @@
 """
 
 # Fixme: get_geometry / as argument
+#        position versus point
 
 ####################################################################################################
 
 import logging
 
-from Patro.GeometryEngine.Bezier import CubicBezier2D
+from Patro.GeometryEngine.Bezier import CubicBezier2D, QuadraticBezier2D
 from Patro.GeometryEngine.Conic import Circle2D, Ellipse2D, AngularDomain
 from Patro.GeometryEngine.Polyline import Polyline2D
 from Patro.GeometryEngine.Rectangle import Rectangle2D
@@ -38,6 +39,7 @@ from .GraphicItemMixin import (
     PathStyleItemMixin,
     PositionMixin,
     TwoPositionMixin,
+    ThreePositionMixin,
     FourPositionMixin,
     NPositionMixin,
     StartStopAngleMixin,
@@ -311,3 +313,48 @@ class CubicBezierItem(FourPositionMixin, PathStyleItemMixin):
     def get_geometry(self):
         positions = self.casted_positions
         return CubicBezier2D(*positions)
+
+####################################################################################################
+
+class QuadraticBezierItem(ThreePositionMixin, PathStyleItemMixin):
+
+    ##############################################
+
+    def __init__(self,
+                 scene,
+                 position1, position2, position3,
+                 path_style,
+                 user_data,
+    ):
+
+        # Fixme: curve vs path
+        PathStyleItemMixin.__init__(self, scene, path_style, user_data)
+        ThreePositionMixin.__init__(self, position1, position2, position3)
+
+        # super(CubicBezierItem, self).__init__(path_style)
+        # self._curve = curve
+
+    ##############################################
+
+    # @property
+    # def curve(self):
+    #     return self._curve
+
+    # @curve.setter
+    # def curve(self, value):
+    #     self._curve = value
+
+    ##############################################
+
+    def get_geometry(self):
+        positions = self.casted_positions
+        return QuadraticBezier2D(*positions)
+
+    ##############################################
+
+    @property
+    def cubic_positions(self):
+        if not(hasattr(self, '_cubic_points')):
+            cubic = self.geometry.to_cubic()
+            self._cubic_points = list(cubic.points)
+        return self._cubic_points
