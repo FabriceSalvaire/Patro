@@ -78,27 +78,56 @@ def cubic_root(a, b, c, d):
 
 ####################################################################################################
 
+def x_symbol():
+    return sympy.Symbol('x', real=True)
+
+def real_roots(expression, x):
+    return [i.n() for i in sympy.real_roots(expression, x)]
+
+####################################################################################################
+
 def cubic_root_sympy(a, b, c, d):
-
-    x = sympy.Symbol('x', real=True)
+    x = x_symbol()
     E = a*x**3 + b*x**2 + c*x + d
+    return real_roots(E, x)
 
-    return [i.n() for i in sympy.real_roots(E, x)]
+####################################################################################################
+
+def cubic_root_normalised(a, b, c):
+    x = x_symbol()
+    E = x**3 + a*x**2 + b*x + c
+    return real_roots(E, x)
+
+####################################################################################################
+
+def fourth_root_normalised(a, b, c, d):
+    x = x_symbol()
+    E = x**4 + a*x**3 + b*x**2 + c*x + d
+    return real_roots(E, x)
+
+####################################################################################################
+
+def fifth_root_sympy(a, b, c, d, e, f):
+    x = x_symbol()
+    E = a*x**5 + b*x**4 + c*x**3 + d*x**2 + e*x + f
+    return real_roots(E, x)
 
 ####################################################################################################
 
 def fifth_root_normalised(a, b, c, d, e):
-
-    x = sympy.Symbol('x', real=True)
+    x = x_symbol()
     E = x**5 + a*x**4 + b*x**3 + c*x**2 + d*x + e
-
-    return [i.n() for i in sympy.real_roots(E, x)]
+    return real_roots(E, x)
 
 ####################################################################################################
 
 def fifth_root(*args):
+    # Fixme: RuntimeWarning: divide by zero encountered in double_scalars
     a = args[0]
-    return fifth_root_normalised(*[x/a for x in args[1:]])
+    if a == 0:
+        return fifth_root_sympy(*args)
+    else:
+        return fifth_root_normalised(*[x/a for x in args[1:]])
 
 ####################################################################################################
 
