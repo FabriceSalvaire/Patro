@@ -411,7 +411,7 @@ class QuadraticBezier2D(BezierMixin2D, Primitive3P):
         p1 = (self._p0 + self._p1 * 2) / 3
         p2 = (self._p2 + self._p1 * 2) / 3
 
-        return CubicBezier2D(self._p0, p1, p2, self._p3)
+        return CubicBezier2D(self._p0, p1, p2, self._p2)
 
 ####################################################################################################
 
