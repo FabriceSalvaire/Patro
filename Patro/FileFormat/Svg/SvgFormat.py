@@ -1169,7 +1169,7 @@ class Rect(PositionMixin, RadiusMixin, SizeMixin, PathMixin, SvgElementMixin, Xm
         path.horizontal_to(width)
         path.vertical_to(height, radius=radius)
         path.horizontal_to(-width, radius=radius)
-        path.close(radius=radius_y, close_radius=radius)
+        path.close(radius=radius, close_radius=radius)
 
         return path
 
