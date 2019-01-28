@@ -31,6 +31,7 @@ __all__ = [
 ####################################################################################################
 
 import argparse
+import datetime
 import logging
 import sys
 import traceback
@@ -166,6 +167,14 @@ class Application(QObject):
 
     ##############################################
 
+    def _print_critical_message(self, message):
+        # print('\nCritical Error on {}'.format(datetime.datetime.now()))
+        # print('-'*80)
+        # print(message)
+        self._logger.critical(message)
+
+    ##############################################
+
     def _message_handler(self, msg_type, context, msg):
 
         if msg_type == QtCore.QtDebugMsg:
@@ -176,6 +185,7 @@ class Application(QObject):
             method = self._logger.warning
         elif msg_type in (QtCore.QtCriticalMsg, QtCore.QtFatalMsg):
             method = self._logger.critical
+            # method = None
 
         # local_msg = msg.toLocal8Bit()
         # localMsg.constData()
@@ -184,7 +194,18 @@ class Application(QObject):
             file_path = Path(context_file).name
         else:
             file_path = ''
-        method('{1} {3} — {0}'.format(msg, file_path, context.line, context.function))
+        message = '{1} {3} — {0}'.format(msg, file_path, context.line, context.function)
+        if method is not None:
+            method(message)
+        else:
+            self._print_critical_message(message)
+
+    ##############################################
+
+    def _on_critical_exception(self, exception):
+        message = str(exception) + '\n' + traceback.format_exc()
+        self._print_critical_message(message)
+        sys.exit(1)
 
     ##############################################
 
@@ -305,8 +326,10 @@ class Application(QObject):
             sys.exit(1)
         try:
             bytecode = compile(source, script_path, 'exec')
+        except SyntaxError as exception:
+            self._on_critical_exception(exception)
+        try:
             exec(bytecode, {'application':self})
         except Exception as exception:
-            traceback.print_exc()
-            sys.exit(1)
+            self._on_critical_exception(exception)
         self._logger.info('User script done')
