@@ -108,12 +108,12 @@ class SceneImporter(SvgFileInternal):
         )
 
         transformation = state.transform
+        self._logger.info('Sate Transform\n' + str(transformation))
         if isinstance(item, SvgFormat.Path):
             # and state.stroke_dasharray is None
             path = item.path_data
             if path is not None: # Fixme:
-                # path = path.transform(transformation)
-                # Fixme:
+                path = path.transform(transformation)
                 for part in path:
                     self._update_bounding_box(part)
                 self._scene.add_path(path, path_style)

@@ -432,6 +432,12 @@ class PathSegment(OnePointMixin, LinearSegment):
 
     ##############################################
 
+    def to_absolute(self):
+        self._point = self.stop_point
+        self._absolute = True
+
+    ##############################################
+
     def apply_transformation(self, transformation):
         OnePointMixin.apply_transformation(self, transformation)
         if self._radius is not None:
@@ -455,6 +461,11 @@ class DirectionalSegment(LinearSegment):
     def __init__(self, path, index, length, radius=None):
         super().__init__(path, index, radius)
         self.length = length
+
+    ##############################################
+
+    def __repr__(self):
+        return '{0}(@{1._index}, {1.offset})'.format(self.__class__.__name__, self)
 
     ##############################################
 
@@ -557,6 +568,13 @@ class QuadraticBezierSegment(PathPart, TwoPointMixin):
 
     ##############################################
 
+    def to_absolute(self):
+        self._point1 = self.point1
+        self._point2 = self.point2
+        self._absolute = True
+
+    ##############################################
+
     @property
     def stop_point(self):
         return self.point2
@@ -591,6 +609,14 @@ class CubicBezierSegment(PathPart, ThreePointMixin):
 
     def clone(self, path):
         return self.__class__(path, self._index, self._point1, self._point2, self._point3, absolute)
+
+    ##############################################
+
+    def to_absolute(self):
+        self._point1 = self.point1
+        self._point2 = self.point2
+        self._point3 = self.point3
+        self._absolute = True
 
     ##############################################
 
@@ -697,6 +723,12 @@ class ArcSegment(OnePointMixin, PathPart):
 
     ##############################################
 
+    def to_absolute(self):
+        self._point = self.stop_point
+        self._absolute = True
+
+    ##############################################
+
     @property
     def points(self):
         return self.start_point, self.stop_point
@@ -713,6 +745,8 @@ class ArcSegment(OnePointMixin, PathPart):
 class Path2D(Primitive2DMixin, Primitive1P):
 
     """Class to implements 2D Path."""
+
+    _logger = _module_logger.getChild('Path2D')
 
     ##############################################
 
@@ -789,17 +823,29 @@ class Path2D(Primitive2DMixin, Primitive1P):
 
     def apply_transformation(self, transformation):
 
-        self._p0 = transformation * self._p0
+        self._logger.info(str(self) + '\n' + str(transformation.type) + '\n' + str(transformation) )
 
-        for i, part in enumerate(self._parts):
+        for part in self._parts:
+            # print(part)
             if isinstance(part, PathSegment):
                 part._reset_cache()
             if isinstance(part, DirectionalSegment):
                 # Since a rotation will change the direction
                 # DirectionalSegment must be casted to PathSegment
                 part = part.to_path_segment()
-                self._parts[i] = part
+                self._parts[part.index] = part
+            if part._absolute is False:
+                # print('incremental', part, part.points)
+                part.to_absolute()
+                # print('->', part.points)
+
+        # print()
+        self._p0 = transformation * self._p0
+        # print('p0', self._p0)
+        for part in self._parts:
+            # print(part)
             part.apply_transformation(transformation)
+            # print('->', part.points)
 
     ##############################################
 
