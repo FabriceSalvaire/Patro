@@ -20,9 +20,6 @@
 
 ####################################################################################################
 
-from Patro.Common.Logging import Logging
-Logging.setup_logging()
-
 from Patro.GeometryEngine.Conic import Circle2D
 from Patro.GeometryEngine.Path import Path2D
 from Patro.GraphicEngine.GraphicScene.GraphicStyle import GraphicPathStyle, GraphicBezierStyle
