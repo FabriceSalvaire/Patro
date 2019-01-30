@@ -105,6 +105,9 @@ class Transformation:
             array[...] = obj
 
         self._m = np.array(array)
+
+        if transformation_type == TransformationType.Generic:
+            transformation_type = self._check_type()
         self._type = transformation_type
 
     ##############################################
@@ -146,6 +149,11 @@ class Transformation:
 
     ##############################################
 
+    def _check_type(self):
+        raise NotImplementedError
+
+    ##############################################
+
     def _mul_type(self, obj):
 
         # Fixme: check matrix value ???
@@ -163,6 +171,8 @@ class Transformation:
                 return TransformationType.Identity
             elif self._type not in (TransformationType.Rotation, TransformationType.Scale):
                 return TransformationType.Generic
+            else:
+                return self._type
         else: # shear, generic
             return TransformationType.Generic
 
@@ -199,6 +209,8 @@ class Transformation:
                 # order is inverted !
                 self._m = np.matmul(obj.array, self._m)
                 self._type = self._mul_type(obj)
+                if self._type == TransformationType.Generic:
+                    self._type = self._check_type()
         else:
             raise ValueError
 
@@ -210,17 +222,6 @@ class Transformation2D(Transformation):
 
     __dimension__ = 2
     __size__ = 2
-
-    ##############################################
-
-    @classmethod
-    def Rotation(cls, angle):
-
-        angle = radians(angle)
-        c = cos(angle)
-        s = sin(angle)
-
-        return cls(np.array(((c, -s), (s,  c))), TransformationType.Rotation)
 
     ##############################################
 
@@ -243,6 +244,46 @@ class Transformation2D(Transformation):
                 transformation_type = TransformationType.Shear
 
         return transformation_type
+
+    ##############################################
+
+    @classmethod
+    def check_matrix_type(self, matrix):
+
+        # Fixme: check
+        m00, m01, m10, m11 = matrix
+        if m01 == 0 and m10 == 0:
+            if m00 == 1:
+                if m11 == 1:
+                    return TransformationType.Identity
+                elif m11 == -1:
+                    return TransformationType.YParity
+            elif m00 == -1:
+                if m11 == 1:
+                    return TransformationType.XParity
+                elif m11 == -1:
+                    return TransformationType.Parity
+            elif m00 == m11:
+                return TransformationType.Scale
+
+        # Fixme: check for rotation
+        return TransformationType.Generic
+
+    ##############################################
+
+    def _check_type(self):
+        return self._check_matrix_type(self.to_list())
+
+    ##############################################
+
+    @classmethod
+    def Rotation(cls, angle):
+
+        angle = radians(angle)
+        c = cos(angle)
+        s = sin(angle)
+
+        return cls(np.array(((c, -s), (s,  c))), TransformationType.Rotation)
 
     ##############################################
 
@@ -316,6 +357,12 @@ class AffineTransformation2D(AffineTransformation):
 
     ##############################################
 
+    def _check_type(self):
+        matrix_type = Transformation2D.check_matrix_type(self.matrix_part.flat)
+        # Fixme: translation etc. !!!
+
+    ##############################################
+
     @classmethod
     def Rotation(cls, angle):
 
@@ -334,6 +381,18 @@ class AffineTransformation2D(AffineTransformation):
         transformation = cls.Identity()
         transformation.matrix_part[...] = Transformation2D.Scale(x_scale, y_scale).array
         transformation._type = cls.type_for_scale(x_scale, y_scale)
+        return transformation
+
+    ##############################################
+
+    @classmethod
+    def Screen(cls, y_height):
+
+        transformation = cls.Identity()
+        # Fixme: better ?
+        transformation.matrix_part[...] = Transformation2D.YReflection().array
+        transformation.translation_part[...] = Vector2D(0, y_height).v[...]
+        transformation._type = TransformationType.Generic
         return transformation
 
     #######################################
