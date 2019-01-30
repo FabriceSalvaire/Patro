@@ -97,6 +97,19 @@ class SceneImporter(SvgFileInternal):
 
     def on_graphic_item(self, item):
 
+        # d="
+        # m 31.589881,269.68673
+        # a 5,10 0 0 1  7.061333,   0.48142
+        #   5,10 0 0 1 -0.229465,  14.12342
+        #   5,10 0 0 1 -7.062064,  -0.43644
+        #   5,10 0 0 1  0.20697 , -14.1248
+        # L 35,277.00003
+        # Z"
+        # if item.id == 'ellipse':
+        #     print(item)
+        #     for part in item.path_data:
+        #         print(part)
+
         state = self._dispatcher.state.clone().merge(item)
         # self._logger.info('Item: {}\n{}'.format(item.id, item))
         # self._logger.info('Item State:\n' + str(state))
@@ -115,6 +128,7 @@ class SceneImporter(SvgFileInternal):
         )
 
         transformation = self._screen_transformation * state.transform
+        # transformation = state.transform
         # self._logger.info('Sate Transform\n' + str(transformation))
         if isinstance(item, SvgFormat.Path):
             # and state.stroke_dasharray is None

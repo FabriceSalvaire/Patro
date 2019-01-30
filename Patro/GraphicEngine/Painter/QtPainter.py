@@ -303,20 +303,15 @@ class QtPainter(Painter):
 
     ##############################################
 
-    def paint_CircleItem(self, item):
-
-        center = self.cast_position(item.position)
-        radius = self.length_scene_to_viewport(item.radius)
-
-        pen = self._set_pen(item)
+    def _paint_arc(self, item, center, radius_x, radius_y):
 
         if item.is_closed:
             self._painter.drawEllipse(center, radius, radius)
         else:
             # drawArc cannot be filled !
             rectangle = QRectF(
-                center + QPointF(-radius, radius),
-                center + QPointF(radius, -radius),
+                center + QPointF(-radius_x, radius_y),
+                center + QPointF(radius_x, -radius_y),
             )
             start_angle, stop_angle = [int(angle*16) for angle in (item.start_angle, item.stop_angle)]
             span_angle = stop_angle - start_angle
@@ -324,6 +319,17 @@ class QtPainter(Painter):
                 span_angle = 5760 + span_angle
             self._painter.drawArc(rectangle, start_angle, span_angle)
             # self._painter.drawArc(center.x, center.y, radius, radius, start_angle, stop_angle)
+
+    ##############################################
+
+    def paint_CircleItem(self, item):
+
+        center = self.cast_position(item.position)
+        radius = self.length_scene_to_viewport(item.radius)
+
+        pen = self._set_pen(item)
+
+        self._paint_arc(item, center, radius, radius)
 
     ##############################################
 
@@ -335,7 +341,8 @@ class QtPainter(Painter):
 
         pen = self._set_pen(item)
 
-        self._painter.drawEllipse(center, radius_x, radius_y)
+        # Fixme: angle !!!
+        self._paint_arc(item, center, radius_x, radius_y)
 
     ##############################################
 

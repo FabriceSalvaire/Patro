@@ -403,6 +403,22 @@ class GraphicSceneScope:
         def add_segment(segment):
             add_by_method(self.segment, segment)
 
+        def add_ellipse(segment):
+            # add_segment(Segment.Segment2D(*segment.points))
+            ellipse = segment.geometry
+            # print(ellipse, ellipse.domain)
+            arc_item = self.ellipse(
+                ellipse.center,
+                ellipse.radius_x,
+                ellipse.radius_y,
+                ellipse.angle,
+                path_style,
+                start_angle=ellipse.domain.start,
+                stop_angle=ellipse.domain.stop,
+                user_data=segment,
+            )
+            items.append(arc_item)
+
         def add_quadratic(segment):
             add_by_method(self.quadratic_bezier, segment)
 
@@ -426,7 +442,7 @@ class GraphicSceneScope:
             elif isinstance(segment, Path.CubicBezierSegment):
                 add_cubic(segment)
             elif isinstance(segment, Path.ArcSegment):
-                add_segment(segment)
+                add_ellipse(segment)
             elif isinstance(segment, Path.StringedQuadtraticBezierSegment):
                 pass
             elif isinstance(segment, Path.StringedCubicBezierSegment):

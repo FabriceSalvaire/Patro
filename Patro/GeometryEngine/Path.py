@@ -41,7 +41,7 @@ import math
 from Patro.Common.Math.Functions import sign
 from .Primitive import Primitive1P, Primitive2DMixin
 from .Bezier import QuadraticBezier2D, CubicBezier2D
-from .Conic import Circle2D, AngularDomain
+from .Conic import AngularDomain, Circle2D, Ellipse2D
 from .Segment import Segment2D
 from .Vector import Vector2D
 
@@ -839,6 +839,12 @@ class ArcSegment(OnePointMixin, PathPart):
 
     ##############################################
 
+    def __repr__(self):
+        template = '{0}(@{1._index} {1._point} rx={1._radius_x} ry={1._radius_y} a={1._angle} la={1._large_arc} s={1._sweep})'
+        return template.format(self.__class__.__name__, self)
+
+    ##############################################
+
     def to_absolute(self):
         self._point = self.stop_point
         self._absolute = True
@@ -853,8 +859,12 @@ class ArcSegment(OnePointMixin, PathPart):
 
     @property
     def geometry(self):
-        # Fixme: !!!
-        return Segment2D(self.start_point, self.stop_point)
+        return Ellipse2D.svg_arc(
+            self.start_point, self.stop_point,
+            self._radius_x, self._radius_y,
+            self._angle,
+            self._large_arc, self._sweep,
+        )
 
 ####################################################################################################
 

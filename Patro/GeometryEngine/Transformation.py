@@ -289,7 +289,12 @@ class Transformation2D(Transformation):
         c = cos(angle)
         s = sin(angle)
 
-        return cls(np.array(((c, -s), (s,  c))), TransformationType.Rotation)
+        return cls(
+            np.array((
+                (c, -s),
+                (s,  c))),
+            TransformationType.Rotation,
+        )
 
     ##############################################
 

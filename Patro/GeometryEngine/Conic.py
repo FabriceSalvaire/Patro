@@ -48,6 +48,8 @@ __all__ = [
 
 ####################################################################################################
 
+import logging
+
 import math
 from math import fabs, sqrt, radians, pi, cos, sin # , degrees
 
@@ -60,6 +62,10 @@ from .Mixin import AngularDomainMixin, CenterMixin, AngularDomain
 from .Primitive import Primitive, Primitive2DMixin
 from .Segment import Segment2D
 from .Transformation import Transformation2D
+
+####################################################################################################
+
+_module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
@@ -476,6 +482,8 @@ class Ellipse2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
 
     """
 
+    _logger = _module_logger.getChild('Ellipse2D')
+
     ##############################################
 
     @classmethod
@@ -514,11 +522,16 @@ class Ellipse2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
         radius_x2 = radius_x**2
         radius_y2 = radius_y**2
 
-        point1_prime = Transformation2D.Rotation(angle) * (point1 - point2)/2
+        # We define a new referential with the origin is set to the middle of P1 — P2
+        origin_prime = (point1 + point2)/2
+
+        # P1 is exprimed in this referential where the ellipse major axis line up with the x axis
+        point1_prime = Transformation2D.Rotation(-angle) * (point1 - point2)/2
 
         # Ensure radii are large enough
         radii_scale = point1_prime.x**2/radius_x2 + point1_prime.y**2/radius_y2
         if radii_scale > 1:
+            self._logger.warning('SVG Arc: radii must be scale')
             radii_scale = math.sqrt(radii_scale)
             radius_x = radii_scale * radius_x
             radius_y = radii_scale * radius_y
@@ -532,19 +545,32 @@ class Ellipse2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
 
         ratio = radius_x/radius_y
 
-        sign = -1 if large_arc == sweep else 1
-        center_prime = sign * math.sqrt(num / den) * point1_prime.anti_normal.divide(ratio, 1/ratio)
-        center = Transformation2D.Rotation(-angle) * center_prime + (point1 + point2)/2
+        sign = 1 if large_arc != sweep else -1
+        # print(point1_prime)
+        # print(point1_prime.anti_normal)
+        # print(ratio)
+        # print(point1_prime.anti_normal.scale(ratio, 1/ratio))
+        sign *= -1 # Fixme: solve mirroring artefacts for y-axis pointing to the top
+        center_prime = sign * math.sqrt(num / den) * point1_prime.anti_normal.scale(ratio, 1/ratio)
+
+        center = Transformation2D.Rotation(angle) * center_prime + origin_prime
 
         vector1 =   (point1_prime - center_prime).divide(radius_x, radius_y)
         vector2 = - (point1_prime + center_prime).divide(radius_x, radius_y)
         theta = cls.__vector_cls__(1, 0).angle_with(vector1)
-        delta_theta = vector1.angle_with(vector2) % 360
+        delta_theta = vector1.angle_with(vector2)
+        # if theta < 0:
+        #     theta = 180 + theta
+        # if delta_theta < 0:
+        #     delta_theta = 180 + delta_theta
+        delta_theta = delta_theta % 360
+        # print('theta', theta, delta_theta)
         if not sweep and delta_theta > 0:
             delta_theta -= 360
         elif sweep and delta_theta < 0:
             delta_theta += 360
-        domain = domain=AngularDomain(theta, theta + delta_theta)
+        # print('theta', theta, delta_theta, theta + delta_theta)
+        domain = domain = AngularDomain(theta, theta + delta_theta)
 
         return cls(center, radius_x, radius_y, angle, domain)
 

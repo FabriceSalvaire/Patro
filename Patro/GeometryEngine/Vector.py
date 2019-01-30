@@ -561,6 +561,14 @@ class Vector2D(Vector2DFloatBase):
 
     ##############################################
 
+    def scale(self, scale_x, scale_y):
+        """Scale self by scale"""
+        obj = self.clone()
+        obj._v *= np.array((scale_x, scale_y))
+        return obj
+
+    ##############################################
+
     def divide(self, scale_x, scale_y):
         """Scale self by 1/scale"""
         obj = self.clone()
