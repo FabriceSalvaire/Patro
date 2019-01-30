@@ -32,6 +32,7 @@ if not use_qt:
 
 from Patro.FileFormat.Svg import SvgFormat
 from Patro.FileFormat.Svg.SvgFile import SvgFile, SvgFileInternal
+from Patro.GeometryEngine.Transformation import AffineTransformation2D
 from Patro.GraphicEngine.GraphicScene.GraphicStyle import GraphicPathStyle, GraphicBezierStyle
 from Patro.GraphicEngine.Painter.QtPainter import QtScene
 from Patro.GraphicStyle import Colors, StrokeStyle, CapStyle
@@ -82,6 +83,12 @@ class SceneImporter(SvgFileInternal):
 
     ##############################################
 
+    def on_svg_root(self, svg_root):
+        super().on_svg_root(svg_root)
+        self._screen_transformation = AffineTransformation2D.Screen(self._view_box.y.sup)
+
+    ##############################################
+
     def on_group(self, group):
         # self._logger.info('Group: {}\n{}'.format(group.id, group))
         pass
@@ -89,6 +96,17 @@ class SceneImporter(SvgFileInternal):
     ##############################################
 
     def on_graphic_item(self, item):
+
+        # if item.id not in (
+        #         'path12061',
+        #         'path12069',
+        #         'path12077',
+        #         'path12085',
+        #         ):
+        #     return
+        # from Patro.FileFormat.Svg.SvgFormat import PathDataAttribute
+        # self._logger.info(str(item.id) + '\n' + str(item.path_data))
+        # item.path_data = PathDataAttribute.to_geometry(item.path_data)
 
         state = self._dispatcher.state.clone().merge(item)
         self._logger.info('Item: {}\n{}'.format(item.id, item))
@@ -107,22 +125,26 @@ class SceneImporter(SvgFileInternal):
             # fill_color=fill_color,
         )
 
-        transformation = state.transform
+        transformation = self._screen_transformation * state.transform
         self._logger.info('Sate Transform\n' + str(transformation))
         if isinstance(item, SvgFormat.Path):
             # and state.stroke_dasharray is None
             path = item.path_data
             if path is not None: # Fixme:
+                # self._logger.info(str(item.id) + '\n' + str(path[0].geometry))
                 path = path.transform(transformation)
                 for part in path:
                     self._update_bounding_box(part)
+                # self._logger.info(str(item.id) + '\n' + str(path[0].geometry))
                 self._scene.add_path(path, path_style)
         elif isinstance(item, SvgFormat.Rect):
             path = item.geometry
+            path = path.transform(transformation)
             self._scene.add_path(path, path_style)
 
 ####################################################################################################
 
+# svg_path = find_data_path('svg', 'basic-demo-2.by-hand.svg')
 svg_path = find_data_path('svg', 'demo.svg')
 # svg_path = find_data_path('patterns-svg', 'veravenus-little-bias-dress.pattern-a0.svg')
 # svg_path = find_data_path('patterns-svg', 'veravenus-little-bias-dress.pattern-a0.no-text-zaggy.svg')

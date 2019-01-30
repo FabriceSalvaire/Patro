@@ -486,7 +486,7 @@ class TransformAttribute(StringAttribute):
             elif name == 'scale':
                 transform = AffineTransformation2D.Scale(*values)
             elif name == 'rotate':
-                angle, *vector = complete(values, 2)
+                angle, *vector = complete(values, 3)
                 vector = Vector2D(vector)
                 transform = AffineTransformation2D.RotationAt(vector, angle)
             elif name == 'skewX':
@@ -958,7 +958,7 @@ class PathDataAttribute(StringAttribute):
     @classmethod
     def from_xml(cls, svg_path):
 
-        # cls._logger.debug('SVG path:\n'+ svg_path)
+        # cls._logger.info('SVG path:\n'+ svg_path)
 
         # Replace comma separator by space
         cleaned_svg_path = svg_path.replace(',', ' ')
@@ -990,13 +990,17 @@ class PathDataAttribute(StringAttribute):
                 i += 1 # move to first arg
             # else repeated instruction
             next_i = i + number_of_args
-            values = parts[i:next_i]
-            #! points = [Vector2D(values[2*i], values[2*i+1]) for i in range(number_of_args / 2)]
-            points = values
-            commands.append((command, points))
+            args = parts[i:next_i]
+            commands.append((command, args))
             i = next_i
+            # for implicit line to
+            if command == 'm':
+                command = 'l'
+            elif command == 'M':
+                command = 'L'
 
         # return commands
+        # Fixme: do later ???
         return cls.to_geometry(commands)
 
     ##############################################
@@ -1027,7 +1031,7 @@ class PathDataAttribute(StringAttribute):
     @classmethod
     def to_geometry(cls, commands):
 
-        cls._logger.info('Path:\n' + str(commands).replace('), ', '),\n '))
+        # cls._logger.info('Path:\n' + str(commands).replace('), ', '),\n '))
         path = None
         for command, args in commands:
             command_lower = command.lower()
@@ -1038,15 +1042,18 @@ class PathDataAttribute(StringAttribute):
             if path is None:
                 if command_lower != 'm':
                     raise NameError('Path must start with m')
-                # Fixme: m ???
                 path = Path2D(args) # Vector2D()
             else:
                 if command_lower == 'l':
                     path.line_to(args, absolute=absolute)
-                elif command_lower == 'h':
-                    path.horizontal_to(*args, absolute=absolute)
+                elif command == 'h':
+                    path.horizontal_to(*args, absolute=False)
+                elif command == 'H':
+                    path.absolute_horizontal_to(*args)
                 elif command_lower == 'v':
                     path.vertical_to(*args, absolute=absolute)
+                elif command == 'V':
+                    path.absolute_vertical_to(*args)
                 elif command_lower == 'c':
                     path.cubic_to(*cls.as_vector(args), absolute=absolute)
                 elif command_lower == 's':

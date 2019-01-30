@@ -39,8 +39,13 @@ class XmlFileMixin:
 
     ##############################################
 
-    def __init__(self, path):
-        self._path = Path(path)
+    def __init__(self, path, data=None):
+
+        if path is not None:
+            self._path = Path(path)
+        else:
+            self._path = None
+        self._data = data
 
     ##############################################
 
@@ -52,8 +57,17 @@ class XmlFileMixin:
 
     def parse(self):
         """Parse a XML file and return the etree"""
-        with open(str(self._path), 'rb') as f:
-            source = f.read()
+
+        data = self._data
+        if data is None:
+            with open(str(self._path), 'rb') as f:
+                source = f.read()
+        else:
+            if isinstance(data, bytes):
+               source = data
+            else:
+                source = bytes(str(self._data).strip(), 'utf-8')
+
         return etree.fromstring(source)
 
     ##############################################

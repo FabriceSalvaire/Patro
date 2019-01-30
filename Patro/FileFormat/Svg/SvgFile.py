@@ -36,6 +36,8 @@ import logging
 
 from lxml import etree
 
+from IntervalArithmetic import Interval2D
+
 from Patro.Common.Xml.XmlFile import XmlFileMixin
 from Patro.GeometryEngine.Transformation import AffineTransformation2D
 from . import SvgFormat
@@ -308,9 +310,9 @@ class SvgFileInternal(XmlFileMixin, SvgFileMixin):
 
     ##############################################
 
-    def __init__(self, path=None):
+    def __init__(self, path, data=None):
 
-        super().__init__(path)
+        super().__init__(path, data)
 
         # Fixme: API
         #  purpose of dispatcher, where must be state ???
@@ -330,7 +332,33 @@ class SvgFileInternal(XmlFileMixin, SvgFileMixin):
         # ></svg>
 
         tree = self.parse()
+
+        svg_root = self._dispatcher.from_xml(tree)
+        self.on_svg_root(svg_root)
+
         self._dispatcher.on_root(tree)
+
+    ##############################################
+
+    @property
+    def view_box(self):
+        return self._view_box
+
+    @property
+    def width(self):
+        return self._width
+
+    @property
+    def height(self):
+        return self._height
+
+    ##############################################
+
+    def on_svg_root(self, svg_root):
+        x_inf, y_inf, x_sup, y_sup = svg_root.view_box
+        self._view_box = Interval2D((x_inf, x_sup), (y_inf, y_sup))
+        self._width = svg_root.width
+        self._height = svg_root.height
 
     ##############################################
 

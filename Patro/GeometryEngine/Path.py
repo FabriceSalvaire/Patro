@@ -452,7 +452,124 @@ class PathSegment(OnePointMixin, LinearSegment):
 
 ####################################################################################################
 
-class DirectionalSegment(LinearSegment):
+class DirectionalSegmentMixin(LinearSegment):
+
+    ##############################################
+
+    def apply_transformation(self, transformation):
+        # Since a rotation will change the direction
+        # DirectionalSegment must be casted to PathSegment
+        raise NotImplementedError
+
+    ##############################################
+
+    @property
+    def geometry(self):
+        # Fixme: cache ???
+        return Segment2D(self.start_point, self.stop_point)
+
+####################################################################################################
+
+class AbsoluteHVSegment(DirectionalSegmentMixin):
+
+    ##############################################
+
+    def to_path_segment(self):
+
+        # Fixme: duplicted
+        if self._index == 0 and self._radius is not None:
+            radius = None
+            close = True
+        else:
+            radius = self._radius
+            close = False
+
+        path = PathSegment(self._path, self._index, self.stop_point, radius, absolute=True)
+
+        if close:
+            path.close(self._radius)
+
+        return path
+
+####################################################################################################
+
+class AbsoluteHorizontalSegment(AbsoluteHVSegment):
+
+    ##############################################
+
+    def __init__(self, path, index, x, radius=None):
+
+        super().__init__(path, index, radius)
+        self.x = x
+        self._init_absolute(False) # Fixme: mix
+
+    ##############################################
+
+    def __repr__(self):
+        return '{0}(@{1._index}, {1._x})'.format(self.__class__.__name__, self)
+
+    ##############################################
+
+    def clone(self, path):
+        return self.__class__(path, self._index, self._x, self._radius)
+
+    ##############################################
+
+    @property
+    def x(self):
+        return self._x
+
+    @x.setter
+    def x(self, value):
+        self._x = float(value)
+
+    ##############################################
+
+    @property
+    def stop_point(self):
+        return Vector2D(self._x, self.start_point.y)
+
+####################################################################################################
+
+class AbsoluteVerticalSegment(AbsoluteHVSegment):
+
+    ##############################################
+
+    def __init__(self, path, index, y, radius=None):
+
+        super().__init__(path, index, radius)
+        self.y = y
+        self._init_absolute(False) # Fixme: mix
+
+    ##############################################
+
+    def __repr__(self):
+        return '{0}(@{1._index}, {1._y})'.format(self.__class__.__name__, self)
+
+    ##############################################
+
+    def clone(self, path):
+        return self.__class__(path, self._index, self._y, self._radius)
+
+    ##############################################
+
+    @property
+    def y(self):
+        return self._y
+
+    @y.setter
+    def y(self, value):
+        self._y = float(value)
+
+    ##############################################
+
+    @property
+    def stop_point(self):
+        return Vector2D(self.start_point.x, self._y)
+
+####################################################################################################
+
+class DirectionalSegment(DirectionalSegmentMixin):
 
     __angle__ = None
 
@@ -466,13 +583,6 @@ class DirectionalSegment(LinearSegment):
 
     def __repr__(self):
         return '{0}(@{1._index}, {1.offset})'.format(self.__class__.__name__, self)
-
-    ##############################################
-
-    def apply_transformation(self, transformation):
-        # Since a rotation will change the direction
-        # DirectionalSegment must be casted to PathSegment
-        raise NotImplementedError
 
     ##############################################
 
@@ -503,15 +613,21 @@ class DirectionalSegment(LinearSegment):
 
     ##############################################
 
-    @property
-    def geometry(self):
-        # Fixme: cache ???
-        return Segment2D(self.start_point, self.stop_point)
-
-    ##############################################
-
     def to_path_segment(self):
-        return PathSegment(self._path, self._index, self.offset, self._radius, absolute=False)
+
+        if self._index == 0 and self._radius is not None:
+            radius = None
+            close = True
+        else:
+            radius = self._radius
+            close = False
+
+        path = PathSegment(self._path, self._index, self.offset, radius, absolute=False)
+
+        if close:
+            path.close(self._radius)
+
+        return path
 
 ####################################################################################################
 
@@ -829,7 +945,7 @@ class Path2D(Primitive2DMixin, Primitive1P):
             # print(part)
             if isinstance(part, PathSegment):
                 part._reset_cache()
-            if isinstance(part, DirectionalSegment):
+            if isinstance(part, DirectionalSegmentMixin):
                 # Since a rotation will change the direction
                 # DirectionalSegment must be casted to PathSegment
                 part = part.to_path_segment()
@@ -869,47 +985,55 @@ class Path2D(Primitive2DMixin, Primitive1P):
 
     ##############################################
 
-    def horizontal_to(self, distance, radius=None, absolute=False):
+    def horizontal_to(self, length, radius=None, absolute=False):
         if absolute:
-            return self._add_part(PathSegment, self.__vector_cls__(distance, 0), radius,
+            return self._add_part(PathSegment, self.__vector_cls__(length, 0), radius,
                                   absolute=True)
         else:
-            return self._add_part(HorizontalSegment, distance, radius)
+            return self._add_part(HorizontalSegment, length, radius)
 
     ##############################################
 
-    def vertical_to(self, distance, radius=None, absolute=False):
+    def vertical_to(self, length, radius=None, absolute=False):
         if absolute:
-            return self._add_part(PathSegment, self.__vector_cls__(0, distance), radius,
+            return self._add_part(PathSegment, self.__vector_cls__(0, length), radius,
                                   absolute=True)
         else:
-            return self._add_part(VerticalSegment, distance, radius)
+            return self._add_part(VerticalSegment, length, radius)
 
     ##############################################
 
-    def north_to(self, distance, radius=None):
-        return self._add_part(NorthSegment, distance, radius)
+    def absolute_horizontal_to(self, x, radius=None):
+        return self._add_part(AbsoluteHorizontalSegment, x, radius)
 
-    def south_to(self, distance, radius=None):
-        return self._add_part(SouthSegment, distance, radius)
+    def absolute_vertical_to(self, y, radius=None):
+        return self._add_part(AbsoluteVerticalSegment, y, radius)
 
-    def west_to(self, distance, radius=None):
-        return self._add_part(WestSegment, distance, radius)
+    ##############################################
 
-    def east_to(self, distance, radius=None):
-        return self._add_part(EastSegment, distance, radius)
+    def north_to(self, length, radius=None):
+        return self._add_part(NorthSegment, length, radius)
 
-    def north_east_to(self, distance, radius=None):
-        return self._add_part(NorthEastSegment, distance, radius)
+    def south_to(self, length, radius=None):
+        return self._add_part(SouthSegment, length, radius)
 
-    def south_east_to(self, distance, radius=None):
-        return self._add_part(SouthEastSegment, distance, radius)
+    def west_to(self, length, radius=None):
+        return self._add_part(WestSegment, length, radius)
 
-    def north_west_to(self, distance, radius=None):
-        return self._add_part(NorthWestSegment, distance, radius)
+    def east_to(self, length, radius=None):
+        return self._add_part(EastSegment, length, radius)
 
-    def south_west_to(self, distance, radius=None):
-        return self._add_part(SouthWestSegment, distance, radius)
+    def north_east_to(self, length, radius=None):
+        return self._add_part(NorthEastSegment, length, radius)
+
+    def south_east_to(self, length, radius=None):
+        return self._add_part(SouthEastSegment, length, radius)
+
+    def north_west_to(self, length, radius=None):
+        return self._add_part(NorthWestSegment, length, radius)
+
+    def south_west_to(self, length, radius=None):
+        return self._add_part(SouthWestSegment, length, radius)
 
     ##############################################
 
