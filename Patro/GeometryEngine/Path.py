@@ -939,7 +939,7 @@ class Path2D(Primitive2DMixin, Primitive1P):
 
     def apply_transformation(self, transformation):
 
-        self._logger.info(str(self) + '\n' + str(transformation.type) + '\n' + str(transformation) )
+        # self._logger.info(str(self) + '\n' + str(transformation.type) + '\n' + str(transformation) )
 
         for part in self._parts:
             # print(part)

@@ -97,24 +97,8 @@ class SceneImporter(SvgFileInternal):
 
     def on_graphic_item(self, item):
 
-        # if item.id not in (
-        #         'path12061',
-        #         'path12069',
-        #         'path12077',
-        #         'path12085',
-        #         ):
-        #     return
-        # if item.id not in (
-        #         'rounded-rectangle',
-        #         'polygon',
-        #         ):
-        #     return
-        # from Patro.FileFormat.Svg.SvgFormat import PathDataAttribute
-        # self._logger.info(str(item.id) + '\n' + str(item.path_data))
-        # item.path_data = PathDataAttribute.to_geometry(item.path_data)
-
         state = self._dispatcher.state.clone().merge(item)
-        self._logger.info('Item: {}\n{}'.format(item.id, item))
+        # self._logger.info('Item: {}\n{}'.format(item.id, item))
         # self._logger.info('Item State:\n' + str(state))
 
         self._item_counter += 1
@@ -131,22 +115,15 @@ class SceneImporter(SvgFileInternal):
         )
 
         transformation = self._screen_transformation * state.transform
-        # transformation = state.transform
-        self._logger.info('Sate Transform\n' + str(transformation))
+        # self._logger.info('Sate Transform\n' + str(transformation))
         if isinstance(item, SvgFormat.Path):
             # and state.stroke_dasharray is None
             path = item.path_data
-            if path is not None: # Fixme:
-                # self._logger.info(str(item.id) + '\n' + str(path[0].geometry))
-                path = path.transform(transformation)
-                self._update_bounding_box(path)
-                # self._logger.info('after ' + str(item.id) + '\n' + str(path[0].geometry))
-                self._scene.add_path(path, path_style)
         elif isinstance(item, SvgFormat.Rect):
             path = item.geometry
-            path = path.transform(transformation)
-            self._update_bounding_box(path)
-            self._scene.add_path(path, path_style)
+        path = path.transform(transformation)
+        self._update_bounding_box(path)
+        self._scene.add_path(path, path_style)
 
 ####################################################################################################
 
