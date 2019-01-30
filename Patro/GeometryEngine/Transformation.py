@@ -180,6 +180,8 @@ class Transformation:
 
     def __mul__(self, obj):
 
+        """Return self * obj composition."""
+
         if isinstance(obj, Transformation):
             # T = T1 * T2
             array = np.matmul(self._m, obj.array)
@@ -201,6 +203,10 @@ class Transformation:
     #######################################
 
     def __imul__(self, obj):
+
+        """Set transformation to obj * self composition."""
+
+        # Fixme: order ???
 
         if isinstance(obj, Transformation):
             if obj.type != TransformationType.Identity:

@@ -104,6 +104,11 @@ class SceneImporter(SvgFileInternal):
         #         'path12085',
         #         ):
         #     return
+        # if item.id not in (
+        #         'rounded-rectangle',
+        #         'polygon',
+        #         ):
+        #     return
         # from Patro.FileFormat.Svg.SvgFormat import PathDataAttribute
         # self._logger.info(str(item.id) + '\n' + str(item.path_data))
         # item.path_data = PathDataAttribute.to_geometry(item.path_data)
@@ -126,6 +131,7 @@ class SceneImporter(SvgFileInternal):
         )
 
         transformation = self._screen_transformation * state.transform
+        # transformation = state.transform
         self._logger.info('Sate Transform\n' + str(transformation))
         if isinstance(item, SvgFormat.Path):
             # and state.stroke_dasharray is None
@@ -133,19 +139,20 @@ class SceneImporter(SvgFileInternal):
             if path is not None: # Fixme:
                 # self._logger.info(str(item.id) + '\n' + str(path[0].geometry))
                 path = path.transform(transformation)
-                for part in path:
-                    self._update_bounding_box(part)
-                # self._logger.info(str(item.id) + '\n' + str(path[0].geometry))
+                self._update_bounding_box(path)
+                # self._logger.info('after ' + str(item.id) + '\n' + str(path[0].geometry))
                 self._scene.add_path(path, path_style)
         elif isinstance(item, SvgFormat.Rect):
             path = item.geometry
             path = path.transform(transformation)
+            self._update_bounding_box(path)
             self._scene.add_path(path, path_style)
 
 ####################################################################################################
 
 # svg_path = find_data_path('svg', 'basic-demo-2.by-hand.svg')
 svg_path = find_data_path('svg', 'demo.svg')
+# svg_path = find_data_path('svg', 'demo.simple.svg')
 # svg_path = find_data_path('patterns-svg', 'veravenus-little-bias-dress.pattern-a0.svg')
 # svg_path = find_data_path('patterns-svg', 'veravenus-little-bias-dress.pattern-a0.no-text-zaggy.svg')
 

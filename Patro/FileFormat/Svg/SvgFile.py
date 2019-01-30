@@ -117,7 +117,9 @@ class RenderState:
                 value = getattr(item, state)
                 if state == 'transform':
                     if value is not None:
-                        self.transform = value * self.transform
+                        # Transform matrix is composed from top to item
+                        # thus left to right
+                        self.transform = self.transform * value
                 elif state == 'style':
                     pass
                 else:
@@ -130,7 +132,7 @@ class RenderState:
                 state, value = [x.strip() for x in pair.split(':')]
                 state = state.replace('-', '_')
                 if state == 'transform':
-                    self.transform = value * self.transform
+                    self.transform = self.transform * value
                 else:
                     setattr(self, state, self.to_python(value))
 
