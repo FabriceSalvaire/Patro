@@ -13,4 +13,5 @@ Contents:
 .. toctree::
   :maxdepth: 2
 
+  file-format/index.rst
   geometry/index.rst
