@@ -18,8 +18,8 @@
 #
 ####################################################################################################
 
-"""This module implements a 2D geometry engine which implement standard primitives like line, conic
-and Bézier curve.
+"""This module implements a 2D geometry engine which implement standard `geometric primitives
+<https://en.wikipedia.org/wiki/Geometric_primitive>`_ like line, conic and Bézier curve.
 
 .. note:: This module is a candidate for a dedicated project.
 
