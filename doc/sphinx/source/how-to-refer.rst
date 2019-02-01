@@ -27,6 +27,6 @@ A typical `BibTeX <https://en.wikipedia.org/wiki/BibTeX>`_ citation would be, fo
     @Misc{Patro,
       author = {Fabrice Salvaire},
       title = {Patro},
-      howpublished = {\url{@project_url@}},
+      howpublished = {\url{https://github.com/FabriceSalvaire/Patro}},
       year = {yyyy}
     }
