@@ -34,14 +34,14 @@ import math
 
 import numpy as np
 
+from Patro.Common.Math.Functions import sign
+from .Conic import Circle2D
 from .Primitive import PrimitiveNP, ClosedPrimitiveMixin, PathMixin, Primitive2DMixin
 from .Segment import Segment2D
 from .Triangle import Triangle2D
-from Patro.Common.Math.Functions import sign
+from .Vector import Vector2D
 
 ####################################################################################################
-
-# Fixme: PrimitiveNP last ???
 
 class Polygon2D(Primitive2DMixin, ClosedPrimitiveMixin, PathMixin, PrimitiveNP):
 
@@ -83,6 +83,8 @@ class Polygon2D(Primitive2DMixin, ClosedPrimitiveMixin, PathMixin, PrimitiveNP):
     ##############################################
 
     def __init__(self, *points):
+
+        # Fixme: ctor for list of points
 
         if len(points) < 3:
             raise ValueError('Polygon require at least 3 vertexes')
@@ -456,3 +458,113 @@ class Polygon2D(Primitive2DMixin, ClosedPrimitiveMixin, PathMixin, PrimitiveNP):
         # Fixme: bounding box test
 
         return self._winding_number_test(point)
+
+####################################################################################################
+
+class RegularPolygon(Polygon2D):
+
+    """Class to implement regular polygon (N-gon)."""
+
+    # See https://en.wikipedia.org/wiki/Polygon#Naming
+    NGON_NAMES = (
+        'monogon',
+        'digon',
+        'triangle', # trigon
+        'quadrilateral',  # tetragon
+        'pentagon',
+        'hexagon',
+        'heptagon',
+        'octagon',
+        'nonagon',
+        'decagon',
+        'hendecagon',
+        'dodecagon',
+        'tridecagon',
+        'tetradecagon',
+        'pentadecagon',
+        'hexadecagon',
+        'heptadecagon',
+        'octadecagon',
+        'enneadecagon',
+        'icosagon',
+    )
+
+    LARGE_NGON_NAMES = {
+        24: 'icositetragon', # icosikaitetragon
+        30: 'triacontagon',
+        40: 'tetracontagon', # tessaracontagon
+        50: 'pentacontagon', # pentecontagon
+        60: 'hexacontagon', # hexecontagon
+        70: 'heptacontagon', # hebdomecontagon
+        80: 'octacontagon', # ogdoëcontagon
+        90: 'enneacontagon', # enenecontagon
+        100: 'hectogon', # hecatontagon
+        257: '257-gon',
+        1000: 'chiliagon',
+        10**4: 'myriagon',
+        65537: '65537-gon',
+        10**6: 'megagon',
+    }
+
+    ##############################################
+
+    def __init__(self, center, radius, number_of_edges, angle=0):
+
+        # Vector2D = self.__vector_cls__
+
+        self._center = Vector2D(center)
+        self._radius = float(radius)
+        self._angle = float(angle)
+        self._number_of_edges = int(number_of_edges)
+
+        if self._number_of_edges < 3:
+            raise ValueError('NGon requires at least 3 edges')
+
+        edge_angle = self.edge_angle
+        points = [
+            self._center + Vector2D.from_polar(self._radius, angle + i*edge_angle)
+            for i in range(self._number_of_edges)
+        ]
+
+        super().__init__(*points)
+
+    ##############################################
+
+    @property
+    def center(self):
+        return self._center
+
+    @property
+    def radius(self):
+        return self._radius
+
+    @property
+    def angle(self):
+        return self._angle
+
+    @property
+    def number_of_edges(self):
+        return self._number_of_edges
+
+    @property
+    def edge_angle(self):
+        return 360 / self._number_of_edges
+
+    ##############################################
+
+    @classmethod
+    def ngon_name(cls, number_of_edges):
+        try:
+            return self.NGON_NAMES[number_of_edges]
+        except IndexError:
+            return self.LARGE_NGON_NAMES.get(number_of_edges, None)
+
+    @property
+    def str_name(self):
+        return self.ngon_name(self._number_of_edges)
+
+    ##############################################
+
+    @property
+    def circumcircle(self):
+        return Circle2D(self._center, self._radius)
