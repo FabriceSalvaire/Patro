@@ -14,6 +14,7 @@ Contents:
   :maxdepth: 2
 
   bezier.rst
+  conic.rst
   path.rst
   spline.rst
   transformations.rst

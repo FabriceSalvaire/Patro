@@ -20,24 +20,7 @@
 
 """Module to implement conic geometry like circle and ellipse.
 
-*Valentina Requirements*
-
-  * circle with angular domain
-  * circle with start angle and arc length
-  * curvilinear distance on circle
-  * line-circle intersection
-  * circle-circle intersection
-  * point constructed from a virtual circle and a point on a tangent : right triangle
-  * point from tangent circle and segment ???
-  * ellipse with angular domain and rotation
-
 """
-
-# Fixme:
-#
-#    Ellipse passing by two points
-#    https://www.w3.org/TR/SVG/implnote.html#ArcConversionEndpointToCenter
-#
 
 ####################################################################################################
 
@@ -280,33 +263,7 @@ class Circle2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
 
     def intersect_segment(self, segment):
 
-        r"""Compute the intersection of a circle and a segment.
-
-        Reference
-
-             * http://mathworld.wolfram.com/Circle-LineIntersection.html
-             * Rhoad et al. 1984, p. 429
-             * Rhoad, R.; Milauskas, G.; and Whipple, R. Geometry for Enjoyment and Challenge,
-             * rev. ed. Evanston, IL: McDougal, Littell & Company, 1984.
-
-        System of equations
-
-        .. math::
-           \begin{split}
-           x^2 + y^2 = r^2 \\
-           dx \times y = dy \times x - D
-           \end{split}
-
-        where
-
-        .. math::
-           \begin{align}
-            dx &= x1 - x0 \\
-            dy &= y1 - y0 \\
-            D  &= x0 \times y1 - x1 \times y0
-           \end{align}
-
-        """
+        """Compute the intersection of a circle and a segment."""
 
         # Fixme: check domain !!!
 
@@ -352,14 +309,8 @@ class Circle2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
 
         # Fixme: check domain !!!
 
-        # http://mathworld.wolfram.com/Circle-CircleIntersection.html
-
         v = circle.center - self.center
         d = sign(v.x) * v.magnitude
-
-        # Equations
-        #       x**2 + y**2 = R**2
-        #   (x-d)**2 + y**2 = r**2
 
         x = (d**2 - circle.radius**2 + self.radius**2) / (2*d)
         y2 = self.radius**2 - x**2
@@ -378,58 +329,6 @@ class Circle2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
 
     def bezier_approximation(self):
 
-        # http://spencermortensen.com/articles/bezier-circle/
-
-        # > First approximation:
-        #
-        # 1) The endpoints of the cubic Bézier curve must coincide with the endpoints of the
-        #    circular arc, and their first derivatives must agree there.
-        #
-        # 2) The midpoint of the cubic Bézier curve must lie on the circle.
-        #
-        # B(t) = (1-t)**3 * P0 + 3*(1-t)**2*t * P1 + 3*(1-t)*t**2 * P2 + t**3 * P3
-        #
-        # For an unitary circle : P0 = (0,1)  P1 = (c,1)  P2 = (1,c)  P3 = (1, 0)
-        #
-        # The second constraint provides the value of c = 4/3 * (sqrt(2) - 1)
-        #
-        # The maximum radial drift is 0.027253 % with this approximation.
-        # In this approximation, the Bézier curve always falls outside the circle, except
-        # momentarily when it dips in to touch the circle at the midpoint and endpoints.
-        #
-        # >Better approximation:
-        #
-        # 2) The maximum radial distance from the circle to the Bézier curve must be as small as
-        #    possible.
-        #
-        # The first constraint yields the parametric form of the Bézier curve:
-        # B(t) = (x,y), where:
-        # x(t) = 3*c*(1-t)**2*t + 3*(1-t)*t**2 + t**3
-        # y(t) = 3*c*t**2*(1-t) + 3*t*(1-t)**2 + (1-t)**3
-        #
-        # The radial distance from the arc to the Bézier curve is: d(t) = sqrt(x**2 + y**2) - 1
-        #
-        # The Bézier curve touches the right circular arc at its initial endpoint, then drifts
-        # outside the arc, inside, outside again, and finally returns to touch the arc at its
-        # endpoint.
-        #
-        # roots of d : 0, (3*c +- sqrt(-9*c**2 - 24*c + 16) - 2)/(6*c - 4), 1
-        #
-        # This radial distance function, d(t), has minima at t = 0, 1/2, 1,
-        # and maxima at t = 1/2 +- sqrt(12 - 20*c - 3*c**22)/(4 - 6*c)
-        #
-        # Because the Bézier curve is symmetric about t = 1/2 , the two maxima have the same
-        # value. The radial deviation is minimized when the magnitude of this maximum is equal to
-        # the magnitude of the minimum at t = 1/2.
-        #
-        # This gives the ideal value for c = 0.551915024494
-        # The maximum radial drift is 0.019608 % with this approximation.
-
-        # P0 = (0,1)   P1 = (c,1)   P2 = (1,c)   P3 = (1,0)
-        # P0 = (1,0)   P1 = (1,-c)  P2 = (c,-1)  P3 = (0,-1)
-        # P0 = (0,-1)  P1 = (-c,-1) P2 = (-1,-c) P3 = (-1,0)
-        # P0 = (-1,0)  P1 = (-1,c)  P2 = (-c,1)  P3 = (0,1)
-
         raise NotImplementedError
 
 ####################################################################################################
@@ -438,47 +337,6 @@ class Ellipse2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
 
     r"""Class to implements 2D Ellipse.
 
-    A general ellipse in 2D is represented by a center point `C`, an orthonormal set of
-    axis-direction vectors :math:`{U_0 , U_1 }`, and associated extents :math:`e_i` with :math:`e_0
-    \ge e_1 > 0`. The ellipse points are
-
-    .. math::
-        \begin{equation}
-        P = C + x_0 U_0 + x_1 U_1
-        \end{equation}
-
-    where
-
-    .. math::
-        \begin{equation}
-        \left(\frac{x_0}{e_0}\right)^2 + \left(\frac{x_1}{e_1}\right)^2 = 1
-        \end{equation}
-
-    If :math:`e_0 = e_1`, then the ellipse is a circle with center `C` and radius :math:`e_0`.
-
-    The orthonormality of the axis directions and Equation (1) imply :math:`x_i = U_i \dot (P −
-    C)`. Substituting this into Equation (2) we obtain
-
-    .. math::
-        (P − C)^T M (P − C) = 1
-
-    where :math:`M = R D R^T`, `R` is an orthogonal matrix whose columns are :math:`U_0` and
-    :math:`U_1` , and `D` is a diagonal matrix whose diagonal entries are :math:`1/e_0^2` and
-    :math:`1/e_1^2`.
-
-    An ellipse can also be parameterised by an angle :math:`\theta`
-
-    .. math::
-        \begin{pmatrix} x \\ y \end{pmatrix} =
-        \begin{bmatrix}
-        \cos\phi & \sin\phi \\
-        -\sin\phi & \cos\phi
-        \end{bmatrix}
-        \begin{pmatrix} r_x \cos\theta \\ r_y \sin\theta \end{pmatrix}
-        + \begin{pmatrix} C_x \\ C_y \end{pmatrix}
-
-    where :math:`\phi` is the angle from the x-axis, :math:`r_x` is the semi-major and :math:`r_y`
-    semi-minor axes.
 
     """
 
