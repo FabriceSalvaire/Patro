@@ -16,5 +16,6 @@ Contents:
   bezier.rst
   conic.rst
   path.rst
+  polygon.rst
   spline.rst
   transformations.rst
