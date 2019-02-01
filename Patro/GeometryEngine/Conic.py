@@ -20,6 +20,8 @@
 
 """Module to implement conic geometry like circle and ellipse.
 
+For resources on conic see :ref:`this section <conic-geometry-ressources-page>`.
+
 """
 
 ####################################################################################################
