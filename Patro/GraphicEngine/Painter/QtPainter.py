@@ -306,7 +306,7 @@ class QtPainter(Painter):
     def _paint_arc(self, item, center, radius_x, radius_y):
 
         if item.is_closed:
-            self._painter.drawEllipse(center, radius, radius)
+            self._painter.drawEllipse(center, radius_x, radius_y)
         else:
             # drawArc cannot be filled !
             rectangle = QRectF(
