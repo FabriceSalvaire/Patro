@@ -587,7 +587,7 @@ class PathMixin:
 
         path = Path2D(self.start_point)
         for point in self.iter_from_second_point():
-            path.line_to(point)
+            path.line_to(point, absolute=True)
         if self.is_closed:
             path.close()
 
