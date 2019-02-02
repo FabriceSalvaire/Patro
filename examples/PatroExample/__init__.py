@@ -18,23 +18,26 @@
 #
 ####################################################################################################
 
+"""Module to retrieve data files."""
+
+####################################################################################################
+
 __all__ = ['find_data_path']
 
 ####################################################################################################
 
 from pathlib import Path
-import os
 
 ####################################################################################################
 
 _root_path = Path(__file__).resolve().parents[2]
 _data_path = _root_path.joinpath('examples', 'data')
-# print(_root_path)
 
 ####################################################################################################
 
 def find_data_path(*args):
-    path =  _data_path.joinpath(*args)
+    """Return absolute path"""
+    path = _data_path.joinpath(*args).resolve()
     if path.exists():
         return path
     else:
