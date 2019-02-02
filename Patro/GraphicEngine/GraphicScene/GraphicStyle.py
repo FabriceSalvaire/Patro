@@ -58,7 +58,7 @@ class GraphicPathStyle:
         self.stroke_alpha = kwargs.get('stroke_alpha', 1.0)
 
         self.fill_color = kwargs.get('fill_color', None) # only for closed path
-        self.fill_alpa = kwargs.get('fill_alpha', 1.0)
+        self.fill_alpha = kwargs.get('fill_alpha', 1.0)
 
         # This is default Qt
         self.cap_style =  kwargs.get('cap_style', CapStyle.SquareCap)
