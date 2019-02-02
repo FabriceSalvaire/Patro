@@ -24,7 +24,11 @@
 
 ####################################################################################################
 
-__all__ = ['TriangularHead', 'TriangularCurvyHead']
+__all__ = [
+    'ArrowHead',
+    'TriangularHead',
+    'TriangularCurvyHead',
+]
 
 ####################################################################################################
 
@@ -143,12 +147,15 @@ class TriangularHeadMixin(ArrowHead):
     def angle(self):
         return 2 * Vector2D(self._length, self._width).orientation
 
-    tip_point = anchor_point
+    # tip_point = anchor_point
+    @property
+    def tip_point(self):
+        return self._point
 
     @property
     def back_tip_point(self):
         if self._back_tip_point is None:
-            self._back_tip_point =self.tip_point - self._direction * self._width
+            self._back_tip_point = self.tip_point - self._direction * self._length
         return self._back_tip_point
 
     @property
@@ -159,7 +166,7 @@ class TriangularHeadMixin(ArrowHead):
     def left_point(self):
         # Fixme: not cached
         if self._left_side:
-            return self._back_tip_point + self._direction.normal * self._width
+            return self.back_tip_point + self._direction.normal * self._width
         else:
             return None
 

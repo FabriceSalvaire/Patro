@@ -56,6 +56,9 @@ class Segment2D(Primitive2DMixin, Primitive2P):
     def vector(self):
         return self._p1 - self._p0
 
+    # Fixme:
+    direction = vector
+
     @property
     def length(self):
         return self.vector.magnitude

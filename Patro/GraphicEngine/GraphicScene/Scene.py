@@ -324,8 +324,8 @@ class GraphicSceneScope:
 
         # Polygon
         elif isinstance(item, Polygon.Polygon2D):
-            # Fixme: to path
-            raise NotImplementedError
+            # Fixme: !!!
+            self.add_path(item.to_path(), path_style)
 
         # Polyline
         elif isinstance(item, Polyline.Polyline2D):
