@@ -71,31 +71,51 @@ Bezier Approximation
 Reference
 
   * http://spencermortensen.com/articles/bezier-circle/
+  * http://www.spaceroots.org/documents/ellipse/index.html
+  .. see also https://pomax.github.io/bezierinfo/#circles
 
-First approximation:
+**First approximation:**
 
-#. The endpoints of the cubic Bézier curve must coincide with the endpoints of the circular arc, and
-   their first derivatives must agree there.
-#. The midpoint of the cubic Bézier curve must lie on the circle.
+  #. The endpoints of the cubic Bézier curve must coincide with the endpoints of the circular arc,
+     and their first derivatives must agree there.
+  #. The midpoint of the cubic Bézier curve must lie on the circle.
+
+A Cubic Bézier curve is parameterised by
 
 .. math::
     \mathbf{B}(t) = (1-t)^3  \mathbf{P}_0 + 3(1-t)^2t  \mathbf{P}_1 + 3(1-t)t^2  \mathbf{P}_2 + t^3  \mathbf{P}_3
 
-For an unitary circle : :math:`\mathbf{P}_0 = (0,1)  \mathbf{P}_1 = (c,1)  \mathbf{P}_2 = (1,c)  \mathbf{P}_3 = (1, 0)`
+and its first derivative by
 
-The second constraint provides the value of :math:`c = \frac{4}{3} (\sqrt{2} - 1)`
+.. math::
+    \begin{align}
+    \mathbf{B}'(t) &= 3(1-t)^2 (\mathbf{P}_1 - \mathbf{P}_0) + 6(1-t)t (\mathbf{P}_2 - \mathbf{P}_1) + 3t^2 (\mathbf{P}_3 - \mathbf{P}_2) \\[.5em]
+    \mathbf{B}'(t=0) &= 3 (\mathbf{P}_1 - \mathbf{P}_0) \\
+    \mathbf{B}'(t=1) &= 3 (\mathbf{P}_3 - \mathbf{P}_2)
+    \end{align}
+
+The first constraint yields for an unitary circle:
+
+.. math::
+    \begin{align}
+    \mathbf{P}_0 &= (0, 1) \\
+    \mathbf{P}_1 &= (c, 1) \\
+    \mathbf{P}_2 &= (1, c) \\
+    \mathbf{P}_3 &= (1, 0)
+    \end{align}
+
+The second constraint provides the value of :math:`c = \frac{4}{3} (\sqrt{2} - 1) \approx 0.552`
 
 The maximum radial drift is 0.027253 % with this approximation.
 
 In this approximation, the Bézier curve always falls outside the circle, except momentarily when it
 dips in to touch the circle at the midpoint and endpoints.
 
-Better approximation:
+**Better approximation:**
 
 2) The maximum radial distance from the circle to the Bézier curve must be as small as possible.
 
-The first constraint yields the parametric form of the Bézier curve: :math:`\mathbf{B}(t) = (x,y)`,
-where:
+The first constraint yields the parametric form of the Bézier curve :math:`\mathbf{B}(t) = (x,y)`:
 
 .. math::
     \begin{align}
@@ -103,15 +123,18 @@ where:
     y(t) &= 3ct^2(1-t) + 3t(1-t)^2 + (1-t)^3
     \end{align}
 
-The radial distance from the arc to the Bézier curve is: :math:`d(t) = \sqrt{x^2 + y^2} - 1`
+The radial distance from the arc to the Bézier curve is:
+
+.. math::
+    d(t) = \sqrt{x^2 + y^2} - 1
 
 The Bézier curve touches the right circular arc at its initial endpoint, then drifts outside the
 arc, inside, outside again, and finally returns to touch the arc at its endpoint.
 
-Roots of d : :math:`0, 3c \pm \frac{\sqrt{-9c^2 - 24c + 16} - 2}{6c - 4}, 1`
+.. The roots of `d` are: :math:`0, 3c \pm \frac{\sqrt{-9c^2 - 24c + 16} - 2}{6c - 4}, 1`
 
 This radial distance function, d(t), has minima at :math:`t = 0, \frac{1}{2}, 1`, and maxima at
-:math:`t = \frac{1}{2} \pm \frac{\sqrt{12 - 20c - 3c^22}}{4 - 6c}`
+:math:`t = \frac{1}{2} \pm \frac{\sqrt{12 - 20c - 3c^2}}{4 - 6c}`
 
 Because the Bézier curve is symmetric about :math:`t = \frac{1}{2}`, the two maxima have the same
 value. The radial deviation is minimized when the magnitude of this maximum is equal to the
@@ -121,10 +144,12 @@ This gives the ideal value for c = 0.551915024494
 
 The maximum radial drift is 0.019608 % with this approximation.
 
-* :math:`\mathbf{P}_0 = (0,1)   \quad\mathbf{P}_1 = (c,1)   \quad\mathbf{P}_2 = (1,c)   \quad\mathbf{P}_3 = (1,0)`
-* :math:`\mathbf{P}_0 = (1,0)   \quad\mathbf{P}_1 = (1,-c)  \quad\mathbf{P}_2 = (c,-1)  \quad\mathbf{P}_3 = (0,-1)`
-* :math:`\mathbf{P}_0 = (0,-1)  \quad\mathbf{P}_1 = (-c,-1) \quad\mathbf{P}_2 = (-1,-c) \quad\mathbf{P}_3 = (-1,0)`
-* :math:`\mathbf{P}_0 = (-1,0)  \quad\mathbf{P}_1 = (-1,c)  \quad\mathbf{P}_2 = (-c,1)  \quad\mathbf{P}_3 = (0,1)`
+A complete unit circle is approximated by these fours curves:
+
+  * :math:`\mathbf{P}_0 = (0,1)   \quad\mathbf{P}_1 = (c,1)   \quad\mathbf{P}_2 = (1,c)   \quad\mathbf{P}_3 = (1,0)`
+  * :math:`\mathbf{P}_0 = (1,0)   \quad\mathbf{P}_1 = (1,-c)  \quad\mathbf{P}_2 = (c,-1)  \quad\mathbf{P}_3 = (0,-1)`
+  * :math:`\mathbf{P}_0 = (0,-1)  \quad\mathbf{P}_1 = (-c,-1) \quad\mathbf{P}_2 = (-1,-c) \quad\mathbf{P}_3 = (-1,0)`
+  * :math:`\mathbf{P}_0 = (-1,0)  \quad\mathbf{P}_1 = (-1,c)  \quad\mathbf{P}_2 = (-c,1)  \quad\mathbf{P}_3 = (0,1)`
 
 -------
 Ellipse
