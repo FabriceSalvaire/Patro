@@ -68,8 +68,9 @@ class SceneBuilder:
             point1 = Vector2D(0, 0)
             point2 = Vector2D.from_polar(50, angle)
             segment = Segment2D(point1, point2)
-            head = TriangularHead(point2, segment.direction, length=5, width=5)
             items.append(segment)
+            head = TriangularHead(point2, segment.direction, length=5, width=5)
+            # head = head.to_path()
             items.append(head)
 
         return items
@@ -83,6 +84,7 @@ class SceneBuilder:
             stroke_color=Colors.black,
             stroke_style=StrokeStyle.SolidLine,
             cap_style=CapStyle.RoundCap,
+            fill_color=Colors.black,
         )
 
         if isinstance(item, ArrowHead):

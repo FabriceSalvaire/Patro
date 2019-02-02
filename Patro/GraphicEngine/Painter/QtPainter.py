@@ -41,6 +41,7 @@ from QtShim.QtQuick import QQuickPaintedItem
 
 from .Painter import Painter
 from Patro.GeometryEngine.Vector import Vector2D
+from Patro.GraphicEngine.GraphicScene.GraphicItem import LinearSegment, QuadraticSegment, CubicSegment
 from Patro.GraphicEngine.GraphicScene.Scene import GraphicScene
 from Patro.GraphicStyle import StrokeStyle, CapStyle, JoinStyle
 
@@ -421,6 +422,43 @@ class QtPainter(Painter):
         path.moveTo(vertices[0])
         for vertex in vertices[1:]:
             path.lineTo(vertex)
+        self._painter.drawPath(path)
+
+    ##############################################
+
+    def paint_PolygonItem(self, item):
+
+        self._set_pen(item)
+        vertices = self.cast_item_positions(item)
+        # Fixme: fill ???
+        self._painter.drawPolygon(*vertices) # API is like this
+
+    ##############################################
+
+    def paint_PathItem(self, item):
+
+        self._set_pen(item)
+        position = self.cast_position(item.position)
+        path = QPainterPath()
+        path.moveTo(position)
+        for segment in item:
+            if isinstance(segment, LinearSegment):
+                # Fixme: can merge
+                position = self.cast_position(segment.position)
+                path.lineTo(position)
+            else:
+                if isinstance(segment, QuadraticSegment):
+                    method = path.quadraticTo
+                elif isinstance(segment, CubicSegment):
+                    method = path.cubicTo
+                else:
+                    raise NotImplementedError
+                positions = self.cast_position(segment.positions)
+                method(*positions)
+
+        # if item.it_closed:
+        #     path.closeSubpath()
+
         self._painter.drawPath(path)
 
     ##############################################

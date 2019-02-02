@@ -115,7 +115,10 @@ class Painter:
 
         # Fixme: GraphicItemScope
         for item in self._scene.z_value_iter():
-            self.__paint_method__[item.__class__](self, item)
+            try:
+                self.__paint_method__[item.__class__](self, item)
+            except KeyError:
+                raise NotImplementedError('{} is not implemented in painter'.format(item.__class__))
 
     ##############################################
 

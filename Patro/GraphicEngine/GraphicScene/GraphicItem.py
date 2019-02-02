@@ -31,9 +31,12 @@ import logging
 
 from Patro.GeometryEngine.Bezier import CubicBezier2D, QuadraticBezier2D
 from Patro.GeometryEngine.Conic import Circle2D, Ellipse2D, AngularDomain
+from Patro.GeometryEngine.Path import Path2D
+from Patro.GeometryEngine.Polygon import Polygon2D
 from Patro.GeometryEngine.Polyline import Polyline2D
 from Patro.GeometryEngine.Rectangle import Rectangle2D
 from Patro.GeometryEngine.Segment import Segment2D
+
 from .GraphicItemMixin import (
     GraphicItem,
     PathStyleItemMixin,
@@ -250,6 +253,16 @@ class PolylineItem(NPositionMixin, PathStyleItemMixin):
 
 ####################################################################################################
 
+class PolygonItem(PolylineItem):
+
+    ##############################################
+
+    def get_geometry(self):
+        positions = self.casted_positions
+        return Polygon2D(*positions)
+
+####################################################################################################
+
 class ImageItem(TwoPositionMixin, GraphicItem):
 
     ##############################################
@@ -358,3 +371,79 @@ class QuadraticBezierItem(ThreePositionMixin, PathStyleItemMixin):
             cubic = self.geometry.to_cubic()
             self._cubic_points = list(cubic.points)
         return self._cubic_points
+
+####################################################################################################
+
+class PathItem(PositionMixin, PathStyleItemMixin):
+
+    ##############################################
+
+    def __init__(self, scene, position, path_style, user_data):
+
+        PathStyleItemMixin.__init__(self, scene, path_style, user_data)
+        PositionMixin.__init__(self, position)
+
+        self._segments = []
+        self._closed = False
+
+    ##############################################
+
+    def __len__(self):
+        return len(self._segments)
+
+    def __iter__(self):
+        return iter(self._segments)
+
+    def __getitem__(self, slice_):
+        return self._segments[slice_]
+
+    ##############################################
+
+    @property
+    def is_closed(self):
+        return self._closed
+
+    ##############################################
+
+    def get_geometry(self):
+        position = self.casted_position
+        return Path2D(position) # Fixme: !!!
+
+    ##############################################
+
+    def _add_segment(self, segment):
+        self._segments.append(segment)
+
+    ##############################################
+
+    def line_to(self, position):
+        self._add_segment(LinearSegment(position))
+
+    def quadratic_to(self, position1, position2):
+        self._add_segment(QuadraticSegment(position1, position2))
+
+    def cubic_to(self, position1, position2, position3):
+        self._add_segment(CubicSegment(position1, position2, position3))
+
+    # Fixme: which API ???
+    #   QtPainterPath only support cubic
+    def arc_to(self, position): # , ...
+        # self._add_segment(ArcSegment(position))
+        raise NotImplementedError
+
+    def close(self):
+        self._closed = True
+
+####################################################################################################
+
+class LinearSegment(PositionMixin):
+    pass
+
+class QuadraticSegment(TwoPositionMixin):
+    pass
+
+class CubicSegment(ThreePositionMixin):
+    pass
+
+class ArcSegment(PositionMixin):
+    pass

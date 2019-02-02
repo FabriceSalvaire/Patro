@@ -68,12 +68,12 @@ class GraphicSceneScope:
         'cubic_bezier': GraphicItem.CubicBezierItem,
         'ellipse': GraphicItem.EllipseItem,
         'image': GraphicItem.ImageItem,
-        # 'path': GraphicItem.PathItem,
-        # 'polygon': GraphicItem.PolygonItem,
-        'rectangle': GraphicItem.RectangleItem,
-        'segment': GraphicItem.SegmentItem,
+        # 'path': GraphicItem.PathItem, # see add_path...
+        'polygon': GraphicItem.PolygonItem,
         'polyline': GraphicItem.PolylineItem,
         'quadratic_bezier': GraphicItem.QuadraticBezierItem,
+        'rectangle': GraphicItem.RectangleItem,
+        'segment': GraphicItem.SegmentItem,
         'text': GraphicItem.TextItem,
     }
 
@@ -294,6 +294,8 @@ class GraphicSceneScope:
         args_tail = [path_style]
         kwargs = dict(user_data=item)
 
+        unpack_points = True
+
         # Bezier
         if isinstance(item, Bezier.QuadraticBezier2D):
             ctor = self.quadratic_bezier
@@ -320,22 +322,21 @@ class GraphicSceneScope:
 
         # Path
         elif isinstance(item, Path.Path2D):
-            self.add_path(item, path_style)
+            self.add_path(item, path_style, as_segments=True)
 
         # Polygon
         elif isinstance(item, Polygon.Polygon2D):
-            # Fixme: !!!
-            self.add_path(item.to_path(), path_style)
+            ctor = self.polygon # or linear closed path
+            unpack_points = False
 
         # Polyline
         elif isinstance(item, Polyline.Polyline2D):
-            ctor = self.polyline
-            # fixme: to path
+            ctor = self.polyline # or linear path
+            unpack_points = False
 
         # Rectangle
         elif isinstance(item, Rectangle.Rectangle2D):
-            ctor = self.rectangle
-            # Fixme: to path
+            ctor = self.rectangle # or linear closed path
 
         # Segment
         elif isinstance(item, Segment.Segment2D):
@@ -347,8 +348,8 @@ class GraphicSceneScope:
 
         # Triangle
         elif isinstance(item, Triangle.Triangle2D):
-            # Fixme: to path
-            raise NotImplementedError
+            ctor = self.polygon # or linear path
+            unpack_points = False
 
         # Not implemented
         else:
@@ -358,7 +359,10 @@ class GraphicSceneScope:
         if ctor is not None:
             if points is None:
                 points = list(item.points)
-            return ctor(*points, *args, *args_tail, **kwargs)
+            if unpack_points:
+                return ctor(*points, *args, *args_tail, **kwargs)
+            else:
+                return ctor(points, *args, *args_tail, **kwargs)
 
     ##############################################
 
@@ -377,7 +381,61 @@ class GraphicSceneScope:
 
     ##############################################
 
-    def add_path(self, path, path_style):
+    def add_path(self, path, path_style, user_data=None, as_segments=True):
+
+        if as_segments:
+            method = self.add_as_path_segments
+        else:
+            method = self.add_as_path
+
+        return method(path, path_style, user_data)
+
+    ##############################################
+
+    def add_as_path(self, path, path_style, user_data=None):
+
+        """Add a path as only one path item.
+
+        .. warning: path can be filled.
+
+        """
+
+        item = self.add_item(GraphicItem.PathItem, path.p0, path_style, user_data)
+
+        # cf. add_as_path_segments
+        for segment in path:
+            if isinstance(segment, Path.LinearSegment):
+                # if segment.radius is not None:
+                #     add_bulge(segment)
+                item.line_to(segment.stop_point)
+            elif isinstance(segment, Path.QuadraticBezierSegment):
+                item.quadratic_to(segment.point1, segment.point2)
+            elif isinstance(segment, Path.CubicBezierSegment):
+                item.cubic_to(segment.point1, segment.point2, segment.point3)
+            elif isinstance(segment, Path.ArcSegment):
+                pass
+            elif isinstance(segment, Path.StringedQuadtraticBezierSegment):
+                pass
+            elif isinstance(segment, Path.StringedCubicBezierSegment):
+                pass
+
+        if path.is_closed:
+            item.close()
+
+        return item
+
+    ##############################################
+
+    def add_as_path_segments(self, path, path_style, user_data=None):
+
+        """Add a path as one item for each segments.
+
+        .. warning: path cannot be filled.
+
+        """
+
+        if user_data is None:
+            user_data = path
 
         items = []
 
@@ -388,7 +446,7 @@ class GraphicSceneScope:
                 path_style,
                 start_angle=arc.domain.start,
                 stop_angle=arc.domain.stop,
-                user_data=segment,
+                user_data=user_data, # segment
             )
             items.append(arc_item)
 
@@ -396,7 +454,7 @@ class GraphicSceneScope:
             item = method(
                 *segment.points,
                 path_style,
-                user_data=segment,
+                user_data=user_data, # segment
             )
             items.append(item)
 
@@ -415,7 +473,7 @@ class GraphicSceneScope:
                 path_style,
                 start_angle=ellipse.domain.start,
                 stop_angle=ellipse.domain.stop,
-                user_data=segment,
+                user_data=user_data, # segment
             )
             items.append(arc_item)
 
