@@ -14,5 +14,6 @@ Contents:
   :maxdepth: 2
 
   dxf.rst
+  dxf-astm.rst
   svg.rst
   valentina.rst
