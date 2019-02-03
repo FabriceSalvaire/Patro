@@ -323,8 +323,8 @@ class Vector2DFloatBase(Vector2DBase):
         s = math.sin(radians)
 
         # Fixme: np matrice
-        xp = c * self._v[0] -s * self._v[1]
-        yp = s * self._v[0] +c * self._v[1]
+        xp = c * self._v[0] - s * self._v[1]
+        yp = s * self._v[0] + c * self._v[1]
 
         return self.__class__((xp, yp))
 
@@ -515,8 +515,8 @@ class Vector2D(Vector2DFloatBase):
         """Create the vector (radius_x*cos(angle), radius_y*sin(angle)).  *angle* is in degree."""
 
         angle = math.radians(angle)
-        x = radius_x * cos(angle)
-        y = radius_y * sin(angle)
+        x = radius_x * math.cos(angle)
+        y = radius_y * math.sin(angle)
 
         return Vector2D(x, y) # Fixme: classmethod
 
