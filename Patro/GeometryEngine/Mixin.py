@@ -94,16 +94,22 @@ class AngularDomain:
     ##############################################
 
     @property
+    def span(self):
+        return abs(self._stop - self._start)
+
+    ##############################################
+
+    @property
     def is_null(self):
         return self._stop == self._start
 
     @property
     def is_closed(self):
-        return abs(self._stop - self._start) >= 360
+        return self.span >= 360
 
     @property
     def is_over_closed(self):
-        return abs(self._stop - self._start) > 360
+        return self.span > 360
 
     @property
     def is_counterclockwise(self):

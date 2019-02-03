@@ -27,6 +27,7 @@ For resources on conic see :ref:`this section <conic-geometry-ressources-page>`.
 ####################################################################################################
 
 __all__ = [
+    'AngularDomain',
     'Circle2D',
     'Ellipse2D',
 ]
@@ -41,6 +42,7 @@ from math import fabs, sqrt, radians, pi, cos, sin # , degrees
 import numpy as np
 
 from Patro.Common.Math.Functions import sign # , epsilon_float
+from .Bezier import CubicBezier2D
 from .BoundingBox import bounding_box_from_points
 from .Line import Line2D
 from .Mixin import AngularDomainMixin, CenterMixin, AngularDomain
@@ -330,7 +332,6 @@ class Circle2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
     ##############################################
 
     def bezier_approximation(self):
-
         raise NotImplementedError
 
 ####################################################################################################
@@ -436,7 +437,7 @@ class Ellipse2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
 
     #######################################
 
-    def __init__(self, center, radius_x, radius_y, angle, domain=None):
+    def __init__(self, center, radius_x, radius_y, angle=0, domain=None):
 
         self.center = center
         self.radius_x = radius_x
@@ -562,7 +563,9 @@ class Ellipse2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
     def point_at_angle(self, angle):
         # point = self.__vector_cls__.from_ellipse(self._radius_x, self._radius_y, angle)
         # return self.point_from_ellipse_frame(point)
-        point = self.__vector_cls__.from_ellipse(self._radius_x, self._radius_y, self._angle + angle)
+        point = self.__vector_cls__.from_ellipse(self._radius_x, self._radius_y, angle)
+        if self._angle != 0:
+            point = point.rotate(self._angle)
         return self._center + point
 
     ##############################################
@@ -753,3 +756,55 @@ class Ellipse2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
         """
 
         raise NotImplementedError
+
+    ##############################################
+
+    def to_bezier(self):
+
+        if self._domain is not None:
+            # Fixme: is_over_closer
+            start_angle = self._domain.start
+            angle_span = self._domain.span
+        else:
+            start_angle = 0
+            angle_span = 360
+
+        # make one segment by quarter
+        number_of_segments = math.ceil(abs(angle_span / 90.001))
+        angle_step = angle_span / number_of_segments
+
+        curves = []
+        for i in range(number_of_segments):
+            angle1 = start_angle + i * angle_step
+            angle2 = angle1 + angle_step
+            curve = self._bezier_arc(angle1, angle2)
+            curves.append(curve)
+
+        return curves
+
+    ##############################################
+
+    def _bezier_arc(self, start_angle, stop_angle):
+
+        # This algorithm comes from Qt qtsvg/src/svg/qsvghandler.cpp:pathArcSegment
+        # need proof
+
+        angle1 = math.radians(start_angle)
+        angle2 = math.radians(stop_angle)
+
+        half_delta_angle = (angle2 - angle1) / 2
+        t = 8/3 * math.sin(half_delta_angle / 2)**2 / math.sin(half_delta_angle)
+
+        p0 = self.point_at_angle(start_angle)
+        p3 = self.point_at_angle(stop_angle)
+
+        Vector2D = self.__vector_cls__
+        offset1 = Vector2D(- self._radius_x * math.sin(angle1), self._radius_y * math.cos(angle1))
+        offset2 = Vector2D(self._radius_x * math.sin(angle2), - self._radius_y * math.cos(angle2))
+        if self._angle != 0:
+            offset1 = offset1.rotate(self._angle)
+            offset2 = offset2.rotate(self._angle)
+        p1 = p0 + offset1 * t
+        p2 = p3 + offset2 * t
+
+        return CubicBezier2D(p0, p1, p2, p3)
