@@ -1,4 +1,4 @@
-####################################################################################################
+>####################################################################################################
 #
 # Patro - A Python library to make patterns for fashion design
 # Copyright (C) 2019 Fabrice Salvaire
@@ -84,7 +84,6 @@ class SceneBuilder:
             stroke_color=Colors.black,
             stroke_style=StrokeStyle.SolidLine,
             cap_style=CapStyle.RoundCap,
-            fill_color=Colors.black,
         )
 
         if isinstance(item, ArrowHead):
@@ -100,7 +99,3 @@ scene = QtScene()
 
 scene_builder = SceneBuilder()
 application.qml_application.scene = scene_builder.scene
-
-# from Patro.GraphicEngine.Painter.QtPainter import QtPainter
-# painter = QtPainter(scene_builder.scene)
-# painter.to_svg('out.svg')
