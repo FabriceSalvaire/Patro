@@ -8,7 +8,13 @@
 
 .. contents:: :local:
 
+Valentina Requirements
+----------------------
 
+* Quadratic Bézier curve
+* adjustment of the control points by pulling the curve (passing by a point)
+* curve - line intersection
+* curve - curve intersection
 
 
 Definitions
