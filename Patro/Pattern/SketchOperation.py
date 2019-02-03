@@ -34,6 +34,7 @@ from Patro.GeometryEngine.Bezier import CubicBezier2D
 from Patro.GeometryEngine.Line import Line2D
 from Patro.GeometryEngine.Segment import Segment2D
 from Patro.GeometryEngine.Vector import Vector2D
+from Patro.GraphicStyle import StrokeStyle, Colors
 from .Calculator import Expression
 
 # Rename id buitin
@@ -595,7 +596,7 @@ class Line(SketchOperation, LinePropertiesMixin, FirstSecondPointMixin):
 
     def __init__(self, sketch,
                  first_point, second_point,
-                 line_style='solid', line_color='black',
+                 line_style=StrokeStyle.SolidLine, line_color=Colors.black,
                  id=None,
     ):
 
@@ -630,7 +631,7 @@ class SimpleInteractiveSpline(SketchOperation, LinePropertiesMixin, FirstSecondP
                  first_point, second_point,
                  angle1, length1,
                  angle2, length2,
-                 line_style='solid', line_color='black',
+                 line_style=StrokeStyle.SolidLine, line_color=Colors.black,
                  id=None,
     ):
 
