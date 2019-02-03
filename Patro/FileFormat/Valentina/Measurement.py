@@ -118,10 +118,14 @@ class VitFile:
     ##############################################
 
     def __init__(self, path):
-        self._interval = VitFileInternal(path)
+        self._internal = VitFileInternal(path)
 
     ##############################################
 
     @property
+    def path(self):
+        return self._internal.path
+
+    @property
     def measurements(self):
-        return self._interval.measurements
+        return self._internal.measurements

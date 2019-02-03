@@ -287,6 +287,7 @@ class XmlObjectAdaptator(metaclass=XmlObjectAdaptatorMetaClass):
             py_attribute = attribute.py_attribute
             # Fixme: duplicated code
             if py_attribute in kwargs:
+                # Fixme: see VitFormat.py StrokeStyleAttribute !!!
                 value = attribute.from_xml(kwargs[py_attribute])
             else:
                 value = attribute.default

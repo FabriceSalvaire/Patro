@@ -360,6 +360,10 @@ class ValFileReader:
     ##############################################
 
     @property
+    def vit_file(self):
+        return self._internal.vit_file
+
+    @property
     def measurements(self):
         return self._internal.measurements
 
@@ -393,7 +397,7 @@ class ValFileWriter:
         root = etree.Element('pattern')
         root.append(etree.Comment('Pattern created with Patro (https://github.com/FabriceSalvaire/Patro)'))
 
-        etree.SubElement(root, 'version').text = self.VAL_VERSION
+        etree.SubElement(root, 'version').text = VAL_VERSION
         etree.SubElement(root, 'unit').text = self._pattern.unit
         etree.SubElement(root, 'author')
         etree.SubElement(root, 'description')

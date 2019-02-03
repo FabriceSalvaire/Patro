@@ -114,11 +114,21 @@ class StrokeStyleAttribute(Attribute):
         'none': StrokeStyle.NoPen,
     }
 
+    # Fixme: from_xml to_xml ???
+    __TO_STROKE_STYLE__ = {value:name for name, value in __STROKE_STYLE__.items()}
+    __STROKE_STYLE__.update(__TO_STROKE_STYLE__)
+
     ##############################################
 
     @classmethod
     def from_xml(cls, value):
         return cls.__STROKE_STYLE__[value]
+
+    ##############################################
+
+    # @classmethod
+    # def to_xml(cls, value):
+    #     return cls.__TO_STROKE_STYLE__[value]
 
 ####################################################################################################
 
