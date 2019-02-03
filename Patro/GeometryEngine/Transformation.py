@@ -391,7 +391,7 @@ class AffineTransformation2D(AffineTransformation):
 
         transformation = cls.Identity()
         transformation.matrix_part[...] = Transformation2D.Scale(x_scale, y_scale).array
-        transformation._type = cls.type_for_scale(x_scale, y_scale)
+        transformation._type = Transformation2D.type_for_scale(x_scale, y_scale)
         return transformation
 
     ##############################################
