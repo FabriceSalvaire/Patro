@@ -1,0 +1,12 @@
+
+======
+ Math
+======
+
+.. toctree::
+    Math/Functions
+    Math/Root
+
+.. automodule:: Patro.Common.Math
+   :members:
+   :show-inheritance:

@@ -1,0 +1,8 @@
+
+=======
+ Mixin
+=======
+
+.. automodule:: Patro.GeometryEngine.Mixin
+   :members:
+   :show-inheritance:

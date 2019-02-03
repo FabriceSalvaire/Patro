@@ -1,0 +1,12 @@
+
+=======
+ Color
+=======
+
+.. toctree::
+    Color/ColorDataBase
+    Color/color_data
+
+.. automodule:: Patro.GraphicStyle.Color
+   :members:
+   :show-inheritance:

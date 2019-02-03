@@ -1,0 +1,15 @@
+
+==============
+ GraphicScene
+==============
+
+.. toctree::
+    GraphicScene/GraphicItem
+    GraphicScene/GraphicItemMixin
+    GraphicScene/GraphicStyle
+    GraphicScene/Scene
+    GraphicScene/TypographyUnit
+
+.. automodule:: Patro.GraphicEngine.GraphicScene
+   :members:
+   :show-inheritance:

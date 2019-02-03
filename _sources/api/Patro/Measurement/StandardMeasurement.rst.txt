@@ -1,0 +1,8 @@
+
+=====================
+ StandardMeasurement
+=====================
+
+.. automodule:: Patro.Measurement.StandardMeasurement
+   :members:
+   :show-inheritance:

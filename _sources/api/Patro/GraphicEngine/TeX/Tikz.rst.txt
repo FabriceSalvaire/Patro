@@ -1,0 +1,8 @@
+
+======
+ Tikz
+======
+
+.. automodule:: Patro.GraphicEngine.TeX.Tikz
+   :members:
+   :show-inheritance:

@@ -1,0 +1,11 @@
+
+===============
+ QtApplication
+===============
+
+.. toctree::
+    QtApplication/QmlApplication
+
+.. automodule:: Patro.QtApplication
+   :members:
+   :show-inheritance:

@@ -1,0 +1,8 @@
+
+========
+ Sketch
+========
+
+.. automodule:: Patro.Pattern.Sketch
+   :members:
+   :show-inheritance:

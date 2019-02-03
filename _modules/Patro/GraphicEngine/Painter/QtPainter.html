@@ -1,0 +1,1263 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Patro.GraphicEngine.Painter.QtPainter &mdash; Patro 0.3.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../../static/css/Patro.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+
+  
+  <script src="../../../../static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> Patro
+          
+
+          
+            
+            <img src="../../../../static/logo-64.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../overview.html">1. Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#what-is-patro">1.1. What is Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#what-is-the-purpose-of-this-library">1.2. What is the purpose of this library ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#what-are-the-features-of-patro">1.3. What are the Features of Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#how-is-patro-licensed">1.4. How is Patro licensed ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#going-further-with-patro">1.5. Going further with Patro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#which-platforms-are-supported-by-patro">1.6. Which platforms are supported by Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#how-to-install-patro">1.7. How to install Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#which-version-of-python-is-required">1.8. Which version of Python is required ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../features-all.html">2. Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../features-all.html#geometry-engine">2.1. Geometry Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../features-all.html#pattern-engine">2.2. Pattern Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../features-all.html#graphic-engine">2.3. Graphic Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../features-all.html#pattern-format-support">2.4. Pattern Format Support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../features-all.html#pattern-format-compatibility">2.4.1. Pattern Format Compatibility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../valentina-compatibility/index.html">2.4.1.1. Valentina Compatibility</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../features-all.html#digitalisation">2.5. Digitalisation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../news.html">3. News</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../news.html#v0-2017-02-16">3.1. V0 2017-02-16</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../roadmap.html">4. Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">5. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#on-windows">5.1. On Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#on-linux">5.2. On Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#on-osx">5.3. On OSX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#installation-from-pypi-repository">5.4. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#install-a-more-recent-version-from-github">5.5. Install a more recent version from Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#installation-from-source">5.6. Installation from Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#dependencies">5.7. Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../examples/index.html">6. Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../examples/svg-import.html">6.1. SVG Import</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../examples/dxf-import.html">6.2. DXF Import</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">7. User FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../faq.html#how-to-get-help-or-report-an-issue">7.1. How to get help or report an issue ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../design-notes/index.html">8. Design Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../design-notes/question-answer.html">8.1. Design Notes Questions &amp; Answers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/question-answer.html#what-is-my-opinion-on-valentina-seamly2d">8.1.1. What is my opinion on Valentina / Seamly2D ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/question-answer.html#can-we-implement-such-a-tool-as-a-plugin-of-another-software">8.1.2. Can we implement such a tool as a plugin of another software ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/question-answer.html#what-is-the-requirements-of-a-pattern-drafting-software">8.1.3. What is the requirements of a pattern drafting software ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/question-answer.html#why-python-is-a-good-language-for-this-library">8.1.4. Why Python is a good language for this library ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/question-answer.html#could-we-implement-a-full-software-using-python">8.1.5. Could we implement a full software using Python ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/question-answer.html#how-to-generate-drawings-in-standard-format-like-pdf-or-svg">8.1.6. How to generate drawings in standard format like PDF or SVG ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/question-answer.html#what-is-the-requirements-of-a-geometric-engine">8.1.7. What is the requirements of a geometric engine ?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../design-notes/performance.html">8.2. Performances</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/performance.html#svg-import">8.2.1. SVG Import</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../resources/index.html">9. Resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../resources/file-format/index.html">9.1. File Formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/file-format/dxf.html">9.1.1. DXF File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/file-format/dxf-astm.html">9.1.2. DXF ASTM File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/file-format/svg.html">9.1.3. SVG File Format</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/file-format/svg.html#reference-documentations">9.1.3.1. Reference Documentations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/file-format/svg.html#svg-coordinate-system">9.1.3.2. SVG Coordinate System</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/file-format/svg.html#inkscape-software">9.1.3.3. Inkscape Software</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/file-format/valentina.html">9.1.4. Valentina File Format</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../resources/geometry/index.html">9.2. Geometry Resources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/geometry/bezier.html">9.2.1. Bézier Curves</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#valentina-requirements">9.2.1.1. Valentina Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#definitions">9.2.1.2. Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#linear-bezier-curves">9.2.1.3. Linear Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#quadratic-bezier-curves">9.2.1.4. Quadratic Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#cubic-bezier-curves">9.2.1.5. Cubic Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#recursive-definition">9.2.1.6. Recursive definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#degree-elevation">9.2.1.7. Degree elevation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#matrix-forms">9.2.1.8. Matrix Forms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#symbolic-calculation">9.2.1.9. Symbolic Calculation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#curve-length">9.2.1.10. Curve Length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#determine-the-curve-flatness">9.2.1.11. Determine the curve flatness</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#intersection-of-bezier-curve-with-a-line">9.2.1.12. Intersection of Bézier Curve with a Line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#closest-point">9.2.1.13. Closest Point</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/geometry/conic.html">9.2.2. Conic</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/conic.html#valentina-requirements">9.2.2.1. Valentina Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/conic.html#circle">9.2.2.2. Circle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/conic.html#ellipse">9.2.2.3. Ellipse</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/geometry/path.html">9.2.3. Path</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/path.html#bulge">9.2.3.1. Bulge</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/geometry/polygon.html">9.2.4. Polygon</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/polygon.html#area-and-barycenter">9.2.4.1. Area and Barycenter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/polygon.html#moments-of-inertia">9.2.4.2. Moments of Inertia</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/geometry/spline.html">9.2.5. Spline Curves</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/spline.html#references">9.2.5.1. References</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/spline.html#b-spline-basis">9.2.5.2. B-spline Basis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/spline.html#b-spline-curve">9.2.5.3. B-spline Curve</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/spline.html#algorithms-for-b-spline-curves">9.2.5.4. Algorithms for B-spline curves</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/geometry/transformations.html">9.2.6. Transformations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/transformations.html#transformation-matrices">9.2.6.1. Transformation matrices</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference-manual.html">10. API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/Patro.html">10.1. Patro</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/Common.html">10.1.1. Common</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/ArgparseAction.html">10.1.1.1. ArgparseAction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/AtomicCounter.html">10.1.1.2. AtomicCounter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Datetime.html">10.1.1.3. Datetime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Graph.html">10.1.1.4. Graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/IterTools.html">10.1.1.5. IterTools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Logging.html">10.1.1.6. Logging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Math.html">10.1.1.7. Math</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Object.html">10.1.1.8. Object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Path.html">10.1.1.9. Path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Platform.html">10.1.1.10. Platform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Singleton.html">10.1.1.11. Singleton</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Xml.html">10.1.1.12. Xml</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/Config.html">10.1.2. Config</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Config/ConfigInstall.html">10.1.2.1. ConfigInstall</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/FileFormat.html">10.1.3. FileFormat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/FileFormat/Dxf.html">10.1.3.1. Dxf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/FileFormat/Svg.html">10.1.3.2. Svg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/FileFormat/Valentina.html">10.1.3.3. Valentina</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/GeometryEngine.html">10.1.4. GeometryEngine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Bezier.html">10.1.4.1. Bezier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/BoundingBox.html">10.1.4.2. BoundingBox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Conic.html">10.1.4.3. Conic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Interpolation.html">10.1.4.4. Interpolation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Line.html">10.1.4.5. Line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Mixin.html">10.1.4.6. Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Path.html">10.1.4.7. Path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Polygon.html">10.1.4.8. Polygon</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Polyline.html">10.1.4.9. Polyline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Primitive.html">10.1.4.10. Primitive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Rectangle.html">10.1.4.11. Rectangle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Segment.html">10.1.4.12. Segment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Shape.html">10.1.4.13. Shape</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Spline.html">10.1.4.14. Spline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Transformation.html">10.1.4.15. Transformation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Triangle.html">10.1.4.16. Triangle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Vector.html">10.1.4.17. Vector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine.html#purpose">10.1.4.18. Purpose</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine.html#bibliographical-references">10.1.4.19. Bibliographical References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/GraphicEngine.html">10.1.5. GraphicEngine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GraphicEngine/GraphicScene.html">10.1.5.1. GraphicScene</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GraphicEngine/Painter.html">10.1.5.2. Painter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GraphicEngine/TeX.html">10.1.5.3. TeX</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/GraphicStyle.html">10.1.6. GraphicStyle</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GraphicStyle/Color.html">10.1.6.1. Color</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/Measurement.html">10.1.7. Measurement</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Measurement/Measurement.html">10.1.7.1. Measurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Measurement/PersonalData.html">10.1.7.2. PersonalData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Measurement/StandardMeasurement.html">10.1.7.3. StandardMeasurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Measurement/ValentinaMeasurement.html">10.1.7.4. ValentinaMeasurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Measurement/ValentinaStandardMeasurement.html">10.1.7.5. ValentinaStandardMeasurement</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/Pattern.html">10.1.8. Pattern</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/Calculator.html">10.1.8.1. Calculator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/QtApplication.html">10.1.9. QtApplication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/QtApplication/QmlApplication.html">10.1.9.1. QmlApplication</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reference-manual.html#indexes">10.2. Indexes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../development.html">11. Development &amp; Community</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../development.html#how-you-can-help">11.1. How you can help ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../development.html#contributors">11.2. Contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../how-to-refer.html">12. How to Refer to Patro ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../donate.html">13. How to Help Further ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../related-projects.html">14. Related Projects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../related-projects.html#pattern-making">14.1. Pattern Making</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../related-projects.html#embroidery">14.2. Embroidery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../related-projects.html#geometry-engine">14.3. Geometry Engine</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../bibliography.html">15. Bibliography</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../bibliography.html#geometry-engine">15.1. Geometry Engine</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Patro</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>Patro.GraphicEngine.Painter.QtPainter</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for Patro.GraphicEngine.Painter.QtPainter</h1><div class="highlight"><pre>
+<span></span><span class="c1">####################################################################################################</span>
+<span class="c1">#</span>
+<span class="c1"># Patro - A Python library to make patterns for fashion design</span>
+<span class="c1"># Copyright (C) 2017 Fabrice Salvaire</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU Affero General Public License as</span>
+<span class="c1"># published by the Free Software Foundation, either version 3 of the</span>
+<span class="c1"># License, or (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU Affero General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU Affero General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="c1">#</span>
+<span class="c1">####################################################################################################</span>
+
+<span class="sd">&quot;&quot;&quot;Module to implement a Qt Painter.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">IntervalArithmetic</span> <span class="k">import</span> <span class="n">Interval2D</span>
+
+<span class="kn">from</span> <span class="nn">QtShim.QtCore</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">Property</span><span class="p">,</span> <span class="n">Signal</span><span class="p">,</span> <span class="n">Slot</span><span class="p">,</span> <span class="n">QObject</span><span class="p">,</span>
+    <span class="n">QRectF</span><span class="p">,</span> <span class="n">QSize</span><span class="p">,</span> <span class="n">QSizeF</span><span class="p">,</span> <span class="n">QPointF</span><span class="p">,</span> <span class="n">Qt</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">QtShim.QtGui</span> <span class="k">import</span> <span class="n">QColor</span><span class="p">,</span> <span class="n">QFont</span><span class="p">,</span> <span class="n">QFontMetrics</span><span class="p">,</span> <span class="n">QImage</span><span class="p">,</span> <span class="n">QPainter</span><span class="p">,</span> <span class="n">QPainterPath</span><span class="p">,</span> <span class="n">QBrush</span><span class="p">,</span> <span class="n">QPen</span>
+<span class="c1"># from QtShim.QtQml import qmlRegisterType</span>
+<span class="kn">from</span> <span class="nn">QtShim.QtQuick</span> <span class="k">import</span> <span class="n">QQuickPaintedItem</span>
+
+<span class="kn">from</span> <span class="nn">.Painter</span> <span class="k">import</span> <span class="n">Painter</span>
+<span class="kn">from</span> <span class="nn">Patro.GeometryEngine.Vector</span> <span class="k">import</span> <span class="n">Vector2D</span>
+<span class="kn">from</span> <span class="nn">Patro.GraphicEngine.GraphicScene.GraphicItem</span> <span class="k">import</span> <span class="n">LinearSegment</span><span class="p">,</span> <span class="n">QuadraticSegment</span><span class="p">,</span> <span class="n">CubicSegment</span>
+<span class="kn">from</span> <span class="nn">Patro.GraphicEngine.GraphicScene.Scene</span> <span class="k">import</span> <span class="n">GraphicScene</span>
+<span class="kn">from</span> <span class="nn">Patro.GraphicStyle</span> <span class="k">import</span> <span class="n">StrokeStyle</span><span class="p">,</span> <span class="n">CapStyle</span><span class="p">,</span> <span class="n">JoinStyle</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="n">_module_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="QtScene"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtScene">[docs]</a><span class="k">class</span> <span class="nc">QtScene</span><span class="p">(</span><span class="n">QObject</span><span class="p">,</span> <span class="n">GraphicScene</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Class to add Qt Object features to GraphicScene .&quot;&quot;&quot;</span>
+
+    <span class="n">_logger</span> <span class="o">=</span> <span class="n">_module_logger</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;QtScene&#39;</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtScene.__init__"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtScene.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">QObject</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">GraphicScene</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="QtPainter"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtPainter">[docs]</a><span class="k">class</span> <span class="nc">QtPainter</span><span class="p">(</span><span class="n">Painter</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Class to implement a Qt painter.&quot;&quot;&quot;</span>
+
+    <span class="n">__STROKE_STYLE__</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="kc">None</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="c1"># Fixme: ???</span>
+        <span class="n">StrokeStyle</span><span class="o">.</span><span class="n">NoPen</span><span class="p">:</span> <span class="n">Qt</span><span class="o">.</span><span class="n">NoPen</span><span class="p">,</span>
+        <span class="n">StrokeStyle</span><span class="o">.</span><span class="n">SolidLine</span><span class="p">:</span> <span class="n">Qt</span><span class="o">.</span><span class="n">SolidLine</span><span class="p">,</span>
+        <span class="n">StrokeStyle</span><span class="o">.</span><span class="n">DashLine</span><span class="p">:</span> <span class="n">Qt</span><span class="o">.</span><span class="n">DashLine</span><span class="p">,</span>
+        <span class="n">StrokeStyle</span><span class="o">.</span><span class="n">DotLine</span><span class="p">:</span> <span class="n">Qt</span><span class="o">.</span><span class="n">DotLine</span><span class="p">,</span>
+        <span class="n">StrokeStyle</span><span class="o">.</span><span class="n">DashDotLine</span><span class="p">:</span> <span class="n">Qt</span><span class="o">.</span><span class="n">DashDotLine</span><span class="p">,</span>
+        <span class="n">StrokeStyle</span><span class="o">.</span><span class="n">DashDotDotLine</span><span class="p">:</span> <span class="n">Qt</span><span class="o">.</span><span class="n">DashDotDotLine</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">__CAP_STYLE__</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">CapStyle</span><span class="o">.</span><span class="n">FlatCap</span><span class="p">:</span> <span class="n">Qt</span><span class="o">.</span><span class="n">FlatCap</span><span class="p">,</span>
+        <span class="n">CapStyle</span><span class="o">.</span><span class="n">SquareCap</span><span class="p">:</span> <span class="n">Qt</span><span class="o">.</span><span class="n">SquareCap</span><span class="p">,</span>
+        <span class="n">CapStyle</span><span class="o">.</span><span class="n">RoundCap</span><span class="p">:</span> <span class="n">Qt</span><span class="o">.</span><span class="n">RoundCap</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">__JOIN_STYLE__</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">JoinStyle</span><span class="o">.</span><span class="n">MiterJoin</span><span class="p">:</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MiterJoin</span><span class="p">,</span>
+        <span class="n">JoinStyle</span><span class="o">.</span><span class="n">BevelJoin</span><span class="p">:</span> <span class="n">Qt</span><span class="o">.</span><span class="n">BevelJoin</span><span class="p">,</span>
+        <span class="n">JoinStyle</span><span class="o">.</span><span class="n">RoundJoin</span><span class="p">:</span> <span class="n">Qt</span><span class="o">.</span><span class="n">RoundJoin</span><span class="p">,</span>
+        <span class="n">JoinStyle</span><span class="o">.</span><span class="n">SvgMiterJoin</span><span class="p">:</span> <span class="n">Qt</span><span class="o">.</span><span class="n">SvgMiterJoin</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">_logger</span> <span class="o">=</span> <span class="n">_module_logger</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;QtPainter&#39;</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPainter.__init__"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtPainter.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_show_grid</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+        <span class="c1"># self._paper = paper</span>
+        <span class="c1"># self._translation = QPointF(0, 0)</span>
+        <span class="c1"># self._scale = 1</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="c1"># @property</span>
+    <span class="c1"># def translation(self):</span>
+    <span class="c1">#     return self._translation</span>
+
+    <span class="c1"># @translation.setter</span>
+    <span class="c1"># def translation(self, value):</span>
+    <span class="c1">#     self._translation = value</span>
+
+    <span class="c1"># @property</span>
+    <span class="c1"># def scale(self):</span>
+    <span class="c1">#     return self._scale</span>
+
+    <span class="c1"># @scale.setter</span>
+    <span class="c1"># def scale(self, value):</span>
+    <span class="c1">#     print(&#39;set scale&#39;, value)</span>
+    <span class="c1">#     self._scale = value</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPainter.to_svg"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtPainter.to_svg">[docs]</a>    <span class="k">def</span> <span class="nf">to_svg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;Render the scene to SVG&quot;&quot;&quot;</span>
+
+        <span class="kn">from</span> <span class="nn">QtShim.QtSvg</span> <span class="k">import</span> <span class="n">QSvgGenerator</span>
+
+        <span class="n">generator</span> <span class="o">=</span> <span class="n">QSvgGenerator</span><span class="p">()</span>
+        <span class="n">generator</span><span class="o">.</span><span class="n">setFileName</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+
+        <span class="n">generator</span><span class="o">.</span><span class="n">setTitle</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">title</span><span class="p">))</span>
+        <span class="n">generator</span><span class="o">.</span><span class="n">setDescription</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">description</span><span class="p">))</span>
+        <span class="n">generator</span><span class="o">.</span><span class="n">setResolution</span><span class="p">(</span><span class="n">dpi</span><span class="p">)</span>
+
+        <span class="c1"># Fixme: scale</span>
+        <span class="c1"># Scale applied to (x,y) and radius but not line with</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scale</span> <span class="o">=</span> <span class="n">scale</span>
+
+        <span class="n">bounding_box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scene</span><span class="o">.</span><span class="n">bounding_box</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">QSize</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">x</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_scale</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">bounding_box</span><span class="o">.</span><span class="n">size</span><span class="p">])</span>
+        <span class="n">view_box</span> <span class="o">=</span> <span class="n">QRectF</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">x</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_scale</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">bounding_box</span><span class="o">.</span><span class="n">rect</span><span class="p">])</span>
+        <span class="n">generator</span><span class="o">.</span><span class="n">setSize</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+        <span class="n">generator</span><span class="o">.</span><span class="n">setViewBox</span><span class="p">(</span><span class="n">view_box</span><span class="p">)</span>
+
+        <span class="n">painter</span> <span class="o">=</span> <span class="n">QPainter</span><span class="p">()</span>
+        <span class="n">painter</span><span class="o">.</span><span class="n">begin</span><span class="p">(</span><span class="n">generator</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">paint</span><span class="p">(</span><span class="n">painter</span><span class="p">)</span>
+        <span class="n">painter</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scale</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPainter.paint"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtPainter.paint">[docs]</a>    <span class="k">def</span> <span class="nf">paint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">painter</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Start painting&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span> <span class="o">=</span> <span class="n">painter</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_show_grid</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_paint_grid</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">paint</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Paint done&#39;</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPainter.length_scene_to_viewport"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtPainter.length_scene_to_viewport">[docs]</a>    <span class="k">def</span> <span class="nf">length_scene_to_viewport</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">length</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scale</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">scene_area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="QtPainter.scene_to_viewport"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtPainter.scene_to_viewport">[docs]</a>    <span class="k">def</span> <span class="nf">scene_to_viewport</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">QPointF</span><span class="p">(</span><span class="n">position</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scale</span><span class="p">,</span> <span class="n">position</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scale</span><span class="p">)</span></div>
+
+        <span class="c1"># Note: painter.scale apply to text as well</span>
+
+        <span class="c1"># point = QPointF(position.x, position.y)</span>
+        <span class="c1"># point += self._translation</span>
+        <span class="c1"># point *= self._scale</span>
+        <span class="c1"># point = QPointF(point.x(), -point.y())</span>
+        <span class="c1"># return point</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPainter.cast_position"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtPainter.cast_position">[docs]</a>    <span class="k">def</span> <span class="nf">cast_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Cast coordinate, apply scope transformation and convert scene to viewport, *position* can be a</span>
+<span class="sd">        coordinate name string of a:class:`Vector2D`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">cast_position</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_to_viewport</span><span class="p">(</span><span class="n">position</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPainter._set_pen"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtPainter._set_pen">[docs]</a>    <span class="k">def</span> <span class="nf">_set_pen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+
+        <span class="n">path_syle</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">path_style</span>
+        <span class="c1"># print(&#39;_set_pen&#39;, item, path_syle)</span>
+        <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">selected</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">)</span> <span class="c1"># Fixme: style</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">path_syle</span><span class="o">.</span><span class="n">stroke_color</span>
+            <span class="k">if</span> <span class="n">color</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">color</span><span class="p">))</span>
+                <span class="n">color</span><span class="o">.</span><span class="n">setAlphaF</span><span class="p">(</span><span class="n">path_syle</span><span class="o">.</span><span class="n">stroke_alpha</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">line_style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__STROKE_STYLE__</span><span class="p">[</span><span class="n">path_syle</span><span class="o">.</span><span class="n">stroke_style</span><span class="p">]</span>
+        <span class="n">line_width</span> <span class="o">=</span> <span class="n">path_syle</span><span class="o">.</span><span class="n">line_width_as_float</span>
+
+        <span class="c1"># Fixme: selection style</span>
+        <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">selected</span><span class="p">:</span>
+            <span class="n">line_width</span> <span class="o">*=</span> <span class="mi">4</span>
+
+        <span class="n">fill_color</span> <span class="o">=</span> <span class="n">path_syle</span><span class="o">.</span><span class="n">fill_color</span>
+        <span class="k">if</span> <span class="n">fill_color</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">fill_color</span><span class="p">))</span>
+            <span class="n">color</span><span class="o">.</span><span class="n">setAlphaF</span><span class="p">(</span><span class="n">path_syle</span><span class="o">.</span><span class="n">fill_alpha</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">setBrush</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+            <span class="c1"># return None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">setBrush</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">NoBrush</span><span class="p">)</span>
+
+        <span class="c1"># print(item, color, line_style)</span>
+        <span class="k">if</span> <span class="n">color</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">line_style</span> <span class="ow">is</span> <span class="n">StrokeStyle</span><span class="o">.</span><span class="n">NoPen</span><span class="p">:</span>
+            <span class="c1"># invisible item</span>
+            <span class="n">pen</span> <span class="o">=</span> <span class="n">QPen</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">NoPen</span><span class="p">)</span>
+            <span class="c1"># print(&#39;Warning Pen:&#39;, item, item.user_data, color, line_style)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pen</span> <span class="o">=</span> <span class="n">QPen</span><span class="p">(</span>
+                <span class="n">QBrush</span><span class="p">(</span><span class="n">color</span><span class="p">),</span>
+                <span class="n">line_width</span><span class="p">,</span>
+                <span class="n">line_style</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__CAP_STYLE__</span><span class="p">[</span><span class="n">path_syle</span><span class="o">.</span><span class="n">cap_style</span><span class="p">],</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__JOIN_STYLE__</span><span class="p">[</span><span class="n">path_syle</span><span class="o">.</span><span class="n">join_style</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="n">pen</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">pen</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPainter._paint_grid"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtPainter._paint_grid">[docs]</a>    <span class="k">def</span> <span class="nf">_paint_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">area</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_area</span>
+        <span class="c1"># Fixme:</span>
+        <span class="k">if</span> <span class="n">area</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">xinf</span><span class="p">,</span> <span class="n">xsup</span> <span class="o">=</span> <span class="n">area</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">area</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">sup</span>
+        <span class="n">yinf</span><span class="p">,</span> <span class="n">ysup</span> <span class="o">=</span> <span class="n">area</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">area</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">sup</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">area</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">length</span><span class="p">,</span> <span class="n">area</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">length</span><span class="p">)</span>
+
+        <span class="n">color</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">(</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+        <span class="n">brush</span> <span class="o">=</span> <span class="n">QBrush</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+        <span class="n">pen</span> <span class="o">=</span> <span class="n">QPen</span><span class="p">(</span><span class="n">brush</span><span class="p">,</span> <span class="o">.</span><span class="mi">75</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="n">pen</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">setBrush</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">NoBrush</span><span class="p">)</span>
+
+        <span class="n">step</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">length</span><span class="p">)),</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">small_step</span> <span class="o">=</span> <span class="n">step</span> <span class="o">//</span> <span class="mi">10</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Grid of </span><span class="si">{}</span><span class="s1">/</span><span class="si">{}</span><span class="s1"> for </span><span class="si">{:.1f}</span><span class="s1"> mm&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="n">small_step</span><span class="p">,</span> <span class="n">length</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paint_axis_grid</span><span class="p">(</span><span class="n">xinf</span><span class="p">,</span> <span class="n">xsup</span><span class="p">,</span> <span class="n">yinf</span><span class="p">,</span> <span class="n">ysup</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paint_axis_grid</span><span class="p">(</span><span class="n">yinf</span><span class="p">,</span> <span class="n">ysup</span><span class="p">,</span> <span class="n">xinf</span><span class="p">,</span> <span class="n">xsup</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+
+        <span class="n">color</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">(</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+        <span class="n">brush</span> <span class="o">=</span> <span class="n">QBrush</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+        <span class="n">pen</span> <span class="o">=</span> <span class="n">QPen</span><span class="p">(</span><span class="n">brush</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="n">pen</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">setBrush</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">NoBrush</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paint_axis_grid</span><span class="p">(</span><span class="n">xinf</span><span class="p">,</span> <span class="n">xsup</span><span class="p">,</span> <span class="n">yinf</span><span class="p">,</span> <span class="n">ysup</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">small_step</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paint_axis_grid</span><span class="p">(</span><span class="n">yinf</span><span class="p">,</span> <span class="n">ysup</span><span class="p">,</span> <span class="n">xinf</span><span class="p">,</span> <span class="n">xsup</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">small_step</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPainter._paint_axis_grid"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtPainter._paint_axis_grid">[docs]</a>    <span class="k">def</span> <span class="nf">_paint_axis_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xinf</span><span class="p">,</span> <span class="n">xsup</span><span class="p">,</span> <span class="n">yinf</span><span class="p">,</span> <span class="n">ysup</span><span class="p">,</span> <span class="n">is_x</span><span class="p">,</span> <span class="n">step</span><span class="p">):</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">xinf</span> <span class="o">//</span> <span class="n">step</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">xsup</span> <span class="o">//</span> <span class="n">step</span><span class="p">)</span> <span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">step</span>
+            <span class="k">if</span> <span class="n">xinf</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">xsup</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">is_x</span><span class="p">:</span>
+                    <span class="n">p0</span> <span class="o">=</span> <span class="n">Vector2D</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">yinf</span><span class="p">)</span>
+                    <span class="n">p1</span> <span class="o">=</span> <span class="n">Vector2D</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ysup</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">p0</span> <span class="o">=</span> <span class="n">Vector2D</span><span class="p">(</span><span class="n">yinf</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+                    <span class="n">p1</span> <span class="o">=</span> <span class="n">Vector2D</span><span class="p">(</span><span class="n">ysup</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+                <span class="n">p0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cast_position</span><span class="p">(</span><span class="n">p0</span><span class="p">)</span>
+                <span class="n">p1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cast_position</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">drawLine</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPainter.paint_CoordinateItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtPainter.paint_CoordinateItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_CoordinateItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_coordinates</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_to_viewport</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">position</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPainter._paint_arc"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtPainter._paint_arc">[docs]</a>    <span class="k">def</span> <span class="nf">_paint_arc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">radius_x</span><span class="p">,</span> <span class="n">radius_y</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">is_closed</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">drawEllipse</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">radius_x</span><span class="p">,</span> <span class="n">radius_y</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># drawArc cannot be filled !</span>
+            <span class="n">rectangle</span> <span class="o">=</span> <span class="n">QRectF</span><span class="p">(</span>
+                <span class="n">center</span> <span class="o">+</span> <span class="n">QPointF</span><span class="p">(</span><span class="o">-</span><span class="n">radius_x</span><span class="p">,</span> <span class="n">radius_y</span><span class="p">),</span>
+                <span class="n">center</span> <span class="o">+</span> <span class="n">QPointF</span><span class="p">(</span><span class="n">radius_x</span><span class="p">,</span> <span class="o">-</span><span class="n">radius_y</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">start_angle</span><span class="p">,</span> <span class="n">stop_angle</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">angle</span><span class="o">*</span><span class="mi">16</span><span class="p">)</span> <span class="k">for</span> <span class="n">angle</span> <span class="ow">in</span> <span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">start_angle</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">stop_angle</span><span class="p">)]</span>
+            <span class="n">span_angle</span> <span class="o">=</span> <span class="n">stop_angle</span> <span class="o">-</span> <span class="n">start_angle</span>
+            <span class="k">if</span> <span class="n">span_angle</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">span_angle</span> <span class="o">=</span> <span class="mi">5760</span> <span class="o">+</span> <span class="n">span_angle</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">drawArc</span><span class="p">(</span><span class="n">rectangle</span><span class="p">,</span> <span class="n">start_angle</span><span class="p">,</span> <span class="n">span_angle</span><span class="p">)</span></div>
+            <span class="c1"># self._painter.drawArc(center.x, center.y, radius, radius, start_angle, stop_angle)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPainter.paint_CircleItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtPainter.paint_CircleItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_CircleItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+
+        <span class="n">center</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cast_position</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+        <span class="n">radius</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">length_scene_to_viewport</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">radius</span><span class="p">)</span>
+
+        <span class="n">pen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_set_pen</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paint_arc</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPainter.paint_EllipseItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtPainter.paint_EllipseItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_EllipseItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+
+        <span class="n">center</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cast_position</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+        <span class="n">radius_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">length_scene_to_viewport</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">radius_x</span><span class="p">)</span>
+        <span class="n">radius_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">length_scene_to_viewport</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">radius_y</span><span class="p">)</span>
+
+        <span class="n">pen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_set_pen</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+        <span class="c1"># Fixme: angle !!!</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paint_arc</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">radius_x</span><span class="p">,</span> <span class="n">radius_y</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPainter._paint_cubic"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtPainter._paint_cubic">[docs]</a>    <span class="k">def</span> <span class="nf">_paint_cubic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">vertices</span><span class="p">):</span>
+
+        <span class="n">pen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_set_pen</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">QPainterPath</span><span class="p">()</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="n">vertices</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">cubicTo</span><span class="p">(</span><span class="o">*</span><span class="n">vertices</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">drawPath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="n">path_style</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">path_style</span>
+        <span class="c1"># if path_style.show_control:</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">path_style</span><span class="p">,</span> <span class="s1">&#39;show_control&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">path_style</span><span class="o">.</span><span class="n">control_color</span><span class="p">))</span>
+            <span class="n">brush</span> <span class="o">=</span> <span class="n">QBrush</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+            <span class="n">pen</span> <span class="o">=</span> <span class="n">QPen</span><span class="p">(</span><span class="n">brush</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># Fixme</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="n">pen</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">setBrush</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">NoBrush</span><span class="p">)</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">QPainterPath</span><span class="p">()</span>
+            <span class="n">path</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="n">vertices</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">vertices</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                <span class="n">path</span><span class="o">.</span><span class="n">lineTo</span><span class="p">(</span><span class="n">vertex</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">drawPath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+            <span class="c1"># Fixme:</span>
+            <span class="n">radius</span> <span class="o">=</span> <span class="mi">3</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">setBrush</span><span class="p">(</span><span class="n">brush</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">vertices</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">drawEllipse</span><span class="p">(</span><span class="n">vertex</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">setBrush</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">NoBrush</span><span class="p">)</span> <span class="c1"># Fixme:</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPainter.paint_QuadraticBezierItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtPainter.paint_QuadraticBezierItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_QuadraticBezierItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+
+        <span class="n">vertices</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">cast_position</span><span class="p">(</span><span class="n">position</span><span class="p">)</span> <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">cubic_positions</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paint_cubic</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">vertices</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPainter.paint_CubicBezierItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtPainter.paint_CubicBezierItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_CubicBezierItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+
+        <span class="n">vertices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cast_item_positions</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paint_cubic</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">vertices</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPainter.paint_ImageItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtPainter.paint_ImageItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_ImageItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+
+        <span class="n">vertices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cast_item_positions</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="n">rec</span> <span class="o">=</span> <span class="n">QRectF</span><span class="p">(</span><span class="n">vertices</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vertices</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="n">image</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">image</span>
+        <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">bytes_per_line</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">bytes_per_line</span> <span class="o">*=</span> <span class="n">width</span>
+        <span class="n">qimage</span> <span class="o">=</span> <span class="n">QImage</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">bytes_per_line</span><span class="p">,</span> <span class="n">QImage</span><span class="o">.</span><span class="n">Format_RGB888</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">drawImage</span><span class="p">(</span><span class="n">rec</span><span class="p">,</span> <span class="n">qimage</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPainter.paint_SegmentItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtPainter.paint_SegmentItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_SegmentItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_pen</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="n">vertices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cast_item_positions</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">drawLine</span><span class="p">(</span><span class="o">*</span><span class="n">vertices</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPainter.paint_PolylineItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtPainter.paint_PolylineItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_PolylineItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_pen</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="n">vertices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cast_item_positions</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">QPainterPath</span><span class="p">()</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="n">vertices</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">vertices</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="n">path</span><span class="o">.</span><span class="n">lineTo</span><span class="p">(</span><span class="n">vertex</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">drawPath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPainter.paint_PolygonItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtPainter.paint_PolygonItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_PolygonItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_pen</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="n">vertices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cast_item_positions</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="c1"># Fixme: fill ???</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">drawPolygon</span><span class="p">(</span><span class="o">*</span><span class="n">vertices</span><span class="p">)</span> <span class="c1"># API is like this</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPainter.paint_PathItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtPainter.paint_PathItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_PathItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_pen</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cast_position</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">QPainterPath</span><span class="p">()</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">segment</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">segment</span><span class="p">,</span> <span class="n">LinearSegment</span><span class="p">):</span>
+                <span class="c1"># Fixme: can merge</span>
+                <span class="n">position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cast_position</span><span class="p">(</span><span class="n">segment</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+                <span class="n">path</span><span class="o">.</span><span class="n">lineTo</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">segment</span><span class="p">,</span> <span class="n">QuadraticSegment</span><span class="p">):</span>
+                    <span class="n">method</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">quadraticTo</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">segment</span><span class="p">,</span> <span class="n">CubicSegment</span><span class="p">):</span>
+                    <span class="n">method</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">cubicTo</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+                <span class="n">positions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cast_position</span><span class="p">(</span><span class="n">segment</span><span class="o">.</span><span class="n">positions</span><span class="p">)</span>
+                <span class="n">method</span><span class="p">(</span><span class="o">*</span><span class="n">positions</span><span class="p">)</span>
+
+        <span class="c1"># if item.it_closed:</span>
+        <span class="c1">#     path.closeSubpath()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">drawPath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPainter.paint_TextItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtPainter.paint_TextItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_TextItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+
+        <span class="n">position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cast_position</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+
+        <span class="n">font</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">font</span>
+        <span class="n">qfont</span> <span class="o">=</span> <span class="n">QFont</span><span class="p">(</span><span class="n">font</span><span class="o">.</span><span class="n">family</span><span class="p">,</span> <span class="n">font</span><span class="o">.</span><span class="n">point_size</span><span class="p">)</span> <span class="c1"># weight, italic = False</span>
+
+        <span class="c1"># Fixme: anchor position</span>
+        <span class="c1"># font_metrics = QFontMetrics(qfont)</span>
+        <span class="c1"># height = font_metrics.height()</span>
+        <span class="c1"># width = font_metrics.width(item.text)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">qfont</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_painter</span><span class="o">.</span><span class="n">drawText</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">text</span><span class="p">)</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="ViewportArea"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.ViewportArea">[docs]</a><span class="k">class</span> <span class="nc">ViewportArea</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;Class to implement a viewport.&quot;&quot;&quot;</span>
+
+    <span class="n">_logger</span> <span class="o">=</span> <span class="n">_module_logger</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;ViewportArea&#39;</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="ViewportArea.__init__"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.ViewportArea.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scene</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># self._width = None</span>
+        <span class="c1"># self._height = None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_viewport_size</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scale</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_center</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_area</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="ViewportArea.__bool__"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.ViewportArea.__bool__">[docs]</a>    <span class="k">def</span> <span class="nf">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scene</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="ViewportArea._to_np_array"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.ViewportArea._to_np_array">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_to_np_array</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="ViewportArea._point_to_np"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.ViewportArea._point_to_np">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_point_to_np</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_to_np_array</span><span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">point</span><span class="o">.</span><span class="n">y</span><span class="p">())</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">viewport_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viewport_size</span>
+        <span class="c1"># return (self._width, self._height)</span>
+
+    <span class="nd">@viewport_size</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">viewport_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geometry</span><span class="p">):</span>
+        <span class="c1"># self._width = geometry.width()</span>
+        <span class="c1"># self._height = geometry.height()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_viewport_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_np_array</span><span class="p">(</span><span class="n">geometry</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">geometry</span><span class="o">.</span><span class="n">height</span><span class="p">())</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_viewport_area</span><span class="p">()</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">scene</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scene</span>
+
+    <span class="nd">@scene</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">scene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">GraphicScene</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scene</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">scene_area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scene</span><span class="o">.</span><span class="n">bounding_box</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="c1"># @property</span>
+    <span class="c1"># def scale(self):</span>
+    <span class="c1">#     return self._scale # px / mm</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">scale_px_by_mm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Fixme: assume unit is mm</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scale</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">scale_mm_by_px</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scale</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">center</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_center</span>
+
+    <span class="c1"># @property</span>
+    <span class="c1"># def center_as_point(self):</span>
+    <span class="c1">#     return QPointF(self._center[0], self._center[1])</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_area</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="ViewportArea._update_viewport_area"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.ViewportArea._update_viewport_area">[docs]</a>    <span class="k">def</span> <span class="nf">_update_viewport_area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viewport_size</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_mm_by_px</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_center</span>
+        <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="n">offset</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_area</span> <span class="o">=</span> <span class="n">Interval2D</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">dx</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">dy</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">dy</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="c1"># Fixme: QPointF ???</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_translation</span> <span class="o">=</span> <span class="o">-</span> <span class="n">QPointF</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_area</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_area</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">sup</span><span class="p">)</span></div>
+
+        <span class="c1"># self._logger.debug(&#39;_update_viewport_area&#39;, self._center, self.scale_mm_by_px, self._area)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="ViewportArea._compute_scale_to_fit_scene"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.ViewportArea._compute_scale_to_fit_scene">[docs]</a>    <span class="k">def</span> <span class="nf">_compute_scale_to_fit_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="c1"># width_scale = self._width / scene_area.x.length</span>
+        <span class="c1"># height_scale = self._height / scene_area.y.length</span>
+        <span class="c1"># scale = min(width_scale, height_scale)</span>
+
+        <span class="c1"># scale [px/mm]</span>
+        <span class="c1"># Add 2% to scene for margin</span>
+        <span class="n">margin_scale</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">/</span> <span class="mi">100</span>
+        <span class="n">axis_scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viewport_size</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_np_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scene_area</span><span class="o">.</span><span class="n">size</span><span class="p">)</span> <span class="o">*</span> <span class="n">margin_scale</span><span class="p">)</span>
+        <span class="n">axis</span> <span class="o">=</span> <span class="n">axis_scale</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span>
+        <span class="n">scale</span> <span class="o">=</span> <span class="n">axis_scale</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">scale</span><span class="p">,</span> <span class="n">axis</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="ViewportArea.zoom_at"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.ViewportArea.zoom_at">[docs]</a>    <span class="k">def</span> <span class="nf">zoom_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_center</span> <span class="o">=</span> <span class="n">center</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scale</span> <span class="o">=</span> <span class="n">scale</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_viewport_area</span><span class="p">()</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="ViewportArea.fit_scene"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.ViewportArea.fit_scene">[docs]</a>    <span class="k">def</span> <span class="nf">fit_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c1"># Fixme: AttributeError: &#39;NoneType&#39; object has no attribute &#39;center&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">center</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_np_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scene_area</span><span class="o">.</span><span class="n">center</span><span class="p">)</span>
+            <span class="n">scale</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_scale_to_fit_scene</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">zoom_at</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="ViewportArea.scene_to_viewport"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.ViewportArea.scene_to_viewport">[docs]</a>    <span class="k">def</span> <span class="nf">scene_to_viewport</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+
+        <span class="n">point</span> <span class="o">=</span> <span class="n">QPointF</span><span class="p">(</span><span class="n">position</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">position</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">point</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_translation</span>
+        <span class="n">point</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scale</span>
+        <span class="n">point</span> <span class="o">=</span> <span class="n">QPointF</span><span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="o">-</span><span class="n">point</span><span class="o">.</span><span class="n">y</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">point</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="ViewportArea.viewport_to_scene"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.ViewportArea.viewport_to_scene">[docs]</a>    <span class="k">def</span> <span class="nf">viewport_to_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+
+        <span class="n">point</span> <span class="o">=</span> <span class="n">QPointF</span><span class="p">(</span><span class="n">position</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="o">-</span><span class="n">position</span><span class="o">.</span><span class="n">y</span><span class="p">())</span>
+        <span class="n">point</span> <span class="o">/=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scale</span>
+        <span class="n">point</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_translation</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_point_to_np</span><span class="p">(</span><span class="n">point</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="ViewportArea.length_scene_to_viewport"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.ViewportArea.length_scene_to_viewport">[docs]</a>    <span class="k">def</span> <span class="nf">length_scene_to_viewport</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">length</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scale</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="ViewportArea.length_viewport_to_scene"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.ViewportArea.length_viewport_to_scene">[docs]</a>    <span class="k">def</span> <span class="nf">length_viewport_to_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">length</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scale</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="ViewportArea.pan_delta_to_scene"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.ViewportArea.pan_delta_to_scene">[docs]</a>    <span class="k">def</span> <span class="nf">pan_delta_to_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="n">point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_point_to_np</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+        <span class="n">point</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_mm_by_px</span>
+        <span class="k">return</span> <span class="n">point</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="QtQuickPaintedSceneItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtQuickPaintedSceneItem">[docs]</a><span class="k">class</span> <span class="nc">QtQuickPaintedSceneItem</span><span class="p">(</span><span class="n">QQuickPaintedItem</span><span class="p">,</span> <span class="n">QtPainter</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Class to implement a painter as Qt Quick item&quot;&quot;&quot;</span>
+
+    <span class="n">_logger</span> <span class="o">=</span> <span class="n">_module_logger</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;QtQuickPaintedSceneItem&#39;</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtQuickPaintedSceneItem.__init__"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtQuickPaintedSceneItem.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="n">QQuickPaintedItem</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">QtPainter</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="c1"># Setup backend rendering</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setAntialiasing</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># self.setRenderTarget(QQuickPaintedItem.Image) # high quality antialiasing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setRenderTarget</span><span class="p">(</span><span class="n">QQuickPaintedItem</span><span class="o">.</span><span class="n">FramebufferObject</span><span class="p">)</span> <span class="c1"># use OpenGL</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_viewport_area</span> <span class="o">=</span> <span class="n">ViewportArea</span><span class="p">()</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtQuickPaintedSceneItem.geometryChanged"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtQuickPaintedSceneItem.geometryChanged">[docs]</a>    <span class="k">def</span> <span class="nf">geometryChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_geometry</span><span class="p">,</span> <span class="n">old_geometry</span><span class="p">):</span>
+
+        <span class="c1"># self._logger.info(&#39;geometryChanged&#39;, new_geometry, old_geometry)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_viewport_area</span><span class="o">.</span><span class="n">viewport_size</span> <span class="o">=</span> <span class="n">new_geometry</span>
+        <span class="c1"># if self._scene:</span>
+        <span class="c1">#     self._update_transformation()</span>
+        <span class="n">QQuickPaintedItem</span><span class="o">.</span><span class="n">geometryChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_geometry</span><span class="p">,</span> <span class="n">old_geometry</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="c1"># def _update_transformation(self):</span>
+    <span class="c1">#     area = self._viewport_area.area</span>
+    <span class="c1">#     self.translation = - QPointF(area.x.inf, area.y.sup)</span>
+    <span class="c1">#     self.scale = self._viewport_area.scale_px_by_mm # QtPainter</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">scene_area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viewport_area</span><span class="o">.</span><span class="n">area</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtQuickPaintedSceneItem.scene_to_viewport"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtQuickPaintedSceneItem.scene_to_viewport">[docs]</a>    <span class="k">def</span> <span class="nf">scene_to_viewport</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viewport_area</span><span class="o">.</span><span class="n">scene_to_viewport</span><span class="p">(</span><span class="n">position</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtQuickPaintedSceneItem.length_scene_to_viewport"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtQuickPaintedSceneItem.length_scene_to_viewport">[docs]</a>    <span class="k">def</span> <span class="nf">length_scene_to_viewport</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viewport_area</span><span class="o">.</span><span class="n">length_scene_to_viewport</span><span class="p">(</span><span class="n">length</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtQuickPaintedSceneItem.length_viewport_to_scene"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtQuickPaintedSceneItem.length_viewport_to_scene">[docs]</a>    <span class="k">def</span> <span class="nf">length_viewport_to_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viewport_area</span><span class="o">.</span><span class="n">length_viewport_to_scene</span><span class="p">(</span><span class="n">length</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="n">sceneChanged</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">()</span>
+
+    <span class="nd">@Property</span><span class="p">(</span><span class="n">QtScene</span><span class="p">,</span> <span class="n">notify</span><span class="o">=</span><span class="n">sceneChanged</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">scene</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scene</span>
+
+    <span class="nd">@scene</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">scene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scene</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">scene</span><span class="p">:</span>
+            <span class="c1"># self._logger.info(&#39;QtQuickPaintedSceneItem set scene&#39;, scene)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;set scene&#39;</span><span class="p">)</span> <span class="c1"># Fixme: don&#39;t print ???</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_scene</span> <span class="o">=</span> <span class="n">scene</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_viewport_area</span><span class="o">.</span><span class="n">scene</span> <span class="o">=</span> <span class="n">scene</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_viewport_area</span><span class="o">.</span><span class="n">fit_scene</span><span class="p">()</span>
+            <span class="c1"># self._update_transformation()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sceneChanged</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="c1"># zoomChanged = Signal()</span>
+
+    <span class="c1"># @Property(float, notify=zoomChanged)</span>
+    <span class="c1"># def zoom(self):</span>
+    <span class="c1">#     return self._zoom</span>
+
+    <span class="c1"># @zoom.setter</span>
+    <span class="c1"># def zoom(self, zoom):</span>
+    <span class="c1">#     if self._zoom != zoom:</span>
+    <span class="c1">#         print(&#39;QtQuickPaintedSceneItem zoom&#39;, zoom, self.width(), self.height())</span>
+    <span class="c1">#         self._zoom = zoom</span>
+    <span class="c1">#         self.set_transformation(zoom)</span>
+    <span class="c1">#         self.update()</span>
+    <span class="c1">#         self.zoomChanged.emit()</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@Property</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">zoom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viewport_area</span><span class="o">.</span><span class="n">scale_px_by_mm</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtQuickPaintedSceneItem.format_coordinate"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtQuickPaintedSceneItem.format_coordinate">[docs]</a>    <span class="nd">@Slot</span><span class="p">(</span><span class="n">QPointF</span><span class="p">,</span> <span class="n">result</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">format_coordinate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="n">scene_position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viewport_area</span><span class="o">.</span><span class="n">viewport_to_scene</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{:.3f}</span><span class="s1">, </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scene_position</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">scene_position</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtQuickPaintedSceneItem.zoom_at_center"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtQuickPaintedSceneItem.zoom_at_center">[docs]</a>    <span class="nd">@Slot</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">zoom_at_center</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">zoom</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_viewport_area</span><span class="o">.</span><span class="n">zoom_at</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_viewport_area</span><span class="o">.</span><span class="n">center</span><span class="p">,</span> <span class="n">zoom</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtQuickPaintedSceneItem.zoom_at"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtQuickPaintedSceneItem.zoom_at">[docs]</a>    <span class="nd">@Slot</span><span class="p">(</span><span class="n">QPointF</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">zoom_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">zoom</span><span class="p">):</span>
+        <span class="c1"># print(&#39;zoom_at&#39;, position, zoom)</span>
+        <span class="n">scene_position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viewport_area</span><span class="o">.</span><span class="n">viewport_to_scene</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_viewport_area</span><span class="o">.</span><span class="n">zoom_at</span><span class="p">(</span><span class="n">scene_position</span><span class="p">,</span> <span class="n">zoom</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtQuickPaintedSceneItem.fit_scene"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtQuickPaintedSceneItem.fit_scene">[docs]</a>    <span class="nd">@Slot</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">fit_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_viewport_area</span><span class="o">.</span><span class="n">fit_scene</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtQuickPaintedSceneItem.pan"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtQuickPaintedSceneItem.pan">[docs]</a>    <span class="nd">@Slot</span><span class="p">(</span><span class="n">QPointF</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">pan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dxy</span><span class="p">):</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viewport_area</span><span class="o">.</span><span class="n">center</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viewport_area</span><span class="o">.</span><span class="n">pan_delta_to_scene</span><span class="p">(</span><span class="n">dxy</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_viewport_area</span><span class="o">.</span><span class="n">zoom_at</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viewport_area</span><span class="o">.</span><span class="n">scale_px_by_mm</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtQuickPaintedSceneItem.item_at"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/QtPainter.html#Patro.GraphicEngine.Painter.QtPainter.QtQuickPaintedSceneItem.item_at">[docs]</a>    <span class="nd">@Slot</span><span class="p">(</span><span class="n">QPointF</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">item_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">radius_px</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scene</span><span class="o">.</span><span class="n">update_rtree</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scene</span><span class="o">.</span><span class="n">unselect_items</span><span class="p">()</span>
+        <span class="n">scene_position</span> <span class="o">=</span> <span class="n">Vector2D</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_viewport_area</span><span class="o">.</span><span class="n">viewport_to_scene</span><span class="p">(</span><span class="n">position</span><span class="p">))</span>
+        <span class="n">radius</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">length_viewport_to_scene</span><span class="p">(</span><span class="n">radius_px</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Item selection at </span><span class="si">{}</span><span class="s1"> with radius </span><span class="si">{:1f}</span><span class="s1"> mm&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scene_position</span><span class="p">,</span> <span class="n">radius</span><span class="p">))</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scene</span><span class="o">.</span><span class="n">item_at</span><span class="p">(</span><span class="n">scene_position</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">items</span><span class="p">:</span>
+            <span class="n">distance</span><span class="p">,</span> <span class="n">nearest_item</span> <span class="o">=</span> <span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="c1"># print(&#39;nearest item at {} #{:6.2f} {} {}&#39;.format(scene_position, len(items), distance, nearest_item.user_data))</span>
+            <span class="n">nearest_item</span><span class="o">.</span><span class="n">selected</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="c1"># Fixme: z_value ???</span>
+            <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                <span class="n">distance</span><span class="p">,</span> <span class="n">item</span> <span class="o">=</span> <span class="n">pair</span>
+                <span class="c1"># print(&#39;  {:6.2f} {}&#39;.format(distance, item.user_data))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="c1"># qmlRegisterType(QtQuickPaintedSceneItem, &#39;Patro&#39;, 1, 0, &#39;PaintedSceneItem&#39;)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Fabrice Salvaire
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../../static/getthecode.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../../static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,8 +1,0 @@
-************
-Calculator
-************
-
-.. automodule:: Valentina.Pattern.Calculator
-   :members:
-   :show-inheritance:
-

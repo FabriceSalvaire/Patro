@@ -1,0 +1,8 @@
+
+========
+ Bezier
+========
+
+.. automodule:: Patro.GeometryEngine.Bezier
+   :members:
+   :show-inheritance:

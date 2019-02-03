@@ -1,0 +1,8 @@
+
+===========
+ QtPainter
+===========
+
+.. automodule:: Patro.GraphicEngine.Painter.QtPainter
+   :members:
+   :show-inheritance:

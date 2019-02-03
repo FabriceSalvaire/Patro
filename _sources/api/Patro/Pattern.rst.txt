@@ -1,0 +1,14 @@
+
+=========
+ Pattern
+=========
+
+.. toctree::
+    Pattern/Calculator
+    Pattern/Pattern
+    Pattern/Sketch
+    Pattern/SketchOperation
+
+.. automodule:: Patro.Pattern
+   :members:
+   :show-inheritance:

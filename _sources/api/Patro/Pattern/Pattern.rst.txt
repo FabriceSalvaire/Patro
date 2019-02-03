@@ -1,0 +1,8 @@
+
+=========
+ Pattern
+=========
+
+.. automodule:: Patro.Pattern.Pattern
+   :members:
+   :show-inheritance:

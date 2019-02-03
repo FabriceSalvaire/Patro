@@ -1,0 +1,8 @@
+
+===========
+ VitFormat
+===========
+
+.. automodule:: Patro.FileFormat.Valentina.VitFormat
+   :members:
+   :show-inheritance:

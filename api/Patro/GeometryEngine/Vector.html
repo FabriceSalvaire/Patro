@@ -1,0 +1,926 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>10.1.4.17. Vector &mdash; Patro 0.3.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../static/css/Patro.css" type="text/css" />
+  <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="10.1.5. GraphicEngine" href="../GraphicEngine.html" />
+    <link rel="prev" title="10.1.4.16. Triangle" href="Triangle.html" /> 
+
+  
+  <script src="../../../static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Patro
+          
+
+          
+            
+            <img src="../../../static/logo-64.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">1. Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#what-is-patro">1.1. What is Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#what-is-the-purpose-of-this-library">1.2. What is the purpose of this library ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#what-are-the-features-of-patro">1.3. What are the Features of Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#how-is-patro-licensed">1.4. How is Patro licensed ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#going-further-with-patro">1.5. Going further with Patro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#which-platforms-are-supported-by-patro">1.6. Which platforms are supported by Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#how-to-install-patro">1.7. How to install Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#which-version-of-python-is-required">1.8. Which version of Python is required ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../features-all.html">2. Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#geometry-engine">2.1. Geometry Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#pattern-engine">2.2. Pattern Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#graphic-engine">2.3. Graphic Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#pattern-format-support">2.4. Pattern Format Support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../features-all.html#pattern-format-compatibility">2.4.1. Pattern Format Compatibility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../valentina-compatibility/index.html">2.4.1.1. Valentina Compatibility</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#digitalisation">2.5. Digitalisation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../news.html">3. News</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../news.html#v0-2017-02-16">3.1. V0 2017-02-16</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../roadmap.html">4. Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">5. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#on-windows">5.1. On Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#on-linux">5.2. On Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#on-osx">5.3. On OSX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-pypi-repository">5.4. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#install-a-more-recent-version-from-github">5.5. Install a more recent version from Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-source">5.6. Installation from Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#dependencies">5.7. Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">6. Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/svg-import.html">6.1. SVG Import</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/dxf-import.html">6.2. DXF Import</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">7. User FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../faq.html#how-to-get-help-or-report-an-issue">7.1. How to get help or report an issue ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../design-notes/index.html">8. Design Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../design-notes/question-answer.html">8.1. Design Notes Questions &amp; Answers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#what-is-my-opinion-on-valentina-seamly2d">8.1.1. What is my opinion on Valentina / Seamly2D ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#can-we-implement-such-a-tool-as-a-plugin-of-another-software">8.1.2. Can we implement such a tool as a plugin of another software ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#what-is-the-requirements-of-a-pattern-drafting-software">8.1.3. What is the requirements of a pattern drafting software ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#why-python-is-a-good-language-for-this-library">8.1.4. Why Python is a good language for this library ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#could-we-implement-a-full-software-using-python">8.1.5. Could we implement a full software using Python ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#how-to-generate-drawings-in-standard-format-like-pdf-or-svg">8.1.6. How to generate drawings in standard format like PDF or SVG ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#what-is-the-requirements-of-a-geometric-engine">8.1.7. What is the requirements of a geometric engine ?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../design-notes/performance.html">8.2. Performances</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/performance.html#svg-import">8.2.1. SVG Import</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../resources/index.html">9. Resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../resources/file-format/index.html">9.1. File Formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/file-format/dxf.html">9.1.1. DXF File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/file-format/dxf-astm.html">9.1.2. DXF ASTM File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/file-format/svg.html">9.1.3. SVG File Format</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/file-format/svg.html#reference-documentations">9.1.3.1. Reference Documentations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/file-format/svg.html#svg-coordinate-system">9.1.3.2. SVG Coordinate System</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/file-format/svg.html#inkscape-software">9.1.3.3. Inkscape Software</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/file-format/valentina.html">9.1.4. Valentina File Format</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../resources/geometry/index.html">9.2. Geometry Resources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/bezier.html">9.2.1. Bézier Curves</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#valentina-requirements">9.2.1.1. Valentina Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#definitions">9.2.1.2. Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#linear-bezier-curves">9.2.1.3. Linear Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#quadratic-bezier-curves">9.2.1.4. Quadratic Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#cubic-bezier-curves">9.2.1.5. Cubic Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#recursive-definition">9.2.1.6. Recursive definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#degree-elevation">9.2.1.7. Degree elevation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#matrix-forms">9.2.1.8. Matrix Forms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#symbolic-calculation">9.2.1.9. Symbolic Calculation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#curve-length">9.2.1.10. Curve Length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#determine-the-curve-flatness">9.2.1.11. Determine the curve flatness</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#intersection-of-bezier-curve-with-a-line">9.2.1.12. Intersection of Bézier Curve with a Line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#closest-point">9.2.1.13. Closest Point</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/conic.html">9.2.2. Conic</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/conic.html#valentina-requirements">9.2.2.1. Valentina Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/conic.html#circle">9.2.2.2. Circle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/conic.html#ellipse">9.2.2.3. Ellipse</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/path.html">9.2.3. Path</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/path.html#bulge">9.2.3.1. Bulge</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/polygon.html">9.2.4. Polygon</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/polygon.html#area-and-barycenter">9.2.4.1. Area and Barycenter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/polygon.html#moments-of-inertia">9.2.4.2. Moments of Inertia</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/spline.html">9.2.5. Spline Curves</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/spline.html#references">9.2.5.1. References</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/spline.html#b-spline-basis">9.2.5.2. B-spline Basis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/spline.html#b-spline-curve">9.2.5.3. B-spline Curve</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/spline.html#algorithms-for-b-spline-curves">9.2.5.4. Algorithms for B-spline curves</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/transformations.html">9.2.6. Transformations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/transformations.html#transformation-matrices">9.2.6.1. Transformation matrices</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference-manual.html">10. API Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../Patro.html">10.1. Patro</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../Common.html">10.1.1. Common</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Common/ArgparseAction.html">10.1.1.1. ArgparseAction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/AtomicCounter.html">10.1.1.2. AtomicCounter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Datetime.html">10.1.1.3. Datetime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Graph.html">10.1.1.4. Graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/IterTools.html">10.1.1.5. IterTools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Logging.html">10.1.1.6. Logging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Math.html">10.1.1.7. Math</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Object.html">10.1.1.8. Object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Path.html">10.1.1.9. Path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Platform.html">10.1.1.10. Platform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Singleton.html">10.1.1.11. Singleton</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Xml.html">10.1.1.12. Xml</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Config.html">10.1.2. Config</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Config/ConfigInstall.html">10.1.2.1. ConfigInstall</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../FileFormat.html">10.1.3. FileFormat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../FileFormat/Dxf.html">10.1.3.1. Dxf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../FileFormat/Svg.html">10.1.3.2. Svg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../FileFormat/Valentina.html">10.1.3.3. Valentina</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="../GeometryEngine.html">10.1.4. GeometryEngine</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="Bezier.html">10.1.4.1. Bezier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BoundingBox.html">10.1.4.2. BoundingBox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Conic.html">10.1.4.3. Conic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Interpolation.html">10.1.4.4. Interpolation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Line.html">10.1.4.5. Line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mixin.html">10.1.4.6. Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Path.html">10.1.4.7. Path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Polygon.html">10.1.4.8. Polygon</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Polyline.html">10.1.4.9. Polyline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Primitive.html">10.1.4.10. Primitive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Rectangle.html">10.1.4.11. Rectangle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Segment.html">10.1.4.12. Segment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Shape.html">10.1.4.13. Shape</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Spline.html">10.1.4.14. Spline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Transformation.html">10.1.4.15. Transformation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Triangle.html">10.1.4.16. Triangle</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">10.1.4.17. Vector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GeometryEngine.html#purpose">10.1.4.18. Purpose</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GeometryEngine.html#bibliographical-references">10.1.4.19. Bibliographical References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../GraphicEngine.html">10.1.5. GraphicEngine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GraphicEngine/GraphicScene.html">10.1.5.1. GraphicScene</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GraphicEngine/Painter.html">10.1.5.2. Painter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GraphicEngine/TeX.html">10.1.5.3. TeX</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../GraphicStyle.html">10.1.6. GraphicStyle</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GraphicStyle/Color.html">10.1.6.1. Color</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Measurement.html">10.1.7. Measurement</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Measurement/Measurement.html">10.1.7.1. Measurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Measurement/PersonalData.html">10.1.7.2. PersonalData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Measurement/StandardMeasurement.html">10.1.7.3. StandardMeasurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Measurement/ValentinaMeasurement.html">10.1.7.4. ValentinaMeasurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Measurement/ValentinaStandardMeasurement.html">10.1.7.5. ValentinaStandardMeasurement</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Pattern.html">10.1.8. Pattern</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Pattern/Calculator.html">10.1.8.1. Calculator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../QtApplication.html">10.1.9. QtApplication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../QtApplication/QmlApplication.html">10.1.9.1. QmlApplication</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference-manual.html#indexes">10.2. Indexes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../development.html">11. Development &amp; Community</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../development.html#how-you-can-help">11.1. How you can help ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../development.html#contributors">11.2. Contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../how-to-refer.html">12. How to Refer to Patro ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../donate.html">13. How to Help Further ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../related-projects.html">14. Related Projects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../related-projects.html#pattern-making">14.1. Pattern Making</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../related-projects.html#embroidery">14.2. Embroidery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../related-projects.html#geometry-engine">14.3. Geometry Engine</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">15. Bibliography</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../bibliography.html#geometry-engine">15.1. Geometry Engine</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Patro</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../reference-manual.html">10. API Documentation</a> &raquo;</li>
+        
+          <li><a href="../../Patro.html">10.1. Patro</a> &raquo;</li>
+        
+          <li><a href="../GeometryEngine.html">10.1.4. GeometryEngine</a> &raquo;</li>
+        
+      <li>10.1.4.17. Vector</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/Patro/GeometryEngine/Vector.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-Patro.GeometryEngine.Vector">
+<span id="vector"></span><h1>10.1.4.17. Vector<a class="headerlink" href="#module-Patro.GeometryEngine.Vector" title="Permalink to this headline">¶</a></h1>
+<p>Module to implement vector.</p>
+<p>Example of usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">Vector2D</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">Vector2D</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">Vector2D</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">Vector2D</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">Vector2D</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+<span class="n">v</span><span class="o">.</span><span class="n">x</span>
+<span class="n">v</span><span class="o">.</span><span class="n">y</span>
+
+<span class="c1"># array interface</span>
+<span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="nb">iter</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+<span class="o">-</span><span class="n">v</span>
+
+<span class="n">v</span> <span class="o">+</span> <span class="n">v</span>
+<span class="n">v</span> <span class="o">+=</span> <span class="n">v</span>
+
+<span class="n">v</span> <span class="o">-</span> <span class="n">v</span>
+<span class="n">v</span> <span class="o">-=</span> <span class="n">v</span>
+
+<span class="n">v</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="mi">2</span> <span class="o">*</span> <span class="n">v</span>
+<span class="n">v</span> <span class="o">*=</span> <span class="mi">2</span>
+
+<span class="n">v</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">v</span> <span class="o">/=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<dl class="class">
+<dt id="Patro.GeometryEngine.Vector.HomogeneousVector2D">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Vector.</code><code class="descname">HomogeneousVector2D</code><span class="sig-paren">(</span><em>vector</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#HomogeneousVector2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.HomogeneousVector2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Vector.Vector2D" title="Patro.GeometryEngine.Vector.Vector2D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Vector.Vector2D</span></code></a></p>
+<p>2D Homogeneous Coordinate Vector</p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.HomogeneousVector2D.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>vector</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#HomogeneousVector2D.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.HomogeneousVector2D.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.HomogeneousVector2D.to_vector">
+<code class="descname">to_vector</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#HomogeneousVector2D.to_vector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.HomogeneousVector2D.to_vector" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Vector.HomogeneousVector2D.v">
+<code class="descname">v</code><a class="headerlink" href="#Patro.GeometryEngine.Vector.HomogeneousVector2D.v" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Vector.HomogeneousVector2D.w">
+<code class="descname">w</code><a class="headerlink" href="#Patro.GeometryEngine.Vector.HomogeneousVector2D.w" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Vector.NormalisedVector2D">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Vector.</code><code class="descname">NormalisedVector2D</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#NormalisedVector2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.NormalisedVector2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase" title="Patro.GeometryEngine.Vector.Vector2DFloatBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Vector.Vector2DFloatBase</span></code></a></p>
+<p>2D Normalised Vector</p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.NormalisedVector2D.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#NormalisedVector2D.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.NormalisedVector2D.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.NormalisedVector2D.__mul__">
+<code class="descname">__mul__</code><span class="sig-paren">(</span><em>scale</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#NormalisedVector2D.__mul__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.NormalisedVector2D.__mul__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new vector equal to the self scaled by scale</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.NormalisedVector2D.__rmul__">
+<code class="descname">__rmul__</code><span class="sig-paren">(</span><em>scale</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#NormalisedVector2D.__rmul__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.NormalisedVector2D.__rmul__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new vector equal to the self scaled by scale</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Vector.Vector2D">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Vector.</code><code class="descname">Vector2D</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase" title="Patro.GeometryEngine.Vector.Vector2DFloatBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Vector.Vector2DFloatBase</span></code></a></p>
+<p>2D Vector</p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2D.__imul__">
+<code class="descname">__imul__</code><span class="sig-paren">(</span><em>scale</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2D.__imul__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2D.__imul__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scale self by scale</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2D.__itruediv__">
+<code class="descname">__itruediv__</code><span class="sig-paren">(</span><em>scale</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2D.__itruediv__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2D.__itruediv__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scale self by 1/scale</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2D.__mul__">
+<code class="descname">__mul__</code><span class="sig-paren">(</span><em>scale</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2D.__mul__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2D.__mul__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new vector equal to the self scaled by scale</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2D.__rmul__">
+<code class="descname">__rmul__</code><span class="sig-paren">(</span><em>scale</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2D.__rmul__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2D.__rmul__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new vector equal to the self scaled by scale</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2D.__truediv__">
+<code class="descname">__truediv__</code><span class="sig-paren">(</span><em>scale</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2D.__truediv__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2D.__truediv__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new vector equal to the self dvivided by scale</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2D.divide">
+<code class="descname">divide</code><span class="sig-paren">(</span><em>scale_x</em>, <em>scale_y</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2D.divide"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2D.divide" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scale self by 1/scale</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="Patro.GeometryEngine.Vector.Vector2D.from_angle">
+<em class="property">static </em><code class="descname">from_angle</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2D.from_angle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2D.from_angle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the unitary vector (cos(angle), sin(angle)).  <em>angle</em> is in degree.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="Patro.GeometryEngine.Vector.Vector2D.from_ellipse">
+<em class="property">static </em><code class="descname">from_ellipse</code><span class="sig-paren">(</span><em>radius_x</em>, <em>radius_y</em>, <em>angle</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2D.from_ellipse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2D.from_ellipse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the vector (radius_x*cos(angle), radius_y*sin(angle)).  <em>angle</em> is in degree.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="Patro.GeometryEngine.Vector.Vector2D.from_polar">
+<em class="property">static </em><code class="descname">from_polar</code><span class="sig-paren">(</span><em>radius</em>, <em>angle</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2D.from_polar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2D.from_polar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the polar vector (radius*cos(angle), radius*sin(angle)).  <em>angle</em> is in degree.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="Patro.GeometryEngine.Vector.Vector2D.middle">
+<em class="property">static </em><code class="descname">middle</code><span class="sig-paren">(</span><em>p0</em>, <em>p1</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2D.middle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2D.middle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the middle point.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2D.normalise">
+<code class="descname">normalise</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2D.normalise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2D.normalise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalise the vector</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2D.rint">
+<code class="descname">rint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2D.rint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2D.rint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2D.scale">
+<code class="descname">scale</code><span class="sig-paren">(</span><em>scale_x</em>, <em>scale_y</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2D.scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2D.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scale self by scale</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2D.to_normalised">
+<code class="descname">to_normalised</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2D.to_normalised"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2D.to_normalised" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a normalised vector</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Vector.</code><code class="descname">Vector2DBase</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="Primitive.html#Patro.GeometryEngine.Primitive.Primitive" title="Patro.GeometryEngine.Primitive.Primitive"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.Primitive</span></code></a>, <a class="reference internal" href="Primitive.html#Patro.GeometryEngine.Primitive.Primitive2DMixin" title="Patro.GeometryEngine.Primitive.Primitive2DMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.Primitive2DMixin</span></code></a></p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase.__abs__">
+<code class="descname">__abs__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DBase.__abs__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase.__abs__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new vector equal to abs of self</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase.__add__">
+<code class="descname">__add__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DBase.__add__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase.__add__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new vector equal to the addition of self and other</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase.__data_type__">
+<code class="descname">__data_type__</code><em class="property"> = None</em><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase.__data_type__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase.__eq__">
+<code class="descname">__eq__</code><span class="sig-paren">(</span><em>v2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DBase.__eq__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>self == other</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>a_slice</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DBase.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase.__hash__">
+<code class="descname">__hash__</code><em class="property"> = None</em><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase.__iadd__">
+<code class="descname">__iadd__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DBase.__iadd__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase.__iadd__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add other to self</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DBase.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase.__isub__">
+<code class="descname">__isub__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DBase.__isub__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase.__isub__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new vector equal to the subtraction of self and other</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase.__iter__">
+<code class="descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DBase.__iter__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase.__len__">
+<code class="descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DBase.__len__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase.__len__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase.__neg__">
+<code class="descname">__neg__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DBase.__neg__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase.__neg__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new vector equal to the negation of self</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase.__nonzero__">
+<code class="descname">__nonzero__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DBase.__nonzero__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase.__nonzero__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase.__pos__">
+<code class="descname">__pos__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DBase.__pos__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase.__pos__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new vector equal to self</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DBase.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase.__setitem__">
+<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>index</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DBase.__setitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase.__sub__">
+<code class="descname">__sub__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DBase.__sub__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase.__sub__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new vector</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase._check_arguments">
+<code class="descname">_check_arguments</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DBase._check_arguments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase._check_arguments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase.clone">
+<code class="descname">clone</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DBase.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase.clone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a copy of self</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase.to_int_list">
+<code class="descname">to_int_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DBase.to_int_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase.to_int_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase.v">
+<code class="descname">v</code><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase.v" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase.x">
+<code class="descname">x</code><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase.x" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Vector.Vector2DBase.y">
+<code class="descname">y</code><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DBase.y" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Vector.</code><code class="descname">Vector2DFloatBase</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DFloatBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Vector.Vector2DBase" title="Patro.GeometryEngine.Vector.Vector2DBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Vector.Vector2DBase</span></code></a></p>
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.__data_type__">
+<code class="descname">__data_type__</code><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.__data_type__" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">builtins.float</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.almost_equal">
+<code class="descname">almost_equal</code><span class="sig-paren">(</span><em>v2</em>, <em>rtol=1e-05</em>, <em>atol=1e-08</em>, <em>equal_nan=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DFloatBase.almost_equal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.almost_equal" title="Permalink to this definition">¶</a></dt>
+<dd><p>self ~= other</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.angle_with">
+<code class="descname">angle_with</code><span class="sig-paren">(</span><em>direction</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DFloatBase.angle_with"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.angle_with" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the angle of self on direction</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.anti_normal">
+<code class="descname">anti_normal</code><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.anti_normal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new vector equal to self rotated of 90 degree in the clockwise direction</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.bounding_box">
+<code class="descname">bounding_box</code><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.bounding_box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bounding box of the primitive.</p>
+<p>Return None if primitive is infinite.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.cos_with">
+<code class="descname">cos_with</code><span class="sig-paren">(</span><em>direction</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DFloatBase.cos_with"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.cos_with" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the cosinus of self with direction</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.cross">
+<code class="descname">cross</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DFloatBase.cross"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.cross" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the cross product of self with other</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.deviation_with">
+<code class="descname">deviation_with</code><span class="sig-paren">(</span><em>direction</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DFloatBase.deviation_with"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.deviation_with" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the deviation of self with other</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.dot">
+<code class="descname">dot</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DFloatBase.dot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.dot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the dot product of self with other</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.inverse_tan">
+<code class="descname">inverse_tan</code><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.inverse_tan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the inverse tangent</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.is_orthogonal">
+<code class="descname">is_orthogonal</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DFloatBase.is_orthogonal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.is_orthogonal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Self is orthogonal with other</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.is_parallel">
+<code class="descname">is_parallel</code><span class="sig-paren">(</span><em>other</em>, <em>return_cross=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DFloatBase.is_parallel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.is_parallel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Self is parallel with other</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.magnitude">
+<code class="descname">magnitude</code><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.magnitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the magnitude of the vector</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.magnitude_square">
+<code class="descname">magnitude_square</code><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.magnitude_square" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the square of the magnitude of the vector</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.normal">
+<code class="descname">normal</code><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.normal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new vector equal to self rotated of 90 degree in the counter clockwise direction</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.orientation">
+<code class="descname">orientation</code><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.orientation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the orientation in degree</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.orientation_with">
+<code class="descname">orientation_with</code><span class="sig-paren">(</span><em>direction</em><span class="sig-paren">)</span><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.orientation_with" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the angle of self on direction</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.parity">
+<code class="descname">parity</code><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.parity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new vector equal to self rotated of 180 degree</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.permute">
+<code class="descname">permute</code><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.permute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new vector where x and y are permuted.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.perp_dot">
+<code class="descname">perp_dot</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.perp_dot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the cross product of self with other</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.projection_on">
+<code class="descname">projection_on</code><span class="sig-paren">(</span><em>direction</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DFloatBase.projection_on"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.projection_on" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the projection of self on direction</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.rotate">
+<code class="descname">rotate</code><span class="sig-paren">(</span><em>angle</em>, <em>counter_clockwise=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DFloatBase.rotate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.rotate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new vector equal to self rotated of angle degree in the counter clockwise direction</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.sin_with">
+<code class="descname">sin_with</code><span class="sig-paren">(</span><em>direction</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DFloatBase.sin_with"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.sin_with" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the sinus of self with other</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Vector.Vector2DFloatBase.tan">
+<code class="descname">tan</code><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DFloatBase.tan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the tangent</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Vector.Vector2DInt">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Vector.</code><code class="descname">Vector2DInt</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2DInt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DInt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Vector.Vector2DBase" title="Patro.GeometryEngine.Vector.Vector2DBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Vector.Vector2DBase</span></code></a></p>
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Vector.Vector2DInt.__data_type__">
+<code class="descname">__data_type__</code><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DInt.__data_type__" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">builtins.int</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Vector.Vector2DInt.bounding_box">
+<code class="descname">bounding_box</code><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2DInt.bounding_box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bounding box of the primitive.</p>
+<p>Return None if primitive is infinite.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../GraphicEngine.html" class="btn btn-neutral float-right" title="10.1.5. GraphicEngine" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Triangle.html" class="btn btn-neutral" title="10.1.4.16. Triangle" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Fabrice Salvaire
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../static/jquery.js"></script>
+        <script type="text/javascript" src="../../../static/underscore.js"></script>
+        <script type="text/javascript" src="../../../static/doctools.js"></script>
+        <script type="text/javascript" src="../../../static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../static/getthecode.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

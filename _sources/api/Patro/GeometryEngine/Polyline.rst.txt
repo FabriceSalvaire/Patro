@@ -1,0 +1,8 @@
+
+==========
+ Polyline
+==========
+
+.. automodule:: Patro.GeometryEngine.Polyline
+   :members:
+   :show-inheritance:

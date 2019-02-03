@@ -1,8 +1,0 @@
-*********
-Contour
-*********
-
-.. automodule:: Valentina.Pattern.Contour
-   :members:
-   :show-inheritance:
-

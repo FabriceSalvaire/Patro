@@ -1,0 +1,13 @@
+
+===============
+ GraphicEngine
+===============
+
+.. toctree::
+    GraphicEngine/GraphicScene
+    GraphicEngine/Painter
+    GraphicEngine/TeX
+
+.. automodule:: Patro.GraphicEngine
+   :members:
+   :show-inheritance:

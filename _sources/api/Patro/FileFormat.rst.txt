@@ -1,0 +1,13 @@
+
+============
+ FileFormat
+============
+
+.. toctree::
+    FileFormat/Dxf
+    FileFormat/Svg
+    FileFormat/Valentina
+
+.. automodule:: Patro.FileFormat
+   :members:
+   :show-inheritance:

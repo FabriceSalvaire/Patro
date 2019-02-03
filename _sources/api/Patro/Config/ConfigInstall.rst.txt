@@ -1,0 +1,8 @@
+
+===============
+ ConfigInstall
+===============
+
+.. automodule:: Patro.Config.ConfigInstall
+   :members:
+   :show-inheritance:

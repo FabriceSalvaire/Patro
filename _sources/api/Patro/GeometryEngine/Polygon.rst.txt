@@ -1,0 +1,8 @@
+
+=========
+ Polygon
+=========
+
+.. automodule:: Patro.GeometryEngine.Polygon
+   :members:
+   :show-inheritance:

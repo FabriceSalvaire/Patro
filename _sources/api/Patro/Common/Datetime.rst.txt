@@ -1,0 +1,8 @@
+
+==========
+ Datetime
+==========
+
+.. automodule:: Patro.Common.Datetime
+   :members:
+   :show-inheritance:

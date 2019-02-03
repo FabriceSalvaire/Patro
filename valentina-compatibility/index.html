@@ -1,0 +1,948 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.4.1.1. Valentina Compatibility &mdash; Patro 0.3.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../static/css/Patro.css" type="text/css" />
+  <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. News" href="../news.html" />
+    <link rel="prev" title="2. Features" href="../features-all.html" /> 
+
+  
+  <script src="../static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Patro
+          
+
+          
+            
+            <img src="../static/logo-64.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">1. Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#what-is-patro">1.1. What is Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#what-is-the-purpose-of-this-library">1.2. What is the purpose of this library ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#what-are-the-features-of-patro">1.3. What are the Features of Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#how-is-patro-licensed">1.4. How is Patro licensed ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#going-further-with-patro">1.5. Going further with Patro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#which-platforms-are-supported-by-patro">1.6. Which platforms are supported by Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#how-to-install-patro">1.7. How to install Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#which-version-of-python-is-required">1.8. Which version of Python is required ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../features-all.html">2. Features</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../features-all.html#geometry-engine">2.1. Geometry Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features-all.html#pattern-engine">2.2. Pattern Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../features-all.html#graphic-engine">2.3. Graphic Engine</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../features-all.html#pattern-format-support">2.4. Pattern Format Support</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../features-all.html#pattern-format-compatibility">2.4.1. Pattern Format Compatibility</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">2.4.1.1. Valentina Compatibility</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../features-all.html#digitalisation">2.5. Digitalisation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">3. News</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../news.html#v0-2017-02-16">3.1. V0 2017-02-16</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">4. Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">5. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#on-windows">5.1. On Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#on-linux">5.2. On Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#on-osx">5.3. On OSX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installation-from-pypi-repository">5.4. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#install-a-more-recent-version-from-github">5.5. Install a more recent version from Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installation-from-source">5.6. Installation from Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#dependencies">5.7. Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">6. Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/svg-import.html">6.1. SVG Import</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/dxf-import.html">6.2. DXF Import</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">7. User FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../faq.html#how-to-get-help-or-report-an-issue">7.1. How to get help or report an issue ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../design-notes/index.html">8. Design Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../design-notes/question-answer.html">8.1. Design Notes Questions &amp; Answers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../design-notes/question-answer.html#what-is-my-opinion-on-valentina-seamly2d">8.1.1. What is my opinion on Valentina / Seamly2D ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../design-notes/question-answer.html#can-we-implement-such-a-tool-as-a-plugin-of-another-software">8.1.2. Can we implement such a tool as a plugin of another software ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../design-notes/question-answer.html#what-is-the-requirements-of-a-pattern-drafting-software">8.1.3. What is the requirements of a pattern drafting software ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../design-notes/question-answer.html#why-python-is-a-good-language-for-this-library">8.1.4. Why Python is a good language for this library ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../design-notes/question-answer.html#could-we-implement-a-full-software-using-python">8.1.5. Could we implement a full software using Python ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../design-notes/question-answer.html#how-to-generate-drawings-in-standard-format-like-pdf-or-svg">8.1.6. How to generate drawings in standard format like PDF or SVG ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../design-notes/question-answer.html#what-is-the-requirements-of-a-geometric-engine">8.1.7. What is the requirements of a geometric engine ?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../design-notes/performance.html">8.2. Performances</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../design-notes/performance.html#svg-import">8.2.1. SVG Import</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../resources/index.html">9. Resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../resources/file-format/index.html">9.1. File Formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../resources/file-format/dxf.html">9.1.1. DXF File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../resources/file-format/dxf-astm.html">9.1.2. DXF ASTM File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../resources/file-format/svg.html">9.1.3. SVG File Format</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../resources/file-format/svg.html#reference-documentations">9.1.3.1. Reference Documentations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources/file-format/svg.html#svg-coordinate-system">9.1.3.2. SVG Coordinate System</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources/file-format/svg.html#inkscape-software">9.1.3.3. Inkscape Software</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../resources/file-format/valentina.html">9.1.4. Valentina File Format</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/geometry/index.html">9.2. Geometry Resources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../resources/geometry/bezier.html">9.2.1. Bézier Curves</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/bezier.html#valentina-requirements">9.2.1.1. Valentina Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/bezier.html#definitions">9.2.1.2. Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/bezier.html#linear-bezier-curves">9.2.1.3. Linear Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/bezier.html#quadratic-bezier-curves">9.2.1.4. Quadratic Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/bezier.html#cubic-bezier-curves">9.2.1.5. Cubic Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/bezier.html#recursive-definition">9.2.1.6. Recursive definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/bezier.html#degree-elevation">9.2.1.7. Degree elevation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/bezier.html#matrix-forms">9.2.1.8. Matrix Forms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/bezier.html#symbolic-calculation">9.2.1.9. Symbolic Calculation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/bezier.html#curve-length">9.2.1.10. Curve Length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/bezier.html#determine-the-curve-flatness">9.2.1.11. Determine the curve flatness</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/bezier.html#intersection-of-bezier-curve-with-a-line">9.2.1.12. Intersection of Bézier Curve with a Line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/bezier.html#closest-point">9.2.1.13. Closest Point</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../resources/geometry/conic.html">9.2.2. Conic</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/conic.html#valentina-requirements">9.2.2.1. Valentina Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/conic.html#circle">9.2.2.2. Circle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/conic.html#ellipse">9.2.2.3. Ellipse</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../resources/geometry/path.html">9.2.3. Path</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/path.html#bulge">9.2.3.1. Bulge</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../resources/geometry/polygon.html">9.2.4. Polygon</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/polygon.html#area-and-barycenter">9.2.4.1. Area and Barycenter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/polygon.html#moments-of-inertia">9.2.4.2. Moments of Inertia</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../resources/geometry/spline.html">9.2.5. Spline Curves</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/spline.html#references">9.2.5.1. References</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/spline.html#b-spline-basis">9.2.5.2. B-spline Basis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/spline.html#b-spline-curve">9.2.5.3. B-spline Curve</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/spline.html#algorithms-for-b-spline-curves">9.2.5.4. Algorithms for B-spline curves</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../resources/geometry/transformations.html">9.2.6. Transformations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../resources/geometry/transformations.html#transformation-matrices">9.2.6.1. Transformation matrices</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference-manual.html">10. API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/Patro.html">10.1. Patro</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/Patro/Common.html">10.1.1. Common</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/Common/ArgparseAction.html">10.1.1.1. ArgparseAction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/Common/AtomicCounter.html">10.1.1.2. AtomicCounter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/Common/Datetime.html">10.1.1.3. Datetime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/Common/Graph.html">10.1.1.4. Graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/Common/IterTools.html">10.1.1.5. IterTools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/Common/Logging.html">10.1.1.6. Logging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/Common/Math.html">10.1.1.7. Math</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/Common/Object.html">10.1.1.8. Object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/Common/Path.html">10.1.1.9. Path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/Common/Platform.html">10.1.1.10. Platform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/Common/Singleton.html">10.1.1.11. Singleton</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/Common/Xml.html">10.1.1.12. Xml</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/Patro/Config.html">10.1.2. Config</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/Config/ConfigInstall.html">10.1.2.1. ConfigInstall</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/Patro/FileFormat.html">10.1.3. FileFormat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/FileFormat/Dxf.html">10.1.3.1. Dxf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/FileFormat/Svg.html">10.1.3.2. Svg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/FileFormat/Valentina.html">10.1.3.3. Valentina</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/Patro/GeometryEngine.html">10.1.4. GeometryEngine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/GeometryEngine/Bezier.html">10.1.4.1. Bezier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/GeometryEngine/BoundingBox.html">10.1.4.2. BoundingBox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/GeometryEngine/Conic.html">10.1.4.3. Conic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/GeometryEngine/Interpolation.html">10.1.4.4. Interpolation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/GeometryEngine/Line.html">10.1.4.5. Line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/GeometryEngine/Mixin.html">10.1.4.6. Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/GeometryEngine/Path.html">10.1.4.7. Path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/GeometryEngine/Polygon.html">10.1.4.8. Polygon</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/GeometryEngine/Polyline.html">10.1.4.9. Polyline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/GeometryEngine/Primitive.html">10.1.4.10. Primitive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/GeometryEngine/Rectangle.html">10.1.4.11. Rectangle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/GeometryEngine/Segment.html">10.1.4.12. Segment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/GeometryEngine/Shape.html">10.1.4.13. Shape</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/GeometryEngine/Spline.html">10.1.4.14. Spline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/GeometryEngine/Transformation.html">10.1.4.15. Transformation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/GeometryEngine/Triangle.html">10.1.4.16. Triangle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/GeometryEngine/Vector.html">10.1.4.17. Vector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/GeometryEngine.html#purpose">10.1.4.18. Purpose</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/GeometryEngine.html#bibliographical-references">10.1.4.19. Bibliographical References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/Patro/GraphicEngine.html">10.1.5. GraphicEngine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/GraphicEngine/GraphicScene.html">10.1.5.1. GraphicScene</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/GraphicEngine/Painter.html">10.1.5.2. Painter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/GraphicEngine/TeX.html">10.1.5.3. TeX</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/Patro/GraphicStyle.html">10.1.6. GraphicStyle</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/GraphicStyle/Color.html">10.1.6.1. Color</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/Patro/Measurement.html">10.1.7. Measurement</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/Measurement/Measurement.html">10.1.7.1. Measurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/Measurement/PersonalData.html">10.1.7.2. PersonalData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/Measurement/StandardMeasurement.html">10.1.7.3. StandardMeasurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/Measurement/ValentinaMeasurement.html">10.1.7.4. ValentinaMeasurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/Measurement/ValentinaStandardMeasurement.html">10.1.7.5. ValentinaStandardMeasurement</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/Patro/Pattern.html">10.1.8. Pattern</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/Pattern/Calculator.html">10.1.8.1. Calculator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/Patro/QtApplication.html">10.1.9. QtApplication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/Patro/QtApplication/QmlApplication.html">10.1.9.1. QmlApplication</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference-manual.html#indexes">10.2. Indexes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">11. Development &amp; Community</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../development.html#how-you-can-help">11.1. How you can help ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development.html#contributors">11.2. Contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../how-to-refer.html">12. How to Refer to Patro ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../donate.html">13. How to Help Further ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../related-projects.html">14. Related Projects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../related-projects.html#pattern-making">14.1. Pattern Making</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../related-projects.html#embroidery">14.2. Embroidery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../related-projects.html#geometry-engine">14.3. Geometry Engine</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">15. Bibliography</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../bibliography.html#geometry-engine">15.1. Geometry Engine</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Patro</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../features-all.html">2. Features</a> &raquo;</li>
+        
+      <li>2.4.1.1. Valentina Compatibility</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/valentina-compatibility/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="valentina-compatibility">
+<span id="valentina-compatibility-page"></span><h1>2.4.1.1. Valentina Compatibility<a class="headerlink" href="#valentina-compatibility" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">To be completed</p>
+</div>
+<p>To learn more on Valentina format, see the source code:</p>
+<ul class="simple">
+<li>src/libs/ifc/schema/pattern/v0.6.2.xsd</li>
+<li>src/libs/ifc/xml/vpatternconverter.cpp</li>
+</ul>
+<p>Notice the XSD is not sufficient, there is no complete documentation of the Valentina format.</p>
+<div class="section" id="math-expressions">
+<h2>2.4.1.1.1. Math Expressions<a class="headerlink" href="#math-expressions" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://beltoforion.de/article.php?a=muparser">QMuParser</a> expressions are translated to Python and evaluated on the fly.</p>
+<ul class="simple">
+<li>…</li>
+</ul>
+</div>
+<div class="section" id="measurements">
+<h2>2.4.1.1.2. Measurements<a class="headerlink" href="#measurements" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="calculations">
+<h2>2.4.1.1.3. Calculations<a class="headerlink" href="#calculations" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="2%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Feature</th>
+<th class="head">&#160;</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>arc/arcWithLength</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>arc/simple</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>elArc/simple</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>line</td>
+<td>Y</td>
+<td>Construct a line defined by two points</td>
+</tr>
+<tr class="row-even"><td>operation/flippingByAxis</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>operation/flippingByLine</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>operation/moving</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>operation/rotation</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>point/alongLine</td>
+<td>Y</td>
+<td>Construct a point from two points defining a direction and a length</td>
+</tr>
+<tr class="row-odd"><td>point/bisector</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>point/curveIntersectAxis</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>point/cutArc</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>point/cutSpline</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>point/cutSplinePath</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>point/endLine</td>
+<td>Y</td>
+<td>Construct a point from a base point and a vector defined by an angle and a length</td>
+</tr>
+<tr class="row-odd"><td>point/height</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>point/lineIntersect</td>
+<td>Y</td>
+<td>Construct a point from the intersection of two segments defined by four points</td>
+</tr>
+<tr class="row-odd"><td>point/lineIntersectAxis</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>point/normal</td>
+<td>Y</td>
+<td>Construct a point at a distance of the first point on the rotated normal of a line defined by two points</td>
+</tr>
+<tr class="row-odd"><td>point/pointFromArcAndTangent</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>point/pointFromCircleAndTangent</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>point/pointOfContact</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>point/pointOfIntersection</td>
+<td>Y</td>
+<td>Construct a point from the x coordinate of a fist point and the y coordinate of a second point</td>
+</tr>
+<tr class="row-odd"><td>point/pointOfIntersectionArcs</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>point/pointOfIntersectionCircles</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>point/pointOfIntersectionCurves</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>point/shoulder</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>point/single</td>
+<td>Y</td>
+<td>Construct a point from coordinate</td>
+</tr>
+<tr class="row-even"><td>point/triangle</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>point/trueDarts</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>spline/cubicBezier</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>spline/cubicBezierPath</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>spline/pathInteractive</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>spline/simpleInteractive</td>
+<td>Y</td>
+<td>Construct a quadratic Bezier curve from two extremity points and two control points</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="graphic-properties">
+<h2>2.4.1.1.4. Graphic Properties<a class="headerlink" href="#graphic-properties" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>line styles</li>
+<li>colors</li>
+</ul>
+</div>
+<div class="section" id="detail">
+<h2>2.4.1.1.5. Detail<a class="headerlink" href="#detail" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>…</li>
+</ul>
+</div>
+<div class="section" id="valentina-file-examples">
+<h2>2.4.1.1.6. Valentina File Examples<a class="headerlink" href="#valentina-file-examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="measurements-vit-example">
+<h3>2.4.1.1.6.1. Measurements .vit Example<a class="headerlink" href="#measurements-vit-example" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&#39;1.0&#39; encoding=&#39;UTF-8&#39;?&gt;</span>
+<span class="nt">&lt;vit&gt;</span>
+  <span class="c">&lt;!--Measurements created with Valentina (http://www.valentina-project.org/).--&gt;</span>
+  <span class="nt">&lt;version&gt;</span>0.3.3<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;read-only&gt;</span>false<span class="nt">&lt;/read-only&gt;</span>
+  <span class="nt">&lt;notes/&gt;</span>
+  <span class="nt">&lt;unit&gt;</span>cm<span class="nt">&lt;/unit&gt;</span>
+  <span class="nt">&lt;pm_system&gt;</span>998<span class="nt">&lt;/pm_system&gt;</span>
+  <span class="nt">&lt;personal&gt;</span>
+    <span class="nt">&lt;family-name&gt;</span>Doe<span class="nt">&lt;/family-name&gt;</span>
+    <span class="nt">&lt;given-name&gt;</span>John<span class="nt">&lt;/given-name&gt;</span>
+    <span class="nt">&lt;birth-date&gt;</span>1970-01-01<span class="nt">&lt;/birth-date&gt;</span>
+    <span class="nt">&lt;gender&gt;</span>male<span class="nt">&lt;/gender&gt;</span>
+    <span class="nt">&lt;email/&gt;</span>
+  <span class="nt">&lt;/personal&gt;</span>
+  <span class="nt">&lt;body-measurements&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;46&quot;</span> <span class="na">name=</span><span class="s">&quot;height_knee&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;10&quot;</span> <span class="na">name=</span><span class="s">&quot;height_ankle_high&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;95 &quot;</span> <span class="na">name=</span><span class="s">&quot;bust_circ&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;84&quot;</span> <span class="na">name=</span><span class="s">&quot;waist_circ&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;88&quot;</span> <span class="na">name=</span><span class="s">&quot;highhip_circ&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;96&quot;</span> <span class="na">name=</span><span class="s">&quot;hip_circ&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;(hip_arc_b + hip_with_abdomen_arc_f)&quot;</span> <span class="na">name=</span><span class="s">&quot;hip_circ_with_abdomen&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;(hip_arc_f/2)&quot;</span> <span class="na">name=</span><span class="s">&quot;hip_arc_half_f&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;(hip_circ - hip_arc_f)&quot;</span> <span class="na">name=</span><span class="s">&quot;hip_arc_b&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;0&quot;</span> <span class="na">name=</span><span class="s">&quot;hip_arc_f&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;0&quot;</span> <span class="na">name=</span><span class="s">&quot;hip_with_abdomen_arc_f&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;81&quot;</span> <span class="na">name=</span><span class="s">&quot;leg_crotch_to_floor&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;73&quot;</span> <span class="na">name=</span><span class="s">&quot;@leg_crotch_to_floor_men&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;100&quot;</span> <span class="na">name=</span><span class="s">&quot;leg_waist_side_to_floor&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;54.5&quot;</span> <span class="na">name=</span><span class="s">&quot;leg_thigh_upper_circ&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;50&quot;</span> <span class="na">name=</span><span class="s">&quot;leg_thigh_mid_circ&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;37&quot;</span> <span class="na">name=</span><span class="s">&quot;leg_knee_circ&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;32&quot;</span> <span class="na">name=</span><span class="s">&quot;leg_knee_small_circ&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;37&quot;</span> <span class="na">name=</span><span class="s">&quot;leg_calf_circ&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;21&quot;</span> <span class="na">name=</span><span class="s">&quot;leg_ankle_high_circ&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;24&quot;</span> <span class="na">name=</span><span class="s">&quot;leg_ankle_circ&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;40&quot;</span> <span class="na">name=</span><span class="s">&quot;leg_knee_circ_bent&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;62&quot;</span> <span class="na">name=</span><span class="s">&quot;crotch_length&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;28&quot;</span> <span class="na">name=</span><span class="s">&quot;crotch_length_b&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;(crotch_length - crotch_length_b)&quot;</span> <span class="na">name=</span><span class="s">&quot;crotch_length_f&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;22&quot;</span> <span class="na">name=</span><span class="s">&quot;rise_length_side_sitting&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;26&quot;</span> <span class="na">name=</span><span class="s">&quot;rise_length_diag&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">full_name=</span><span class="s">&quot;Longeur ourlet bas pantalon&quot;</span> <span class="na">value=</span><span class="s">&quot;10&quot;</span> <span class="na">description=</span><span class="s">&quot;Logueur d&#39;ourlet de bas de pantalon&quot;</span> <span class="na">name=</span><span class="s">&quot;@longeur_ourlet_bas_pantalon&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">full_name=</span><span class="s">&quot;Largeur de bas de pantalon&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span> <span class="na">description=</span><span class="s">&quot;*2 ?&quot;</span> <span class="na">name=</span><span class="s">&quot;@largeur_bas_pantalon&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">full_name=</span><span class="s">&quot;Aisanse au genou&quot;</span> <span class="na">value=</span><span class="s">&quot;6&quot;</span> <span class="na">description=</span><span class="s">&quot;???&quot;</span> <span class="na">name=</span><span class="s">&quot;@aisanse_genou&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;leg_knee_circ+@aisanse_genou&quot;</span> <span class="na">name=</span><span class="s">&quot;@circ_genou_avec_aisance&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">full_name=</span><span class="s">&quot;Aisance bassin Pantalon plat&quot;</span> <span class="na">value=</span><span class="s">&quot;10&quot;</span> <span class="na">name=</span><span class="s">&quot;@aisance_bassin_pantalon_plat&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">full_name=</span><span class="s">&quot;Tour bassin avec aisance Pantalon plat&quot;</span> <span class="na">value=</span><span class="s">&quot;hip_circ+@aisance_bassin_pantalon_plat&quot;</span> <span class="na">name=</span><span class="s">&quot;@tour_bassin_avec_aisance_pantalon_plat&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">full_name=</span><span class="s">&quot;Largeur au genou avec aisance (circ)&quot;</span> <span class="na">value=</span><span class="s">&quot;54&quot;</span> <span class="na">name=</span><span class="s">&quot;@circ_genou_avec_aisance_pantalon_plat&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;4&quot;</span> <span class="na">name=</span><span class="s">&quot;@aisance_taile_pantalon_casual&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">full_name=</span><span class="s">&quot;Aisance bassin Pantalon casual&quot;</span> <span class="na">value=</span><span class="s">&quot;16&quot;</span> <span class="na">name=</span><span class="s">&quot;@aisance_bassin_pantalon_casual&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;waist_circ+@aisance_taile_pantalon_casual&quot;</span> <span class="na">name=</span><span class="s">&quot;@tour_taille_avec_aisance_pantalon_casual&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">full_name=</span><span class="s">&quot;Tour bassin avec aisance Pantalon casual&quot;</span> <span class="na">value=</span><span class="s">&quot;hip_circ+@aisance_bassin_pantalon_casual&quot;</span> <span class="na">name=</span><span class="s">&quot;@tour_bassin_avec_aisance_pantalon_casual&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;52&quot;</span> <span class="na">name=</span><span class="s">&quot;@circ_genou_avec_aisance_pantalon_casual&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">full_name=</span><span class="s">&quot;Largeur de bas de pantalon Casual&quot;</span> <span class="na">value=</span><span class="s">&quot;44&quot;</span> <span class="na">name=</span><span class="s">&quot;@circ_bas_pantalon_casual&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;4&quot;</span> <span class="na">name=</span><span class="s">&quot;@aisance_taile_pantalon_jeans&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">full_name=</span><span class="s">&quot;Aisance bassin Pantalon jeans&quot;</span> <span class="na">value=</span><span class="s">&quot;8&quot;</span> <span class="na">name=</span><span class="s">&quot;@aisance_bassin_pantalon_jeans&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;waist_circ+@aisance_taile_pantalon_jeans&quot;</span> <span class="na">name=</span><span class="s">&quot;@tour_taille_avec_aisance_pantalon_jeans&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">full_name=</span><span class="s">&quot;Tour bassin avec aisance Pantalon jeans&quot;</span> <span class="na">value=</span><span class="s">&quot;hip_circ+@aisance_bassin_pantalon_jeans&quot;</span> <span class="na">name=</span><span class="s">&quot;@tour_bassin_avec_aisance_pantalon_jeans&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">value=</span><span class="s">&quot;44&quot;</span> <span class="na">name=</span><span class="s">&quot;@circ_genou_avec_aisance_pantalon_jeans&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;m</span> <span class="na">full_name=</span><span class="s">&quot;Largeur de bas de pantalon Jeans&quot;</span> <span class="na">value=</span><span class="s">&quot;38&quot;</span> <span class="na">name=</span><span class="s">&quot;@circ_bas_pantalon_jeans&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/body-measurements&gt;</span>
+<span class="nt">&lt;/vit&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pattern-val-example">
+<h3>2.4.1.1.6.2. Pattern .val Example<a class="headerlink" href="#pattern-val-example" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&#39;1.0&#39; encoding=&#39;UTF-8&#39;?&gt;</span>
+<span class="nt">&lt;pattern&gt;</span>
+    <span class="c">&lt;!--Pattern created with Valentina (http://www.valentina-project.org/).--&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.4.0<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;unit&gt;</span>cm<span class="nt">&lt;/unit&gt;</span>
+    <span class="nt">&lt;author/&gt;</span>
+    <span class="nt">&lt;description/&gt;</span>
+    <span class="nt">&lt;notes/&gt;</span>
+    <span class="nt">&lt;measurements/&gt;</span>
+    <span class="nt">&lt;increments/&gt;</span>
+    <span class="nt">&lt;draw</span> <span class="na">name=</span><span class="s">&quot;Pattern piece 1&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;calculation&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;1&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">x=</span><span class="s">&quot;0.79375&quot;</span> <span class="na">y=</span><span class="s">&quot;1.05833&quot;</span> <span class="na">name=</span><span class="s">&quot;A&quot;</span> <span class="na">type=</span><span class="s">&quot;single&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;2&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;1&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">length=</span><span class="s">&quot;10&quot;</span> <span class="na">name=</span><span class="s">&quot;X&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;blue&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;360&quot;</span> <span class="na">my=</span><span class="s">&quot;0.25879&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;4&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;1&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;-0.0996573&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;2&quot;</span> <span class="na">length=</span><span class="s">&quot;CurrentLength/2&quot;</span> <span class="na">name=</span><span class="s">&quot;M&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;violet&quot;</span> <span class="na">type=</span><span class="s">&quot;alongLine&quot;</span> <span class="na">my=</span><span class="s">&quot;0.612507&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;5&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;1&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;2&quot;</span> <span class="na">length=</span><span class="s">&quot;Line_A_X&quot;</span> <span class="na">name=</span><span class="s">&quot;Y&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;deeppink&quot;</span> <span class="na">type=</span><span class="s">&quot;normal&quot;</span> <span class="na">angle=</span><span class="s">&quot;0&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;6&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;1&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">length=</span><span class="s">&quot;20&quot;</span> <span class="na">name=</span><span class="s">&quot;An1&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;cornflowerblue&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;10&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;7&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;1&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;dotLine&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.529451&quot;</span> <span class="na">length=</span><span class="s">&quot;Line_A_An1&quot;</span> <span class="na">name=</span><span class="s">&quot;An2&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;lime&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;20&quot;</span> <span class="na">my=</span><span class="s">&quot;-0.690272&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;8&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;1&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;dotLine&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.480216&quot;</span> <span class="na">length=</span><span class="s">&quot;Line_A_An1&quot;</span> <span class="na">name=</span><span class="s">&quot;An3&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;darkBlue&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;30&quot;</span> <span class="na">my=</span><span class="s">&quot;0.467539&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;9&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;1&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;dashLine&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.190279&quot;</span> <span class="na">length=</span><span class="s">&quot;Line_A_An1&quot;</span> <span class="na">name=</span><span class="s">&quot;An4&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;darkGreen&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;40&quot;</span> <span class="na">my=</span><span class="s">&quot;0.293577&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;10&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;1&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;dashDotLine&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.161286&quot;</span> <span class="na">length=</span><span class="s">&quot;Line_A_An1&quot;</span> <span class="na">name=</span><span class="s">&quot;An5&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;darkRed&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;50&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;11&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;1&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;dashDotDotLine&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.0743047&quot;</span> <span class="na">length=</span><span class="s">&quot;Line_A_An1&quot;</span> <span class="na">name=</span><span class="s">&quot;An6&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;darkviolet&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;60&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;12&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;1&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;none&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;6&quot;</span> <span class="na">length=</span><span class="s">&quot;15&quot;</span> <span class="na">name=</span><span class="s">&quot;C&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;alongLine&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;13&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;2&quot;</span> <span class="na">thirdPoint=</span><span class="s">&quot;5&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;1&quot;</span> <span class="na">length=</span><span class="s">&quot;Line_A_X&quot;</span> <span class="na">name=</span><span class="s">&quot;B&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;deepskyblue&quot;</span> <span class="na">type=</span><span class="s">&quot;bisector&quot;</span> <span class="na">my=</span><span class="s">&quot;0.289512&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;14&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;2&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;5&quot;</span> <span class="na">name=</span><span class="s">&quot;XY&quot;</span> <span class="na">type=</span><span class="s">&quot;pointOfIntersection&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;15&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;2&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;14&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;orange&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;16&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;14&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;5&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;17&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">p1Line2=</span><span class="s">&quot;2&quot;</span> <span class="na">p1Line1=</span><span class="s">&quot;1&quot;</span> <span class="na">name=</span><span class="s">&quot;I&quot;</span> <span class="na">type=</span><span class="s">&quot;lineIntersect&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span> <span class="na">p2Line1=</span><span class="s">&quot;12&quot;</span> <span class="na">p2Line2=</span><span class="s">&quot;14&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;18&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;7&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">p2Line=</span><span class="s">&quot;14&quot;</span> <span class="na">name=</span><span class="s">&quot;P&quot;</span> <span class="na">p1Line=</span><span class="s">&quot;2&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;mediumseagreen&quot;</span> <span class="na">type=</span><span class="s">&quot;height&quot;</span> <span class="na">my=</span><span class="s">&quot;0.293577&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;19&quot;</span> <span class="na">radius=</span><span class="s">&quot;Line_A_M*3/2&quot;</span> <span class="na">center=</span><span class="s">&quot;4&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;1&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;5&quot;</span> <span class="na">name=</span><span class="s">&quot;R&quot;</span> <span class="na">type=</span><span class="s">&quot;pointOfContact&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;20&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;14&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.422229&quot;</span> <span class="na">p2Line=</span><span class="s">&quot;1&quot;</span> <span class="na">name=</span><span class="s">&quot;AxAn&quot;</span> <span class="na">p1Line=</span><span class="s">&quot;5&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;goldenrod&quot;</span> <span class="na">type=</span><span class="s">&quot;lineIntersectAxis&quot;</span> <span class="na">angle=</span><span class="s">&quot;150&quot;</span> <span class="na">my=</span><span class="s">&quot;-1.82296&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;21&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.799146&quot;</span> <span class="na">p2Line=</span><span class="s">&quot;14&quot;</span> <span class="na">length=</span><span class="s">&quot;Line_X_XY*2&quot;</span> <span class="na">pShoulder=</span><span class="s">&quot;20&quot;</span> <span class="na">name=</span><span class="s">&quot;Sh&quot;</span> <span class="na">p1Line=</span><span class="s">&quot;5&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;lightsalmon&quot;</span> <span class="na">type=</span><span class="s">&quot;shoulder&quot;</span> <span class="na">my=</span><span class="s">&quot;-1.38806&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;22&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;5&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;20&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;yellow&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;23&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;6&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;7&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;green&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;24&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;1&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;none&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">length=</span><span class="s">&quot;25&quot;</span> <span class="na">name=</span><span class="s">&quot;At&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;90&quot;</span> <span class="na">my=</span><span class="s">&quot;0.227009&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;25&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;24&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">length=</span><span class="s">&quot;5&quot;</span> <span class="na">name=</span><span class="s">&quot;Bt&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;10&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;26&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;25&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;24&quot;</span> <span class="na">length=</span><span class="s">&quot;5&quot;</span> <span class="na">name=</span><span class="s">&quot;Ct&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;blue&quot;</span> <span class="na">type=</span><span class="s">&quot;normal&quot;</span> <span class="na">angle=</span><span class="s">&quot;0&quot;</span> <span class="na">my=</span><span class="s">&quot;0.189435&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;27&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;25&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;none&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;26&quot;</span> <span class="na">length=</span><span class="s">&quot;-Line_Bt_Ct&quot;</span> <span class="na">name=</span><span class="s">&quot;Dt&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;alongLine&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;28&quot;</span> <span class="na">axisP2=</span><span class="s">&quot;25&quot;</span> <span class="na">axisP1=</span><span class="s">&quot;24&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;27&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.847452&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;26&quot;</span> <span class="na">name=</span><span class="s">&quot;T1&quot;</span> <span class="na">type=</span><span class="s">&quot;triangle&quot;</span> <span class="na">my=</span><span class="s">&quot;1.4024&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;29&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;25&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;none&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">length=</span><span class="s">&quot;Line_Bt_Ct&quot;</span> <span class="na">name=</span><span class="s">&quot;Et&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;60&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;30&quot;</span> <span class="na">axisP2=</span><span class="s">&quot;25&quot;</span> <span class="na">axisP1=</span><span class="s">&quot;24&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;29&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.79244&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;26&quot;</span> <span class="na">name=</span><span class="s">&quot;T2&quot;</span> <span class="na">type=</span><span class="s">&quot;triangle&quot;</span> <span class="na">my=</span><span class="s">&quot;-1.55082&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;31&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;27&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;25&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;blue&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;32&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;27&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;28&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;blue&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;33&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;26&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;28&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;blue&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;34&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;29&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;26&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;darkGreen&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;35&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;29&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;30&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;darkGreen&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;36&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;26&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;30&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;darkGreen&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;37&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;25&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;30&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;38&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;24&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;none&quot;</span> <span class="na">mx=</span><span class="s">&quot;-1.57309&quot;</span> <span class="na">length=</span><span class="s">&quot;30&quot;</span> <span class="na">name=</span><span class="s">&quot;Ad&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;0&quot;</span> <span class="na">my=</span><span class="s">&quot;0.814706&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;39&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;38&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.297329&quot;</span> <span class="na">length=</span><span class="s">&quot;20&quot;</span> <span class="na">name=</span><span class="s">&quot;Bd&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;30&quot;</span> <span class="na">my=</span><span class="s">&quot;0.319595&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;40&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;38&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;none&quot;</span> <span class="na">mx=</span><span class="s">&quot;1.23254&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;39&quot;</span> <span class="na">length=</span><span class="s">&quot;CurrentLength/2&quot;</span> <span class="na">name=</span><span class="s">&quot;Md&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;alongLine&quot;</span> <span class="na">my=</span><span class="s">&quot;-0.175515&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;41&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;40&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;38&quot;</span> <span class="na">length=</span><span class="s">&quot;10&quot;</span> <span class="na">name=</span><span class="s">&quot;Dd&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;normal&quot;</span> <span class="na">angle=</span><span class="s">&quot;0&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;42&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;40&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;none&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.847452&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;39&quot;</span> <span class="na">length=</span><span class="s">&quot;5&quot;</span> <span class="na">name=</span><span class="s">&quot;Dd2&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;alongLine&quot;</span> <span class="na">my=</span><span class="s">&quot;0.154558&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;43&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;40&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;none&quot;</span> <span class="na">mx=</span><span class="s">&quot;-1.13299&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;38&quot;</span> <span class="na">length=</span><span class="s">&quot;Line_Md_Dd2&quot;</span> <span class="na">name=</span><span class="s">&quot;Dd1&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;alongLine&quot;</span> <span class="na">my=</span><span class="s">&quot;1.74992&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;44&quot;</span> <span class="na">mx2=</span><span class="s">&quot;-3.93862&quot;</span> <span class="na">baseLineP2=</span><span class="s">&quot;39&quot;</span> <span class="na">baseLineP1=</span><span class="s">&quot;38&quot;</span> <span class="na">mx1=</span><span class="s">&quot;0.242317&quot;</span> <span class="na">dartP3=</span><span class="s">&quot;42&quot;</span> <span class="na">name1=</span><span class="s">&quot;Td1&quot;</span> <span class="na">dartP2=</span><span class="s">&quot;41&quot;</span> <span class="na">point2=</span><span class="s">&quot;46&quot;</span> <span class="na">point1=</span><span class="s">&quot;45&quot;</span> <span class="na">name2=</span><span class="s">&quot;Td2&quot;</span> <span class="na">my2=</span><span class="s">&quot;-0.175515&quot;</span> <span class="na">type=</span><span class="s">&quot;trueDarts&quot;</span> <span class="na">my1=</span><span class="s">&quot;-2.54104&quot;</span> <span class="na">dartP1=</span><span class="s">&quot;43&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;47&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;38&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;45&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;blue&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;48&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;45&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;41&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;blue&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;49&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;41&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;46&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;blue&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;50&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;46&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;39&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;blue&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;51&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;24&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;none&quot;</span> <span class="na">mx=</span><span class="s">&quot;-1.46306&quot;</span> <span class="na">length=</span><span class="s">&quot;15&quot;</span> <span class="na">name=</span><span class="s">&quot;Ca1&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;90&quot;</span> <span class="na">my=</span><span class="s">&quot;2.07999&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;52&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;51&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;none&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.187304&quot;</span> <span class="na">length=</span><span class="s">&quot;20&quot;</span> <span class="na">name=</span><span class="s">&quot;Cb1&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;30&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;spline</span> <span class="na">id=</span><span class="s">&quot;53&quot;</span> <span class="na">angle2=</span><span class="s">&quot;138.403&quot;</span> <span class="na">length2=</span><span class="s">&quot;14.0301&quot;</span> <span class="na">angle1=</span><span class="s">&quot;329.987&quot;</span> <span class="na">length1=</span><span class="s">&quot;18.2062&quot;</span> <span class="na">point4=</span><span class="s">&quot;52&quot;</span> <span class="na">type=</span><span class="s">&quot;simpleInteractive&quot;</span> <span class="na">point1=</span><span class="s">&quot;51&quot;</span> <span class="na">color=</span><span class="s">&quot;blue&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;54&quot;</span> <span class="na">spline=</span><span class="s">&quot;53&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.196818&quot;</span> <span class="na">length=</span><span class="s">&quot;10&quot;</span> <span class="na">name=</span><span class="s">&quot;Cl1&quot;</span> <span class="na">type=</span><span class="s">&quot;cutSpline&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;55&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;51&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.906609&quot;</span> <span class="na">length=</span><span class="s">&quot;10&quot;</span> <span class="na">name=</span><span class="s">&quot;Ca2&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;darkGreen&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;50&quot;</span> <span class="na">my=</span><span class="s">&quot;0.522689&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;56&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;52&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">length=</span><span class="s">&quot;5&quot;</span> <span class="na">name=</span><span class="s">&quot;Cb2&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;darkGreen&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;280&quot;</span> <span class="na">my=</span><span class="s">&quot;0.200057&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;spline</span> <span class="na">id=</span><span class="s">&quot;57&quot;</span> <span class="na">duplicate=</span><span class="s">&quot;1&quot;</span> <span class="na">point4=</span><span class="s">&quot;52&quot;</span> <span class="na">point2=</span><span class="s">&quot;55&quot;</span> <span class="na">point3=</span><span class="s">&quot;56&quot;</span> <span class="na">type=</span><span class="s">&quot;cubicBezier&quot;</span> <span class="na">point1=</span><span class="s">&quot;51&quot;</span> <span class="na">color=</span><span class="s">&quot;goldenrod&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;58&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;52&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">length=</span><span class="s">&quot;15&quot;</span> <span class="na">name=</span><span class="s">&quot;Cc1&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;-30&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;spline</span> <span class="na">id=</span><span class="s">&quot;59&quot;</span> <span class="na">type=</span><span class="s">&quot;pathInteractive&quot;</span> <span class="na">color=</span><span class="s">&quot;violet&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;pathPoint</span> <span class="na">angle2=</span><span class="s">&quot;333.352&quot;</span> <span class="na">length2=</span><span class="s">&quot;25.9685&quot;</span> <span class="na">length1=</span><span class="s">&quot;0&quot;</span> <span class="na">angle1=</span><span class="s">&quot;153.352&quot;</span> <span class="na">pSpline=</span><span class="s">&quot;51&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;pathPoint</span> <span class="na">angle2=</span><span class="s">&quot;82.712&quot;</span> <span class="na">length2=</span><span class="s">&quot;15.9887&quot;</span> <span class="na">length1=</span><span class="s">&quot;9.36267&quot;</span> <span class="na">angle1=</span><span class="s">&quot;262.712&quot;</span> <span class="na">pSpline=</span><span class="s">&quot;52&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;pathPoint</span> <span class="na">angle2=</span><span class="s">&quot;254.923&quot;</span> <span class="na">length2=</span><span class="s">&quot;1.78344&quot;</span> <span class="na">length1=</span><span class="s">&quot;7.70133&quot;</span> <span class="na">angle1=</span><span class="s">&quot;74.9232&quot;</span> <span class="na">pSpline=</span><span class="s">&quot;58&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;/spline&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;60&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">splinePath=</span><span class="s">&quot;59&quot;</span> <span class="na">length=</span><span class="s">&quot;20&quot;</span> <span class="na">name=</span><span class="s">&quot;CI2&quot;</span> <span class="na">type=</span><span class="s">&quot;cutSplinePath&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;61&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;58&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">length=</span><span class="s">&quot;10&quot;</span> <span class="na">name=</span><span class="s">&quot;Cd1&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;40&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;63&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;61&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">length=</span><span class="s">&quot;10&quot;</span> <span class="na">name=</span><span class="s">&quot;Ce1&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;-50&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;64&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;63&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">length=</span><span class="s">&quot;15&quot;</span> <span class="na">name=</span><span class="s">&quot;Cf1&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;70&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;65&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;64&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">length=</span><span class="s">&quot;10&quot;</span> <span class="na">name=</span><span class="s">&quot;Cg1&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;-80&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;spline</span> <span class="na">id=</span><span class="s">&quot;66&quot;</span> <span class="na">type=</span><span class="s">&quot;cubicBezierPath&quot;</span> <span class="na">color=</span><span class="s">&quot;deepskyblue&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;pathPoint</span> <span class="na">pSpline=</span><span class="s">&quot;51&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;pathPoint</span> <span class="na">pSpline=</span><span class="s">&quot;52&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;pathPoint</span> <span class="na">pSpline=</span><span class="s">&quot;58&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;pathPoint</span> <span class="na">pSpline=</span><span class="s">&quot;61&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;pathPoint</span> <span class="na">pSpline=</span><span class="s">&quot;63&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;pathPoint</span> <span class="na">pSpline=</span><span class="s">&quot;64&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;pathPoint</span> <span class="na">pSpline=</span><span class="s">&quot;65&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;/spline&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;67&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.971135&quot;</span> <span class="na">curve1=</span><span class="s">&quot;59&quot;</span> <span class="na">vCrossPoint=</span><span class="s">&quot;1&quot;</span> <span class="na">curve2=</span><span class="s">&quot;66&quot;</span> <span class="na">hCrossPoint=</span><span class="s">&quot;1&quot;</span> <span class="na">name=</span><span class="s">&quot;Ci1&quot;</span> <span class="na">type=</span><span class="s">&quot;pointOfIntersectionCurves&quot;</span> <span class="na">my=</span><span class="s">&quot;-3.86511&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;68&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;64&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.583977&quot;</span> <span class="na">name=</span><span class="s">&quot;Cax1&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;blue&quot;</span> <span class="na">type=</span><span class="s">&quot;curveIntersectAxis&quot;</span> <span class="na">angle=</span><span class="s">&quot;10&quot;</span> <span class="na">curve=</span><span class="s">&quot;59&quot;</span> <span class="na">my=</span><span class="s">&quot;-3.15532&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;71&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;51&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;none&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">length=</span><span class="s">&quot;40&quot;</span> <span class="na">name=</span><span class="s">&quot;A3&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;70&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;arc</span> <span class="na">id=</span><span class="s">&quot;72&quot;</span> <span class="na">radius=</span><span class="s">&quot;10&quot;</span> <span class="na">angle2=</span><span class="s">&quot;-30&quot;</span> <span class="na">center=</span><span class="s">&quot;71&quot;</span> <span class="na">angle1=</span><span class="s">&quot;30&quot;</span> <span class="na">type=</span><span class="s">&quot;simple&quot;</span> <span class="na">color=</span><span class="s">&quot;black&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;73&quot;</span> <span class="na">mx=</span><span class="s">&quot;-3.79185&quot;</span> <span class="na">length=</span><span class="s">&quot;30&quot;</span> <span class="na">arc=</span><span class="s">&quot;72&quot;</span> <span class="na">name=</span><span class="s">&quot;Cl3&quot;</span> <span class="na">type=</span><span class="s">&quot;cutArc&quot;</span> <span class="na">my=</span><span class="s">&quot;1.41311&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;76&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;71&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;none&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">length=</span><span class="s">&quot;15&quot;</span> <span class="na">name=</span><span class="s">&quot;A4&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;0&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;arc</span> <span class="na">id=</span><span class="s">&quot;77&quot;</span> <span class="na">radius=</span><span class="s">&quot;10&quot;</span> <span class="na">angle2=</span><span class="s">&quot;280&quot;</span> <span class="na">center=</span><span class="s">&quot;76&quot;</span> <span class="na">angle1=</span><span class="s">&quot;10&quot;</span> <span class="na">type=</span><span class="s">&quot;simple&quot;</span> <span class="na">color=</span><span class="s">&quot;black&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;78&quot;</span> <span class="na">firstArc=</span><span class="s">&quot;72&quot;</span> <span class="na">mx=</span><span class="s">&quot;-1.39908&quot;</span> <span class="na">secondArc=</span><span class="s">&quot;77&quot;</span> <span class="na">crossPoint=</span><span class="s">&quot;1&quot;</span> <span class="na">name=</span><span class="s">&quot;Ci2&quot;</span> <span class="na">type=</span><span class="s">&quot;pointOfIntersectionArcs&quot;</span> <span class="na">my=</span><span class="s">&quot;2.65735&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;79&quot;</span> <span class="na">c1Center=</span><span class="s">&quot;71&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">crossPoint=</span><span class="s">&quot;1&quot;</span> <span class="na">c1Radius=</span><span class="s">&quot;15&quot;</span> <span class="na">name=</span><span class="s">&quot;Ci3&quot;</span> <span class="na">c2Radius=</span><span class="s">&quot;18&quot;</span> <span class="na">type=</span><span class="s">&quot;pointOfIntersectionCircles&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span> <span class="na">c2Center=</span><span class="s">&quot;76&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;80&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;79&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;-0.729105&quot;</span> <span class="na">name=</span><span class="s">&quot;Ci4&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;curveIntersectAxis&quot;</span> <span class="na">angle=</span><span class="s">&quot;120&quot;</span> <span class="na">curve=</span><span class="s">&quot;72&quot;</span> <span class="na">my=</span><span class="s">&quot;-4.42524&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;81&quot;</span> <span class="na">tangent=</span><span class="s">&quot;80&quot;</span> <span class="na">mx=</span><span class="s">&quot;-2.93045&quot;</span> <span class="na">cRadius=</span><span class="s">&quot;3&quot;</span> <span class="na">cCenter=</span><span class="s">&quot;71&quot;</span> <span class="na">crossPoint=</span><span class="s">&quot;1&quot;</span> <span class="na">name=</span><span class="s">&quot;Cp1&quot;</span> <span class="na">type=</span><span class="s">&quot;pointFromCircleAndTangent&quot;</span> <span class="na">my=</span><span class="s">&quot;-2.70245&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;82&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;80&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;81&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;blue&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;83&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;76&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;none&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">length=</span><span class="s">&quot;15&quot;</span> <span class="na">name=</span><span class="s">&quot;A5&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;45&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;84&quot;</span> <span class="na">tangent=</span><span class="s">&quot;83&quot;</span> <span class="na">mx=</span><span class="s">&quot;-1.30337&quot;</span> <span class="na">crossPoint=</span><span class="s">&quot;1&quot;</span> <span class="na">arc=</span><span class="s">&quot;77&quot;</span> <span class="na">name=</span><span class="s">&quot;Ctan&quot;</span> <span class="na">type=</span><span class="s">&quot;pointFromArcAndTangent&quot;</span> <span class="na">my=</span><span class="s">&quot;1.79596&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;85&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;83&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;84&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;blue&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;arc</span> <span class="na">id=</span><span class="s">&quot;86&quot;</span> <span class="na">radius=</span><span class="s">&quot;10&quot;</span> <span class="na">center=</span><span class="s">&quot;83&quot;</span> <span class="na">angle1=</span><span class="s">&quot;45&quot;</span> <span class="na">length=</span><span class="s">&quot;30&quot;</span> <span class="na">type=</span><span class="s">&quot;arcWithLength&quot;</span> <span class="na">color=</span><span class="s">&quot;black&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;elArc</span> <span class="na">id=</span><span class="s">&quot;87&quot;</span> <span class="na">angle2=</span><span class="s">&quot;300&quot;</span> <span class="na">center=</span><span class="s">&quot;83&quot;</span> <span class="na">radius2=</span><span class="s">&quot;15&quot;</span> <span class="na">rotationAngle=</span><span class="s">&quot;60&quot;</span> <span class="na">radius1=</span><span class="s">&quot;10&quot;</span> <span class="na">angle1=</span><span class="s">&quot;30&quot;</span> <span class="na">type=</span><span class="s">&quot;simple&quot;</span> <span class="na">color=</span><span class="s">&quot;lime&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;88&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;1&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;none&quot;</span> <span class="na">mx=</span><span class="s">&quot;-1.93185&quot;</span> <span class="na">length=</span><span class="s">&quot;50&quot;</span> <span class="na">name=</span><span class="s">&quot;A6&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;0&quot;</span> <span class="na">my=</span><span class="s">&quot;0.69914&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;89&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;88&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;none&quot;</span> <span class="na">mx=</span><span class="s">&quot;1.00141&quot;</span> <span class="na">length=</span><span class="s">&quot;10&quot;</span> <span class="na">name=</span><span class="s">&quot;A7&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;0&quot;</span> <span class="na">my=</span><span class="s">&quot;0.0473046&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;90&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;89&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;none&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">length=</span><span class="s">&quot;10&quot;</span> <span class="na">name=</span><span class="s">&quot;A8&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;120&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;91&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;88&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;90&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;blue&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;92&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;90&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">p2Line=</span><span class="s">&quot;88&quot;</span> <span class="na">name=</span><span class="s">&quot;A1&quot;</span> <span class="na">p1Line=</span><span class="s">&quot;89&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;height&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;93&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;88&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">p2Line=</span><span class="s">&quot;90&quot;</span> <span class="na">name=</span><span class="s">&quot;A2&quot;</span> <span class="na">p1Line=</span><span class="s">&quot;89&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;height&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;94&quot;</span> <span class="na">mx=</span><span class="s">&quot;-7.24225&quot;</span> <span class="na">p1Line2=</span><span class="s">&quot;90&quot;</span> <span class="na">p1Line1=</span><span class="s">&quot;88&quot;</span> <span class="na">name=</span><span class="s">&quot;A9&quot;</span> <span class="na">type=</span><span class="s">&quot;lineIntersect&quot;</span> <span class="na">my=</span><span class="s">&quot;-4.21798&quot;</span> <span class="na">p2Line1=</span><span class="s">&quot;93&quot;</span> <span class="na">p2Line2=</span><span class="s">&quot;92&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;96&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;88&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;89&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;blue&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;97&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;89&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;90&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;blue&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;operation</span> <span class="na">id=</span><span class="s">&quot;101&quot;</span> <span class="na">center=</span><span class="s">&quot;94&quot;</span> <span class="na">suffix=</span><span class="s">&quot;rot&quot;</span> <span class="na">type=</span><span class="s">&quot;rotation&quot;</span> <span class="na">angle=</span><span class="s">&quot;30&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;source&gt;</span>
+                    <span class="nt">&lt;item</span> <span class="na">idObject=</span><span class="s">&quot;88&quot;</span><span class="nt">/&gt;</span>
+                    <span class="nt">&lt;item</span> <span class="na">idObject=</span><span class="s">&quot;89&quot;</span><span class="nt">/&gt;</span>
+                    <span class="nt">&lt;item</span> <span class="na">idObject=</span><span class="s">&quot;90&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;/source&gt;</span>
+                <span class="nt">&lt;destination&gt;</span>
+                    <span class="nt">&lt;item</span> <span class="na">idObject=</span><span class="s">&quot;102&quot;</span> <span class="na">mx=</span><span class="s">&quot;-0.193626&quot;</span> <span class="na">my=</span><span class="s">&quot;0.738642&quot;</span><span class="nt">/&gt;</span>
+                    <span class="nt">&lt;item</span> <span class="na">idObject=</span><span class="s">&quot;103&quot;</span> <span class="na">mx=</span><span class="s">&quot;1.08041&quot;</span> <span class="na">my=</span><span class="s">&quot;-1.1576&quot;</span><span class="nt">/&gt;</span>
+                    <span class="nt">&lt;item</span> <span class="na">idObject=</span><span class="s">&quot;104&quot;</span> <span class="na">mx=</span><span class="s">&quot;-2.53431&quot;</span> <span class="na">my=</span><span class="s">&quot;-3.68593&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;/destination&gt;</span>
+            <span class="nt">&lt;/operation&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;105&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;102&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;103&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;deeppink&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;106&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;103&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;104&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;deeppink&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;107&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;104&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;102&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;deeppink&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;operation</span> <span class="na">id=</span><span class="s">&quot;108&quot;</span> <span class="na">suffix=</span><span class="s">&quot;mir&quot;</span> <span class="na">p2Line=</span><span class="s">&quot;89&quot;</span> <span class="na">p1Line=</span><span class="s">&quot;88&quot;</span> <span class="na">type=</span><span class="s">&quot;flippingByLine&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;source&gt;</span>
+                    <span class="nt">&lt;item</span> <span class="na">idObject=</span><span class="s">&quot;90&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;/source&gt;</span>
+                <span class="nt">&lt;destination&gt;</span>
+                    <span class="nt">&lt;item</span> <span class="na">idObject=</span><span class="s">&quot;109&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;/destination&gt;</span>
+            <span class="nt">&lt;/operation&gt;</span>
+            <span class="nt">&lt;operation</span> <span class="na">id=</span><span class="s">&quot;110&quot;</span> <span class="na">center=</span><span class="s">&quot;89&quot;</span> <span class="na">suffix=</span><span class="s">&quot;mir2&quot;</span> <span class="na">axisType=</span><span class="s">&quot;1&quot;</span> <span class="na">type=</span><span class="s">&quot;flippingByAxis&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;source&gt;</span>
+                    <span class="nt">&lt;item</span> <span class="na">idObject=</span><span class="s">&quot;88&quot;</span><span class="nt">/&gt;</span>
+                    <span class="nt">&lt;item</span> <span class="na">idObject=</span><span class="s">&quot;90&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;/source&gt;</span>
+                <span class="nt">&lt;destination&gt;</span>
+                    <span class="nt">&lt;item</span> <span class="na">idObject=</span><span class="s">&quot;111&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+                    <span class="nt">&lt;item</span> <span class="na">idObject=</span><span class="s">&quot;112&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;/destination&gt;</span>
+            <span class="nt">&lt;/operation&gt;</span>
+            <span class="nt">&lt;operation</span> <span class="na">id=</span><span class="s">&quot;113&quot;</span> <span class="na">suffix=</span><span class="s">&quot;mov&quot;</span> <span class="na">length=</span><span class="s">&quot;15&quot;</span> <span class="na">type=</span><span class="s">&quot;moving&quot;</span> <span class="na">angle=</span><span class="s">&quot;160&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;source&gt;</span>
+                    <span class="nt">&lt;item</span> <span class="na">idObject=</span><span class="s">&quot;88&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;/source&gt;</span>
+                <span class="nt">&lt;destination&gt;</span>
+                    <span class="nt">&lt;item</span> <span class="na">idObject=</span><span class="s">&quot;114&quot;</span> <span class="na">mx=</span><span class="s">&quot;-1.4973&quot;</span> <span class="na">my=</span><span class="s">&quot;1.56825&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;/destination&gt;</span>
+            <span class="nt">&lt;/operation&gt;</span>
+        <span class="nt">&lt;/calculation&gt;</span>
+        <span class="nt">&lt;modeling/&gt;</span>
+        <span class="nt">&lt;details/&gt;</span>
+        <span class="nt">&lt;groups&gt;</span>
+            <span class="nt">&lt;group</span> <span class="na">id=</span><span class="s">&quot;100&quot;</span> <span class="na">visible=</span><span class="s">&quot;true&quot;</span> <span class="na">name=</span><span class="s">&quot;group1&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;item</span> <span class="na">object=</span><span class="s">&quot;91&quot;</span> <span class="na">tool=</span><span class="s">&quot;91&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;item</span> <span class="na">object=</span><span class="s">&quot;96&quot;</span> <span class="na">tool=</span><span class="s">&quot;96&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;item</span> <span class="na">object=</span><span class="s">&quot;97&quot;</span> <span class="na">tool=</span><span class="s">&quot;97&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;/group&gt;</span>
+        <span class="nt">&lt;/groups&gt;</span>
+    <span class="nt">&lt;/draw&gt;</span>
+<span class="nt">&lt;/pattern&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;pattern&gt;</span>
+    <span class="c">&lt;!--Pattern created with Valentina (http://www.valentina-project.org/).--&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.4.2<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;unit&gt;</span>cm<span class="nt">&lt;/unit&gt;</span>
+    <span class="nt">&lt;author/&gt;</span>
+    <span class="nt">&lt;description/&gt;</span>
+    <span class="nt">&lt;notes/&gt;</span>
+    <span class="nt">&lt;measurements/&gt;</span>
+    <span class="nt">&lt;increments/&gt;</span>
+    <span class="nt">&lt;draw</span> <span class="na">name=</span><span class="s">&quot;Pattern piece 1&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;calculation&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;1&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">x=</span><span class="s">&quot;0.79375&quot;</span> <span class="na">y=</span><span class="s">&quot;1.05833&quot;</span> <span class="na">name=</span><span class="s">&quot;A&quot;</span> <span class="na">type=</span><span class="s">&quot;single&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;2&quot;</span> <span class="na">basePoint=</span><span class="s">&quot;1&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">length=</span><span class="s">&quot;20&quot;</span> <span class="na">name=</span><span class="s">&quot;A1&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;endLine&quot;</span> <span class="na">angle=</span><span class="s">&quot;0&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;3&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;2&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;1&quot;</span> <span class="na">length=</span><span class="s">&quot;10&quot;</span> <span class="na">name=</span><span class="s">&quot;A2&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;normal&quot;</span> <span class="na">angle=</span><span class="s">&quot;0&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;4&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;1&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;3&quot;</span> <span class="na">name=</span><span class="s">&quot;A3&quot;</span> <span class="na">type=</span><span class="s">&quot;pointOfIntersection&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;5&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;1&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;4&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;line</span> <span class="na">id=</span><span class="s">&quot;6&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;4&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;hair&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;3&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;12&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;1&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;none&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;4&quot;</span> <span class="na">length=</span><span class="s">&quot;CurrentLength/2&quot;</span> <span class="na">name=</span><span class="s">&quot;A4&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;alongLine&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;13&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;2&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;none&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;3&quot;</span> <span class="na">length=</span><span class="s">&quot;CurrentLength/2&quot;</span> <span class="na">name=</span><span class="s">&quot;A5&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;alongLine&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;17&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;1&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;none&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;12&quot;</span> <span class="na">length=</span><span class="s">&quot;CurrentLength/2&quot;</span> <span class="na">name=</span><span class="s">&quot;A6&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;alongLine&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;18&quot;</span> <span class="na">firstPoint=</span><span class="s">&quot;2&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;none&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">secondPoint=</span><span class="s">&quot;13&quot;</span> <span class="na">length=</span><span class="s">&quot;CurrentLength/2&quot;</span> <span class="na">name=</span><span class="s">&quot;A7&quot;</span> <span class="na">lineColor=</span><span class="s">&quot;black&quot;</span> <span class="na">type=</span><span class="s">&quot;alongLine&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/calculation&gt;</span>
+        <span class="nt">&lt;modeling&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;7&quot;</span> <span class="na">idObject=</span><span class="s">&quot;1&quot;</span> <span class="na">inUse=</span><span class="s">&quot;true&quot;</span> <span class="na">mx=</span><span class="s">&quot;1.44658&quot;</span> <span class="na">type=</span><span class="s">&quot;modeling&quot;</span> <span class="na">my=</span><span class="s">&quot;-1.70684&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;8&quot;</span> <span class="na">idObject=</span><span class="s">&quot;2&quot;</span> <span class="na">inUse=</span><span class="s">&quot;true&quot;</span> <span class="na">mx=</span><span class="s">&quot;-0.343958&quot;</span> <span class="na">type=</span><span class="s">&quot;modeling&quot;</span> <span class="na">my=</span><span class="s">&quot;-2.91042&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;9&quot;</span> <span class="na">idObject=</span><span class="s">&quot;3&quot;</span> <span class="na">inUse=</span><span class="s">&quot;true&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">type=</span><span class="s">&quot;modeling&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;10&quot;</span> <span class="na">idObject=</span><span class="s">&quot;4&quot;</span> <span class="na">inUse=</span><span class="s">&quot;true&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">type=</span><span class="s">&quot;modeling&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;14&quot;</span> <span class="na">idObject=</span><span class="s">&quot;12&quot;</span> <span class="na">inUse=</span><span class="s">&quot;true&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">type=</span><span class="s">&quot;modeling&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;15&quot;</span> <span class="na">idObject=</span><span class="s">&quot;13&quot;</span> <span class="na">inUse=</span><span class="s">&quot;true&quot;</span> <span class="na">mx=</span><span class="s">&quot;0.132292&quot;</span> <span class="na">type=</span><span class="s">&quot;modeling&quot;</span> <span class="na">my=</span><span class="s">&quot;0.264583&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;path</span> <span class="na">id=</span><span class="s">&quot;16&quot;</span> <span class="na">typeLine=</span><span class="s">&quot;dashDotLine&quot;</span> <span class="na">name=</span><span class="s">&quot;Fold&quot;</span> <span class="na">type=</span><span class="s">&quot;2&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;nodes&gt;</span>
+                    <span class="nt">&lt;node</span> <span class="na">idObject=</span><span class="s">&quot;14&quot;</span> <span class="na">type=</span><span class="s">&quot;NodePoint&quot;</span><span class="nt">/&gt;</span>
+                    <span class="nt">&lt;node</span> <span class="na">idObject=</span><span class="s">&quot;15&quot;</span> <span class="na">type=</span><span class="s">&quot;NodePoint&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;/nodes&gt;</span>
+            <span class="nt">&lt;/path&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;19&quot;</span> <span class="na">idObject=</span><span class="s">&quot;17&quot;</span> <span class="na">type=</span><span class="s">&quot;pin&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;20&quot;</span> <span class="na">idObject=</span><span class="s">&quot;18&quot;</span> <span class="na">type=</span><span class="s">&quot;pin&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;21&quot;</span> <span class="na">idObject=</span><span class="s">&quot;1&quot;</span> <span class="na">type=</span><span class="s">&quot;pin&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;22&quot;</span> <span class="na">idObject=</span><span class="s">&quot;4&quot;</span> <span class="na">type=</span><span class="s">&quot;pin&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;point</span> <span class="na">id=</span><span class="s">&quot;23&quot;</span> <span class="na">idObject=</span><span class="s">&quot;3&quot;</span> <span class="na">type=</span><span class="s">&quot;pin&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/modeling&gt;</span>
+        <span class="nt">&lt;details&gt;</span>
+            <span class="nt">&lt;detail</span> <span class="na">id=</span><span class="s">&quot;11&quot;</span> <span class="na">version=</span><span class="s">&quot;2&quot;</span> <span class="na">forbidFlipping=</span><span class="s">&quot;false&quot;</span> <span class="na">width=</span><span class="s">&quot;1&quot;</span> <span class="na">united=</span><span class="s">&quot;false&quot;</span> <span class="na">mx=</span><span class="s">&quot;1.16417&quot;</span> <span class="na">name=</span><span class="s">&quot;Detail&quot;</span> <span class="na">seamAllowance=</span><span class="s">&quot;true&quot;</span> <span class="na">my=</span><span class="s">&quot;-0.582084&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;data</span> <span class="na">letter=</span><span class="s">&quot;A&quot;</span> <span class="na">topLeftPin=</span><span class="s">&quot;21&quot;</span> <span class="na">width=</span><span class="s">&quot;26.4567&quot;</span> <span class="na">mx=</span><span class="s">&quot;30&quot;</span> <span class="na">height=</span><span class="s">&quot;94.4882&quot;</span> <span class="na">bottomRightPin=</span><span class="s">&quot;19&quot;</span> <span class="na">fontSize=</span><span class="s">&quot;5&quot;</span> <span class="na">visible=</span><span class="s">&quot;true&quot;</span> <span class="na">rotation=</span><span class="s">&quot;-0.0547782&quot;</span> <span class="na">my=</span><span class="s">&quot;39.9999&quot;</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;mcp</span> <span class="na">placement=</span><span class="s">&quot;0&quot;</span> <span class="na">material=</span><span class="s">&quot;0&quot;</span> <span class="na">cutNumber=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
+                    <span class="nt">&lt;mcp</span> <span class="na">placement=</span><span class="s">&quot;1&quot;</span> <span class="na">material=</span><span class="s">&quot;1&quot;</span> <span class="na">cutNumber=</span><span class="s">&quot;2&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;/data&gt;</span>
+                <span class="nt">&lt;patternInfo</span> <span class="na">topLeftPin=</span><span class="s">&quot;19&quot;</span> <span class="na">width=</span><span class="s">&quot;26.4567&quot;</span> <span class="na">mx=</span><span class="s">&quot;30&quot;</span> <span class="na">height=</span><span class="s">&quot;283.465&quot;</span> <span class="na">bottomRightPin=</span><span class="s">&quot;22&quot;</span> <span class="na">fontSize=</span><span class="s">&quot;5&quot;</span> <span class="na">visible=</span><span class="s">&quot;true&quot;</span> <span class="na">rotation=</span><span class="s">&quot;359.876&quot;</span> <span class="na">my=</span><span class="s">&quot;134.488&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;grainline</span> <span class="na">arrows=</span><span class="s">&quot;0&quot;</span> <span class="na">mx=</span><span class="s">&quot;0&quot;</span> <span class="na">bottomPin=</span><span class="s">&quot;20&quot;</span> <span class="na">length=</span><span class="s">&quot;0&quot;</span> <span class="na">visible=</span><span class="s">&quot;true&quot;</span> <span class="na">rotation=</span><span class="s">&quot; 0&quot;</span> <span class="na">topPin=</span><span class="s">&quot;19&quot;</span> <span class="na">my=</span><span class="s">&quot;0&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;nodes&gt;</span>
+                    <span class="nt">&lt;node</span> <span class="na">idObject=</span><span class="s">&quot;7&quot;</span> <span class="na">type=</span><span class="s">&quot;NodePoint&quot;</span><span class="nt">/&gt;</span>
+                    <span class="nt">&lt;node</span> <span class="na">idObject=</span><span class="s">&quot;8&quot;</span> <span class="na">type=</span><span class="s">&quot;NodePoint&quot;</span><span class="nt">/&gt;</span>
+                    <span class="nt">&lt;node</span> <span class="na">idObject=</span><span class="s">&quot;9&quot;</span> <span class="na">type=</span><span class="s">&quot;NodePoint&quot;</span><span class="nt">/&gt;</span>
+                    <span class="nt">&lt;node</span> <span class="na">idObject=</span><span class="s">&quot;10&quot;</span> <span class="na">type=</span><span class="s">&quot;NodePoint&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;/nodes&gt;</span>
+                <span class="nt">&lt;iPaths&gt;</span>
+                    <span class="nt">&lt;record</span> <span class="na">path=</span><span class="s">&quot;16&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;/iPaths&gt;</span>
+                <span class="nt">&lt;pins&gt;</span>
+                    <span class="nt">&lt;record&gt;</span>19<span class="nt">&lt;/record&gt;</span>
+                    <span class="nt">&lt;record&gt;</span>20<span class="nt">&lt;/record&gt;</span>
+                    <span class="nt">&lt;record&gt;</span>21<span class="nt">&lt;/record&gt;</span>
+                    <span class="nt">&lt;record&gt;</span>22<span class="nt">&lt;/record&gt;</span>
+                    <span class="nt">&lt;record&gt;</span>23<span class="nt">&lt;/record&gt;</span>
+                <span class="nt">&lt;/pins&gt;</span>
+            <span class="nt">&lt;/detail&gt;</span>
+        <span class="nt">&lt;/details&gt;</span>
+        <span class="nt">&lt;groups/&gt;</span>
+    <span class="nt">&lt;/draw&gt;</span>
+<span class="nt">&lt;/pattern&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../news.html" class="btn btn-neutral float-right" title="3. News" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../features-all.html" class="btn btn-neutral" title="2. Features" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Fabrice Salvaire
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../static/jquery.js"></script>
+        <script type="text/javascript" src="../static/underscore.js"></script>
+        <script type="text/javascript" src="../static/doctools.js"></script>
+        <script type="text/javascript" src="../static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../static/getthecode.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

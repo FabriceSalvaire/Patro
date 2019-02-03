@@ -1,8 +1,0 @@
-*************
-GraphicItem
-*************
-
-.. automodule:: Valentina.GraphicScene.GraphicItem
-   :members:
-   :show-inheritance:
-

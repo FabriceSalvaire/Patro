@@ -1,0 +1,1686 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Patro.FileFormat.Svg.SvgFormat &mdash; Patro 0.3.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../../static/css/Patro.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+
+  
+  <script src="../../../../static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> Patro
+          
+
+          
+            
+            <img src="../../../../static/logo-64.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../overview.html">1. Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#what-is-patro">1.1. What is Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#what-is-the-purpose-of-this-library">1.2. What is the purpose of this library ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#what-are-the-features-of-patro">1.3. What are the Features of Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#how-is-patro-licensed">1.4. How is Patro licensed ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#going-further-with-patro">1.5. Going further with Patro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#which-platforms-are-supported-by-patro">1.6. Which platforms are supported by Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#how-to-install-patro">1.7. How to install Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#which-version-of-python-is-required">1.8. Which version of Python is required ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../features-all.html">2. Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../features-all.html#geometry-engine">2.1. Geometry Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../features-all.html#pattern-engine">2.2. Pattern Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../features-all.html#graphic-engine">2.3. Graphic Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../features-all.html#pattern-format-support">2.4. Pattern Format Support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../features-all.html#pattern-format-compatibility">2.4.1. Pattern Format Compatibility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../valentina-compatibility/index.html">2.4.1.1. Valentina Compatibility</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../features-all.html#digitalisation">2.5. Digitalisation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../news.html">3. News</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../news.html#v0-2017-02-16">3.1. V0 2017-02-16</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../roadmap.html">4. Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">5. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#on-windows">5.1. On Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#on-linux">5.2. On Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#on-osx">5.3. On OSX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#installation-from-pypi-repository">5.4. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#install-a-more-recent-version-from-github">5.5. Install a more recent version from Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#installation-from-source">5.6. Installation from Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#dependencies">5.7. Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../examples/index.html">6. Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../examples/svg-import.html">6.1. SVG Import</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../examples/dxf-import.html">6.2. DXF Import</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">7. User FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../faq.html#how-to-get-help-or-report-an-issue">7.1. How to get help or report an issue ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../design-notes/index.html">8. Design Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../design-notes/question-answer.html">8.1. Design Notes Questions &amp; Answers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/question-answer.html#what-is-my-opinion-on-valentina-seamly2d">8.1.1. What is my opinion on Valentina / Seamly2D ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/question-answer.html#can-we-implement-such-a-tool-as-a-plugin-of-another-software">8.1.2. Can we implement such a tool as a plugin of another software ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/question-answer.html#what-is-the-requirements-of-a-pattern-drafting-software">8.1.3. What is the requirements of a pattern drafting software ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/question-answer.html#why-python-is-a-good-language-for-this-library">8.1.4. Why Python is a good language for this library ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/question-answer.html#could-we-implement-a-full-software-using-python">8.1.5. Could we implement a full software using Python ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/question-answer.html#how-to-generate-drawings-in-standard-format-like-pdf-or-svg">8.1.6. How to generate drawings in standard format like PDF or SVG ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/question-answer.html#what-is-the-requirements-of-a-geometric-engine">8.1.7. What is the requirements of a geometric engine ?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../design-notes/performance.html">8.2. Performances</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/performance.html#svg-import">8.2.1. SVG Import</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../resources/index.html">9. Resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../resources/file-format/index.html">9.1. File Formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/file-format/dxf.html">9.1.1. DXF File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/file-format/dxf-astm.html">9.1.2. DXF ASTM File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/file-format/svg.html">9.1.3. SVG File Format</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/file-format/svg.html#reference-documentations">9.1.3.1. Reference Documentations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/file-format/svg.html#svg-coordinate-system">9.1.3.2. SVG Coordinate System</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/file-format/svg.html#inkscape-software">9.1.3.3. Inkscape Software</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/file-format/valentina.html">9.1.4. Valentina File Format</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../resources/geometry/index.html">9.2. Geometry Resources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/geometry/bezier.html">9.2.1. Bézier Curves</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#valentina-requirements">9.2.1.1. Valentina Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#definitions">9.2.1.2. Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#linear-bezier-curves">9.2.1.3. Linear Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#quadratic-bezier-curves">9.2.1.4. Quadratic Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#cubic-bezier-curves">9.2.1.5. Cubic Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#recursive-definition">9.2.1.6. Recursive definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#degree-elevation">9.2.1.7. Degree elevation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#matrix-forms">9.2.1.8. Matrix Forms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#symbolic-calculation">9.2.1.9. Symbolic Calculation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#curve-length">9.2.1.10. Curve Length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#determine-the-curve-flatness">9.2.1.11. Determine the curve flatness</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#intersection-of-bezier-curve-with-a-line">9.2.1.12. Intersection of Bézier Curve with a Line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#closest-point">9.2.1.13. Closest Point</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/geometry/conic.html">9.2.2. Conic</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/conic.html#valentina-requirements">9.2.2.1. Valentina Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/conic.html#circle">9.2.2.2. Circle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/conic.html#ellipse">9.2.2.3. Ellipse</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/geometry/path.html">9.2.3. Path</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/path.html#bulge">9.2.3.1. Bulge</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/geometry/polygon.html">9.2.4. Polygon</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/polygon.html#area-and-barycenter">9.2.4.1. Area and Barycenter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/polygon.html#moments-of-inertia">9.2.4.2. Moments of Inertia</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/geometry/spline.html">9.2.5. Spline Curves</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/spline.html#references">9.2.5.1. References</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/spline.html#b-spline-basis">9.2.5.2. B-spline Basis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/spline.html#b-spline-curve">9.2.5.3. B-spline Curve</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/spline.html#algorithms-for-b-spline-curves">9.2.5.4. Algorithms for B-spline curves</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/geometry/transformations.html">9.2.6. Transformations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/transformations.html#transformation-matrices">9.2.6.1. Transformation matrices</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference-manual.html">10. API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/Patro.html">10.1. Patro</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/Common.html">10.1.1. Common</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/ArgparseAction.html">10.1.1.1. ArgparseAction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/AtomicCounter.html">10.1.1.2. AtomicCounter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Datetime.html">10.1.1.3. Datetime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Graph.html">10.1.1.4. Graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/IterTools.html">10.1.1.5. IterTools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Logging.html">10.1.1.6. Logging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Math.html">10.1.1.7. Math</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Object.html">10.1.1.8. Object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Path.html">10.1.1.9. Path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Platform.html">10.1.1.10. Platform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Singleton.html">10.1.1.11. Singleton</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Xml.html">10.1.1.12. Xml</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/Config.html">10.1.2. Config</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Config/ConfigInstall.html">10.1.2.1. ConfigInstall</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/FileFormat.html">10.1.3. FileFormat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/FileFormat/Dxf.html">10.1.3.1. Dxf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/FileFormat/Svg.html">10.1.3.2. Svg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/FileFormat/Valentina.html">10.1.3.3. Valentina</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/GeometryEngine.html">10.1.4. GeometryEngine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Bezier.html">10.1.4.1. Bezier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/BoundingBox.html">10.1.4.2. BoundingBox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Conic.html">10.1.4.3. Conic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Interpolation.html">10.1.4.4. Interpolation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Line.html">10.1.4.5. Line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Mixin.html">10.1.4.6. Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Path.html">10.1.4.7. Path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Polygon.html">10.1.4.8. Polygon</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Polyline.html">10.1.4.9. Polyline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Primitive.html">10.1.4.10. Primitive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Rectangle.html">10.1.4.11. Rectangle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Segment.html">10.1.4.12. Segment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Shape.html">10.1.4.13. Shape</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Spline.html">10.1.4.14. Spline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Transformation.html">10.1.4.15. Transformation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Triangle.html">10.1.4.16. Triangle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Vector.html">10.1.4.17. Vector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine.html#purpose">10.1.4.18. Purpose</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine.html#bibliographical-references">10.1.4.19. Bibliographical References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/GraphicEngine.html">10.1.5. GraphicEngine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GraphicEngine/GraphicScene.html">10.1.5.1. GraphicScene</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GraphicEngine/Painter.html">10.1.5.2. Painter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GraphicEngine/TeX.html">10.1.5.3. TeX</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/GraphicStyle.html">10.1.6. GraphicStyle</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GraphicStyle/Color.html">10.1.6.1. Color</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/Measurement.html">10.1.7. Measurement</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Measurement/Measurement.html">10.1.7.1. Measurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Measurement/PersonalData.html">10.1.7.2. PersonalData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Measurement/StandardMeasurement.html">10.1.7.3. StandardMeasurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Measurement/ValentinaMeasurement.html">10.1.7.4. ValentinaMeasurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Measurement/ValentinaStandardMeasurement.html">10.1.7.5. ValentinaStandardMeasurement</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/Pattern.html">10.1.8. Pattern</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/Calculator.html">10.1.8.1. Calculator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/QtApplication.html">10.1.9. QtApplication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/QtApplication/QmlApplication.html">10.1.9.1. QmlApplication</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reference-manual.html#indexes">10.2. Indexes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../development.html">11. Development &amp; Community</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../development.html#how-you-can-help">11.1. How you can help ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../development.html#contributors">11.2. Contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../how-to-refer.html">12. How to Refer to Patro ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../donate.html">13. How to Help Further ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../related-projects.html">14. Related Projects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../related-projects.html#pattern-making">14.1. Pattern Making</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../related-projects.html#embroidery">14.2. Embroidery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../related-projects.html#geometry-engine">14.3. Geometry Engine</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../bibliography.html">15. Bibliography</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../bibliography.html#geometry-engine">15.1. Geometry Engine</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Patro</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>Patro.FileFormat.Svg.SvgFormat</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for Patro.FileFormat.Svg.SvgFormat</h1><div class="highlight"><pre>
+<span></span><span class="c1">####################################################################################################</span>
+<span class="c1">#</span>
+<span class="c1"># Patro - A Python library to make patterns for fashion design</span>
+<span class="c1"># Copyright (C) 2017 Fabrice Salvaire</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU Affero General Public License as</span>
+<span class="c1"># published by the Free Software Foundation, either version 3 of the</span>
+<span class="c1"># License, or (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU Affero General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU Affero General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="c1">#</span>
+<span class="c1">####################################################################################################</span>
+
+<span class="sd">&quot;&quot;&quot;This modules implements the `SVG &lt;https://www.w3.org/Graphics/SVG&gt;`_ file format.</span>
+
+<span class="sd">References:</span>
+
+<span class="sd">* `SVG 1.1 (Second Edition) W3C Recommendation 16 August 2011 &lt;https://www.w3.org/TR/SVG11&gt;`_</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;Svg&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Anchor&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;AltGlyph&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;AltGlyphDef&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;AltGlyphItem&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Animate&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;AnimateMotion&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;AnimateTransform&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Circle&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ClipPath&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ColorProfile&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Cursor&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Defs&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Desc&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Ellipse&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;FeBlend&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Group&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Image&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Line&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;LinearGradient&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Marker&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Mask&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Path&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Pattern&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Polyline&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Polygon&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;RadialGradient&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Rect&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Stop&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Text&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;TextRef&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;TextSpan&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Use&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">Patro.Common.Xml.Objectivity</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="c1"># BoolAttribute,</span>
+    <span class="n">IntAttribute</span><span class="p">,</span> <span class="n">FloatAttribute</span><span class="p">,</span>
+    <span class="n">FloatListAttribute</span><span class="p">,</span>
+    <span class="n">StringAttribute</span><span class="p">,</span>
+    <span class="n">XmlObjectAdaptator</span><span class="p">,</span>
+    <span class="n">TextXmlObjectAdaptator</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Fixme: should we mix SVG format and ... ???</span>
+<span class="kn">from</span> <span class="nn">Patro.GeometryEngine.Path</span> <span class="k">import</span> <span class="n">Path2D</span>
+<span class="kn">from</span> <span class="nn">Patro.GeometryEngine.Transformation</span> <span class="k">import</span> <span class="n">AffineTransformation2D</span>
+<span class="kn">from</span> <span class="nn">Patro.GeometryEngine.Vector</span> <span class="k">import</span> <span class="n">Vector2D</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="n">_module_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="split_space_list"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.split_space_list">[docs]</a><span class="k">def</span> <span class="nf">split_space_list</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span></div>
+
+<span class="c1">####################################################################################################</span>
+<span class="c1">#</span>
+<span class="c1"># Conditional Processing Attributes</span>
+<span class="c1">#   requiredFeatures</span>
+<span class="c1">#   requiredExtensions</span>
+<span class="c1">#   systemLanguage</span>
+<span class="c1">#</span>
+<span class="c1">####################################################################################################</span>
+
+<span class="c1">####################################################################################################</span>
+<span class="c1">#</span>
+<span class="c1"># Core Attribute</span>
+<span class="c1">#   id</span>
+<span class="c1">#   xml:base</span>
+<span class="c1">#   xml:lang</span>
+<span class="c1">#   xml:space</span>
+<span class="c1">#</span>
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="IdMixin"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.IdMixin">[docs]</a><span class="k">class</span> <span class="nc">IdMixin</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;Core attribute&quot;&quot;&quot;</span>
+
+    <span class="n">__attributes__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">StringAttribute</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">),</span>
+    <span class="p">)</span></div>
+
+<span class="c1">####################################################################################################</span>
+<span class="c1">#</span>
+<span class="c1"># Graphical Event Attributes</span>
+<span class="c1">#   onactivate</span>
+<span class="c1">#   onclick</span>
+<span class="c1">#   onfocusin</span>
+<span class="c1">#   onfocusout</span>
+<span class="c1">#   onload</span>
+<span class="c1">#   onmousedown</span>
+<span class="c1">#   onmousemove</span>
+<span class="c1">#   onmouseout</span>
+<span class="c1">#   onmouseover</span>
+<span class="c1">#   onmouseup</span>
+<span class="c1">#</span>
+<span class="c1">####################################################################################################</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="PresentationAttributes"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.PresentationAttributes">[docs]</a><span class="k">class</span> <span class="nc">PresentationAttributes</span><span class="p">:</span>
+
+    <span class="c1"># https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute</span>
+
+    <span class="c1"># Fixme: type !!!</span>
+
+    <span class="n">alignment_baseline</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">baseline_shift</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">clip</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">clip_path</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">clip_rule</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">color_interpolation</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">color_interpolation_filters</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">color_profile</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">color_rendering</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">direction</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">display</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">dominant_baseline</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">enable_background</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">fill</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">fill_opacity</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">fill_rule</span> <span class="o">=</span> <span class="s1">&#39;nonzero&#39;</span>
+    <span class="c1">#! filter = None # check</span>
+    <span class="n">flood_color</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">flood_opacity</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">font_family</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">font_size</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">font_size_adjust</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">font_stretch</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">font_style</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">font_variant</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">font_weight</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">glyph_orientation_horizontal</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">glyph_orientation_vertical</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">image_rendering</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">kerning</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">letter_spacing</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">lighting_color</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">marker_end</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">marker_mid</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">marker_start</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">opacity</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">overflow</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">paint_order</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">pointer_events</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">shape_rendering</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">stop_color</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">stop_opacity</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">stroke</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">stroke_dasharray</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">stroke_dashoffset</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">stroke_linecap</span> <span class="o">=</span> <span class="s1">&#39;butt&#39;</span>
+    <span class="n">stroke_linejoin</span> <span class="o">=</span> <span class="s1">&#39;miter&#39;</span>
+    <span class="n">stroke_miterlimit</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">stroke_opacity</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">stroke_width</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># px</span>
+    <span class="n">style</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">text_anchor</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">text_decoration</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">text_rendering</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">transform</span> <span class="o">=</span> <span class="n">AffineTransformation2D</span><span class="o">.</span><span class="n">Identity</span><span class="p">()</span>
+    <span class="n">unicode_bidi</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">vector_effect</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">visibility</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">word_spacing</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span>
+    <span class="n">writing_mode</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># check</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="InheritAttribute"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.InheritAttribute">[docs]</a><span class="k">class</span> <span class="nc">InheritAttribute</span><span class="p">(</span><span class="n">StringAttribute</span><span class="p">):</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="InheritAttribute.from_xml"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.InheritAttribute.from_xml">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_xml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;inherit&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_from_xml</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="InheritAttribute._from_xml"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.InheritAttribute._from_xml">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_from_xml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="NumberAttribute"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.NumberAttribute">[docs]</a><span class="k">class</span> <span class="nc">NumberAttribute</span><span class="p">(</span><span class="n">InheritAttribute</span><span class="p">):</span>
+<div class="viewcode-block" id="NumberAttribute._from_xml"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.NumberAttribute._from_xml">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_from_xml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="PercentValue"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.PercentValue">[docs]</a><span class="k">class</span> <span class="nc">PercentValue</span><span class="p">:</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="PercentValue.__init__"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.PercentValue.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="PercentValue.__float__"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.PercentValue.__float__">[docs]</a>    <span class="k">def</span> <span class="nf">__float__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="UnitValue"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.UnitValue">[docs]</a><span class="k">class</span> <span class="nc">UnitValue</span><span class="p">:</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="UnitValue.__init__"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.UnitValue.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">unit</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_unit</span> <span class="o">=</span> <span class="n">unit</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="UnitValue.__float__"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.UnitValue.__float__">[docs]</a>    <span class="k">def</span> <span class="nf">__float__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="UnitValue.__str__"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.UnitValue.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unit</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="PercentLengthAttribute"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.PercentLengthAttribute">[docs]</a><span class="k">class</span> <span class="nc">PercentLengthAttribute</span><span class="p">(</span><span class="n">InheritAttribute</span><span class="p">):</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="PercentLengthAttribute._from_xml"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.PercentLengthAttribute._from_xml">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_from_xml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># length ::= number (&quot;em&quot; | &quot;ex&quot; | &quot;px&quot; | &quot;in&quot; | &quot;cm&quot; | &quot;mm&quot; | &quot;pt&quot; | &quot;pc&quot; | &quot;%&quot;)?</span>
+        <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">PercentValue</span><span class="p">(</span><span class="n">value</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">value</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isalpha</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">UnitValue</span><span class="p">(</span><span class="n">value</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">value</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="PercentLengthAttribute._to_xml"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.PercentLengthAttribute._to_xml">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_to_xml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="c1"># Fixme: ok ???</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">PercentValue</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">%&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">UnitValue</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">value</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="ColorMixin"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.ColorMixin">[docs]</a><span class="k">class</span> <span class="nc">ColorMixin</span><span class="p">:</span>
+
+    <span class="n">__attributes__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">StringAttribute</span><span class="p">(</span><span class="s1">&#39;fill&#39;</span><span class="p">),</span> <span class="c1"># none inherit red #ffbb00</span>
+        <span class="n">StringAttribute</span><span class="p">(</span><span class="s1">&#39;stroke&#39;</span><span class="p">),</span>
+    <span class="p">)</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="StrokeMixin"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.StrokeMixin">[docs]</a><span class="k">class</span> <span class="nc">StrokeMixin</span><span class="p">:</span>
+
+    <span class="n">__attributes__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">StringAttribute</span><span class="p">(</span><span class="s1">&#39;stroke_line_cap&#39;</span><span class="p">,</span> <span class="s1">&#39;stroke-linecap&#39;</span><span class="p">),</span>
+        <span class="n">StringAttribute</span><span class="p">(</span><span class="s1">&#39;stroke_line_join&#39;</span><span class="p">,</span> <span class="s1">&#39;stroke-linejoin&#39;</span><span class="p">),</span>
+        <span class="n">NumberAttribute</span><span class="p">(</span><span class="s1">&#39;stroke_miter_limit&#39;</span><span class="p">,</span> <span class="s1">&#39;stroke-miterlimit&#39;</span><span class="p">),</span>
+        <span class="n">PercentLengthAttribute</span><span class="p">(</span><span class="s1">&#39;stroke_width&#39;</span><span class="p">,</span> <span class="s1">&#39;stroke-width&#39;</span><span class="p">),</span>
+        <span class="n">FloatListAttribute</span><span class="p">(</span><span class="s1">&#39;stroke_dasharray&#39;</span><span class="p">,</span> <span class="s1">&#39;stroke-dasharray&#39;</span><span class="p">)</span> <span class="c1"># stroke-dasharray=&quot;20,10,5,5,5,10&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">LINE_CAP_STYLE</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s1">&#39;butt&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;round&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;square&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;inherit&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">LINE_JOIN_STYLE</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s1">&#39;miter&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;round&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;bevel&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;inherit&#39;</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="PathMixin"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.PathMixin">[docs]</a><span class="k">class</span> <span class="nc">PathMixin</span><span class="p">(</span><span class="n">ColorMixin</span><span class="p">,</span> <span class="n">StrokeMixin</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="FontMixin"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.FontMixin">[docs]</a><span class="k">class</span> <span class="nc">FontMixin</span><span class="p">:</span>
+
+    <span class="n">__attributes__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">StringAttribute</span><span class="p">(</span><span class="s1">&#39;font_size&#39;</span><span class="p">,</span> <span class="s1">&#39;font-size&#39;</span><span class="p">),</span>
+        <span class="n">StringAttribute</span><span class="p">(</span><span class="s1">&#39;font_family&#39;</span><span class="p">,</span> <span class="s1">&#39;font-family&#39;</span><span class="p">),</span>
+    <span class="p">)</span></div>
+
+    <span class="c1"># font-face-format</span>
+    <span class="c1"># font-face-name</span>
+    <span class="c1"># font-face-src</span>
+    <span class="c1"># font-face-uri</span>
+
+    <span class="c1"># text-anchor</span>
+
+    <span class="c1"># glyph 	Defines the graphics for a given glyph</span>
+    <span class="c1"># glyphRef 	Defines a possible glyph to use</span>
+    <span class="c1"># hkern</span>
+
+<span class="c1">####################################################################################################</span>
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="StyleMixin"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.StyleMixin">[docs]</a><span class="k">class</span> <span class="nc">StyleMixin</span><span class="p">:</span>
+
+    <span class="n">__attributes__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">StringAttribute</span><span class="p">(</span><span class="s1">&#39;style&#39;</span><span class="p">),</span>
+    <span class="p">)</span></div>
+
+<span class="c1">####################################################################################################</span>
+<span class="c1">#</span>
+<span class="c1"># Shared attributes</span>
+<span class="c1">#</span>
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="PositionMixin"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.PositionMixin">[docs]</a><span class="k">class</span> <span class="nc">PositionMixin</span><span class="p">:</span>
+
+    <span class="n">__attributes__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">FloatAttribute</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">),</span>
+        <span class="n">FloatAttribute</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">),</span>
+    <span class="p">)</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="CenterMixin"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.CenterMixin">[docs]</a><span class="k">class</span> <span class="nc">CenterMixin</span><span class="p">:</span>
+
+    <span class="n">__attributes__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">FloatAttribute</span><span class="p">(</span><span class="s1">&#39;cx&#39;</span><span class="p">),</span> <span class="c1"># x-axis center of the circle</span>
+        <span class="n">FloatAttribute</span><span class="p">(</span><span class="s1">&#39;cy&#39;</span><span class="p">),</span>
+    <span class="p">)</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="DeltaMixin"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.DeltaMixin">[docs]</a><span class="k">class</span> <span class="nc">DeltaMixin</span><span class="p">:</span>
+
+    <span class="n">__attributes__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">FloatAttribute</span><span class="p">(</span><span class="s1">&#39;dx&#39;</span><span class="p">),</span>
+        <span class="n">FloatAttribute</span><span class="p">(</span><span class="s1">&#39;dy&#39;</span><span class="p">),</span>
+    <span class="p">)</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="RadiusMixin"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.RadiusMixin">[docs]</a><span class="k">class</span> <span class="nc">RadiusMixin</span><span class="p">:</span>
+
+    <span class="n">__attributes__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">FloatAttribute</span><span class="p">(</span><span class="s1">&#39;rx&#39;</span><span class="p">),</span> <span class="c1"># x-axis radius (to round the element)</span>
+        <span class="n">FloatAttribute</span><span class="p">(</span><span class="s1">&#39;ry&#39;</span><span class="p">),</span>
+    <span class="p">)</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="PointsMixin"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.PointsMixin">[docs]</a><span class="k">class</span> <span class="nc">PointsMixin</span><span class="p">:</span>
+
+    <span class="n">__attributes__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">StringAttribute</span><span class="p">(</span><span class="s1">&#39;points&#39;</span><span class="p">),</span> <span class="c1"># points=&quot;200,10 250,190 160,210&quot;</span>
+    <span class="p">)</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="SizeMixin"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.SizeMixin">[docs]</a><span class="k">class</span> <span class="nc">SizeMixin</span><span class="p">:</span>
+
+    <span class="n">__attributes__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">StringAttribute</span><span class="p">(</span><span class="s1">&#39;height&#39;</span><span class="p">),</span>
+        <span class="n">StringAttribute</span><span class="p">(</span><span class="s1">&#39;width&#39;</span><span class="p">),</span>
+    <span class="p">)</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="TransformAttribute"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.TransformAttribute">[docs]</a><span class="k">class</span> <span class="nc">TransformAttribute</span><span class="p">(</span><span class="n">StringAttribute</span><span class="p">):</span>
+
+    <span class="n">TRANSFORM</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s1">&#39;matrix&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;rotate&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;scale&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;skewX&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;skewY&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;translate&#39;</span>
+    <span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="TransformAttribute.from_xml"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.TransformAttribute.from_xml">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_xml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">AffineTransformation2D</span><span class="p">):</span>
+            <span class="c1"># Python value</span>
+            <span class="k">return</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">transforms</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">transform</span> <span class="ow">in</span> <span class="n">split_space_list</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+                <span class="n">pos0</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">)</span>
+                <span class="n">pos1</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">pos0</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">pos1</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span>
+                <span class="n">transform_type</span> <span class="o">=</span> <span class="n">value</span><span class="p">[:</span><span class="n">pos0</span><span class="p">]</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">value</span><span class="p">[</span><span class="n">pos0</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)]</span>
+                <span class="n">transforms</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">transform_type</span><span class="p">,</span> <span class="n">values</span><span class="p">))</span>
+                <span class="c1"># Fixme:</span>
+
+            <span class="c1"># return transforms</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">to_python</span><span class="p">(</span><span class="n">transforms</span><span class="p">,</span> <span class="n">concat</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="TransformAttribute.to_xml"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.TransformAttribute.to_xml">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">to_xml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># Fixme: wrong if value is AffineTransformation2D !!!</span>
+        <span class="c1"># Fixme: to func</span>
+        <span class="k">return</span> <span class="s1">&#39;matrix(</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">to_list</span><span class="p">()]))</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="TransformAttribute.to_python"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.TransformAttribute.to_python">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">to_python</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">transforms</span><span class="p">,</span> <span class="n">concat</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+        <span class="k">def</span> <span class="nf">complete</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">values</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">size</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">))</span>
+
+        <span class="n">global_transform</span> <span class="o">=</span> <span class="n">AffineTransformation2D</span><span class="o">.</span><span class="n">Identity</span><span class="p">()</span>
+        <span class="n">py_transforms</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">transforms</span><span class="p">:</span>
+            <span class="n">transform</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;matrix&#39;</span><span class="p">:</span>
+                <span class="n">array</span> <span class="o">=</span> <span class="p">[</span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="n">transform</span> <span class="o">=</span> <span class="n">AffineTransformation2D</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;translate&#39;</span><span class="p">:</span>
+                <span class="n">vector</span> <span class="o">=</span> <span class="n">Vector2D</span><span class="p">(</span><span class="n">complete</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+                <span class="n">transform</span> <span class="o">=</span> <span class="n">AffineTransformation2D</span><span class="o">.</span><span class="n">Translation</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;scale&#39;</span><span class="p">:</span>
+                <span class="n">transform</span> <span class="o">=</span> <span class="n">AffineTransformation2D</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="o">*</span><span class="n">values</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;rotate&#39;</span><span class="p">:</span>
+                <span class="n">angle</span><span class="p">,</span> <span class="o">*</span><span class="n">vector</span> <span class="o">=</span> <span class="n">complete</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+                <span class="n">vector</span> <span class="o">=</span> <span class="n">Vector2D</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span>
+                <span class="n">transform</span> <span class="o">=</span> <span class="n">AffineTransformation2D</span><span class="o">.</span><span class="n">RotationAt</span><span class="p">(</span><span class="n">vector</span><span class="p">,</span> <span class="n">angle</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;skewX&#39;</span><span class="p">:</span>
+                <span class="n">angle</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+            <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;skewY&#39;</span><span class="p">:</span>
+                <span class="n">angle</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+            <span class="k">if</span> <span class="n">concat</span><span class="p">:</span>
+                <span class="n">global_transform</span> <span class="o">=</span> <span class="n">transform</span> <span class="o">*</span> <span class="n">global_transform</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">py_transforms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">transform</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">concat</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">global_transform</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">py_transforms</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="TransformMixin"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.TransformMixin">[docs]</a><span class="k">class</span> <span class="nc">TransformMixin</span><span class="p">:</span>
+
+    <span class="n">__attributes__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">TransformAttribute</span><span class="p">(</span><span class="s1">&#39;transform&#39;</span><span class="p">),</span> <span class="c1"># matrix(1,0,0,-1,0,1.)</span>
+    <span class="p">)</span></div>
+
+<span class="c1">####################################################################################################</span>
+<span class="c1">####################################################################################################</span>
+
+<span class="c1"># The available filter elements in SVG are:</span>
+<span class="c1">#</span>
+<span class="c1">#  &lt;feBlend&gt; - filter for combining images</span>
+<span class="c1">#  &lt;feColorMatrix&gt; - filter for color transforms</span>
+<span class="c1">#  &lt;feComponentTransfer&gt;</span>
+<span class="c1">#  &lt;feComposite&gt;</span>
+<span class="c1">#  &lt;feConvolveMatrix&gt;</span>
+<span class="c1">#  &lt;feDiffuseLighting&gt;</span>
+<span class="c1">#  &lt;feDisplacementMap&gt;</span>
+<span class="c1">#  &lt;feFlood&gt;</span>
+<span class="c1">#  &lt;feGaussianBlur&gt;</span>
+<span class="c1">#  &lt;feImage&gt;</span>
+<span class="c1">#  &lt;feMerge&gt;</span>
+<span class="c1">#  &lt;feMorphology&gt;</span>
+<span class="c1">#  &lt;feOffset&gt; - filter for drop shadows</span>
+<span class="c1">#  &lt;feSpecularLighting&gt;</span>
+<span class="c1">#  &lt;feTile&gt;</span>
+<span class="c1">#  &lt;feTurbulence&gt;</span>
+<span class="c1">#  &lt;feDistantLight&gt; - filter for lighting</span>
+<span class="c1">#  &lt;fePointLight&gt; - filter for lighting</span>
+<span class="c1">#  &lt;feSpotLight&gt; - filter for lighting</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="SvgElementMixin"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.SvgElementMixin">[docs]</a><span class="k">class</span> <span class="nc">SvgElementMixin</span><span class="p">(</span><span class="n">IdMixin</span><span class="p">,</span> <span class="n">StyleMixin</span><span class="p">,</span> <span class="n">TransformMixin</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+<span class="c1">####################################################################################################</span>
+<span class="c1">#</span>
+<span class="c1"># Svg Root Element</span>
+<span class="c1">#</span>
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Svg"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.Svg">[docs]</a><span class="k">class</span> <span class="nc">Svg</span><span class="p">(</span><span class="n">PositionMixin</span><span class="p">,</span> <span class="n">SizeMixin</span><span class="p">,</span> <span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Creates an SVG document fragment&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;svg&#39;</span>
+
+    <span class="c1"># xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; xml:space=&quot;preserve&quot;</span>
+
+    <span class="n">__attributes__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">StringAttribute</span><span class="p">(</span><span class="s1">&#39;version&#39;</span><span class="p">),</span>
+        <span class="n">FloatListAttribute</span><span class="p">(</span><span class="s1">&#39;view_box&#39;</span><span class="p">,</span> <span class="s1">&#39;viewBox&#39;</span><span class="p">),</span>
+        <span class="c1"># the points &quot;seen&quot; in this SVG drawing area. 4 values separated by white space or</span>
+        <span class="c1"># commas. (min x, min y, width, height)</span>
+        <span class="n">StringAttribute</span><span class="p">(</span><span class="s1">&#39;preserve_aspect_ratio&#39;</span><span class="p">,</span> <span class="s1">&#39;preserveAspectRatio&#39;</span><span class="p">),</span>
+        <span class="c1"># &#39;none&#39; or any of the 9 combinations of &#39;xVALYVAL&#39; where VAL is &#39;min&#39;, &#39;mid&#39; or &#39;max&#39;.</span>
+        <span class="c1"># (default xMidYMid)</span>
+        <span class="n">StringAttribute</span><span class="p">(</span><span class="s1">&#39;zoom_and_pan&#39;</span><span class="p">,</span> <span class="s1">&#39;zoomAndPan&#39;</span><span class="p">)</span>
+        <span class="c1"># &#39;magnify&#39; or &#39;disable&#39;. Magnify option allows users to pan and zoom your file</span>
+        <span class="c1"># (default magnify)</span>
+    <span class="p">)</span></div>
+
+    <span class="c1"># x=&quot;top left corner when embedded (default 0)&quot;</span>
+    <span class="c1"># y=&quot;top left corner when embedded (default 0)&quot;</span>
+    <span class="c1"># width=&quot;the width of the svg fragment (default 100%)&quot;</span>
+    <span class="c1"># height=&quot;the height of the svg fragment (default 100%)&quot;</span>
+
+<span class="c1">####################################################################################################</span>
+<span class="c1">#</span>
+<span class="c1"># SVG Elements by name</span>
+<span class="c1">#</span>
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Anchor"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.Anchor">[docs]</a><span class="k">class</span> <span class="nc">Anchor</span><span class="p">(</span><span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Creates a link around SVG elements&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span></div>
+
+    <span class="c1"># xlink:show</span>
+    <span class="c1"># xlink:actuate</span>
+    <span class="c1"># xlink:href</span>
+    <span class="c1"># target</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="AltGlyph"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.AltGlyph">[docs]</a><span class="k">class</span> <span class="nc">AltGlyph</span><span class="p">(</span><span class="n">PositionMixin</span><span class="p">,</span> <span class="n">DeltaMixin</span><span class="p">,</span> <span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Provides control over the glyphs used to render particular character data&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;altGlyph&#39;</span></div>
+
+    <span class="c1"># rotate</span>
+    <span class="c1"># glyphRef</span>
+    <span class="c1"># format</span>
+    <span class="c1"># xlink:href</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="AltGlyphDef"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.AltGlyphDef">[docs]</a><span class="k">class</span> <span class="nc">AltGlyphDef</span><span class="p">(</span><span class="n">IdMixin</span><span class="p">,</span> <span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Defines a substitution set for glyphs&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span><span class="o">=</span> <span class="s1">&#39;altGlyphDef&#39;</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="AltGlyphItem"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.AltGlyphItem">[docs]</a><span class="k">class</span> <span class="nc">AltGlyphItem</span><span class="p">(</span><span class="n">IdMixin</span><span class="p">,</span> <span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Defines a candidate set of glyph substitutions&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;altGlyphItem&#39;</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Animate"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.Animate">[docs]</a><span class="k">class</span> <span class="nc">Animate</span><span class="p">(</span><span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Defines how an attribute of an element changes over time&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;animate&#39;</span></div>
+
+    <span class="c1"># attributeName=&quot;the name of the target attribute&quot;</span>
+    <span class="c1"># by=&quot;a relative offset value&quot;</span>
+    <span class="c1"># from=&quot;the starting value&quot;</span>
+    <span class="c1"># to=&quot;the ending value&quot;</span>
+    <span class="c1"># dur=&quot;the duration&quot;</span>
+    <span class="c1"># repeatCount=&quot;the number of time the animation will take place&quot;</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="AnimateMotion"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.AnimateMotion">[docs]</a><span class="k">class</span> <span class="nc">AnimateMotion</span><span class="p">(</span><span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Causes a referenced element to move along a motion path&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;animateMotion&#39;</span></div>
+
+    <span class="c1"># calcMode=&quot;the interpolation mode for the animation. Can be &#39;discrete&#39;, &#39;linear&#39;, &#39;paced&#39;, &#39;spline&#39;&quot;</span>
+    <span class="c1"># path=&quot;the motion path&quot;</span>
+    <span class="c1"># keyPoints=&quot;how far along the motion path the object shall move at the moment in time&quot;</span>
+    <span class="c1"># rotate=&quot;applies a rotation transformation&quot;</span>
+    <span class="c1"># xlink:href=&quot;an URI reference to the &lt;path&gt; element which defines the motion path&quot;</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="AnimateTransform"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.AnimateTransform">[docs]</a><span class="k">class</span> <span class="nc">AnimateTransform</span><span class="p">(</span><span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Animates a transformation attribute on a target element, thereby allowing animations to control</span>
+<span class="sd">    translation, scaling, rotation and/or skewing</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;animateTransform&#39;</span></div>
+
+    <span class="c1"># by=&quot;a relative offset value&quot;</span>
+    <span class="c1"># from=&quot;the starting value&quot;</span>
+    <span class="c1"># to=&quot;the ending value&quot;</span>
+    <span class="c1"># type=&quot;the type of transformation which is to have its values change over time. Can be &#39;translate&#39;, &#39;scale&#39;, &#39;rotate&#39;, &#39;skewX&#39;, &#39;skewY&#39;&quot;</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Circle"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.Circle">[docs]</a><span class="k">class</span> <span class="nc">Circle</span><span class="p">(</span><span class="n">CenterMixin</span><span class="p">,</span> <span class="n">PathMixin</span><span class="p">,</span> <span class="n">SvgElementMixin</span><span class="p">,</span> <span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Defines a circle&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;circle&#39;</span>
+
+    <span class="n">__attributes__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">FloatAttribute</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">),</span> <span class="c1"># circle&#39;s radius. Required.</span>
+    <span class="p">)</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="ClipPath"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.ClipPath">[docs]</a><span class="k">class</span> <span class="nc">ClipPath</span><span class="p">(</span><span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Clipping is about hiding what normally would be drawn. The stencil which defines what is and</span>
+<span class="sd">    what isn&#39;t drawn is called a clipping path</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;clipPath&#39;</span></div>
+
+    <span class="c1"># clip-path=&quot;the referenced clipping path is intersected with the referencing clipping path&quot;</span>
+    <span class="c1"># clipPathUnits=&quot;&#39;userSpaceOnUse&#39; or &#39;objectBoundingBox&#39;. The second value makes units of children a fraction of the object bounding box which uses the mask (default: &#39;userSpaceOnUse&#39;)&quot;</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="ColorProfile"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.ColorProfile">[docs]</a><span class="k">class</span> <span class="nc">ColorProfile</span><span class="p">(</span><span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Specifies a color profile description (when the document is styled using CSS)&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;color-profile&#39;</span></div>
+
+    <span class="c1"># local=&quot;the unique ID for a locally stored color profile&quot;</span>
+    <span class="c1"># name=&quot;&quot;</span>
+    <span class="c1"># rendering-intent=&quot;auto|perceptual|relative-colorimetric|saturation|absolute-colorimetric&quot;</span>
+    <span class="c1"># xlink:href=&quot;the URI of an ICC profile resource&quot;</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Cursor"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.Cursor">[docs]</a><span class="k">class</span> <span class="nc">Cursor</span><span class="p">(</span><span class="n">PositionMixin</span><span class="p">,</span> <span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Defines a platform-independent custom cursor&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;cursor&#39;</span></div>
+
+    <span class="c1"># x=&quot;the x-axis top-left corner of the cursor (default is 0)&quot;</span>
+    <span class="c1"># y=&quot;the y-axis top-left corner of the cursor (default is 0)&quot;</span>
+    <span class="c1"># xlink:href=&quot;the URI of the image to use as the cursor</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Defs"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.Defs">[docs]</a><span class="k">class</span> <span class="nc">Defs</span><span class="p">(</span><span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;A container for referenced elements&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;defs&#39;</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Desc"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.Desc">[docs]</a><span class="k">class</span> <span class="nc">Desc</span><span class="p">(</span><span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;A text-only description for container elements or graphic elements in SVG (user agents may</span>
+<span class="sd">    display the text as a tooltip)&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;desc&#39;</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Ellipse"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.Ellipse">[docs]</a><span class="k">class</span> <span class="nc">Ellipse</span><span class="p">(</span><span class="n">CenterMixin</span><span class="p">,</span> <span class="n">PathMixin</span><span class="p">,</span> <span class="n">StyleMixin</span><span class="p">,</span> <span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Defines an ellipse&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;ellipse&#39;</span>
+
+    <span class="n">__attributes__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">FloatAttribute</span><span class="p">(</span><span class="s1">&#39;rx&#39;</span><span class="p">),</span>
+        <span class="n">FloatAttribute</span><span class="p">(</span><span class="s1">&#39;ry&#39;</span><span class="p">),</span>
+    <span class="p">)</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="FeBlend"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.FeBlend">[docs]</a><span class="k">class</span> <span class="nc">FeBlend</span><span class="p">(</span><span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Composes two objects together according to a certain blending mode&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;feBlend&#39;</span></div>
+
+    <span class="c1"># mode=&quot;the image blending modes: normal|multiply|screen|darken|lighten&quot;</span>
+    <span class="c1"># in=&quot;identifies input for the given filter primitive: SourceGraphic | SourceAlpha | BackgroundImage | BackgroundAlpha | FillPaint | StrokePaint | &lt;filter-primitive-reference&gt;&quot;</span>
+    <span class="c1"># in2=&quot;the second input image to the blending operation&quot;</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Group"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.Group">[docs]</a><span class="k">class</span> <span class="nc">Group</span><span class="p">(</span><span class="n">FontMixin</span><span class="p">,</span> <span class="n">PathMixin</span><span class="p">,</span> <span class="n">SvgElementMixin</span><span class="p">,</span> <span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Used to group together elements&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;g&#39;</span>
+
+    <span class="n">__attributes__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">StringAttribute</span><span class="p">(</span><span class="s1">&#39;clip_path&#39;</span><span class="p">,</span> <span class="s1">&#39;clip-path&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="n">StringAttribute</span><span class="p">(</span><span class="s1">&#39;data_name&#39;</span><span class="p">,</span> <span class="s1">&#39;data-name&#39;</span><span class="p">),</span>
+        <span class="c1">#fill=&quot;the fill color for the group&quot;</span>
+        <span class="c1">#opacity=&quot;the opacity for the group&quot;</span>
+    <span class="p">)</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Image"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.Image">[docs]</a><span class="k">class</span> <span class="nc">Image</span><span class="p">(</span><span class="n">PositionMixin</span><span class="p">,</span> <span class="n">SizeMixin</span><span class="p">,</span> <span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Defines an image&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;image&#39;</span></div>
+
+    <span class="c1"># x=&quot;the x-axis top-left corner of the image&quot;</span>
+    <span class="c1"># y=&quot;the y-axis top-left corner of the image&quot;</span>
+    <span class="c1"># width=&quot;the width of the image&quot;. Required.</span>
+    <span class="c1"># height=&quot;the height of the image&quot;. Required.</span>
+    <span class="c1"># xlink:href=&quot;the path to the image&quot;. Required.</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Line"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.Line">[docs]</a><span class="k">class</span> <span class="nc">Line</span><span class="p">(</span><span class="n">PathMixin</span><span class="p">,</span> <span class="n">SvgElementMixin</span><span class="p">,</span> <span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Defines a line&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;line&#39;</span>
+
+    <span class="n">__attributes__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">FloatAttribute</span><span class="p">(</span><span class="s1">&#39;x1&#39;</span><span class="p">),</span> <span class="c1"># x start point of the line</span>
+        <span class="n">FloatAttribute</span><span class="p">(</span><span class="s1">&#39;y1&#39;</span><span class="p">),</span>
+        <span class="n">FloatAttribute</span><span class="p">(</span><span class="s1">&#39;x2&#39;</span><span class="p">),</span> <span class="c1"># x end point of the line</span>
+        <span class="n">FloatAttribute</span><span class="p">(</span><span class="s1">&#39;y2&#39;</span><span class="p">),</span>
+    <span class="p">)</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="LinearGradient"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.LinearGradient">[docs]</a><span class="k">class</span> <span class="nc">LinearGradient</span><span class="p">(</span><span class="n">IdMixin</span><span class="p">,</span> <span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Defines a linear gradient. Linear gradients fill the object by using a vector, and can be defined</span>
+<span class="sd">    as horizontal, vertical or angular gradients.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;linearGradient&#39;</span></div>
+
+    <span class="c1"># id=&quot;the unique id used to reference this pattern. Required to reference it&quot;</span>
+    <span class="c1"># gradientUnits=&quot;&#39;userSpaceOnUse&#39; or &#39;objectBoundingBox&#39;. Use the view box or object to determine relative position of vector points. (Default &#39;objectBoundingBox&#39;)&quot;</span>
+    <span class="c1"># gradientTransform=&quot;the transformation to apply to the gradient&quot;</span>
+    <span class="c1"># x1=&quot;the x start point of the gradient vector (number or % - 0% is default)&quot;</span>
+    <span class="c1"># y1=&quot;the y start point of the gradient vector. (0% default)&quot;</span>
+    <span class="c1"># x2=&quot;the x end point of the gradient vector. (100% default)&quot;</span>
+    <span class="c1"># y2=&quot;the y end point of the gradient vector. (0% default)&quot;</span>
+    <span class="c1"># spreadMethod=&quot;&#39;pad&#39; or &#39;reflect&#39; or &#39;repeat&#39;&quot;</span>
+    <span class="c1"># xlink:href=&quot;reference to another gradient whose attribute values are used as defaults and stops included. Recursive&quot;</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Marker"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.Marker">[docs]</a><span class="k">class</span> <span class="nc">Marker</span><span class="p">(</span><span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Markers can be placed on the vertices of lines, polylines, polygons and paths. These elements can</span>
+<span class="sd">    use the marker attributes &quot;marker-start&quot;, &quot;marker-mid&quot; and &quot;marker-end&quot;&#39; which inherit by</span>
+<span class="sd">    default or can be set to &#39;none&#39; or the URI of a defined marker. You must first define the marker</span>
+<span class="sd">    before you can reference it via its URI. Any kind of shape can be put inside marker. They are</span>
+<span class="sd">    drawn on top of the element they are attached to markerUnits=&quot;&#39;strokeWidth&#39; or</span>
+<span class="sd">    &#39;userSpaceOnUse&#39;. If &#39;strokeWidth&#39; is used then one unit equals one stroke width. Otherwise, the</span>
+<span class="sd">    marker does not scale and uses the the same view units as the referencing element (default</span>
+<span class="sd">    &#39;strokeWidth&#39;)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;marker&#39;</span></div>
+
+    <span class="c1"># refx=&quot;the position where the marker connects with the vertex (default 0)&quot;</span>
+    <span class="c1"># refy=&quot;the position where the marker connects with the vertex (default 0)&quot;</span>
+    <span class="c1"># orient=&quot;&#39;auto&#39; or an angle to always show the marker at. &#39;auto&#39; will compute an angle that makes the x-axis a tangent of the vertex (default 0)&quot;</span>
+    <span class="c1"># markerWidth=&quot;the width of the marker (default 3)&quot;</span>
+    <span class="c1"># markerHeight=&quot;the height of the marker (default 3)&quot;</span>
+    <span class="c1"># viewBox=&quot;the points &quot;seen&quot; in this SVG drawing area. 4 values separated by white space or commas. (min x, min y, width, height)&quot;</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Mask"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.Mask">[docs]</a><span class="k">class</span> <span class="nc">Mask</span><span class="p">(</span><span class="n">PositionMixin</span><span class="p">,</span> <span class="n">SizeMixin</span><span class="p">,</span> <span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Masking is a combination of opacity values and clipping. Like clipping you can use shapes, text</span>
+<span class="sd">    or paths to define sections of the mask. The default state of a mask is fully transparent which</span>
+<span class="sd">    is the opposite of clipping plane. The graphics in a mask sets how opaque portions of the mask</span>
+<span class="sd">    are</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;mask&#39;</span></div>
+
+    <span class="c1"># maskUnits=&quot;&#39;userSpaceOnUse&#39; or &#39;objectBoundingBox&#39;. Set whether the clipping plane is relative the full view port or object (default: &#39;objectBoundingBox&#39;)&quot;</span>
+    <span class="c1"># maskContentUnits=&quot;Use the second with percentages to make mask graphic positions relative the object. &#39;userSpaceOnUse&#39; or &#39;objectBoundingBox&#39; (default: &#39;userSpaceOnUse&#39;)&quot;</span>
+    <span class="c1"># x=&quot;the clipping plane of the mask (default: -10%)&quot;</span>
+    <span class="c1"># y=&quot;the clipping plane of the mask (default: -10%)&quot;</span>
+    <span class="c1"># width=&quot;the clipping plane of the mask (default: 120%)&quot;</span>
+    <span class="c1"># height=&quot;the clipping plane of the mask (default: 120%)&quot;</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="PathDataAttribute"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.PathDataAttribute">[docs]</a><span class="k">class</span> <span class="nc">PathDataAttribute</span><span class="p">(</span><span class="n">StringAttribute</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Define a path data attribute.</span>
+
+<span class="sd">    Path data can contain newline characters and thus can be broken up into multiple lines to</span>
+<span class="sd">    improve readability. Because of line length limitations with certain related tools, it is</span>
+<span class="sd">    recommended that SVG generators split long path data strings across multiple lines, with each</span>
+<span class="sd">    line not exceeding 255 characters. Also note that newline characters are only allowed at certain</span>
+<span class="sd">    places within path data.</span>
+
+<span class="sd">    The syntax of path data is concise in order to allow for minimal file size and efficient</span>
+<span class="sd">    downloads, since many SVG files will be dominated by their path data. Some of the ways that SVG</span>
+<span class="sd">    attempts to minimize the size of path data are as follows:</span>
+
+<span class="sd">     * All instructions are expressed as one character (e.g., a moveto is expressed as an M).</span>
+<span class="sd">     * Superfluous white space and separators such as commas can be eliminated</span>
+<span class="sd">       (e.g., &quot;M 100 100 L 200 200&quot; contains unnecessary spaces and</span>
+<span class="sd">       could be expressed more compactly as &quot;M100 100L200 200&quot;).</span>
+<span class="sd">     * The command letter can be eliminated on subsequent commands if the same command</span>
+<span class="sd">       is used multiple times in a row (e.g., you can drop the second</span>
+<span class="sd">       &quot;L&quot; in &quot;M 100 200 L 200 100 L -100 -200&quot; and use</span>
+<span class="sd">       &quot;M 100 200 L 200 100 -100 -200&quot; instead).</span>
+<span class="sd">     * Relative versions of all commands are available (uppercase means absolute coordinates,</span>
+<span class="sd">       lowercase means relative coordinates).</span>
+<span class="sd">     * Alternate forms of lineto are available to optimize the special cases of horizontal and</span>
+<span class="sd">       vertical lines (absolute and relative).</span>
+<span class="sd">     * Alternate forms of curve are available to optimize the special cases where some</span>
+<span class="sd">       of the control points on the current segment can be determined automatically</span>
+<span class="sd">       from the control points on the previous segment.</span>
+
+<span class="sd">    The following commands are available for path data:</span>
+
+<span class="sd">     * Move to</span>
+<span class="sd">       M x y</span>
+<span class="sd">       m dx dy</span>
+<span class="sd">     * Line to</span>
+<span class="sd">       L x y</span>
+<span class="sd">       l dx dy</span>
+<span class="sd">     * Horizontal Line to</span>
+<span class="sd">       H x</span>
+<span class="sd">       h dx</span>
+<span class="sd">     * Vertical Line to</span>
+<span class="sd">       V y</span>
+<span class="sd">       v dy</span>
+<span class="sd">     * Cubic Bézier Curve</span>
+<span class="sd">       C x1 y1, x2 y2, x y</span>
+<span class="sd">       c dx1 dy1, dx2 dy2, dx dy</span>
+<span class="sd">     * Smooth Cubic Bézier Curve</span>
+<span class="sd">       S x2 y2, x y</span>
+<span class="sd">       s dx2 dy2, dx dy&quot;</span>
+<span class="sd">     * Quadratic Bézier Curve</span>
+<span class="sd">       Q x1 y1, x y</span>
+<span class="sd">       q dx1 dy1, dx dy</span>
+<span class="sd">     * Smooth Quadratic Bézier Curve</span>
+<span class="sd">       T x y</span>
+<span class="sd">       t dx dy</span>
+<span class="sd">     * Elliptical Arc</span>
+<span class="sd">       A rx ry x-axis-rotation large-arc-flag sweep-flag x y</span>
+<span class="sd">       a rx ry x-axis-rotation large-arc-flag sweep-flag dx dy</span>
+<span class="sd">     * Close Path</span>
+<span class="sd">       Z</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">NUMBER_OF_ARGS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;m&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>
+        <span class="s1">&#39;l&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>
+        <span class="s1">&#39;h&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+        <span class="s1">&#39;v&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+        <span class="s1">&#39;c&#39;</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span>
+        <span class="s1">&#39;s&#39;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span>
+        <span class="s1">&#39;q&#39;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span>
+        <span class="s1">&#39;t&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span>
+        <span class="s1">&#39;a&#39;</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span>
+        <span class="s1">&#39;z&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="n">COMMANDS</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">NUMBER_OF_ARGS</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="n">_logger</span> <span class="o">=</span> <span class="n">_module_logger</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;PathDataAttribute&#39;</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="PathDataAttribute.from_xml"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.PathDataAttribute.from_xml">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_xml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">svg_path</span><span class="p">):</span>
+
+        <span class="c1"># cls._logger.info(&#39;SVG path:\n&#39;+ svg_path)</span>
+
+        <span class="c1"># Replace comma separator by space</span>
+        <span class="n">cleaned_svg_path</span> <span class="o">=</span> <span class="n">svg_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
+        <span class="c1"># Add space after letter</span>
+        <span class="n">data_path</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cleaned_svg_path</span><span class="p">:</span>
+            <span class="n">data_path</span> <span class="o">+=</span> <span class="n">c</span>
+            <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">isalpha</span><span class="p">:</span>
+                <span class="n">data_path</span> <span class="o">+=</span> <span class="s1">&#39; &#39;</span>
+        <span class="c1"># Convert float values</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">split_space_list</span><span class="p">(</span><span class="n">cleaned_svg_path</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">part</span><span class="o">.</span><span class="n">isalpha</span><span class="p">()):</span>
+                <span class="n">part</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+            <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+
+        <span class="n">commands</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># last command</span>
+        <span class="n">number_of_args</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">):</span>
+            <span class="n">part</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">command</span> <span class="o">=</span> <span class="n">part</span>
+                <span class="n">command_lower</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">command_lower</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">COMMANDS</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid path instruction: &#39;</span><span class="si">{}</span><span class="s2">&#39; in</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">svg_path</span><span class="p">))</span>
+                <span class="n">number_of_args</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">NUMBER_OF_ARGS</span><span class="p">[</span><span class="n">command_lower</span><span class="p">]</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span> <span class="c1"># move to first arg</span>
+            <span class="c1"># else repeated instruction</span>
+            <span class="n">next_i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">number_of_args</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">next_i</span><span class="p">]</span>
+            <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">command</span><span class="p">,</span> <span class="n">args</span><span class="p">))</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">next_i</span>
+            <span class="c1"># for implicit line to</span>
+            <span class="k">if</span> <span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;m&#39;</span><span class="p">:</span>
+                <span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;l&#39;</span>
+            <span class="k">elif</span> <span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;M&#39;</span><span class="p">:</span>
+                <span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;L&#39;</span>
+
+        <span class="c1"># return commands</span>
+        <span class="c1"># Fixme: do later ???</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">to_geometry</span><span class="p">(</span><span class="n">commands</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="PathDataAttribute.to_xml"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.PathDataAttribute.to_xml">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">to_xml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="n">path_data</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">path_data</span><span class="p">:</span>
+                <span class="n">path_data</span> <span class="o">+=</span> <span class="s1">&#39; &#39;</span>
+            <span class="n">path_data</span> <span class="o">+=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">command</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">command</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+        <span class="k">return</span> <span class="n">path_data</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="PathDataAttribute.as_vector"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.PathDataAttribute.as_vector">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">as_vector</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+
+        <span class="n">number_of_args</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">number_of_vectors</span> <span class="o">=</span> <span class="n">number_of_args</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="k">if</span> <span class="n">number_of_args</span> <span class="o">!=</span> <span class="n">number_of_vectors</span> <span class="o">*</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;len(args) is not // 2: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">number_of_args</span><span class="p">))</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">Vector2D</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">number_of_args</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="PathDataAttribute.to_geometry"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.PathDataAttribute.to_geometry">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">to_geometry</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">commands</span><span class="p">):</span>
+
+        <span class="c1"># cls._logger.info(&#39;Path:\n&#39; + str(commands).replace(&#39;), &#39;, &#39;),\n &#39;))</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">command</span><span class="p">,</span> <span class="n">args</span> <span class="ow">in</span> <span class="n">commands</span><span class="p">:</span>
+            <span class="n">command_lower</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="n">absolute</span> <span class="o">=</span> <span class="n">command_lower</span> <span class="o">!=</span> <span class="n">command</span> <span class="c1"># Upper case means absolute</span>
+            <span class="c1"># if is_lower:</span>
+            <span class="c1">#     cls._logger.warning(&#39;incremental command&#39;)</span>
+            <span class="c1">#     raise NotImplementedError</span>
+            <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">command_lower</span> <span class="o">!=</span> <span class="s1">&#39;m&#39;</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s1">&#39;Path must start with m&#39;</span><span class="p">)</span>
+                <span class="n">path</span> <span class="o">=</span> <span class="n">Path2D</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="c1"># Vector2D()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">command_lower</span> <span class="o">==</span> <span class="s1">&#39;l&#39;</span><span class="p">:</span>
+                    <span class="n">path</span><span class="o">.</span><span class="n">line_to</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">absolute</span><span class="o">=</span><span class="n">absolute</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;h&#39;</span><span class="p">:</span>
+                    <span class="n">path</span><span class="o">.</span><span class="n">horizontal_to</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">absolute</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;H&#39;</span><span class="p">:</span>
+                    <span class="n">path</span><span class="o">.</span><span class="n">absolute_horizontal_to</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">command_lower</span> <span class="o">==</span> <span class="s1">&#39;v&#39;</span><span class="p">:</span>
+                    <span class="n">path</span><span class="o">.</span><span class="n">vertical_to</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">absolute</span><span class="o">=</span><span class="n">absolute</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;V&#39;</span><span class="p">:</span>
+                    <span class="n">path</span><span class="o">.</span><span class="n">absolute_vertical_to</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">command_lower</span> <span class="o">==</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span>
+                    <span class="n">path</span><span class="o">.</span><span class="n">cubic_to</span><span class="p">(</span><span class="o">*</span><span class="bp">cls</span><span class="o">.</span><span class="n">as_vector</span><span class="p">(</span><span class="n">args</span><span class="p">),</span> <span class="n">absolute</span><span class="o">=</span><span class="n">absolute</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">command_lower</span> <span class="o">==</span> <span class="s1">&#39;s&#39;</span><span class="p">:</span>
+                    <span class="n">path</span><span class="o">.</span><span class="n">stringed_quadratic_to</span><span class="p">(</span><span class="o">*</span><span class="bp">cls</span><span class="o">.</span><span class="n">as_vector</span><span class="p">(</span><span class="n">args</span><span class="p">),</span> <span class="n">absolute</span><span class="o">=</span><span class="n">absolute</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">command_lower</span> <span class="o">==</span> <span class="s1">&#39;q&#39;</span><span class="p">:</span>
+                    <span class="n">path</span><span class="o">.</span><span class="n">quadratic_to</span><span class="p">(</span><span class="o">*</span><span class="bp">cls</span><span class="o">.</span><span class="n">as_vector</span><span class="p">(</span><span class="n">args</span><span class="p">),</span> <span class="n">absolute</span><span class="o">=</span><span class="n">absolute</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">command_lower</span> <span class="o">==</span> <span class="s1">&#39;t&#39;</span><span class="p">:</span>
+                    <span class="n">path</span><span class="o">.</span><span class="n">stringed_cubic_to</span><span class="p">(</span><span class="o">*</span><span class="bp">cls</span><span class="o">.</span><span class="n">as_vector</span><span class="p">(</span><span class="n">args</span><span class="p">),</span> <span class="n">absolute</span><span class="o">=</span><span class="n">absolute</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">command_lower</span> <span class="o">==</span> <span class="s1">&#39;a&#39;</span><span class="p">:</span>
+                    <span class="n">radius_x</span><span class="p">,</span> <span class="n">radius_y</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">large_arc</span><span class="p">,</span> <span class="n">sweep</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">args</span>
+                    <span class="n">point</span> <span class="o">=</span> <span class="n">Vector2D</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+                    <span class="n">path</span><span class="o">.</span><span class="n">arc_to</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">radius_x</span><span class="p">,</span> <span class="n">radius_y</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">large_arc</span><span class="p">),</span> <span class="nb">bool</span><span class="p">(</span><span class="n">sweep</span><span class="p">),</span> <span class="n">absolute</span><span class="o">=</span><span class="n">absolute</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">command_lower</span> <span class="o">==</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span>
+                    <span class="n">path</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">path</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Path"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.Path">[docs]</a><span class="k">class</span> <span class="nc">Path</span><span class="p">(</span><span class="n">PathMixin</span><span class="p">,</span> <span class="n">SvgElementMixin</span><span class="p">,</span> <span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Defines a path&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;path&#39;</span>
+    <span class="n">__attributes__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">PathDataAttribute</span><span class="p">(</span><span class="s1">&#39;path_data&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">),</span> <span class="c1"># a set of commands which define the path</span>
+        <span class="n">FloatAttribute</span><span class="p">(</span><span class="s1">&#39;path_length&#39;</span><span class="p">,</span> <span class="s1">&#39;pathLength&#39;</span><span class="p">),</span>
+        <span class="c1"># If present, the path will be scaled so that the computed path length of the points equals</span>
+        <span class="c1"># this value</span>
+    <span class="p">)</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Pattern"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.Pattern">[docs]</a><span class="k">class</span> <span class="nc">Pattern</span><span class="p">(</span><span class="n">IdMixin</span><span class="p">,</span> <span class="n">PositionMixin</span><span class="p">,</span> <span class="n">SizeMixin</span><span class="p">,</span> <span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Defines the coordinates you want the view to show and the size of the view. Then you add shapes</span>
+<span class="sd">    into your pattern. The pattern repeats when an edge of the view box (viewing area) is hit</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;pattern&#39;</span></div>
+
+    <span class="c1"># id=&quot;the unique id used to reference this pattern.&quot; Required.</span>
+    <span class="c1"># patternUnits=&quot;&#39;userSpaceOnUse&#39; or &#39;objectBoundingBox&#39;. The second value makes units of x, y, width, height a fraction (or %) of the object bounding box which uses the pattern.&quot;</span>
+    <span class="c1"># patternContentUnits=&quot;&#39;userSpaceOnUse&#39; or &#39;objectBoundingBox&#39;&quot;</span>
+    <span class="c1"># patternTransform=&quot;allows the whole pattern to be transformed&quot;</span>
+    <span class="c1"># x=&quot;pattern&#39;s offset from the top-left corner (default 0)&quot;</span>
+    <span class="c1"># y=&quot;pattern&#39;s offset from the top-left corner. (default 0)&quot;</span>
+    <span class="c1"># width=&quot;the width of the pattern tile (default 100%)&quot;</span>
+    <span class="c1"># height=&quot;the height of the pattern tile (default 100%)&quot;</span>
+    <span class="c1"># viewBox=&quot;the points &quot;seen&quot; in this SVG drawing area. 4 values separated by white space or commas. (min x, min y, width, height)&quot;</span>
+    <span class="c1"># xlink:href=&quot;reference to another pattern whose attribute values are used as defaults and any children are inherited. Recursive&quot;</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Polyline"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.Polyline">[docs]</a><span class="k">class</span> <span class="nc">Polyline</span><span class="p">(</span><span class="n">PointsMixin</span><span class="p">,</span> <span class="n">PathMixin</span><span class="p">,</span> <span class="n">SvgElementMixin</span><span class="p">,</span> <span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Defines a graphic that contains at least three sides&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;polyline&#39;</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Polygon"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.Polygon">[docs]</a><span class="k">class</span> <span class="nc">Polygon</span><span class="p">(</span><span class="n">Polyline</span><span class="p">,</span> <span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Defines any shape that consists of only straight lines&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;polyline&#39;</span></div>
+
+    <span class="c1"># fill-rule=&quot;part of the FillStroke presentation attributes&quot;</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="RadialGradient"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.RadialGradient">[docs]</a><span class="k">class</span> <span class="nc">RadialGradient</span><span class="p">(</span><span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Defines a radial gradient. Radial gradients are created by taking a circle and smoothly changing</span>
+<span class="sd">    values between gradient stops from the focus point to the outside radius.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;radialGradient&#39;</span></div>
+
+    <span class="c1"># gradientUnits=&quot;&#39;userSpaceOnUse&#39; or &#39;objectBoundingBox&#39;. Use the view box or object to determine relative position of vector points. (Default &#39;objectBoundingBox&#39;)&quot;</span>
+    <span class="c1"># gradientTransform=&quot;the transformation to apply to the gradient&quot;</span>
+    <span class="c1"># cx=&quot;the center point of the gradient (number or % - 50% is default)&quot;</span>
+    <span class="c1"># cy=&quot;the center point of the gradient. (50% default)&quot;</span>
+    <span class="c1"># r=&quot;the radius of the gradient. (50% default)&quot;</span>
+    <span class="c1"># fx=&quot;the focus point of the gradient. (0% default)&quot;</span>
+    <span class="c1"># fy=&quot;The focus point of the gradient. (0% default)&quot;</span>
+    <span class="c1"># spreadMethod=&quot;&#39;pad&#39; or &#39;reflect&#39; or &#39;repeat&#39;&quot;</span>
+    <span class="c1"># xlink:href=&quot;Reference to another gradient whose attribute values are used as defaults and stops included. Recursive&quot;</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Rect"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.Rect">[docs]</a><span class="k">class</span> <span class="nc">Rect</span><span class="p">(</span><span class="n">PositionMixin</span><span class="p">,</span> <span class="n">RadiusMixin</span><span class="p">,</span> <span class="n">SizeMixin</span><span class="p">,</span> <span class="n">PathMixin</span><span class="p">,</span> <span class="n">SvgElementMixin</span><span class="p">,</span> <span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Defines a rectangle&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;rect&#39;</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c1"># Fixme: width is str</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">)</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+
+        <span class="c1"># Fixme: which one ???</span>
+        <span class="n">radius_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rx</span>
+        <span class="n">radius_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ry</span>
+        <span class="k">if</span> <span class="n">radius_y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">radius</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">radius</span> <span class="o">=</span> <span class="n">radius_y</span>
+
+        <span class="n">point</span> <span class="o">=</span> <span class="n">Vector2D</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">Path2D</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">horizontal_to</span><span class="p">(</span><span class="n">width</span><span class="p">)</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">vertical_to</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="n">radius</span><span class="p">)</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">horizontal_to</span><span class="p">(</span><span class="o">-</span><span class="n">width</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="n">radius</span><span class="p">)</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="n">radius</span><span class="p">,</span> <span class="n">close_radius</span><span class="o">=</span><span class="n">radius</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">path</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Stop"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.Stop">[docs]</a><span class="k">class</span> <span class="nc">Stop</span><span class="p">(</span><span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;The stops for a gradient&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;stop&#39;</span></div>
+
+    <span class="c1"># offset=&quot;the offset for this stop (0 to 1/0% to 100%)&quot;. Required.</span>
+    <span class="c1"># stop-color=&quot;the color of this stop&quot;</span>
+    <span class="c1"># stop-opacity=&quot;the opacity of this stop (0 to 1)&quot;</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Style"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.Style">[docs]</a><span class="k">class</span> <span class="nc">Style</span><span class="p">(</span><span class="n">TextXmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Defines style&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;style&#39;</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Text"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.Text">[docs]</a><span class="k">class</span> <span class="nc">Text</span><span class="p">(</span><span class="n">PositionMixin</span><span class="p">,</span> <span class="n">DeltaMixin</span><span class="p">,</span> <span class="n">FontMixin</span><span class="p">,</span> <span class="n">ColorMixin</span><span class="p">,</span> <span class="n">SvgElementMixin</span><span class="p">,</span> <span class="n">TextXmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Defines a text&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;text&#39;</span>
+
+    <span class="c1"># x=&quot;a list of x-axis positions. The nth x-axis position is given to the nth character in the text. If there are additional characters after the positions run out they are placed after the last character. 0 is default&quot;</span>
+    <span class="c1"># y=&quot;a list of y-axis positions. (see x). 0 is default&quot;</span>
+    <span class="c1"># dx=&quot;a list of lengths which moves the characters relative to the absolute position of the last glyph drawn. (see x)&quot;</span>
+    <span class="c1"># dy=&quot;a list of lengths which moves the characters relative to the absolute position of the last glyph drawn. (see x)&quot;</span>
+    <span class="c1"># rotate=&quot;a list of rotations. The nth rotation is performed on the nth character. Additional characters are NOT given the last rotation value&quot;</span>
+    <span class="c1"># textLength=&quot;a target length for the text that the SVG viewer will attempt to display the text between by adjusting the spacing and/or the glyphs. (default: The text&#39;s normal length)&quot;</span>
+    <span class="c1"># lengthAdjust=&quot;tells the viewer what to adjust to try to accomplish rendering the text if the length is specified. The two values are &#39;spacing&#39; and &#39;spacingAndGlyphs&#39;&quot;</span>
+
+    <span class="n">__attributes__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="c1"># Fixme: common ???</span>
+        <span class="n">StringAttribute</span><span class="p">(</span><span class="s1">&#39;_class&#39;</span><span class="p">,</span> <span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="n">StringAttribute</span><span class="p">(</span><span class="s1">&#39;style&#39;</span><span class="p">),</span>
+    <span class="p">)</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="TextRef"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.TextRef">[docs]</a><span class="k">class</span> <span class="nc">TextRef</span><span class="p">(</span><span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;References any &lt;text&gt; element in the SVG document and reuse it&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;tref&#39;</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="TextSpan"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.TextSpan">[docs]</a><span class="k">class</span> <span class="nc">TextSpan</span><span class="p">(</span><span class="n">Text</span><span class="p">,</span> <span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Identical to the &lt;text&gt; element but can be nested inside text tags and inside itself&quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;textspan&#39;</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Use"><a class="viewcode-back" href="../../../../api/Patro/FileFormat/Svg/SvgFormat.html#Patro.FileFormat.Svg.SvgFile.Use">[docs]</a><span class="k">class</span> <span class="nc">Use</span><span class="p">(</span><span class="n">PositionMixin</span><span class="p">,</span> <span class="n">SizeMixin</span><span class="p">,</span> <span class="n">XmlObjectAdaptator</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Uses a URI to reference a &lt;g&gt;, &lt;svg&gt; or other graphical element with a unique id attribute and</span>
+<span class="sd">    replicate it. The copy is only a reference to the original so only the original exists in the</span>
+<span class="sd">    document. Any change to the original affects all copies.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">__tag__</span> <span class="o">=</span> <span class="s1">&#39;use&#39;</span></div>
+
+    <span class="c1"># x=&quot;the x-axis top-left corner of the cloned element&quot;</span>
+    <span class="c1"># y=&quot;the y-axis top-left corner of the cloned element&quot;</span>
+    <span class="c1"># width=&quot;the width of the cloned element&quot;</span>
+    <span class="c1"># height=&quot;the height of the cloned element&quot;</span>
+    <span class="c1"># xlink:href=&quot;a URI reference to the cloned element&quot;</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Fabrice Salvaire
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../../static/getthecode.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../../static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+
+===========
+ Valentina
+===========
+
+.. toctree::
+    Valentina/Measurement
+    Valentina/Pattern
+    Valentina/VitFormat
+
+.. automodule:: Patro.FileFormat.Valentina
+   :members:
+   :show-inheritance:

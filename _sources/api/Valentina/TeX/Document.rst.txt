@@ -1,8 +1,0 @@
-**********
-Document
-**********
-
-.. automodule:: Valentina.TeX.Document
-   :members:
-   :show-inheritance:
-

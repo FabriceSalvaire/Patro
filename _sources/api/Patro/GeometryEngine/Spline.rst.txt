@@ -1,0 +1,8 @@
+
+========
+ Spline
+========
+
+.. automodule:: Patro.GeometryEngine.Spline
+   :members:
+   :show-inheritance:

@@ -1,0 +1,714 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Patro.Common.Platform &mdash; Patro 0.3.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../static/css/Patro.css" type="text/css" />
+  <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Patro
+          
+
+          
+            
+            <img src="../../../static/logo-64.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">1. Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#what-is-patro">1.1. What is Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#what-is-the-purpose-of-this-library">1.2. What is the purpose of this library ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#what-are-the-features-of-patro">1.3. What are the Features of Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#how-is-patro-licensed">1.4. How is Patro licensed ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#going-further-with-patro">1.5. Going further with Patro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#which-platforms-are-supported-by-patro">1.6. Which platforms are supported by Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#how-to-install-patro">1.7. How to install Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#which-version-of-python-is-required">1.8. Which version of Python is required ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../features-all.html">2. Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#geometry-engine">2.1. Geometry Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#pattern-engine">2.2. Pattern Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#graphic-engine">2.3. Graphic Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#pattern-format-support">2.4. Pattern Format Support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../features-all.html#pattern-format-compatibility">2.4.1. Pattern Format Compatibility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../valentina-compatibility/index.html">2.4.1.1. Valentina Compatibility</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#digitalisation">2.5. Digitalisation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../news.html">3. News</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../news.html#v0-2017-02-16">3.1. V0 2017-02-16</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../roadmap.html">4. Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">5. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#on-windows">5.1. On Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#on-linux">5.2. On Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#on-osx">5.3. On OSX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-pypi-repository">5.4. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#install-a-more-recent-version-from-github">5.5. Install a more recent version from Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-source">5.6. Installation from Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#dependencies">5.7. Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">6. Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/svg-import.html">6.1. SVG Import</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/dxf-import.html">6.2. DXF Import</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">7. User FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../faq.html#how-to-get-help-or-report-an-issue">7.1. How to get help or report an issue ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../design-notes/index.html">8. Design Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../design-notes/question-answer.html">8.1. Design Notes Questions &amp; Answers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#what-is-my-opinion-on-valentina-seamly2d">8.1.1. What is my opinion on Valentina / Seamly2D ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#can-we-implement-such-a-tool-as-a-plugin-of-another-software">8.1.2. Can we implement such a tool as a plugin of another software ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#what-is-the-requirements-of-a-pattern-drafting-software">8.1.3. What is the requirements of a pattern drafting software ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#why-python-is-a-good-language-for-this-library">8.1.4. Why Python is a good language for this library ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#could-we-implement-a-full-software-using-python">8.1.5. Could we implement a full software using Python ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#how-to-generate-drawings-in-standard-format-like-pdf-or-svg">8.1.6. How to generate drawings in standard format like PDF or SVG ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#what-is-the-requirements-of-a-geometric-engine">8.1.7. What is the requirements of a geometric engine ?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../design-notes/performance.html">8.2. Performances</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/performance.html#svg-import">8.2.1. SVG Import</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../resources/index.html">9. Resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../resources/file-format/index.html">9.1. File Formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/file-format/dxf.html">9.1.1. DXF File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/file-format/dxf-astm.html">9.1.2. DXF ASTM File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/file-format/svg.html">9.1.3. SVG File Format</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/file-format/svg.html#reference-documentations">9.1.3.1. Reference Documentations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/file-format/svg.html#svg-coordinate-system">9.1.3.2. SVG Coordinate System</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/file-format/svg.html#inkscape-software">9.1.3.3. Inkscape Software</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/file-format/valentina.html">9.1.4. Valentina File Format</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../resources/geometry/index.html">9.2. Geometry Resources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/bezier.html">9.2.1. Bézier Curves</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#valentina-requirements">9.2.1.1. Valentina Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#definitions">9.2.1.2. Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#linear-bezier-curves">9.2.1.3. Linear Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#quadratic-bezier-curves">9.2.1.4. Quadratic Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#cubic-bezier-curves">9.2.1.5. Cubic Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#recursive-definition">9.2.1.6. Recursive definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#degree-elevation">9.2.1.7. Degree elevation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#matrix-forms">9.2.1.8. Matrix Forms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#symbolic-calculation">9.2.1.9. Symbolic Calculation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#curve-length">9.2.1.10. Curve Length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#determine-the-curve-flatness">9.2.1.11. Determine the curve flatness</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#intersection-of-bezier-curve-with-a-line">9.2.1.12. Intersection of Bézier Curve with a Line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#closest-point">9.2.1.13. Closest Point</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/conic.html">9.2.2. Conic</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/conic.html#valentina-requirements">9.2.2.1. Valentina Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/conic.html#circle">9.2.2.2. Circle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/conic.html#ellipse">9.2.2.3. Ellipse</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/path.html">9.2.3. Path</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/path.html#bulge">9.2.3.1. Bulge</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/polygon.html">9.2.4. Polygon</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/polygon.html#area-and-barycenter">9.2.4.1. Area and Barycenter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/polygon.html#moments-of-inertia">9.2.4.2. Moments of Inertia</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/spline.html">9.2.5. Spline Curves</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/spline.html#references">9.2.5.1. References</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/spline.html#b-spline-basis">9.2.5.2. B-spline Basis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/spline.html#b-spline-curve">9.2.5.3. B-spline Curve</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/spline.html#algorithms-for-b-spline-curves">9.2.5.4. Algorithms for B-spline curves</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/transformations.html">9.2.6. Transformations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/transformations.html#transformation-matrices">9.2.6.1. Transformation matrices</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference-manual.html">10. API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/Patro.html">10.1. Patro</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/Patro/Common.html">10.1.1. Common</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/ArgparseAction.html">10.1.1.1. ArgparseAction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/AtomicCounter.html">10.1.1.2. AtomicCounter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/Datetime.html">10.1.1.3. Datetime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/Graph.html">10.1.1.4. Graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/IterTools.html">10.1.1.5. IterTools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/Logging.html">10.1.1.6. Logging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/Math.html">10.1.1.7. Math</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/Object.html">10.1.1.8. Object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/Path.html">10.1.1.9. Path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/Platform.html">10.1.1.10. Platform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/Singleton.html">10.1.1.11. Singleton</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/Xml.html">10.1.1.12. Xml</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/Patro/Config.html">10.1.2. Config</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Config/ConfigInstall.html">10.1.2.1. ConfigInstall</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/Patro/FileFormat.html">10.1.3. FileFormat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/FileFormat/Dxf.html">10.1.3.1. Dxf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/FileFormat/Svg.html">10.1.3.2. Svg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/FileFormat/Valentina.html">10.1.3.3. Valentina</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/Patro/GeometryEngine.html">10.1.4. GeometryEngine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Bezier.html">10.1.4.1. Bezier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/BoundingBox.html">10.1.4.2. BoundingBox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Conic.html">10.1.4.3. Conic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Interpolation.html">10.1.4.4. Interpolation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Line.html">10.1.4.5. Line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Mixin.html">10.1.4.6. Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Path.html">10.1.4.7. Path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Polygon.html">10.1.4.8. Polygon</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Polyline.html">10.1.4.9. Polyline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Primitive.html">10.1.4.10. Primitive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Rectangle.html">10.1.4.11. Rectangle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Segment.html">10.1.4.12. Segment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Shape.html">10.1.4.13. Shape</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Spline.html">10.1.4.14. Spline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Transformation.html">10.1.4.15. Transformation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Triangle.html">10.1.4.16. Triangle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Vector.html">10.1.4.17. Vector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine.html#purpose">10.1.4.18. Purpose</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine.html#bibliographical-references">10.1.4.19. Bibliographical References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/Patro/GraphicEngine.html">10.1.5. GraphicEngine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GraphicEngine/GraphicScene.html">10.1.5.1. GraphicScene</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GraphicEngine/Painter.html">10.1.5.2. Painter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GraphicEngine/TeX.html">10.1.5.3. TeX</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/Patro/GraphicStyle.html">10.1.6. GraphicStyle</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GraphicStyle/Color.html">10.1.6.1. Color</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/Patro/Measurement.html">10.1.7. Measurement</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Measurement/Measurement.html">10.1.7.1. Measurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Measurement/PersonalData.html">10.1.7.2. PersonalData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Measurement/StandardMeasurement.html">10.1.7.3. StandardMeasurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Measurement/ValentinaMeasurement.html">10.1.7.4. ValentinaMeasurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Measurement/ValentinaStandardMeasurement.html">10.1.7.5. ValentinaStandardMeasurement</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/Patro/Pattern.html">10.1.8. Pattern</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/Calculator.html">10.1.8.1. Calculator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/Patro/QtApplication.html">10.1.9. QtApplication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/QtApplication/QmlApplication.html">10.1.9.1. QmlApplication</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference-manual.html#indexes">10.2. Indexes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../development.html">11. Development &amp; Community</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../development.html#how-you-can-help">11.1. How you can help ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../development.html#contributors">11.2. Contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../how-to-refer.html">12. How to Refer to Patro ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../donate.html">13. How to Help Further ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../related-projects.html">14. Related Projects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../related-projects.html#pattern-making">14.1. Pattern Making</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../related-projects.html#embroidery">14.2. Embroidery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../related-projects.html#geometry-engine">14.3. Geometry Engine</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">15. Bibliography</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../bibliography.html#geometry-engine">15.1. Geometry Engine</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Patro</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>Patro.Common.Platform</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for Patro.Common.Platform</h1><div class="highlight"><pre>
+<span></span><span class="c1">####################################################################################################</span>
+<span class="c1">#</span>
+<span class="c1"># Patro - A Python library to make patterns for fashion design</span>
+<span class="c1"># Copyright (C) 2019 Fabrice Salvaire</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU Affero General Public License as</span>
+<span class="c1"># published by the Free Software Foundation, either version 3 of the</span>
+<span class="c1"># License, or (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU Affero General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU Affero General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="c1">#</span>
+<span class="c1">####################################################################################################</span>
+
+<span class="sd">&quot;&quot;&quot;Module to query the platform for features.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># Look alternative Python package</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="kn">from</span> <span class="nn">enum</span> <span class="k">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">auto</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">platform</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="PlatformType"><a class="viewcode-back" href="../../../api/Patro/Common/Platform.html#Patro.Common.Platform.PlatformType">[docs]</a><span class="k">class</span> <span class="nc">PlatformType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+
+    <span class="n">Linux</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">Windows</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">OSX</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Platform"><a class="viewcode-back" href="../../../api/Patro/Common/Platform.html#Patro.Common.Platform.Platform">[docs]</a><span class="k">class</span> <span class="nc">Platform</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;Class to store platform properties&quot;&quot;&quot;</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Platform.__init__"><a class="viewcode-back" href="../../../api/Patro/Common/Platform.html#Patro.Common.Platform.Platform.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">python_version</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">python_version</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">os</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_os</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">node</span><span class="p">()</span>
+        <span class="c1"># deprecated in 3.8 see distro package</span>
+        <span class="c1"># self.distribution = &#39; &#39;.join(platform.dist())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">machine</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">machine</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">architecture</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">architecture</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># CPU</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_cpu</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">number_of_cores</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_number_of_cores</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpu_khz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_cpu_khz</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpu_mhz</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_cpu_khz</span><span class="p">()</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span> <span class="c1"># rint</span>
+
+        <span class="c1"># RAM</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memory_size_kb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_memory_size_kb</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memory_size_mb</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">memory_size_kb</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="mi">1024</span><span class="p">))</span> <span class="c1"># rint</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Platform._get_os"><a class="viewcode-back" href="../../../api/Patro/Common/Platform.html#Patro.Common.Platform.Platform._get_os">[docs]</a>    <span class="k">def</span> <span class="nf">_get_os</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;nt&#39;</span><span class="p">,):</span>
+            <span class="k">return</span> <span class="n">PlatformType</span><span class="o">.</span><span class="n">Windows</span>
+        <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;linux&#39;</span><span class="p">,):</span>
+            <span class="k">return</span> <span class="n">PlatformType</span><span class="o">.</span><span class="n">Linux</span>
+        <span class="c1"># Fixme:</span>
+        <span class="c1"># elif sys.platform in &#39;osx&#39;:</span>
+        <span class="c1">#     return PlatformType.OSX</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;unknown platform: </span><span class="si">{}</span><span class="s1"> / </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="p">))</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Platform._get_cpu"><a class="viewcode-back" href="../../../api/Patro/Common/Platform.html#Patro.Common.Platform.Platform._get_cpu">[docs]</a>    <span class="k">def</span> <span class="nf">_get_cpu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="n">PlatformType</span><span class="o">.</span><span class="n">Linux</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/proc/cpuinfo&#39;</span><span class="p">,</span> <span class="s1">&#39;rt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">cpuinfo</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">cpuinfo</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s1">&#39;model name&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                        <span class="n">s</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="n">PlatformType</span><span class="o">.</span><span class="n">Windows</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Platform._get_number_of_cores"><a class="viewcode-back" href="../../../api/Patro/Common/Platform.html#Patro.Common.Platform.Platform._get_number_of_cores">[docs]</a>    <span class="k">def</span> <span class="nf">_get_number_of_cores</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="n">PlatformType</span><span class="o">.</span><span class="n">Linux</span><span class="p">:</span>
+            <span class="n">number_of_cores</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/proc/cpuinfo&#39;</span><span class="p">,</span> <span class="s1">&#39;rt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">cpuinfo</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">cpuinfo</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s1">&#39;processor&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                        <span class="n">number_of_cores</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="n">number_of_cores</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="n">PlatformType</span><span class="o">.</span><span class="n">Windows</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;NUMBER_OF_PROCESSORS&#39;</span><span class="p">))</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Platform._get_cpu_khz"><a class="viewcode-back" href="../../../api/Patro/Common/Platform.html#Patro.Common.Platform.Platform._get_cpu_khz">[docs]</a>    <span class="k">def</span> <span class="nf">_get_cpu_khz</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="n">PlatformType</span><span class="o">.</span><span class="n">Linux</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/proc/cpuinfo&#39;</span><span class="p">,</span> <span class="s1">&#39;rt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">cpuinfo</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">cpuinfo</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s1">&#39;cpu MHz&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                        <span class="n">s</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1000</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="n">PlatformType</span><span class="o">.</span><span class="n">Windows</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Platform._get_memory_size_kb"><a class="viewcode-back" href="../../../api/Patro/Common/Platform.html#Patro.Common.Platform.Platform._get_memory_size_kb">[docs]</a>    <span class="k">def</span> <span class="nf">_get_memory_size_kb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="n">PlatformType</span><span class="o">.</span><span class="n">Linux</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/proc/meminfo&#39;</span><span class="p">,</span> <span class="s1">&#39;rt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">cpuinfo</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">cpuinfo</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s1">&#39;MemTotal&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                        <span class="n">s</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+                        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="n">PlatformType</span><span class="o">.</span><span class="n">Windows</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Platform.__str__"><a class="viewcode-back" href="../../../api/Patro/Common/Platform.html#Patro.Common.Platform.Platform.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">str_template</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">Platform </span><span class="si">{0.node}</span><span class="s1"></span>
+<span class="s1">  Hardware:</span>
+<span class="s1">    Machine: </span><span class="si">{0.machine}</span><span class="s1"></span>
+<span class="s1">    Architecture: </span><span class="si">{0.architecture}</span><span class="s1"></span>
+<span class="s1">    CPU: </span><span class="si">{0.cpu}</span><span class="s1"></span>
+<span class="s1">      Number of Cores: </span><span class="si">{0.number_of_cores}</span><span class="s1"></span>
+<span class="s1">      CPU Frequence: </span><span class="si">{0.cpu_mhz}</span><span class="s1"> MHz</span>
+<span class="s1">    Memory: </span><span class="si">{0.memory_size_mb}</span><span class="s1"> MB</span>
+
+<span class="s1">  Python: </span><span class="si">{0.python_version}</span><span class="s1"></span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+        <span class="k">return</span> <span class="n">str_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="QtPlatform"><a class="viewcode-back" href="../../../api/Patro/Common/Platform.html#Patro.Common.Platform.QtPlatform">[docs]</a><span class="k">class</span> <span class="nc">QtPlatform</span><span class="p">(</span><span class="n">Platform</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Class to store Qt platform properties&quot;&quot;&quot;</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPlatform.__init__"><a class="viewcode-back" href="../../../api/Patro/Common/Platform.html#Patro.Common.Platform.QtPlatform.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="c1"># Fixme: QT_VERSION_STR ...</span>
+        <span class="kn">from</span> <span class="nn">PyQt5</span> <span class="k">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtWidgets</span>
+        <span class="c1"># from QtShim import QtCore, QtWidgets</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">qt_version</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QT_VERSION_STR</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pyqt_version</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">PYQT_VERSION_STR</span>
+
+        <span class="c1"># Screen</span>
+
+        <span class="c1"># try:</span>
+        <span class="c1">#     application = QtWidgets.QApplication.instance()</span>
+        <span class="c1">#     self.desktop = application.desktop()</span>
+        <span class="c1">#     self.number_of_screens = self.desktop.screenCount()</span>
+        <span class="c1"># except:</span>
+        <span class="c1">#     self.desktop = None</span>
+        <span class="c1">#     self.number_of_screens = 0</span>
+        <span class="c1"># for i in range(self.number_of_screens):</span>
+        <span class="c1">#     self.screens.append(Screen(self, i))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">application</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QApplication</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">screens</span> <span class="o">=</span> <span class="p">[</span><span class="n">Screen</span><span class="p">(</span><span class="n">screen</span><span class="p">)</span> <span class="k">for</span> <span class="n">screen</span> <span class="ow">in</span> <span class="n">application</span><span class="o">.</span><span class="n">screens</span><span class="p">()]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">screens</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># OpenGL</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gl_renderer</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gl_version</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gl_vendor</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gl_extensions</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">number_of_screens</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screens</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPlatform.query_opengl"><a class="viewcode-back" href="../../../api/Patro/Common/Platform.html#Patro.Common.Platform.QtPlatform.query_opengl">[docs]</a>    <span class="k">def</span> <span class="nf">query_opengl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="kn">import</span> <span class="nn">OpenGL.GL</span> <span class="k">as</span> <span class="nn">GL</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">gl_renderer</span> <span class="o">=</span> <span class="n">GL</span><span class="o">.</span><span class="n">glGetString</span><span class="p">(</span><span class="n">GL</span><span class="o">.</span><span class="n">GL_RENDERER</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gl_version</span> <span class="o">=</span> <span class="n">GL</span><span class="o">.</span><span class="n">glGetString</span><span class="p">(</span><span class="n">GL</span><span class="o">.</span><span class="n">GL_VERSION</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gl_vendor</span> <span class="o">=</span> <span class="n">GL</span><span class="o">.</span><span class="n">glGetString</span><span class="p">(</span><span class="n">GL</span><span class="o">.</span><span class="n">GL_VENDOR</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gl_extensions</span> <span class="o">=</span> <span class="n">GL</span><span class="o">.</span><span class="n">glGetString</span><span class="p">(</span><span class="n">GL</span><span class="o">.</span><span class="n">GL_EXTENSIONS</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QtPlatform.__str__"><a class="viewcode-back" href="../../../api/Patro/Common/Platform.html#Patro.Common.Platform.QtPlatform.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<span class="c1">#         str_template = &#39;&#39;&#39;</span>
+<span class="c1">#    OpenGL</span>
+<span class="c1">#      Render: {0.gl_renderer}</span>
+<span class="c1">#      Version: {0.gl_version}</span>
+<span class="c1">#      Vendor: {0.gl_vendor}</span>
+<span class="c1">#    Number of Screens: {0.number_of_screens}</span>
+<span class="c1"># &#39;&#39;&#39;</span>
+<span class="c1">#        message += str_template.format(self)</span>
+
+        <span class="n">message</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">screen</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">screens</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">screen</span><span class="p">)</span>
+
+        <span class="n">str_template</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">  Software Versions:</span>
+<span class="s1">    Qt: </span><span class="si">{0.qt_version}</span><span class="s1"></span>
+<span class="s1">    PyQt: </span><span class="si">{0.pyqt_version}</span><span class="s1"></span>
+<span class="s1">&#39;&#39;&#39;</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="n">str_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">message</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Screen"><a class="viewcode-back" href="../../../api/Patro/Common/Platform.html#Patro.Common.Platform.Screen">[docs]</a><span class="k">class</span> <span class="nc">Screen</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;Class to store screen properties&quot;&quot;&quot;</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="c1"># def __init__(self, platform_obj, screen_id):</span>
+<div class="viewcode-block" id="Screen.__init__"><a class="viewcode-back" href="../../../api/Patro/Common/Platform.html#Patro.Common.Platform.Screen.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">qt_screen</span><span class="p">):</span>
+
+        <span class="c1"># self.screen_id = screen_id</span>
+
+        <span class="c1"># qt_screen_geometry = platform_obj.desktop.screenGeometry(screen_id)</span>
+        <span class="c1"># self.screen_width, self.screen_height = qt_screen_geometry.width(), qt_screen_geometry.height()</span>
+
+        <span class="c1"># widget = platform_obj.desktop.screen(screen_id)</span>
+        <span class="c1"># self.dpi = widget.physicalDpiX(), widget.physicalDpiY()</span>
+
+        <span class="c1">## qt_available_geometry = self.desktop.availableGeometry(screen_id)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">qt_screen</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">qt_screen</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">screen_width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen_height</span> <span class="o">=</span> <span class="n">size</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">size</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dpi</span> <span class="o">=</span> <span class="n">qt_screen</span><span class="o">.</span><span class="n">physicalDotsPerInch</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dpi_x</span> <span class="o">=</span> <span class="n">qt_screen</span><span class="o">.</span><span class="n">physicalDotsPerInchX</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dpi_y</span> <span class="o">=</span> <span class="n">qt_screen</span><span class="o">.</span><span class="n">physicalDotsPerInchY</span><span class="p">()</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Screen.__str__"><a class="viewcode-back" href="../../../api/Patro/Common/Platform.html#Patro.Common.Platform.Screen.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">str_template</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">  Screen </span><span class="si">{0.name}</span><span class="s2"></span>
+<span class="s2">    geometry   </span><span class="si">{0.screen_width}</span><span class="s2">x</span><span class="si">{0.screen_height}</span><span class="s2"> px</span>
+<span class="s2">    resolution </span><span class="si">{0.dpi:.2f}</span><span class="s2"> dpi</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">str_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Fabrice Salvaire
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../static/jquery.js"></script>
+        <script type="text/javascript" src="../../../static/underscore.js"></script>
+        <script type="text/javascript" src="../../../static/doctools.js"></script>
+        <script type="text/javascript" src="../../../static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../static/getthecode.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

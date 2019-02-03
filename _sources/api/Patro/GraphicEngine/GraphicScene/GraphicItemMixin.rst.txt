@@ -1,0 +1,8 @@
+
+==================
+ GraphicItemMixin
+==================
+
+.. automodule:: Patro.GraphicEngine.GraphicScene.GraphicItemMixin
+   :members:
+   :show-inheritance:

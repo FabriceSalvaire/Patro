@@ -1,0 +1,8 @@
+
+============
+ color_data
+============
+
+.. automodule:: Patro.GraphicStyle.Color.color_data
+   :members:
+   :show-inheritance:

@@ -1,0 +1,8 @@
+
+============
+ DxfPainter
+============
+
+.. automodule:: Patro.GraphicEngine.Painter.DxfPainter
+   :members:
+   :show-inheritance:

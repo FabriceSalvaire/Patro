@@ -1,0 +1,17 @@
+#! /bin/bash
+
+options="--export-area-page --export-background=white --export-background-opacity=0"
+
+# --export-width=
+
+# for i in 1 2; do
+#   inkscape --export-png=logo-v$i.png ${options} --export-height=${height} svg/logo-v$i.svg
+#   inkscape --export-png=logo-v$i.png ${options} --export-height=${height} svg/logo-v$i.svg
+# done
+
+height=512
+inkscape --export-png=logo.png ${options} --export-height=${height} svg/logo.svg
+
+for height in 32 64 96 128 256 512; do
+  inkscape --export-png=logo-${height}.png ${options} --export-height=${height} svg/logo.svg
+done

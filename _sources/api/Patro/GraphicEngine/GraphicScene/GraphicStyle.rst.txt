@@ -1,0 +1,8 @@
+
+==============
+ GraphicStyle
+==============
+
+.. automodule:: Patro.GraphicEngine.GraphicScene.GraphicStyle
+   :members:
+   :show-inheritance:

@@ -1,0 +1,1345 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Patro.GeometryEngine.Bezier &mdash; Patro 0.3.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../static/css/Patro.css" type="text/css" />
+  <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Patro
+          
+
+          
+            
+            <img src="../../../static/logo-64.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">1. Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#what-is-patro">1.1. What is Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#what-is-the-purpose-of-this-library">1.2. What is the purpose of this library ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#what-are-the-features-of-patro">1.3. What are the Features of Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#how-is-patro-licensed">1.4. How is Patro licensed ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#going-further-with-patro">1.5. Going further with Patro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#which-platforms-are-supported-by-patro">1.6. Which platforms are supported by Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#how-to-install-patro">1.7. How to install Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#which-version-of-python-is-required">1.8. Which version of Python is required ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../features-all.html">2. Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#geometry-engine">2.1. Geometry Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#pattern-engine">2.2. Pattern Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#graphic-engine">2.3. Graphic Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#pattern-format-support">2.4. Pattern Format Support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../features-all.html#pattern-format-compatibility">2.4.1. Pattern Format Compatibility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../valentina-compatibility/index.html">2.4.1.1. Valentina Compatibility</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#digitalisation">2.5. Digitalisation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../news.html">3. News</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../news.html#v0-2017-02-16">3.1. V0 2017-02-16</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../roadmap.html">4. Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">5. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#on-windows">5.1. On Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#on-linux">5.2. On Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#on-osx">5.3. On OSX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-pypi-repository">5.4. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#install-a-more-recent-version-from-github">5.5. Install a more recent version from Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-source">5.6. Installation from Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#dependencies">5.7. Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">6. Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/svg-import.html">6.1. SVG Import</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/dxf-import.html">6.2. DXF Import</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">7. User FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../faq.html#how-to-get-help-or-report-an-issue">7.1. How to get help or report an issue ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../design-notes/index.html">8. Design Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../design-notes/question-answer.html">8.1. Design Notes Questions &amp; Answers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#what-is-my-opinion-on-valentina-seamly2d">8.1.1. What is my opinion on Valentina / Seamly2D ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#can-we-implement-such-a-tool-as-a-plugin-of-another-software">8.1.2. Can we implement such a tool as a plugin of another software ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#what-is-the-requirements-of-a-pattern-drafting-software">8.1.3. What is the requirements of a pattern drafting software ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#why-python-is-a-good-language-for-this-library">8.1.4. Why Python is a good language for this library ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#could-we-implement-a-full-software-using-python">8.1.5. Could we implement a full software using Python ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#how-to-generate-drawings-in-standard-format-like-pdf-or-svg">8.1.6. How to generate drawings in standard format like PDF or SVG ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#what-is-the-requirements-of-a-geometric-engine">8.1.7. What is the requirements of a geometric engine ?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../design-notes/performance.html">8.2. Performances</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/performance.html#svg-import">8.2.1. SVG Import</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../resources/index.html">9. Resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../resources/file-format/index.html">9.1. File Formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/file-format/dxf.html">9.1.1. DXF File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/file-format/dxf-astm.html">9.1.2. DXF ASTM File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/file-format/svg.html">9.1.3. SVG File Format</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/file-format/svg.html#reference-documentations">9.1.3.1. Reference Documentations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/file-format/svg.html#svg-coordinate-system">9.1.3.2. SVG Coordinate System</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/file-format/svg.html#inkscape-software">9.1.3.3. Inkscape Software</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/file-format/valentina.html">9.1.4. Valentina File Format</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../resources/geometry/index.html">9.2. Geometry Resources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/bezier.html">9.2.1. Bézier Curves</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#valentina-requirements">9.2.1.1. Valentina Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#definitions">9.2.1.2. Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#linear-bezier-curves">9.2.1.3. Linear Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#quadratic-bezier-curves">9.2.1.4. Quadratic Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#cubic-bezier-curves">9.2.1.5. Cubic Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#recursive-definition">9.2.1.6. Recursive definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#degree-elevation">9.2.1.7. Degree elevation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#matrix-forms">9.2.1.8. Matrix Forms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#symbolic-calculation">9.2.1.9. Symbolic Calculation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#curve-length">9.2.1.10. Curve Length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#determine-the-curve-flatness">9.2.1.11. Determine the curve flatness</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#intersection-of-bezier-curve-with-a-line">9.2.1.12. Intersection of Bézier Curve with a Line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#closest-point">9.2.1.13. Closest Point</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/conic.html">9.2.2. Conic</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/conic.html#valentina-requirements">9.2.2.1. Valentina Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/conic.html#circle">9.2.2.2. Circle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/conic.html#ellipse">9.2.2.3. Ellipse</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/path.html">9.2.3. Path</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/path.html#bulge">9.2.3.1. Bulge</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/polygon.html">9.2.4. Polygon</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/polygon.html#area-and-barycenter">9.2.4.1. Area and Barycenter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/polygon.html#moments-of-inertia">9.2.4.2. Moments of Inertia</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/spline.html">9.2.5. Spline Curves</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/spline.html#references">9.2.5.1. References</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/spline.html#b-spline-basis">9.2.5.2. B-spline Basis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/spline.html#b-spline-curve">9.2.5.3. B-spline Curve</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/spline.html#algorithms-for-b-spline-curves">9.2.5.4. Algorithms for B-spline curves</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/transformations.html">9.2.6. Transformations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/transformations.html#transformation-matrices">9.2.6.1. Transformation matrices</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference-manual.html">10. API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/Patro.html">10.1. Patro</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/Patro/Common.html">10.1.1. Common</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/ArgparseAction.html">10.1.1.1. ArgparseAction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/AtomicCounter.html">10.1.1.2. AtomicCounter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/Datetime.html">10.1.1.3. Datetime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/Graph.html">10.1.1.4. Graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/IterTools.html">10.1.1.5. IterTools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/Logging.html">10.1.1.6. Logging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/Math.html">10.1.1.7. Math</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/Object.html">10.1.1.8. Object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/Path.html">10.1.1.9. Path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/Platform.html">10.1.1.10. Platform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/Singleton.html">10.1.1.11. Singleton</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Common/Xml.html">10.1.1.12. Xml</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/Patro/Config.html">10.1.2. Config</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Config/ConfigInstall.html">10.1.2.1. ConfigInstall</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/Patro/FileFormat.html">10.1.3. FileFormat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/FileFormat/Dxf.html">10.1.3.1. Dxf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/FileFormat/Svg.html">10.1.3.2. Svg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/FileFormat/Valentina.html">10.1.3.3. Valentina</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/Patro/GeometryEngine.html">10.1.4. GeometryEngine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Bezier.html">10.1.4.1. Bezier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/BoundingBox.html">10.1.4.2. BoundingBox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Conic.html">10.1.4.3. Conic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Interpolation.html">10.1.4.4. Interpolation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Line.html">10.1.4.5. Line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Mixin.html">10.1.4.6. Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Path.html">10.1.4.7. Path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Polygon.html">10.1.4.8. Polygon</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Polyline.html">10.1.4.9. Polyline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Primitive.html">10.1.4.10. Primitive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Rectangle.html">10.1.4.11. Rectangle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Segment.html">10.1.4.12. Segment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Shape.html">10.1.4.13. Shape</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Spline.html">10.1.4.14. Spline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Transformation.html">10.1.4.15. Transformation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Triangle.html">10.1.4.16. Triangle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine/Vector.html">10.1.4.17. Vector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine.html#purpose">10.1.4.18. Purpose</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GeometryEngine.html#bibliographical-references">10.1.4.19. Bibliographical References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/Patro/GraphicEngine.html">10.1.5. GraphicEngine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GraphicEngine/GraphicScene.html">10.1.5.1. GraphicScene</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GraphicEngine/Painter.html">10.1.5.2. Painter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GraphicEngine/TeX.html">10.1.5.3. TeX</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/Patro/GraphicStyle.html">10.1.6. GraphicStyle</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/GraphicStyle/Color.html">10.1.6.1. Color</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/Patro/Measurement.html">10.1.7. Measurement</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Measurement/Measurement.html">10.1.7.1. Measurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Measurement/PersonalData.html">10.1.7.2. PersonalData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Measurement/StandardMeasurement.html">10.1.7.3. StandardMeasurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Measurement/ValentinaMeasurement.html">10.1.7.4. ValentinaMeasurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Measurement/ValentinaStandardMeasurement.html">10.1.7.5. ValentinaStandardMeasurement</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/Patro/Pattern.html">10.1.8. Pattern</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/Calculator.html">10.1.8.1. Calculator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/Patro/QtApplication.html">10.1.9. QtApplication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/QtApplication/QmlApplication.html">10.1.9.1. QmlApplication</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference-manual.html#indexes">10.2. Indexes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../development.html">11. Development &amp; Community</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../development.html#how-you-can-help">11.1. How you can help ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../development.html#contributors">11.2. Contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../how-to-refer.html">12. How to Refer to Patro ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../donate.html">13. How to Help Further ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../related-projects.html">14. Related Projects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../related-projects.html#pattern-making">14.1. Pattern Making</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../related-projects.html#embroidery">14.2. Embroidery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../related-projects.html#geometry-engine">14.3. Geometry Engine</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">15. Bibliography</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../bibliography.html#geometry-engine">15.1. Geometry Engine</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Patro</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>Patro.GeometryEngine.Bezier</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for Patro.GeometryEngine.Bezier</h1><div class="highlight"><pre>
+<span></span><span class="c1">####################################################################################################</span>
+<span class="c1">#</span>
+<span class="c1"># Patro - A Python library to make patterns for fashion design</span>
+<span class="c1"># Copyright (C) 2017 Fabrice Salvaire</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU Affero General Public License as</span>
+<span class="c1"># published by the Free Software Foundation, either version 3 of the</span>
+<span class="c1"># License, or (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU Affero General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU Affero General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="c1">#</span>
+<span class="c1">####################################################################################################</span>
+
+<span class="sa">r</span><span class="sd">&quot;&quot;&quot;Module to implement Bézier curve.</span>
+
+<span class="sd">For resources on Bézier curve see :ref:`this section &lt;bezier-geometry-ressources-page&gt;`.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1">####################################################################################################</span>
+<span class="c1">#</span>
+<span class="c1"># Notes: algorithm details are on bezier.rst</span>
+<span class="c1">#</span>
+<span class="c1">####################################################################################################</span>
+
+<span class="c1"># Fixme:</span>
+<span class="c1">#   max distance to the chord for linear approximation</span>
+<span class="c1">#   fitting</span>
+
+<span class="c1"># C0 = continuous</span>
+<span class="c1"># G1 = geometric continuity</span>
+<span class="c1">#    Tangents point to the same direction</span>
+<span class="c1"># C1 = parametric continuity</span>
+<span class="c1">#    Tangents are the same, implies G1</span>
+<span class="c1"># C2 = curvature continuity</span>
+<span class="c1">#    Tangents and their derivatives are the same</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;QuadraticBezier2D&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;CubicBezier2D&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">log</span><span class="p">,</span> <span class="n">sqrt</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">Patro.Common.Math.Root</span> <span class="k">import</span> <span class="n">quadratic_root</span><span class="p">,</span> <span class="n">cubic_root</span><span class="p">,</span> <span class="n">fifth_root</span>
+<span class="kn">from</span> <span class="nn">.Interpolation</span> <span class="k">import</span> <span class="n">interpolate_two_points</span>
+<span class="kn">from</span> <span class="nn">.Line</span> <span class="k">import</span> <span class="n">Line2D</span>
+<span class="kn">from</span> <span class="nn">.Primitive</span> <span class="k">import</span> <span class="n">Primitive3P</span><span class="p">,</span> <span class="n">Primitive4P</span><span class="p">,</span> <span class="n">PrimitiveNP</span><span class="p">,</span> <span class="n">Primitive2DMixin</span>
+<span class="kn">from</span> <span class="nn">.Transformation</span> <span class="k">import</span> <span class="n">AffineTransformation</span>
+<span class="kn">from</span> <span class="nn">.Vector</span> <span class="k">import</span> <span class="n">Vector2D</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="n">_module_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="BezierMixin2D"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.BezierMixin2D">[docs]</a><span class="k">class</span> <span class="nc">BezierMixin2D</span><span class="p">(</span><span class="n">Primitive2DMixin</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Mixin to implements 2D Bezier Curve.&quot;&quot;&quot;</span>
+
+    <span class="n">LineInterpolationPrecision</span> <span class="o">=</span> <span class="mf">0.05</span>
+
+    <span class="n">_logger</span> <span class="o">=</span> <span class="n">_module_logger</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;BezierMixin2D&#39;</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="BezierMixin2D.interpolated_length"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.BezierMixin2D.interpolated_length">[docs]</a>    <span class="k">def</span> <span class="nf">interpolated_length</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;Length of the curve obtained via line interpolation&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">dt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">LineInterpolationPrecision</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end_point</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_point</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+
+        <span class="n">length</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">t0</span> <span class="o">=</span> <span class="n">t</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">t</span> <span class="o">+</span> <span class="n">dt</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">length</span> <span class="o">+=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">point_at_t</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">point_at_t</span><span class="p">(</span><span class="n">t0</span><span class="p">))</span><span class="o">.</span><span class="n">magnitude</span>
+
+        <span class="k">return</span> <span class="n">length</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="BezierMixin2D.length_at_t"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.BezierMixin2D.length_at_t">[docs]</a>    <span class="k">def</span> <span class="nf">length_at_t</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;Compute the length of the curve at *t*.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">cache</span><span class="p">:</span> <span class="c1"># lookup cache</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_length_cache&#39;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_length_cache</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length_cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">length</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">length</span>
+
+        <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_at_t</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">length</span>
+
+        <span class="k">if</span> <span class="n">cache</span><span class="p">:</span> <span class="c1"># save</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_length_cache</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">length</span>
+
+        <span class="k">return</span> <span class="n">length</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="BezierMixin2D.t_at_length"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.BezierMixin2D.t_at_length">[docs]</a>    <span class="k">def</span> <span class="nf">t_at_length</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;Compute t for the given length. Length must lie in [0, curve length] range]. &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">length</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Negative length&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="n">curve_length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="c1"># Fixme: cache ?</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">curve_length</span> <span class="o">-</span> <span class="n">length</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">precision</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">length</span> <span class="o">&gt;</span> <span class="n">curve_length</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Out of length&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Search t for length using dichotomy</span>
+        <span class="c1"># convergence rate :</span>
+        <span class="c1">#  10 iterations corresponds to curve length / 1024</span>
+        <span class="c1">#  16                                        / 65536</span>
+        <span class="c1"># start range</span>
+        <span class="n">inf</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">sup</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">middle</span> <span class="o">=</span> <span class="p">(</span><span class="n">sup</span> <span class="o">+</span> <span class="n">inf</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">length_at_middle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">length_at_t</span><span class="p">(</span><span class="n">middle</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># Fixme: out of memory, use LRU ???</span>
+            <span class="c1"># exit condition</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">length_at_middle</span> <span class="o">-</span> <span class="n">length</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">precision</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">middle</span>
+            <span class="k">elif</span> <span class="n">length_at_middle</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">:</span>
+                <span class="n">inf</span> <span class="o">=</span> <span class="n">middle</span>
+            <span class="k">else</span><span class="p">:</span> <span class="c1"># length &lt; length_at_middle</span>
+                <span class="n">sup</span> <span class="o">=</span> <span class="n">middle</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="BezierMixin2D.split_at_two_t"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.BezierMixin2D.split_at_two_t">[docs]</a>    <span class="k">def</span> <span class="nf">split_at_two_t</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">t1</span> <span class="o">==</span> <span class="n">t2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">point_at_t</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">t2</span> <span class="o">&lt;</span> <span class="n">t1</span><span class="p">:</span>
+            <span class="c1"># Fixme: raise ?</span>
+            <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span> <span class="o">=</span> <span class="n">t2</span><span class="p">,</span> <span class="n">t1</span>
+
+        <span class="c1"># curve = self</span>
+        <span class="c1"># if t1 &gt; 0:</span>
+        <span class="n">curve</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_at_t</span><span class="p">(</span><span class="n">t1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># right</span>
+        <span class="k">if</span> <span class="n">t2</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># Interpolate the parameter at t2 in the new curve</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">t2</span> <span class="o">-</span> <span class="n">t1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t1</span><span class="p">)</span>
+            <span class="n">curve</span> <span class="o">=</span> <span class="n">curve</span><span class="o">.</span><span class="n">split_at_t</span><span class="p">(</span><span class="n">t</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># left</span>
+
+        <span class="k">return</span> <span class="n">curve</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="BezierMixin2D._map_to_line"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.BezierMixin2D._map_to_line">[docs]</a>    <span class="k">def</span> <span class="nf">_map_to_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+
+        <span class="n">transformation</span> <span class="o">=</span> <span class="n">AffineTransformation</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="o">-</span><span class="n">line</span><span class="o">.</span><span class="n">v</span><span class="o">.</span><span class="n">orientation</span><span class="p">)</span>
+        <span class="c1"># Fixme: use __vector_cls__</span>
+        <span class="n">transformation</span> <span class="o">*=</span> <span class="n">AffineTransformation</span><span class="o">.</span><span class="n">Translation</span><span class="p">(</span><span class="n">Vector2D</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">line</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
+        <span class="c1"># Fixme: better API ?</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">transformation</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="BezierMixin2D.non_parametric_curve"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.BezierMixin2D.non_parametric_curve">[docs]</a>    <span class="k">def</span> <span class="nf">non_parametric_curve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;Return the non-parametric Bezier curve D(ti, di(t)) where di(t) is the distance of the curve from</span>
+<span class="sd">        the baseline of the fat-line, ti is equally spaced in [0, 1].</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">number_of_points</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">distances</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">distance_to_line</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">]</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">Vector2D</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">distances</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="BezierMixin2D.distance_to_point"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.BezierMixin2D.distance_to_point">[docs]</a>    <span class="k">def</span> <span class="nf">distance_to_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+
+        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">closest_point</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">p</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">point</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="QuadraticBezier2D"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.QuadraticBezier2D">[docs]</a><span class="k">class</span> <span class="nc">QuadraticBezier2D</span><span class="p">(</span><span class="n">BezierMixin2D</span><span class="p">,</span> <span class="n">Primitive3P</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Class to implements 2D Quadratic Bezier Curve.&quot;&quot;&quot;</span>
+
+    <span class="n">BASIS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>  <span class="mi">1</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">),</span>
+    <span class="p">))</span>
+
+    <span class="n">INVERSE_BASIS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span>
+        <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">),</span>
+        <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span>  <span class="mi">1</span><span class="p">),</span>
+        <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">),</span>
+    <span class="p">))</span>
+
+    <span class="n">_logger</span> <span class="o">=</span> <span class="n">_module_logger</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;QuadraticBezier2D&#39;</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QuadraticBezier2D.__init__"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.QuadraticBezier2D.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">):</span>
+        <span class="n">Primitive3P</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QuadraticBezier2D.__repr__"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.QuadraticBezier2D.__repr__">[docs]</a>    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(</span><span class="si">{0._p0}</span><span class="s1">, </span><span class="si">{0._p1}</span><span class="s1">, </span><span class="si">{0._p2}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the length of the curve.</span>
+
+<span class="sd">        For more details see :ref:`this section &lt;bezier-curve-length-section&gt;`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">A0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p0</span>
+        <span class="n">A1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p0</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p1</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p2</span>
+        <span class="k">if</span> <span class="n">A1</span><span class="o">.</span><span class="n">magnitude_square</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">A1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="p">)</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="mi">8</span> <span class="o">*</span> <span class="n">A0</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="p">)</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">A0</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A0</span><span class="p">)</span>
+            <span class="n">q</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">c</span> <span class="o">-</span> <span class="n">b</span> <span class="o">*</span> <span class="n">b</span>
+            <span class="n">two_cb</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">c</span> <span class="o">+</span> <span class="n">b</span>
+            <span class="n">sum_cba</span> <span class="o">=</span> <span class="n">c</span> <span class="o">+</span> <span class="n">b</span> <span class="o">+</span> <span class="n">a</span>
+            <span class="n">m0</span> <span class="o">=</span> <span class="mf">0.25</span> <span class="o">/</span> <span class="n">c</span>
+            <span class="n">m1</span> <span class="o">=</span> <span class="n">q</span> <span class="o">/</span> <span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="n">c</span><span class="o">**</span><span class="mf">1.5</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">m0</span> <span class="o">*</span> <span class="p">(</span><span class="n">two_cb</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">sum_cba</span><span class="p">)</span> <span class="o">-</span> <span class="n">b</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">a</span><span class="p">))</span> <span class="o">+</span>
+                    <span class="n">m1</span> <span class="o">*</span> <span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">c</span> <span class="o">*</span> <span class="n">sum_cba</span><span class="p">)</span> <span class="o">+</span> <span class="n">two_cb</span><span class="p">)</span> <span class="o">-</span> <span class="n">log</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">c</span> <span class="o">*</span> <span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">A0</span><span class="o">.</span><span class="n">magnitude</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QuadraticBezier2D.point_at_t"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.QuadraticBezier2D.point_at_t">[docs]</a>    <span class="k">def</span> <span class="nf">point_at_t</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="c1"># if 0 &lt; t or 1 &lt; t:</span>
+        <span class="c1">#     raise ValueError()</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">t</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p0</span> <span class="o">*</span> <span class="n">u</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p1</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">t</span> <span class="o">*</span> <span class="n">u</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p2</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QuadraticBezier2D.split_at_t"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.QuadraticBezier2D.split_at_t">[docs]</a>    <span class="k">def</span> <span class="nf">split_at_t</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;Split the curve at given position&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span>
+        <span class="k">elif</span> <span class="n">t</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">p01</span> <span class="o">=</span> <span class="n">interpolate_two_points</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p1</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+            <span class="n">p12</span> <span class="o">=</span> <span class="n">interpolate_two_points</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p2</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">interpolate_two_points</span><span class="p">(</span><span class="n">p01</span><span class="p">,</span> <span class="n">p12</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="c1"># p = p012</span>
+            <span class="c1"># p = self.point_at_t(t)</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">QuadraticBezier2D</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">,</span> <span class="n">p01</span><span class="p">,</span> <span class="n">p</span><span class="p">),</span> <span class="n">QuadraticBezier2D</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">p12</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p2</span><span class="p">))</span></div>
+
+   <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tangent0</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">)</span><span class="o">.</span><span class="n">normalise</span><span class="p">()</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tangent1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p1</span><span class="p">)</span><span class="o">.</span><span class="n">normalise</span><span class="p">()</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">normal0</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tangent0</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tangent1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tangent1</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QuadraticBezier2D.tangent_at"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.QuadraticBezier2D.tangent_at">[docs]</a>    <span class="k">def</span> <span class="nf">tangent_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">t</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">)</span> <span class="o">*</span> <span class="n">u</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p1</span><span class="p">)</span> <span class="o">*</span> <span class="n">t</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QuadraticBezier2D.intersect_line"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.QuadraticBezier2D.intersect_line">[docs]</a>    <span class="k">def</span> <span class="nf">intersect_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;Find the intersections of the curve with a line.</span>
+
+<span class="sd">        For more details see :ref:`this section &lt;bezier-curve-line-intersection-section&gt;`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">curve</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_to_line</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+        <span class="n">p0</span> <span class="o">=</span> <span class="n">curve</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="n">curve</span><span class="o">.</span><span class="n">p1</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">p2</span> <span class="o">=</span> <span class="n">curve</span><span class="o">.</span><span class="n">p2</span><span class="o">.</span><span class="n">y</span>
+
+        <span class="k">return</span> <span class="n">quadratic_root</span><span class="p">(</span>
+            <span class="n">p2</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">p1</span> <span class="o">+</span> <span class="n">p0</span><span class="p">,</span> <span class="c1"># t**2</span>
+            <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">p1</span> <span class="o">-</span> <span class="n">p0</span><span class="p">),</span>    <span class="c1"># t</span>
+            <span class="n">p0</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+        <span class="c1">### a = p0 - 2*p1 + p2 # t**2</span>
+        <span class="c1">### # b = 2*(-p0 + p1) # t</span>
+        <span class="c1">### b = -p0 + p1 # was / 2 !!!</span>
+        <span class="c1">### c = p0</span>
+        <span class="c1">###</span>
+        <span class="c1">### # discriminant = b**2 - 4*a*c</span>
+        <span class="c1">### # discriminant = 4 * (p1**2 - p0*p2)</span>
+        <span class="c1">### discriminant = p1**2 - p0*p2 # was / 4 !!!</span>
+        <span class="c1">###</span>
+        <span class="c1">### if discriminant &lt; 0:</span>
+        <span class="c1">###     return None</span>
+        <span class="c1">### elif discriminant == 0:</span>
+        <span class="c1">###     return -b / a # dropped 2</span>
+        <span class="c1">### else:</span>
+        <span class="c1">###      # dropped 2</span>
+        <span class="c1">###     y1 = (-b - sqrt(discriminant)) / a</span>
+        <span class="c1">###     y2 = (-b + sqrt(discriminant)) / a</span>
+        <span class="c1">###     return y1, y2</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QuadraticBezier2D.fat_line"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.QuadraticBezier2D.fat_line">[docs]</a>    <span class="k">def</span> <span class="nf">fat_line</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">line</span> <span class="o">=</span> <span class="n">Line2D</span><span class="o">.</span><span class="n">from_two_points</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p3</span><span class="p">)</span>
+        <span class="n">d1</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">distance_to_line</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p1</span><span class="p">)</span>
+        <span class="n">d_min</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">d1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">d_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">d1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">d_min</span><span class="p">,</span> <span class="n">d_max</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QuadraticBezier2D.closest_point"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.QuadraticBezier2D.closest_point">[docs]</a>    <span class="k">def</span> <span class="nf">closest_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;Return the closest point on the curve to the given *point*.</span>
+
+<span class="sd">        For more details see :ref:`this section &lt;bezier-curve-closest-point-section&gt;`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">A</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p0</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p1</span> <span class="o">-</span> <span class="n">A</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p0</span> <span class="o">-</span> <span class="n">point</span>
+
+        <span class="n">roots</span> <span class="o">=</span> <span class="n">cubic_root</span><span class="p">(</span>
+            <span class="n">B</span><span class="o">.</span><span class="n">magnitude_square</span><span class="p">,</span>
+            <span class="mi">3</span><span class="o">*</span><span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">B</span><span class="p">),</span>
+            <span class="mi">2</span><span class="o">*</span><span class="n">A</span><span class="o">.</span><span class="n">magnitude_square</span> <span class="o">+</span> <span class="n">M</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">B</span><span class="p">),</span>
+            <span class="n">M</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="p">[</span><span class="n">root</span> <span class="k">for</span> <span class="n">root</span> <span class="ow">in</span> <span class="n">roots</span> <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">root</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">t</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Found more than one root </span><span class="si">{}</span><span class="s2"> for </span><span class="si">{}</span><span class="s2"> and point </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">))</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">point_at_t</span><span class="p">(</span><span class="n">t</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="QuadraticBezier2D.to_cubic"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.QuadraticBezier2D.to_cubic">[docs]</a>    <span class="k">def</span> <span class="nf">to_cubic</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Elevate the quadratic Bézier curve to a cubic Bézier cubic with the same shape.</span>
+
+<span class="sd">        For more details see :ref:`this section &lt;bezier-curve-degree-elevation-section&gt;`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p0</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p1</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span>
+        <span class="n">p2</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p1</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span>
+
+        <span class="k">return</span> <span class="n">CubicBezier2D</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p2</span><span class="p">)</span></div></div>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="n">_Sqrt3</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">_Div18Sqrt3</span> <span class="o">=</span> <span class="mi">18</span> <span class="o">/</span> <span class="n">_Sqrt3</span>
+<span class="n">_OneThird</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span>
+<span class="n">_Sqrt3Div36</span> <span class="o">=</span> <span class="n">_Sqrt3</span> <span class="o">/</span> <span class="mi">36</span>
+
+<div class="viewcode-block" id="CubicBezier2D"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.CubicBezier2D">[docs]</a><span class="k">class</span> <span class="nc">CubicBezier2D</span><span class="p">(</span><span class="n">BezierMixin2D</span><span class="p">,</span> <span class="n">Primitive4P</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Class to implements 2D Cubic Bezier Curve.&quot;&quot;&quot;</span>
+
+    <span class="n">InterpolationPrecision</span> <span class="o">=</span> <span class="mf">0.001</span>
+
+    <span class="n">BASIS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">,</span>  <span class="mi">3</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">),</span>
+    <span class="p">))</span>
+
+    <span class="n">INVERSE_BASIS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span>    <span class="mi">1</span><span class="p">,</span>   <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span>    <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span>    <span class="mi">0</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="p">))</span>
+
+    <span class="n">_logger</span> <span class="o">=</span> <span class="n">_module_logger</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;CubicMixin2D&#39;</span><span class="p">)</span>
+
+    <span class="c1">#######################################</span>
+
+<div class="viewcode-block" id="CubicBezier2D.__init__"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.CubicBezier2D.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">):</span>
+        <span class="n">Primitive4P</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="CubicBezier2D.__repr__"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.CubicBezier2D.__repr__">[docs]</a>    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(</span><span class="si">{0._p0}</span><span class="s1">, </span><span class="si">{0._p1}</span><span class="s1">, </span><span class="si">{0._p2}</span><span class="s1">, </span><span class="si">{0._p3}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="CubicBezier2D.to_spline"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.CubicBezier2D.to_spline">[docs]</a>    <span class="k">def</span> <span class="nf">to_spline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">.Spline</span> <span class="k">import</span> <span class="n">CubicUniformSpline2D</span>
+        <span class="n">basis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">BASIS</span><span class="p">,</span> <span class="n">CubicUniformSpline2D</span><span class="o">.</span><span class="n">INVERSE_BASIS</span><span class="p">)</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">point_array</span><span class="p">,</span> <span class="n">basis</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">CubicUniformSpline2D</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">adaptive_length_approximation</span><span class="p">()</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="CubicBezier2D.point_at_t"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.CubicBezier2D.point_at_t">[docs]</a>    <span class="k">def</span> <span class="nf">point_at_t</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="c1"># if 0 &lt; t or 1 &lt; t:</span>
+        <span class="c1">#     raise ValueError()</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p0</span> <span class="o">+</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">t</span>  <span class="o">+</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p1</span><span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p3</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p2</span><span class="o">*</span><span class="mi">3</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p1</span><span class="o">*</span><span class="mi">3</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">)</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span></div>
+
+    <span class="c1"># interpolate = point_at_t</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="CubicBezier2D._q_point"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.CubicBezier2D._q_point">[docs]</a>    <span class="k">def</span> <span class="nf">_q_point</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the control point for mid-point quadratic approximation&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p2</span><span class="o">*</span><span class="mi">3</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p3</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p1</span><span class="o">*</span><span class="mi">3</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="CubicBezier2D.mid_point_quadratic_approximation"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.CubicBezier2D.mid_point_quadratic_approximation">[docs]</a>    <span class="k">def</span> <span class="nf">mid_point_quadratic_approximation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the mid-point quadratic approximation&quot;&quot;&quot;</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_q_point</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">QuadraticBezier2D</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p3</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="CubicBezier2D.split_at_t"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.CubicBezier2D.split_at_t">[docs]</a>    <span class="k">def</span> <span class="nf">split_at_t</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;Split the curve at given position&quot;&quot;&quot;</span>
+
+        <span class="n">p01</span> <span class="o">=</span> <span class="n">interpolate_two_points</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p1</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+        <span class="n">p12</span> <span class="o">=</span> <span class="n">interpolate_two_points</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p2</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+        <span class="n">p23</span> <span class="o">=</span> <span class="n">interpolate_two_points</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p3</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+        <span class="n">p012</span> <span class="o">=</span> <span class="n">interpolate_two_points</span><span class="p">(</span><span class="n">p01</span><span class="p">,</span> <span class="n">p12</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+        <span class="n">p123</span> <span class="o">=</span> <span class="n">interpolate_two_points</span><span class="p">(</span><span class="n">p12</span><span class="p">,</span> <span class="n">p23</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">interpolate_two_points</span><span class="p">(</span><span class="n">p012</span><span class="p">,</span> <span class="n">p123</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="c1"># p = p0123</span>
+        <span class="c1"># p = self.point_at_t(t)</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="n">CubicBezier2D</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">,</span> <span class="n">p01</span><span class="p">,</span> <span class="n">p012</span><span class="p">,</span> <span class="n">p</span><span class="p">),</span> <span class="n">CubicBezier2D</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">p123</span><span class="p">,</span> <span class="n">p23</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p3</span><span class="p">))</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="CubicBezier2D._d01"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.CubicBezier2D._d01">[docs]</a>    <span class="k">def</span> <span class="nf">_d01</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the distance between 0 and 1 quadratic aproximations&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p3</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p2</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p1</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span> <span class="o">/</span> <span class="mi">2</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="CubicBezier2D._t_max"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.CubicBezier2D._t_max">[docs]</a>    <span class="k">def</span> <span class="nf">_t_max</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the split point for adaptive quadratic approximation&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">_Div18Sqrt3</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">InterpolationPrecision</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_d01</span><span class="p">())</span><span class="o">**</span><span class="n">_OneThird</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="CubicBezier2D.q_length"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.CubicBezier2D.q_length">[docs]</a>    <span class="k">def</span> <span class="nf">q_length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the length of the mid-point quadratic approximation&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mid_point_quadratic_approximation</span><span class="p">()</span><span class="o">.</span><span class="n">length</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="CubicBezier2D.adaptive_length_approximation"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.CubicBezier2D.adaptive_length_approximation">[docs]</a>    <span class="k">def</span> <span class="nf">adaptive_length_approximation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;Return the length of the adaptive quadratic approximation&quot;&quot;&quot;</span>
+
+        <span class="n">segments</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">segment</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="n">t_max</span> <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">_t_max</span><span class="p">()</span>
+        <span class="k">while</span> <span class="n">t_max</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">split</span> <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">split_at_t</span><span class="p">(</span><span class="n">t_max</span><span class="p">)</span>
+            <span class="n">segments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">split</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">segment</span> <span class="o">=</span> <span class="n">split</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">t_max</span> <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">_t_max</span><span class="p">()</span>
+        <span class="n">segments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="n">segment</span><span class="o">.</span><span class="n">q_length</span><span class="p">()</span> <span class="k">for</span> <span class="n">segment</span> <span class="ow">in</span> <span class="n">segments</span><span class="p">])</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tangent1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p3</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p2</span><span class="p">)</span><span class="o">.</span><span class="n">normalise</span><span class="p">()</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="CubicBezier2D.tangent_at"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.CubicBezier2D.tangent_at">[docs]</a>    <span class="k">def</span> <span class="nf">tangent_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">t</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">)</span> <span class="o">*</span> <span class="n">u</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">t</span> <span class="o">*</span> <span class="n">u</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p3</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p2</span><span class="p">)</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="CubicBezier2D.intersect_line"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.CubicBezier2D.intersect_line">[docs]</a>    <span class="k">def</span> <span class="nf">intersect_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;Find the intersections of the curve with a line.&quot;&quot;&quot;</span>
+
+        <span class="c1"># Algorithm: same as for quadratic</span>
+
+        <span class="c1"># u = 1 - t</span>
+        <span class="c1"># B = p0 *     u**3        +</span>
+        <span class="c1">#     p1 * 3 * u**2 * t    +</span>
+        <span class="c1">#     p2 * 3 * u    * t**2 +</span>
+        <span class="c1">#     p3 *            t**3</span>
+        <span class="c1"># B = p0 +</span>
+        <span class="c1">#    (p1 - p0) * 3 * t  +</span>
+        <span class="c1">#    (p2 - p1 * 2 + p0) * 3 * t**2 +</span>
+        <span class="c1">#    (p3 - p2 * 3 + p1 * 3 - p0) * t**3</span>
+        <span class="c1"># solveset(B, t)</span>
+
+        <span class="n">curve</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_to_line</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+        <span class="n">p0</span> <span class="o">=</span> <span class="n">curve</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="n">curve</span><span class="o">.</span><span class="n">p1</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">p2</span> <span class="o">=</span> <span class="n">curve</span><span class="o">.</span><span class="n">p2</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">p3</span> <span class="o">=</span> <span class="n">curve</span><span class="o">.</span><span class="n">p3</span><span class="o">.</span><span class="n">y</span>
+
+        <span class="k">return</span> <span class="n">cubic_root</span><span class="p">(</span>
+            <span class="n">p3</span> <span class="o">-</span> <span class="mi">3</span><span class="o">*</span><span class="n">p2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">p1</span> <span class="o">-</span> <span class="n">p0</span><span class="p">,</span>
+            <span class="mi">3</span> <span class="o">*</span> <span class="p">(</span><span class="n">p2</span> <span class="o">-</span> <span class="n">p1</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">p0</span><span class="p">),</span>
+            <span class="mi">3</span> <span class="o">*</span> <span class="p">(</span><span class="n">p1</span> <span class="o">-</span> <span class="n">p0</span><span class="p">),</span>
+            <span class="n">p0</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="CubicBezier2D.fat_line"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.CubicBezier2D.fat_line">[docs]</a>    <span class="k">def</span> <span class="nf">fat_line</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">line</span> <span class="o">=</span> <span class="n">Line2D</span><span class="o">.</span><span class="n">from_two_points</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p3</span><span class="p">)</span>
+        <span class="n">d1</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">distance_to_line</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p1</span><span class="p">)</span>
+        <span class="n">d2</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">distance_to_line</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">d1</span><span class="o">*</span><span class="n">d2</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">factor</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">/</span> <span class="mi">4</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">factor</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">/</span> <span class="mi">9</span>
+        <span class="n">d_min</span> <span class="o">=</span> <span class="n">factor</span> <span class="o">*</span> <span class="nb">min</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">)</span>
+        <span class="n">d_max</span> <span class="o">=</span> <span class="n">factor</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">d_min</span><span class="p">,</span> <span class="n">d_max</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="CubicBezier2D._clipping_convex_hull"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.CubicBezier2D._clipping_convex_hull">[docs]</a>    <span class="k">def</span> <span class="nf">_clipping_convex_hull</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">line_03</span> <span class="o">=</span> <span class="n">Line2D</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p3</span><span class="p">)</span>
+        <span class="n">d1</span> <span class="o">=</span> <span class="n">line_03</span><span class="o">.</span><span class="n">distance_to_line</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p1</span><span class="p">)</span>
+        <span class="n">d2</span> <span class="o">=</span> <span class="n">line_03</span><span class="o">.</span><span class="n">distance_to_line</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p2</span><span class="p">)</span>
+
+        <span class="c1"># Check if p1 and p2 are on the same side of the line [p0, p3]</span>
+        <span class="k">if</span> <span class="n">d1</span> <span class="o">*</span> <span class="n">d2</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># p1 and p2 lie on different sides of [p0, p3].</span>
+            <span class="c1"># The hull is a quadrilateral and line [p0, p3] is not part of the hull.</span>
+            <span class="c1"># The top part includes p1, we will reverse it later if that is not the case.</span>
+            <span class="n">hull</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p3</span><span class="p">],</span> <span class="c1"># top part</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p3</span><span class="p">]</span>  <span class="c1"># bottom part</span>
+            <span class="p">]</span>
+            <span class="n">flip</span> <span class="o">=</span> <span class="n">d1</span> <span class="o">&lt;</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># p1 and p2 lie on the same sides of [p0, p3]. The hull can be a triangle or a</span>
+            <span class="c1"># quadrilateral and line [p0, p3] is part of the hull.  Check if the hull is a triangle</span>
+            <span class="c1"># or a quadrilateral.  Also, if at least one of the distances for p1 or p2, from line</span>
+            <span class="c1"># [p0, p3] is zero then hull must at most have 3 vertices.</span>
+             <span class="c1"># Fixme: check cross product</span>
+            <span class="n">y0</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">y</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">d1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">d2</span><span class="p">):</span>
+                <span class="n">pmax</span> <span class="o">=</span> <span class="n">p2</span><span class="p">;</span>
+                <span class="c1"># apex is y0 in this case, and the other apex point is y3</span>
+                <span class="c1"># vector yapex -&gt; yapex2 or base vector which is already part of the hull</span>
+                <span class="c1"># V30xV10 * V10xV20</span>
+                <span class="n">cross_product</span> <span class="o">=</span> <span class="p">((</span><span class="n">y1</span> <span class="o">-</span> <span class="n">y0</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">y3</span> <span class="o">-</span> <span class="n">y0</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">y1</span> <span class="o">-</span> <span class="n">y0</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">y2</span> <span class="o">-</span> <span class="n">y0</span><span class="p">))</span> <span class="o">/</span><span class="mi">3</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">pmax</span> <span class="o">=</span> <span class="n">p1</span><span class="p">;</span>
+                <span class="c1"># apex is y3 and the other apex point is y0</span>
+                <span class="c1"># vector yapex -&gt; yapex2 or base vector which is already part of the hull</span>
+                <span class="c1"># V32xV30 * V32xV31</span>
+                <span class="n">cross_product</span> <span class="o">=</span> <span class="p">((</span><span class="n">y3</span> <span class="o">-</span> <span class="n">y2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">y3</span> <span class="o">-</span> <span class="n">y0</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">y3</span> <span class="o">-</span> <span class="n">y2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">y3</span> <span class="o">+</span> <span class="n">y1</span><span class="p">))</span> <span class="o">/</span><span class="mi">3</span>
+
+            <span class="c1"># Compare cross products of these vectors to determine if the point is in the triangle</span>
+            <span class="c1"># [p3, pmax, p0], or if it is a quadrilateral.</span>
+            <span class="n">has_null_distance</span> <span class="o">=</span> <span class="n">d1</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">d2</span> <span class="o">==</span> <span class="mi">0</span> <span class="c1"># Fixme: don&#39;t need to compute cross_product</span>
+            <span class="k">if</span> <span class="n">cross_product</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">has_null_distance</span><span class="p">:</span>
+                <span class="c1"># hull is a triangle</span>
+                <span class="n">hull</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">,</span> <span class="n">pmax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p3</span><span class="p">],</span> <span class="c1"># top part is a triangle</span>
+                    <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p3</span><span class="p">],</span>       <span class="c1"># bottom part is just an edge</span>
+                <span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">hull</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p3</span><span class="p">],</span> <span class="c1"># top part is a quadrilateral</span>
+                    <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p3</span><span class="p">],</span>                     <span class="c1"># bottom part is just an edge</span>
+                <span class="p">]</span>
+            <span class="n">flip</span> <span class="o">=</span>  <span class="n">d1</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">d1</span> <span class="k">else</span> <span class="n">d2</span> <span class="o">&lt;</span> <span class="mi">0</span>
+
+        <span class="k">if</span> <span class="n">flip</span><span class="p">:</span>
+            <span class="n">hull</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">hull</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="CubicBezier2D._clip_convex_hull"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.CubicBezier2D._clip_convex_hull">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_clip_convex_hull</span><span class="p">(</span><span class="n">hull_top</span><span class="p">,</span> <span class="n">hull_bottom</span><span class="p">,</span> <span class="n">d_min</span><span class="p">,</span> <span class="n">d_max</span><span class="p">)</span> <span class="p">:</span>
+
+
+        <span class="c1">#              Top   /----</span>
+        <span class="c1">#                   /     ---/</span>
+        <span class="c1">#                  /        /</span>
+        <span class="c1"># d_max -------------------*---</span>
+        <span class="c1">#                /        / t_max</span>
+        <span class="c1">#         t_min /        /</span>
+        <span class="c1"># d_min -------*---------------</span>
+        <span class="c1">#             /        /</span>
+        <span class="c1">#            /    ----/   Bottom</span>
+        <span class="c1">#        p0 /----</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">hull_top</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="n">d_min</span><span class="p">):</span>
+            <span class="c1"># Left of hull is below d_min,</span>
+            <span class="c1"># walk through the hull until it enters the region between d_min and d_max</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clip_convex_hull_part</span><span class="p">(</span><span class="n">hull_top</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">d_min</span><span class="p">);</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="n">hull_bottom</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="n">d_max</span><span class="p">)</span> <span class="p">:</span>
+            <span class="c1"># Left of hull is above d_max,</span>
+            <span class="c1"># walk through the hull until it enters the region between d_min and d_max</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clip_convex_hull_part</span><span class="p">(</span><span class="n">hull_bottom</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">d_max</span><span class="p">);</span>
+        <span class="k">else</span> <span class="p">:</span>
+            <span class="c1"># Left of hull is between d_min and d_max, no clipping possible</span>
+            <span class="k">return</span> <span class="n">hull_top</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">;</span> <span class="c1"># Fixme: 0 ???</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="CubicBezier2D._clip_convex_hull_part"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.CubicBezier2D._clip_convex_hull_part">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_clip_convex_hull_part</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span> <span class="p">:</span>
+
+        <span class="sd">&quot;&quot;&quot;Clip the bottom or top part of the convex hull.</span>
+
+<span class="sd">        *part* is a list of points, *top* is a boolean flag to indicate if it corresponds to the top</span>
+<span class="sd">        part, *threshold* is d_min if top part else d_max.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Walk on the edges</span>
+        <span class="n">px</span> <span class="o">=</span> <span class="n">part</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">;</span>
+        <span class="n">py</span> <span class="o">=</span> <span class="n">part</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="p">)):</span>
+            <span class="n">qx</span> <span class="o">=</span> <span class="n">part</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">;</span>
+            <span class="n">qy</span> <span class="o">=</span> <span class="n">part</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">qy</span> <span class="o">&gt;=</span> <span class="n">threshold</span> <span class="k">if</span> <span class="n">top</span> <span class="k">else</span> <span class="n">qy</span> <span class="o">&lt;=</span> <span class="n">threshold</span><span class="p">):</span>
+                <span class="c1"># compute a linear interpolation</span>
+                <span class="c1">#   threshold = s * (t - px) + py</span>
+                <span class="c1">#   t = (threshold - py) / s + px</span>
+                <span class="k">return</span> <span class="n">px</span> <span class="o">+</span> <span class="p">(</span><span class="n">threshold</span> <span class="o">-</span> <span class="n">py</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">qx</span> <span class="o">-</span> <span class="n">px</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">qy</span> <span class="o">-</span> <span class="n">py</span><span class="p">);</span>
+            <span class="n">px</span> <span class="o">=</span> <span class="n">qx</span><span class="p">;</span>
+            <span class="n">py</span> <span class="o">=</span> <span class="n">qy</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="kc">None</span><span class="p">;</span> <span class="c1"># no intersection</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="CubicBezier2D._instersect_curve"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.CubicBezier2D._instersect_curve">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_instersect_curve</span><span class="p">(</span>
+            <span class="n">curve1</span><span class="p">,</span> <span class="n">curve2</span><span class="p">,</span>
+            <span class="n">t_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">u_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">u_max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">old_delta_t</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="c1"># flag to indicate that 1 &lt;-&gt; 2 when we store locations</span>
+            <span class="n">recursion</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="c1"># number of recursions</span>
+            <span class="n">recursion_limit</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+            <span class="n">t_limit</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+            <span class="n">locations</span><span class="o">=</span><span class="p">[],</span>
+    <span class="p">)</span> <span class="p">:</span>
+
+        <span class="sd">&quot;&quot;&quot;Compute the intersection of two Bézier curves.</span>
+
+<span class="sd">        Code inspired from</span>
+
+<span class="sd">          *  https://github.com/paperjs/paper.js/blob/master/src/path/Curve.js</span>
+<span class="sd">          *  http://nbviewer.jupyter.org/gist/hkrish/0a128f21a5b9e5a7a914 The Bezier Clipping Algorithm</span>
+<span class="sd">          *  https://gist.github.com/hkrish/5ef0f2da7f9882341ee5 hkrish/bezclip_manual.py</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Note:</span>
+        <span class="c1">#   see https://github.com/paperjs/paper.js/issues/565</span>
+        <span class="c1">#   It was determined that more than 20 recursions are needed sometimes, depending on the</span>
+        <span class="c1">#   delta_t threshold values further below when determining which curve converges the</span>
+        <span class="c1">#   least. He also recommended a threshold of 0.5 instead of the initial 0.8</span>
+
+        <span class="k">if</span> <span class="n">recursion</span> <span class="o">&gt;</span> <span class="n">recursion_limit</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">tolerance</span> <span class="o">=</span> <span class="mf">1e-5</span>
+        <span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-10</span>
+
+        <span class="c1"># t_min_new = 0.</span>
+        <span class="c1"># t_max_new = 0.</span>
+        <span class="c1"># delta_t = 0.</span>
+
+        <span class="c1"># NOTE: the recursion threshold of 4 is needed to prevent this issue from occurring:</span>
+        <span class="c1">#       https://github.com/paperjs/paper.js/issues/571</span>
+        <span class="c1">#       when two curves share an end point</span>
+        <span class="k">if</span> <span class="n">curve1</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">curve1</span><span class="o">.</span><span class="n">p3</span><span class="o">.</span><span class="n">x</span> <span class="ow">and</span> <span class="n">u_max</span> <span class="o">-</span> <span class="n">u_min</span> <span class="o">&lt;=</span> <span class="n">epsilon</span> <span class="ow">and</span> <span class="n">recursion</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="c1"># The fat-line of curve1 has converged to a point, the clipping is not reliable.</span>
+            <span class="c1"># Return the value we have even though we will miss the precision.</span>
+            <span class="n">t_max_new</span> <span class="o">=</span> <span class="n">t_min_new</span> <span class="o">=</span> <span class="p">(</span><span class="n">t_max</span> <span class="o">+</span> <span class="n">t_min</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">delta_t</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span> <span class="p">:</span>
+            <span class="c1"># Compute the fat-line for curve1:</span>
+            <span class="c1">#  a baseline and two offsets which completely encloses the curve</span>
+            <span class="n">fatline</span><span class="p">,</span> <span class="n">d_min</span><span class="p">,</span> <span class="n">d_max</span> <span class="o">=</span> <span class="n">curve1</span><span class="o">.</span><span class="n">fat_line</span><span class="p">()</span>
+
+            <span class="c1"># Calculate a non-parametric bezier curve D(ti, di(t)) where di(t) is the distance of curve2 from</span>
+            <span class="c1"># the baseline, ti is equally spaced in [0, 1]</span>
+            <span class="n">non_parametric_curve</span> <span class="o">=</span> <span class="n">curve2</span><span class="o">.</span><span class="n">non_parametric_curve</span><span class="p">(</span><span class="n">fatline</span><span class="p">)</span>
+
+            <span class="c1"># Get the top and bottom parts of the convex-hull</span>
+            <span class="n">top</span><span class="p">,</span> <span class="n">bottom</span> <span class="o">=</span> <span class="n">non_parametric_curve</span><span class="o">.</span><span class="n">_clip_convex_hull</span><span class="p">()</span>
+            <span class="c1"># Clip the convex-hull with d_min and d_max</span>
+            <span class="n">t_min_clip</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clip_convex_hull</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span> <span class="n">d_min</span><span class="p">,</span> <span class="n">d_max</span><span class="p">);</span>
+            <span class="n">top</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+            <span class="n">bottom</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+            <span class="n">t_max_clip</span> <span class="o">=</span> <span class="n">clipConvexHull</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span> <span class="n">d_min</span><span class="p">,</span> <span class="n">d_max</span><span class="p">);</span>
+
+            <span class="c1"># No intersections if one of the t values is None</span>
+            <span class="k">if</span> <span class="n">t_min_clip</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">t_max_clip</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span>
+
+            <span class="c1"># Clip curve2 with the fat-line for curve1</span>
+            <span class="n">curve2</span> <span class="o">=</span> <span class="n">curve2</span><span class="o">.</span><span class="n">split_at_two_t</span><span class="p">(</span><span class="n">t_min_clip</span><span class="p">,</span> <span class="n">t_max_clip</span><span class="p">)</span>
+            <span class="n">delta_t</span> <span class="o">=</span> <span class="n">t_max_clip</span> <span class="o">-</span> <span class="n">t_min_clip</span>
+            <span class="c1"># t_min and t_max are within the range [0, 1]</span>
+            <span class="c1"># We need to project it to the original parameter range</span>
+            <span class="n">t_min_new</span> <span class="o">=</span> <span class="n">t_max</span> <span class="o">*</span> <span class="n">t_min_clip</span> <span class="o">+</span> <span class="n">t_min</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t_min_clip</span><span class="p">)</span>
+            <span class="n">t_max_new</span> <span class="o">=</span> <span class="n">t_max</span> <span class="o">*</span> <span class="n">t_max_clip</span> <span class="o">+</span> <span class="n">t_min</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t_max_clip</span><span class="p">)</span>
+            <span class="n">delta_t_new</span> <span class="o">=</span> <span class="n">t_max_new</span> <span class="o">-</span> <span class="n">t_min_new</span>
+
+        <span class="n">delta_u</span> <span class="o">=</span> <span class="n">u_max</span> <span class="o">-</span> <span class="n">u_min</span>
+
+        <span class="c1"># Check if we need to subdivide the curves</span>
+        <span class="k">if</span> <span class="n">old_delta_t</span> <span class="o">&gt;</span> <span class="n">t_limit</span> <span class="ow">and</span> <span class="n">delta_t</span> <span class="o">&gt;</span> <span class="n">t_limit</span><span class="p">:</span>
+            <span class="c1"># Subdivide the curve which has converged the least.</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">delta_t</span><span class="p">,</span> <span class="ow">not</span> <span class="n">reverse</span><span class="p">,</span> <span class="n">recursion</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">recursion_limit</span><span class="p">,</span> <span class="n">t_limit</span><span class="p">,</span> <span class="n">locations</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">delta_u</span> <span class="o">&lt;</span> <span class="n">delta_t_new</span><span class="p">:</span> <span class="c1"># curve2 &lt; curve1</span>
+                <span class="n">parts</span> <span class="o">=</span> <span class="n">curve1</span><span class="o">.</span><span class="n">split_at_t</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="n">t_min_new</span> <span class="o">+</span> <span class="n">delta_t_new</span> <span class="o">/</span> <span class="mi">2</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_intersect_curve</span><span class="p">(</span><span class="n">curve2</span><span class="p">,</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u_min</span><span class="p">,</span> <span class="n">u_max</span><span class="p">,</span> <span class="n">t_min_new</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_intersect_curve</span><span class="p">(</span><span class="n">curve2</span><span class="p">,</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u_min</span><span class="p">,</span> <span class="n">u_max</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">t_max_new</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+            <span class="k">else</span> <span class="p">:</span>
+                <span class="n">parts</span> <span class="o">=</span> <span class="n">curve2</span><span class="o">.</span><span class="n">split_at_t</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="n">u_min</span> <span class="o">+</span> <span class="n">delta_u</span> <span class="o">/</span> <span class="mi">2</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_intersect_curve</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">curve1</span><span class="p">,</span> <span class="n">u_min</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">t_min_new</span><span class="p">,</span> <span class="n">t_max_new</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_intersect_curve</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">curve1</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">u_max</span><span class="p">,</span> <span class="n">t_min_new</span><span class="p">,</span> <span class="n">t_max_new</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">max</span><span class="p">(</span><span class="n">delta_u</span><span class="p">,</span> <span class="n">delta_t_new</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tolerance</span><span class="p">:</span>
+            <span class="c1"># We have isolated the intersection with sufficient precision</span>
+            <span class="n">t1</span> <span class="o">=</span> <span class="n">t_min_new</span> <span class="o">+</span> <span class="n">delta_t_new</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">t2</span> <span class="o">=</span> <span class="n">u_min</span> <span class="o">+</span> <span class="n">delta_u</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="k">if</span> <span class="n">reverse</span><span class="p">:</span>
+                <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span> <span class="o">=</span> <span class="n">t2</span><span class="p">,</span> <span class="n">t1</span>
+            <span class="n">p1</span> <span class="o">=</span> <span class="n">curve1</span><span class="o">.</span><span class="n">point_at_t</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
+            <span class="n">p2</span> <span class="o">=</span> <span class="n">curve2</span><span class="o">.</span><span class="n">point_at_t</span><span class="p">(</span><span class="n">t2</span><span class="p">)</span>
+            <span class="n">locations</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">t1</span><span class="p">,</span> <span class="n">point1</span><span class="p">,</span> <span class="n">t2</span><span class="p">,</span> <span class="n">point2</span><span class="p">])</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">delta_t</span><span class="p">,</span> <span class="ow">not</span> <span class="n">reverse</span><span class="p">,</span> <span class="n">recursion</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">recursion_limit</span><span class="p">,</span> <span class="n">t_limit</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_intersect_curve</span><span class="p">(</span><span class="n">curve2</span><span class="p">,</span> <span class="n">curve1</span><span class="p">,</span> <span class="n">locations</span><span class="p">,</span> <span class="n">u_min</span><span class="p">,</span> <span class="n">u_max</span><span class="p">,</span> <span class="n">t_min_new</span><span class="p">,</span> <span class="n">t_max_new</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="CubicBezier2D.is_flat_enough"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.CubicBezier2D.is_flat_enough">[docs]</a>    <span class="k">def</span> <span class="nf">is_flat_enough</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flatness</span><span class="p">):</span>
+
+         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Determines if a curve is sufficiently flat, meaning it appears as a straight line and has</span>
+<span class="sd">         curve-time that is enough linear, as specified by the given *flatness* parameter.</span>
+
+<span class="sd">         For more details see :ref:`this section &lt;bezier-curve-flatness-section&gt;`.</span>
+
+<span class="sd">         &quot;&quot;&quot;</span>
+
+         <span class="n">u</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_p1</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_p0</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p3</span>
+         <span class="n">v</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_p2</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_p3</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p0</span>
+
+         <span class="n">criterion</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="nb">max</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+         <span class="n">threshold</span> <span class="o">=</span> <span class="mi">16</span> <span class="o">*</span> <span class="n">flatness</span><span class="o">**</span><span class="mi">2</span>
+
+         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;is flat </span><span class="si">{}</span><span class="s2"> &lt;= </span><span class="si">{}</span><span class="s2"> with flatness </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">flatness</span><span class="p">))</span>
+
+         <span class="k">return</span> <span class="n">criterion</span> <span class="o">&lt;=</span> <span class="n">threshold</span></div>
+
+    <span class="c1">##############################################</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;Compute the area delimited by the curve and the segment across the start and stop point.&quot;&quot;&quot;</span>
+
+        <span class="c1"># Reference: http://objectmix.com/graphics/133553-area-closed-bezier-curve.html BUT DEAD LINK</span>
+        <span class="c1"># Proof using divergence theorem ???</span>
+        <span class="c1"># Fixme: any proof !</span>
+
+        <span class="n">x0</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">)</span>
+        <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p1</span><span class="p">)</span>
+        <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p2</span><span class="p">)</span>
+        <span class="n">x3</span><span class="p">,</span> <span class="n">y3</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p3</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="p">((</span><span class="n">y3</span> <span class="o">-</span> <span class="n">y0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">x3</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">y1</span> <span class="o">+</span> <span class="n">y2</span><span class="p">)</span>
+                     <span class="o">+</span> <span class="n">y1</span> <span class="o">*</span> <span class="p">(</span><span class="n">x0</span> <span class="o">-</span> <span class="n">x2</span><span class="p">)</span> <span class="o">-</span> <span class="n">x1</span> <span class="o">*</span> <span class="p">(</span><span class="n">y0</span> <span class="o">-</span> <span class="n">y2</span><span class="p">)</span>
+                     <span class="o">+</span> <span class="n">y3</span> <span class="o">*</span> <span class="p">(</span><span class="n">x2</span> <span class="o">+</span> <span class="n">x0</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="n">x3</span> <span class="o">*</span> <span class="p">(</span><span class="n">y2</span> <span class="o">+</span> <span class="n">y0</span> <span class="o">/</span> <span class="mi">3</span><span class="p">))</span> <span class="o">/</span> <span class="mi">20</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="CubicBezier2D.closest_point"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Bezier.html#Patro.GeometryEngine.Bezier.CubicBezier2D.closest_point">[docs]</a>    <span class="k">def</span> <span class="nf">closest_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;Return the closest point on the curve to the given *point*.</span>
+
+<span class="sd">        For more details see :ref:`this section &lt;bezier-curve-closest-point-section&gt;`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p3</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p2</span><span class="o">*</span><span class="mi">3</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p1</span><span class="o">*</span><span class="mi">3</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p0</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p1</span><span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">)</span><span class="o">*</span><span class="mi">3</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p0</span><span class="p">)</span><span class="o">*</span><span class="mi">3</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p0</span>
+
+        <span class="n">roots</span> <span class="o">=</span> <span class="n">fifth_root</span><span class="p">(</span>
+            <span class="o">-</span><span class="mi">3</span> <span class="o">*</span> <span class="n">n</span><span class="o">.</span><span class="n">magnitude_square</span><span class="p">,</span>
+            <span class="o">-</span><span class="mi">5</span> <span class="o">*</span> <span class="n">n</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">r</span><span class="p">),</span>
+            <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="n">r</span><span class="o">.</span><span class="n">magnitude_square</span><span class="p">),</span>
+            <span class="mi">3</span> <span class="o">*</span> <span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">-</span> <span class="n">n</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">-</span> <span class="n">r</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">s</span><span class="p">)),</span>
+            <span class="mi">2</span><span class="o">*</span><span class="n">point</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">-</span> <span class="n">s</span><span class="o">.</span><span class="n">magnitude_square</span><span class="p">,</span>
+            <span class="n">point</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">-</span> <span class="n">s</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="c1"># Fixme: to func</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="p">[</span><span class="n">root</span> <span class="k">for</span> <span class="n">root</span> <span class="ow">in</span> <span class="n">roots</span> <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">root</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">t</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># Fixme:</span>
+            <span class="c1"># Found more than one root [0, 0.516373783749732]</span>
+            <span class="c1"># for CubicBezier2D(</span>
+            <span class="c1">#   Vector2D[1394.4334 1672.0004], Vector2D[1394.4334 1672.0004],</span>
+            <span class="c1">#   Vector2D[1585.0004 1624.9634], Vector2D[1585.0004 1622.0004])</span>
+            <span class="c1"># and point Vector2D[1495.11502887 1649.7386517 ]</span>
+            <span class="c1"># raise NameError(&quot;Found more than one root: {}&quot;.format(t))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Found more than one root </span><span class="si">{}</span><span class="s2"> for </span><span class="si">{}</span><span class="s2"> and point </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">))</span>
+            <span class="c1"># self._logger.warning(&quot;is flat {}&quot;.format(self.is_flat_enough(.1)))</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">point_at_t</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">point_at_t</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Fabrice Salvaire
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../static/jquery.js"></script>
+        <script type="text/javascript" src="../../../static/underscore.js"></script>
+        <script type="text/javascript" src="../../../static/doctools.js"></script>
+        <script type="text/javascript" src="../../../static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../static/getthecode.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

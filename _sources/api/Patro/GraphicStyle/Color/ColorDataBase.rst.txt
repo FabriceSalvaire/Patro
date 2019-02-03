@@ -1,0 +1,8 @@
+
+===============
+ ColorDataBase
+===============
+
+.. automodule:: Patro.GraphicStyle.Color.ColorDataBase
+   :members:
+   :show-inheritance:

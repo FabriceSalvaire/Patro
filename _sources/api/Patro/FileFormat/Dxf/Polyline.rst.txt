@@ -1,0 +1,8 @@
+
+==========
+ Polyline
+==========
+
+.. automodule:: Patro.FileFormat.Dxf.Polyline
+   :members:
+   :show-inheritance:

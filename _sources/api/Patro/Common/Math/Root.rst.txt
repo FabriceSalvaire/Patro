@@ -1,0 +1,8 @@
+
+======
+ Root
+======
+
+.. automodule:: Patro.Common.Math.Root
+   :members:
+   :show-inheritance:

@@ -1,0 +1,8 @@
+
+==========
+ Platform
+==========
+
+.. automodule:: Patro.Common.Platform
+   :members:
+   :show-inheritance:

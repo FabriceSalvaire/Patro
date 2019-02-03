@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Introduction &mdash; PyValentina 0.2.0 documentation</title>
+  <title>Patro — Python library to Make Patterns for Fashion Design &mdash; Patro 0.3.0 documentation</title>
   
 
   
@@ -24,26 +24,18 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="static/css/PyValentina.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="PyValentina 0.2.0 documentation" href="#"/>
-        <link rel="next" title="1. Installation" href="installation.html"/> 
+  <link rel="stylesheet" href="static/css/Patro.css" type="text/css" />
+  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="1. Overview" href="overview.html" /> 
 
   
   <script src="static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -55,9 +47,12 @@
           
 
           
-            <a href="#" class="icon icon-home"> PyValentina
+            <a href="#" class="icon icon-home"> Patro
           
 
+          
+            
+            <img src="static/logo-64.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -65,7 +60,7 @@
             
             
               <div class="version">
-                0.2
+                0.3
               </div>
             
           
@@ -90,9 +85,232 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">1. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reference-manual.html">2. API Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bibliography.html">3. Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">1. Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#what-is-patro">1.1. What is Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#what-is-the-purpose-of-this-library">1.2. What is the purpose of this library ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#what-are-the-features-of-patro">1.3. What are the Features of Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#how-is-patro-licensed">1.4. How is Patro licensed ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#going-further-with-patro">1.5. Going further with Patro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#which-platforms-are-supported-by-patro">1.6. Which platforms are supported by Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#how-to-install-patro">1.7. How to install Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#which-version-of-python-is-required">1.8. Which version of Python is required ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="features-all.html">2. Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="features-all.html#geometry-engine">2.1. Geometry Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="features-all.html#pattern-engine">2.2. Pattern Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="features-all.html#graphic-engine">2.3. Graphic Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="features-all.html#pattern-format-support">2.4. Pattern Format Support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="features-all.html#pattern-format-compatibility">2.4.1. Pattern Format Compatibility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="valentina-compatibility/index.html">2.4.1.1. Valentina Compatibility</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="features-all.html#digitalisation">2.5. Digitalisation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="news.html">3. News</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="news.html#v0-2017-02-16">3.1. V0 2017-02-16</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap.html">4. Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">5. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#on-windows">5.1. On Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#on-linux">5.2. On Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#on-osx">5.3. On OSX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-from-pypi-repository">5.4. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#install-a-more-recent-version-from-github">5.5. Install a more recent version from Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-from-source">5.6. Installation from Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#dependencies">5.7. Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">6. Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/svg-import.html">6.1. SVG Import</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/dxf-import.html">6.2. DXF Import</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">7. User FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#how-to-get-help-or-report-an-issue">7.1. How to get help or report an issue ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="design-notes/index.html">8. Design Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="design-notes/question-answer.html">8.1. Design Notes Questions &amp; Answers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="design-notes/question-answer.html#what-is-my-opinion-on-valentina-seamly2d">8.1.1. What is my opinion on Valentina / Seamly2D ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="design-notes/question-answer.html#can-we-implement-such-a-tool-as-a-plugin-of-another-software">8.1.2. Can we implement such a tool as a plugin of another software ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="design-notes/question-answer.html#what-is-the-requirements-of-a-pattern-drafting-software">8.1.3. What is the requirements of a pattern drafting software ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="design-notes/question-answer.html#why-python-is-a-good-language-for-this-library">8.1.4. Why Python is a good language for this library ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="design-notes/question-answer.html#could-we-implement-a-full-software-using-python">8.1.5. Could we implement a full software using Python ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="design-notes/question-answer.html#how-to-generate-drawings-in-standard-format-like-pdf-or-svg">8.1.6. How to generate drawings in standard format like PDF or SVG ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="design-notes/question-answer.html#what-is-the-requirements-of-a-geometric-engine">8.1.7. What is the requirements of a geometric engine ?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="design-notes/performance.html">8.2. Performances</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="design-notes/performance.html#svg-import">8.2.1. SVG Import</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="resources/index.html">9. Resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="resources/file-format/index.html">9.1. File Formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="resources/file-format/dxf.html">9.1.1. DXF File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="resources/file-format/dxf-astm.html">9.1.2. DXF ASTM File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="resources/file-format/svg.html">9.1.3. SVG File Format</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="resources/file-format/svg.html#reference-documentations">9.1.3.1. Reference Documentations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resources/file-format/svg.html#svg-coordinate-system">9.1.3.2. SVG Coordinate System</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resources/file-format/svg.html#inkscape-software">9.1.3.3. Inkscape Software</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="resources/file-format/valentina.html">9.1.4. Valentina File Format</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="resources/geometry/index.html">9.2. Geometry Resources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="resources/geometry/bezier.html">9.2.1. Bézier Curves</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/bezier.html#valentina-requirements">9.2.1.1. Valentina Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/bezier.html#definitions">9.2.1.2. Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/bezier.html#linear-bezier-curves">9.2.1.3. Linear Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/bezier.html#quadratic-bezier-curves">9.2.1.4. Quadratic Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/bezier.html#cubic-bezier-curves">9.2.1.5. Cubic Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/bezier.html#recursive-definition">9.2.1.6. Recursive definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/bezier.html#degree-elevation">9.2.1.7. Degree elevation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/bezier.html#matrix-forms">9.2.1.8. Matrix Forms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/bezier.html#symbolic-calculation">9.2.1.9. Symbolic Calculation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/bezier.html#curve-length">9.2.1.10. Curve Length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/bezier.html#determine-the-curve-flatness">9.2.1.11. Determine the curve flatness</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/bezier.html#intersection-of-bezier-curve-with-a-line">9.2.1.12. Intersection of Bézier Curve with a Line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/bezier.html#closest-point">9.2.1.13. Closest Point</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="resources/geometry/conic.html">9.2.2. Conic</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/conic.html#valentina-requirements">9.2.2.1. Valentina Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/conic.html#circle">9.2.2.2. Circle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/conic.html#ellipse">9.2.2.3. Ellipse</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="resources/geometry/path.html">9.2.3. Path</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/path.html#bulge">9.2.3.1. Bulge</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="resources/geometry/polygon.html">9.2.4. Polygon</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/polygon.html#area-and-barycenter">9.2.4.1. Area and Barycenter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/polygon.html#moments-of-inertia">9.2.4.2. Moments of Inertia</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="resources/geometry/spline.html">9.2.5. Spline Curves</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/spline.html#references">9.2.5.1. References</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/spline.html#b-spline-basis">9.2.5.2. B-spline Basis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/spline.html#b-spline-curve">9.2.5.3. B-spline Curve</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/spline.html#algorithms-for-b-spline-curves">9.2.5.4. Algorithms for B-spline curves</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="resources/geometry/transformations.html">9.2.6. Transformations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="resources/geometry/transformations.html#transformation-matrices">9.2.6.1. Transformation matrices</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference-manual.html">10. API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/Patro.html">10.1. Patro</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/Patro/Common.html">10.1.1. Common</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/Common/ArgparseAction.html">10.1.1.1. ArgparseAction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/Common/AtomicCounter.html">10.1.1.2. AtomicCounter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/Common/Datetime.html">10.1.1.3. Datetime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/Common/Graph.html">10.1.1.4. Graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/Common/IterTools.html">10.1.1.5. IterTools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/Common/Logging.html">10.1.1.6. Logging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/Common/Math.html">10.1.1.7. Math</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/Common/Object.html">10.1.1.8. Object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/Common/Path.html">10.1.1.9. Path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/Common/Platform.html">10.1.1.10. Platform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/Common/Singleton.html">10.1.1.11. Singleton</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/Common/Xml.html">10.1.1.12. Xml</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/Patro/Config.html">10.1.2. Config</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/Config/ConfigInstall.html">10.1.2.1. ConfigInstall</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/Patro/FileFormat.html">10.1.3. FileFormat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/FileFormat/Dxf.html">10.1.3.1. Dxf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/FileFormat/Svg.html">10.1.3.2. Svg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/FileFormat/Valentina.html">10.1.3.3. Valentina</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/Patro/GeometryEngine.html">10.1.4. GeometryEngine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/GeometryEngine/Bezier.html">10.1.4.1. Bezier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/GeometryEngine/BoundingBox.html">10.1.4.2. BoundingBox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/GeometryEngine/Conic.html">10.1.4.3. Conic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/GeometryEngine/Interpolation.html">10.1.4.4. Interpolation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/GeometryEngine/Line.html">10.1.4.5. Line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/GeometryEngine/Mixin.html">10.1.4.6. Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/GeometryEngine/Path.html">10.1.4.7. Path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/GeometryEngine/Polygon.html">10.1.4.8. Polygon</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/GeometryEngine/Polyline.html">10.1.4.9. Polyline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/GeometryEngine/Primitive.html">10.1.4.10. Primitive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/GeometryEngine/Rectangle.html">10.1.4.11. Rectangle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/GeometryEngine/Segment.html">10.1.4.12. Segment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/GeometryEngine/Shape.html">10.1.4.13. Shape</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/GeometryEngine/Spline.html">10.1.4.14. Spline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/GeometryEngine/Transformation.html">10.1.4.15. Transformation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/GeometryEngine/Triangle.html">10.1.4.16. Triangle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/GeometryEngine/Vector.html">10.1.4.17. Vector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/GeometryEngine.html#purpose">10.1.4.18. Purpose</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/GeometryEngine.html#bibliographical-references">10.1.4.19. Bibliographical References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/Patro/GraphicEngine.html">10.1.5. GraphicEngine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/GraphicEngine/GraphicScene.html">10.1.5.1. GraphicScene</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/GraphicEngine/Painter.html">10.1.5.2. Painter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/GraphicEngine/TeX.html">10.1.5.3. TeX</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/Patro/GraphicStyle.html">10.1.6. GraphicStyle</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/GraphicStyle/Color.html">10.1.6.1. Color</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/Patro/Measurement.html">10.1.7. Measurement</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/Measurement/Measurement.html">10.1.7.1. Measurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/Measurement/PersonalData.html">10.1.7.2. PersonalData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/Measurement/StandardMeasurement.html">10.1.7.3. StandardMeasurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/Measurement/ValentinaMeasurement.html">10.1.7.4. ValentinaMeasurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/Measurement/ValentinaStandardMeasurement.html">10.1.7.5. ValentinaStandardMeasurement</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/Patro/Pattern.html">10.1.8. Pattern</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/Pattern/Calculator.html">10.1.8.1. Calculator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/Patro/QtApplication.html">10.1.9. QtApplication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/Patro/QtApplication/QmlApplication.html">10.1.9.1. QmlApplication</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="reference-manual.html#indexes">10.2. Indexes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">11. Development &amp; Community</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development.html#how-you-can-help">11.1. How you can help ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#contributors">11.2. Contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="how-to-refer.html">12. How to Refer to Patro ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="donate.html">13. How to Help Further ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="related-projects.html">14. Related Projects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="related-projects.html#pattern-making">14.1. Pattern Making</a></li>
+<li class="toctree-l2"><a class="reference internal" href="related-projects.html#embroidery">14.2. Embroidery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="related-projects.html#geometry-engine">14.3. Geometry Engine</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">15. Bibliography</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#geometry-engine">15.1. Geometry Engine</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -104,17 +322,18 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">PyValentina</a>
+          <a href="#">Patro</a>
         
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -137,7 +356,7 @@
     
       <li><a href="#">Docs</a> &raquo;</li>
         
-      <li>Introduction</li>
+      <li>Patro — Python library to Make Patterns for Fashion Design</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -156,176 +375,209 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <br/><p>Welcome to the PyValentina documentation!</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>The official Home Page of PyValentina is located at <a class="reference external" href="http://fabricesalvaire.github.io/PyValentina">http://fabricesalvaire.github.io/PyValentina</a></p>
-<p>If you are at <a class="reference external" href="http://readthedocs.org">http://readthedocs.org</a> then you are reading the so called <em>latest documentation</em>.</p>
-<p>The <em>latest documentation</em> <a class="reference external" href="http://pyvalentina.readthedocs.org/en/latest"><img alt="PyValentina&#64;readthedocs-badge" src="https://readthedocs.org/projects/pyvalentina/badge/?version=latest" /></a> is automatically built from the
-git repository after each commit.</p>
-<p class="last">As opposite the <a class="reference external" href="http://fabricesalvaire.github.io/PyValentina">PyValentina Home Page</a> is built manually and is thus less prone to errors.</p>
-</div>
-<div class="section" id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<p>PyValentina is a python implementation of the <a class="reference external" href="http://valentina-project.org/">Valentina</a> Pattern
-Making software, which only focus to implement the core engine and not the graphical user interface.</p>
-<p>A pattern in flat pattern design is build from geometrical operations which can be turned to a
-computer program and is thus a field of applications of Computer Aided Design.  It corresponds more
-precisely to parametric modelling with dedicated features to fashion modelling and manufacturing.</p>
-<div class="section" id="what-is-the-requirements-of-a-pattern-drafting-software">
-<h2>What is the requirements of a pattern drafting software ?<a class="headerlink" href="#what-is-the-requirements-of-a-pattern-drafting-software" title="Permalink to this headline">¶</a></h2>
-<p>The core functionality of a CAD system for pattern drafting consists of these two software components :</p>
-<ul class="simple">
-<li>an <strong>open</strong> file format to store and exchange the pattern,</li>
-<li>a geometrical engine to compute the pattern, e.g. to generate the layout of each fabric’s piece of a clothe.</li>
-</ul>
-<p>The XML language is a natural candidate to define an open file format to store and exchange the
-pattern. Valentina uses XML to sore measurements in <em>.vit</em> files and patterns in <em>.val</em> files.</p>
-<p>Another solution to define and store a pattern is to use a programming language, it can be a
-dedicated language or any programming language associated to a dedicated API.  Many graphical
-languages was invented for specific usages, e.g. PostScript for printer, Metafont and MetaPost for
-publishing, G-code for machining etc.</p>
-<p>Usually the geometrical operations of a pattern are simple in comparison to the requirements of a
-mechanical or electronic CAD software.  In first hand it is only 2D and the number of operations
-should be handled smoothly by a computer of these days, whereas it is still challenging for other
-domains.</p>
-<p>Finally, a pattern drafting software requires an efficient graphical user interface so as to be used
-by fashion designers and not only by hackers.  This software component is more challenging in therms
-of software engineering, i.e. in therms of design and cost.</p>
-</div>
-<div class="section" id="why-python-is-a-good-language-for-this-library">
-<h2>Why Python is a good language for this library ?<a class="headerlink" href="#why-python-is-a-good-language-for-this-library" title="Permalink to this headline">¶</a></h2>
-<p>The Python language has a large audience in engineering, due to its canonical syntax and richness of
-its ecosystem (scientific libraries).</p>
-<p>Python is a high level language and thus more productive.</p>
-<p>Python is used as scripting language to extend many softwares, in particular the famous open source
-3D creation suite <a class="reference external" href="https://www.blender.org">Blender</a>, the parametric 3D modeller <a class="reference external" href="http://freecadweb.org">FreeCad</a> as well as the SVG editor <a class="reference external" href="https://inkscape.org/">Inkscape</a>.  Moreover
-the 3D human model generator <a class="reference external" href="http://www.makehuman.org">MakeHuman</a> is written in Python.</p>
-<p>Python can be easily extended by C libraries using <a class="reference external" href="http://cffi.readthedocs.io/en/latest">CFFI</a>
-and C++ libraries using <a class="reference external" href="http://www.swig.org">SWIG</a>.</p>
-<p>Python as other dynamic languages is able to evaluate code on the fly which provide an expression
-evaluator for free.  And this feature is even more pertinent in our case because of the canonical
-nature of the syntax of Python which is natural to somebody initiated to a basic mathematical
-language level.</p>
-</div>
-<div class="section" id="what-is-the-purpose-of-this-library">
-<h2>What is the purpose of this library ?<a class="headerlink" href="#what-is-the-purpose-of-this-library" title="Permalink to this headline">¶</a></h2>
-<p>This library could serve several purposes :</p>
-<ul class="simple">
-<li>help to experiment core features for pattern drafting,</li>
-<li>plug Valentina to software featuring a Python plugin mechanism like Blender, FreeCad etc.</li>
-</ul>
-</div>
-<div class="section" id="could-we-implement-a-full-software-using-python">
-<h2>Could we implement a full software using Python ?<a class="headerlink" href="#could-we-implement-a-full-software-using-python" title="Permalink to this headline">¶</a></h2>
-<p>The answer is <em>yes we can!</em> since <a class="reference external" href="https://www.qt.io">Qt</a> has as a nice binding so called
-<a class="reference external" href="https://riverbankcomputing.com/software/pyqt/intro">PyQt</a>.</p>
-<p>But up to now Python has of course some drawbacks!</p>
-<p>Its main drawback is due to the fact the standard interpreter cannot execute more than one <em>Python
-bytecode</em> thread at once, this limitation so called Global Interpreter Lock is required for
-implementation simplicity.</p>
-<p>Despite a GUI implemented in PyQt is almost of the time more faster than the human perception on a
-computer of these days.  It can be sometime difficult to overcome latency arising from the software
-stack.  Thus yes we can do it, but it could requires some tricks to achieve the performance of a C++
-application.</p>
-</div>
-<div class="section" id="how-to-generate-drawings-in-standard-format-like-pdf-or-svg">
-<h2>How to generate drawings in standard format like PDF or SVG ?<a class="headerlink" href="#how-to-generate-drawings-in-standard-format-like-pdf-or-svg" title="Permalink to this headline">¶</a></h2>
-<p>SVG is not difficult to generate from Python since it is based on XML.  However the PDF format is
-more challenging, for efficiency reason PDF is a binary format and is thus much more complicated
-than PostScript which is a true programming language.</p>
-<p>There is several possibilities to generate PDF.</p>
-<p>The most disturbing one is to use the <a class="reference external" href="https://en.wikipedia.org/wiki/LaTeX">LaTeX</a> publishing
-system in combination with the <a class="reference external" href="http://www.texample.net/tikz/examples">PGF</a> package which provide
-an amazing graphical language on top of LaTeX.  This solution could terrify many peoples, but it do
-the job very well for text and graphics.  However user must install a LaTeX environment from their
-Linux distribution or using the <a class="reference external" href="https://www.tug.org/texlive">TexLive</a> distribution.</p>
-<p>A more conventional solution requires a library that can generate PDF from standard graphical
-operations.  Some libraries featuring that are :</p>
-<ul class="simple">
-<li>Qt using QPainter API, Valentina solution, see <a class="reference external" href="https://wiki.qt.io/Handling_PDF">https://wiki.qt.io/Handling_PDF</a></li>
-<li><a class="reference external" href="https://www.cairographics.org/manual/cairo-PDF-Surfaces.html">Cairo</a></li>
-<li><a class="reference external" href="http://www.reportlab.com/opensource">ReportLab</a>  open-source PDF Toolkit (more commercial and less known)</li>
-<li><a class="reference external" href="http://matplotlib.org">Matplotlib</a> (but more oriented to plot)</li>
-<li>and ???</li>
-</ul>
-</div>
-</div>
-<div class="section" id="features">
-<h1>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h1>
-<p>The features of PyValentina are :</p>
-<ul class="simple">
-<li>read/write <em>.val</em> and <em>.vit</em> file</li>
-<li><a class="reference external" href="http://beltoforion.de/article.php?a=muparser">QMuParser</a> expressions are translated to Python and evaluated on the fly</li>
-<li>API to define patterns</li>
-<li>compute the detail of a pattern</li>
-<li>export the detail to latex/pgf as A0 or tiled A4 paper</li>
-</ul>
-<p>Missing features:</p>
-<ul class="simple">
-<li>full operation support</li>
-<li>direct PDF export</li>
-<li>SVG export</li>
-</ul>
-</div>
-<div class="section" id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>The procedure to install PyValentina is described in the <a class="reference internal" href="installation.html#installation-page"><span class="std std-ref">Installation Manual</span></a>.</p>
-</div>
-<div class="section" id="documentation">
-<h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
-<p>The best way to know what we can do with PyValentina and learn it, is to start with the examples.</p>
-<blockquote>
-<div><ul class="simple">
-<li><a class="reference internal" href="reference-manual.html#reference-manual-page"><span class="std std-ref">PyValentina Reference Manual</span></a></li>
-<li><a class="reference internal" href="bibliography.html#bibliography-page"><span class="std std-ref">Bibliography</span></a></li>
-</ul>
-</div></blockquote>
-</div>
+  <style>
+    .small-text {font-size: smaller}
+
+    .spacer {height: 30px}
+
+    .reduced-width {
+        max-width: 800px
+    }
+
+    .row {clear: both}
+
+    @media only screen and (min-width: 1000px),
+           only screen and (min-width: 500px) and (max-width: 768px){
+
+        .column {
+            padding-left: 5px;
+            padding-right: 5px;
+            float: left;
+        }
+
+        .column2  {
+            width: 50%;
+        }
+
+        .column3  {
+            width: 33.3%;
+        }
+    }
+</style><div class="reduced-width"><div class="section" id="patro-python-library-to-make-patterns-for-fashion-design">
+<h1>Patro — Python library to Make Patterns for Fashion Design<a class="headerlink" href="#patro-python-library-to-make-patterns-for-fashion-design" title="Permalink to this headline">¶</a></h1>
+<a class="reference internal image-reference" href="images/logo.png"><img alt="Patro logo" src="images/logo.png" style="width: 200px;" /></a>
 <div class="section" id="overview">
-<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Patro is a free and open source (*) Python library which implements pattern drafting for fashion design.</p>
+<p class="small-text">(*) Patro is licensed under AGPLv3 therms.</p>
+<p>Patro requires Python 3 and works on Linux, Windows and OS X.</p>
+<p><a class="reference internal" href="overview.html#overview-page"><span class="std std-ref">To read more on Patro</span></a></p>
+<div class="spacer"></div><div class="clearfix row column column2 section" id="news-page">
+<h3><a class="reference internal" href="news.html#news-page"><span class="std std-ref">News</span></a><a class="headerlink" href="#news-page" title="Permalink to this headline">¶</a></h3>
+<p>What’s changed in versions</p>
+</div>
+<div class="column column2 section" id="installation-page">
+<h3><a class="reference internal" href="installation.html#installation-page"><span class="std std-ref">Installation</span></a><a class="headerlink" href="#installation-page" title="Permalink to this headline">¶</a></h3>
+<p>How to install Patro on your system</p>
+</div>
+<div class="column column2 section" id="user-faq-page">
+<h3><a class="reference internal" href="faq.html#user-faq-page"><span class="std std-ref">User FAQ</span></a><a class="headerlink" href="#user-faq-page" title="Permalink to this headline">¶</a></h3>
+<p>Answers to frequent questions</p>
+</div>
+<div class="column column2 section" id="examples-page">
+<h3><a class="reference internal" href="examples/index.html#examples-page"><span class="std std-ref">Examples</span></a><a class="headerlink" href="#examples-page" title="Permalink to this headline">¶</a></h3>
+<p>Many examples to learn how to use Patro.</p>
+</div>
+<div class="column column2 section" id="development-page">
+<h3><a class="reference internal" href="development.html#development-page"><span class="std std-ref">Development &amp; Community</span></a><a class="headerlink" href="#development-page" title="Permalink to this headline">¶</a></h3>
+<p>How to contribute to the project</p>
+</div>
+<div class="column column2 section" id="reference-manual-page">
+<h3><a class="reference internal" href="reference-manual.html#reference-manual-page"><span class="std std-ref">API Documentation</span></a><a class="headerlink" href="#reference-manual-page" title="Permalink to this headline">¶</a></h3>
+<p>Technical reference material, for classes, methods, APIs, commands.</p>
+</div>
+<div class="column column2 section" id="how-to-refer-page">
+<h3><a class="reference internal" href="how-to-refer.html#how-to-refer-page"><span class="std std-ref">How to Refer to Patro ?</span></a><a class="headerlink" href="#how-to-refer-page" title="Permalink to this headline">¶</a></h3>
+<p>Guidelines to cite Patro</p>
+</div>
+<div class="column column2 section" id="donate-page">
+<h3><a class="reference internal" href="donate.html#donate-page"><span class="std std-ref">How to Help Further ?</span></a><a class="headerlink" href="#donate-page" title="Permalink to this headline">¶</a></h3>
+<p>If you want to donate to the project or need a more professional support.</p>
+</div><div class="clearfix row"><div class="spacer"></div></div></div>
+</div>
+<div class="section" id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">1. Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#dependencies">1.1. Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-from-pypi-repository">1.2. Installation from PyPi Repository</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-from-source">1.3. Installation from Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">1. Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#what-is-patro">1.1. What is Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#what-is-the-purpose-of-this-library">1.2. What is the purpose of this library ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#what-are-the-features-of-patro">1.3. What are the Features of Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#how-is-patro-licensed">1.4. How is Patro licensed ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#going-further-with-patro">1.5. Going further with Patro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#which-platforms-are-supported-by-patro">1.6. Which platforms are supported by Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#how-to-install-patro">1.7. How to install Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#which-version-of-python-is-required">1.8. Which version of Python is required ?</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="reference-manual.html">2. API Documentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/Valentina.html">2.1. Valentina</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/Valentina/FileFormat.html">2.1.1. FileFormat</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/Valentina/Geometry.html">2.1.2. Geometry</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/Valentina/Graph.html">2.1.3. Graph</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/Valentina/GraphicScene.html">2.1.4. GraphicScene</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/Valentina/Logging.html">2.1.5. Logging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/Valentina/Math.html">2.1.6. Math</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/Valentina/Painter.html">2.1.7. Painter</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/Valentina/Pattern.html">2.1.8. Pattern</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/Valentina/TeX.html">2.1.9. TeX</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/Valentina/Tools.html">2.1.10. Tools</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/Valentina/Xml.html">2.1.11. Xml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features-all.html">2. Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="features-all.html#geometry-engine">2.1. Geometry Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="features-all.html#pattern-engine">2.2. Pattern Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="features-all.html#graphic-engine">2.3. Graphic Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="features-all.html#pattern-format-support">2.4. Pattern Format Support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="features-all.html#pattern-format-compatibility">2.4.1. Pattern Format Compatibility</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="reference-manual.html#indexes">2.2. Indexes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="features-all.html#digitalisation">2.5. Digitalisation</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="bibliography.html">3. Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="news.html">3. News</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="news.html#v0-2017-02-16">3.1. V0 2017-02-16</a></li>
 </ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap.html">4. Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">5. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#on-windows">5.1. On Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#on-linux">5.2. On Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#on-osx">5.3. On OSX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-from-pypi-repository">5.4. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#install-a-more-recent-version-from-github">5.5. Install a more recent version from Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-from-source">5.6. Installation from Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#dependencies">5.7. Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">6. Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/svg-import.html">6.1. SVG Import</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/dxf-import.html">6.2. DXF Import</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">7. User FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#how-to-get-help-or-report-an-issue">7.1. How to get help or report an issue ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="design-notes/index.html">8. Design Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="design-notes/question-answer.html">8.1. Design Notes Questions &amp; Answers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="design-notes/question-answer.html#what-is-my-opinion-on-valentina-seamly2d">8.1.1. What is my opinion on Valentina / Seamly2D ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="design-notes/question-answer.html#can-we-implement-such-a-tool-as-a-plugin-of-another-software">8.1.2. Can we implement such a tool as a plugin of another software ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="design-notes/question-answer.html#what-is-the-requirements-of-a-pattern-drafting-software">8.1.3. What is the requirements of a pattern drafting software ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="design-notes/question-answer.html#why-python-is-a-good-language-for-this-library">8.1.4. Why Python is a good language for this library ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="design-notes/question-answer.html#could-we-implement-a-full-software-using-python">8.1.5. Could we implement a full software using Python ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="design-notes/question-answer.html#how-to-generate-drawings-in-standard-format-like-pdf-or-svg">8.1.6. How to generate drawings in standard format like PDF or SVG ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="design-notes/question-answer.html#what-is-the-requirements-of-a-geometric-engine">8.1.7. What is the requirements of a geometric engine ?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="design-notes/performance.html">8.2. Performances</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="design-notes/performance.html#svg-import">8.2.1. SVG Import</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="resources/index.html">9. Resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="resources/file-format/index.html">9.1. File Formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="resources/file-format/dxf.html">9.1.1. DXF File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="resources/file-format/dxf-astm.html">9.1.2. DXF ASTM File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="resources/file-format/svg.html">9.1.3. SVG File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="resources/file-format/valentina.html">9.1.4. Valentina File Format</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="resources/geometry/index.html">9.2. Geometry Resources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="resources/geometry/bezier.html">9.2.1. Bézier Curves</a></li>
+<li class="toctree-l3"><a class="reference internal" href="resources/geometry/conic.html">9.2.2. Conic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="resources/geometry/path.html">9.2.3. Path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="resources/geometry/polygon.html">9.2.4. Polygon</a></li>
+<li class="toctree-l3"><a class="reference internal" href="resources/geometry/spline.html">9.2.5. Spline Curves</a></li>
+<li class="toctree-l3"><a class="reference internal" href="resources/geometry/transformations.html">9.2.6. Transformations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference-manual.html">10. API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/Patro.html">10.1. Patro</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/Patro/Common.html">10.1.1. Common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/Patro/Config.html">10.1.2. Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/Patro/FileFormat.html">10.1.3. FileFormat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/Patro/GeometryEngine.html">10.1.4. GeometryEngine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/Patro/GraphicEngine.html">10.1.5. GraphicEngine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/Patro/GraphicStyle.html">10.1.6. GraphicStyle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/Patro/Measurement.html">10.1.7. Measurement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/Patro/Pattern.html">10.1.8. Pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/Patro/QtApplication.html">10.1.9. QtApplication</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="reference-manual.html#indexes">10.2. Indexes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">11. Development &amp; Community</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development.html#how-you-can-help">11.1. How you can help ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#contributors">11.2. Contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="how-to-refer.html">12. How to Refer to Patro ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="donate.html">13. How to Help Further ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="related-projects.html">14. Related Projects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="related-projects.html#pattern-making">14.1. Pattern Making</a></li>
+<li class="toctree-l2"><a class="reference internal" href="related-projects.html#embroidery">14.2. Embroidery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="related-projects.html#geometry-engine">14.3. Geometry Engine</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">15. Bibliography</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#geometry-engine">15.1. Geometry Engine</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 </div>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="installation.html" class="btn btn-neutral float-right" title="1. Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="overview.html" class="btn btn-neutral float-right" title="1. Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
@@ -335,11 +587,11 @@ operations.  Some libraries featuring that are :</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Fabrice Salvaire.
+        &copy; Copyright 2019, Fabrice Salvaire
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -354,37 +606,26 @@ operations.  Some libraries featuring that are :</p>
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'0.2.0',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="static/jquery.js"></script>
-      <script type="text/javascript" src="static/underscore.js"></script>
-      <script type="text/javascript" src="static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-      <script type="text/javascript" src="static/hidecode.js"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
+        <script type="text/javascript" src="static/jquery.js"></script>
+        <script type="text/javascript" src="static/underscore.js"></script>
+        <script type="text/javascript" src="static/doctools.js"></script>
+        <script type="text/javascript" src="static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="static/getthecode.js"></script>
+    
 
   
 
-  
-  
-    <script type="text/javascript" src="static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(false);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

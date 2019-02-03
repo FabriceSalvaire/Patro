@@ -1,0 +1,8 @@
+
+==============================
+ ValentinaStandardMeasurement
+==============================
+
+.. automodule:: Patro.Measurement.ValentinaStandardMeasurement
+   :members:
+   :show-inheritance:

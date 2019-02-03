@@ -1,0 +1,993 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Patro.GraphicEngine.GraphicScene.Scene &mdash; Patro 0.3.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../../static/css/Patro.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+
+  
+  <script src="../../../../static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> Patro
+          
+
+          
+            
+            <img src="../../../../static/logo-64.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../overview.html">1. Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#what-is-patro">1.1. What is Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#what-is-the-purpose-of-this-library">1.2. What is the purpose of this library ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#what-are-the-features-of-patro">1.3. What are the Features of Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#how-is-patro-licensed">1.4. How is Patro licensed ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#going-further-with-patro">1.5. Going further with Patro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#which-platforms-are-supported-by-patro">1.6. Which platforms are supported by Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#how-to-install-patro">1.7. How to install Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview.html#which-version-of-python-is-required">1.8. Which version of Python is required ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../features-all.html">2. Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../features-all.html#geometry-engine">2.1. Geometry Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../features-all.html#pattern-engine">2.2. Pattern Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../features-all.html#graphic-engine">2.3. Graphic Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../features-all.html#pattern-format-support">2.4. Pattern Format Support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../features-all.html#pattern-format-compatibility">2.4.1. Pattern Format Compatibility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../valentina-compatibility/index.html">2.4.1.1. Valentina Compatibility</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../features-all.html#digitalisation">2.5. Digitalisation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../news.html">3. News</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../news.html#v0-2017-02-16">3.1. V0 2017-02-16</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../roadmap.html">4. Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">5. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#on-windows">5.1. On Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#on-linux">5.2. On Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#on-osx">5.3. On OSX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#installation-from-pypi-repository">5.4. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#install-a-more-recent-version-from-github">5.5. Install a more recent version from Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#installation-from-source">5.6. Installation from Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#dependencies">5.7. Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../examples/index.html">6. Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../examples/svg-import.html">6.1. SVG Import</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../examples/dxf-import.html">6.2. DXF Import</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">7. User FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../faq.html#how-to-get-help-or-report-an-issue">7.1. How to get help or report an issue ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../design-notes/index.html">8. Design Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../design-notes/question-answer.html">8.1. Design Notes Questions &amp; Answers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/question-answer.html#what-is-my-opinion-on-valentina-seamly2d">8.1.1. What is my opinion on Valentina / Seamly2D ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/question-answer.html#can-we-implement-such-a-tool-as-a-plugin-of-another-software">8.1.2. Can we implement such a tool as a plugin of another software ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/question-answer.html#what-is-the-requirements-of-a-pattern-drafting-software">8.1.3. What is the requirements of a pattern drafting software ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/question-answer.html#why-python-is-a-good-language-for-this-library">8.1.4. Why Python is a good language for this library ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/question-answer.html#could-we-implement-a-full-software-using-python">8.1.5. Could we implement a full software using Python ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/question-answer.html#how-to-generate-drawings-in-standard-format-like-pdf-or-svg">8.1.6. How to generate drawings in standard format like PDF or SVG ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/question-answer.html#what-is-the-requirements-of-a-geometric-engine">8.1.7. What is the requirements of a geometric engine ?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../design-notes/performance.html">8.2. Performances</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../design-notes/performance.html#svg-import">8.2.1. SVG Import</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../resources/index.html">9. Resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../resources/file-format/index.html">9.1. File Formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/file-format/dxf.html">9.1.1. DXF File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/file-format/dxf-astm.html">9.1.2. DXF ASTM File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/file-format/svg.html">9.1.3. SVG File Format</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/file-format/svg.html#reference-documentations">9.1.3.1. Reference Documentations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/file-format/svg.html#svg-coordinate-system">9.1.3.2. SVG Coordinate System</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/file-format/svg.html#inkscape-software">9.1.3.3. Inkscape Software</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/file-format/valentina.html">9.1.4. Valentina File Format</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../resources/geometry/index.html">9.2. Geometry Resources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/geometry/bezier.html">9.2.1. Bézier Curves</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#valentina-requirements">9.2.1.1. Valentina Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#definitions">9.2.1.2. Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#linear-bezier-curves">9.2.1.3. Linear Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#quadratic-bezier-curves">9.2.1.4. Quadratic Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#cubic-bezier-curves">9.2.1.5. Cubic Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#recursive-definition">9.2.1.6. Recursive definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#degree-elevation">9.2.1.7. Degree elevation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#matrix-forms">9.2.1.8. Matrix Forms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#symbolic-calculation">9.2.1.9. Symbolic Calculation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#curve-length">9.2.1.10. Curve Length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#determine-the-curve-flatness">9.2.1.11. Determine the curve flatness</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#intersection-of-bezier-curve-with-a-line">9.2.1.12. Intersection of Bézier Curve with a Line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/bezier.html#closest-point">9.2.1.13. Closest Point</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/geometry/conic.html">9.2.2. Conic</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/conic.html#valentina-requirements">9.2.2.1. Valentina Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/conic.html#circle">9.2.2.2. Circle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/conic.html#ellipse">9.2.2.3. Ellipse</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/geometry/path.html">9.2.3. Path</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/path.html#bulge">9.2.3.1. Bulge</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/geometry/polygon.html">9.2.4. Polygon</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/polygon.html#area-and-barycenter">9.2.4.1. Area and Barycenter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/polygon.html#moments-of-inertia">9.2.4.2. Moments of Inertia</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/geometry/spline.html">9.2.5. Spline Curves</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/spline.html#references">9.2.5.1. References</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/spline.html#b-spline-basis">9.2.5.2. B-spline Basis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/spline.html#b-spline-curve">9.2.5.3. B-spline Curve</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/spline.html#algorithms-for-b-spline-curves">9.2.5.4. Algorithms for B-spline curves</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../resources/geometry/transformations.html">9.2.6. Transformations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../resources/geometry/transformations.html#transformation-matrices">9.2.6.1. Transformation matrices</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference-manual.html">10. API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/Patro.html">10.1. Patro</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/Common.html">10.1.1. Common</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/ArgparseAction.html">10.1.1.1. ArgparseAction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/AtomicCounter.html">10.1.1.2. AtomicCounter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Datetime.html">10.1.1.3. Datetime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Graph.html">10.1.1.4. Graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/IterTools.html">10.1.1.5. IterTools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Logging.html">10.1.1.6. Logging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Math.html">10.1.1.7. Math</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Object.html">10.1.1.8. Object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Path.html">10.1.1.9. Path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Platform.html">10.1.1.10. Platform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Singleton.html">10.1.1.11. Singleton</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Common/Xml.html">10.1.1.12. Xml</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/Config.html">10.1.2. Config</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Config/ConfigInstall.html">10.1.2.1. ConfigInstall</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/FileFormat.html">10.1.3. FileFormat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/FileFormat/Dxf.html">10.1.3.1. Dxf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/FileFormat/Svg.html">10.1.3.2. Svg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/FileFormat/Valentina.html">10.1.3.3. Valentina</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/GeometryEngine.html">10.1.4. GeometryEngine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Bezier.html">10.1.4.1. Bezier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/BoundingBox.html">10.1.4.2. BoundingBox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Conic.html">10.1.4.3. Conic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Interpolation.html">10.1.4.4. Interpolation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Line.html">10.1.4.5. Line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Mixin.html">10.1.4.6. Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Path.html">10.1.4.7. Path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Polygon.html">10.1.4.8. Polygon</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Polyline.html">10.1.4.9. Polyline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Primitive.html">10.1.4.10. Primitive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Rectangle.html">10.1.4.11. Rectangle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Segment.html">10.1.4.12. Segment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Shape.html">10.1.4.13. Shape</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Spline.html">10.1.4.14. Spline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Transformation.html">10.1.4.15. Transformation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Triangle.html">10.1.4.16. Triangle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine/Vector.html">10.1.4.17. Vector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine.html#purpose">10.1.4.18. Purpose</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GeometryEngine.html#bibliographical-references">10.1.4.19. Bibliographical References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/GraphicEngine.html">10.1.5. GraphicEngine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GraphicEngine/GraphicScene.html">10.1.5.1. GraphicScene</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GraphicEngine/Painter.html">10.1.5.2. Painter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GraphicEngine/TeX.html">10.1.5.3. TeX</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/GraphicStyle.html">10.1.6. GraphicStyle</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/GraphicStyle/Color.html">10.1.6.1. Color</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/Measurement.html">10.1.7. Measurement</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Measurement/Measurement.html">10.1.7.1. Measurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Measurement/PersonalData.html">10.1.7.2. PersonalData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Measurement/StandardMeasurement.html">10.1.7.3. StandardMeasurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Measurement/ValentinaMeasurement.html">10.1.7.4. ValentinaMeasurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Measurement/ValentinaStandardMeasurement.html">10.1.7.5. ValentinaStandardMeasurement</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/Pattern.html">10.1.8. Pattern</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/Calculator.html">10.1.8.1. Calculator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/QtApplication.html">10.1.9. QtApplication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/QtApplication/QmlApplication.html">10.1.9.1. QmlApplication</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reference-manual.html#indexes">10.2. Indexes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../development.html">11. Development &amp; Community</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../development.html#how-you-can-help">11.1. How you can help ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../development.html#contributors">11.2. Contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../how-to-refer.html">12. How to Refer to Patro ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../donate.html">13. How to Help Further ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../related-projects.html">14. Related Projects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../related-projects.html#pattern-making">14.1. Pattern Making</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../related-projects.html#embroidery">14.2. Embroidery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../related-projects.html#geometry-engine">14.3. Geometry Engine</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../bibliography.html">15. Bibliography</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../bibliography.html#geometry-engine">15.1. Geometry Engine</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Patro</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>Patro.GraphicEngine.GraphicScene.Scene</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for Patro.GraphicEngine.GraphicScene.Scene</h1><div class="highlight"><pre>
+<span></span><span class="c1">####################################################################################################</span>
+<span class="c1">#</span>
+<span class="c1"># Patro - A Python library to make patterns for fashion design</span>
+<span class="c1"># Copyright (C) 2017 Fabrice Salvaire</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU Affero General Public License as</span>
+<span class="c1"># published by the Free Software Foundation, either version 3 of the</span>
+<span class="c1"># License, or (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU Affero General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU Affero General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="c1">#</span>
+<span class="c1">####################################################################################################</span>
+
+<span class="sd">&quot;&quot;&quot;Module to implement a graphic scene.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;GraphicScene&#39;</span><span class="p">,</span>
+    <span class="c1"># sphinx</span>
+    <span class="s1">&#39;GraphicSceneScope&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">import</span> <span class="nn">rtree</span>
+
+<span class="kn">from</span> <span class="nn">Patro.GeometryEngine</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">Bezier</span><span class="p">,</span>
+    <span class="n">Conic</span><span class="p">,</span>
+    <span class="n">Line</span><span class="p">,</span>
+    <span class="n">Path</span><span class="p">,</span>
+    <span class="n">Polygon</span><span class="p">,</span>
+    <span class="n">Polyline</span><span class="p">,</span>
+    <span class="n">Rectangle</span><span class="p">,</span>
+    <span class="n">Segment</span><span class="p">,</span>
+    <span class="n">Spline</span><span class="p">,</span>
+    <span class="n">Triangle</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">Patro.GeometryEngine.Transformation</span> <span class="k">import</span> <span class="n">AffineTransformation2D</span>
+<span class="kn">from</span> <span class="nn">Patro.GeometryEngine.Vector</span> <span class="k">import</span> <span class="n">Vector2D</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">GraphicItem</span>
+<span class="kn">from</span> <span class="nn">.GraphicItem</span> <span class="k">import</span> <span class="n">CoordinateItem</span>
+
+<span class="c1">####################################################################################################</span>
+
+<span class="n">_module_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="GraphicSceneScope"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicSceneScope">[docs]</a><span class="k">class</span> <span class="nc">GraphicSceneScope</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;Class to implement a graphic scene.&quot;&quot;&quot;</span>
+
+    <span class="n">__ITEM_CTOR__</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;circle&#39;</span><span class="p">:</span> <span class="n">GraphicItem</span><span class="o">.</span><span class="n">CircleItem</span><span class="p">,</span>
+        <span class="s1">&#39;cubic_bezier&#39;</span><span class="p">:</span> <span class="n">GraphicItem</span><span class="o">.</span><span class="n">CubicBezierItem</span><span class="p">,</span>
+        <span class="s1">&#39;ellipse&#39;</span><span class="p">:</span> <span class="n">GraphicItem</span><span class="o">.</span><span class="n">EllipseItem</span><span class="p">,</span>
+        <span class="s1">&#39;image&#39;</span><span class="p">:</span> <span class="n">GraphicItem</span><span class="o">.</span><span class="n">ImageItem</span><span class="p">,</span>
+        <span class="c1"># &#39;path&#39;: GraphicItem.PathItem, # see add_path...</span>
+        <span class="s1">&#39;polygon&#39;</span><span class="p">:</span> <span class="n">GraphicItem</span><span class="o">.</span><span class="n">PolygonItem</span><span class="p">,</span>
+        <span class="s1">&#39;polyline&#39;</span><span class="p">:</span> <span class="n">GraphicItem</span><span class="o">.</span><span class="n">PolylineItem</span><span class="p">,</span>
+        <span class="s1">&#39;quadratic_bezier&#39;</span><span class="p">:</span> <span class="n">GraphicItem</span><span class="o">.</span><span class="n">QuadraticBezierItem</span><span class="p">,</span>
+        <span class="s1">&#39;rectangle&#39;</span><span class="p">:</span> <span class="n">GraphicItem</span><span class="o">.</span><span class="n">RectangleItem</span><span class="p">,</span>
+        <span class="s1">&#39;segment&#39;</span><span class="p">:</span> <span class="n">GraphicItem</span><span class="o">.</span><span class="n">SegmentItem</span><span class="p">,</span>
+        <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">GraphicItem</span><span class="o">.</span><span class="n">TextItem</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">_logger</span> <span class="o">=</span> <span class="n">_module_logger</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;GraphicSceneScope&#39;</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="GraphicSceneScope.__init__"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicSceneScope.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transformation</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">transformation</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">transformation</span> <span class="o">=</span> <span class="n">AffineTransformation2D</span><span class="o">.</span><span class="n">Identity</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_transformation</span> <span class="o">=</span> <span class="n">transformation</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_coordinates</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_items</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1"># id(item) -&gt; item, e.g. for rtree query</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_user_data_map</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rtree</span> <span class="o">=</span> <span class="n">rtree</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">Index</span><span class="p">()</span>
+        <span class="c1"># item_id -&gt; bounding_box, used to delete item in rtree (cf. rtree api)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_item_bounding_box_cache</span> <span class="o">=</span> <span class="p">{}</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">transformation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transformation</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="GraphicSceneScope.__len__"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicSceneScope.__len__">[docs]</a>    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_items</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">number_of_items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="GraphicSceneScope.__iter__"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicSceneScope.__iter__">[docs]</a>    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># must be an ordered item list</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="o">.</span><span class="n">values</span><span class="p">())</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="GraphicSceneScope.z_value_iter"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicSceneScope.z_value_iter">[docs]</a>    <span class="k">def</span> <span class="nf">z_value_iter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c1"># Fixme: cache ???</span>
+        <span class="c1"># Group by z_value and keep inserting order</span>
+        <span class="n">z_map</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">visible</span><span class="p">:</span>
+                <span class="n">items</span> <span class="o">=</span> <span class="n">z_map</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">z_value</span><span class="p">,</span> <span class="p">[])</span>
+                <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">z_value</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">z_map</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">z_map</span><span class="p">[</span><span class="n">z_value</span><span class="p">]:</span>
+                <span class="k">yield</span> <span class="n">item</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">selected_items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Fixme: cache ?</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">selected</span><span class="p">]</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="GraphicSceneScope.unselect_items"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicSceneScope.unselect_items">[docs]</a>    <span class="k">def</span> <span class="nf">unselect_items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_items</span><span class="p">:</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">selected</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="GraphicSceneScope.add_coordinate"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicSceneScope.add_coordinate">[docs]</a>    <span class="k">def</span> <span class="nf">add_coordinate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+
+        <span class="n">item</span> <span class="o">=</span> <span class="n">CoordinateItem</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_coordinates</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
+        <span class="k">return</span> <span class="n">item</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="GraphicSceneScope.remove_coordinate"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicSceneScope.remove_coordinate">[docs]</a>    <span class="k">def</span> <span class="nf">remove_coordinate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coordinates</span><span class="p">[</span><span class="n">name</span><span class="p">]</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="GraphicSceneScope.coordinate"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicSceneScope.coordinate">[docs]</a>    <span class="k">def</span> <span class="nf">coordinate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coordinates</span><span class="p">[</span><span class="n">name</span><span class="p">]</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="GraphicSceneScope.cast_position"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicSceneScope.cast_position">[docs]</a>    <span class="k">def</span> <span class="nf">cast_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;Cast coordinate and apply scope transformation, *position* can be a coordinate name string of a</span>
+<span class="sd">        :class:`Patro.GeometryEngine.Vector.Vector2D`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Fixme: cache ?</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">vector</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coordinates</span><span class="p">[</span><span class="n">position</span><span class="p">]</span><span class="o">.</span><span class="n">position</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">Vector2D</span><span class="p">):</span>
+            <span class="n">vector</span> <span class="o">=</span> <span class="n">position</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transformation</span> <span class="o">*</span> <span class="n">vector</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="GraphicSceneScope.add_item"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicSceneScope.add_item">[docs]</a>    <span class="k">def</span> <span class="nf">add_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">item</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># print(item, item.user_data, hash(item))</span>
+        <span class="c1"># if item in self._items:</span>
+        <span class="c1">#     print(&#39;Warning duplicate&#39;, item.user_data)</span>
+
+        <span class="n">item_id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="c1"># Fixme: hash ???</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">[</span><span class="n">item_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
+
+        <span class="n">user_data</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">user_data</span>
+        <span class="k">if</span> <span class="n">user_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">user_data_id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="n">user_data</span><span class="p">)</span> <span class="c1"># Fixme: hash ???</span>
+            <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_user_data_map</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">user_data_id</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">item</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="GraphicSceneScope.remove_item"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicSceneScope.remove_item">[docs]</a>    <span class="k">def</span> <span class="nf">remove_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_rtree</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">insert</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">item_for_user_data</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">user_data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">items</span><span class="p">:</span>
+            <span class="n">items</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">[</span><span class="n">item</span><span class="p">]</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="GraphicSceneScope.item_for_user_data"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicSceneScope.item_for_user_data">[docs]</a>    <span class="k">def</span> <span class="nf">item_for_user_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_data</span><span class="p">):</span>
+        <span class="n">user_data_id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="n">user_data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_user_data_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">user_data_id</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="GraphicSceneScope.update_rtree"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicSceneScope.update_rtree">[docs]</a>    <span class="k">def</span> <span class="nf">update_rtree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">dirty</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">update_rtree_item</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="GraphicSceneScope.update_rtree_item"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicSceneScope.update_rtree_item">[docs]</a>    <span class="k">def</span> <span class="nf">update_rtree_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">insert</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+        <span class="n">item_id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="n">old_bounding_box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_item_bounding_box_cache</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">item_id</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">old_bounding_box</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_rtree</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">item_id</span><span class="p">,</span> <span class="n">old_bounding_box</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">insert</span><span class="p">:</span>
+            <span class="c1"># try:</span>
+            <span class="n">bounding_box</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">bounding_box</span><span class="o">.</span><span class="n">bounding_box</span> <span class="c1"># Fixme: name</span>
+            <span class="c1"># print(item, bounding_box)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_rtree</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">item_id</span><span class="p">,</span> <span class="n">bounding_box</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_item_bounding_box_cache</span><span class="p">[</span><span class="n">item_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">bounding_box</span></div>
+            <span class="c1"># except AttributeError:</span>
+            <span class="c1">#     print(&#39;bounding_box not implemented for&#39;, item)</span>
+            <span class="c1">#     pass # Fixme:</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="GraphicSceneScope.item_in_bounding_box"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicSceneScope.item_in_bounding_box">[docs]</a>    <span class="k">def</span> <span class="nf">item_in_bounding_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bounding_box</span><span class="p">):</span>
+
+        <span class="c1"># Fixme: Interval2D ok ?</span>
+        <span class="c1"># print(&#39;item_in_bounding_box&#39;, bounding_box)</span>
+        <span class="n">item_ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rtree</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">bounding_box</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">item_ids</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">[</span><span class="n">item_id</span><span class="p">]</span> <span class="k">for</span> <span class="n">item_id</span> <span class="ow">in</span> <span class="n">item_ids</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="GraphicSceneScope.item_at"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicSceneScope.item_at">[docs]</a>    <span class="k">def</span> <span class="nf">item_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">radius</span><span class="p">):</span>
+
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+        <span class="n">bounding_box</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">x</span> <span class="o">-</span> <span class="n">radius</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="n">radius</span><span class="p">,</span>
+            <span class="n">x</span> <span class="o">+</span> <span class="n">radius</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">radius</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">item_in_bounding_box</span><span class="p">(</span><span class="n">bounding_box</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span> <span class="c1"># Fixme</span>
+                <span class="n">distance</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">distance_to_point</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+                <span class="c1"># print(&#39;distance_to_point {:6.2f} {}&#39;.format(distance, item))</span>
+                <span class="c1"># Fixme: distance is None</span>
+                <span class="k">if</span> <span class="n">distance</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">distance</span> <span class="o">&lt;=</span> <span class="n">radius</span><span class="p">:</span>
+                    <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">distance</span><span class="p">,</span> <span class="n">item</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">pair</span><span class="p">:</span> <span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="c1"># Fixme: !!!</span>
+    <span class="c1"># def add_scope(self, *args, **kwargs):</span>
+    <span class="c1">#     return self.add_item(GraphicSceneScope, self, *args, **kwargs)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="GraphicSceneScope.add_geometry"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicSceneScope.add_geometry">[docs]</a>    <span class="k">def</span> <span class="nf">add_geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">path_style</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;Add a geometry primitive&quot;&quot;&quot;</span>
+
+        <span class="n">ctor</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">args_tail</span> <span class="o">=</span> <span class="p">[</span><span class="n">path_style</span><span class="p">]</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">user_data</span><span class="o">=</span><span class="n">item</span><span class="p">)</span>
+
+        <span class="n">unpack_points</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># Bezier</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">Bezier</span><span class="o">.</span><span class="n">QuadraticBezier2D</span><span class="p">):</span>
+            <span class="n">ctor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quadratic_bezier</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">Bezier</span><span class="o">.</span><span class="n">CubicBezier2D</span><span class="p">):</span>
+            <span class="n">ctor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cubic_bezier</span>
+
+        <span class="c1"># Conic</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">Conic</span><span class="o">.</span><span class="n">Circle2D</span><span class="p">):</span>
+            <span class="n">ctor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">circle</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">radius</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">domain</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;start_angle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">domain</span><span class="o">.</span><span class="n">start</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;stop_angle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">domain</span><span class="o">.</span><span class="n">stop</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">Conic</span><span class="o">.</span><span class="n">Ellipse2D</span><span class="p">):</span>
+            <span class="n">ctor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ellipse</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">radius_x</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">radius_y</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">angle</span><span class="p">]</span>
+
+        <span class="c1"># Line</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">Line</span><span class="o">.</span><span class="n">Line2D</span><span class="p">):</span>
+            <span class="c1"># Fixme: extent ???</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+        <span class="c1"># Path</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">Path</span><span class="o">.</span><span class="n">Path2D</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_path</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">path_style</span><span class="p">,</span> <span class="n">as_segments</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Polygon</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">Polygon</span><span class="o">.</span><span class="n">Polygon2D</span><span class="p">):</span>
+            <span class="n">ctor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">polygon</span> <span class="c1"># or linear closed path</span>
+            <span class="n">unpack_points</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Polyline</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">Polyline</span><span class="o">.</span><span class="n">Polyline2D</span><span class="p">):</span>
+            <span class="n">ctor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">polyline</span> <span class="c1"># or linear path</span>
+            <span class="n">unpack_points</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Rectangle</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">Rectangle</span><span class="o">.</span><span class="n">Rectangle2D</span><span class="p">):</span>
+            <span class="n">ctor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rectangle</span> <span class="c1"># or linear closed path</span>
+
+        <span class="c1"># Segment</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">Segment</span><span class="o">.</span><span class="n">Segment2D</span><span class="p">):</span>
+            <span class="n">ctor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">segment</span>
+
+        <span class="c1"># Spline</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">Spline</span><span class="o">.</span><span class="n">BSpline2D</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_spline</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">path_style</span><span class="p">)</span>
+
+        <span class="c1"># Triangle</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">Triangle</span><span class="o">.</span><span class="n">Triangle2D</span><span class="p">):</span>
+            <span class="n">ctor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">polygon</span> <span class="c1"># or linear path</span>
+            <span class="n">unpack_points</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Not implemented</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Not implemented item </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+        <span class="k">if</span> <span class="n">ctor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">points</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">points</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">points</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">unpack_points</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">ctor</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">*</span><span class="n">args_tail</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">ctor</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">*</span><span class="n">args_tail</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="c1"># def add_quadratic_bezier(self, curve, *args, **kwargs):</span>
+    <span class="c1">#     # Fixme:</span>
+    <span class="c1">#     cubic = curve.to_cubic()</span>
+    <span class="c1">#     return self.cubic_bezier(*cubic.points, *args, **kwargs)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="GraphicSceneScope.add_spline"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicSceneScope.add_spline">[docs]</a>    <span class="k">def</span> <span class="nf">add_spline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spline</span><span class="p">,</span> <span class="n">path_style</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cubic_bezier</span><span class="p">(</span><span class="o">*</span><span class="n">bezier</span><span class="o">.</span><span class="n">points</span><span class="p">,</span> <span class="n">path_style</span><span class="p">,</span> <span class="n">user_data</span><span class="o">=</span><span class="n">spline</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">bezier</span> <span class="ow">in</span> <span class="n">spline</span><span class="o">.</span><span class="n">to_bezier</span><span class="p">()</span>
+        <span class="p">]</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="GraphicSceneScope.add_path"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicSceneScope.add_path">[docs]</a>    <span class="k">def</span> <span class="nf">add_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">path_style</span><span class="p">,</span> <span class="n">user_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_segments</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">as_segments</span><span class="p">:</span>
+            <span class="n">method</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_as_path_segments</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">method</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_as_path</span>
+
+        <span class="k">return</span> <span class="n">method</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">path_style</span><span class="p">,</span> <span class="n">user_data</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="GraphicSceneScope.add_as_path"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicSceneScope.add_as_path">[docs]</a>    <span class="k">def</span> <span class="nf">add_as_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">path_style</span><span class="p">,</span> <span class="n">user_data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;Add a path as only one path item.</span>
+
+<span class="sd">        .. warning: path can be filled.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">GraphicItem</span><span class="o">.</span><span class="n">PathItem</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">p0</span><span class="p">,</span> <span class="n">path_style</span><span class="p">,</span> <span class="n">user_data</span><span class="p">)</span>
+
+        <span class="c1"># cf. add_as_path_segments</span>
+        <span class="k">for</span> <span class="n">segment</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">segment</span><span class="p">,</span> <span class="n">Path</span><span class="o">.</span><span class="n">LinearSegment</span><span class="p">):</span>
+                <span class="c1"># if segment.radius is not None:</span>
+                <span class="c1">#     add_bulge(segment)</span>
+                <span class="n">item</span><span class="o">.</span><span class="n">line_to</span><span class="p">(</span><span class="n">segment</span><span class="o">.</span><span class="n">stop_point</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">segment</span><span class="p">,</span> <span class="n">Path</span><span class="o">.</span><span class="n">QuadraticBezierSegment</span><span class="p">):</span>
+                <span class="n">item</span><span class="o">.</span><span class="n">quadratic_to</span><span class="p">(</span><span class="n">segment</span><span class="o">.</span><span class="n">point1</span><span class="p">,</span> <span class="n">segment</span><span class="o">.</span><span class="n">point2</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">segment</span><span class="p">,</span> <span class="n">Path</span><span class="o">.</span><span class="n">CubicBezierSegment</span><span class="p">):</span>
+                <span class="n">item</span><span class="o">.</span><span class="n">cubic_to</span><span class="p">(</span><span class="n">segment</span><span class="o">.</span><span class="n">point1</span><span class="p">,</span> <span class="n">segment</span><span class="o">.</span><span class="n">point2</span><span class="p">,</span> <span class="n">segment</span><span class="o">.</span><span class="n">point3</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">segment</span><span class="p">,</span> <span class="n">Path</span><span class="o">.</span><span class="n">ArcSegment</span><span class="p">):</span>
+                <span class="k">pass</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">segment</span><span class="p">,</span> <span class="n">Path</span><span class="o">.</span><span class="n">StringedQuadtraticBezierSegment</span><span class="p">):</span>
+                <span class="k">pass</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">segment</span><span class="p">,</span> <span class="n">Path</span><span class="o">.</span><span class="n">StringedCubicBezierSegment</span><span class="p">):</span>
+                <span class="k">pass</span>
+
+        <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">is_closed</span><span class="p">:</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">item</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="GraphicSceneScope.add_as_path_segments"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicSceneScope.add_as_path_segments">[docs]</a>    <span class="k">def</span> <span class="nf">add_as_path_segments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">path_style</span><span class="p">,</span> <span class="n">user_data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;Add a path as one item for each segments.</span>
+
+<span class="sd">        .. warning: path cannot be filled.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">user_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">user_data</span> <span class="o">=</span> <span class="n">path</span>
+
+        <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">def</span> <span class="nf">add_bulge</span><span class="p">(</span><span class="n">segment</span><span class="p">):</span>
+            <span class="n">arc</span> <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">bulge_geometry</span>
+            <span class="n">arc_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span>
+                <span class="n">arc</span><span class="o">.</span><span class="n">center</span><span class="p">,</span> <span class="n">arc</span><span class="o">.</span><span class="n">radius</span><span class="p">,</span>
+                <span class="n">path_style</span><span class="p">,</span>
+                <span class="n">start_angle</span><span class="o">=</span><span class="n">arc</span><span class="o">.</span><span class="n">domain</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
+                <span class="n">stop_angle</span><span class="o">=</span><span class="n">arc</span><span class="o">.</span><span class="n">domain</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span>
+                <span class="n">user_data</span><span class="o">=</span><span class="n">user_data</span><span class="p">,</span> <span class="c1"># segment</span>
+            <span class="p">)</span>
+            <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arc_item</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">add_by_method</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">segment</span><span class="p">):</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span>
+                <span class="o">*</span><span class="n">segment</span><span class="o">.</span><span class="n">points</span><span class="p">,</span>
+                <span class="n">path_style</span><span class="p">,</span>
+                <span class="n">user_data</span><span class="o">=</span><span class="n">user_data</span><span class="p">,</span> <span class="c1"># segment</span>
+            <span class="p">)</span>
+            <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">add_segment</span><span class="p">(</span><span class="n">segment</span><span class="p">):</span>
+            <span class="n">add_by_method</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">segment</span><span class="p">,</span> <span class="n">segment</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">add_ellipse</span><span class="p">(</span><span class="n">segment</span><span class="p">):</span>
+            <span class="c1"># add_segment(Segment.Segment2D(*segment.points))</span>
+            <span class="n">ellipse</span> <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">geometry</span>
+            <span class="c1"># print(ellipse, ellipse.domain)</span>
+            <span class="n">arc_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ellipse</span><span class="p">(</span>
+                <span class="n">ellipse</span><span class="o">.</span><span class="n">center</span><span class="p">,</span>
+                <span class="n">ellipse</span><span class="o">.</span><span class="n">radius_x</span><span class="p">,</span>
+                <span class="n">ellipse</span><span class="o">.</span><span class="n">radius_y</span><span class="p">,</span>
+                <span class="n">ellipse</span><span class="o">.</span><span class="n">angle</span><span class="p">,</span>
+                <span class="n">path_style</span><span class="p">,</span>
+                <span class="n">start_angle</span><span class="o">=</span><span class="n">ellipse</span><span class="o">.</span><span class="n">domain</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
+                <span class="n">stop_angle</span><span class="o">=</span><span class="n">ellipse</span><span class="o">.</span><span class="n">domain</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span>
+                <span class="n">user_data</span><span class="o">=</span><span class="n">user_data</span><span class="p">,</span> <span class="c1"># segment</span>
+            <span class="p">)</span>
+            <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arc_item</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">add_quadratic</span><span class="p">(</span><span class="n">segment</span><span class="p">):</span>
+            <span class="n">add_by_method</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quadratic_bezier</span><span class="p">,</span> <span class="n">segment</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">add_cubic</span><span class="p">(</span><span class="n">segment</span><span class="p">):</span>
+            <span class="n">add_by_method</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cubic_bezier</span><span class="p">,</span> <span class="n">segment</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">segment</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">segment</span><span class="p">,</span> <span class="n">Path</span><span class="o">.</span><span class="n">LinearSegment</span><span class="p">):</span>
+                <span class="c1"># if segment._start_radius is True:</span>
+                <span class="c1">#     continue</span>
+                <span class="k">if</span> <span class="n">segment</span><span class="o">.</span><span class="n">radius</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">add_bulge</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span>
+                <span class="c1"># if segment._closing is True:</span>
+                <span class="c1">#     start_segment = path.start_segment</span>
+                <span class="c1">#     add_bulge(start_segment)</span>
+                <span class="c1">#     add_segment(start_segment)</span>
+                <span class="n">add_segment</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">segment</span><span class="p">,</span> <span class="n">Path</span><span class="o">.</span><span class="n">QuadraticBezierSegment</span><span class="p">):</span>
+                <span class="n">add_quadratic</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">segment</span><span class="p">,</span> <span class="n">Path</span><span class="o">.</span><span class="n">CubicBezierSegment</span><span class="p">):</span>
+                <span class="n">add_cubic</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">segment</span><span class="p">,</span> <span class="n">Path</span><span class="o">.</span><span class="n">ArcSegment</span><span class="p">):</span>
+                <span class="n">add_ellipse</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">segment</span><span class="p">,</span> <span class="n">Path</span><span class="o">.</span><span class="n">StringedQuadtraticBezierSegment</span><span class="p">):</span>
+                <span class="k">pass</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">segment</span><span class="p">,</span> <span class="n">Path</span><span class="o">.</span><span class="n">StringedCubicBezierSegment</span><span class="p">):</span>
+                <span class="k">pass</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="c1"># def quadratic_bezier(self, p0, p1, p2, *args, **kwargs):</span>
+    <span class="c1">#     # Fixme:</span>
+    <span class="c1">#     cubic = Bezier.QuadraticBezier2D(p0, p1, p2).to_cubic()</span>
+    <span class="c1">#     return self.add_cubic(cubic, *args, **kwargs)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="GraphicSceneScope.bezier_path"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicSceneScope.bezier_path">[docs]</a>    <span class="k">def</span> <span class="nf">bezier_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="n">degree</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;Add a Bézier curve with the given control points and degree&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">degree</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">method</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">segment</span>
+        <span class="k">elif</span> <span class="n">degree</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1"># Fixme:</span>
+            <span class="n">method</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quadratic_bezier</span>
+        <span class="k">elif</span> <span class="n">degree</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">method</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cubic_bezier</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unsupported degree for Bezier curve: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">degree</span><span class="p">))</span>
+
+        <span class="c1"># Fixme: generic code</span>
+
+        <span class="n">number_of_points</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">number_of_points</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="n">degree</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Wrong number of points for Bezier </span><span class="si">{}</span><span class="s1"> curve: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">degree</span><span class="p">,</span> <span class="n">number_of_points</span><span class="p">))</span>
+
+        <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_of_points</span> <span class="o">//</span> <span class="n">degree</span><span class="p">):</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="n">degree</span> <span class="o">*</span> <span class="n">i</span>
+            <span class="n">k</span> <span class="o">=</span> <span class="n">j</span> <span class="o">+</span> <span class="n">degree</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">[</span><span class="n">j</span><span class="p">:</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">items</span></div></div>
+
+    <span class="c1">##############################################</span>
+
+<span class="c1"># Register a method in GraphicSceneScope class for each type of graphic item</span>
+
+<div class="viewcode-block" id="_make_add_item_wrapper"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene._make_add_item_wrapper">[docs]</a><span class="k">def</span> <span class="nf">_make_add_item_wrapper</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">wrapper</span></div>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="n">GraphicSceneScope</span><span class="o">.</span><span class="n">__ITEM_CTOR__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">setattr</span><span class="p">(</span><span class="n">GraphicSceneScope</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_make_add_item_wrapper</span><span class="p">(</span><span class="bp">cls</span><span class="p">))</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="GraphicScene"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/GraphicScene/Scene.html#Patro.GraphicEngine.GraphicScene.Scene.GraphicScene">[docs]</a><span class="k">class</span> <span class="nc">GraphicScene</span><span class="p">(</span><span class="n">GraphicSceneScope</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Class to implement a graphic scene.&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Fabrice Salvaire
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../../static/getthecode.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../../static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+
+=================
+ SketchOperation
+=================
+
+.. automodule:: Patro.Pattern.SketchOperation
+   :members:
+   :show-inheritance:

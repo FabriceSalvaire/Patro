@@ -1,0 +1,8 @@
+
+===========
+ SvgFormat
+===========
+
+.. automodule:: Patro.FileFormat.Svg.SvgFormat
+   :members:
+   :show-inheritance:

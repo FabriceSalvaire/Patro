@@ -1,0 +1,8 @@
+
+=========
+ Painter
+=========
+
+.. automodule:: Patro.GraphicEngine.Painter.Painter
+   :members:
+   :show-inheritance:

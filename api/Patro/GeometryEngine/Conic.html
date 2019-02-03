@@ -1,0 +1,789 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>10.1.4.3. Conic &mdash; Patro 0.3.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../static/css/Patro.css" type="text/css" />
+  <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="10.1.4.4. Interpolation" href="Interpolation.html" />
+    <link rel="prev" title="10.1.4.2. BoundingBox" href="BoundingBox.html" /> 
+
+  
+  <script src="../../../static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Patro
+          
+
+          
+            
+            <img src="../../../static/logo-64.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">1. Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#what-is-patro">1.1. What is Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#what-is-the-purpose-of-this-library">1.2. What is the purpose of this library ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#what-are-the-features-of-patro">1.3. What are the Features of Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#how-is-patro-licensed">1.4. How is Patro licensed ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#going-further-with-patro">1.5. Going further with Patro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#which-platforms-are-supported-by-patro">1.6. Which platforms are supported by Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#how-to-install-patro">1.7. How to install Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#which-version-of-python-is-required">1.8. Which version of Python is required ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../features-all.html">2. Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#geometry-engine">2.1. Geometry Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#pattern-engine">2.2. Pattern Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#graphic-engine">2.3. Graphic Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#pattern-format-support">2.4. Pattern Format Support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../features-all.html#pattern-format-compatibility">2.4.1. Pattern Format Compatibility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../valentina-compatibility/index.html">2.4.1.1. Valentina Compatibility</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#digitalisation">2.5. Digitalisation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../news.html">3. News</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../news.html#v0-2017-02-16">3.1. V0 2017-02-16</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../roadmap.html">4. Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">5. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#on-windows">5.1. On Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#on-linux">5.2. On Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#on-osx">5.3. On OSX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-pypi-repository">5.4. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#install-a-more-recent-version-from-github">5.5. Install a more recent version from Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-source">5.6. Installation from Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#dependencies">5.7. Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">6. Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/svg-import.html">6.1. SVG Import</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/dxf-import.html">6.2. DXF Import</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">7. User FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../faq.html#how-to-get-help-or-report-an-issue">7.1. How to get help or report an issue ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../design-notes/index.html">8. Design Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../design-notes/question-answer.html">8.1. Design Notes Questions &amp; Answers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#what-is-my-opinion-on-valentina-seamly2d">8.1.1. What is my opinion on Valentina / Seamly2D ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#can-we-implement-such-a-tool-as-a-plugin-of-another-software">8.1.2. Can we implement such a tool as a plugin of another software ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#what-is-the-requirements-of-a-pattern-drafting-software">8.1.3. What is the requirements of a pattern drafting software ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#why-python-is-a-good-language-for-this-library">8.1.4. Why Python is a good language for this library ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#could-we-implement-a-full-software-using-python">8.1.5. Could we implement a full software using Python ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#how-to-generate-drawings-in-standard-format-like-pdf-or-svg">8.1.6. How to generate drawings in standard format like PDF or SVG ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#what-is-the-requirements-of-a-geometric-engine">8.1.7. What is the requirements of a geometric engine ?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../design-notes/performance.html">8.2. Performances</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/performance.html#svg-import">8.2.1. SVG Import</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../resources/index.html">9. Resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../resources/file-format/index.html">9.1. File Formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/file-format/dxf.html">9.1.1. DXF File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/file-format/dxf-astm.html">9.1.2. DXF ASTM File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/file-format/svg.html">9.1.3. SVG File Format</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/file-format/svg.html#reference-documentations">9.1.3.1. Reference Documentations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/file-format/svg.html#svg-coordinate-system">9.1.3.2. SVG Coordinate System</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/file-format/svg.html#inkscape-software">9.1.3.3. Inkscape Software</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/file-format/valentina.html">9.1.4. Valentina File Format</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../resources/geometry/index.html">9.2. Geometry Resources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/bezier.html">9.2.1. Bézier Curves</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#valentina-requirements">9.2.1.1. Valentina Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#definitions">9.2.1.2. Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#linear-bezier-curves">9.2.1.3. Linear Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#quadratic-bezier-curves">9.2.1.4. Quadratic Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#cubic-bezier-curves">9.2.1.5. Cubic Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#recursive-definition">9.2.1.6. Recursive definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#degree-elevation">9.2.1.7. Degree elevation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#matrix-forms">9.2.1.8. Matrix Forms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#symbolic-calculation">9.2.1.9. Symbolic Calculation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#curve-length">9.2.1.10. Curve Length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#determine-the-curve-flatness">9.2.1.11. Determine the curve flatness</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#intersection-of-bezier-curve-with-a-line">9.2.1.12. Intersection of Bézier Curve with a Line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#closest-point">9.2.1.13. Closest Point</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/conic.html">9.2.2. Conic</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/conic.html#valentina-requirements">9.2.2.1. Valentina Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/conic.html#circle">9.2.2.2. Circle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/conic.html#ellipse">9.2.2.3. Ellipse</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/path.html">9.2.3. Path</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/path.html#bulge">9.2.3.1. Bulge</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/polygon.html">9.2.4. Polygon</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/polygon.html#area-and-barycenter">9.2.4.1. Area and Barycenter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/polygon.html#moments-of-inertia">9.2.4.2. Moments of Inertia</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/spline.html">9.2.5. Spline Curves</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/spline.html#references">9.2.5.1. References</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/spline.html#b-spline-basis">9.2.5.2. B-spline Basis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/spline.html#b-spline-curve">9.2.5.3. B-spline Curve</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/spline.html#algorithms-for-b-spline-curves">9.2.5.4. Algorithms for B-spline curves</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/transformations.html">9.2.6. Transformations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/transformations.html#transformation-matrices">9.2.6.1. Transformation matrices</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference-manual.html">10. API Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../Patro.html">10.1. Patro</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../Common.html">10.1.1. Common</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Common/ArgparseAction.html">10.1.1.1. ArgparseAction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/AtomicCounter.html">10.1.1.2. AtomicCounter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Datetime.html">10.1.1.3. Datetime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Graph.html">10.1.1.4. Graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/IterTools.html">10.1.1.5. IterTools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Logging.html">10.1.1.6. Logging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Math.html">10.1.1.7. Math</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Object.html">10.1.1.8. Object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Path.html">10.1.1.9. Path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Platform.html">10.1.1.10. Platform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Singleton.html">10.1.1.11. Singleton</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Xml.html">10.1.1.12. Xml</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Config.html">10.1.2. Config</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Config/ConfigInstall.html">10.1.2.1. ConfigInstall</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../FileFormat.html">10.1.3. FileFormat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../FileFormat/Dxf.html">10.1.3.1. Dxf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../FileFormat/Svg.html">10.1.3.2. Svg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../FileFormat/Valentina.html">10.1.3.3. Valentina</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="../GeometryEngine.html">10.1.4. GeometryEngine</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="Bezier.html">10.1.4.1. Bezier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BoundingBox.html">10.1.4.2. BoundingBox</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">10.1.4.3. Conic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Interpolation.html">10.1.4.4. Interpolation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Line.html">10.1.4.5. Line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mixin.html">10.1.4.6. Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Path.html">10.1.4.7. Path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Polygon.html">10.1.4.8. Polygon</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Polyline.html">10.1.4.9. Polyline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Primitive.html">10.1.4.10. Primitive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Rectangle.html">10.1.4.11. Rectangle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Segment.html">10.1.4.12. Segment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Shape.html">10.1.4.13. Shape</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Spline.html">10.1.4.14. Spline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Transformation.html">10.1.4.15. Transformation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Triangle.html">10.1.4.16. Triangle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Vector.html">10.1.4.17. Vector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GeometryEngine.html#purpose">10.1.4.18. Purpose</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GeometryEngine.html#bibliographical-references">10.1.4.19. Bibliographical References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../GraphicEngine.html">10.1.5. GraphicEngine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GraphicEngine/GraphicScene.html">10.1.5.1. GraphicScene</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GraphicEngine/Painter.html">10.1.5.2. Painter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GraphicEngine/TeX.html">10.1.5.3. TeX</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../GraphicStyle.html">10.1.6. GraphicStyle</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GraphicStyle/Color.html">10.1.6.1. Color</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Measurement.html">10.1.7. Measurement</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Measurement/Measurement.html">10.1.7.1. Measurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Measurement/PersonalData.html">10.1.7.2. PersonalData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Measurement/StandardMeasurement.html">10.1.7.3. StandardMeasurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Measurement/ValentinaMeasurement.html">10.1.7.4. ValentinaMeasurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Measurement/ValentinaStandardMeasurement.html">10.1.7.5. ValentinaStandardMeasurement</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Pattern.html">10.1.8. Pattern</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Pattern/Calculator.html">10.1.8.1. Calculator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../QtApplication.html">10.1.9. QtApplication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../QtApplication/QmlApplication.html">10.1.9.1. QmlApplication</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference-manual.html#indexes">10.2. Indexes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../development.html">11. Development &amp; Community</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../development.html#how-you-can-help">11.1. How you can help ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../development.html#contributors">11.2. Contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../how-to-refer.html">12. How to Refer to Patro ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../donate.html">13. How to Help Further ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../related-projects.html">14. Related Projects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../related-projects.html#pattern-making">14.1. Pattern Making</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../related-projects.html#embroidery">14.2. Embroidery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../related-projects.html#geometry-engine">14.3. Geometry Engine</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">15. Bibliography</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../bibliography.html#geometry-engine">15.1. Geometry Engine</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Patro</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../reference-manual.html">10. API Documentation</a> &raquo;</li>
+        
+          <li><a href="../../Patro.html">10.1. Patro</a> &raquo;</li>
+        
+          <li><a href="../GeometryEngine.html">10.1.4. GeometryEngine</a> &raquo;</li>
+        
+      <li>10.1.4.3. Conic</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/Patro/GeometryEngine/Conic.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-Patro.GeometryEngine.Conic">
+<span id="conic"></span><h1>10.1.4.3. Conic<a class="headerlink" href="#module-Patro.GeometryEngine.Conic" title="Permalink to this headline">¶</a></h1>
+<p>Module to implement conic geometry like circle and ellipse.</p>
+<p>For resources on conic see <a class="reference internal" href="../../../resources/geometry/conic.html#conic-geometry-ressources-page"><span class="std std-ref">this section</span></a>.</p>
+<dl class="class">
+<dt id="Patro.GeometryEngine.Conic.Circle2D">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Conic.</code><code class="descname">Circle2D</code><span class="sig-paren">(</span><em>center</em>, <em>radius</em>, <em>domain=None</em>, <em>diameter=False</em>, <em>start_angle=None</em>, <em>distance=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Circle2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="Primitive.html#Patro.GeometryEngine.Primitive.Primitive2DMixin" title="Patro.GeometryEngine.Primitive.Primitive2DMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.Primitive2DMixin</span></code></a>, <a class="reference internal" href="Mixin.html#Patro.GeometryEngine.Mixin.CenterMixin" title="Patro.GeometryEngine.Mixin.CenterMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Mixin.CenterMixin</span></code></a>, <a class="reference internal" href="Mixin.html#Patro.GeometryEngine.Mixin.AngularDomainMixin" title="Patro.GeometryEngine.Mixin.AngularDomainMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Mixin.AngularDomainMixin</span></code></a>, <a class="reference internal" href="Primitive.html#Patro.GeometryEngine.Primitive.Primitive" title="Patro.GeometryEngine.Primitive.Primitive"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.Primitive</span></code></a></p>
+<p>Class to implements 2D Circle.</p>
+<p>Construct a 2D circle from a center point and a radius.</p>
+<p>If the circle is not closed, <em>domain</em> is a an <code class="xref py py-class docutils literal notranslate"><span class="pre">AngularDomain</span></code> instance in degrees.
+If <em>start_angle and *distance</em> is given then the stop angle is computed from them.</p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>center</em>, <em>radius</em>, <em>domain=None</em>, <em>diameter=False</em>, <em>start_angle=None</em>, <em>distance=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Circle2D.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct a 2D circle from a center point and a radius.</p>
+<p>If the circle is not closed, <em>domain</em> is a an <code class="xref py py-class docutils literal notranslate"><span class="pre">AngularDomain</span></code> instance in degrees.
+If <em>start_angle and *distance</em> is given then the stop angle is computed from them.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Circle2D.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Circle2D._circle_distance_to_point">
+<code class="descname">_circle_distance_to_point</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Circle2D._circle_distance_to_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D._circle_distance_to_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.angle_for_point">
+<code class="descname">angle_for_point</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Circle2D.angle_for_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.angle_for_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.apply_transformation">
+<code class="descname">apply_transformation</code><span class="sig-paren">(</span><em>transformation</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Circle2D.apply_transformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.apply_transformation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply a transformation to the primitive.</p>
+<p>If <em>clone</em> is set then the primitive is cloned.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.area">
+<code class="descname">area</code><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.area" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.bezier_approximation">
+<code class="descname">bezier_approximation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Circle2D.bezier_approximation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.bezier_approximation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.bounding_box">
+<code class="descname">bounding_box</code><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.bounding_box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bounding box of the primitive.</p>
+<p>Return None if primitive is infinite.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.clone">
+<code class="descname">clone</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Circle2D.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.clone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.diameter">
+<code class="descname">diameter</code><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.diameter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.distance_to_point">
+<code class="descname">distance_to_point</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Circle2D.distance_to_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.distance_to_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.eccentricity">
+<code class="descname">eccentricity</code><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.eccentricity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.from_triangle_circumcenter">
+<em class="property">classmethod </em><code class="descname">from_triangle_circumcenter</code><span class="sig-paren">(</span><em>triangle</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Circle2D.from_triangle_circumcenter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.from_triangle_circumcenter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct a circle passing by three point</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.from_triangle_in_circle">
+<em class="property">classmethod </em><code class="descname">from_triangle_in_circle</code><span class="sig-paren">(</span><em>triangle</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Circle2D.from_triangle_in_circle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.from_triangle_in_circle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the in circle of a triangle</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.from_two_points">
+<em class="property">classmethod </em><code class="descname">from_two_points</code><span class="sig-paren">(</span><em>center</em>, <em>point</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Circle2D.from_two_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.from_two_points" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct a circle from a center point and passing by another point</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.intersect_circle">
+<code class="descname">intersect_circle</code><span class="sig-paren">(</span><em>circle</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Circle2D.intersect_circle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.intersect_circle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.intersect_segment">
+<code class="descname">intersect_segment</code><span class="sig-paren">(</span><em>segment</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Circle2D.intersect_segment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.intersect_segment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the intersection of a circle and a segment.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.is_point_inside">
+<code class="descname">is_point_inside</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Circle2D.is_point_inside"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.is_point_inside" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.perimeter">
+<code class="descname">perimeter</code><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.perimeter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.point_at_angle">
+<code class="descname">point_at_angle</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Circle2D.point_at_angle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.point_at_angle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.point_at_distance">
+<code class="descname">point_at_distance</code><span class="sig-paren">(</span><em>distance</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Circle2D.point_at_distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.point_at_distance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.point_in_circle_frame">
+<code class="descname">point_in_circle_frame</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Circle2D.point_in_circle_frame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.point_in_circle_frame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.radius">
+<code class="descname">radius</code><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.radius" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.signed_distance_to_point">
+<code class="descname">signed_distance_to_point</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Circle2D.signed_distance_to_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.signed_distance_to_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Circle2D.tangent_at_angle">
+<code class="descname">tangent_at_angle</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Circle2D.tangent_at_angle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Circle2D.tangent_at_angle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Conic.</code><code class="descname">Ellipse2D</code><span class="sig-paren">(</span><em>center</em>, <em>radius_x</em>, <em>radius_y</em>, <em>angle=0</em>, <em>domain=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Ellipse2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="Primitive.html#Patro.GeometryEngine.Primitive.Primitive2DMixin" title="Patro.GeometryEngine.Primitive.Primitive2DMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.Primitive2DMixin</span></code></a>, <a class="reference internal" href="Mixin.html#Patro.GeometryEngine.Mixin.CenterMixin" title="Patro.GeometryEngine.Mixin.CenterMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Mixin.CenterMixin</span></code></a>, <a class="reference internal" href="Mixin.html#Patro.GeometryEngine.Mixin.AngularDomainMixin" title="Patro.GeometryEngine.Mixin.AngularDomainMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Mixin.AngularDomainMixin</span></code></a>, <a class="reference internal" href="Primitive.html#Patro.GeometryEngine.Primitive.Primitive" title="Patro.GeometryEngine.Primitive.Primitive"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.Primitive</span></code></a></p>
+<p>Class to implements 2D Ellipse.</p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>center</em>, <em>radius_x</em>, <em>radius_y</em>, <em>angle=0</em>, <em>domain=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Ellipse2D.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Ellipse2D.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D._bezier_arc">
+<code class="descname">_bezier_arc</code><span class="sig-paren">(</span><em>start_angle</em>, <em>stop_angle</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Ellipse2D._bezier_arc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D._bezier_arc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D._distance_point_bisection">
+<code class="descname">_distance_point_bisection</code><span class="sig-paren">(</span><em>r0</em>, <em>z0</em>, <em>z1</em>, <em>g</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Ellipse2D._distance_point_bisection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D._distance_point_bisection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D._eberly_distance">
+<code class="descname">_eberly_distance</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Ellipse2D._eberly_distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D._eberly_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute distance to point using the algorithm described in</p>
+<blockquote>
+<div>Distance from a Point to an Ellipse, an Ellipsoid, or a Hyperellipsoid
+David Eberly, Geometric Tools, Redmond WA 98052
+September 28, 2018
+<a class="reference external" href="https://www.geometrictools.com/Documentation/Documentation.html">https://www.geometrictools.com/Documentation/Documentation.html</a>
+<a class="reference external" href="https://www.geometrictools.com/Documentation/DistancePointEllipseEllipsoid.pdf">https://www.geometrictools.com/Documentation/DistancePointEllipseEllipsoid.pdf</a></div></blockquote>
+<p>The point is expressed in the ellipse coordinate system.
+The preconditions are e0 ≥ e1 &gt; 0, y0 ≥ 0, and y1 ≥ 0.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D._logger">
+<code class="descname">_logger</code><em class="property"> = &lt;Logger Patro.GeometryEngine.Conic.Ellipse2D (WARNING)&gt;</em><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D._logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D._robust_length">
+<em class="property">static </em><code class="descname">_robust_length</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Ellipse2D._robust_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D._robust_length" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D.angle">
+<code class="descname">angle</code><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D.angle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D.apply_transformation">
+<code class="descname">apply_transformation</code><span class="sig-paren">(</span><em>transformation</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Ellipse2D.apply_transformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D.apply_transformation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply a transformation to the primitive.</p>
+<p>If <em>clone</em> is set then the primitive is cloned.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D.bounding_box">
+<code class="descname">bounding_box</code><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D.bounding_box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bounding box of the primitive.</p>
+<p>Return None if primitive is infinite.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D.clone">
+<code class="descname">clone</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Ellipse2D.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D.clone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D.distance_to_point">
+<code class="descname">distance_to_point</code><span class="sig-paren">(</span><em>point</em>, <em>return_point=False</em>, <em>is_inside=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Ellipse2D.distance_to_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D.distance_to_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D.eccentricity">
+<code class="descname">eccentricity</code><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D.eccentricity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D.intersect_conic">
+<code class="descname">intersect_conic</code><span class="sig-paren">(</span><em>conic</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Ellipse2D.intersect_conic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D.intersect_conic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reference</p>
+<blockquote>
+<div><ul class="simple">
+<li>Intersection of Ellipses</li>
+<li>David Eberly, Geometric Tools, Redmond WA 98052</li>
+<li>June 23, 2015</li>
+<li><a class="reference external" href="https://www.geometrictools.com/">https://www.geometrictools.com/</a></li>
+<li><a class="reference external" href="https://www.geometrictools.com/Documentation/IntersectionOfEllipses.pdf">https://www.geometrictools.com/Documentation/IntersectionOfEllipses.pdf</a></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D.intersect_segment">
+<code class="descname">intersect_segment</code><span class="sig-paren">(</span><em>segment</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Ellipse2D.intersect_segment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D.intersect_segment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D.is_point_inside">
+<code class="descname">is_point_inside</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Ellipse2D.is_point_inside"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D.is_point_inside" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D.major_vector">
+<code class="descname">major_vector</code><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D.major_vector" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D.matrix">
+<code class="descname">matrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Ellipse2D.matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D.matrix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D.minor_vector">
+<code class="descname">minor_vector</code><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D.minor_vector" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D.point_at_angle">
+<code class="descname">point_at_angle</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Ellipse2D.point_at_angle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D.point_at_angle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D.point_from_ellipse_frame">
+<code class="descname">point_from_ellipse_frame</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Ellipse2D.point_from_ellipse_frame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D.point_from_ellipse_frame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D.point_in_ellipse_frame">
+<code class="descname">point_in_ellipse_frame</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Ellipse2D.point_in_ellipse_frame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D.point_in_ellipse_frame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D.radius_x">
+<code class="descname">radius_x</code><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D.radius_x" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D.radius_y">
+<code class="descname">radius_y</code><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D.radius_y" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D.svg_arc">
+<em class="property">classmethod </em><code class="descname">svg_arc</code><span class="sig-paren">(</span><em>point1</em>, <em>point2</em>, <em>radius_x</em>, <em>radius_y</em>, <em>angle</em>, <em>large_arc</em>, <em>sweep</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Ellipse2D.svg_arc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D.svg_arc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement SVG Arc.</p>
+<p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><em>point1</em> is the start point and <em>point2</em> is the end point.</li>
+<li><em>radius_x</em> and <em>radius_y</em> are the radii of the ellipse, also known as its semi-major and
+semi-minor axes.</li>
+<li><em>angle</em> is the angle from the x-axis of the current coordinate system to the x-axis of the ellipse.</li>
+<li>if the <em>large arc</em> flag is unset then arc spanning less than or equal to 180 degrees is
+chosen, else an arc spanning greater than 180 degrees is chosen.</li>
+<li>if the <em>sweep</em> flag is unset then the line joining centre to arc sweeps through decreasing
+angles, else if it sweeps through increasing angles.</li>
+</ul>
+</div></blockquote>
+<p>References</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="https://www.w3.org/TR/SVG/implnote.html#ArcConversionEndpointToCenter">https://www.w3.org/TR/SVG/implnote.html#ArcConversionEndpointToCenter</a></li>
+<li><a class="reference external" href="https://www.w3.org/TR/SVG/implnote.html#ArcCorrectionOutOfRangeRadii">https://www.w3.org/TR/SVG/implnote.html#ArcCorrectionOutOfRangeRadii</a></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Conic.Ellipse2D.to_bezier">
+<code class="descname">to_bezier</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#Ellipse2D.to_bezier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.Ellipse2D.to_bezier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert an ellipse arc to a set of Quadratic Bézier curves.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="Patro.GeometryEngine.Conic.PointNotOnCircleError">
+<em class="property">exception </em><code class="descclassname">Patro.GeometryEngine.Conic.</code><code class="descname">PointNotOnCircleError</code><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Conic.html#PointNotOnCircleError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Conic.PointNotOnCircleError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></a></p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Interpolation.html" class="btn btn-neutral float-right" title="10.1.4.4. Interpolation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="BoundingBox.html" class="btn btn-neutral" title="10.1.4.2. BoundingBox" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Fabrice Salvaire
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../static/jquery.js"></script>
+        <script type="text/javascript" src="../../../static/underscore.js"></script>
+        <script type="text/javascript" src="../../../static/doctools.js"></script>
+        <script type="text/javascript" src="../../../static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../static/getthecode.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

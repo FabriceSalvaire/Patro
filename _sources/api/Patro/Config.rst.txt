@@ -1,0 +1,11 @@
+
+========
+ Config
+========
+
+.. toctree::
+    Config/ConfigInstall
+
+.. automodule:: Patro.Config
+   :members:
+   :show-inheritance:

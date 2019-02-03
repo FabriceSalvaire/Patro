@@ -1,0 +1,8 @@
+
+========
+ Object
+========
+
+.. automodule:: Patro.Common.Object
+   :members:
+   :show-inheritance:

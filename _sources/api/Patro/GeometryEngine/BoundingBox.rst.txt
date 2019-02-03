@@ -1,0 +1,8 @@
+
+=============
+ BoundingBox
+=============
+
+.. automodule:: Patro.GeometryEngine.BoundingBox
+   :members:
+   :show-inheritance:

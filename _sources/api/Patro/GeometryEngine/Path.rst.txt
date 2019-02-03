@@ -1,0 +1,8 @@
+
+======
+ Path
+======
+
+.. automodule:: Patro.GeometryEngine.Path
+   :members:
+   :show-inheritance:

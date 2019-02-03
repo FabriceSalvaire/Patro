@@ -1,0 +1,8 @@
+
+==========
+ Document
+==========
+
+.. automodule:: Patro.GraphicEngine.TeX.Document
+   :members:
+   :show-inheritance:

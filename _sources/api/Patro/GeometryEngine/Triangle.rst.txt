@@ -1,0 +1,8 @@
+
+==========
+ Triangle
+==========
+
+.. automodule:: Patro.GeometryEngine.Triangle
+   :members:
+   :show-inheritance:

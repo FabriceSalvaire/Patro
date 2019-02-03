@@ -1,8 +1,0 @@
-***********
-IterTools
-***********
-
-.. automodule:: Valentina.Tools.IterTools
-   :members:
-   :show-inheritance:
-

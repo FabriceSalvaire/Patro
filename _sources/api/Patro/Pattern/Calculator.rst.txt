@@ -1,0 +1,8 @@
+
+============
+ Calculator
+============
+
+.. automodule:: Patro.Pattern.Calculator
+   :members:
+   :show-inheritance:

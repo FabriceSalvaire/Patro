@@ -1,0 +1,8 @@
+
+========
+ Buffer
+========
+
+.. automodule:: Patro.GraphicEngine.TeX.Buffer
+   :members:
+   :show-inheritance:

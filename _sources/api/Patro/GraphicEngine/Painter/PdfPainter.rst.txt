@@ -1,0 +1,8 @@
+
+============
+ PdfPainter
+============
+
+.. automodule:: Patro.GraphicEngine.Painter.PdfPainter
+   :members:
+   :show-inheritance:

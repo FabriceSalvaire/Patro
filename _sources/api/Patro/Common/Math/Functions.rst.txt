@@ -1,0 +1,8 @@
+
+===========
+ Functions
+===========
+
+.. automodule:: Patro.Common.Math.Functions
+   :members:
+   :show-inheritance:

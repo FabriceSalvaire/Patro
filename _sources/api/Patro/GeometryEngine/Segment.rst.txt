@@ -1,0 +1,8 @@
+
+=========
+ Segment
+=========
+
+.. automodule:: Patro.GeometryEngine.Segment
+   :members:
+   :show-inheritance:

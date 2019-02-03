@@ -1,0 +1,8 @@
+
+========
+ Vector
+========
+
+.. automodule:: Patro.GeometryEngine.Vector
+   :members:
+   :show-inheritance:

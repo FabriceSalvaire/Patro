@@ -1,0 +1,1304 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>10.1.4.7. Path &mdash; Patro 0.3.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../static/css/Patro.css" type="text/css" />
+  <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="10.1.4.8. Polygon" href="Polygon.html" />
+    <link rel="prev" title="10.1.4.6. Mixin" href="Mixin.html" /> 
+
+  
+  <script src="../../../static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Patro
+          
+
+          
+            
+            <img src="../../../static/logo-64.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">1. Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#what-is-patro">1.1. What is Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#what-is-the-purpose-of-this-library">1.2. What is the purpose of this library ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#what-are-the-features-of-patro">1.3. What are the Features of Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#how-is-patro-licensed">1.4. How is Patro licensed ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#going-further-with-patro">1.5. Going further with Patro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#which-platforms-are-supported-by-patro">1.6. Which platforms are supported by Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#how-to-install-patro">1.7. How to install Patro ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#which-version-of-python-is-required">1.8. Which version of Python is required ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../features-all.html">2. Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#geometry-engine">2.1. Geometry Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#pattern-engine">2.2. Pattern Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#graphic-engine">2.3. Graphic Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#pattern-format-support">2.4. Pattern Format Support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../features-all.html#pattern-format-compatibility">2.4.1. Pattern Format Compatibility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../valentina-compatibility/index.html">2.4.1.1. Valentina Compatibility</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../features-all.html#digitalisation">2.5. Digitalisation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../news.html">3. News</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../news.html#v0-2017-02-16">3.1. V0 2017-02-16</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../roadmap.html">4. Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">5. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#on-windows">5.1. On Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#on-linux">5.2. On Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#on-osx">5.3. On OSX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-pypi-repository">5.4. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#install-a-more-recent-version-from-github">5.5. Install a more recent version from Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-source">5.6. Installation from Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#dependencies">5.7. Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">6. Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/svg-import.html">6.1. SVG Import</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/dxf-import.html">6.2. DXF Import</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">7. User FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../faq.html#how-to-get-help-or-report-an-issue">7.1. How to get help or report an issue ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../design-notes/index.html">8. Design Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../design-notes/question-answer.html">8.1. Design Notes Questions &amp; Answers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#what-is-my-opinion-on-valentina-seamly2d">8.1.1. What is my opinion on Valentina / Seamly2D ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#can-we-implement-such-a-tool-as-a-plugin-of-another-software">8.1.2. Can we implement such a tool as a plugin of another software ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#what-is-the-requirements-of-a-pattern-drafting-software">8.1.3. What is the requirements of a pattern drafting software ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#why-python-is-a-good-language-for-this-library">8.1.4. Why Python is a good language for this library ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#could-we-implement-a-full-software-using-python">8.1.5. Could we implement a full software using Python ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#how-to-generate-drawings-in-standard-format-like-pdf-or-svg">8.1.6. How to generate drawings in standard format like PDF or SVG ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/question-answer.html#what-is-the-requirements-of-a-geometric-engine">8.1.7. What is the requirements of a geometric engine ?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../design-notes/performance.html">8.2. Performances</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../design-notes/performance.html#svg-import">8.2.1. SVG Import</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../resources/index.html">9. Resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../resources/file-format/index.html">9.1. File Formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/file-format/dxf.html">9.1.1. DXF File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/file-format/dxf-astm.html">9.1.2. DXF ASTM File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/file-format/svg.html">9.1.3. SVG File Format</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/file-format/svg.html#reference-documentations">9.1.3.1. Reference Documentations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/file-format/svg.html#svg-coordinate-system">9.1.3.2. SVG Coordinate System</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/file-format/svg.html#inkscape-software">9.1.3.3. Inkscape Software</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/file-format/valentina.html">9.1.4. Valentina File Format</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../resources/geometry/index.html">9.2. Geometry Resources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/bezier.html">9.2.1. Bézier Curves</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#valentina-requirements">9.2.1.1. Valentina Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#definitions">9.2.1.2. Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#linear-bezier-curves">9.2.1.3. Linear Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#quadratic-bezier-curves">9.2.1.4. Quadratic Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#cubic-bezier-curves">9.2.1.5. Cubic Bézier Curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#recursive-definition">9.2.1.6. Recursive definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#degree-elevation">9.2.1.7. Degree elevation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#matrix-forms">9.2.1.8. Matrix Forms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#symbolic-calculation">9.2.1.9. Symbolic Calculation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#curve-length">9.2.1.10. Curve Length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#determine-the-curve-flatness">9.2.1.11. Determine the curve flatness</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#intersection-of-bezier-curve-with-a-line">9.2.1.12. Intersection of Bézier Curve with a Line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/bezier.html#closest-point">9.2.1.13. Closest Point</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/conic.html">9.2.2. Conic</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/conic.html#valentina-requirements">9.2.2.1. Valentina Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/conic.html#circle">9.2.2.2. Circle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/conic.html#ellipse">9.2.2.3. Ellipse</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/path.html">9.2.3. Path</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/path.html#bulge">9.2.3.1. Bulge</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/polygon.html">9.2.4. Polygon</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/polygon.html#area-and-barycenter">9.2.4.1. Area and Barycenter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/polygon.html#moments-of-inertia">9.2.4.2. Moments of Inertia</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/spline.html">9.2.5. Spline Curves</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/spline.html#references">9.2.5.1. References</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/spline.html#b-spline-basis">9.2.5.2. B-spline Basis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/spline.html#b-spline-curve">9.2.5.3. B-spline Curve</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/spline.html#algorithms-for-b-spline-curves">9.2.5.4. Algorithms for B-spline curves</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../resources/geometry/transformations.html">9.2.6. Transformations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/geometry/transformations.html#transformation-matrices">9.2.6.1. Transformation matrices</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference-manual.html">10. API Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../Patro.html">10.1. Patro</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../Common.html">10.1.1. Common</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Common/ArgparseAction.html">10.1.1.1. ArgparseAction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/AtomicCounter.html">10.1.1.2. AtomicCounter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Datetime.html">10.1.1.3. Datetime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Graph.html">10.1.1.4. Graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/IterTools.html">10.1.1.5. IterTools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Logging.html">10.1.1.6. Logging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Math.html">10.1.1.7. Math</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Object.html">10.1.1.8. Object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Path.html">10.1.1.9. Path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Platform.html">10.1.1.10. Platform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Singleton.html">10.1.1.11. Singleton</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Common/Xml.html">10.1.1.12. Xml</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Config.html">10.1.2. Config</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Config/ConfigInstall.html">10.1.2.1. ConfigInstall</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../FileFormat.html">10.1.3. FileFormat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../FileFormat/Dxf.html">10.1.3.1. Dxf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../FileFormat/Svg.html">10.1.3.2. Svg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../FileFormat/Valentina.html">10.1.3.3. Valentina</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="../GeometryEngine.html">10.1.4. GeometryEngine</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="Bezier.html">10.1.4.1. Bezier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BoundingBox.html">10.1.4.2. BoundingBox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Conic.html">10.1.4.3. Conic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Interpolation.html">10.1.4.4. Interpolation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Line.html">10.1.4.5. Line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mixin.html">10.1.4.6. Mixin</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">10.1.4.7. Path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Polygon.html">10.1.4.8. Polygon</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Polyline.html">10.1.4.9. Polyline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Primitive.html">10.1.4.10. Primitive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Rectangle.html">10.1.4.11. Rectangle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Segment.html">10.1.4.12. Segment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Shape.html">10.1.4.13. Shape</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Spline.html">10.1.4.14. Spline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Transformation.html">10.1.4.15. Transformation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Triangle.html">10.1.4.16. Triangle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Vector.html">10.1.4.17. Vector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GeometryEngine.html#purpose">10.1.4.18. Purpose</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GeometryEngine.html#bibliographical-references">10.1.4.19. Bibliographical References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../GraphicEngine.html">10.1.5. GraphicEngine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GraphicEngine/GraphicScene.html">10.1.5.1. GraphicScene</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GraphicEngine/Painter.html">10.1.5.2. Painter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GraphicEngine/TeX.html">10.1.5.3. TeX</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../GraphicStyle.html">10.1.6. GraphicStyle</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GraphicStyle/Color.html">10.1.6.1. Color</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Measurement.html">10.1.7. Measurement</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Measurement/Measurement.html">10.1.7.1. Measurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Measurement/PersonalData.html">10.1.7.2. PersonalData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Measurement/StandardMeasurement.html">10.1.7.3. StandardMeasurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Measurement/ValentinaMeasurement.html">10.1.7.4. ValentinaMeasurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Measurement/ValentinaStandardMeasurement.html">10.1.7.5. ValentinaStandardMeasurement</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Pattern.html">10.1.8. Pattern</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Pattern/Calculator.html">10.1.8.1. Calculator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../QtApplication.html">10.1.9. QtApplication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../QtApplication/QmlApplication.html">10.1.9.1. QmlApplication</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference-manual.html#indexes">10.2. Indexes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../development.html">11. Development &amp; Community</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../development.html#how-you-can-help">11.1. How you can help ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../development.html#contributors">11.2. Contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../how-to-refer.html">12. How to Refer to Patro ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../donate.html">13. How to Help Further ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../related-projects.html">14. Related Projects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../related-projects.html#pattern-making">14.1. Pattern Making</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../related-projects.html#embroidery">14.2. Embroidery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../related-projects.html#geometry-engine">14.3. Geometry Engine</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">15. Bibliography</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../bibliography.html#geometry-engine">15.1. Geometry Engine</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Patro</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../reference-manual.html">10. API Documentation</a> &raquo;</li>
+        
+          <li><a href="../../Patro.html">10.1. Patro</a> &raquo;</li>
+        
+          <li><a href="../GeometryEngine.html">10.1.4. GeometryEngine</a> &raquo;</li>
+        
+      <li>10.1.4.7. Path</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/Patro/GeometryEngine/Path.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-Patro.GeometryEngine.Path">
+<span id="path"></span><h1>10.1.4.7. Path<a class="headerlink" href="#module-Patro.GeometryEngine.Path" title="Permalink to this headline">¶</a></h1>
+<p>Module to implement path.</p>
+<p>For resources on path see <a class="reference internal" href="../../../resources/geometry/path.html#path-geometry-ressources-page"><span class="std std-ref">this section</span></a>.</p>
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.AbsoluteHVSegment">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">AbsoluteHVSegment</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>radius</em>, <em>closing=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#AbsoluteHVSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.AbsoluteHVSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Path.DirectionalSegmentMixin" title="Patro.GeometryEngine.Path.DirectionalSegmentMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.DirectionalSegmentMixin</span></code></a></p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.AbsoluteHVSegment.to_path_segment">
+<code class="descname">to_path_segment</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#AbsoluteHVSegment.to_path_segment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.AbsoluteHVSegment.to_path_segment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.AbsoluteHorizontalSegment">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">AbsoluteHorizontalSegment</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>x</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#AbsoluteHorizontalSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.AbsoluteHorizontalSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Path.AbsoluteHVSegment" title="Patro.GeometryEngine.Path.AbsoluteHVSegment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.AbsoluteHVSegment</span></code></a></p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.AbsoluteHorizontalSegment.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>x</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#AbsoluteHorizontalSegment.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.AbsoluteHorizontalSegment.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.AbsoluteHorizontalSegment.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#AbsoluteHorizontalSegment.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.AbsoluteHorizontalSegment.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.AbsoluteHorizontalSegment.clone">
+<code class="descname">clone</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#AbsoluteHorizontalSegment.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.AbsoluteHorizontalSegment.clone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.AbsoluteHorizontalSegment.stop_point">
+<code class="descname">stop_point</code><a class="headerlink" href="#Patro.GeometryEngine.Path.AbsoluteHorizontalSegment.stop_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.AbsoluteHorizontalSegment.x">
+<code class="descname">x</code><a class="headerlink" href="#Patro.GeometryEngine.Path.AbsoluteHorizontalSegment.x" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.AbsoluteVerticalSegment">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">AbsoluteVerticalSegment</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>y</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#AbsoluteVerticalSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.AbsoluteVerticalSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Path.AbsoluteHVSegment" title="Patro.GeometryEngine.Path.AbsoluteHVSegment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.AbsoluteHVSegment</span></code></a></p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.AbsoluteVerticalSegment.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>y</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#AbsoluteVerticalSegment.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.AbsoluteVerticalSegment.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.AbsoluteVerticalSegment.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#AbsoluteVerticalSegment.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.AbsoluteVerticalSegment.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.AbsoluteVerticalSegment.clone">
+<code class="descname">clone</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#AbsoluteVerticalSegment.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.AbsoluteVerticalSegment.clone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.AbsoluteVerticalSegment.stop_point">
+<code class="descname">stop_point</code><a class="headerlink" href="#Patro.GeometryEngine.Path.AbsoluteVerticalSegment.stop_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.AbsoluteVerticalSegment.y">
+<code class="descname">y</code><a class="headerlink" href="#Patro.GeometryEngine.Path.AbsoluteVerticalSegment.y" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.ArcSegment">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">ArcSegment</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>point</em>, <em>radius_x</em>, <em>radius_y</em>, <em>angle</em>, <em>large_arc</em>, <em>sweep</em>, <em>absolute=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#ArcSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.ArcSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Path.OnePointMixin" title="Patro.GeometryEngine.Path.OnePointMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.OnePointMixin</span></code></a>, <a class="reference internal" href="#Patro.GeometryEngine.Path.PathPart" title="Patro.GeometryEngine.Path.PathPart"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.PathPart</span></code></a></p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.ArcSegment.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>point</em>, <em>radius_x</em>, <em>radius_y</em>, <em>angle</em>, <em>large_arc</em>, <em>sweep</em>, <em>absolute=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#ArcSegment.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.ArcSegment.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.ArcSegment.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#ArcSegment.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.ArcSegment.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.ArcSegment.clone">
+<code class="descname">clone</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#ArcSegment.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.ArcSegment.clone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.ArcSegment.geometry">
+<code class="descname">geometry</code><a class="headerlink" href="#Patro.GeometryEngine.Path.ArcSegment.geometry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.ArcSegment.points">
+<code class="descname">points</code><a class="headerlink" href="#Patro.GeometryEngine.Path.ArcSegment.points" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.ArcSegment.to_absolute">
+<code class="descname">to_absolute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#ArcSegment.to_absolute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.ArcSegment.to_absolute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.CubicBezierSegment">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">CubicBezierSegment</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>point1</em>, <em>point2</em>, <em>point3</em>, <em>absolute=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#CubicBezierSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.CubicBezierSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Path.PathPart" title="Patro.GeometryEngine.Path.PathPart"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.PathPart</span></code></a>, <a class="reference internal" href="#Patro.GeometryEngine.Path.ThreePointMixin" title="Patro.GeometryEngine.Path.ThreePointMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.ThreePointMixin</span></code></a></p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.CubicBezierSegment.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>point1</em>, <em>point2</em>, <em>point3</em>, <em>absolute=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#CubicBezierSegment.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.CubicBezierSegment.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.CubicBezierSegment.clone">
+<code class="descname">clone</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#CubicBezierSegment.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.CubicBezierSegment.clone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.CubicBezierSegment.geometry">
+<code class="descname">geometry</code><a class="headerlink" href="#Patro.GeometryEngine.Path.CubicBezierSegment.geometry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.CubicBezierSegment.points">
+<code class="descname">points</code><a class="headerlink" href="#Patro.GeometryEngine.Path.CubicBezierSegment.points" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.CubicBezierSegment.stop_point">
+<code class="descname">stop_point</code><a class="headerlink" href="#Patro.GeometryEngine.Path.CubicBezierSegment.stop_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.CubicBezierSegment.to_absolute">
+<code class="descname">to_absolute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#CubicBezierSegment.to_absolute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.CubicBezierSegment.to_absolute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.DirectionalSegment">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">DirectionalSegment</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>length</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#DirectionalSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.DirectionalSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Path.DirectionalSegmentMixin" title="Patro.GeometryEngine.Path.DirectionalSegmentMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.DirectionalSegmentMixin</span></code></a></p>
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.DirectionalSegment.__angle__">
+<code class="descname">__angle__</code><em class="property"> = None</em><a class="headerlink" href="#Patro.GeometryEngine.Path.DirectionalSegment.__angle__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.DirectionalSegment.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>length</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#DirectionalSegment.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.DirectionalSegment.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.DirectionalSegment.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#DirectionalSegment.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.DirectionalSegment.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.DirectionalSegment.clone">
+<code class="descname">clone</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#DirectionalSegment.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.DirectionalSegment.clone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.DirectionalSegment.length">
+<code class="descname">length</code><a class="headerlink" href="#Patro.GeometryEngine.Path.DirectionalSegment.length" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.DirectionalSegment.offset">
+<code class="descname">offset</code><a class="headerlink" href="#Patro.GeometryEngine.Path.DirectionalSegment.offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.DirectionalSegment.stop_point">
+<code class="descname">stop_point</code><a class="headerlink" href="#Patro.GeometryEngine.Path.DirectionalSegment.stop_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.DirectionalSegment.to_path_segment">
+<code class="descname">to_path_segment</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#DirectionalSegment.to_path_segment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.DirectionalSegment.to_path_segment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.DirectionalSegmentMixin">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">DirectionalSegmentMixin</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>radius</em>, <em>closing=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#DirectionalSegmentMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.DirectionalSegmentMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Path.LinearSegment" title="Patro.GeometryEngine.Path.LinearSegment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.LinearSegment</span></code></a></p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.DirectionalSegmentMixin.apply_transformation">
+<code class="descname">apply_transformation</code><span class="sig-paren">(</span><em>transformation</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#DirectionalSegmentMixin.apply_transformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.DirectionalSegmentMixin.apply_transformation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.DirectionalSegmentMixin.geometry">
+<code class="descname">geometry</code><a class="headerlink" href="#Patro.GeometryEngine.Path.DirectionalSegmentMixin.geometry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.EastSegment">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">EastSegment</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>length</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#EastSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.EastSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Path.DirectionalSegment" title="Patro.GeometryEngine.Path.DirectionalSegment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.DirectionalSegment</span></code></a></p>
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.EastSegment.__angle__">
+<code class="descname">__angle__</code><em class="property"> = 0</em><a class="headerlink" href="#Patro.GeometryEngine.Path.EastSegment.__angle__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.HorizontalSegment">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">HorizontalSegment</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>length</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#HorizontalSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.HorizontalSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Path.DirectionalSegment" title="Patro.GeometryEngine.Path.DirectionalSegment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.DirectionalSegment</span></code></a></p>
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.HorizontalSegment.__angle__">
+<code class="descname">__angle__</code><em class="property"> = 0</em><a class="headerlink" href="#Patro.GeometryEngine.Path.HorizontalSegment.__angle__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.LinearSegment">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">LinearSegment</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>radius</em>, <em>closing=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#LinearSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.LinearSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Path.PathPart" title="Patro.GeometryEngine.Path.PathPart"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.PathPart</span></code></a></p>
+<p>Class to implement a linear segment.</p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.LinearSegment.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>radius</em>, <em>closing=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#LinearSegment.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.LinearSegment.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.LinearSegment._dump_bulge">
+<code class="descname">_dump_bulge</code><span class="sig-paren">(</span><em>arc</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#LinearSegment._dump_bulge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.LinearSegment._dump_bulge" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.LinearSegment._logger">
+<code class="descname">_logger</code><em class="property"> = &lt;Logger Patro.GeometryEngine.Path.LinearSegment (WARNING)&gt;</em><a class="headerlink" href="#Patro.GeometryEngine.Path.LinearSegment._logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.LinearSegment._reset_cache">
+<code class="descname">_reset_cache</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#LinearSegment._reset_cache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.LinearSegment._reset_cache" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.LinearSegment.bissector">
+<code class="descname">bissector</code><a class="headerlink" href="#Patro.GeometryEngine.Path.LinearSegment.bissector" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.LinearSegment.bulge_angle">
+<code class="descname">bulge_angle</code><a class="headerlink" href="#Patro.GeometryEngine.Path.LinearSegment.bulge_angle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.LinearSegment.bulge_angle_rad">
+<code class="descname">bulge_angle_rad</code><a class="headerlink" href="#Patro.GeometryEngine.Path.LinearSegment.bulge_angle_rad" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.LinearSegment.bulge_center">
+<code class="descname">bulge_center</code><a class="headerlink" href="#Patro.GeometryEngine.Path.LinearSegment.bulge_center" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.LinearSegment.bulge_geometry">
+<code class="descname">bulge_geometry</code><a class="headerlink" href="#Patro.GeometryEngine.Path.LinearSegment.bulge_geometry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.LinearSegment.bulge_start_point">
+<code class="descname">bulge_start_point</code><a class="headerlink" href="#Patro.GeometryEngine.Path.LinearSegment.bulge_start_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.LinearSegment.bulge_stop_point">
+<code class="descname">bulge_stop_point</code><a class="headerlink" href="#Patro.GeometryEngine.Path.LinearSegment.bulge_stop_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.LinearSegment.close">
+<code class="descname">close</code><span class="sig-paren">(</span><em>radius</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#LinearSegment.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.LinearSegment.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the bulge radius at the closure</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.LinearSegment.direction">
+<code class="descname">direction</code><a class="headerlink" href="#Patro.GeometryEngine.Path.LinearSegment.direction" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.LinearSegment.half_bulge_angle">
+<code class="descname">half_bulge_angle</code><a class="headerlink" href="#Patro.GeometryEngine.Path.LinearSegment.half_bulge_angle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.LinearSegment.next_part">
+<code class="descname">next_part</code><a class="headerlink" href="#Patro.GeometryEngine.Path.LinearSegment.next_part" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.LinearSegment.points">
+<code class="descname">points</code><a class="headerlink" href="#Patro.GeometryEngine.Path.LinearSegment.points" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.LinearSegment.prev_part">
+<code class="descname">prev_part</code><a class="headerlink" href="#Patro.GeometryEngine.Path.LinearSegment.prev_part" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.LinearSegment.radius">
+<code class="descname">radius</code><a class="headerlink" href="#Patro.GeometryEngine.Path.LinearSegment.radius" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.NorthEastSegment">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">NorthEastSegment</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>length</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#NorthEastSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.NorthEastSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Path.DirectionalSegment" title="Patro.GeometryEngine.Path.DirectionalSegment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.DirectionalSegment</span></code></a></p>
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.NorthEastSegment.__angle__">
+<code class="descname">__angle__</code><em class="property"> = 45</em><a class="headerlink" href="#Patro.GeometryEngine.Path.NorthEastSegment.__angle__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.NorthSegment">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">NorthSegment</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>length</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#NorthSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.NorthSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Path.DirectionalSegment" title="Patro.GeometryEngine.Path.DirectionalSegment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.DirectionalSegment</span></code></a></p>
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.NorthSegment.__angle__">
+<code class="descname">__angle__</code><em class="property"> = 90</em><a class="headerlink" href="#Patro.GeometryEngine.Path.NorthSegment.__angle__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.NorthWestSegment">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">NorthWestSegment</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>length</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#NorthWestSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.NorthWestSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Path.DirectionalSegment" title="Patro.GeometryEngine.Path.DirectionalSegment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.DirectionalSegment</span></code></a></p>
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.NorthWestSegment.__angle__">
+<code class="descname">__angle__</code><em class="property"> = 135</em><a class="headerlink" href="#Patro.GeometryEngine.Path.NorthWestSegment.__angle__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.OnePointMixin">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">OnePointMixin</code><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#OnePointMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.OnePointMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.OnePointMixin.apply_transformation">
+<code class="descname">apply_transformation</code><span class="sig-paren">(</span><em>transformation</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#OnePointMixin.apply_transformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.OnePointMixin.apply_transformation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.OnePointMixin.point">
+<code class="descname">point</code><a class="headerlink" href="#Patro.GeometryEngine.Path.OnePointMixin.point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.OnePointMixin.stop_point">
+<code class="descname">stop_point</code><a class="headerlink" href="#Patro.GeometryEngine.Path.OnePointMixin.stop_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.Path2D">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">Path2D</code><span class="sig-paren">(</span><em>start_point</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="Primitive.html#Patro.GeometryEngine.Primitive.Primitive2DMixin" title="Patro.GeometryEngine.Primitive.Primitive2DMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.Primitive2DMixin</span></code></a>, <a class="reference internal" href="Primitive.html#Patro.GeometryEngine.Primitive.Primitive1P" title="Patro.GeometryEngine.Primitive.Primitive1P"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.Primitive1P</span></code></a></p>
+<p>Class to implements 2D Path.</p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>start_point</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.__iter__">
+<code class="descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.__iter__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.__len__">
+<code class="descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.__len__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.__len__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D._add_part">
+<code class="descname">_add_part</code><span class="sig-paren">(</span><em>part_cls</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D._add_part"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D._add_part" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.Path2D._logger">
+<code class="descname">_logger</code><em class="property"> = &lt;Logger Patro.GeometryEngine.Path.Path2D (WARNING)&gt;</em><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D._logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.absolute_horizontal_to">
+<code class="descname">absolute_horizontal_to</code><span class="sig-paren">(</span><em>x</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.absolute_horizontal_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.absolute_horizontal_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.absolute_vertical_to">
+<code class="descname">absolute_vertical_to</code><span class="sig-paren">(</span><em>y</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.absolute_vertical_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.absolute_vertical_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.apply_transformation">
+<code class="descname">apply_transformation</code><span class="sig-paren">(</span><em>transformation</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.apply_transformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.apply_transformation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply a transformation to the primitive.</p>
+<p>If <em>clone</em> is set then the primitive is cloned.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.arc_to">
+<code class="descname">arc_to</code><span class="sig-paren">(</span><em>point</em>, <em>radius_x</em>, <em>radius_y</em>, <em>angle</em>, <em>large_arc</em>, <em>sweep</em>, <em>absolute=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.arc_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.arc_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.Path2D.bounding_box">
+<code class="descname">bounding_box</code><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.bounding_box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bounding box of the primitive.</p>
+<p>Return None if primitive is infinite.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="Patro.GeometryEngine.Path.Path2D.circle">
+<em class="property">classmethod </em><code class="descname">circle</code><span class="sig-paren">(</span><em>point</em>, <em>radius</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.circle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.circle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.clone">
+<code class="descname">clone</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.clone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.close">
+<code class="descname">close</code><span class="sig-paren">(</span><em>radius=None</em>, <em>close_radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.cubic_to">
+<code class="descname">cubic_to</code><span class="sig-paren">(</span><em>point1</em>, <em>point2</em>, <em>point3</em>, <em>absolute=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.cubic_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.cubic_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.east_to">
+<code class="descname">east_to</code><span class="sig-paren">(</span><em>length</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.east_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.east_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.horizontal_to">
+<code class="descname">horizontal_to</code><span class="sig-paren">(</span><em>length</em>, <em>radius=None</em>, <em>absolute=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.horizontal_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.horizontal_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.Path2D.is_closed">
+<code class="descname">is_closed</code><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.is_closed" title="Permalink to this definition">¶</a></dt>
+<dd><p>True if the primitive is a closed path.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.line_to">
+<code class="descname">line_to</code><span class="sig-paren">(</span><em>point</em>, <em>radius=None</em>, <em>absolute=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.line_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.line_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.move_to">
+<code class="descname">move_to</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.move_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.move_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.north_east_to">
+<code class="descname">north_east_to</code><span class="sig-paren">(</span><em>length</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.north_east_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.north_east_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.north_to">
+<code class="descname">north_to</code><span class="sig-paren">(</span><em>length</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.north_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.north_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.north_west_to">
+<code class="descname">north_west_to</code><span class="sig-paren">(</span><em>length</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.north_west_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.north_west_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.quadratic_to">
+<code class="descname">quadratic_to</code><span class="sig-paren">(</span><em>point1</em>, <em>point2</em>, <em>absolute=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.quadratic_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.quadratic_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="Patro.GeometryEngine.Path.Path2D.rounded_rectangle">
+<em class="property">classmethod </em><code class="descname">rounded_rectangle</code><span class="sig-paren">(</span><em>point</em>, <em>width</em>, <em>height</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.rounded_rectangle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.rounded_rectangle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.south_east_to">
+<code class="descname">south_east_to</code><span class="sig-paren">(</span><em>length</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.south_east_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.south_east_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.south_to">
+<code class="descname">south_to</code><span class="sig-paren">(</span><em>length</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.south_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.south_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.south_west_to">
+<code class="descname">south_west_to</code><span class="sig-paren">(</span><em>length</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.south_west_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.south_west_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.Path2D.start_segment">
+<code class="descname">start_segment</code><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.start_segment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.Path2D.stop_segment">
+<code class="descname">stop_segment</code><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.stop_segment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.stringed_cubic_to">
+<code class="descname">stringed_cubic_to</code><span class="sig-paren">(</span><em>point1</em>, <em>point2</em>, <em>absolute=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.stringed_cubic_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.stringed_cubic_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.stringed_quadratic_to">
+<code class="descname">stringed_quadratic_to</code><span class="sig-paren">(</span><em>point</em>, <em>absolute=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.stringed_quadratic_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.stringed_quadratic_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.vertical_to">
+<code class="descname">vertical_to</code><span class="sig-paren">(</span><em>length</em>, <em>radius=None</em>, <em>absolute=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.vertical_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.vertical_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.Path2D.west_to">
+<code class="descname">west_to</code><span class="sig-paren">(</span><em>length</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#Path2D.west_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.Path2D.west_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.PathPart">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">PathPart</code><span class="sig-paren">(</span><em>path</em>, <em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#PathPart"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.PathPart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.PathPart.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>path</em>, <em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#PathPart.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.PathPart.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.PathPart.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#PathPart.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.PathPart.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.PathPart._init_absolute">
+<code class="descname">_init_absolute</code><span class="sig-paren">(</span><em>absolute</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#PathPart._init_absolute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.PathPart._init_absolute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.PathPart.bounding_box">
+<code class="descname">bounding_box</code><a class="headerlink" href="#Patro.GeometryEngine.Path.PathPart.bounding_box" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.PathPart.clone">
+<code class="descname">clone</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#PathPart.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.PathPart.clone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.PathPart.geometry">
+<code class="descname">geometry</code><a class="headerlink" href="#Patro.GeometryEngine.Path.PathPart.geometry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.PathPart.index">
+<code class="descname">index</code><a class="headerlink" href="#Patro.GeometryEngine.Path.PathPart.index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.PathPart.next_part">
+<code class="descname">next_part</code><a class="headerlink" href="#Patro.GeometryEngine.Path.PathPart.next_part" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.PathPart.path">
+<code class="descname">path</code><a class="headerlink" href="#Patro.GeometryEngine.Path.PathPart.path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.PathPart.prev_part">
+<code class="descname">prev_part</code><a class="headerlink" href="#Patro.GeometryEngine.Path.PathPart.prev_part" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.PathPart.start_point">
+<code class="descname">start_point</code><a class="headerlink" href="#Patro.GeometryEngine.Path.PathPart.start_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.PathPart.stop_point">
+<code class="descname">stop_point</code><a class="headerlink" href="#Patro.GeometryEngine.Path.PathPart.stop_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.PathPart.to_absolute_point">
+<code class="descname">to_absolute_point</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#PathPart.to_absolute_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.PathPart.to_absolute_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.PathSegment">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">PathSegment</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>point</em>, <em>radius=None</em>, <em>absolute=False</em>, <em>closing=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#PathSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.PathSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Path.OnePointMixin" title="Patro.GeometryEngine.Path.OnePointMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.OnePointMixin</span></code></a>, <a class="reference internal" href="#Patro.GeometryEngine.Path.LinearSegment" title="Patro.GeometryEngine.Path.LinearSegment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.LinearSegment</span></code></a></p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.PathSegment.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>point</em>, <em>radius=None</em>, <em>absolute=False</em>, <em>closing=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#PathSegment.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.PathSegment.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.PathSegment.apply_transformation">
+<code class="descname">apply_transformation</code><span class="sig-paren">(</span><em>transformation</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#PathSegment.apply_transformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.PathSegment.apply_transformation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.PathSegment.clone">
+<code class="descname">clone</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#PathSegment.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.PathSegment.clone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.PathSegment.geometry">
+<code class="descname">geometry</code><a class="headerlink" href="#Patro.GeometryEngine.Path.PathSegment.geometry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.PathSegment.to_absolute">
+<code class="descname">to_absolute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#PathSegment.to_absolute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.PathSegment.to_absolute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.QuadraticBezierSegment">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">QuadraticBezierSegment</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>point1</em>, <em>point2</em>, <em>absolute=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#QuadraticBezierSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.QuadraticBezierSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Path.PathPart" title="Patro.GeometryEngine.Path.PathPart"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.PathPart</span></code></a>, <a class="reference internal" href="#Patro.GeometryEngine.Path.TwoPointMixin" title="Patro.GeometryEngine.Path.TwoPointMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.TwoPointMixin</span></code></a></p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.QuadraticBezierSegment.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>point1</em>, <em>point2</em>, <em>absolute=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#QuadraticBezierSegment.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.QuadraticBezierSegment.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.QuadraticBezierSegment.clone">
+<code class="descname">clone</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#QuadraticBezierSegment.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.QuadraticBezierSegment.clone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.QuadraticBezierSegment.geometry">
+<code class="descname">geometry</code><a class="headerlink" href="#Patro.GeometryEngine.Path.QuadraticBezierSegment.geometry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.QuadraticBezierSegment.points">
+<code class="descname">points</code><a class="headerlink" href="#Patro.GeometryEngine.Path.QuadraticBezierSegment.points" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.QuadraticBezierSegment.stop_point">
+<code class="descname">stop_point</code><a class="headerlink" href="#Patro.GeometryEngine.Path.QuadraticBezierSegment.stop_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.QuadraticBezierSegment.to_absolute">
+<code class="descname">to_absolute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#QuadraticBezierSegment.to_absolute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.QuadraticBezierSegment.to_absolute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.SouthEastSegment">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">SouthEastSegment</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>length</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#SouthEastSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.SouthEastSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Path.DirectionalSegment" title="Patro.GeometryEngine.Path.DirectionalSegment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.DirectionalSegment</span></code></a></p>
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.SouthEastSegment.__angle__">
+<code class="descname">__angle__</code><em class="property"> = -45</em><a class="headerlink" href="#Patro.GeometryEngine.Path.SouthEastSegment.__angle__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.SouthSegment">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">SouthSegment</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>length</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#SouthSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.SouthSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Path.DirectionalSegment" title="Patro.GeometryEngine.Path.DirectionalSegment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.DirectionalSegment</span></code></a></p>
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.SouthSegment.__angle__">
+<code class="descname">__angle__</code><em class="property"> = -90</em><a class="headerlink" href="#Patro.GeometryEngine.Path.SouthSegment.__angle__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.SouthWestSegment">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">SouthWestSegment</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>length</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#SouthWestSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.SouthWestSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Path.DirectionalSegment" title="Patro.GeometryEngine.Path.DirectionalSegment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.DirectionalSegment</span></code></a></p>
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.SouthWestSegment.__angle__">
+<code class="descname">__angle__</code><em class="property"> = -135</em><a class="headerlink" href="#Patro.GeometryEngine.Path.SouthWestSegment.__angle__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.StringedCubicBezierSegment">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">StringedCubicBezierSegment</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>point1</em>, <em>point2</em>, <em>absolute=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#StringedCubicBezierSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.StringedCubicBezierSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Path.PathPart" title="Patro.GeometryEngine.Path.PathPart"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.PathPart</span></code></a>, <a class="reference internal" href="#Patro.GeometryEngine.Path.TwoPointMixin" title="Patro.GeometryEngine.Path.TwoPointMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.TwoPointMixin</span></code></a></p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.StringedCubicBezierSegment.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>point1</em>, <em>point2</em>, <em>absolute=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#StringedCubicBezierSegment.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.StringedCubicBezierSegment.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.StringedCubicBezierSegment.clone">
+<code class="descname">clone</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#StringedCubicBezierSegment.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.StringedCubicBezierSegment.clone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.StringedCubicBezierSegment.geometry">
+<code class="descname">geometry</code><a class="headerlink" href="#Patro.GeometryEngine.Path.StringedCubicBezierSegment.geometry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.StringedQuadtraticBezierSegment">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">StringedQuadtraticBezierSegment</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>point1</em>, <em>absolute=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#StringedQuadtraticBezierSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.StringedQuadtraticBezierSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Path.PathPart" title="Patro.GeometryEngine.Path.PathPart"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.PathPart</span></code></a>, <a class="reference internal" href="#Patro.GeometryEngine.Path.TwoPointMixin" title="Patro.GeometryEngine.Path.TwoPointMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.TwoPointMixin</span></code></a></p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.StringedQuadtraticBezierSegment.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>point1</em>, <em>absolute=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#StringedQuadtraticBezierSegment.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.StringedQuadtraticBezierSegment.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.StringedQuadtraticBezierSegment.clone">
+<code class="descname">clone</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#StringedQuadtraticBezierSegment.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.StringedQuadtraticBezierSegment.clone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.StringedQuadtraticBezierSegment.geometry">
+<code class="descname">geometry</code><a class="headerlink" href="#Patro.GeometryEngine.Path.StringedQuadtraticBezierSegment.geometry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.ThreePointMixin">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">ThreePointMixin</code><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#ThreePointMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.ThreePointMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Path.TwoPointMixin" title="Patro.GeometryEngine.Path.TwoPointMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.TwoPointMixin</span></code></a></p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.ThreePointMixin.apply_transformation">
+<code class="descname">apply_transformation</code><span class="sig-paren">(</span><em>transformation</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#ThreePointMixin.apply_transformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.ThreePointMixin.apply_transformation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.ThreePointMixin.point3">
+<code class="descname">point3</code><a class="headerlink" href="#Patro.GeometryEngine.Path.ThreePointMixin.point3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.TwoPointMixin">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">TwoPointMixin</code><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#TwoPointMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.TwoPointMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Path.TwoPointMixin.apply_transformation">
+<code class="descname">apply_transformation</code><span class="sig-paren">(</span><em>transformation</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#TwoPointMixin.apply_transformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.TwoPointMixin.apply_transformation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.TwoPointMixin.point1">
+<code class="descname">point1</code><a class="headerlink" href="#Patro.GeometryEngine.Path.TwoPointMixin.point1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.TwoPointMixin.point2">
+<code class="descname">point2</code><a class="headerlink" href="#Patro.GeometryEngine.Path.TwoPointMixin.point2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.VerticalSegment">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">VerticalSegment</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>length</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#VerticalSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.VerticalSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Path.DirectionalSegment" title="Patro.GeometryEngine.Path.DirectionalSegment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.DirectionalSegment</span></code></a></p>
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.VerticalSegment.__angle__">
+<code class="descname">__angle__</code><em class="property"> = 90</em><a class="headerlink" href="#Patro.GeometryEngine.Path.VerticalSegment.__angle__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Patro.GeometryEngine.Path.WestSegment">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Path.</code><code class="descname">WestSegment</code><span class="sig-paren">(</span><em>path</em>, <em>index</em>, <em>length</em>, <em>radius=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Path.html#WestSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Path.WestSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Path.DirectionalSegment" title="Patro.GeometryEngine.Path.DirectionalSegment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Path.DirectionalSegment</span></code></a></p>
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Path.WestSegment.__angle__">
+<code class="descname">__angle__</code><em class="property"> = 180</em><a class="headerlink" href="#Patro.GeometryEngine.Path.WestSegment.__angle__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Polygon.html" class="btn btn-neutral float-right" title="10.1.4.8. Polygon" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Mixin.html" class="btn btn-neutral" title="10.1.4.6. Mixin" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Fabrice Salvaire
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../static/jquery.js"></script>
+        <script type="text/javascript" src="../../../static/underscore.js"></script>
+        <script type="text/javascript" src="../../../static/doctools.js"></script>
+        <script type="text/javascript" src="../../../static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../static/getthecode.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

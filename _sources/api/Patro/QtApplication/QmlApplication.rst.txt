@@ -1,0 +1,8 @@
+
+================
+ QmlApplication
+================
+
+.. automodule:: Patro.QtApplication.QmlApplication
+   :members:
+   :show-inheritance:

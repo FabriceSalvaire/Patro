@@ -1,0 +1,8 @@
+
+==============
+ PersonalData
+==============
+
+.. automodule:: Patro.Measurement.PersonalData
+   :members:
+   :show-inheritance:

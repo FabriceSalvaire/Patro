@@ -1,0 +1,15 @@
+
+=============
+ Measurement
+=============
+
+.. toctree::
+    Measurement/Measurement
+    Measurement/PersonalData
+    Measurement/StandardMeasurement
+    Measurement/ValentinaMeasurement
+    Measurement/ValentinaStandardMeasurement
+
+.. automodule:: Patro.Measurement
+   :members:
+   :show-inheritance:

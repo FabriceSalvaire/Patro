@@ -1,0 +1,8 @@
+
+=============
+ GraphicItem
+=============
+
+.. automodule:: Patro.GraphicEngine.GraphicScene.GraphicItem
+   :members:
+   :show-inheritance:

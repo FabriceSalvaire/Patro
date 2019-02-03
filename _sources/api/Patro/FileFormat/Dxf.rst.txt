@@ -1,0 +1,12 @@
+
+=====
+ Dxf
+=====
+
+.. toctree::
+    Dxf/Importer
+    Dxf/Polyline
+
+.. automodule:: Patro.FileFormat.Dxf
+   :members:
+   :show-inheritance:

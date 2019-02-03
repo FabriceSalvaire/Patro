@@ -1,0 +1,8 @@
+
+=======
+ Scene
+=======
+
+.. automodule:: Patro.GraphicEngine.GraphicScene.Scene
+   :members:
+   :show-inheritance:

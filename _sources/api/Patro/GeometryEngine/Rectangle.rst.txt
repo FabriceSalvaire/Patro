@@ -1,0 +1,8 @@
+
+===========
+ Rectangle
+===========
+
+.. automodule:: Patro.GeometryEngine.Rectangle
+   :members:
+   :show-inheritance:

@@ -1,0 +1,14 @@
+
+=====
+ TeX
+=====
+
+.. toctree::
+    TeX/Buffer
+    TeX/Document
+    TeX/Environment
+    TeX/Tikz
+
+.. automodule:: Patro.GraphicEngine.TeX
+   :members:
+   :show-inheritance:

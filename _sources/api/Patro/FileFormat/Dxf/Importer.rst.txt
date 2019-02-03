@@ -1,0 +1,8 @@
+
+==========
+ Importer
+==========
+
+.. automodule:: Patro.FileFormat.Dxf.Importer
+   :members:
+   :show-inheritance:

@@ -1,0 +1,8 @@
+
+=========
+ Pattern
+=========
+
+.. automodule:: Patro.FileFormat.Valentina.Pattern
+   :members:
+   :show-inheritance:

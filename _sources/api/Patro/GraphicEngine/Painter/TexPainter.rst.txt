@@ -1,0 +1,8 @@
+
+============
+ TexPainter
+============
+
+.. automodule:: Patro.GraphicEngine.Painter.TexPainter
+   :members:
+   :show-inheritance:

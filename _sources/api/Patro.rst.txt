@@ -1,0 +1,19 @@
+
+=======
+ Patro
+=======
+
+.. toctree::
+    Patro/Common
+    Patro/Config
+    Patro/FileFormat
+    Patro/GeometryEngine
+    Patro/GraphicEngine
+    Patro/GraphicStyle
+    Patro/Measurement
+    Patro/Pattern
+    Patro/QtApplication
+
+.. automodule:: Patro
+   :members:
+   :show-inheritance:

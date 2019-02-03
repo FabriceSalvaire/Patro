@@ -1,0 +1,8 @@
+
+===========
+ Singleton
+===========
+
+.. automodule:: Patro.Common.Singleton
+   :members:
+   :show-inheritance:

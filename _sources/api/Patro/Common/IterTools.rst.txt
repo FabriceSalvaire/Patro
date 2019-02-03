@@ -1,0 +1,8 @@
+
+===========
+ IterTools
+===========
+
+.. automodule:: Patro.Common.IterTools
+   :members:
+   :show-inheritance:

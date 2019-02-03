@@ -1,0 +1,8 @@
+
+============
+ SvgPainter
+============
+
+.. automodule:: Patro.GraphicEngine.Painter.SvgPainter
+   :members:
+   :show-inheritance:

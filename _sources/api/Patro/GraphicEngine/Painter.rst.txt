@@ -1,0 +1,18 @@
+
+=========
+ Painter
+=========
+
+.. toctree::
+    Painter/DxfPainter
+    Painter/MplPainter
+    Painter/Painter
+    Painter/Paper
+    Painter/PdfPainter
+    Painter/QtPainter
+    Painter/SvgPainter
+    Painter/TexPainter
+
+.. automodule:: Patro.GraphicEngine.Painter
+   :members:
+   :show-inheritance:

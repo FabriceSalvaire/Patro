@@ -1,0 +1,12 @@
+
+=====
+ Svg
+=====
+
+.. toctree::
+    Svg/SvgFile
+    Svg/SvgFormat
+
+.. automodule:: Patro.FileFormat.Svg
+   :members:
+   :show-inheritance:
