@@ -72,7 +72,8 @@ Reference
 
   * http://spencermortensen.com/articles/bezier-circle/
   * http://www.spaceroots.org/documents/ellipse/index.html
-  .. see also https://pomax.github.io/bezierinfo/#circles
+
+.. see also https://pomax.github.io/bezierinfo/#circles
 
 **First approximation:**
 
