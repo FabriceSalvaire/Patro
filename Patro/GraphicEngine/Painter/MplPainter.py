@@ -27,6 +27,7 @@ from matplotlib.path import Path
 import matplotlib.patches as patches
 
 from Patro.GeometryEngine.Vector import Vector2D
+from Patro.GraphicStyle import StrokeStyle
 from .Painter import Painter, Tiler
 
 ####################################################################################################
@@ -38,18 +39,12 @@ _module_logger = logging.getLogger(__name__)
 class MplPainter(Painter):
 
     __STROKE_STYLE__ = {
-        None: None,
-        'dashDotLine': 'dashdot', # '--'
-        'dotLine': 'dotted', # ':'
-        'hair': 'solid', # '-'
-        'none': None,
-
-        'solid': 'solid',
-    }
-
-    __COLOR__ = {
-        None : None,
-        'black': 'black',
+        StrokeStyle.NoPen: None,
+        StrokeStyle.SolidLine: 'solid', # '-'
+        StrokeStyle.DashLine: '', # Fixme:
+        StrokeStyle.DotLine: 'dotted', # ':'
+        StrokeStyle.DashDotLine: 'dashdot', # '--'
+        StrokeStyle.DashDotDotLine: '', # Fixme:
     }
 
     ##############################################
@@ -76,7 +71,6 @@ class MplPainter(Painter):
         self._axes.set_ylim(bounding_box.y.inf, bounding_box.y.sup)
         self._axes.set_aspect('equal')
 
-        self._coordinates = {}
         self.paint()
 
     ##############################################
@@ -91,32 +85,17 @@ class MplPainter(Painter):
         path = Path(vertices, codes)
 
         path_syle = item.path_style
-        color = self.__COLOR__[path_syle.stroke_color]
+        color = path_syle.stroke_color.name
         line_style = self.__STROKE_STYLE__[path_syle.stroke_style]
-        line_width = float(path_syle.line_width.replace('pt', '')) / 3
+        line_width = path_syle.line_width_as_float
         patch = patches.PathPatch(path, edgecolor=color, facecolor='none', linewidth=line_width, linestyle=line_style)
         self._axes.add_patch(patch)
 
     ##############################################
 
-    def paint_CoordinateItem(self, item):
-
-        self._coordinates[item.name] = item.position
-
-    ##############################################
-
-    def _cast_position(self, position):
-
-        if isinstance(position, str):
-            return self._coordinates[position]
-        elif isinstance(position, Vector2D):
-            return position
-
-    ##############################################
-
     def paint_TextItem(self, item):
 
-        position = self._cast_position(item.position)
+        position = self.cast_position(item.position)
         # Fixme: anchor position
         self._axes.text(position.x, position.y, item.text)
 
@@ -124,7 +103,7 @@ class MplPainter(Painter):
 
     def paint_CircleItem(self, item):
 
-        center = list(self._cast_position(item.position))
+        center = list(self.cast_position(item.position))
         circle = plt.Circle(center, .5, color='black')
         self._axes.add_artist(circle)
 
@@ -132,7 +111,7 @@ class MplPainter(Painter):
 
     def paint_SegmentItem(self, item):
 
-        vertices = [list(self._cast_position(position)) for position in item.positions]
+        vertices = self.cast_item_coordinates(item)
         codes = [Path.MOVETO, Path.LINETO]
         self._add_path(item, vertices, codes)
 
@@ -140,6 +119,6 @@ class MplPainter(Painter):
 
     def paint_CubicBezierItem(self, item):
 
-        vertices = [list(self._cast_position(position)) for position in item.positions]
+        vertices = self.cast_item_coordinates(item)
         codes = [Path.MOVETO, Path.CURVE4, Path.CURVE4, Path.CURVE4]
         self._add_path(item, vertices, codes)

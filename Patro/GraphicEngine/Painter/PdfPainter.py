@@ -27,6 +27,7 @@ __all__ = [
 import logging
 
 from Patro.GeometryEngine.Vector import Vector2D
+from Patro.GraphicStyle import StrokeStyle
 from .Painter import Painter, Tiler
 
 try:
@@ -53,27 +54,6 @@ class PdfPainterBase(Painter):
         self._path = path
         self._paper = paper
 
-        self._coordinates = {}
-
-    ##############################################
-
-    def _cast_position(self, position):
-
-        # Fixme: to base class
-
-        if isinstance(position, str):
-            return self._coordinates[position]
-        elif isinstance(position, Vector2D):
-            return position
-
-    ##############################################
-
-    def paint_CoordinateItem(self, item):
-
-        # Fixme: to base class
-
-        self._coordinates[item.name] = item.position
-
     ##############################################
 
     @staticmethod
@@ -91,18 +71,12 @@ class PdfPainterBase(Painter):
 class ReportlabPainter(PdfPainterBase):
 
     __STROKE_STYLE__ = {
-        None: None,
-        'dashDotLine': (6, 3),
-        'dotLine': (1, 2),
-        'hair': (),
-        'none': (), # Fixme: ???
-
-        'solid': (),
-    }
-
-    __COLOR__ = {
-        None : None,
-        'black': 'black',
+        StrokeStyle.NoPen: None,
+        StrokeStyle.SolidLine: (),
+        StrokeStyle.DashLine: (), # Fixme: ???
+        StrokeStyle.DotLine: (1, 2),
+        StrokeStyle.DashDotLine: (6, 3),
+        StrokeStyle.DashDotDotLine: (), # Fixme: ???
     }
 
     ##############################################
@@ -139,26 +113,15 @@ class ReportlabPainter(PdfPainterBase):
 
     ##############################################
 
-    def _cast_position(self, position):
-
-        position = super()._cast_position(position)
-        return position.clone() * cm * .7 # Fixme:
-
-    ##############################################
-
-    def _cast_positions(self, positions):
-
-        vertices = []
-        for position in positions:
-            vertices += list(self._cast_position(position))
-        return vertices
+    def cast_position(self, position):
+        return super().cast_position(position) * cm * .7 # Fixme:
 
     ##############################################
 
     def _set_graphic_style(self, item):
 
         path_syle = item.path_style
-        color = self.__COLOR__[path_syle.stroke_color]
+        color = path_syle.stroke_color.name
         self._canvas.setStrokeColor(color)
         line_style = self.__STROKE_STYLE__[path_syle.stroke_style]
         self._canvas.setDash(*line_style)
@@ -169,7 +132,7 @@ class ReportlabPainter(PdfPainterBase):
 
     def paint_TextItem(self, item):
 
-        position = self._cast_position(item.position)
+        position = self.cast_position(item.position)
         # Fixme: anchor position
         self._canvas.drawString(position.x, position.y, item.text)
 
@@ -177,7 +140,7 @@ class ReportlabPainter(PdfPainterBase):
 
     def paint_CircleItem(self, item):
 
-        position = self._cast_position(item.position)
+        position = self.cast_position(item.position)
         self._canvas.saveState()
         self._canvas.setFillColor('black')
         self._canvas.circle(position.x, position.y, 2*mm, fill=1)
@@ -187,13 +150,15 @@ class ReportlabPainter(PdfPainterBase):
 
     def paint_SegmentItem(self, item):
 
-        self._canvas.line(*self._cast_positions(item.positions))
+        # self._set_graphic_style(item)
+        self._canvas.line(*self.cast_item_coordinates(item, flat=True))
 
     ##############################################
 
     def paint_CubicBezierItem(self, item):
 
-        self._canvas.bezier(*self._cast_positions(item.positions))
+        # self._set_graphic_style(item)
+        self._canvas.bezier(*self.cast_item_coordinates(item, flat=True))
 
 ####################################################################################################
 

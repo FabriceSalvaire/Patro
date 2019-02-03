@@ -27,6 +27,7 @@ __all__ = [
 import logging
 
 from Patro.GeometryEngine.Vector import Vector2D
+from Patro.GraphicStyle import StrokeStyle, Colors
 from .Painter import Painter
 
 try:
@@ -51,25 +52,6 @@ class DxfPainterBase(Painter):
         self._path = path
         self._paper = paper
 
-        self._coordinates = {}
-
-    ##############################################
-
-    def _cast_position(self, position):
-
-        # Fixme: to base class
-
-        if isinstance(position, str):
-            return self._coordinates[position]
-        elif isinstance(position, Vector2D):
-            return position
-
-    ##############################################
-
-    def paint_CoordinateItem(self, item):
-        # Fixme: to base class
-        self._coordinates[item.name] = item.position
-
 ####################################################################################################
 
 class EzdxfPainter(DxfPainterBase):
@@ -85,13 +67,12 @@ class EzdxfPainter(DxfPainterBase):
     # AC1032 AutoCAD R2018
 
     __STROKE_STYLE__ = {
-        None: None,
-        'dashDotLine': 'DASHDOT',
-        'dotLine': 'DOTTED',
-        'hair': 'CONTINUOUS',
-        'none': 'PHANTOM', # Fixme: ???
-
-        'solid': 'CONTINUOUS',
+        StrokeStyle.NoPen: 'PHANTOM', # Fixme: ???
+        StrokeStyle.SolidLine: 'CONTINUOUS',
+        StrokeStyle.DashLine: 'DASH', # Fixme:
+        StrokeStyle.DotLine: 'DOTTED',
+        StrokeStyle.DashDotLine: 'DASHDOT',
+        StrokeStyle.DashDotDotLine: 'DASHDOTDOT', # Fixme:
     }
 
     __COLOR__ = {
@@ -123,17 +104,8 @@ class EzdxfPainter(DxfPainterBase):
 
     ##############################################
 
-    def _cast_position(self, position):
-
-        position = super()._cast_position(position)
-        position = position.clone() * 10 # Fixme: cm -> mm
-        return position
-
-    ##############################################
-
-    def _cast_positions(self, positions):
-
-        return [list(self._cast_position(position)) for position in positions]
+    def cast_position(self, position):
+        return super().cast_position(position) * 10 # Fixme: cm -> mm
 
     ##############################################
 
@@ -144,7 +116,7 @@ class EzdxfPainter(DxfPainterBase):
         path_style = item.path_style
         if path_style.stroke_color is None:
             return {'linetype': 'PHANTOM', 'color': 2} # Fixme:
-        color = self.__COLOR__[path_style.stroke_color] # see also true_color color_name (AutoCAD R2004)
+        color = self.__COLOR__[path_style.stroke_color.name] # see also true_color color_name (AutoCAD R2004)
         line_type = self.__STROKE_STYLE__[path_style.stroke_style]
         # https://ezdxf.readthedocs.io/en/latest/graphic_base_class.html#GraphicEntity.dxf.lineweight
         # line_weight = float(path_syle.line_width.replace('pt', '')) / 3 # Fixme: pt ???
@@ -155,7 +127,7 @@ class EzdxfPainter(DxfPainterBase):
 
     def paint_TextItem(self, item):
 
-        position = self._cast_position(item.position)
+        position = self.cast_position(item.position)
         # Fixme: anchor position
         # https://ezdxf.readthedocs.io/en/latest/tutorials/text.html
         self._model_space.add_text(item.text).set_pos(list(position), align='CENTER')
@@ -170,7 +142,7 @@ class EzdxfPainter(DxfPainterBase):
 
     def paint_SegmentItem(self, item):
 
-        positions = self._cast_positions(item.positions)
+        positions = self.cast_item_coordinates(item)
         self._model_space.add_line(
             *positions,
             dxfattribs=self._graphic_style(item),
@@ -180,7 +152,7 @@ class EzdxfPainter(DxfPainterBase):
 
     def paint_CubicBezierItem(self, item):
 
-        positions = self._cast_positions(item.positions)
+        positions = self.cast_item_coordinates(item)
         for position in positions:
             position.append(0)
         # https://ezdxf.readthedocs.io/en/latest/layouts.html#Layout.add_open_spline

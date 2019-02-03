@@ -22,6 +22,8 @@ __all__ = [
     'SvgPainter',
 ]
 
+####################################################################################################
+
 # See also
 #   https://github.com/mozman/svgwrite
 #   https://svgwrite.readthedocs.io/en/master/
@@ -30,10 +32,11 @@ __all__ = [
 
 import logging
 
-from Patro.FileFormat.Svg.SvgFile import SvgFile
 from Patro.FileFormat.Svg import SvgFormat
-from Patro.GeometryEngine.Vector import Vector2D
+from Patro.FileFormat.Svg.SvgFile import SvgFileWriter
 from Patro.GeometryEngine.Transformation import AffineTransformation2D
+from Patro.GeometryEngine.Vector import Vector2D
+from Patro.GraphicStyle import StrokeStyle
 from .Painter import Painter
 
 ####################################################################################################
@@ -45,18 +48,12 @@ _module_logger = logging.getLogger(__name__)
 class SvgPainter(Painter):
 
     __STROKE_STYLE__ = {
-        None: None,
-        'dashDotLine': [6, 3],
-        'dotLine': [1, 2],
-        'hair': None,
-        'none': None, # Fixme: ???
-
-        'solid': None,
-    }
-
-    __COLOR__ = {
-        None : None,
-        'black': 'black',
+        StrokeStyle.NoPen: None,
+        StrokeStyle.SolidLine: None,
+        StrokeStyle.DashLine: [6, 3], # Fixme:
+        StrokeStyle.DotLine: [1, 2], # Fixme:
+        StrokeStyle.DashDotLine: [6, 3], # Fixme:
+        StrokeStyle.DashDotDotLine: [6, 3], # Fixme:
     }
 
     ##############################################
@@ -68,22 +65,22 @@ class SvgPainter(Painter):
         self._path = path
         self._paper = paper
 
-        self._coordinates = {}
-
         bounding_box = scene.bounding_box
         self._transformation = AffineTransformation2D.Scale(10, -10)
         self._transformation *= AffineTransformation2D.Translation(-Vector2D(bounding_box.x.inf, bounding_box.y.sup))
 
         self._tree = []
-
         self._append(SvgFormat.Style(text='''
         .normal { font: 12px sans-serif; }
         '''))
-
         self.paint()
 
-        self._svg_file = SvgFile()
-        self._svg_file.write(paper, self._tree, transformation=None, path=path)
+        self._svg_file = SvgFileWriter(path, paper, self._tree, transformation=None)
+
+    ##############################################
+
+    def cast_position(self, position):
+        return self._transformation * super().cast_position(position)
 
     ##############################################
 
@@ -92,38 +89,12 @@ class SvgPainter(Painter):
 
     ##############################################
 
-    def _cast_position(self, position):
-
-        # Fixme: to base class
-
-        if isinstance(position, str):
-            position = self._coordinates[position]
-        return self._transformation * position
-
-    ##############################################
-
-    def paint_CoordinateItem(self, item):
-
-        # Fixme: to base class
-        self._coordinates[item.name] = item.position
-
-    ##############################################
-
-    def _cast_positions(self, positions):
-
-        vertices = []
-        for position in positions:
-            vertices += list(self._cast_position(position))
-        return vertices
-
-    ##############################################
-
     def _graphic_style(self, item):
 
         path_syle = item.path_style
-        color = self.__COLOR__[path_syle.stroke_color]
+        color = path_syle.stroke_color.name
         line_style = self.__STROKE_STYLE__[path_syle.stroke_style]
-        line_width = str(float(path_syle.line_width.replace('pt', '')) / 3) # Fixme: pt ???
+        line_width = str(path_syle.line_width_as_float)
 
         kwargs = dict(stroke=color, stroke_width=line_width)
         if line_style:
@@ -135,7 +106,7 @@ class SvgPainter(Painter):
 
     def paint_TextItem(self, item):
 
-        x, y = list(self._cast_position(item.position))
+        x, y = list(self.cast_position(item.position))
         # Fixme: anchor position
         text = SvgFormat.Text(x=x, y=y, text=item.text, fill='black')
         self._append(text)
@@ -144,7 +115,7 @@ class SvgPainter(Painter):
 
     def paint_CircleItem(self, item):
 
-        x, y = list(self._cast_position(item.position))
+        x, y = self.cast_position(item.position)
         circle = SvgFormat.Text(cx=x, cy=y, r=2, fill='black', _class='normal')
         self._append(circle)
 
@@ -152,12 +123,12 @@ class SvgPainter(Painter):
 
     def paint_SegmentItem(self, item):
 
-        x1, y1, x2, y2 = self._cast_positions(item.positions)
+        p1, p2 = self.cast_item_positions(item)
         line = SvgFormat.Line(
-            x1=x1,
-            y1=y1,
-            x2=x2,
-            y2=y2,
+            x1=p1.x,
+            y1=p1.y,
+            x2=p2.x,
+            y2=p2.y,
             **self._graphic_style(item),
         )
         self._append(line)
@@ -166,10 +137,11 @@ class SvgPainter(Painter):
 
     def paint_CubicBezierItem(self, item):
 
+        coordinates = self.cast_item_coordinates(item, flat=True)
         path = SvgFormat.Path(
-            path_data='M {} {} C {} {}, {} {}, {} {}'.format(*self._cast_positions(item.positions)),
+            path_data='M {} {} C {} {}, {} {}, {} {}'.format(*coordinates),
             fill='none',
             **self._graphic_style(item),
         )
-        self._append(path)
+        #!# self._append(path)
 

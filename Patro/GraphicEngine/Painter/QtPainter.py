@@ -70,7 +70,6 @@ class QtPainter(Painter):
     """Class to implement a Qt painter."""
 
     __STROKE_STYLE__ = {
-        None: None, # Fixme: ???
         StrokeStyle.NoPen: Qt.NoPen,
         StrokeStyle.SolidLine: Qt.SolidLine,
         StrokeStyle.DashLine: Qt.DashLine,

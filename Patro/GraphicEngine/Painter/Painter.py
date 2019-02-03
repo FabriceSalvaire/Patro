@@ -136,6 +136,18 @@ class Painter:
 
     ##############################################
 
+    def cast_item_coordinates(self, item, flat=False):
+        positions = self.cast_item_positions(item)
+        if flat:
+            coordinates = []
+            for position in positions:
+                coordinates += list(position)
+            return coordinates
+        else:
+            return [list(position) for position in positions]
+
+    ##############################################
+
     def paint_CircleItem(self, item):
         raise NotImplementedError
 
