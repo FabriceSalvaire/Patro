@@ -63,21 +63,19 @@ class SceneBuilder:
     def _make_figure1(self):
 
         center = (0, 0)
-        ellipse1 = Ellipse2D(center, 20, 10)
-        ellipse2 = Ellipse2D(center, 20, 10, angle=30)
-        ellipse3 = Ellipse2D(center, 20, 10, angle=60, domain=AngularDomain(30, 160))
+        ellipses = [Ellipse2D(center, 20, 10, angle=angle)
+                    for angle in range(0, 360, 20)]
+        center = (50, 0)
+        ellipse_arc = Ellipse2D(center, 20, 10, angle=60, domain=AngularDomain(30, 160))
 
-        ellipse1_bezier = ellipse1.to_bezier()
-        ellipse2_bezier = ellipse2.to_bezier()
-        ellipse3_bezier = ellipse3.to_bezier()
+        ellipses_bezier = [ellipse.to_bezier() for ellipse in ellipses]
+        flat_ellipses_bezier = []
+        for segments in ellipses_bezier:
+            flat_ellipses_bezier += list(segments)
 
         return [
-            # ellipse1,
-            *ellipse1_bezier,
-            # ellipse2,
-            *ellipse2_bezier,
-            # ellipse3,
-            *ellipse3_bezier,
+            *flat_ellipses_bezier,
+            *ellipse_arc.to_bezier(),
         ]
 
     ##############################################

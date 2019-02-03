@@ -761,6 +761,8 @@ class Ellipse2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
 
     def to_bezier(self):
 
+        """Convert an ellipse arc to a set of Quadratic Bézier curves."""
+
         if self._domain is not None:
             # Fixme: is_over_closer
             start_angle = self._domain.start
