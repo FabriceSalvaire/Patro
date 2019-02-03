@@ -26,7 +26,9 @@ from Patro.Common.Logging import Logging
 Logging.setup_logging()
 
 from Patro.FileFormat.Valentina.Pattern import ValFileReader, ValFileWriter
+from Patro.GraphicEngine.GraphicScene.TypographyUnit import PointUnit
 from Patro.GraphicEngine.Painter.Paper import PaperSize
+from Patro.Pattern.SketchStyle import DetailSketchStyle
 from PatroExample import find_data_path
 
 from Patro.GraphicEngine.Painter.DxfPainter import DxfPainter
@@ -66,11 +68,17 @@ val_file = ValFileWriter(output.joinpath('write-test-from-api.val'), val_file.vi
 
 # Fixme: painters !!!
 
-# tex_path = output.joinpath('pattern-a0.tex')
-# paper = PaperSize('a0', 'portrait', 10)
-# tex_painter = TexPainter(str(tex_path), scene, paper)
-# tex_painter.add_detail_figure()
-# tex_painter._document.write()
+style = DetailSketchStyle(
+    point_size=PointUnit(1),
+    line_style=PointUnit(.5),
+)
+scene = sketch.detail_scene(style=style)
+
+tex_path = output.joinpath('pattern-a0.tex')
+paper = PaperSize('a0', 'portrait', 10)
+tex_painter = TexPainter(str(tex_path), scene, paper)
+tex_painter.add_detail_figure()
+tex_painter._document.write()
 
 # tex_path = output.joinpath('pattern-a4.tex')
 # paper = PaperSize('a4', 'portrait', 10)

@@ -136,26 +136,35 @@ class Painter:
 
     ##############################################
 
-    def paint_CoordinateItem(self, item):
-        raise NotImplementedError
-
-    ##############################################
-
-    def paint_TextItem(self, item):
-        raise NotImplementedError
-
-    ##############################################
-
     def paint_CircleItem(self, item):
         raise NotImplementedError
 
-    ##############################################
-
-    def paint_SegmentItem(self, item):
-        raise NotImplementedError
-
-    ##############################################
+    # def paint_CoordinateItem(self, item):
+    #     raise NotImplementedError
 
     def paint_CubicBezierItem(self, item):
         raise NotImplementedError
 
+    def paint_EllipseItem(self, item):
+        raise NotImplementedError
+
+    def paint_ImageItem(self, item):
+        raise NotImplementedError
+
+    def paint_PathItem(self, item):
+        raise NotImplementedError
+
+    def paint_PolygonItem(self, item):
+        raise NotImplementedError
+
+    def paint_PolylineItem(self, item):
+        raise NotImplementedError
+
+    def paint_QuadraticBezierItem(self, item):
+        raise NotImplementedError
+
+    def paint_SegmentItem(self, item):
+        raise NotImplementedError
+
+    def paint_TextItem(self, item):
+        raise NotImplementedError

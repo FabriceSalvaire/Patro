@@ -111,11 +111,15 @@ class GraphicSceneScope:
     def number_of_items(self):
         return len(self._items)
 
-    ##############################################
-
     def __iter__(self):
         # must be an ordered item list
         return iter(self._items.values())
+
+    ##############################################
+
+    @property
+    def coordinates(self):
+        return self._coordinates.values()
 
     ##############################################
 

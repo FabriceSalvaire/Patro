@@ -20,6 +20,7 @@
 
 ####################################################################################################
 
+from Patro.GraphicStyle import StrokeStyle
 from .Environment import Environment
 
 ####################################################################################################
@@ -29,25 +30,17 @@ class TikzFigure(Environment):
     ##############################################
 
     __STROKE_STYLE__ = {
-        None: None,
-        'dashDotLine': 'dash pattern=on 5mm off 4mm on 2mm off 4mm', # 'loosely dashdotted',
-        'dotLine': 'dash pattern=on 2mm off 2mm', # 'dotted',
-        'hair': 'solid',
-        'none': None,
-
-        'solid': 'solid',
-    }
-
-    __COLOR__ = {
-        None : None,
-        'black': 'black',
+        StrokeStyle.DashDotLine: 'dash pattern=on 5mm off 4mm on 2mm off 4mm', # 'loosely dashdotted',
+        StrokeStyle.DotLine: 'dash pattern=on 2mm off 2mm', # 'dotted',
+        StrokeStyle.NoPen: None,
+        StrokeStyle.SolidLine: 'solid',
     }
 
     @staticmethod
     def format_path_style(path_syle):
 
         stroke_style = TikzFigure.__STROKE_STYLE__[path_syle.stroke_style]
-        stroke_color = TikzFigure.__COLOR__[path_syle.stroke_color]
+        stroke_color = path_syle.stroke_color.name
 
         styles = []
         styles.append('line width={}'.format(path_syle.line_width))
@@ -60,5 +53,4 @@ class TikzFigure(Environment):
     ##############################################
 
     def __init__(self, options=''):
-
         super(TikzFigure, self).__init__('tikzpicture', options)

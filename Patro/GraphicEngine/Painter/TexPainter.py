@@ -108,6 +108,14 @@ class TexPainter(Painter):
 
     ##############################################
 
+    def paint(self):
+
+        for item in self._scene.coordinates:
+            self.paint_CoordinateItem(item)
+        super().paint()
+
+    ##############################################
+
     def paint_CoordinateItem(self, item):
 
         # Fixme: implement detail in TikzFigure ?

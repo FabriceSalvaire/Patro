@@ -59,9 +59,7 @@ class CoordinateItem(PositionMixin):
     ##############################################
 
     def __init__(self, name, position):
-
         PositionMixin.__init__(self, position)
-
         self._name = str(name)
 
     ##############################################
