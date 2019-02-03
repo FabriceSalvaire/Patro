@@ -26,10 +26,11 @@
 import logging
 
 from Patro.GeometryEngine.Vector import Vector2D
-from Patro.GraphicEngine.GraphicScene.GraphicStyle import GraphicPathStyle, Font
+from Patro.GraphicEngine.GraphicScene.GraphicStyle import GraphicPathStyle
 from Patro.GraphicEngine.GraphicScene.Scene import GraphicScene
 from . import SketchOperation
 from .Calculator import Calculator
+from .SketchStyle import DetailSketchStyle
 
 ####################################################################################################
 
@@ -163,7 +164,7 @@ class Sketch:
 
     ##############################################
 
-    def detail_scene(self, scene_cls=GraphicScene):
+    def detail_scene(self, scene_cls=GraphicScene, style=None):
 
         """Generate a graphic scene for the detail mode
 
@@ -174,9 +175,10 @@ class Sketch:
         # Fixme: scene bounding box
         scene.bounding_box = self.bounding_box
 
-        # Fixme: implement a transformer class to prevent if ... ?
+        if style is None:
+            style = DetailSketchStyle()
 
-        font = Font('', 16)
+        # Fixme: implement a transformer class to prevent if ... ?
 
         for operation in self._operations:
 
@@ -184,8 +186,8 @@ class Sketch:
                 # Register coordinate
                 scene.add_coordinate(operation.name, operation.vector)
                 # Draw point and label
-                scene.circle(operation.name, '1pt',
-                             GraphicPathStyle(fill_color='black'),
+                scene.circle(operation.name, style.point_size,
+                             style.point_style,
                              user_data=operation,
                 )
                 label_offset = operation.label_offset
@@ -194,13 +196,16 @@ class Sketch:
                 if offset:
                     # arrow must point to the label center and be clipped
                     scene.segment(operation.vector, label_position,
-                                  GraphicPathStyle(line_width='.5pt'),
+                                  style.label_line_style,
                                   user_data=operation,
                     )
-                    scene.text(label_position, operation.name, font, user_data=operation)
+                    scene.text(label_position, operation.name, style.font, user_data=operation)
 
                 if isinstance(operation, SketchOperation.LinePropertiesMixin):
-                    path_style = self._operation_to_path_style(operation, line_width='2pt')
+                    path_style = self._operation_to_path_style(
+                        operation,
+                        line_width=style.construction_line_width,
+                    )
                     if isinstance(operation, SketchOperation.AlongLinePoint):
                         scene.segment(operation.first_point.name, operation.name,
                                       path_style,
@@ -223,14 +228,14 @@ class Sketch:
             # Draw path item like segments and Bézier curves
 
             elif isinstance(operation, SketchOperation.Line):
-                path_style = self._operation_to_path_style(operation, line_width='4pt')
+                path_style = self._operation_to_path_style(operation, line_width=style.line_width)
                 scene.segment(operation.first_point.name, operation.second_point.name,
                               path_style,
                               user_data=operation,
                 )
 
             elif isinstance(operation, SketchOperation.SimpleInteractiveSpline):
-                path_style = self._operation_to_path_style(operation, line_width='4pt')
+                path_style = self._operation_to_path_style(operation, line_width=style.line_width)
                 scene.cubic_bezier(operation.first_point.name,
                                    operation.control_point1, operation.control_point2,
                                    operation.second_point.name,

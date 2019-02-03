@@ -107,18 +107,12 @@ class GraphicPathStyle:
 
     @line_width.setter
     def line_width(self, value):
-        self._line_width = value # Fixme: float ???
+        # Fixme: float or TypographyUnit
+        self._line_width = value
 
     @property
     def line_width_as_float(self):
-        line_width = self._line_width
-        # Fixme: use scale ?
-        if isinstance(line_width, (int, float)):
-            return line_width
-        else:
-            line_width = line_width.replace('pt', '')
-            line_width = line_width.replace('px', '')
-            return float(line_width)
+        return float(self._line_width)
 
     ##############################################
 
