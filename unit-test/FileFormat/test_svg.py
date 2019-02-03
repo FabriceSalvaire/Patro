@@ -33,7 +33,7 @@ from Patro.FileFormat.Svg import SvgFormat
 from Patro.FileFormat.Svg.SvgFile import SvgFile, SvgFileInternal
 from Patro.GeometryEngine.Transformation import AffineTransformation2D
 from Patro.GeometryEngine.Vector import Vector2D
-from PatroExample import find_data_path
+# from PatroExample import find_data_path
 
 ####################################################################################################
 
@@ -177,7 +177,8 @@ class TestLine2D(unittest.TestCase):
 
     def test(self):
 
-        svg_path = find_data_path('svg', 'basic-demo-2.by-hand.svg')
+        svg_path = 'basic-demo-2.by-hand.svg'
+        # svg_path = find_data_path('svg', svg_path)
         #data = None
         data = svg_data
 

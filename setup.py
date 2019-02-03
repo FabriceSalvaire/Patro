@@ -46,13 +46,13 @@ def read_requirement():
 setup_dict.update(dict(
     # include_package_data=True, # Look in MANIFEST.in
     packages=find_packages(exclude=['unit-test']),
-    # scripts=glob.glob('bin/*'),
+    scripts=glob.glob('bin/*'),
     # [
     #     'bin/...',
     # ],
-    # package_data={
-    #     'Patro.Config': ['logging.yml'],
-    # },
+    package_data={
+        'Patro.Config': ['logging.yml'],
+    },
 
     platforms='any',
     zip_safe=False, # due to data files
@@ -64,7 +64,7 @@ setup_dict.update(dict(
         # 'Development Status :: 5 - Production/Stable',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         ],
 
     install_requires=read_requirement(),
