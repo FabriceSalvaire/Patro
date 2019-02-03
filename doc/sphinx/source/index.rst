@@ -49,7 +49,7 @@
 Overview
 ********
 
-Patro is a free and open source (*) Python library which implements pattern drafting for fashion design.
+Patro is an open source (*) Python library which implements pattern drafting for fashion design.
 
 .. rst-class:: small-text
 

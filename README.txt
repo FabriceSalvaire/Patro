@@ -21,7 +21,11 @@ Overview
 What is Patro ?
 ---------------
 
-Patro is a Python library which implements pattern drafting for fashion design.
+Note: Patro was formerly called PyValentina.
+
+Patro is an open source (*) Python library which implements pattern drafting for fashion design.
+
+(*) Patro is licensed under |AGPL| therms.
 
 Where is the Documentation ?
 ----------------------------

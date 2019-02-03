@@ -66,6 +66,9 @@
 ..  https://img.shields.io/github/stars/badges/shields.svg?style=social&label=Star
 .. -*- Mode: rst -*-
 
+.. |AGPL| replace:: AGPLv3
+.. _AGPL: https://www.gnu.org/licenses/agpl-3.0.en.html
+
 .. |ezdxf| replace:: ezdxf
 .. _ezdxf: https://ezdxf.readthedocs.io/en/latest
 
@@ -102,6 +105,9 @@
 .. |Valentina| replace:: Valentina
 .. _Valentina: https://bitbucket.org/dismine/valentina
 
+.. |Tikz| replace:: Tikz
+.. _Tikz: https://ctan.org/pkg/pgf?lang=en
+
 =======
  Patro
 =======
@@ -120,7 +126,11 @@ Overview
 What is Patro ?
 ---------------
 
-Patro is a Python library which implements pattern drafting for fashion design.
+Note: Patro was formerly called PyValentina.
+
+Patro is an open source (*) Python library which implements pattern drafting for fashion design.
+
+(*) Patro is licensed under |AGPL| therms.
 
 Where is the Documentation ?
 ----------------------------
