@@ -1,5 +1,8 @@
 .. -*- Mode: rst -*-
 
+.. |AGPL| replace:: AGPLv3
+.. _AGPL: https://www.gnu.org/licenses/agpl-3.0.en.html
+
 .. |ezdxf| replace:: ezdxf
 .. _ezdxf: https://ezdxf.readthedocs.io/en/latest
 

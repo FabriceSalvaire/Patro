@@ -30,7 +30,7 @@ See :ref:`features-page` page.
 How is Patro licensed ?
 -----------------------
 
-Patro is licensed under the `GPLv3 <https://www.gnu.org/licenses/quick-guide-gplv3.en.html>`_ license.
+Patro is licensed under the |AGPL| license.
 
 Going further with Patro
 ------------------------

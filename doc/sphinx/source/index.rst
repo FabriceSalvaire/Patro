@@ -53,7 +53,7 @@ Patro is a free and open source (*) Python library which implements pattern draf
 
 .. rst-class:: small-text
 
-    (*) Patro is licensed under GPLv3 therms.
+    (*) Patro is licensed under |AGPL| therms.
 
 Patro requires Python 3 and works on Linux, Windows and OS X.
 
