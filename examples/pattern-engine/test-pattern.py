@@ -1,12 +1,34 @@
 ####################################################################################################
+#
+# Patro - A Python library to make patterns for fashion design
+# Copyright (C) 2018 Fabrice Salvaire
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+####################################################################################################
+
+####################################################################################################
 
 from pathlib import Path
 
 from Patro.Common.Logging import Logging
 Logging.setup_logging()
 
-from Patro.FileFormat.Valentina.Pattern import ValFile
+from Patro.FileFormat.Valentina.Pattern import ValFileReader, ValFileWriter
 from Patro.GraphicEngine.Painter.Paper import PaperSize
+from PatroExample import find_data_path
+
 from Patro.GraphicEngine.Painter.DxfPainter import DxfPainter
 from Patro.GraphicEngine.Painter.MplPainter import MplPainter
 from Patro.GraphicEngine.Painter.PdfPainter import PdfPainter
@@ -15,26 +37,34 @@ from Patro.GraphicEngine.Painter.TexPainter import TexPainter
 
 ####################################################################################################
 
-try:
-    val_path = Path(__file__).parent.joinpath('patterns', 'flat-city-trouser.val')
-except:
-    val_path = Path('examples', 'patterns', 'flat-city-trouser.val')
-val_file = ValFile(val_path)
+val_file = 'flat-city-trouser.val'
+val_path = find_data_path('patterns-valentina', val_file)
+
+val_file = ValFileReader(val_path)
 pattern = val_file.pattern
 
-pattern.dump()
+scope_names = pattern.scope_names()
+print(scope_names)
+scope = pattern.scope(scope_names[0])
+sketch = scope.sketch
 
-for calculation in pattern.calculations:
-    print(calculation.to_python())
+sketch.dump()
 
-nodes = pattern.calculator.dag.topological_sort()
+for operation in sketch.operations:
+    print(operation.to_python())
+
+nodes = sketch.calculator.dag.topological_sort()
 for node in nodes:
     print(node.data)
 
 output = Path('output')
 output.mkdir(exist_ok=True)
 
-val_file.write(output.joinpath('write-test.val'))
+# Fixme: see VitFormat.py StrokeStyleAttribute !!!
+# val_file.write(output.joinpath('write-test.val'))
+val_file = ValFileWriter(output.joinpath('write-test-from-api.val'), val_file.vit_file, pattern)
+
+# Fixme: painters !!!
 
 # tex_path = output.joinpath('pattern-a0.tex')
 # paper = PaperSize('a0', 'portrait', 10)

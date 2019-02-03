@@ -20,7 +20,7 @@
 
 ####################################################################################################
 
-from Patro.Measurement.StandardMeasurement import ValentinaStandardMeasurement
+from Patro.Measurement.ValentinaStandardMeasurement import ValentinaStandardMeasurement
 
 ####################################################################################################
 

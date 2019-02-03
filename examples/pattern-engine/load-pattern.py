@@ -1,7 +1,7 @@
 ####################################################################################################
 #
 # Patro - A Python library to make patterns for fashion design
-# Copyright (C) 2018 Fabrice Salvaire
+# Copyright (C) 2019 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -19,36 +19,34 @@
 ####################################################################################################
 
 ####################################################################################################
+#
+# run as
+#
+#    ./bin/patro --user-script examples/...
+#
+####################################################################################################
 
-from pathlib import Path
+####################################################################################################
 
-from Patro.Common.Logging import Logging
-Logging.setup_logging()
+# from Patro.Common.Logging import Logging
+# Logging.setup_logging()
 
 from Patro.FileFormat.Valentina.Pattern import ValFileReader
+from Patro.GraphicEngine.Painter.Paper import PaperSize
+from Patro.GraphicEngine.Painter.QtPainter import QtScene
 from PatroExample import find_data_path
 
 ####################################################################################################
 
-# val_file = 'several-pieces.val'
-val_file = 'flat-city-trouser.val'
+# val_file = 'flat-city-trouser.val'
+val_file = 'path-bezier.val'
 val_path = find_data_path('patterns-valentina', val_file)
 
 val_file = ValFileReader(val_path)
 pattern = val_file.pattern
 
-####################################################################################################
+kwargs = dict(scene_cls=QtScene)
+first_scope = pattern.scope(0)
+scene = first_scope.sketch.detail_scene(**kwargs)
 
-# pattern.dump()
-
-# for calculation in pattern.calculations:
-#     print(calculation.to_python())
-
-# nodes = pattern.calculator.dag.topological_sort()
-# for node in nodes:
-#     print(node.data)
-
-# output = Path('output')
-# output.mkdir(exist_ok=True)
-
-# val_file.write(output.joinpath('write-test.val'))
+application.qml_application.scene = scene

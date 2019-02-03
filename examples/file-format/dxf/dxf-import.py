@@ -19,11 +19,19 @@
 ####################################################################################################
 
 ####################################################################################################
+#
+# run as
+#
+#    ./bin/patro --user-script examples/file-format/dxf/dxf-import.py
+#
+####################################################################################################
+
+####################################################################################################
 
 import logging
 
-from Patro.Common.Logging import Logging
-Logging.setup_logging()
+# from Patro.Common.Logging import Logging
+# Logging.setup_logging()
 
 from Patro.FileFormat.Dxf.Importer import DxfImporter
 from Patro.GeometryEngine.Spline import BSpline2D
