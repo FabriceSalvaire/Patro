@@ -39,7 +39,7 @@ import logging
 import math
 
 from Patro.Common.Math.Functions import sign
-from .Primitive import Primitive1P, Primitive2DMixin
+from .Primitive import Primitive, Primitive1PMixin, Primitive2DMixin
 from .Bezier import QuadraticBezier2D, CubicBezier2D
 from .Conic import AngularDomain, Circle2D, Ellipse2D
 from .Segment import Segment2D
@@ -868,7 +868,7 @@ class ArcSegment(OnePointMixin, PathPart):
 
 ####################################################################################################
 
-class Path2D(Primitive2DMixin, Primitive1P):
+class Path2D(Primitive1PMixin, Primitive2DMixin, Primitive):
 
     """Class to implements 2D Path."""
 
@@ -876,9 +876,15 @@ class Path2D(Primitive2DMixin, Primitive1P):
 
     ##############################################
 
+    @property
+    def is_composed(self):
+        return True
+
+    ##############################################
+
     def __init__(self, start_point):
 
-        Primitive1P.__init__(self, start_point)
+        Primitive1PMixin.__init__(self, start_point)
 
         self._parts = [] # Fixme: segment ???
         self._is_closed = False

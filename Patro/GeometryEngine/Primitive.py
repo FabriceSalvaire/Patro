@@ -18,7 +18,7 @@
 #
 ####################################################################################################
 
-"""Module to implement base classes for primitives.
+"""Module to implement base classes for geometric primitives.
 
 """
 
@@ -31,6 +31,7 @@
 __all__ = [
     'Primitive',
     'Primitive2DMixin',
+    'PointPrimitive',
     'Primitive1P',
     'Primitive2P',
     'Primitive3P',
@@ -44,6 +45,7 @@ from collections import abc as collections
 import numpy as np
 
 from .BoundingBox import bounding_box_from_points
+
 # Fixme: circular import
 # from .Transformation import Transformation2D
 
@@ -53,6 +55,11 @@ class Primitive:
 
     """Base class for geometric primitive"""
 
+    # Fixme:
+    #  some primitives are only defined by a list of points (segment, polygone, Bézier curve)
+    #  but some primitives are defined by a point and scalars (radius vector): like circle, ellipse
+
+    # Fixme: shorter foo.vector_ctor()
     __vector_cls__ = None
 
     ##############################################
@@ -65,16 +72,97 @@ class Primitive:
     ##############################################
 
     @property
+    def is_composed(self):
+        """True if the primitive is a composition of simpler primitives, e.g. a path."""
+        return False
+
+    ##############################################
+
+    @property
     def is_infinite(self):
-        """True if the primitive has infinite extend like a line"""
+        """True if the primitive has infinite extend like a line.
+
+        Note: a closed primitive cannot be infinite.
+
+        """
         return False
 
     ##############################################
 
     @property
     def is_closed(self):
-        """True if the primitive is a closed path."""
+        """True if the primitive is a closed path.
+
+        Note: an infinite primitive cannot be closed.
+
+        """
         return False
+
+    ##############################################
+
+    def clone(self):
+        """Clone a primitive instance."""
+        raise NotImplementedError
+
+    ##############################################
+
+    @property
+    def bounding_box(self):
+        """Bounding box of the primitive.
+
+        Return None if primitive is infinite.
+        """
+        if self.is_infinite:
+            return None
+        else:
+            raise NotImplementedError
+
+    ##############################################
+
+    # @property
+    # def perimeter(self):
+    #     raise NotImplementedError
+
+    # @property
+    # def area(self):
+    #     raise NotImplementedError
+
+####################################################################################################
+
+class Primitive2DMixin:
+
+    """Mixin for 2D primitive"""
+
+     # Fixme: due to import, done in module's __init__.py
+    __vector_cls__ = None
+
+    # __dimension__ = 2
+    @property
+    def dimension(self):
+        return 2
+
+####################################################################################################
+
+class PointPrimitive(Primitive):
+
+    """Base class for geometric primitive which are only defined by a list of points, like segment,
+    polygon and Bézier curve.
+
+    Conversely an ellipse is defined by a centre, a scale-rotation matrix (a radius vector and a
+    rotation angle) and an angular domain.  Path is also another type of primitive which is a
+    composition of basic primitives.
+
+    """
+
+    ##############################################
+
+    def clone(self):
+        return self.__class__(*self.points)
+
+    ##############################################
+
+    def __repr__(self):
+        return '{}({})'.format(self.__class__.__name__, ', '.join([str(p) for p in self.points]))
 
     ##############################################
 
@@ -84,7 +172,48 @@ class Primitive:
         raise NotImplementedError
 
     def __len__(self):
+        """Array interface: return the number of points."""
         return self.number_of_points
+
+    @property
+    def points(self):
+        """Usually return an iterator on the points."""
+        raise NotImplementedError
+
+    # @points.setter
+    # def points(self):
+    #     raise NotImplementedError
+
+    def _set_points(self, points):
+        raise NotImplementedError
+
+    ##############################################
+
+    @property
+    def point_array(self):
+        r"""Return the geometry matrix as a Numpy array.
+
+        .. math::
+           \mathrm{Geometry\ Matrix} =
+           \begin{bmatrix}
+           x_0  & x_1 & \ldots & x_{n-1} \\
+           y_0  & y_1 & \ldots & y_{n-1}
+           \end{bmatrix}
+
+        """
+        # Fixme: geometry_matrix vs point_array
+        # Fixme: cache ??? but point set and init
+        # if self._point_array is None:
+        #     self._point_array = np.array(list(self.points)).transpose()
+        # return self._point_array
+        return np.array(list(self.points)).transpose()
+
+    ##############################################
+
+    def is_point_close(self, other):
+        # Fixme: verus is_closed
+        #  is_similar
+        return np.allclose(self.point_array, other.point_array)
 
     ##############################################
 
@@ -96,31 +225,8 @@ class Primitive:
 
     ##############################################
 
-    # Fixme: part of the API imply points
-    #  it is not true for Path2D
-
-    @property
-    def points(self):
-        raise NotImplementedError
-
-    ##############################################
-
-    # @points.setter
-    # def points(self):
-    #     raise NotImplementedError
-
-    def _set_points(self, points):
-        raise NotImplementedError
-
-    ##############################################
-
-    def __repr__(self):
-        return self.__class__.__name__ + str([str(p) for p in self.points])
-
-    ##############################################
-
-    def clone(self):
-        return self.__class__(*self.points)
+    def reverse(self):
+        return self
 
     ##############################################
 
@@ -135,11 +241,6 @@ class Primitive:
             return None
         else:
             return bounding_box_from_points(self.points)
-
-    ##############################################
-
-    def reverse(self):
-        return self
 
     ##############################################
 
@@ -187,45 +288,6 @@ class Primitive:
     def scale(self, x_factor, y_factor=None, clone=False):
         from .Transformation import Transformation2D
         return self.transform(Transformation2D.Scale(x_factor, y_factor), clone)
-
-    ##############################################
-
-    @property
-    def point_array(self):
-        r"""Return the geometry matrix as a Numpy array.
-
-        .. math::
-           \mathrm{Geometry\ Matrix} =
-           \begin{bmatrix}
-           x_0  & x_1 & \ldots & x_{n-1} \\
-           y_0  & y_1 & \ldots & y_{n-1}
-           \end{bmatrix}
-
-        """
-        # Fixme: geometry_matrix vs point_array
-        # Fixme: cache ??? but point set and init
-        # if self._point_array is None:
-        #     self._point_array = np.array(list(self.points)).transpose()
-        # return self._point_array
-        return np.array(list(self.points)).transpose()
-
-    ##############################################
-
-    def is_point_close(self, other):
-        # Fixme: verus is_closed
-        #  is_similar
-        return np.allclose(self.point_array, other.point_array)
-
-####################################################################################################
-
-class Primitive2DMixin:
-
-    __vector_cls__ = None # Fixme: due to import, done in module's __init__.py
-
-    # __dimension__ = 2
-    @property
-    def dimension(self):
-        return 2
 
 ####################################################################################################
 
@@ -300,7 +362,7 @@ class ReversiblePrimitiveMixin:
 
 ####################################################################################################
 
-class Primitive1P(Primitive):
+class Primitive1PMixin:
 
     ##############################################
 
@@ -310,16 +372,24 @@ class Primitive1P(Primitive):
     ##############################################
 
     @property
-    def number_of_points(self):
-        return 1
-
-    @property
     def p0(self):
         return self._p0
 
     @p0.setter
     def p0(self, value):
         self._p0 = self.__vector_cls__(value)
+
+####################################################################################################
+
+class Primitive1P(PointPrimitive, Primitive1PMixin):
+
+    """Base class to construct 2, 3, ... points primitives."""
+
+    ##############################################
+
+    @property
+    def number_of_points(self):
+        return 1
 
     ##############################################
 
@@ -339,6 +409,8 @@ class Primitive1P(Primitive):
 ####################################################################################################
 
 class Primitive2P(Primitive1P, ReversiblePrimitiveMixin):
+
+    """Base class for 2-points primitives."""
 
     ##############################################
 
@@ -398,6 +470,8 @@ class Primitive2P(Primitive1P, ReversiblePrimitiveMixin):
 
 class Primitive3P(Primitive2P):
 
+    """Base class for 3-points primitives."""
+
     ##############################################
 
     def __init__(self, p0, p1, p2):
@@ -449,6 +523,8 @@ class Primitive3P(Primitive2P):
 
 class Primitive4P(Primitive3P):
 
+    """Base class for 4-points primitives."""
+
     ##############################################
 
     def __init__(self, p0, p1, p2, p3):
@@ -497,7 +573,9 @@ class Primitive4P(Primitive3P):
 
 ####################################################################################################
 
-class PrimitiveNP(Primitive, ReversiblePrimitiveMixin):
+class PrimitiveNP(PointPrimitive, ReversiblePrimitiveMixin):
+
+    """Base class for N-points primitives."""
 
     ##############################################
 
@@ -592,5 +670,3 @@ class PathMixin:
             path.close()
 
         return path
-
-
