@@ -7,7 +7,9 @@
 __pycache__
 du.log
 
+.tox/
 MANIFEST
+Patro.egg-info/
 build/
 dist/
 doc/sphinx/build/
@@ -21,22 +23,30 @@ Patro/QtApplication/rcc/icons/36x36/close-black.png
 Patro/QtApplication/rcc/icons/36x36/delete-black.png
 Patro/QtApplication/rcc/icons/36x36/search-black.png
 
+resources
+trash/
+
 examples/pattern-engine/output-2017/
+examples/pattern-engine/output-2018/
 examples/pattern-engine/output-old/
 examples/pattern-engine/output/
 output/
 
+NOTES.TXT
+Patro/GeometryEngine/qt-implementation-notes.cc
 Patro/GraphicEngine/TeX/__MERGE_MUSICA__
 Patro/Pattern/dev/
 Patro/QtApplication/rcc/icons/36x36-unused/
 devel-experimentations/
 doc/references-not-versioned/
+doc/references/
 doc/sphinx/source/features-all.txt
 git-log.txt
 notes.txt
 notes/
 open-doc.sh
 outdated.txt
-ressources
+poly.diff
+root.txt
+t.sh
 tools/upload-www
-trash/
