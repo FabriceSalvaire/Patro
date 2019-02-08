@@ -38,8 +38,8 @@ from PatroExample import find_data_path
 
 ####################################################################################################
 
-# val_file = 'flat-city-trouser.val'
-val_file = 'path-bezier.val'
+val_file = 'flat-city-trouser.val'
+# val_file = 'path-bezier.val'
 val_path = find_data_path('patterns-valentina', val_file)
 
 val_file = ValFileReader(val_path)
