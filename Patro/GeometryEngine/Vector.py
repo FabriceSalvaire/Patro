@@ -489,6 +489,18 @@ class Vector2D(Vector2DFloatBase):
 
     ##############################################
 
+    @classmethod
+    def from_list(cls, coordinates):
+        return [cls(*xy) for xy in coordinates]
+
+    ##############################################
+
+    @classmethod
+    def from_coordinates(cls, *coordinates):
+        return cls.from_list(coordinates)
+
+    ##############################################
+
     @staticmethod
     def from_angle(angle):
 

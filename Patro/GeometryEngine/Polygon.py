@@ -18,7 +18,7 @@
 #
 ####################################################################################################
 
-"""Module to implement polygon.
+"""Module to implement polygon and convex hull.
 
 For resources on polygon see :ref:`this section <polygon-geometry-ressources-page>`.
 
@@ -26,10 +26,14 @@ For resources on polygon see :ref:`this section <polygon-geometry-ressources-pag
 
 ####################################################################################################
 
-__all__ = ['Polygon2D']
+__all__ = [
+    'Polygon2D',
+    'convex_hull',
+]
 
 ####################################################################################################
 
+from functools import cmp_to_key
 import math
 
 import numpy as np
@@ -82,7 +86,7 @@ class Polygon2D(Primitive2DMixin, ClosedPrimitiveMixin, PathMixin, PrimitiveNP):
 
     ##############################################
 
-    def __init__(self, *points):
+    def __init__(self, *points, is_convex=None):
 
         # Fixme: ctor for list of points
 
@@ -93,7 +97,7 @@ class Polygon2D(Primitive2DMixin, ClosedPrimitiveMixin, PathMixin, PrimitiveNP):
 
         self._edges = None
         self._is_simple = None
-        self._is_convex = None
+        self._is_convex = is_convex
 
         self._area = None
         # self._cross = None
@@ -141,7 +145,7 @@ class Polygon2D(Primitive2DMixin, ClosedPrimitiveMixin, PathMixin, PrimitiveNP):
         # Test for edge intersection
         for edge1 in edges:
             for edge2 in edges:
-                if edge1 != edge2:
+                if edge1 is not edge2:
                     # Fixme: recompute line for edge
                     intersection, intersect = edge1.intersection(edge2)
                     if intersect:
@@ -169,11 +173,13 @@ class Polygon2D(Primitive2DMixin, ClosedPrimitiveMixin, PathMixin, PrimitiveNP):
             return False
 
         edges = list(self.edges)
+        number_of_edges = len(edges)
         # a polygon is convex if all turns from one edge vector to the next have the same sense
         # sign = edges[-1].perp_dot(edges[0])
         sign0 = sign(edges[-1].cross(edges[0]))
-        for i in range(len(edges)):
-            if sign(edges[i].cross(edges[i+1])) != sign0:
+        for i in range(number_of_edges):
+            next_i = (i+1) % number_of_edges
+            if sign(edges[i].cross(edges[next_i])) != sign0:
                 return False
         return True
 
@@ -197,6 +203,15 @@ class Polygon2D(Primitive2DMixin, ClosedPrimitiveMixin, PathMixin, PrimitiveNP):
     @property
     def is_concave(self):
         return not self.is_convex
+
+    ##############################################
+
+    def convex_hull(self):
+
+        if self._is_convex:
+            return self
+        else:
+            return convex_hull(self._points)
 
     ##############################################
 
@@ -254,6 +269,7 @@ class Polygon2D(Primitive2DMixin, ClosedPrimitiveMixin, PathMixin, PrimitiveNP):
             # area of a convex polygon is defined to be positive if the points are arranged in a
             # counterclockwise order, and negative if they are in clockwise order (Beyer 1987).
             self._area = abs(area)
+            self._area_sign = sign(area)
             self._barycenter = self.__vector_cls__(x, y)
 
     ##############################################
@@ -353,6 +369,20 @@ class Polygon2D(Primitive2DMixin, ClosedPrimitiveMixin, PathMixin, PrimitiveNP):
         """Return polygon area."""
         self._check_area()
         return self._area
+
+    ##############################################
+
+    @property
+    def is_clockwise(self):
+        self._check_area()
+        if self._area is None:
+            return None
+        else:
+            return self._area < 0
+
+    @property
+    def is_counterclockwise(self):
+        return not self.is_counterclockwise()
 
     ##############################################
 
@@ -568,3 +598,104 @@ class RegularPolygon(Polygon2D):
     @property
     def circumcircle(self):
         return Circle2D(self._center, self._radius)
+
+####################################################################################################
+
+def sort_point_for_graham_scan(points):
+
+    """Sort the points for the Graham scan algorithm.
+
+    *points*  must be an iterable.
+
+    The first step in this algorithm is to find the point with the lowest y-coordinate. If the
+    lowest y-coordinate exists in more than one point in the set, the point with the lowest
+    x-coordinate out of the candidates should be chosen.  Call this point P0. This step takes O(n).
+
+    Next, the set of points must be sorted in increasing order of the angle they and the point P0
+    make with the x-axis.
+
+    """
+
+    # Since Python3, we must use this, where a < b is coded as a - b < 0
+    def sort_by_y(p0, p1):
+        return p0.x - p1.x if (p0.y == p1.y) else p0.y - p1.y
+
+    # sort by ascending y
+    sorted_points = sorted(points, key=cmp_to_key(sort_by_y))
+
+    # sort by ascending slope with p0
+    p0 = sorted_points[0]
+    x0 = p0.x
+    y0 = p0.y
+
+    ### def slope(p):
+    ###     # return (p - p0).tan
+    ###     n = p.y - y0
+    ###     d = p.x - x0
+    ###     if d == 0:
+    ###         return n * math.inf
+    ###     else:
+    ###         return n / d
+    ### def sort_by_slope(p0, p1):
+    ###     s0 = slope(p0)
+    ###     s1 = slope(p1)
+    ###     return p0.x - p1.x if s0 == s1 else s0 - s1
+    ### def sort_by_slope(p0, p1):
+    ###     s0 = slope(p0)
+    ###     s1 = slope(p1)
+    ###     return p0.x - p1.x if s0 == s1 else s0 - s1
+    ###
+    ### return [sorted_points[0]] + sorted(sorted_points[1:], key=cmp_to_key(sort_by_slope))
+
+    # Fixme: if several points have the same angle then only keep the farther
+
+    return [sorted_points[0]] + sorted(sorted_points[1:], key=lambda p: Vector2D(p - p0).orientation)
+
+####################################################################################################
+
+def ccw(p1, p2, p3):
+    """Three points are a counter-clockwise turn if ccw > 0, clockwise if ccw < 0, and collinear if ccw
+    = 0 because ccw is a determinant :math:`(\mathbf{P}_3-\mathbf{P}_1) \cross
+    (\mathbf{P}_2-\mathbf{P}_1)` that gives twice the signed area of the triangle formed by p1, p2
+    and p3.
+
+    """
+    return (p2.x - p1.x)*(p3.y - p1.y) - (p2.y - p1.y)*(p3.x - p1.x)
+
+def is_three_point_ccw(p1, p2, p3):
+    return ccw(p1, p2, p3) > 0
+
+def is_three_point_cw(p1, p2, p3):
+    return ccw(p1, p2, p3) < 0
+
+def is_three_point_collinear(p1, p2, p3):
+    return ccw(p1, p2, p3) == 0
+
+####################################################################################################
+
+def convex_hull(points, as_polygon=True):
+
+    """Return the convex hull of the list of points using Graham Scan algorithm. Time complexity is
+    O(n log n).
+
+     References
+
+     * https://en.wikipedia.org/wiki/Graham_scan
+
+    """
+
+    # convex_hull is a stack of points beginning with the leftmost point.
+    _convex_hull = []
+    sorted_points = sort_point_for_graham_scan(points)
+    for point in sorted_points:
+        # pop the last point from the stack if we turn clockwise to reach this point
+        while len(_convex_hull) > 1 and is_three_point_cw(_convex_hull[-2], _convex_hull[-1], point):
+            _convex_hull.pop()
+        _convex_hull.append(point)
+
+    # the stack is now a representation of the convex hull
+    if as_polygon and len(_convex_hull) >= 3:
+        # Fixme: see ctor for list of points
+        return Polygon2D(*_convex_hull, is_convex=True)
+    else:
+        return _convex_hull

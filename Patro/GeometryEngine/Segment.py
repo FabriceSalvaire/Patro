@@ -72,8 +72,12 @@ class Segment2D(Primitive2DMixin, Primitive2P):
 
     @property
     def cross_product(self):
-
         return self._p0.cross(self._p1)
+
+    ##############################################
+
+    def cross(self, other):
+        return self.vector.cross(other.vector)
 
     ##############################################
 

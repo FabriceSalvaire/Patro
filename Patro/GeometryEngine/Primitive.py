@@ -157,6 +157,11 @@ class PointPrimitive(Primitive):
     ##############################################
 
     def clone(self):
+        """Clone a primitive instance.
+
+        .. warning:: points must be cloned as well.
+
+        """
         return self.__class__(*self.points)
 
     ##############################################
@@ -207,6 +212,14 @@ class PointPrimitive(Primitive):
         #     self._point_array = np.array(list(self.points)).transpose()
         # return self._point_array
         return np.array(list(self.points)).transpose()
+
+    ##############################################
+
+    def is_point_equal(self, other):
+        return self._points == list(other.points)
+
+    def __eq__(self, other):
+        return self.is_point_equal(other)
 
     ##############################################
 
