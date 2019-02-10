@@ -79,6 +79,7 @@ class TestPolygon(unittest.TestCase):
         # 0   *
         #   - 0 1 2 3 4 5 6 7
 
+        # Points are clockwise oriented
         points = Vector2D.from_coordinates(
             (0, 0),  #  0 p0
             (-1, 2), #  1 *
@@ -102,15 +103,21 @@ class TestPolygon(unittest.TestCase):
         self.assertTrue(polygon.is_simple)
         self.assertFalse(polygon.is_convex)
         self.assertTrue(polygon.is_concave)
+        self.assertTrue(polygon.is_clockwise)
+        self.assertFalse(polygon.is_counterclockwise)
 
         convex_hull = polygon.convex_hull()
         self.assertListEqual(list(convex_hull.points), convex_hull_points)
+        self.assertFalse(convex_hull.is_clockwise)
+        self.assertTrue(convex_hull.is_counterclockwise)
 
         reversed_polygon = Polygon2D(*reversed(points))
-        print(reversed_polygon)
+        self.assertFalse(reversed_polygon.is_clockwise)
+        self.assertTrue(reversed_polygon.is_counterclockwise)
         convex_hull2 = reversed_polygon.convex_hull()
-        print(convex_hull2)
         self.assertEqual(convex_hull, convex_hull2)
+        self.assertFalse(convex_hull2.is_clockwise)
+        self.assertTrue(convex_hull2.is_counterclockwise)
 
 ####################################################################################################
 

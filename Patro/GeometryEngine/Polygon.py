@@ -34,6 +34,7 @@ __all__ = [
 ####################################################################################################
 
 from functools import cmp_to_key
+from operator import itemgetter # , attrgetter
 import math
 
 import numpy as np
@@ -378,11 +379,11 @@ class Polygon2D(Primitive2DMixin, ClosedPrimitiveMixin, PathMixin, PrimitiveNP):
         if self._area is None:
             return None
         else:
-            return self._area < 0
+            return self._area_sign < 0
 
     @property
     def is_counterclockwise(self):
-        return not self.is_counterclockwise()
+        return not self.is_clockwise
 
     ##############################################
 
@@ -623,33 +624,45 @@ def sort_point_for_graham_scan(points):
     # sort by ascending y
     sorted_points = sorted(points, key=cmp_to_key(sort_by_y))
 
-    # sort by ascending slope with p0
+    # other implementation
+    #   first sort by ascending x then by ascending y
+    #   sorted_points = sorted(points, key=attrgetter('x')).sort(key=attrgetter('y'))
+
+    # P0 is the the leftmost point of minimal ordinate
     p0 = sorted_points[0]
     x0 = p0.x
     y0 = p0.y
 
-    ### def slope(p):
-    ###     # return (p - p0).tan
-    ###     n = p.y - y0
-    ###     d = p.x - x0
-    ###     if d == 0:
-    ###         return n * math.inf
-    ###     else:
-    ###         return n / d
-    ### def sort_by_slope(p0, p1):
-    ###     s0 = slope(p0)
-    ###     s1 = slope(p1)
-    ###     return p0.x - p1.x if s0 == s1 else s0 - s1
-    ### def sort_by_slope(p0, p1):
-    ###     s0 = slope(p0)
-    ###     s1 = slope(p1)
-    ###     return p0.x - p1.x if s0 == s1 else s0 - s1
-    ###
-    ### return [sorted_points[0]] + sorted(sorted_points[1:], key=cmp_to_key(sort_by_slope))
+    # sort by polar angle with respect to p0
+    # Fixme: fastest orientation
+    data = []
+    for point in sorted_points[1:]:
+        direction = Vector2D(point - p0)
+        data.append((point, direction, direction.orientation, None))
+    data.sort(key=itemgetter(2))
 
-    # Fixme: if several points have the same angle then only keep the farther
+    # if several points have the same angle then only keep the farther
+    i = 1
+    while i < len(data):
+        prev = data[i-1]
+        current = data[i]
+        # same polar angle ?
+        if prev[2] == current[2]:
+            # cache magnitude_square
+            if prev[3] is None:
+                prev[3] = prev[1].magnitude_square
+            if current[3] is None:
+                current[3] = current[1].magnitude_square
+            # remove the nearest
+            if prev[3] < current[3]:
+                del data[i-1]
+            else:
+                del data[i]
+            # don't increment i
+            continue
+        i += 1
 
-    return [sorted_points[0]] + sorted(sorted_points[1:], key=lambda p: Vector2D(p - p0).orientation)
+    return [p0] + [x[0] for x in data]
 
 ####################################################################################################
 
@@ -675,8 +688,11 @@ def is_three_point_collinear(p1, p2, p3):
 
 def convex_hull(points, as_polygon=True):
 
-    """Return the convex hull of the list of points using Graham Scan algorithm. Time complexity is
-    O(n log n).
+    """Return the convex hull of the list of points using Graham Scan algorithm.
+
+      * The first point is the leftmost point having the smallest y-coordinate.
+      * The polygon is counter-clockwise oriented.
+      * Time complexity is O(n log n).
 
      References
 
