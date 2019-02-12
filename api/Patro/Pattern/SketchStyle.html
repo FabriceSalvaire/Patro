@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>10.1.5.2. Painter &mdash; Patro 0.3.0 documentation</title>
+  <title>10.1.8.5. SketchStyle &mdash; Patro 0.3.0 documentation</title>
   
 
   
@@ -37,8 +37,8 @@
   <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="10.1.5.2.1. DxfPainter" href="Painter/DxfPainter.html" />
-    <link rel="prev" title="10.1.5.1.5. TypographyUnit" href="GraphicScene/TypographyUnit.html" /> 
+    <link rel="next" title="10.1.9. QtApplication" href="../QtApplication.html" />
+    <link rel="prev" title="10.1.8.4. SketchOperation" href="SketchOperation.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -265,10 +265,10 @@
 <li class="toctree-l4"><a class="reference internal" href="../GeometryEngine.html#bibliographical-references">10.1.4.19. Bibliographical References</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="reference internal" href="../GraphicEngine.html">10.1.5. GraphicEngine</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="GraphicScene.html">10.1.5.1. GraphicScene</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">10.1.5.2. Painter</a></li>
-<li class="toctree-l4"><a class="reference internal" href="TeX.html">10.1.5.3. TeX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GraphicEngine.html">10.1.5. GraphicEngine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GraphicEngine/GraphicScene.html">10.1.5.1. GraphicScene</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GraphicEngine/Painter.html">10.1.5.2. Painter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GraphicEngine/TeX.html">10.1.5.3. TeX</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../GraphicStyle.html">10.1.6. GraphicStyle</a><ul>
@@ -283,12 +283,12 @@
 <li class="toctree-l4"><a class="reference internal" href="../Measurement/ValentinaStandardMeasurement.html">10.1.7.5. ValentinaStandardMeasurement</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../Pattern.html">10.1.8. Pattern</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../Pattern/Calculator.html">10.1.8.1. Calculator</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Pattern/SketchStyle.html">10.1.8.5. SketchStyle</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../Pattern.html">10.1.8. Pattern</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="Calculator.html">10.1.8.1. Calculator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Pattern.html">10.1.8.2. Pattern</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Sketch.html">10.1.8.3. Sketch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">10.1.8.5. SketchStyle</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../QtApplication.html">10.1.9. QtApplication</a><ul>
@@ -366,15 +366,15 @@
         
           <li><a href="../../Patro.html">10.1. Patro</a> &raquo;</li>
         
-          <li><a href="../GraphicEngine.html">10.1.5. GraphicEngine</a> &raquo;</li>
+          <li><a href="../Pattern.html">10.1.8. Pattern</a> &raquo;</li>
         
-      <li>10.1.5.2. Painter</li>
+      <li>10.1.8.5. SketchStyle</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../../_sources/api/Patro/GraphicEngine/Painter.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/api/Patro/Pattern/SketchStyle.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -387,21 +387,62 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="painter">
-<h1>10.1.5.2. Painter<a class="headerlink" href="#painter" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="Painter/DxfPainter.html">10.1.5.2.1. DxfPainter</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Painter/MplPainter.html">10.1.5.2.2. MplPainter</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Painter/Painter.html">10.1.5.2.3. Painter</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Painter/Paper.html">10.1.5.2.4. Paper</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Painter/PdfPainter.html">10.1.5.2.5. PdfPainter</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Painter/QtPainter.html">10.1.5.2.6. QtPainter</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Painter/SvgPainter.html">10.1.5.2.7. SvgPainter</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Painter/TexPainter.html">10.1.5.2.8. TexPainter</a></li>
-</ul>
-</div>
-<span class="target" id="module-Patro.GraphicEngine.Painter"></span><p>This subpackage implements painters for a graphic scene.</p>
+  <div class="section" id="module-Patro.Pattern.SketchStyle">
+<span id="sketchstyle"></span><h1>10.1.8.5. SketchStyle<a class="headerlink" href="#module-Patro.Pattern.SketchStyle" title="Permalink to this headline">¶</a></h1>
+<p>Module to implement sketch style.</p>
+<dl class="class">
+<dt id="Patro.Pattern.SketchStyle.DetailSketchStyle">
+<em class="property">class </em><code class="descclassname">Patro.Pattern.SketchStyle.</code><code class="descname">DetailSketchStyle</code><span class="sig-paren">(</span><em>**kargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/Pattern/SketchStyle.html#DetailSketchStyle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.Pattern.SketchStyle.DetailSketchStyle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Class to implement detail sketch style</p>
+<dl class="method">
+<dt id="Patro.Pattern.SketchStyle.DetailSketchStyle.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/Pattern/SketchStyle.html#DetailSketchStyle.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.Pattern.SketchStyle.DetailSketchStyle.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.Pattern.SketchStyle.DetailSketchStyle.construction_line_width">
+<code class="descname">construction_line_width</code><a class="headerlink" href="#Patro.Pattern.SketchStyle.DetailSketchStyle.construction_line_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.Pattern.SketchStyle.DetailSketchStyle.font">
+<code class="descname">font</code><a class="headerlink" href="#Patro.Pattern.SketchStyle.DetailSketchStyle.font" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.Pattern.SketchStyle.DetailSketchStyle.label_line_style">
+<code class="descname">label_line_style</code><a class="headerlink" href="#Patro.Pattern.SketchStyle.DetailSketchStyle.label_line_style" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.Pattern.SketchStyle.DetailSketchStyle.label_line_width">
+<code class="descname">label_line_width</code><a class="headerlink" href="#Patro.Pattern.SketchStyle.DetailSketchStyle.label_line_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.Pattern.SketchStyle.DetailSketchStyle.line_width">
+<code class="descname">line_width</code><a class="headerlink" href="#Patro.Pattern.SketchStyle.DetailSketchStyle.line_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.Pattern.SketchStyle.DetailSketchStyle.point_color">
+<code class="descname">point_color</code><a class="headerlink" href="#Patro.Pattern.SketchStyle.DetailSketchStyle.point_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.Pattern.SketchStyle.DetailSketchStyle.point_size">
+<code class="descname">point_size</code><a class="headerlink" href="#Patro.Pattern.SketchStyle.DetailSketchStyle.point_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.Pattern.SketchStyle.DetailSketchStyle.point_style">
+<code class="descname">point_style</code><a class="headerlink" href="#Patro.Pattern.SketchStyle.DetailSketchStyle.point_style" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 
 
@@ -412,10 +453,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="Painter/DxfPainter.html" class="btn btn-neutral float-right" title="10.1.5.2.1. DxfPainter" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../QtApplication.html" class="btn btn-neutral float-right" title="10.1.9. QtApplication" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="GraphicScene/TypographyUnit.html" class="btn btn-neutral float-left" title="10.1.5.1.5. TypographyUnit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="SketchOperation.html" class="btn btn-neutral float-left" title="10.1.8.4. SketchOperation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -1,0 +1,8 @@
+
+=============
+ SketchStyle
+=============
+
+.. automodule:: Patro.Pattern.SketchStyle
+   :members:
+   :show-inheritance:

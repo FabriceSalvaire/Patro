@@ -17,34 +17,38 @@
   
 
   
+  <script type="text/javascript" src="../../../static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../static/jquery.js"></script>
+        <script type="text/javascript" src="../../../static/underscore.js"></script>
+        <script type="text/javascript" src="../../../static/doctools.js"></script>
+        <script type="text/javascript" src="../../../static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../static/getthecode.js"></script>
+    
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../static/css/Patro.css" type="text/css" />
   <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="10.1.4.9. Polyline" href="Polyline.html" />
     <link rel="prev" title="10.1.4.7. Path" href="Path.html" /> 
-
-  
-  <script src="../../../static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -284,6 +288,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Pattern/SketchStyle.html">10.1.8.5. SketchStyle</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../QtApplication.html">10.1.9. QtApplication</a><ul>
@@ -384,16 +389,16 @@
             
   <div class="section" id="module-Patro.GeometryEngine.Polygon">
 <span id="polygon"></span><h1>10.1.4.8. Polygon<a class="headerlink" href="#module-Patro.GeometryEngine.Polygon" title="Permalink to this headline">¶</a></h1>
-<p>Module to implement polygon.</p>
+<p>Module to implement polygon and convex hull.</p>
 <p>For resources on polygon see <a class="reference internal" href="../../../resources/geometry/polygon.html#polygon-geometry-ressources-page"><span class="std std-ref">this section</span></a>.</p>
 <dl class="class">
 <dt id="Patro.GeometryEngine.Polygon.Polygon2D">
-<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Polygon.</code><code class="descname">Polygon2D</code><span class="sig-paren">(</span><em>*points</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Polygon.html#Polygon2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Polygon.Polygon2D" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Polygon.</code><code class="descname">Polygon2D</code><span class="sig-paren">(</span><em>*points</em>, <em>is_convex=None</em>, <em>is_clockwise=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Polygon.html#Polygon2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Polygon.Polygon2D" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="Primitive.html#Patro.GeometryEngine.Primitive.Primitive2DMixin" title="Patro.GeometryEngine.Primitive.Primitive2DMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.Primitive2DMixin</span></code></a>, <a class="reference internal" href="Primitive.html#Patro.GeometryEngine.Primitive.ClosedPrimitiveMixin" title="Patro.GeometryEngine.Primitive.ClosedPrimitiveMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.ClosedPrimitiveMixin</span></code></a>, <a class="reference internal" href="Primitive.html#Patro.GeometryEngine.Primitive.PathMixin" title="Patro.GeometryEngine.Primitive.PathMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.PathMixin</span></code></a>, <a class="reference internal" href="Primitive.html#Patro.GeometryEngine.Primitive.PrimitiveNP" title="Patro.GeometryEngine.Primitive.PrimitiveNP"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.PrimitiveNP</span></code></a></p>
 <p>Class to implements 2D Polygon.</p>
 <dl class="method">
 <dt id="Patro.GeometryEngine.Polygon.Polygon2D.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>*points</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Polygon.html#Polygon2D.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Polygon.Polygon2D.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*points</em>, <em>is_convex=None</em>, <em>is_clockwise=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Polygon.html#Polygon2D.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Polygon.Polygon2D.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -458,9 +463,19 @@
 <dd><p>Return polygon barycenter.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="Patro.GeometryEngine.Polygon.Polygon2D.convex_hull">
+<code class="descname">convex_hull</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Polygon.html#Polygon2D.convex_hull"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Polygon.Polygon2D.convex_hull" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="attribute">
 <dt id="Patro.GeometryEngine.Polygon.Polygon2D.edges">
 <code class="descname">edges</code><a class="headerlink" href="#Patro.GeometryEngine.Polygon.Polygon2D.edges" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Polygon.Polygon2D.is_clockwise">
+<code class="descname">is_clockwise</code><a class="headerlink" href="#Patro.GeometryEngine.Polygon.Polygon2D.is_clockwise" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -471,6 +486,11 @@
 <dl class="attribute">
 <dt id="Patro.GeometryEngine.Polygon.Polygon2D.is_convex">
 <code class="descname">is_convex</code><a class="headerlink" href="#Patro.GeometryEngine.Polygon.Polygon2D.is_convex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Polygon.Polygon2D.is_counterclockwise">
+<code class="descname">is_counterclockwise</code><a class="headerlink" href="#Patro.GeometryEngine.Polygon.Polygon2D.is_counterclockwise" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -590,6 +610,59 @@
 
 </dd></dl>
 
+<dl class="function">
+<dt id="Patro.GeometryEngine.Polygon.ccw">
+<code class="descclassname">Patro.GeometryEngine.Polygon.</code><code class="descname">ccw</code><span class="sig-paren">(</span><em>p1</em>, <em>p2</em>, <em>p3</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Polygon.html#ccw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Polygon.ccw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Three points are a counter-clockwise turn if ccw &gt; 0, clockwise if ccw &lt; 0, and collinear if ccw
+= 0 because ccw is a determinant <span class="math notranslate nohighlight">\((\mathbf{P}_3-\mathbf{P}_1) \cross
+(\mathbf{P}_2-\mathbf{P}_1)\)</span> that gives twice the signed area of the triangle formed by p1, p2
+and p3.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Patro.GeometryEngine.Polygon.convex_hull">
+<code class="descclassname">Patro.GeometryEngine.Polygon.</code><code class="descname">convex_hull</code><span class="sig-paren">(</span><em>points</em>, <em>as_polygon=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Polygon.html#convex_hull"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Polygon.convex_hull" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the convex hull of the list of points using Graham Scan algorithm.</p>
+<blockquote>
+<div><ul class="simple">
+<li>The first point is the leftmost point having the smallest y-coordinate.</li>
+<li>The polygon is counter-clockwise oriented.</li>
+<li>Time complexity is O(n log n).</li>
+</ul>
+</div></blockquote>
+<p>References</p>
+<ul class="simple">
+<li><a class="reference external" href="https://en.wikipedia.org/wiki/Graham_scan">https://en.wikipedia.org/wiki/Graham_scan</a></li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="Patro.GeometryEngine.Polygon.is_three_point_ccw">
+<code class="descclassname">Patro.GeometryEngine.Polygon.</code><code class="descname">is_three_point_ccw</code><span class="sig-paren">(</span><em>p1</em>, <em>p2</em>, <em>p3</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Polygon.html#is_three_point_ccw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Polygon.is_three_point_ccw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="Patro.GeometryEngine.Polygon.is_three_point_collinear">
+<code class="descclassname">Patro.GeometryEngine.Polygon.</code><code class="descname">is_three_point_collinear</code><span class="sig-paren">(</span><em>p1</em>, <em>p2</em>, <em>p3</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Polygon.html#is_three_point_collinear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Polygon.is_three_point_collinear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="Patro.GeometryEngine.Polygon.is_three_point_cw">
+<code class="descclassname">Patro.GeometryEngine.Polygon.</code><code class="descname">is_three_point_cw</code><span class="sig-paren">(</span><em>p1</em>, <em>p2</em>, <em>p3</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Polygon.html#is_three_point_cw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Polygon.is_three_point_cw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="Patro.GeometryEngine.Polygon.sort_point_for_graham_scan">
+<code class="descclassname">Patro.GeometryEngine.Polygon.</code><code class="descname">sort_point_for_graham_scan</code><span class="sig-paren">(</span><em>points</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Polygon.html#sort_point_for_graham_scan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Polygon.sort_point_for_graham_scan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort the points for the Graham scan algorithm.</p>
+<p><em>points</em>  must be an iterable.</p>
+<p>The first step in this algorithm is to find the point with the lowest y-coordinate. If the
+lowest y-coordinate exists in more than one point in the set, the point with the lowest
+x-coordinate out of the candidates should be chosen.  Call this point P0. This step takes O(n).</p>
+<p>Next, the set of points must be sorted in increasing order of the angle they and the point P0
+make with the x-axis.</p>
+</dd></dl>
+
 </div>
 
 
@@ -603,7 +676,7 @@
         <a href="Polyline.html" class="btn btn-neutral float-right" title="10.1.4.9. Polyline" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Path.html" class="btn btn-neutral" title="10.1.4.7. Path" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Path.html" class="btn btn-neutral float-left" title="10.1.4.7. Path" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -629,28 +702,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../static/jquery.js"></script>
-        <script type="text/javascript" src="../../../static/underscore.js"></script>
-        <script type="text/javascript" src="../../../static/doctools.js"></script>
-        <script type="text/javascript" src="../../../static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/javascript" src="../../../static/getthecode.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(false);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

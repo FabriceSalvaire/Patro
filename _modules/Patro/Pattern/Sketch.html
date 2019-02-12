@@ -17,32 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../../../static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../static/jquery.js"></script>
+        <script type="text/javascript" src="../../../static/underscore.js"></script>
+        <script type="text/javascript" src="../../../static/doctools.js"></script>
+        <script type="text/javascript" src="../../../static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../static/getthecode.js"></script>
+    
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../static/css/Patro.css" type="text/css" />
   <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -282,6 +286,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/SketchStyle.html">10.1.8.5. SketchStyle</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/Patro/QtApplication.html">10.1.9. QtApplication</a><ul>
@@ -403,10 +408,11 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">from</span> <span class="nn">Patro.GeometryEngine.Vector</span> <span class="k">import</span> <span class="n">Vector2D</span>
-<span class="kn">from</span> <span class="nn">Patro.GraphicEngine.GraphicScene.GraphicStyle</span> <span class="k">import</span> <span class="n">GraphicPathStyle</span><span class="p">,</span> <span class="n">Font</span>
+<span class="kn">from</span> <span class="nn">Patro.GraphicEngine.GraphicScene.GraphicStyle</span> <span class="k">import</span> <span class="n">GraphicPathStyle</span>
 <span class="kn">from</span> <span class="nn">Patro.GraphicEngine.GraphicScene.Scene</span> <span class="k">import</span> <span class="n">GraphicScene</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">SketchOperation</span>
 <span class="kn">from</span> <span class="nn">.Calculator</span> <span class="k">import</span> <span class="n">Calculator</span>
+<span class="kn">from</span> <span class="nn">.SketchStyle</span> <span class="k">import</span> <span class="n">DetailSketchStyle</span>
 
 <span class="c1">####################################################################################################</span>
 
@@ -540,7 +546,7 @@
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="Sketch.detail_scene"><a class="viewcode-back" href="../../../api/Patro/Pattern/Sketch.html#Patro.Pattern.Sketch.Sketch.detail_scene">[docs]</a>    <span class="k">def</span> <span class="nf">detail_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene_cls</span><span class="o">=</span><span class="n">GraphicScene</span><span class="p">):</span>
+<div class="viewcode-block" id="Sketch.detail_scene"><a class="viewcode-back" href="../../../api/Patro/Pattern/Sketch.html#Patro.Pattern.Sketch.Sketch.detail_scene">[docs]</a>    <span class="k">def</span> <span class="nf">detail_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene_cls</span><span class="o">=</span><span class="n">GraphicScene</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot;Generate a graphic scene for the detail mode</span>
 
@@ -551,9 +557,10 @@
         <span class="c1"># Fixme: scene bounding box</span>
         <span class="n">scene</span><span class="o">.</span><span class="n">bounding_box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounding_box</span>
 
-        <span class="c1"># Fixme: implement a transformer class to prevent if ... ?</span>
+        <span class="k">if</span> <span class="n">style</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">style</span> <span class="o">=</span> <span class="n">DetailSketchStyle</span><span class="p">()</span>
 
-        <span class="n">font</span> <span class="o">=</span> <span class="n">Font</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="c1"># Fixme: implement a transformer class to prevent if ... ?</span>
 
         <span class="k">for</span> <span class="n">operation</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operations</span><span class="p">:</span>
 
@@ -561,8 +568,8 @@
                 <span class="c1"># Register coordinate</span>
                 <span class="n">scene</span><span class="o">.</span><span class="n">add_coordinate</span><span class="p">(</span><span class="n">operation</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">operation</span><span class="o">.</span><span class="n">vector</span><span class="p">)</span>
                 <span class="c1"># Draw point and label</span>
-                <span class="n">scene</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">operation</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;1pt&#39;</span><span class="p">,</span>
-                             <span class="n">GraphicPathStyle</span><span class="p">(</span><span class="n">fill_color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">),</span>
+                <span class="n">scene</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">operation</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">style</span><span class="o">.</span><span class="n">point_size</span><span class="p">,</span>
+                             <span class="n">style</span><span class="o">.</span><span class="n">point_style</span><span class="p">,</span>
                              <span class="n">user_data</span><span class="o">=</span><span class="n">operation</span><span class="p">,</span>
                 <span class="p">)</span>
                 <span class="n">label_offset</span> <span class="o">=</span> <span class="n">operation</span><span class="o">.</span><span class="n">label_offset</span>
@@ -571,13 +578,16 @@
                 <span class="k">if</span> <span class="n">offset</span><span class="p">:</span>
                     <span class="c1"># arrow must point to the label center and be clipped</span>
                     <span class="n">scene</span><span class="o">.</span><span class="n">segment</span><span class="p">(</span><span class="n">operation</span><span class="o">.</span><span class="n">vector</span><span class="p">,</span> <span class="n">label_position</span><span class="p">,</span>
-                                  <span class="n">GraphicPathStyle</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="s1">&#39;.5pt&#39;</span><span class="p">),</span>
+                                  <span class="n">style</span><span class="o">.</span><span class="n">label_line_style</span><span class="p">,</span>
                                   <span class="n">user_data</span><span class="o">=</span><span class="n">operation</span><span class="p">,</span>
                     <span class="p">)</span>
-                    <span class="n">scene</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">label_position</span><span class="p">,</span> <span class="n">operation</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">user_data</span><span class="o">=</span><span class="n">operation</span><span class="p">)</span>
+                    <span class="n">scene</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">label_position</span><span class="p">,</span> <span class="n">operation</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">style</span><span class="o">.</span><span class="n">font</span><span class="p">,</span> <span class="n">user_data</span><span class="o">=</span><span class="n">operation</span><span class="p">)</span>
 
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">operation</span><span class="p">,</span> <span class="n">SketchOperation</span><span class="o">.</span><span class="n">LinePropertiesMixin</span><span class="p">):</span>
-                    <span class="n">path_style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operation_to_path_style</span><span class="p">(</span><span class="n">operation</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="s1">&#39;2pt&#39;</span><span class="p">)</span>
+                    <span class="n">path_style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operation_to_path_style</span><span class="p">(</span>
+                        <span class="n">operation</span><span class="p">,</span>
+                        <span class="n">line_width</span><span class="o">=</span><span class="n">style</span><span class="o">.</span><span class="n">construction_line_width</span><span class="p">,</span>
+                    <span class="p">)</span>
                     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">operation</span><span class="p">,</span> <span class="n">SketchOperation</span><span class="o">.</span><span class="n">AlongLinePoint</span><span class="p">):</span>
                         <span class="n">scene</span><span class="o">.</span><span class="n">segment</span><span class="p">(</span><span class="n">operation</span><span class="o">.</span><span class="n">first_point</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">operation</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                                       <span class="n">path_style</span><span class="p">,</span>
@@ -600,14 +610,14 @@
             <span class="c1"># Draw path item like segments and Bézier curves</span>
 
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">operation</span><span class="p">,</span> <span class="n">SketchOperation</span><span class="o">.</span><span class="n">Line</span><span class="p">):</span>
-                <span class="n">path_style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operation_to_path_style</span><span class="p">(</span><span class="n">operation</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="s1">&#39;4pt&#39;</span><span class="p">)</span>
+                <span class="n">path_style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operation_to_path_style</span><span class="p">(</span><span class="n">operation</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="n">style</span><span class="o">.</span><span class="n">line_width</span><span class="p">)</span>
                 <span class="n">scene</span><span class="o">.</span><span class="n">segment</span><span class="p">(</span><span class="n">operation</span><span class="o">.</span><span class="n">first_point</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">operation</span><span class="o">.</span><span class="n">second_point</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                               <span class="n">path_style</span><span class="p">,</span>
                               <span class="n">user_data</span><span class="o">=</span><span class="n">operation</span><span class="p">,</span>
                 <span class="p">)</span>
 
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">operation</span><span class="p">,</span> <span class="n">SketchOperation</span><span class="o">.</span><span class="n">SimpleInteractiveSpline</span><span class="p">):</span>
-                <span class="n">path_style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operation_to_path_style</span><span class="p">(</span><span class="n">operation</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="s1">&#39;4pt&#39;</span><span class="p">)</span>
+                <span class="n">path_style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operation_to_path_style</span><span class="p">(</span><span class="n">operation</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="n">style</span><span class="o">.</span><span class="n">line_width</span><span class="p">)</span>
                 <span class="n">scene</span><span class="o">.</span><span class="n">cubic_bezier</span><span class="p">(</span><span class="n">operation</span><span class="o">.</span><span class="n">first_point</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                                    <span class="n">operation</span><span class="o">.</span><span class="n">control_point1</span><span class="p">,</span> <span class="n">operation</span><span class="o">.</span><span class="n">control_point2</span><span class="p">,</span>
                                    <span class="n">operation</span><span class="o">.</span><span class="n">second_point</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
@@ -645,28 +655,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../static/jquery.js"></script>
-        <script type="text/javascript" src="../../../static/underscore.js"></script>
-        <script type="text/javascript" src="../../../static/doctools.js"></script>
-        <script type="text/javascript" src="../../../static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/javascript" src="../../../static/getthecode.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(false);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

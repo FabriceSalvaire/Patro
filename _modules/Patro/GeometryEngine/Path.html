@@ -17,32 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../../../static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../static/jquery.js"></script>
+        <script type="text/javascript" src="../../../static/underscore.js"></script>
+        <script type="text/javascript" src="../../../static/doctools.js"></script>
+        <script type="text/javascript" src="../../../static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../static/getthecode.js"></script>
+    
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../static/css/Patro.css" type="text/css" />
   <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -282,6 +286,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/SketchStyle.html">10.1.8.5. SketchStyle</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/Patro/QtApplication.html">10.1.9. QtApplication</a><ul>
@@ -414,7 +419,7 @@
 <span class="kn">import</span> <span class="nn">math</span>
 
 <span class="kn">from</span> <span class="nn">Patro.Common.Math.Functions</span> <span class="k">import</span> <span class="n">sign</span>
-<span class="kn">from</span> <span class="nn">.Primitive</span> <span class="k">import</span> <span class="n">Primitive1P</span><span class="p">,</span> <span class="n">Primitive2DMixin</span>
+<span class="kn">from</span> <span class="nn">.Primitive</span> <span class="k">import</span> <span class="n">Primitive</span><span class="p">,</span> <span class="n">Primitive1PMixin</span><span class="p">,</span> <span class="n">Primitive2DMixin</span>
 <span class="kn">from</span> <span class="nn">.Bezier</span> <span class="k">import</span> <span class="n">QuadraticBezier2D</span><span class="p">,</span> <span class="n">CubicBezier2D</span>
 <span class="kn">from</span> <span class="nn">.Conic</span> <span class="k">import</span> <span class="n">AngularDomain</span><span class="p">,</span> <span class="n">Circle2D</span><span class="p">,</span> <span class="n">Ellipse2D</span>
 <span class="kn">from</span> <span class="nn">.Segment</span> <span class="k">import</span> <span class="n">Segment2D</span>
@@ -1243,7 +1248,7 @@
 
 <span class="c1">####################################################################################################</span>
 
-<div class="viewcode-block" id="Path2D"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Path.html#Patro.GeometryEngine.Path.Path2D">[docs]</a><span class="k">class</span> <span class="nc">Path2D</span><span class="p">(</span><span class="n">Primitive2DMixin</span><span class="p">,</span> <span class="n">Primitive1P</span><span class="p">):</span>
+<div class="viewcode-block" id="Path2D"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Path.html#Patro.GeometryEngine.Path.Path2D">[docs]</a><span class="k">class</span> <span class="nc">Path2D</span><span class="p">(</span><span class="n">Primitive1PMixin</span><span class="p">,</span> <span class="n">Primitive2DMixin</span><span class="p">,</span> <span class="n">Primitive</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;Class to implements 2D Path.&quot;&quot;&quot;</span>
 
@@ -1251,9 +1256,15 @@
 
     <span class="c1">##############################################</span>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_composed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="c1">##############################################</span>
+
 <div class="viewcode-block" id="Path2D.__init__"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Path.html#Patro.GeometryEngine.Path.Path2D.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_point</span><span class="p">):</span>
 
-        <span class="n">Primitive1P</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_point</span><span class="p">)</span>
+        <span class="n">Primitive1PMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_point</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_parts</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># Fixme: segment ???</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_closed</span> <span class="o">=</span> <span class="kc">False</span></div>
@@ -1520,28 +1531,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../static/jquery.js"></script>
-        <script type="text/javascript" src="../../../static/underscore.js"></script>
-        <script type="text/javascript" src="../../../static/doctools.js"></script>
-        <script type="text/javascript" src="../../../static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/javascript" src="../../../static/getthecode.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(false);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

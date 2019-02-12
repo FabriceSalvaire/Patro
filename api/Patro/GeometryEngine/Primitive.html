@@ -17,34 +17,38 @@
   
 
   
+  <script type="text/javascript" src="../../../static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../static/jquery.js"></script>
+        <script type="text/javascript" src="../../../static/underscore.js"></script>
+        <script type="text/javascript" src="../../../static/doctools.js"></script>
+        <script type="text/javascript" src="../../../static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../static/getthecode.js"></script>
+    
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../static/css/Patro.css" type="text/css" />
   <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="10.1.4.11. Rectangle" href="Rectangle.html" />
     <link rel="prev" title="10.1.4.9. Polyline" href="Polyline.html" /> 
-
-  
-  <script src="../../../static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -284,6 +288,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Pattern/SketchStyle.html">10.1.8.5. SketchStyle</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../QtApplication.html">10.1.9. QtApplication</a><ul>
@@ -384,7 +389,7 @@
             
   <div class="section" id="module-Patro.GeometryEngine.Primitive">
 <span id="primitive"></span><h1>10.1.4.10. Primitive<a class="headerlink" href="#module-Patro.GeometryEngine.Primitive" title="Permalink to this headline">¶</a></h1>
-<p>Module to implement base classes for primitives.</p>
+<p>Module to implement base classes for geometric primitives.</p>
 <dl class="class">
 <dt id="Patro.GeometryEngine.Primitive.ClosedPrimitiveMixin">
 <em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Primitive.</code><code class="descname">ClosedPrimitiveMixin</code><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#ClosedPrimitiveMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.ClosedPrimitiveMixin" title="Permalink to this definition">¶</a></dt>
@@ -426,6 +431,146 @@ y_0  &amp; y_1 &amp; \ldots &amp; y_{n-1} &amp; y_0
 </dd></dl>
 
 <dl class="class">
+<dt id="Patro.GeometryEngine.Primitive.PointPrimitive">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Primitive.</code><code class="descname">PointPrimitive</code><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#PointPrimitive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PointPrimitive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Primitive.Primitive" title="Patro.GeometryEngine.Primitive.Primitive"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.Primitive</span></code></a></p>
+<p>Base class for geometric primitive which are only defined by a list of points, like segment,
+polygon and Bézier curve.</p>
+<p>Conversely an ellipse is defined by a centre, a scale-rotation matrix (a radius vector and a
+rotation angle) and an angular domain.  Path is also another type of primitive which is a
+composition of basic primitives.</p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Primitive.PointPrimitive.__eq__">
+<code class="descname">__eq__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#PointPrimitive.__eq__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PointPrimitive.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Primitive.PointPrimitive.__hash__">
+<code class="descname">__hash__</code><em class="property"> = None</em><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PointPrimitive.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Primitive.PointPrimitive.__len__">
+<code class="descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#PointPrimitive.__len__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PointPrimitive.__len__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Array interface: return the number of points.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Primitive.PointPrimitive.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#PointPrimitive.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PointPrimitive.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Primitive.PointPrimitive._set_points">
+<code class="descname">_set_points</code><span class="sig-paren">(</span><em>points</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#PointPrimitive._set_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PointPrimitive._set_points" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Primitive.PointPrimitive.apply_transformation">
+<code class="descname">apply_transformation</code><span class="sig-paren">(</span><em>transformation</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#PointPrimitive.apply_transformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PointPrimitive.apply_transformation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply a transformation to the primitive.</p>
+<p>If <em>clone</em> is set then the primitive is cloned.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Primitive.PointPrimitive.bounding_box">
+<code class="descname">bounding_box</code><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PointPrimitive.bounding_box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bounding box of the primitive.</p>
+<p>Return None if primitive is infinite.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Primitive.PointPrimitive.clone">
+<code class="descname">clone</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#PointPrimitive.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PointPrimitive.clone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clone a primitive instance.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">points must be cloned as well.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Primitive.PointPrimitive.is_point_close">
+<code class="descname">is_point_close</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#PointPrimitive.is_point_close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PointPrimitive.is_point_close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Primitive.PointPrimitive.is_point_equal">
+<code class="descname">is_point_equal</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#PointPrimitive.is_point_equal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PointPrimitive.is_point_equal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Primitive.PointPrimitive.is_reversible">
+<code class="descname">is_reversible</code><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PointPrimitive.is_reversible" title="Permalink to this definition">¶</a></dt>
+<dd><p>True if the order of the points is reversible</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Primitive.PointPrimitive.mirror">
+<code class="descname">mirror</code><span class="sig-paren">(</span><em>clone=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#PointPrimitive.mirror"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PointPrimitive.mirror" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Primitive.PointPrimitive.number_of_points">
+<code class="descname">number_of_points</code><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PointPrimitive.number_of_points" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of points which define the primitive.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Primitive.PointPrimitive.point_array">
+<code class="descname">point_array</code><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PointPrimitive.point_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the geometry matrix as a Numpy array.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathrm{Geometry\ Matrix} =
+\begin{bmatrix}
+x_0  &amp; x_1 &amp; \ldots &amp; x_{n-1} \\
+y_0  &amp; y_1 &amp; \ldots &amp; y_{n-1}
+\end{bmatrix}\end{split}\]</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Primitive.PointPrimitive.points">
+<code class="descname">points</code><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PointPrimitive.points" title="Permalink to this definition">¶</a></dt>
+<dd><p>Usually return an iterator on the points.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Primitive.PointPrimitive.reverse">
+<code class="descname">reverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#PointPrimitive.reverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PointPrimitive.reverse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Primitive.PointPrimitive.rotate">
+<code class="descname">rotate</code><span class="sig-paren">(</span><em>angle</em>, <em>clone=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#PointPrimitive.rotate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PointPrimitive.rotate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Primitive.PointPrimitive.scale">
+<code class="descname">scale</code><span class="sig-paren">(</span><em>x_factor</em>, <em>y_factor=None</em>, <em>clone=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#PointPrimitive.scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PointPrimitive.scale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Primitive.PointPrimitive.transform">
+<code class="descname">transform</code><span class="sig-paren">(</span><em>transformation</em>, <em>clone=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#PointPrimitive.transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PointPrimitive.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply a transformation to the primitive.</p>
+<p>If <em>clone</em> is set then the primitive is cloned.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Primitive.PointPrimitive.x_mirror">
+<code class="descname">x_mirror</code><span class="sig-paren">(</span><em>clone=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#PointPrimitive.x_mirror"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PointPrimitive.x_mirror" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GeometryEngine.Primitive.PointPrimitive.y_mirror">
+<code class="descname">y_mirror</code><span class="sig-paren">(</span><em>clone=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#PointPrimitive.y_mirror"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PointPrimitive.y_mirror" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="Patro.GeometryEngine.Primitive.PolygonMixin">
 <em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Primitive.</code><code class="descname">PolygonMixin</code><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#PolygonMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PolygonMixin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
@@ -441,33 +586,10 @@ y_0  &amp; y_1 &amp; \ldots &amp; y_{n-1} &amp; y_0
 <em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Primitive.</code><code class="descname">Primitive</code><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Base class for geometric primitive</p>
-<dl class="method">
-<dt id="Patro.GeometryEngine.Primitive.Primitive.__len__">
-<code class="descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive.__len__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive.__len__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="Patro.GeometryEngine.Primitive.Primitive.__repr__">
-<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive.__repr__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return repr(self).</p>
-</dd></dl>
-
 <dl class="attribute">
 <dt id="Patro.GeometryEngine.Primitive.Primitive.__vector_cls__">
 <code class="descname">__vector_cls__</code><em class="property"> = None</em><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive.__vector_cls__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="method">
-<dt id="Patro.GeometryEngine.Primitive.Primitive._set_points">
-<code class="descname">_set_points</code><span class="sig-paren">(</span><em>points</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive._set_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive._set_points" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="Patro.GeometryEngine.Primitive.Primitive.apply_transformation">
-<code class="descname">apply_transformation</code><span class="sig-paren">(</span><em>transformation</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive.apply_transformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive.apply_transformation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Apply a transformation to the primitive.</p>
-<p>If <em>clone</em> is set then the primitive is cloned.</p>
-</dd></dl>
 
 <dl class="attribute">
 <dt id="Patro.GeometryEngine.Primitive.Primitive.bounding_box">
@@ -479,7 +601,8 @@ y_0  &amp; y_1 &amp; \ldots &amp; y_{n-1} &amp; y_0
 <dl class="method">
 <dt id="Patro.GeometryEngine.Primitive.Primitive.clone">
 <code class="descname">clone</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive.clone" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Clone a primitive instance.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="Patro.GeometryEngine.Primitive.Primitive.dimension">
@@ -491,97 +614,29 @@ y_0  &amp; y_1 &amp; \ldots &amp; y_{n-1} &amp; y_0
 <dt id="Patro.GeometryEngine.Primitive.Primitive.is_closed">
 <code class="descname">is_closed</code><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive.is_closed" title="Permalink to this definition">¶</a></dt>
 <dd><p>True if the primitive is a closed path.</p>
+<p>Note: an infinite primitive cannot be closed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Primitive.Primitive.is_composed">
+<code class="descname">is_composed</code><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive.is_composed" title="Permalink to this definition">¶</a></dt>
+<dd><p>True if the primitive is a composition of simpler primitives, e.g. a path.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Patro.GeometryEngine.Primitive.Primitive.is_infinite">
 <code class="descname">is_infinite</code><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive.is_infinite" title="Permalink to this definition">¶</a></dt>
-<dd><p>True if the primitive has infinite extend like a line</p>
+<dd><p>True if the primitive has infinite extend like a line.</p>
+<p>Note: a closed primitive cannot be infinite.</p>
 </dd></dl>
-
-<dl class="method">
-<dt id="Patro.GeometryEngine.Primitive.Primitive.is_point_close">
-<code class="descname">is_point_close</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive.is_point_close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive.is_point_close" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="Patro.GeometryEngine.Primitive.Primitive.is_reversible">
-<code class="descname">is_reversible</code><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive.is_reversible" title="Permalink to this definition">¶</a></dt>
-<dd><p>True if the order of the points is reversible</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Patro.GeometryEngine.Primitive.Primitive.mirror">
-<code class="descname">mirror</code><span class="sig-paren">(</span><em>clone=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive.mirror"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive.mirror" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="Patro.GeometryEngine.Primitive.Primitive.number_of_points">
-<code class="descname">number_of_points</code><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive.number_of_points" title="Permalink to this definition">¶</a></dt>
-<dd><p>Number of points which define the primitive.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Patro.GeometryEngine.Primitive.Primitive.point_array">
-<code class="descname">point_array</code><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive.point_array" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the geometry matrix as a Numpy array.</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\mathrm{Geometry\ Matrix} =
-\begin{bmatrix}
-x_0  &amp; x_1 &amp; \ldots &amp; x_{n-1} \\
-y_0  &amp; y_1 &amp; \ldots &amp; y_{n-1}
-\end{bmatrix}\end{split}\]</div>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Patro.GeometryEngine.Primitive.Primitive.points">
-<code class="descname">points</code><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive.points" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="Patro.GeometryEngine.Primitive.Primitive.reverse">
-<code class="descname">reverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive.reverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive.reverse" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="Patro.GeometryEngine.Primitive.Primitive.rotate">
-<code class="descname">rotate</code><span class="sig-paren">(</span><em>angle</em>, <em>clone=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive.rotate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive.rotate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="Patro.GeometryEngine.Primitive.Primitive.scale">
-<code class="descname">scale</code><span class="sig-paren">(</span><em>x_factor</em>, <em>y_factor=None</em>, <em>clone=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive.scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive.scale" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="Patro.GeometryEngine.Primitive.Primitive.transform">
-<code class="descname">transform</code><span class="sig-paren">(</span><em>transformation</em>, <em>clone=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive.transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive.transform" title="Permalink to this definition">¶</a></dt>
-<dd><p>Apply a transformation to the primitive.</p>
-<p>If <em>clone</em> is set then the primitive is cloned.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Patro.GeometryEngine.Primitive.Primitive.x_mirror">
-<code class="descname">x_mirror</code><span class="sig-paren">(</span><em>clone=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive.x_mirror"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive.x_mirror" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="Patro.GeometryEngine.Primitive.Primitive.y_mirror">
-<code class="descname">y_mirror</code><span class="sig-paren">(</span><em>clone=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive.y_mirror"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive.y_mirror" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="Patro.GeometryEngine.Primitive.Primitive1P">
 <em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Primitive.</code><code class="descname">Primitive1P</code><span class="sig-paren">(</span><em>p0</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive1P"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive1P" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Primitive.Primitive" title="Patro.GeometryEngine.Primitive.Primitive"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.Primitive</span></code></a></p>
-<dl class="method">
-<dt id="Patro.GeometryEngine.Primitive.Primitive1P.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>p0</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive1P.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive1P.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
-</dd></dl>
-
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Primitive.PointPrimitive" title="Patro.GeometryEngine.Primitive.PointPrimitive"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.PointPrimitive</span></code></a>, <a class="reference internal" href="#Patro.GeometryEngine.Primitive.Primitive1PMixin" title="Patro.GeometryEngine.Primitive.Primitive1PMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.Primitive1PMixin</span></code></a></p>
+<p>Base class to construct 2, 3, … points primitives.</p>
 <dl class="method">
 <dt id="Patro.GeometryEngine.Primitive.Primitive1P._set_points">
 <code class="descname">_set_points</code><span class="sig-paren">(</span><em>points</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive1P._set_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive1P._set_points" title="Permalink to this definition">¶</a></dt>
@@ -594,14 +649,10 @@ y_0  &amp; y_1 &amp; \ldots &amp; y_{n-1}
 </dd></dl>
 
 <dl class="attribute">
-<dt id="Patro.GeometryEngine.Primitive.Primitive1P.p0">
-<code class="descname">p0</code><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive1P.p0" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="Patro.GeometryEngine.Primitive.Primitive1P.points">
 <code class="descname">points</code><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive1P.points" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Usually return an iterator on the points.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="Patro.GeometryEngine.Primitive.Primitive1P.reversed_points">
@@ -611,9 +662,27 @@ y_0  &amp; y_1 &amp; \ldots &amp; y_{n-1}
 </dd></dl>
 
 <dl class="class">
+<dt id="Patro.GeometryEngine.Primitive.Primitive1PMixin">
+<em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Primitive.</code><code class="descname">Primitive1PMixin</code><span class="sig-paren">(</span><em>p0</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive1PMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive1PMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="Patro.GeometryEngine.Primitive.Primitive1PMixin.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>p0</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive1PMixin.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive1PMixin.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Patro.GeometryEngine.Primitive.Primitive1PMixin.p0">
+<code class="descname">p0</code><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive1PMixin.p0" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="Patro.GeometryEngine.Primitive.Primitive2DMixin">
 <em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Primitive.</code><code class="descname">Primitive2DMixin</code><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive2DMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive2DMixin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Mixin for 2D primitive</p>
 <dl class="attribute">
 <dt id="Patro.GeometryEngine.Primitive.Primitive2DMixin.__vector_cls__">
 <code class="descname">__vector_cls__</code><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive2DMixin.__vector_cls__" title="Permalink to this definition">¶</a></dt>
@@ -631,6 +700,7 @@ y_0  &amp; y_1 &amp; \ldots &amp; y_{n-1}
 <dt id="Patro.GeometryEngine.Primitive.Primitive2P">
 <em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Primitive.</code><code class="descname">Primitive2P</code><span class="sig-paren">(</span><em>p0</em>, <em>p1</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive2P"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive2P" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Primitive.Primitive1P" title="Patro.GeometryEngine.Primitive.Primitive1P"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.Primitive1P</span></code></a>, <a class="reference internal" href="#Patro.GeometryEngine.Primitive.ReversiblePrimitiveMixin" title="Patro.GeometryEngine.Primitive.ReversiblePrimitiveMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.ReversiblePrimitiveMixin</span></code></a></p>
+<p>Base class for 2-points primitives.</p>
 <dl class="method">
 <dt id="Patro.GeometryEngine.Primitive.Primitive2P.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>p0</em>, <em>p1</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive2P.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive2P.__init__" title="Permalink to this definition">¶</a></dt>
@@ -667,7 +737,8 @@ y_0  &amp; y_1 &amp; \ldots &amp; y_{n-1}
 <dl class="attribute">
 <dt id="Patro.GeometryEngine.Primitive.Primitive2P.points">
 <code class="descname">points</code><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive2P.points" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Usually return an iterator on the points.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="Patro.GeometryEngine.Primitive.Primitive2P.reversed_points">
@@ -685,6 +756,7 @@ y_0  &amp; y_1 &amp; \ldots &amp; y_{n-1}
 <dt id="Patro.GeometryEngine.Primitive.Primitive3P">
 <em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Primitive.</code><code class="descname">Primitive3P</code><span class="sig-paren">(</span><em>p0</em>, <em>p1</em>, <em>p2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive3P"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive3P" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Primitive.Primitive2P" title="Patro.GeometryEngine.Primitive.Primitive2P"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.Primitive2P</span></code></a></p>
+<p>Base class for 3-points primitives.</p>
 <dl class="method">
 <dt id="Patro.GeometryEngine.Primitive.Primitive3P.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>p0</em>, <em>p1</em>, <em>p2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive3P.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive3P.__init__" title="Permalink to this definition">¶</a></dt>
@@ -720,7 +792,8 @@ y_0  &amp; y_1 &amp; \ldots &amp; y_{n-1}
 <dl class="attribute">
 <dt id="Patro.GeometryEngine.Primitive.Primitive3P.points">
 <code class="descname">points</code><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive3P.points" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Usually return an iterator on the points.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="Patro.GeometryEngine.Primitive.Primitive3P.reversed_points">
@@ -733,6 +806,7 @@ y_0  &amp; y_1 &amp; \ldots &amp; y_{n-1}
 <dt id="Patro.GeometryEngine.Primitive.Primitive4P">
 <em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Primitive.</code><code class="descname">Primitive4P</code><span class="sig-paren">(</span><em>p0</em>, <em>p1</em>, <em>p2</em>, <em>p3</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive4P"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive4P" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Primitive.Primitive3P" title="Patro.GeometryEngine.Primitive.Primitive3P"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.Primitive3P</span></code></a></p>
+<p>Base class for 4-points primitives.</p>
 <dl class="method">
 <dt id="Patro.GeometryEngine.Primitive.Primitive4P.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>p0</em>, <em>p1</em>, <em>p2</em>, <em>p3</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#Primitive4P.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive4P.__init__" title="Permalink to this definition">¶</a></dt>
@@ -768,7 +842,8 @@ y_0  &amp; y_1 &amp; \ldots &amp; y_{n-1}
 <dl class="attribute">
 <dt id="Patro.GeometryEngine.Primitive.Primitive4P.points">
 <code class="descname">points</code><a class="headerlink" href="#Patro.GeometryEngine.Primitive.Primitive4P.points" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Usually return an iterator on the points.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="Patro.GeometryEngine.Primitive.Primitive4P.reversed_points">
@@ -780,7 +855,8 @@ y_0  &amp; y_1 &amp; \ldots &amp; y_{n-1}
 <dl class="class">
 <dt id="Patro.GeometryEngine.Primitive.PrimitiveNP">
 <em class="property">class </em><code class="descclassname">Patro.GeometryEngine.Primitive.</code><code class="descname">PrimitiveNP</code><span class="sig-paren">(</span><em>*points</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#PrimitiveNP"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PrimitiveNP" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Primitive.Primitive" title="Patro.GeometryEngine.Primitive.Primitive"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.Primitive</span></code></a>, <a class="reference internal" href="#Patro.GeometryEngine.Primitive.ReversiblePrimitiveMixin" title="Patro.GeometryEngine.Primitive.ReversiblePrimitiveMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.ReversiblePrimitiveMixin</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#Patro.GeometryEngine.Primitive.PointPrimitive" title="Patro.GeometryEngine.Primitive.PointPrimitive"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.PointPrimitive</span></code></a>, <a class="reference internal" href="#Patro.GeometryEngine.Primitive.ReversiblePrimitiveMixin" title="Patro.GeometryEngine.Primitive.ReversiblePrimitiveMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patro.GeometryEngine.Primitive.ReversiblePrimitiveMixin</span></code></a></p>
+<p>Base class for N-points primitives.</p>
 <dl class="method">
 <dt id="Patro.GeometryEngine.Primitive.PrimitiveNP.__getitem__">
 <code class="descname">__getitem__</code><span class="sig-paren">(</span><em>_slice</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Primitive.html#PrimitiveNP.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PrimitiveNP.__getitem__" title="Permalink to this definition">¶</a></dt>
@@ -826,7 +902,8 @@ y_0  &amp; y_1 &amp; \ldots &amp; y_{n-1}
 <dl class="attribute">
 <dt id="Patro.GeometryEngine.Primitive.PrimitiveNP.points">
 <code class="descname">points</code><a class="headerlink" href="#Patro.GeometryEngine.Primitive.PrimitiveNP.points" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Usually return an iterator on the points.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="Patro.GeometryEngine.Primitive.PrimitiveNP.reversed_points">
@@ -884,7 +961,7 @@ y_0  &amp; y_1 &amp; \ldots &amp; y_{n-1}
         <a href="Rectangle.html" class="btn btn-neutral float-right" title="10.1.4.11. Rectangle" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Polyline.html" class="btn btn-neutral" title="10.1.4.9. Polyline" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Polyline.html" class="btn btn-neutral float-left" title="10.1.4.9. Polyline" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -910,28 +987,16 @@ y_0  &amp; y_1 &amp; \ldots &amp; y_{n-1}
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../static/jquery.js"></script>
-        <script type="text/javascript" src="../../../static/underscore.js"></script>
-        <script type="text/javascript" src="../../../static/doctools.js"></script>
-        <script type="text/javascript" src="../../../static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/javascript" src="../../../static/getthecode.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(false);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

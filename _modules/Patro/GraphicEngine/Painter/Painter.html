@@ -17,32 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../../../../static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../../static/getthecode.js"></script>
+    
+    <script type="text/javascript" src="../../../../static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../../static/css/Patro.css" type="text/css" />
   <link rel="stylesheet" href="../../../../static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
-
-  
-  <script src="../../../../static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -282,6 +286,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/SketchStyle.html">10.1.8.5. SketchStyle</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/QtApplication.html">10.1.9. QtApplication</a><ul>
@@ -511,29 +516,50 @@
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="Painter.paint_CoordinateItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/Painter.html#Patro.GraphicEngine.Painter.Painter.Painter.paint_CoordinateItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_CoordinateItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
-
-    <span class="c1">##############################################</span>
-
-<div class="viewcode-block" id="Painter.paint_TextItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/Painter.html#Patro.GraphicEngine.Painter.Painter.Painter.paint_TextItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_TextItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+<div class="viewcode-block" id="Painter.cast_item_coordinates"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/Painter.html#Patro.GraphicEngine.Painter.Painter.Painter.cast_item_coordinates">[docs]</a>    <span class="k">def</span> <span class="nf">cast_item_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">positions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cast_item_positions</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">flat</span><span class="p">:</span>
+            <span class="n">coordinates</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">positions</span><span class="p">:</span>
+                <span class="n">coordinates</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">coordinates</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">position</span><span class="p">)</span> <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">positions</span><span class="p">]</span></div>
 
     <span class="c1">##############################################</span>
 
 <div class="viewcode-block" id="Painter.paint_CircleItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/Painter.html#Patro.GraphicEngine.Painter.Painter.Painter.paint_CircleItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_CircleItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
-    <span class="c1">##############################################</span>
+    <span class="c1"># def paint_CoordinateItem(self, item):</span>
+    <span class="c1">#     raise NotImplementedError</span>
+
+<div class="viewcode-block" id="Painter.paint_CubicBezierItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/Painter.html#Patro.GraphicEngine.Painter.Painter.Painter.paint_CubicBezierItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_CubicBezierItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Painter.paint_EllipseItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/Painter.html#Patro.GraphicEngine.Painter.Painter.Painter.paint_EllipseItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_EllipseItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Painter.paint_ImageItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/Painter.html#Patro.GraphicEngine.Painter.Painter.Painter.paint_ImageItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_ImageItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Painter.paint_PathItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/Painter.html#Patro.GraphicEngine.Painter.Painter.Painter.paint_PathItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_PathItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Painter.paint_PolygonItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/Painter.html#Patro.GraphicEngine.Painter.Painter.Painter.paint_PolygonItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_PolygonItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Painter.paint_PolylineItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/Painter.html#Patro.GraphicEngine.Painter.Painter.Painter.paint_PolylineItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_PolylineItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Painter.paint_QuadraticBezierItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/Painter.html#Patro.GraphicEngine.Painter.Painter.Painter.paint_QuadraticBezierItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_QuadraticBezierItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
 <div class="viewcode-block" id="Painter.paint_SegmentItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/Painter.html#Patro.GraphicEngine.Painter.Painter.Painter.paint_SegmentItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_SegmentItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
-    <span class="c1">##############################################</span>
-
-<div class="viewcode-block" id="Painter.paint_CubicBezierItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/Painter.html#Patro.GraphicEngine.Painter.Painter.Painter.paint_CubicBezierItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_CubicBezierItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+<div class="viewcode-block" id="Painter.paint_TextItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/Painter.html#Patro.GraphicEngine.Painter.Painter.Painter.paint_TextItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_TextItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div></div>
-
 </pre></div>
 
            </div>
@@ -563,28 +589,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../../static/jquery.js"></script>
-        <script type="text/javascript" src="../../../../static/underscore.js"></script>
-        <script type="text/javascript" src="../../../../static/doctools.js"></script>
-        <script type="text/javascript" src="../../../../static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/javascript" src="../../../../static/getthecode.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../../static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(false);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

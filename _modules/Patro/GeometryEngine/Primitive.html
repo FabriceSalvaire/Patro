@@ -17,32 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../../../static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../static/jquery.js"></script>
+        <script type="text/javascript" src="../../../static/underscore.js"></script>
+        <script type="text/javascript" src="../../../static/doctools.js"></script>
+        <script type="text/javascript" src="../../../static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../static/getthecode.js"></script>
+    
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../static/css/Patro.css" type="text/css" />
   <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -282,6 +286,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/SketchStyle.html">10.1.8.5. SketchStyle</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/Patro/QtApplication.html">10.1.9. QtApplication</a><ul>
@@ -393,7 +398,7 @@
 <span class="c1">#</span>
 <span class="c1">####################################################################################################</span>
 
-<span class="sd">&quot;&quot;&quot;Module to implement base classes for primitives.</span>
+<span class="sd">&quot;&quot;&quot;Module to implement base classes for geometric primitives.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -406,6 +411,7 @@
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;Primitive&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Primitive2DMixin&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;PointPrimitive&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Primitive1P&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Primitive2P&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Primitive3P&#39;</span><span class="p">,</span>
@@ -419,6 +425,7 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">.BoundingBox</span> <span class="k">import</span> <span class="n">bounding_box_from_points</span>
+
 <span class="c1"># Fixme: circular import</span>
 <span class="c1"># from .Transformation import Transformation2D</span>
 
@@ -428,6 +435,11 @@
 
     <span class="sd">&quot;&quot;&quot;Base class for geometric primitive&quot;&quot;&quot;</span>
 
+    <span class="c1"># Fixme:</span>
+    <span class="c1">#  some primitives are only defined by a list of points (segment, polygone, Bézier curve)</span>
+    <span class="c1">#  but some primitives are defined by a point and scalars (radius vector): like circle, ellipse</span>
+
+    <span class="c1"># Fixme: shorter foo.vector_ctor()</span>
     <span class="n">__vector_cls__</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="c1">##############################################</span>
@@ -440,62 +452,37 @@
     <span class="c1">##############################################</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_composed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;True if the primitive is a composition of simpler primitives, e.g. a path.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">is_infinite</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;True if the primitive has infinite extend like a line&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;True if the primitive has infinite extend like a line.</span>
+
+<span class="sd">        Note: a closed primitive cannot be infinite.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="kc">False</span>
 
     <span class="c1">##############################################</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">is_closed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;True if the primitive is a closed path.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;True if the primitive is a closed path.</span>
+
+<span class="sd">        Note: an infinite primitive cannot be closed.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="kc">False</span>
-
-    <span class="c1">##############################################</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">number_of_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Number of points which define the primitive.&quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-
-<div class="viewcode-block" id="Primitive.__len__"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive.__len__">[docs]</a>    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_points</span></div>
-
-    <span class="c1">##############################################</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">is_reversible</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;True if the order of the points is reversible&quot;&quot;&quot;</span>
-        <span class="c1"># Fixme: True if number_of_points &gt; 1 ???</span>
-        <span class="k">return</span> <span class="kc">False</span>
-
-    <span class="c1">##############################################</span>
-
-    <span class="c1"># Fixme: part of the API imply points</span>
-    <span class="c1">#  it is not true for Path2D</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-
-    <span class="c1">##############################################</span>
-
-    <span class="c1"># @points.setter</span>
-    <span class="c1"># def points(self):</span>
-    <span class="c1">#     raise NotImplementedError</span>
-
-<div class="viewcode-block" id="Primitive._set_points"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive._set_points">[docs]</a>    <span class="k">def</span> <span class="nf">_set_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
-
-    <span class="c1">##############################################</span>
-
-<div class="viewcode-block" id="Primitive.__repr__"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive.__repr__">[docs]</a>    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="nb">str</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">])</span></div>
 
     <span class="c1">##############################################</span>
 
 <div class="viewcode-block" id="Primitive.clone"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive.clone">[docs]</a>    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">)</span></div>
+        <span class="sd">&quot;&quot;&quot;Clone a primitive instance.&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
     <span class="c1">##############################################</span>
 
@@ -505,63 +492,85 @@
 
 <span class="sd">        Return None if primitive is infinite.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Fixme: cache</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_infinite</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">bounding_box_from_points</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="Primitive.reverse"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive.reverse">[docs]</a>    <span class="k">def</span> <span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span></div>
+    <span class="c1"># @property</span>
+    <span class="c1"># def perimeter(self):</span>
+    <span class="c1">#     raise NotImplementedError</span>
+
+    <span class="c1"># @property</span>
+    <span class="c1"># def area(self):</span>
+    <span class="c1">#     raise NotImplementedError</span>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Primitive2DMixin"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive2DMixin">[docs]</a><span class="k">class</span> <span class="nc">Primitive2DMixin</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;Mixin for 2D primitive&quot;&quot;&quot;</span>
+
+     <span class="c1"># Fixme: due to import, done in module&#39;s __init__.py</span>
+    <span class="n">__vector_cls__</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># __dimension__ = 2</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">dimension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">2</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="PointPrimitive"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.PointPrimitive">[docs]</a><span class="k">class</span> <span class="nc">PointPrimitive</span><span class="p">(</span><span class="n">Primitive</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Base class for geometric primitive which are only defined by a list of points, like segment,</span>
+<span class="sd">    polygon and Bézier curve.</span>
+
+<span class="sd">    Conversely an ellipse is defined by a centre, a scale-rotation matrix (a radius vector and a</span>
+<span class="sd">    rotation angle) and an angular domain.  Path is also another type of primitive which is a</span>
+<span class="sd">    composition of basic primitives.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="Primitive.transform"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transformation</span><span class="p">,</span> <span class="n">clone</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Apply a transformation to the primitive.</span>
+<div class="viewcode-block" id="PointPrimitive.clone"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.PointPrimitive.clone">[docs]</a>    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clone a primitive instance.</span>
 
-<span class="sd">        If *clone* is set then the primitive is cloned.</span>
+<span class="sd">        .. warning:: points must be cloned as well.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span> <span class="k">if</span> <span class="n">clone</span> <span class="k">else</span> <span class="bp">self</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">transformation</span><span class="o">.</span><span class="n">is_identity</span><span class="p">:</span>
-            <span class="n">obj</span><span class="o">.</span><span class="n">apply_transformation</span><span class="p">(</span><span class="n">transformation</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">obj</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">)</span></div>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="Primitive.apply_transformation"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive.apply_transformation">[docs]</a>    <span class="k">def</span> <span class="nf">apply_transformation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transformation</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Apply a transformation to the primitive.</span>
-
-<span class="sd">        If *clone* is set then the primitive is cloned.</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># for point in self.points:</span>
-        <span class="c1">#     point *= transformation # don&#39;t work</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_set_points</span><span class="p">([</span><span class="n">transformation</span><span class="o">*</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">])</span></div>
+<div class="viewcode-block" id="PointPrimitive.__repr__"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.PointPrimitive.__repr__">[docs]</a>    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">]))</span></div>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="Primitive.mirror"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive.mirror">[docs]</a>    <span class="k">def</span> <span class="nf">mirror</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clone</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">.Transformation</span> <span class="k">import</span> <span class="n">Transformation2D</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">Transformation2D</span><span class="o">.</span><span class="n">Parity</span><span class="p">(),</span> <span class="n">clone</span><span class="p">)</span></div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">number_of_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Number of points which define the primitive.&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
-<div class="viewcode-block" id="Primitive.x_mirror"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive.x_mirror">[docs]</a>    <span class="k">def</span> <span class="nf">x_mirror</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clone</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">.Transformation</span> <span class="k">import</span> <span class="n">Transformation2D</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">Transformation2D</span><span class="o">.</span><span class="n">XReflection</span><span class="p">(),</span> <span class="n">clone</span><span class="p">)</span></div>
+<div class="viewcode-block" id="PointPrimitive.__len__"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.PointPrimitive.__len__">[docs]</a>    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Array interface: return the number of points.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_points</span></div>
 
-<div class="viewcode-block" id="Primitive.y_mirror"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive.y_mirror">[docs]</a>    <span class="k">def</span> <span class="nf">y_mirror</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clone</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">.Transformation</span> <span class="k">import</span> <span class="n">Transformation2D</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">Transformation2D</span><span class="o">.</span><span class="n">YReflection</span><span class="p">(),</span> <span class="n">clone</span><span class="p">)</span></div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Usually return an iterator on the points.&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
-<div class="viewcode-block" id="Primitive.rotate"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive.rotate">[docs]</a>    <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">clone</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">.Transformation</span> <span class="k">import</span> <span class="n">Transformation2D</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">Transformation2D</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="n">clone</span><span class="p">)</span></div>
+    <span class="c1"># @points.setter</span>
+    <span class="c1"># def points(self):</span>
+    <span class="c1">#     raise NotImplementedError</span>
 
-<div class="viewcode-block" id="Primitive.scale"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive.scale">[docs]</a>    <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_factor</span><span class="p">,</span> <span class="n">y_factor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">clone</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">.Transformation</span> <span class="k">import</span> <span class="n">Transformation2D</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">Transformation2D</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">x_factor</span><span class="p">,</span> <span class="n">y_factor</span><span class="p">),</span> <span class="n">clone</span><span class="p">)</span></div>
+<div class="viewcode-block" id="PointPrimitive._set_points"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.PointPrimitive._set_points">[docs]</a>    <span class="k">def</span> <span class="nf">_set_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
     <span class="c1">##############################################</span>
 
@@ -586,21 +595,92 @@
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="Primitive.is_point_close"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive.is_point_close">[docs]</a>    <span class="k">def</span> <span class="nf">is_point_close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<div class="viewcode-block" id="PointPrimitive.is_point_equal"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.PointPrimitive.is_point_equal">[docs]</a>    <span class="k">def</span> <span class="nf">is_point_equal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span> <span class="o">==</span> <span class="nb">list</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">points</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PointPrimitive.__eq__"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.PointPrimitive.__eq__">[docs]</a>    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_point_equal</span><span class="p">(</span><span class="n">other</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="PointPrimitive.is_point_close"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.PointPrimitive.is_point_close">[docs]</a>    <span class="k">def</span> <span class="nf">is_point_close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="c1"># Fixme: verus is_closed</span>
         <span class="c1">#  is_similar</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">point_array</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">point_array</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">point_array</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">point_array</span><span class="p">)</span></div>
 
-<span class="c1">####################################################################################################</span>
+    <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="Primitive2DMixin"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive2DMixin">[docs]</a><span class="k">class</span> <span class="nc">Primitive2DMixin</span><span class="p">:</span>
-
-    <span class="n">__vector_cls__</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># Fixme: due to import, done in module&#39;s __init__.py</span>
-
-    <span class="c1"># __dimension__ = 2</span>
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">dimension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="mi">2</span></div>
+    <span class="k">def</span> <span class="nf">is_reversible</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;True if the order of the points is reversible&quot;&quot;&quot;</span>
+        <span class="c1"># Fixme: True if number_of_points &gt; 1 ???</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="PointPrimitive.reverse"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.PointPrimitive.reverse">[docs]</a>    <span class="k">def</span> <span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">bounding_box</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Bounding box of the primitive.</span>
+
+<span class="sd">        Return None if primitive is infinite.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Fixme: cache</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_infinite</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">bounding_box_from_points</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="PointPrimitive.transform"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.PointPrimitive.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transformation</span><span class="p">,</span> <span class="n">clone</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Apply a transformation to the primitive.</span>
+
+<span class="sd">        If *clone* is set then the primitive is cloned.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span> <span class="k">if</span> <span class="n">clone</span> <span class="k">else</span> <span class="bp">self</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">transformation</span><span class="o">.</span><span class="n">is_identity</span><span class="p">:</span>
+            <span class="n">obj</span><span class="o">.</span><span class="n">apply_transformation</span><span class="p">(</span><span class="n">transformation</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">obj</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="PointPrimitive.apply_transformation"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.PointPrimitive.apply_transformation">[docs]</a>    <span class="k">def</span> <span class="nf">apply_transformation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transformation</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Apply a transformation to the primitive.</span>
+
+<span class="sd">        If *clone* is set then the primitive is cloned.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># for point in self.points:</span>
+        <span class="c1">#     point *= transformation # don&#39;t work</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_points</span><span class="p">([</span><span class="n">transformation</span><span class="o">*</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">])</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="PointPrimitive.mirror"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.PointPrimitive.mirror">[docs]</a>    <span class="k">def</span> <span class="nf">mirror</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clone</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">.Transformation</span> <span class="k">import</span> <span class="n">Transformation2D</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">Transformation2D</span><span class="o">.</span><span class="n">Parity</span><span class="p">(),</span> <span class="n">clone</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PointPrimitive.x_mirror"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.PointPrimitive.x_mirror">[docs]</a>    <span class="k">def</span> <span class="nf">x_mirror</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clone</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">.Transformation</span> <span class="k">import</span> <span class="n">Transformation2D</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">Transformation2D</span><span class="o">.</span><span class="n">XReflection</span><span class="p">(),</span> <span class="n">clone</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PointPrimitive.y_mirror"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.PointPrimitive.y_mirror">[docs]</a>    <span class="k">def</span> <span class="nf">y_mirror</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clone</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">.Transformation</span> <span class="k">import</span> <span class="n">Transformation2D</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">Transformation2D</span><span class="o">.</span><span class="n">YReflection</span><span class="p">(),</span> <span class="n">clone</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PointPrimitive.rotate"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.PointPrimitive.rotate">[docs]</a>    <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">clone</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">.Transformation</span> <span class="k">import</span> <span class="n">Transformation2D</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">Transformation2D</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="n">clone</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PointPrimitive.scale"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.PointPrimitive.scale">[docs]</a>    <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_factor</span><span class="p">,</span> <span class="n">y_factor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">clone</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">.Transformation</span> <span class="k">import</span> <span class="n">Transformation2D</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">Transformation2D</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">x_factor</span><span class="p">,</span> <span class="n">y_factor</span><span class="p">),</span> <span class="n">clone</span><span class="p">)</span></div></div>
 
 <span class="c1">####################################################################################################</span>
 
@@ -675,18 +755,14 @@
 
 <span class="c1">####################################################################################################</span>
 
-<div class="viewcode-block" id="Primitive1P"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive1P">[docs]</a><span class="k">class</span> <span class="nc">Primitive1P</span><span class="p">(</span><span class="n">Primitive</span><span class="p">):</span>
+<div class="viewcode-block" id="Primitive1PMixin"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive1PMixin">[docs]</a><span class="k">class</span> <span class="nc">Primitive1PMixin</span><span class="p">:</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="Primitive1P.__init__"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive1P.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p0</span><span class="p">):</span>
+<div class="viewcode-block" id="Primitive1PMixin.__init__"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive1PMixin.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p0</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">p0</span> <span class="o">=</span> <span class="n">p0</span></div>
 
     <span class="c1">##############################################</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">number_of_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="mi">1</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">p0</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -694,7 +770,19 @@
 
     <span class="nd">@p0</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">p0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_p0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__vector_cls__</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_p0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__vector_cls__</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="Primitive1P"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive1P">[docs]</a><span class="k">class</span> <span class="nc">Primitive1P</span><span class="p">(</span><span class="n">PointPrimitive</span><span class="p">,</span> <span class="n">Primitive1PMixin</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Base class to construct 2, 3, ... points primitives.&quot;&quot;&quot;</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">number_of_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">1</span>
 
     <span class="c1">##############################################</span>
 
@@ -714,6 +802,8 @@
 <span class="c1">####################################################################################################</span>
 
 <div class="viewcode-block" id="Primitive2P"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive2P">[docs]</a><span class="k">class</span> <span class="nc">Primitive2P</span><span class="p">(</span><span class="n">Primitive1P</span><span class="p">,</span> <span class="n">ReversiblePrimitiveMixin</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Base class for 2-points primitives.&quot;&quot;&quot;</span>
 
     <span class="c1">##############################################</span>
 
@@ -773,6 +863,8 @@
 
 <div class="viewcode-block" id="Primitive3P"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive3P">[docs]</a><span class="k">class</span> <span class="nc">Primitive3P</span><span class="p">(</span><span class="n">Primitive2P</span><span class="p">):</span>
 
+    <span class="sd">&quot;&quot;&quot;Base class for 3-points primitives.&quot;&quot;&quot;</span>
+
     <span class="c1">##############################################</span>
 
 <div class="viewcode-block" id="Primitive3P.__init__"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive3P.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">):</span>
@@ -824,6 +916,8 @@
 
 <div class="viewcode-block" id="Primitive4P"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive4P">[docs]</a><span class="k">class</span> <span class="nc">Primitive4P</span><span class="p">(</span><span class="n">Primitive3P</span><span class="p">):</span>
 
+    <span class="sd">&quot;&quot;&quot;Base class for 4-points primitives.&quot;&quot;&quot;</span>
+
     <span class="c1">##############################################</span>
 
 <div class="viewcode-block" id="Primitive4P.__init__"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.Primitive4P.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">):</span>
@@ -872,7 +966,9 @@
 
 <span class="c1">####################################################################################################</span>
 
-<div class="viewcode-block" id="PrimitiveNP"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.PrimitiveNP">[docs]</a><span class="k">class</span> <span class="nc">PrimitiveNP</span><span class="p">(</span><span class="n">Primitive</span><span class="p">,</span> <span class="n">ReversiblePrimitiveMixin</span><span class="p">):</span>
+<div class="viewcode-block" id="PrimitiveNP"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Primitive.html#Patro.GeometryEngine.Primitive.PrimitiveNP">[docs]</a><span class="k">class</span> <span class="nc">PrimitiveNP</span><span class="p">(</span><span class="n">PointPrimitive</span><span class="p">,</span> <span class="n">ReversiblePrimitiveMixin</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Base class for N-points primitives.&quot;&quot;&quot;</span>
 
     <span class="c1">##############################################</span>
 
@@ -967,8 +1063,6 @@
             <span class="n">path</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
         <span class="k">return</span> <span class="n">path</span></div></div>
-
-
 </pre></div>
 
            </div>
@@ -998,28 +1092,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../static/jquery.js"></script>
-        <script type="text/javascript" src="../../../static/underscore.js"></script>
-        <script type="text/javascript" src="../../../static/doctools.js"></script>
-        <script type="text/javascript" src="../../../static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/javascript" src="../../../static/getthecode.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(false);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

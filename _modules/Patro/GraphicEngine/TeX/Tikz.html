@@ -17,32 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../../../../static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../../static/getthecode.js"></script>
+    
+    <script type="text/javascript" src="../../../../static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../../static/css/Patro.css" type="text/css" />
   <link rel="stylesheet" href="../../../../static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
-
-  
-  <script src="../../../../static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -282,6 +286,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/SketchStyle.html">10.1.8.5. SketchStyle</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/QtApplication.html">10.1.9. QtApplication</a><ul>
@@ -395,6 +400,7 @@
 
 <span class="c1">####################################################################################################</span>
 
+<span class="kn">from</span> <span class="nn">Patro.GraphicStyle</span> <span class="k">import</span> <span class="n">StrokeStyle</span>
 <span class="kn">from</span> <span class="nn">.Environment</span> <span class="k">import</span> <span class="n">Environment</span>
 
 <span class="c1">####################################################################################################</span>
@@ -404,25 +410,17 @@
     <span class="c1">##############################################</span>
 
     <span class="n">__STROKE_STYLE__</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="kc">None</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="s1">&#39;dashDotLine&#39;</span><span class="p">:</span> <span class="s1">&#39;dash pattern=on 5mm off 4mm on 2mm off 4mm&#39;</span><span class="p">,</span> <span class="c1"># &#39;loosely dashdotted&#39;,</span>
-        <span class="s1">&#39;dotLine&#39;</span><span class="p">:</span> <span class="s1">&#39;dash pattern=on 2mm off 2mm&#39;</span><span class="p">,</span> <span class="c1"># &#39;dotted&#39;,</span>
-        <span class="s1">&#39;hair&#39;</span><span class="p">:</span> <span class="s1">&#39;solid&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;none&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-
-        <span class="s1">&#39;solid&#39;</span><span class="p">:</span> <span class="s1">&#39;solid&#39;</span><span class="p">,</span>
-    <span class="p">}</span>
-
-    <span class="n">__COLOR__</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="kc">None</span> <span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="s1">&#39;black&#39;</span><span class="p">:</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span>
+        <span class="n">StrokeStyle</span><span class="o">.</span><span class="n">DashDotLine</span><span class="p">:</span> <span class="s1">&#39;dash pattern=on 5mm off 4mm on 2mm off 4mm&#39;</span><span class="p">,</span> <span class="c1"># &#39;loosely dashdotted&#39;,</span>
+        <span class="n">StrokeStyle</span><span class="o">.</span><span class="n">DotLine</span><span class="p">:</span> <span class="s1">&#39;dash pattern=on 2mm off 2mm&#39;</span><span class="p">,</span> <span class="c1"># &#39;dotted&#39;,</span>
+        <span class="n">StrokeStyle</span><span class="o">.</span><span class="n">NoPen</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">StrokeStyle</span><span class="o">.</span><span class="n">SolidLine</span><span class="p">:</span> <span class="s1">&#39;solid&#39;</span><span class="p">,</span>
     <span class="p">}</span>
 
 <div class="viewcode-block" id="TikzFigure.format_path_style"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/TeX/Tikz.html#Patro.GraphicEngine.TeX.Tikz.TikzFigure.format_path_style">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">format_path_style</span><span class="p">(</span><span class="n">path_syle</span><span class="p">):</span>
 
         <span class="n">stroke_style</span> <span class="o">=</span> <span class="n">TikzFigure</span><span class="o">.</span><span class="n">__STROKE_STYLE__</span><span class="p">[</span><span class="n">path_syle</span><span class="o">.</span><span class="n">stroke_style</span><span class="p">]</span>
-        <span class="n">stroke_color</span> <span class="o">=</span> <span class="n">TikzFigure</span><span class="o">.</span><span class="n">__COLOR__</span><span class="p">[</span><span class="n">path_syle</span><span class="o">.</span><span class="n">stroke_color</span><span class="p">]</span>
+        <span class="n">stroke_color</span> <span class="o">=</span> <span class="n">path_syle</span><span class="o">.</span><span class="n">stroke_color</span><span class="o">.</span><span class="n">name</span>
 
         <span class="n">styles</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">styles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;line width=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path_syle</span><span class="o">.</span><span class="n">line_width</span><span class="p">))</span>
@@ -435,7 +433,6 @@
     <span class="c1">##############################################</span>
 
 <div class="viewcode-block" id="TikzFigure.__init__"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/TeX/Tikz.html#Patro.GraphicEngine.TeX.Tikz.TikzFigure.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
-
         <span class="nb">super</span><span class="p">(</span><span class="n">TikzFigure</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;tikzpicture&#39;</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span></div></div>
 </pre></div>
 
@@ -466,28 +463,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../../static/jquery.js"></script>
-        <script type="text/javascript" src="../../../../static/underscore.js"></script>
-        <script type="text/javascript" src="../../../../static/doctools.js"></script>
-        <script type="text/javascript" src="../../../../static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/javascript" src="../../../../static/getthecode.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../../static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(false);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

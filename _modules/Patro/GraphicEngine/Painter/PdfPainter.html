@@ -17,32 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../../../../static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../../static/getthecode.js"></script>
+    
+    <script type="text/javascript" src="../../../../static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../../static/css/Patro.css" type="text/css" />
   <link rel="stylesheet" href="../../../../static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
-
-  
-  <script src="../../../../static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -282,6 +286,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/Patro/Pattern/SketchStyle.html">10.1.8.5. SketchStyle</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/Patro/QtApplication.html">10.1.9. QtApplication</a><ul>
@@ -402,6 +407,7 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">from</span> <span class="nn">Patro.GeometryEngine.Vector</span> <span class="k">import</span> <span class="n">Vector2D</span>
+<span class="kn">from</span> <span class="nn">Patro.GraphicStyle</span> <span class="k">import</span> <span class="n">StrokeStyle</span>
 <span class="kn">from</span> <span class="nn">.Painter</span> <span class="k">import</span> <span class="n">Painter</span><span class="p">,</span> <span class="n">Tiler</span>
 
 <span class="k">try</span><span class="p">:</span>
@@ -426,28 +432,7 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_path</span> <span class="o">=</span> <span class="n">path</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_paper</span> <span class="o">=</span> <span class="n">paper</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_coordinates</span> <span class="o">=</span> <span class="p">{}</span></div>
-
-    <span class="c1">##############################################</span>
-
-<div class="viewcode-block" id="PdfPainterBase._cast_position"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/PdfPainter.html#Patro.GraphicEngine.Painter.PdfPainter.PdfPainterBase._cast_position">[docs]</a>    <span class="k">def</span> <span class="nf">_cast_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
-
-        <span class="c1"># Fixme: to base class</span>
-
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coordinates</span><span class="p">[</span><span class="n">position</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">Vector2D</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">position</span></div>
-
-    <span class="c1">##############################################</span>
-
-<div class="viewcode-block" id="PdfPainterBase.paint_CoordinateItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/PdfPainter.html#Patro.GraphicEngine.Painter.PdfPainter.PdfPainterBase.paint_CoordinateItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_CoordinateItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
-
-        <span class="c1"># Fixme: to base class</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_coordinates</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">position</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paper</span> <span class="o">=</span> <span class="n">paper</span></div>
 
     <span class="c1">##############################################</span>
 
@@ -466,18 +451,12 @@
 <div class="viewcode-block" id="ReportlabPainter"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/PdfPainter.html#Patro.GraphicEngine.Painter.PdfPainter.ReportlabPainter">[docs]</a><span class="k">class</span> <span class="nc">ReportlabPainter</span><span class="p">(</span><span class="n">PdfPainterBase</span><span class="p">):</span>
 
     <span class="n">__STROKE_STYLE__</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="kc">None</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="s1">&#39;dashDotLine&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
-        <span class="s1">&#39;dotLine&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-        <span class="s1">&#39;hair&#39;</span><span class="p">:</span> <span class="p">(),</span>
-        <span class="s1">&#39;none&#39;</span><span class="p">:</span> <span class="p">(),</span> <span class="c1"># Fixme: ???</span>
-
-        <span class="s1">&#39;solid&#39;</span><span class="p">:</span> <span class="p">(),</span>
-    <span class="p">}</span>
-
-    <span class="n">__COLOR__</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="kc">None</span> <span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="s1">&#39;black&#39;</span><span class="p">:</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span>
+        <span class="n">StrokeStyle</span><span class="o">.</span><span class="n">NoPen</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">StrokeStyle</span><span class="o">.</span><span class="n">SolidLine</span><span class="p">:</span> <span class="p">(),</span>
+        <span class="n">StrokeStyle</span><span class="o">.</span><span class="n">DashLine</span><span class="p">:</span> <span class="p">(),</span> <span class="c1"># Fixme: ???</span>
+        <span class="n">StrokeStyle</span><span class="o">.</span><span class="n">DotLine</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="n">StrokeStyle</span><span class="o">.</span><span class="n">DashDotLine</span><span class="p">:</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+        <span class="n">StrokeStyle</span><span class="o">.</span><span class="n">DashDotDotLine</span><span class="p">:</span> <span class="p">(),</span> <span class="c1"># Fixme: ???</span>
     <span class="p">}</span>
 
     <span class="c1">##############################################</span>
@@ -514,26 +493,15 @@
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="ReportlabPainter._cast_position"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/PdfPainter.html#Patro.GraphicEngine.Painter.PdfPainter.ReportlabPainter._cast_position">[docs]</a>    <span class="k">def</span> <span class="nf">_cast_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
-
-        <span class="n">position</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_cast_position</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">position</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span> <span class="o">*</span> <span class="n">cm</span> <span class="o">*</span> <span class="o">.</span><span class="mi">7</span> <span class="c1"># Fixme:</span></div>
-
-    <span class="c1">##############################################</span>
-
-<div class="viewcode-block" id="ReportlabPainter._cast_positions"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/PdfPainter.html#Patro.GraphicEngine.Painter.PdfPainter.ReportlabPainter._cast_positions">[docs]</a>    <span class="k">def</span> <span class="nf">_cast_positions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">positions</span><span class="p">):</span>
-
-        <span class="n">vertices</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">positions</span><span class="p">:</span>
-            <span class="n">vertices</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cast_position</span><span class="p">(</span><span class="n">position</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">vertices</span></div>
+<div class="viewcode-block" id="ReportlabPainter.cast_position"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/PdfPainter.html#Patro.GraphicEngine.Painter.PdfPainter.ReportlabPainter.cast_position">[docs]</a>    <span class="k">def</span> <span class="nf">cast_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">cast_position</span><span class="p">(</span><span class="n">position</span><span class="p">)</span> <span class="o">*</span> <span class="n">cm</span> <span class="o">*</span> <span class="o">.</span><span class="mi">7</span> <span class="c1"># Fixme:</span></div>
 
     <span class="c1">##############################################</span>
 
 <div class="viewcode-block" id="ReportlabPainter._set_graphic_style"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/PdfPainter.html#Patro.GraphicEngine.Painter.PdfPainter.ReportlabPainter._set_graphic_style">[docs]</a>    <span class="k">def</span> <span class="nf">_set_graphic_style</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
 
         <span class="n">path_syle</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">path_style</span>
-        <span class="n">color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__COLOR__</span><span class="p">[</span><span class="n">path_syle</span><span class="o">.</span><span class="n">stroke_color</span><span class="p">]</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">path_syle</span><span class="o">.</span><span class="n">stroke_color</span><span class="o">.</span><span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_canvas</span><span class="o">.</span><span class="n">setStrokeColor</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
         <span class="n">line_style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__STROKE_STYLE__</span><span class="p">[</span><span class="n">path_syle</span><span class="o">.</span><span class="n">stroke_style</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_canvas</span><span class="o">.</span><span class="n">setDash</span><span class="p">(</span><span class="o">*</span><span class="n">line_style</span><span class="p">)</span>
@@ -544,7 +512,7 @@
 
 <div class="viewcode-block" id="ReportlabPainter.paint_TextItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/PdfPainter.html#Patro.GraphicEngine.Painter.PdfPainter.ReportlabPainter.paint_TextItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_TextItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
 
-        <span class="n">position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cast_position</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cast_position</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
         <span class="c1"># Fixme: anchor position</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_canvas</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">position</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">position</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">text</span><span class="p">)</span></div>
 
@@ -552,7 +520,7 @@
 
 <div class="viewcode-block" id="ReportlabPainter.paint_CircleItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/PdfPainter.html#Patro.GraphicEngine.Painter.PdfPainter.ReportlabPainter.paint_CircleItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_CircleItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
 
-        <span class="n">position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cast_position</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cast_position</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_canvas</span><span class="o">.</span><span class="n">saveState</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_canvas</span><span class="o">.</span><span class="n">setFillColor</span><span class="p">(</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_canvas</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">position</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">position</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">mm</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -562,13 +530,15 @@
 
 <div class="viewcode-block" id="ReportlabPainter.paint_SegmentItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/PdfPainter.html#Patro.GraphicEngine.Painter.PdfPainter.ReportlabPainter.paint_SegmentItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_SegmentItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_canvas</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_cast_positions</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">positions</span><span class="p">))</span></div>
+        <span class="c1"># self._set_graphic_style(item)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_canvas</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">cast_item_coordinates</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span></div>
 
     <span class="c1">##############################################</span>
 
 <div class="viewcode-block" id="ReportlabPainter.paint_CubicBezierItem"><a class="viewcode-back" href="../../../../api/Patro/GraphicEngine/Painter/PdfPainter.html#Patro.GraphicEngine.Painter.PdfPainter.ReportlabPainter.paint_CubicBezierItem">[docs]</a>    <span class="k">def</span> <span class="nf">paint_CubicBezierItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_canvas</span><span class="o">.</span><span class="n">bezier</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_cast_positions</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">positions</span><span class="p">))</span></div></div>
+        <span class="c1"># self._set_graphic_style(item)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_canvas</span><span class="o">.</span><span class="n">bezier</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">cast_item_coordinates</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span></div></div>
 
 <span class="c1">####################################################################################################</span>
 
@@ -610,28 +580,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../../static/jquery.js"></script>
-        <script type="text/javascript" src="../../../../static/underscore.js"></script>
-        <script type="text/javascript" src="../../../../static/doctools.js"></script>
-        <script type="text/javascript" src="../../../../static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/javascript" src="../../../../static/getthecode.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../../static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(false);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

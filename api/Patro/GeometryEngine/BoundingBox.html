@@ -17,34 +17,38 @@
   
 
   
+  <script type="text/javascript" src="../../../static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../static/jquery.js"></script>
+        <script type="text/javascript" src="../../../static/underscore.js"></script>
+        <script type="text/javascript" src="../../../static/doctools.js"></script>
+        <script type="text/javascript" src="../../../static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../static/getthecode.js"></script>
+    
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../static/css/Patro.css" type="text/css" />
   <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="10.1.4.3. Conic" href="Conic.html" />
     <link rel="prev" title="10.1.4.1. Bezier" href="Bezier.html" /> 
-
-  
-  <script src="../../../static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -284,6 +288,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Pattern/SketchStyle.html">10.1.8.5. SketchStyle</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../QtApplication.html">10.1.9. QtApplication</a><ul>
@@ -384,34 +389,11 @@
             
   <div class="section" id="module-Patro.GeometryEngine.BoundingBox">
 <span id="boundingbox"></span><h1>10.1.4.2. BoundingBox<a class="headerlink" href="#module-Patro.GeometryEngine.BoundingBox" title="Permalink to this headline">¶</a></h1>
-<p>Module to compute bounding box and convex hull for a set of points.</p>
-<dl class="function">
-<dt id="Patro.GeometryEngine.BoundingBox._ccw">
-<code class="descclassname">Patro.GeometryEngine.BoundingBox.</code><code class="descname">_ccw</code><span class="sig-paren">(</span><em>p1</em>, <em>p2</em>, <em>p3</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/BoundingBox.html#_ccw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.BoundingBox._ccw" title="Permalink to this definition">¶</a></dt>
-<dd><p>Three points are a counter-clockwise turn if ccw &gt; 0, clockwise if ccw &lt; 0, and collinear if ccw
-= 0 because ccw is a determinant that gives twice the signed area of the triangle formed by p1,
-p2 and p3.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="Patro.GeometryEngine.BoundingBox._sort_point_for_graham_scan">
-<code class="descclassname">Patro.GeometryEngine.BoundingBox.</code><code class="descname">_sort_point_for_graham_scan</code><span class="sig-paren">(</span><em>points</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/BoundingBox.html#_sort_point_for_graham_scan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.BoundingBox._sort_point_for_graham_scan" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<p>Module to compute bounding box for a set of points.</p>
 <dl class="function">
 <dt id="Patro.GeometryEngine.BoundingBox.bounding_box_from_points">
 <code class="descclassname">Patro.GeometryEngine.BoundingBox.</code><code class="descname">bounding_box_from_points</code><span class="sig-paren">(</span><em>points</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/BoundingBox.html#bounding_box_from_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.BoundingBox.bounding_box_from_points" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the bounding box of the list of points.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="Patro.GeometryEngine.BoundingBox.convex_hull">
-<code class="descclassname">Patro.GeometryEngine.BoundingBox.</code><code class="descname">convex_hull</code><span class="sig-paren">(</span><em>points</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/BoundingBox.html#convex_hull"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.BoundingBox.convex_hull" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the convex hull of the list of points using Graham Scan algorithm.</p>
-<p>References</p>
-<ul class="simple">
-<li><a class="reference external" href="https://en.wikipedia.org/wiki/Graham_scan">https://en.wikipedia.org/wiki/Graham_scan</a></li>
-</ul>
 </dd></dl>
 
 </div>
@@ -427,7 +409,7 @@ p2 and p3.</p>
         <a href="Conic.html" class="btn btn-neutral float-right" title="10.1.4.3. Conic" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Bezier.html" class="btn btn-neutral" title="10.1.4.1. Bezier" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Bezier.html" class="btn btn-neutral float-left" title="10.1.4.1. Bezier" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -453,28 +435,16 @@ p2 and p3.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../static/jquery.js"></script>
-        <script type="text/javascript" src="../../../static/underscore.js"></script>
-        <script type="text/javascript" src="../../../static/doctools.js"></script>
-        <script type="text/javascript" src="../../../static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/javascript" src="../../../static/getthecode.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(false);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

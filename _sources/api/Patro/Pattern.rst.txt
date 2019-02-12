@@ -8,6 +8,7 @@
     Pattern/Pattern
     Pattern/Sketch
     Pattern/SketchOperation
+    Pattern/SketchStyle
 
 .. automodule:: Patro.Pattern
    :members:

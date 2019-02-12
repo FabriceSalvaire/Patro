@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Patro.Common.Singleton &mdash; Patro 0.3.0 documentation</title>
+  <title>Patro.Pattern.SketchStyle &mdash; Patro 0.3.0 documentation</title>
   
 
   
@@ -362,7 +362,9 @@
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
-      <li>Patro.Common.Singleton</li>
+          <li><a href="../Pattern.html">Patro.Pattern</a> &raquo;</li>
+        
+      <li>Patro.Pattern.SketchStyle</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -377,11 +379,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for Patro.Common.Singleton</h1><div class="highlight"><pre>
+  <h1>Source code for Patro.Pattern.SketchStyle</h1><div class="highlight"><pre>
 <span></span><span class="c1">####################################################################################################</span>
 <span class="c1">#</span>
 <span class="c1"># Patro - A Python library to make patterns for fashion design</span>
-<span class="c1"># Copyright (C) 2017 Fabrice Salvaire</span>
+<span class="c1"># Copyright (C) 2019 Fabrice Salvaire</span>
 <span class="c1">#</span>
 <span class="c1"># This program is free software: you can redistribute it and/or modify</span>
 <span class="c1"># it under the terms of the GNU Affero General Public License as</span>
@@ -398,123 +400,98 @@
 <span class="c1">#</span>
 <span class="c1">####################################################################################################</span>
 
-<span class="c1">####################################################################################################</span>
-
-<span class="sd">&quot;&quot;&quot;Implement Singleton</span>
+<span class="sd">&quot;&quot;&quot;Module to implement sketch style.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c1">####################################################################################################</span>
 
-<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">from</span> <span class="nn">Patro.GraphicEngine.GraphicScene.GraphicStyle</span> <span class="k">import</span> <span class="n">GraphicPathStyle</span><span class="p">,</span> <span class="n">Font</span>
+<span class="kn">from</span> <span class="nn">Patro.GraphicEngine.GraphicScene.TypographyUnit</span> <span class="k">import</span> <span class="n">PointUnit</span>
+<span class="kn">from</span> <span class="nn">Patro.GraphicStyle</span> <span class="k">import</span> <span class="n">Colors</span>
 
 <span class="c1">####################################################################################################</span>
 
-<div class="viewcode-block" id="SingletonMetaClass"><a class="viewcode-back" href="../../../api/Patro/Common/Singleton.html#Patro.Common.Singleton.SingletonMetaClass">[docs]</a><span class="k">class</span> <span class="nc">SingletonMetaClass</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+<div class="viewcode-block" id="DetailSketchStyle"><a class="viewcode-back" href="../../../api/Patro/Pattern/SketchStyle.html#Patro.Pattern.SketchStyle.DetailSketchStyle">[docs]</a><span class="k">class</span> <span class="nc">DetailSketchStyle</span><span class="p">:</span>
 
-    <span class="sd">&quot;&quot;&quot;A singleton metaclass.</span>
-
-<span class="sd">    This implementation supports subclassing and is thread safe.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Class to implement detail sketch style&quot;&quot;&quot;</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="SingletonMetaClass.__init__"><a class="viewcode-back" href="../../../api/Patro/Common/Singleton.html#Patro.Common.Singleton.SingletonMetaClass.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">class_name</span><span class="p">,</span> <span class="n">super_classes</span><span class="p">,</span> <span class="n">class_attribute_dict</span><span class="p">):</span>
+<div class="viewcode-block" id="DetailSketchStyle.__init__"><a class="viewcode-back" href="../../../api/Patro/Pattern/SketchStyle.html#Patro.Pattern.SketchStyle.DetailSketchStyle.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kargs</span><span class="p">):</span>
 
-        <span class="c1"># It is called just after cls creation in order to complete cls.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">point_size</span> <span class="o">=</span> <span class="n">kargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;point_size&#39;</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">point_color</span> <span class="o">=</span> <span class="n">kargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;point_color&#39;</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">black</span><span class="p">)</span>
 
-        <span class="c1"># print(&#39;MetaSingleton __init__:&#39;, cls, class_name, super_classes, class_attribute_dict, sep=&#39;\n... &#39;)</span>
+        <span class="n">font_size</span> <span class="o">=</span> <span class="n">kargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;font_size&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">Font</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">font_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_line_width</span> <span class="o">=</span> <span class="n">kargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;label_line_width&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
-        <span class="nb">type</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">class_name</span><span class="p">,</span> <span class="n">super_classes</span><span class="p">,</span> <span class="n">class_attribute_dict</span><span class="p">)</span>
-
-        <span class="bp">cls</span><span class="o">.</span><span class="n">_instance</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">cls</span><span class="o">.</span><span class="n">_rlock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">RLock</span><span class="p">()</span> <span class="c1"># A factory function that returns a new reentrant lock object.</span></div>
-
-    <span class="c1">##############################################</span>
-
-<div class="viewcode-block" id="SingletonMetaClass.__call__"><a class="viewcode-back" href="../../../api/Patro/Common/Singleton.html#Patro.Common.Singleton.SingletonMetaClass.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-
-        <span class="c1"># It is called when cls is instantiated: cls(...).</span>
-        <span class="c1"># type.__call__ dispatches to the cls.__new__ and cls.__init__ methods.</span>
-
-        <span class="c1"># print(&#39;MetaSingleton __call__:&#39;, cls, args, kwargs, sep=&#39;\n... &#39;)</span>
-
-        <span class="k">with</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_rlock</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="bp">cls</span><span class="o">.</span><span class="n">_instance</span> <span class="o">=</span> <span class="nb">type</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_instance</span></div></div>
-
-<span class="c1">####################################################################################################</span>
-
-<div class="viewcode-block" id="singleton"><a class="viewcode-back" href="../../../api/Patro/Common/Singleton.html#Patro.Common.Singleton.singleton">[docs]</a><span class="k">class</span> <span class="nc">singleton</span><span class="p">:</span>
-
-    <span class="sd">&quot;&quot;&quot; A singleton class decorator.</span>
-
-<span class="sd">    This implementation doesn&#39;t support subclassing.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_width</span> <span class="o">=</span> <span class="n">kargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;line_width&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">construction_line_width</span> <span class="o">=</span> <span class="n">kargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;construction_line_width&#39;</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span></div>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="singleton.__init__"><a class="viewcode-back" href="../../../api/Patro/Common/Singleton.html#Patro.Common.Singleton.singleton.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">):</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">point_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_point_size</span>
 
-        <span class="c1"># print(&#39;singleton __init__: On @ decoration&#39;, cls, sep=&#39;\n... &#39;)</span>
+    <span class="nd">@point_size</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">point_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_point_size</span> <span class="o">=</span> <span class="n">value</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cls</span> <span class="o">=</span> <span class="bp">cls</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_instance</span> <span class="o">=</span> <span class="kc">None</span></div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">point_color</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_point_color</span>
 
-    <span class="c1">##############################################</span>
+    <span class="nd">@point_color</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">point_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_point_color</span> <span class="o">=</span> <span class="n">Colors</span><span class="o">.</span><span class="n">ensure_color</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
-<div class="viewcode-block" id="singleton.__call__"><a class="viewcode-back" href="../../../api/Patro/Common/Singleton.html#Patro.Common.Singleton.singleton.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-
-        <span class="c1"># print(&#39;singleton __call__: On instance creation&#39;, self, args, kwargs, sep=&#39;\n... &#39;)</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_instance</span></div></div>
-
-<span class="c1">####################################################################################################</span>
-
-<div class="viewcode-block" id="singleton_func"><a class="viewcode-back" href="../../../api/Patro/Common/Singleton.html#Patro.Common.Singleton.singleton_func">[docs]</a><span class="k">def</span> <span class="nf">singleton_func</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-
-    <span class="sd">&quot;&quot;&quot; A singleton function decorator.</span>
-
-<span class="sd">    This implementation doesn&#39;t support subclassing.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># print(&#39;singleton_func: On @ decoration&#39;, cls, sep=&#39;\n... &#39;)</span>
-
-    <span class="n">instances</span> <span class="o">=</span> <span class="p">{}</span>
-
-    <span class="k">def</span> <span class="nf">get_instance</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="c1"># print(&#39;singleton_func: On instance creation&#39;, cls, sep=&#39;\n... &#39;)</span>
-        <span class="k">if</span> <span class="bp">cls</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">instances</span><span class="p">:</span>
-            <span class="n">instances</span><span class="p">[</span><span class="bp">cls</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">instances</span><span class="p">[</span><span class="bp">cls</span><span class="p">]</span>
-
-    <span class="k">return</span> <span class="n">get_instance</span></div>
-
-<span class="c1">####################################################################################################</span>
-
-<div class="viewcode-block" id="monostate"><a class="viewcode-back" href="../../../api/Patro/Common/Singleton.html#Patro.Common.Singleton.monostate">[docs]</a><span class="k">class</span> <span class="nc">monostate</span><span class="p">:</span>
-
-    <span class="sd">&quot;&quot;&quot; A monostate base class.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">_shared_state</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">point_style</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">GraphicPathStyle</span><span class="p">(</span><span class="n">fill_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_point_color</span><span class="p">)</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="monostate.__new__"><a class="viewcode-back" href="../../../api/Patro/Common/Singleton.html#Patro.Common.Singleton.monostate.__new__">[docs]</a>    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">font</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_font</span>
 
-        <span class="c1"># print(&#39;monostate __new__:&#39;, cls, args, kwargs, sep=&#39;\n... &#39;)</span>
+    <span class="nd">@font</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">font</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_font</span> <span class="o">=</span> <span class="n">value</span>
 
-        <span class="n">obj</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">monostate</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">obj</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_shared_state</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">label_line_width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_label_line_width</span>
 
-        <span class="k">return</span> <span class="n">obj</span></div></div>
+    <span class="nd">@label_line_width</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">label_line_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_label_line_width</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">label_line_style</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">GraphicPathStyle</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_label_line_width</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">line_width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_line_width</span>
+
+    <span class="nd">@line_width</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">line_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_line_width</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">construction_line_width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_construction_line_width</span>
+
+    <span class="nd">@construction_line_width</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">construction_line_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_construction_line_width</span> <span class="o">=</span> <span class="n">value</span></div>
+
 </pre></div>
 
            </div>

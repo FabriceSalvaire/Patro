@@ -17,34 +17,38 @@
   
 
   
+  <script type="text/javascript" src="../../../../static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../../static/getthecode.js"></script>
+    
+    <script type="text/javascript" src="../../../../static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../../static/css/Patro.css" type="text/css" />
   <link rel="stylesheet" href="../../../../static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
     <link rel="next" title="10.1.5.2.4. Paper" href="Paper.html" />
     <link rel="prev" title="10.1.5.2.2. MplPainter" href="MplPainter.html" /> 
-
-  
-  <script src="../../../../static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -284,6 +288,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Pattern/SketchStyle.html">10.1.8.5. SketchStyle</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../QtApplication.html">10.1.9. QtApplication</a><ul>
@@ -405,6 +410,11 @@ overridden to extend subclasses.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="Patro.GraphicEngine.Painter.Painter.Painter.cast_item_coordinates">
+<code class="descname">cast_item_coordinates</code><span class="sig-paren">(</span><em>item</em>, <em>flat=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/Patro/GraphicEngine/Painter/Painter.html#Painter.cast_item_coordinates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GraphicEngine.Painter.Painter.Painter.cast_item_coordinates" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="Patro.GraphicEngine.Painter.Painter.Painter.cast_item_positions">
 <code class="descname">cast_item_positions</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/Patro/GraphicEngine/Painter/Painter.html#Painter.cast_item_positions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GraphicEngine.Painter.Painter.Painter.cast_item_positions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -427,13 +437,38 @@ overridden to extend subclasses.</p>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="Patro.GraphicEngine.Painter.Painter.Painter.paint_CoordinateItem">
-<code class="descname">paint_CoordinateItem</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/Patro/GraphicEngine/Painter/Painter.html#Painter.paint_CoordinateItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GraphicEngine.Painter.Painter.Painter.paint_CoordinateItem" title="Permalink to this definition">¶</a></dt>
+<dt id="Patro.GraphicEngine.Painter.Painter.Painter.paint_CubicBezierItem">
+<code class="descname">paint_CubicBezierItem</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/Patro/GraphicEngine/Painter/Painter.html#Painter.paint_CubicBezierItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GraphicEngine.Painter.Painter.Painter.paint_CubicBezierItem" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="Patro.GraphicEngine.Painter.Painter.Painter.paint_CubicBezierItem">
-<code class="descname">paint_CubicBezierItem</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/Patro/GraphicEngine/Painter/Painter.html#Painter.paint_CubicBezierItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GraphicEngine.Painter.Painter.Painter.paint_CubicBezierItem" title="Permalink to this definition">¶</a></dt>
+<dt id="Patro.GraphicEngine.Painter.Painter.Painter.paint_EllipseItem">
+<code class="descname">paint_EllipseItem</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/Patro/GraphicEngine/Painter/Painter.html#Painter.paint_EllipseItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GraphicEngine.Painter.Painter.Painter.paint_EllipseItem" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GraphicEngine.Painter.Painter.Painter.paint_ImageItem">
+<code class="descname">paint_ImageItem</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/Patro/GraphicEngine/Painter/Painter.html#Painter.paint_ImageItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GraphicEngine.Painter.Painter.Painter.paint_ImageItem" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GraphicEngine.Painter.Painter.Painter.paint_PathItem">
+<code class="descname">paint_PathItem</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/Patro/GraphicEngine/Painter/Painter.html#Painter.paint_PathItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GraphicEngine.Painter.Painter.Painter.paint_PathItem" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GraphicEngine.Painter.Painter.Painter.paint_PolygonItem">
+<code class="descname">paint_PolygonItem</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/Patro/GraphicEngine/Painter/Painter.html#Painter.paint_PolygonItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GraphicEngine.Painter.Painter.Painter.paint_PolygonItem" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GraphicEngine.Painter.Painter.Painter.paint_PolylineItem">
+<code class="descname">paint_PolylineItem</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/Patro/GraphicEngine/Painter/Painter.html#Painter.paint_PolylineItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GraphicEngine.Painter.Painter.Painter.paint_PolylineItem" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Patro.GraphicEngine.Painter.Painter.Painter.paint_QuadraticBezierItem">
+<code class="descname">paint_QuadraticBezierItem</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/Patro/GraphicEngine/Painter/Painter.html#Painter.paint_QuadraticBezierItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GraphicEngine.Painter.Painter.Painter.paint_QuadraticBezierItem" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -488,7 +523,7 @@ overridden to extend subclasses.</p>
         <a href="Paper.html" class="btn btn-neutral float-right" title="10.1.5.2.4. Paper" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="MplPainter.html" class="btn btn-neutral" title="10.1.5.2.2. MplPainter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="MplPainter.html" class="btn btn-neutral float-left" title="10.1.5.2.2. MplPainter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -514,28 +549,16 @@ overridden to extend subclasses.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../../static/jquery.js"></script>
-        <script type="text/javascript" src="../../../../static/underscore.js"></script>
-        <script type="text/javascript" src="../../../../static/doctools.js"></script>
-        <script type="text/javascript" src="../../../../static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/javascript" src="../../../../static/getthecode.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../../static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(false);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

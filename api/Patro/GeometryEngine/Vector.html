@@ -17,34 +17,38 @@
   
 
   
+  <script type="text/javascript" src="../../../static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../static/jquery.js"></script>
+        <script type="text/javascript" src="../../../static/underscore.js"></script>
+        <script type="text/javascript" src="../../../static/doctools.js"></script>
+        <script type="text/javascript" src="../../../static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../static/getthecode.js"></script>
+    
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../static/css/Patro.css" type="text/css" />
   <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="10.1.5. GraphicEngine" href="../GraphicEngine.html" />
     <link rel="prev" title="10.1.4.16. Triangle" href="Triangle.html" /> 
-
-  
-  <script src="../../../static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -284,6 +288,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Pattern/SketchStyle.html">10.1.8.5. SketchStyle</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../QtApplication.html">10.1.9. QtApplication</a><ul>
@@ -515,11 +520,21 @@
 <dd><p>Create the unitary vector (cos(angle), sin(angle)).  <em>angle</em> is in degree.</p>
 </dd></dl>
 
+<dl class="classmethod">
+<dt id="Patro.GeometryEngine.Vector.Vector2D.from_coordinates">
+<em class="property">classmethod </em><code class="descname">from_coordinates</code><span class="sig-paren">(</span><em>*coordinates</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2D.from_coordinates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2D.from_coordinates" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="staticmethod">
 <dt id="Patro.GeometryEngine.Vector.Vector2D.from_ellipse">
 <em class="property">static </em><code class="descname">from_ellipse</code><span class="sig-paren">(</span><em>radius_x</em>, <em>radius_y</em>, <em>angle</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2D.from_ellipse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2D.from_ellipse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create the vector (radius_x*cos(angle), radius_y*sin(angle)).  <em>angle</em> is in degree.</p>
 </dd></dl>
+
+<dl class="classmethod">
+<dt id="Patro.GeometryEngine.Vector.Vector2D.from_list">
+<em class="property">classmethod </em><code class="descname">from_list</code><span class="sig-paren">(</span><em>coordinates</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/Patro/GeometryEngine/Vector.html#Vector2D.from_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Patro.GeometryEngine.Vector.Vector2D.from_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="staticmethod">
 <dt id="Patro.GeometryEngine.Vector.Vector2D.from_polar">
@@ -873,7 +888,7 @@
         <a href="../GraphicEngine.html" class="btn btn-neutral float-right" title="10.1.5. GraphicEngine" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Triangle.html" class="btn btn-neutral" title="10.1.4.16. Triangle" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Triangle.html" class="btn btn-neutral float-left" title="10.1.4.16. Triangle" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -899,28 +914,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../static/jquery.js"></script>
-        <script type="text/javascript" src="../../../static/underscore.js"></script>
-        <script type="text/javascript" src="../../../static/doctools.js"></script>
-        <script type="text/javascript" src="../../../static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/javascript" src="../../../static/getthecode.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(false);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

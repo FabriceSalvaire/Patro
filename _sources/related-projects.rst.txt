@@ -21,6 +21,11 @@ Embroidery
 * https://github.com/EmbroidePy/pyembroidery — pyembroidery library for reading and writing a variety of embroidery formats.
 * https://github.com/Embroidermodder/Embroidermodder — Free machine embroidery software supporting a variety of formats.
 
+* https://linuxfr.org/news/extensions-inkscape-brodeuse-et-palettes
+
+.. Post de https://aiguilles-magiques.com
+   Isabelle Dutailly
+
 Geometry Engine
 ---------------
 

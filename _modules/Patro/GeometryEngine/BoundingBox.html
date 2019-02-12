@@ -17,32 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../../../static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../static/jquery.js"></script>
+        <script type="text/javascript" src="../../../static/underscore.js"></script>
+        <script type="text/javascript" src="../../../static/doctools.js"></script>
+        <script type="text/javascript" src="../../../static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../static/getthecode.js"></script>
+    
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../static/css/Patro.css" type="text/css" />
   <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -282,6 +286,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/SketchStyle.html">10.1.8.5. SketchStyle</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/Patro/QtApplication.html">10.1.9. QtApplication</a><ul>
@@ -393,7 +398,7 @@
 <span class="c1">#</span>
 <span class="c1">####################################################################################################</span>
 
-<span class="sd">&quot;&quot;&quot;Module to compute bounding box and convex hull for a set of points.</span>
+<span class="sd">&quot;&quot;&quot;Module to compute bounding box for a set of points.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -401,12 +406,7 @@
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;bounding_box_from_points&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;convex_hull&#39;</span><span class="p">,</span>
 <span class="p">]</span>
-
-<span class="c1">####################################################################################################</span>
-
-<span class="kn">import</span> <span class="nn">functools</span>
 
 <span class="c1">####################################################################################################</span>
 
@@ -421,65 +421,6 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">bounding_box</span> <span class="o">|=</span> <span class="n">point</span><span class="o">.</span><span class="n">bounding_box</span>
     <span class="k">return</span> <span class="n">bounding_box</span></div>
-
-<span class="c1">####################################################################################################</span>
-
-<div class="viewcode-block" id="_sort_point_for_graham_scan"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/BoundingBox.html#Patro.GeometryEngine.BoundingBox._sort_point_for_graham_scan">[docs]</a><span class="k">def</span> <span class="nf">_sort_point_for_graham_scan</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="nf">sort_by_y</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">p0</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">p1</span><span class="o">.</span><span class="n">x</span> <span class="k">if</span> <span class="p">(</span><span class="n">p0</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">p1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="k">else</span> <span class="n">p0</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="n">p1</span><span class="o">.</span><span class="n">y</span>
-
-    <span class="c1"># sort by ascending y</span>
-    <span class="n">sorted_points</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">functools</span><span class="o">.</span><span class="n">cmp_to_key</span><span class="p">(</span><span class="n">sort_by_y</span><span class="p">))</span>
-
-    <span class="c1"># sort by ascending slope with p0</span>
-    <span class="n">p0</span> <span class="o">=</span> <span class="n">sorted_points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">x0</span> <span class="o">=</span> <span class="n">p0</span><span class="o">.</span><span class="n">x</span>
-    <span class="n">y0</span> <span class="o">=</span> <span class="n">p0</span><span class="o">.</span><span class="n">y</span>
-    <span class="k">def</span> <span class="nf">slope</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
-        <span class="c1"># return (p - p0).tan</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">y0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">sort_by_slope</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">):</span>
-        <span class="n">s0</span> <span class="o">=</span> <span class="n">slope</span><span class="p">(</span><span class="n">p0</span><span class="p">)</span>
-        <span class="n">s1</span> <span class="o">=</span> <span class="n">slope</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">p0</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">p1</span><span class="o">.</span><span class="n">x</span> <span class="k">if</span> <span class="p">(</span><span class="n">s0</span> <span class="o">==</span> <span class="n">s1</span><span class="p">)</span> <span class="k">else</span> <span class="n">s0</span> <span class="o">&lt;</span> <span class="n">s1</span>
-
-    <span class="k">return</span> <span class="n">sorted_points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">sorted_points</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">key</span><span class="o">=</span><span class="n">cmp_to_key</span><span class="p">(</span><span class="n">sort_by_slope</span><span class="p">))</span></div>
-
-<span class="c1">####################################################################################################</span>
-
-<div class="viewcode-block" id="_ccw"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/BoundingBox.html#Patro.GeometryEngine.BoundingBox._ccw">[docs]</a><span class="k">def</span> <span class="nf">_ccw</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Three points are a counter-clockwise turn if ccw &gt; 0, clockwise if ccw &lt; 0, and collinear if ccw</span>
-<span class="sd">     = 0 because ccw is a determinant that gives twice the signed area of the triangle formed by p1,</span>
-<span class="sd">     p2 and p3.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">p2</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">p1</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">p3</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">p1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">p2</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">p1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">p3</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">p1</span><span class="o">.</span><span class="n">x</span><span class="p">)</span></div>
-
-<span class="c1">####################################################################################################</span>
-
-<div class="viewcode-block" id="convex_hull"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/BoundingBox.html#Patro.GeometryEngine.BoundingBox.convex_hull">[docs]</a><span class="k">def</span> <span class="nf">convex_hull</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
-
-    <span class="sd">&quot;&quot;&quot;Return the convex hull of the list of points using Graham Scan algorithm.</span>
-
-<span class="sd">     References</span>
-
-<span class="sd">     * https://en.wikipedia.org/wiki/Graham_scan</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-
-   <span class="c1"># convex_hull is a stack of points beginning with the leftmost point.</span>
-    <span class="n">convex_hull</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">sorted_points</span> <span class="o">=</span> <span class="n">_sort_point_for_graham_scan</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sorted_points</span><span class="p">:</span>
-        <span class="c1"># if we turn clockwise to reach this point,</span>
-        <span class="c1"># pop the last point from the stack, else, append this point to it.</span>
-        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">convex_hull</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">_ccw</span><span class="p">(</span><span class="n">convex_hull</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">convex_hull</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">p</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span> <span class="c1"># Fixme: check</span>
-            <span class="n">convex_hull</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-        <span class="n">convex_hull</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-
-    <span class="c1"># the stack is now a representation of the convex hull, return it.</span>
-    <span class="k">return</span> <span class="n">convex_hull</span></div>
 </pre></div>
 
            </div>
@@ -509,28 +450,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../static/jquery.js"></script>
-        <script type="text/javascript" src="../../../static/underscore.js"></script>
-        <script type="text/javascript" src="../../../static/doctools.js"></script>
-        <script type="text/javascript" src="../../../static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/javascript" src="../../../static/getthecode.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(false);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

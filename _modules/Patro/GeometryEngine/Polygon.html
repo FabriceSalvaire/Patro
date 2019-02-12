@@ -17,32 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../../../static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../static/jquery.js"></script>
+        <script type="text/javascript" src="../../../static/underscore.js"></script>
+        <script type="text/javascript" src="../../../static/doctools.js"></script>
+        <script type="text/javascript" src="../../../static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../static/getthecode.js"></script>
+    
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../static/css/Patro.css" type="text/css" />
   <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -282,6 +286,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/Pattern.html">10.1.8.2. Pattern</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/Sketch.html">10.1.8.3. Sketch</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/SketchOperation.html">10.1.8.4. SketchOperation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/Patro/Pattern/SketchStyle.html">10.1.8.5. SketchStyle</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/Patro/QtApplication.html">10.1.9. QtApplication</a><ul>
@@ -393,7 +398,7 @@
 <span class="c1">#</span>
 <span class="c1">####################################################################################################</span>
 
-<span class="sd">&quot;&quot;&quot;Module to implement polygon.</span>
+<span class="sd">&quot;&quot;&quot;Module to implement polygon and convex hull.</span>
 
 <span class="sd">For resources on polygon see :ref:`this section &lt;polygon-geometry-ressources-page&gt;`.</span>
 
@@ -401,10 +406,15 @@
 
 <span class="c1">####################################################################################################</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Polygon2D&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;Polygon2D&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;convex_hull&#39;</span><span class="p">,</span>
+<span class="p">]</span>
 
 <span class="c1">####################################################################################################</span>
 
+<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">cmp_to_key</span>
+<span class="kn">from</span> <span class="nn">operator</span> <span class="k">import</span> <span class="n">itemgetter</span> <span class="c1"># , attrgetter</span>
 <span class="kn">import</span> <span class="nn">math</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -457,7 +467,7 @@
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="Polygon2D.__init__"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Polygon.html#Patro.GeometryEngine.Polygon.Polygon2D.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">points</span><span class="p">):</span>
+<div class="viewcode-block" id="Polygon2D.__init__"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Polygon.html#Patro.GeometryEngine.Polygon.Polygon2D.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">points</span><span class="p">,</span> <span class="n">is_convex</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">is_clockwise</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="c1"># Fixme: ctor for list of points</span>
 
@@ -468,9 +478,10 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_edges</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_simple</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_is_convex</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_convex</span> <span class="o">=</span> <span class="n">is_convex</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_area</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_clockwise</span> <span class="o">=</span> <span class="n">is_clockwise</span>
         <span class="c1"># self._cross = None</span>
         <span class="c1"># self._barycenter = None</span>
 
@@ -516,7 +527,7 @@
         <span class="c1"># Test for edge intersection</span>
         <span class="k">for</span> <span class="n">edge1</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">edge2</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">edge1</span> <span class="o">!=</span> <span class="n">edge2</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">edge1</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">edge2</span><span class="p">:</span>
                     <span class="c1"># Fixme: recompute line for edge</span>
                     <span class="n">intersection</span><span class="p">,</span> <span class="n">intersect</span> <span class="o">=</span> <span class="n">edge1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">edge2</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">intersect</span><span class="p">:</span>
@@ -544,11 +555,13 @@
             <span class="k">return</span> <span class="kc">False</span>
 
         <span class="n">edges</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edges</span><span class="p">)</span>
+        <span class="n">number_of_edges</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span>
         <span class="c1"># a polygon is convex if all turns from one edge vector to the next have the same sense</span>
         <span class="c1"># sign = edges[-1].perp_dot(edges[0])</span>
         <span class="n">sign0</span> <span class="o">=</span> <span class="n">sign</span><span class="p">(</span><span class="n">edges</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">edges</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">edges</span><span class="p">)):</span>
-            <span class="k">if</span> <span class="n">sign</span><span class="p">(</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]))</span> <span class="o">!=</span> <span class="n">sign0</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_of_edges</span><span class="p">):</span>
+            <span class="n">next_i</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">number_of_edges</span>
+            <span class="k">if</span> <span class="n">sign</span><span class="p">(</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">edges</span><span class="p">[</span><span class="n">next_i</span><span class="p">]))</span> <span class="o">!=</span> <span class="n">sign0</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">False</span>
         <span class="k">return</span> <span class="kc">True</span></div>
 
@@ -572,6 +585,15 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">is_concave</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_convex</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Polygon2D.convex_hull"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Polygon.html#Patro.GeometryEngine.Polygon.Polygon2D.convex_hull">[docs]</a>    <span class="k">def</span> <span class="nf">convex_hull</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_convex</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">convex_hull</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">)</span></div>
 
     <span class="c1">##############################################</span>
 
@@ -629,6 +651,7 @@
             <span class="c1"># area of a convex polygon is defined to be positive if the points are arranged in a</span>
             <span class="c1"># counterclockwise order, and negative if they are in clockwise order (Beyer 1987).</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_area</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">area</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_area_sign</span> <span class="o">=</span> <span class="n">sign</span><span class="p">(</span><span class="n">area</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_barycenter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__vector_cls__</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span></div>
 
     <span class="c1">##############################################</span>
@@ -728,6 +751,26 @@
         <span class="sd">&quot;&quot;&quot;Return polygon area.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_area</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_area</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_clockwise</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c1"># Fixme:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_simple</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_clockwise</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_check_area</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_is_clockwise</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_area_sign</span> <span class="o">&lt;</span> <span class="mi">0</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_clockwise</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_counterclockwise</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_clockwise</span>
 
     <span class="c1">##############################################</span>
 
@@ -943,6 +986,122 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">circumcircle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">Circle2D</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_center</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_radius</span><span class="p">)</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="sort_point_for_graham_scan"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Polygon.html#Patro.GeometryEngine.Polygon.sort_point_for_graham_scan">[docs]</a><span class="k">def</span> <span class="nf">sort_point_for_graham_scan</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Sort the points for the Graham scan algorithm.</span>
+
+<span class="sd">    *points*  must be an iterable.</span>
+
+<span class="sd">    The first step in this algorithm is to find the point with the lowest y-coordinate. If the</span>
+<span class="sd">    lowest y-coordinate exists in more than one point in the set, the point with the lowest</span>
+<span class="sd">    x-coordinate out of the candidates should be chosen.  Call this point P0. This step takes O(n).</span>
+
+<span class="sd">    Next, the set of points must be sorted in increasing order of the angle they and the point P0</span>
+<span class="sd">    make with the x-axis.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Since Python3, we must use this, where a &lt; b is coded as a - b &lt; 0</span>
+    <span class="k">def</span> <span class="nf">sort_by_y</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">p0</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">p1</span><span class="o">.</span><span class="n">x</span> <span class="k">if</span> <span class="p">(</span><span class="n">p0</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">p1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="k">else</span> <span class="n">p0</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">p1</span><span class="o">.</span><span class="n">y</span>
+
+    <span class="c1"># sort by ascending y</span>
+    <span class="n">sorted_points</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">cmp_to_key</span><span class="p">(</span><span class="n">sort_by_y</span><span class="p">))</span>
+
+    <span class="c1"># other implementation</span>
+    <span class="c1">#   first sort by ascending x then by ascending y</span>
+    <span class="c1">#   sorted_points = sorted(points, key=attrgetter(&#39;x&#39;)).sort(key=attrgetter(&#39;y&#39;))</span>
+
+    <span class="c1"># P0 is the the leftmost point of minimal ordinate</span>
+    <span class="n">p0</span> <span class="o">=</span> <span class="n">sorted_points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">x0</span> <span class="o">=</span> <span class="n">p0</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">y0</span> <span class="o">=</span> <span class="n">p0</span><span class="o">.</span><span class="n">y</span>
+
+    <span class="c1"># sort by polar angle with respect to p0</span>
+    <span class="c1"># Fixme: fastest orientation</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">sorted_points</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="n">direction</span> <span class="o">=</span> <span class="n">Vector2D</span><span class="p">(</span><span class="n">point</span> <span class="o">-</span> <span class="n">p0</span><span class="p">)</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">point</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">direction</span><span class="o">.</span><span class="n">orientation</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+
+    <span class="c1"># if several points have the same angle then only keep the farther</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="c1"># same polar angle ?</span>
+        <span class="k">if</span> <span class="n">prev</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="n">current</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+            <span class="c1"># cache magnitude_square</span>
+            <span class="k">if</span> <span class="n">prev</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">prev</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">prev</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">magnitude_square</span>
+            <span class="k">if</span> <span class="n">current</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">current</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">current</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">magnitude_square</span>
+            <span class="c1"># remove the nearest</span>
+            <span class="k">if</span> <span class="n">prev</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">current</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+                <span class="k">del</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="c1"># don&#39;t increment i</span>
+            <span class="k">continue</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="p">[</span><span class="n">p0</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="ccw"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Polygon.html#Patro.GeometryEngine.Polygon.ccw">[docs]</a><span class="k">def</span> <span class="nf">ccw</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Three points are a counter-clockwise turn if ccw &gt; 0, clockwise if ccw &lt; 0, and collinear if ccw</span>
+<span class="sd">    = 0 because ccw is a determinant :math:`(\mathbf{P}_3-\mathbf{P}_1) \cross</span>
+<span class="sd">    (\mathbf{P}_2-\mathbf{P}_1)` that gives twice the signed area of the triangle formed by p1, p2</span>
+<span class="sd">    and p3.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">p2</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">p1</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">p3</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">p1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">p2</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">p1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">p3</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">p1</span><span class="o">.</span><span class="n">x</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="is_three_point_ccw"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Polygon.html#Patro.GeometryEngine.Polygon.is_three_point_ccw">[docs]</a><span class="k">def</span> <span class="nf">is_three_point_ccw</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">ccw</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="is_three_point_cw"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Polygon.html#Patro.GeometryEngine.Polygon.is_three_point_cw">[docs]</a><span class="k">def</span> <span class="nf">is_three_point_cw</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">ccw</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="is_three_point_collinear"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Polygon.html#Patro.GeometryEngine.Polygon.is_three_point_collinear">[docs]</a><span class="k">def</span> <span class="nf">is_three_point_collinear</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">ccw</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span></div>
+
+<span class="c1">####################################################################################################</span>
+
+<div class="viewcode-block" id="convex_hull"><a class="viewcode-back" href="../../../api/Patro/GeometryEngine/Polygon.html#Patro.GeometryEngine.Polygon.convex_hull">[docs]</a><span class="k">def</span> <span class="nf">convex_hull</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">as_polygon</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Return the convex hull of the list of points using Graham Scan algorithm.</span>
+
+<span class="sd">      * The first point is the leftmost point having the smallest y-coordinate.</span>
+<span class="sd">      * The polygon is counter-clockwise oriented.</span>
+<span class="sd">      * Time complexity is O(n log n).</span>
+
+<span class="sd">     References</span>
+
+<span class="sd">     * https://en.wikipedia.org/wiki/Graham_scan</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># convex_hull is a stack of points beginning with the leftmost point.</span>
+    <span class="n">_convex_hull</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">sorted_points</span> <span class="o">=</span> <span class="n">sort_point_for_graham_scan</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">sorted_points</span><span class="p">:</span>
+        <span class="c1"># pop the last point from the stack if we turn clockwise to reach this point</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">_convex_hull</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">is_three_point_cw</span><span class="p">(</span><span class="n">_convex_hull</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">_convex_hull</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">point</span><span class="p">):</span>
+            <span class="n">_convex_hull</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">_convex_hull</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+
+    <span class="c1"># the stack is now a representation of the convex hull</span>
+    <span class="k">if</span> <span class="n">as_polygon</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">_convex_hull</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="c1"># Fixme: see ctor for list of points</span>
+        <span class="k">return</span> <span class="n">Polygon2D</span><span class="p">(</span><span class="o">*</span><span class="n">_convex_hull</span><span class="p">,</span> <span class="n">is_convex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">is_clockwise</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_convex_hull</span></div>
 </pre></div>
 
            </div>
@@ -972,28 +1131,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../static/jquery.js"></script>
-        <script type="text/javascript" src="../../../static/underscore.js"></script>
-        <script type="text/javascript" src="../../../static/doctools.js"></script>
-        <script type="text/javascript" src="../../../static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/javascript" src="../../../static/getthecode.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(false);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
