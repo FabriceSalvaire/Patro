@@ -1,7 +1,7 @@
 ####################################################################################################
 #
 # Patro - A Python library to make patterns for fashion design
-# Copyright (C) 2017 Fabrice Salvaire
+# Copyright (C) 2019 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -55,7 +55,9 @@ def closed_pairwise(iterable):
 
     """
 
-    return pairwise(list(iterable) + [iterable[0]])
+   number_of_items = len(iterable)
+   for i in range(number_of_items):
+       yield iterable[i], iterable[(i+1)%number_of_items]
 
 ####################################################################################################
 
@@ -74,12 +76,6 @@ def multiwise(iterable, n=2):
 
       list(multiwise(a, n=2))
       # [(1, 2), (2, 3), (3, 4), (4, 5)]
-
-      list(multiwise(a, n=3))
-      # [(1, 2, 3), (2, 3, 4), (3, 4, 5)]
-
-      # list(multiwise(a, n=4))
-      # [(1, 2, 3, 4), (2, 3, 4, 5)]
 
       list(multiwise(a, n=5))
       # [(1, 2, 3, 4, 5)]
@@ -102,3 +98,9 @@ def multiwise(iterable, n=2):
     # Return the aggregate
     #   zip stops when the shortest iterator is exhausted
     return zip(*iterators)
+
+####################################################################################################
+
+def closed_multiwise_index_iterator(number_of_items, n=2):
+    for i in range(number_of_items):
+        yield [(i+j) % number_of_items for j in range(n)]
