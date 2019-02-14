@@ -8,6 +8,10 @@
 
 .. contents:: :local:
 
+
+.. Sederberg, Nishita, 1990 - Curve intersection using Bezier clipping.
+
+
 Valentina Requirements
 ----------------------
 
@@ -525,7 +529,7 @@ We have
     \mathbf{B}'(t) &= 3nt^2 + 2rt + s
     \end{align}
 
-    .. n = P3 - 3*P2 + 3*P1 - P0
+.. n = P3 - 3*P2 + 3*P1 - P0
    r = 3*(P2 - 2*P1 + P0
    s = 3*(P1 - P0)
    v = P0

@@ -6,16 +6,18 @@
  Geometry Resources
 ====================
 
-This section contains resource on geometry.
+This section contains resources on geometry.
 
 Contents:
 
 .. toctree::
   :maxdepth: 2
 
+  introduction.rst
   bezier.rst
   conic.rst
   path.rst
   polygon.rst
   spline.rst
   transformations.rst
+  vector.rst
