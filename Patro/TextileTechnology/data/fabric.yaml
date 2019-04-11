@@ -1,0 +1,25 @@
+#---------------------------------------------------------------------------------------------------
+#
+# Fabrice Database
+#
+#---------------------------------------------------------------------------------------------------
+
+# Twill weaves can be classified from four points of view:
+#
+# According to the stepping:
+#   Warp-way: 3/1 warp way twill, etc.
+#   Weft-way: 2/3 weft way twill, etc.
+#
+# According to the direction of twill lines on the face of the fabric:
+#   S-Twill or left-hand twill weave: 2/1 S, etc.
+#   Z-Twill or right-hand twill weave: 3/2 Z, etc.
+#
+# According to the face yarn (warp or weft):
+#   Warp face twill weave: 4/2 S, etc.
+#   Weft face twill weave: 1/3 Z, etc.
+#   Double face twill weave: 3/3 Z, etc.
+#
+# According to the nature of the produced twill line:
+#   Simple twill weave: 1/2 S, 3/1 Z etc.
+#   Expanded twill weave: 4/3 S, 3/2 Z, etc.
+#   Multiple twill weave: 2/3/3/1 S, etc.

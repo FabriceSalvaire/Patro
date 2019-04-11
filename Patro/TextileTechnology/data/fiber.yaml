@@ -1,0 +1,112 @@
+#---------------------------------------------------------------------------------------------------
+#
+# Textile Fibre Database
+#
+#---------------------------------------------------------------------------------------------------
+
+#---------------------------------------------------------------------------------------------------
+#
+# TODO: check, complete and reword so as to be general versus a copy-paste
+#
+#---------------------------------------------------------------------------------------------------
+
+#---------------------------------------------------------------------------------------------------
+
+Natural Fibres:
+
+  Plant Fibres:
+
+    Cotton:
+      source: cotton
+
+    Linen:
+      source: flax
+
+#-------------------------------------------------
+
+  Animal Fibres:
+
+    Alpaca:
+      source: alpaca
+
+    Angora:
+      source: angora rabbit
+
+    Cashmere:
+      source: cashmere goat
+
+    Llama:
+      source: llama
+
+    Mohair:
+      source: angora goat
+
+    Silk:
+      source: silkworm (bombyx mori)
+
+    Whool:
+      source: sheep
+
+#---------------------------------------------------------------------------------------------------
+
+Synthetic Fibres:
+
+  Acetate: null
+
+  Acrylic: null
+
+  Aramids:
+    comment: known as Nomex, Kevlar and Twaron
+
+  Derclon: null
+
+  Dyneema:
+    source: Ultra-high-molecular-weight polyethylene (UHMWPE)
+
+  Lyocell: null
+
+  M-5: null
+
+  Microfibers: null
+
+  Modacrylic: null
+
+  Modal: null
+
+  Nylon: null
+
+  Olefin: null
+
+  Orlon: null
+
+  PLA: null
+
+  Polybenzimidazole: null
+
+  Polyester: null
+
+  Polyolefin: null
+  Polypropylene: null
+
+  Rayon:
+    comment: artificial silk
+
+  Saran:
+    alias:
+      - lycra
+      - elastane
+    source: polyether-polyurea copolymer
+
+  Spandex: null
+
+  Sulfar: null
+
+  Triacetate: null
+
+  Vectran: null
+
+  Vinalon: null
+
+  Vinyon: null
+
+  Zylon: null

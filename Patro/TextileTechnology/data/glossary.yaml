@@ -1,0 +1,121 @@
+#---------------------------------------------------------------------------------------------------
+#
+# Glossary
+#
+#---------------------------------------------------------------------------------------------------
+
+#---------------------------------------------------------------------------------------------------
+#
+# TODO: check, complete and reword so as to be general versus a copy-paste
+#
+#---------------------------------------------------------------------------------------------------
+
+General Glossary:
+
+  Flatlock sewing machine: "Machine for sewing covered seams, used for neat sewing of raw edges or
+  single lapping of pieces of material, simultaneously covering top and bottom of raw edges."
+
+  Gauge: "Mesh density per unit of length in hosiery and kitted fabrics. For linking machines it
+  indicates the number of points per unit of length (usually per inch). This must match the mesh
+  density of the knitted goods if the material is to be linked with the meshes matching exactly. A
+  small gauge indicates the use of thicker needles, and a larger gauge, the use of thinner needles."
+
+  Overlock machine: "Overcasting sewing machine for trimming locking edges of material."
+
+  Safety stitch machine: "Machine for sewing together parts of material and simultaneously trimming
+  and locking of material edges. In most cases two stitch types work independently from each other,
+  i.e., stitch types 401 plus 503, but one stitch type only is also possible, i.e., stitch type 507 or
+  type 512 (so-called imitation safety stitch)."
+
+  Seam direction: "Direction in which the stitch types are successively arranged."
+
+  Sewing direction: "Direction of the seam progression from stitch to stitch."
+
+  Stitch density: "Number of stitches performed in relation to the unit of length (i.e., 5
+  stitches/cm."
+
+  Stitch distance: "Shortest distance between two consecutive needle penetrations in sewing
+  direction."
+
+  Stitch formation: "The part of the sewing operation which, in general terms, concerns the piercing
+  of the material by the needle, the simultaneous passing of the thread through the material, and the
+  interlocking of the thread either by the material, with itself, or with another thread. According to
+  the stitch type, the stitch can also be formed by several needles and several sewing threads."
+
+  Stitch length: "Distance between two successive stitches in the seam direction."
+
+#---------------------------------------------------------------------------------------------------
+
+Needle Glossary:
+
+  # Glossary specific to needles
+
+  Blukold needle: "Special needle with a roughened, phosphorated surface coated with a non-stick
+  coating. This needle surface prevents or greatly reduces adhesion of residues of melted synthetic
+  materials, for longer duration than, for example, chromium plated needles. The needle remains
+  cleaner longer ... skipped stitches and thread breakage are minimized. (Note: This needle is no
+  longer manufactured.)"
+
+  Double needle: "Special needle used in household zig-zag sewing machines, consisting of two needle
+  blades which are connected to one shank by means of a plastic bridge. Used for pattern controlled
+  decorative seams with two needle threads as well as for the sewing of tucks by means of an inserted
+  cord."
+
+  Hook needle: "Needle similar to a crochet needle, used in Cornely, saddle stitch, and linking
+  machines."
+
+  Land: "Hump-like section of the needle between the eye and scarf. On chain stitch needles in
+  conjunction with another land between scarf and second long groove, necessary for the formation of a
+  loop of the needle thread. This ensures that in machine without needle bar rise, the loop of the
+  needle thread can still be securely caught by the looper."
+
+  Long groove: "Its purpose is to guide the needle thread to the eye. The cross section is 40% of that
+  of the needle blade. The diameter of the sewing thread to be used (not the label number) should
+  therefore be a maximum of 40% of the needle size (NM). chain stitching needles have a second long
+  groove on the opposite side of the needle. This serves to guide the part of the sewing thread
+  emerging from the material vertically to the eye during needle penetration, to guarantee correct
+  stitch formation. On chain stitch needles used in machines with loopers working parallel to the
+  sewing direction, both long grooves are spirally wound."
+
+  Needle bar rise: "The distance which the needle in a sewing machine has to pass from the lower
+  dead-point during the upwards lift. necessary to form a loop which can be securely caught by the
+  point of the hook."
+
+  Needle bight: "Lateral deviation between two successive stitches perpendicular to the seam direction."
+
+  Needle distance (NE): "Distance between the center axis lines (or points) of the needles when
+  working simultaneously with several needles (also applies to double and triple needles). In needles
+  for twin-needle machines, the needle distance is often indicated by code letters behind the system
+  designations, i.e., 134 FLG-A. The code letters used are A, B, C, and D.
+
+  * A: needle distance 0.85 mm, only possible with NM 60-80
+  * B: needle distance 1.05 mm, only possible with NM 70-90
+  * C: needle distance 1.25 mm, only possible with NM 80-100
+  * D: needle distance 1.45 mm, only possible with NM 100-110
+  "
+
+  # Needle size designations
+  Number metric: "In 1942, uniform needle sizes were fixed. A metric size designation under the
+  abbreviation NM was introduced to replace the 40 or so different size designations in use at that
+  time. This “Number metric” indicates the diameter of the needle blade in hundredths of a
+  millimetre measured above the scarf or the short groove, but not at any reinforced part of the
+  blade. A sewing machine needle with a blade diameter of 0.80 mm therefore corresponds to NM 80 and
+  a needle with a blade diameter of 1.30 mm to NM 130."
+
+  Scarf: "Recess of the needle blade above the eye, on the opposite side of the sewing machine needle
+  to the long groove. It differs in shape and length and enables the hook to be placed closer to the
+  center line (axis) of the needle."
+
+  Schiffli needle: "Needle used in automatic Schiffli embroidery machines (large automatic embroidery
+  machines). These work with two needle frames each equipped with up to 1800 needles."
+
+  Triple needle: "Special needle used in household zig-zag sewing machines, consisting of three needle
+  blades connected to one shank by means of a plastic bridge. Used for pattern-controlled decorative
+  seams with three needle threads."
+
+  Twist: "twisting of certain needle parts during manufacture. Needles with twisted blade = needles
+  with spiral long groove. Needles with twisted point groove = needles with twisted groove below the
+  eye, i.e., CL (left twisted point groove)."
+
+  Wing needle: "Special needle for household sewing machine with wings to obtain the hemstitch effect."
+

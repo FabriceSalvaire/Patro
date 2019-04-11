@@ -1,0 +1,112 @@
+#---------------------------------------------------------------------------------------------------
+#
+# SiroFAST — Fabric Assurance by Simple Testing
+#
+# According to Document
+#
+#  SiroFAST – A System for Fabric Objective Measurement and its Application in Fabric and Garment
+#    Manufacture.
+#
+# Textile and Fibre Technology
+# http://www.tft.csiro.au
+# A. De Boos and David Tester
+# Report No. WT92.02
+# January 1994
+# ISBN 0 643 06025 1
+#
+#---------------------------------------------------------------------------------------------------
+
+#---------------------------------------------------------------------------------------------------
+#
+# TODO: check, complete and reword so as to be general versus a copy-paste
+#
+#---------------------------------------------------------------------------------------------------
+
+# Fixme: Add bibtex entry
+
+Name: SiroFAST
+
+Description: '
+
+SiroFAST is a set of instruments and test methods for measuring mechanical and dimensional
+properties of wool fabrics. These measurements allow the prediction of fabric performance in garment
+manufacture and the appearance of the garment during wear. The instruments were developed by the
+Australian CSIRO Division of Wool Technology. The system was designed to be relatively inexpensive,
+reliable, accurate, robust and simple to operate. A simple method of interpreting the data to
+predict fabric performance is an integral port of the system.
+
+'
+
+Tests:
+
+  SiroFAST-1:
+    title: Compression meter
+    short_description: A compression meter that measures fabric thickness.
+    description: '
+
+    The SiroFAST-I Compression meter thickness is defined as the difference m accurately measures
+    fabric 2 2thickness at loads thickness measured at the two loads, and is of 2 g/cm and 100
+    g/cm. The surface layer calculated from these measurements.
+
+    The measurements are normally made on the (conditioned) fabric and then repeated after the
+    fabric has been relaxed in steam. From these measurements the released thickness and released
+    surface layer thickness are obtained.
+
+    Comparison of the original surface thickness and the released surface thickness can be used to
+    assess the stability of the finish on the fabric under the conditions of garment manufacture,
+    such as pressing and steaming.
+
+    '
+
+  SiroFAST-2:
+    title: Bending meter
+    short_description: A bending meter that measures the fabric bending length.
+    description: '
+
+    This instrument measures fabric bending length using the cantilever bending principle, us
+    described in British Standard Method (BS:3356(1961)). From the values of bending length
+    obtained, the bending rigidity of the fabric is calculated.
+
+    Bending rigidity is a measure of the stiffness of a fabric and is related to handling in garment
+    making.  SiroFAST-2 uses a photocell to detect the leading edge of the sample, which is done by
+    eye in some other test methods. The elimination of this source of operator error makes the
+    SiroFAST bending meter more reliable and simpler to use than alternative instruments.
+
+    '
+
+  SiroFAST-3:
+    title: Extensibility meter
+    short_description: An extension meter that measures fabric extensibility.
+    # Fixme: a1 -> at ???
+    description: '
+
+    The SiroFAST-3 extensibility meter measures the extensibility of a fabric under three different
+    loads (5, 20 and 100 Went of width). The loads are chosen to simulate the level of deformation
+    the fabric is likely to undergo during garment manufacture. SiroFAST-3 is also used to measure
+    the bias extensibility of the fabric (a1 45° to the warp direction) under a low load (5 g/cm
+    width). Bias extensibility is not used directly but instead is used to calculate shear
+    rigidity. Shear rigidity is one of the principle determinants of the ease, which is a measure of
+    the ease with which a fabric can be deformed into a three-dimensional shape.
+
+    Formability is derived from measurements made using SiroFAST-3 in combination with data from
+    SiroFAST-2.
+
+    Formability = Bending Rigidity * (Extension (20 g/cm) - Extension (5 g/cm)) / 14.7
+
+    '
+
+  SiroFAST-4:
+    title: Dimensional stability test
+    short_description: A test procedure for measuring dimensional properties of fabric.
+    description: '
+
+    SiroFAST-4 is a test method for measuring the hygral expansion and relaxation shrinkage of
+    fabric.  SiroFAST-4 is a modification of the conventional "wet-dry" test and can be completed m
+    under two hours. Another advantage of SiroFAST-4 is that the fabric does not require
+    conditioning.
+
+    With SiroFAST-4 the fabric is dried in a convection oven at 105°C and its dry dimensions
+    measured. The fabric is then relaxed by wetting in water and its wet dimensions measured. Lastly,
+    the fabric is dried again at 105°C and its final dry dimensions are measured.
+
+    '

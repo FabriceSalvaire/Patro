@@ -1,0 +1,232 @@
+#---------------------------------------------------------------------------------------------------
+#
+# Needle Database
+#
+#---------------------------------------------------------------------------------------------------
+
+#---------------------------------------------------------------------------------------------------
+#
+# TODO: check, complete and reword so as to be general versus a copy-paste
+#
+# Resources
+#
+#   https://en.wikipedia.org/wiki/Sewing_machine_needle
+#   https://www.schmetzneedles.com/all-about-needles/
+#
+#---------------------------------------------------------------------------------------------------
+
+#---------------------------------------------------------------------------------------------------
+
+Needle System:
+
+  130/705 H: The needle system used by home sewing machines.  Needles have a flat shank and a scarf.
+
+#---------------------------------------------------------------------------------------------------
+
+Needle Size:
+
+  # Give the correspondence between needle size system
+
+  systems:
+    NM:
+      alias: European
+    Singer:
+      alias: American
+
+  table: [
+  # Fixme: check thread size, can we remove tex or metric ? parametrisation ?
+  ['NM', 'Singer', 'thread-size-tex', 'thread-size-metric'],
+  # singer 1 ?
+  [  35,        2,              null,                null ],
+  [  40,        3,              null,                null ],
+  [  45,        4,              null,                null ],
+  [  50,        5,              null,                null ],
+  [  55,        6,              null,                null ],
+  # singer 7 ?
+  [  60,        8,                18,                null ],
+  [  65,        9,                21,                 130 ],
+  [  70,       10,                24,                null ],
+  [  75,       11,                27,                 120 ], # Tex-30
+  [  80,       12,                35,                 100 ],
+  [  85,       13,              null,                null ],
+  [  90,       14,                40,                  75 ], # Tex-45
+  [  95,       15,              null,                null ],
+  [ 100,       16,                50,                null ],
+  [ 105,       17,              null,                null ],
+  [ 110,       18,                60,                  50 ], # Tex-70
+  [ 120,       19,                80,                  30 ],
+  [ 125,       20,              null,                null ],
+  [ 130,       21,              null,                null ],
+  [ 140,       22,               105,                  25 ], # Tex-90
+  [ 150,     null,               135,                  20 ], # Tex-120
+  [ 160,       23,              null,                null ],
+  [ 180,       24,               150,                null ],
+  [ 200,       25,               180,                  15 ],
+  ]
+
+#---------------------------------------------------------------------------------------------------
+
+Needle Type:
+
+  # Universal Intended as an all-purpose needle, preferred for woven fabrics where a sharper needle
+  # could ruin the fabric. Similar to a ballpoint needle but tapered to allow the needle to slip
+  # through without producing a run.
+
+  # Embroidery These needles come with an extra large eye and a specially shaped scarf to prevent
+  # embroidery thread from shredding.
+
+  # Ballpoint Similar to a universal needle but has rounded edges and is not tapered the same
+  # way. Intended for closely knit fabrics where the rounded tip will push the weave out of the way
+  # rather than cut through it.
+
+  # Jeans/ Denim Intended for tightly woven cottons such as canvas. Has a strong, sharp point and
+  # very slender eye.
+
+  # Wing Needle has distinct "wings" on either side of the eye which hold the fabric open. Often
+  # used on hems and borders, and for decorative finishing. A larger size needle will leave a larger
+  # hole in the final piece of sewn fabric.
+
+  # Leather These have a distinct triangular point to help the needle make a large, clean hole in
+  # non-woven materials like vinyl.
+
+  # Metallic Similar to an embroidery needle with a large eye and extra long scarf, but also
+  # includes a Teflon coating to the eye so that metallic threads will not shred when used.
+
+  # Quilting Designed with an extra strong shaft and with a tapered point to penetrate multiple
+  # layers of woven fabrics without breaking and without shredding either the thread or the fabric
+  # being sewn.
+
+  # Serger/ Industrial   These needles can only be used in serger and overlocking machines.
+
+  # Microtex/ Sharps More slender and sharper than the universal needle. Suitable for fine woven
+  # fabrics, but also compatible for quilting and appliqué.
+
+  # Stretch These needles are intended for use on fabrics with a significant amount of Spandex or
+  # similar fabric content. Rounded tip and specialized scarf and eye to prevent skipping.
+
+  # Topstitching These have exceptionally sharp points and a very large eye to accommodate thick
+  # decorative topstitching threads. Very similar to the leather needle.
+
+  # Twin/ Triple Needles set in pairs or in groups of three on a single shaft designed to sew
+  # multiple, usually decorative, threads at once. These require specialized machinery to
+  # accommodate the extra needles, as well as multiple thread feeds. The twin or triple designation
+  # is usually accompanied by another needle type specification such as "stretch" or "denim", etc.
+
+  Denim:
+    alias: jeans
+    description: Modified medium ball point and reinforced blade. For denim and similar fabrics. For
+      penetrating extra thick woven fabrics, denims, or quilts with minimum needle deflection,
+      reduced risk of needle breakage and skipped stitches.
+    feature: Modified medium ball point and reinforced blade.
+    sizes: [70, 80, 90, 100, 110]
+    fabric use: denim
+
+  Double Eye:
+    size: [80]
+    feature: Universal needle with two eyes.
+    fabric use: Numerous — woven and knits. Use two different threads for shading and texturing
+      effects for embroidery and topstitching.
+
+  Embroidery:
+    description: Designed for rayon and polyester embroidery applications.
+    sizes: [75, 90]
+    fabric use: rayon, polyester and other speciality embroidery threads.
+    # The special scarf, widened groove and enlarged eye protect fragile threads and guard against
+    # excess friction allowing trouble-free embroidery and decorative stitching.
+
+  # Gold Embroidery
+
+  Hemstitch:
+    size: [100, 120]
+    feature: A wing on each side of the needle.
+    fabric use: Light or medium weight loosely woven fabrics. Popular for heirloom sewing and to
+      create decorative cut work.
+
+  Jersey:
+    alias: Ball Point
+    description: Designed for sewing on knits and some stretch fabrics.
+    feature: Medium ball point.
+    sizes: [70, 80, 90, 100]
+    fabric use: Knits and some stretch fabrics. Made especially for sewing on knits. The medium ball
+      point does not damage or break knit fibres.
+
+  Leather:
+    description: Designed for leather, artificial leather and heavy non-woven synthetic applications.
+    feature: Cutting point.
+    sizes: [70, 80, 90, 100, 110]
+    fabric use: Leather, artificial leather, heavy non-woven synthetics.  Do not use on knit or
+      woven fabrics.
+
+  Metallic:
+    description: Designed with an enlarged polished eye to accommodate specialty threads by preventing shredding.
+    feature: Elongated eye.
+    sizes: [80, 90]
+    fabric use: Metallic and other speciality threads. A “must have” for sewing with sensitive
+      metallic threads. The elongated eye prevents shredding and breaking of metallic threads.
+
+  Microtex:
+    alias: sharp
+    description: Sharp point for straight stitches on delicate and microfiber fabrics.
+    feature: Very slim acute point.
+    sizes: [60, 70, 80, 90, 100, 110]
+    fabric use: Micro fibers, polyester, silk, foils, artificial leather, coated materials. Very
+      thin acute point creates beautiful topstitching and perfectly straight stitches for quilt
+      piecing when precision is paramount.
+
+  Quilting:
+    description: Special taper to shaft and sharp point to prevent damage to material sewn in layers.
+    feature: Special taper to the slightly rounded point.
+    sizes: [75, 90]
+    fabric use: Made especially for piecing and machine quilting.  The special tapered design allows
+      easier fabric penetration and helps eliminate skipped stitches.
+
+  stretch:
+    description: Designed for synthetic suedes or elastic knitwear. Designed with a deep scarf to prevent skipped stitches.
+    feature: Medium ball point, special eye and scarf.
+    sizes: [75, 90]
+    fabric use: Elastic materials and highly elastic knitwear. The medium ball point, specially
+      designed eye and scarf prevent skipped stitches.
+
+  Topstitch:
+    description: Extra sharp with an enlarged groove to accommodate large diameter threads and dense fabrics.
+    feature: Extra long eye.
+    sizes: [80, 90, 100]
+    fabric use: Topstitch, heavy, multiple or poor quality threads.  Achieve perfectly straight
+      stitch lines and even stitches when using a straight stitch plate.
+
+  Universal:
+    description: General sewing of knit and woven fabrics. Slight ball point.
+    feature: Slightly rounded point.
+    sizes: [60, 65, 70, 75, 80, 90, 100, 110, 120]
+    fabric use: Numerous - woven and knits. A great general purpose needle.
+
+#---------------------------------------------------------------------------------------------------
+
+Needle Parts:
+
+  # Describe the anatomy of a needle
+
+  Tip: null
+
+  Point: Length, shape and size vary according to needle types.
+
+  Eye: The hole through which thread passes. The shape and size of the eye vary according to needle type.
+
+  Groove: The groove cradles and guides thread to the eye. The length and size of the groove
+   shoulder vary according to needle type.
+
+  Scarf: The indentation above the eye that allows the bobbin hook to smoothly grab the thread under
+    the throat plate to create a stitch. The shape and size of the scarf vary according to needle
+    type.
+
+  Blade: Needle size is determined by the blade diameter (i.e., size 75 is .75mm).
+
+  Shoulder: The sloping area transitioning between the shank and blade.
+
+  Shank: Household needles have a flat shank, while commercial and industrial needles have round,
+    threaded, notched or other special shanks. Shanks allow perfect positioning of the needle in the
+    sewing machine.
+
+  # Size: null
+
+  Butt: The bevelled end allows easy insertion in the needle bar.

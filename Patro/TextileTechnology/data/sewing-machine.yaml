@@ -1,0 +1,176 @@
+#---------------------------------------------------------------------------------------------------
+#
+# Sewing Machine Database
+#
+#---------------------------------------------------------------------------------------------------
+
+#---------------------------------------------------------------------------------------------------
+#
+# Reference
+#
+#   http://www.juki.co.jp/industrial_e/products_e/alldocument.html
+#
+#---------------------------------------------------------------------------------------------------
+
+#---------------------------------------------------------------------------------------------------
+#
+# TODO: check, complete and reword so as to be general versus a copy-paste
+#
+#---------------------------------------------------------------------------------------------------
+
+#---------------------------------------------------------------------------------------------------
+
+# Types of Industrial Sewing Machines
+
+# There are four main types of industrial sewing machines. The differentiation between them is based
+# on the design of the arm and needle post. These four types are:
+
+# Flatbed: The most common type, these machines resemble traditional sewing machines in that the arm
+#   and needle extend to the flat base of the machine. Workers typically use this machine for sewing
+#   flat pieces of fabric together.
+
+# Cylinder-bed: These machines feature a narrow, horizontal column as opposed to a flat base. This
+#   allows fabric to pass around and under the column. The diameter of the cylinder-bed varies from
+#   5 cm to 16 cm. Workers employ the cylinder-bed machine for sewing cylindrical pieces such as
+#   cuffs, but it is also useful for bulky items such as saddles and shoes.
+
+# Post-bed: These machines feature bobbins, feed dogs and/or loopers in a vertical column that rises
+#   above the flat base of the machine. The height of this column ranges from 10 cm to 45
+#   cm. Applications that make access to the sewing area difficult, such as attaching emblems, boot
+#   making and glove making utilize the post-bed machine.
+
+# Off-the-arm: The least common group, these machines require workers to feed material along the
+#   axis of a horizontal column. The design limits the length of the seam sewn to the length of the
+#   column, but is useful for applications such as sleeve and shoulder seams.
+
+# Raised Bed: Raised Bed Machines where the entire machine is mounted on the top of the table Used
+#   where you need the garment to drape away from the needle for better handling
+
+# Flat Bed / Fully Submerged Bed
+# Semi-Submerged Bed
+# Long Arm Flat Bed
+
+# Different industrial sewing machines offer several ways to feed the material. The main types of
+# feed mechanisms are:
+#
+# Drop feed: The feed mechanism lies below the machine's sewing surface. This is probably the most
+#   common feed type.
+#
+#   Drop Feed utilizes a feeder below the plate that raises up through the plate, compresses the
+#   fabric against the presser foot to advance the fabric one stitch, then drops below the plate to
+#   return to the original position.
+#
+# Needle feed: The needle itself acts as the feed mechanism, which minimises slippage and allows
+#   workers to sew multiple layers of fabric.
+#
+#   Needle Feed utilizes a feeder below the plate that raises up through the plate, compresses the
+#   fabric against the presser foot,in conjunction with the sewing needle which, drops through the
+#   fabric, then both move one stitch to advance the fabric.  Then the separate and return to the
+#   original position for the next stitch.
+#
+# Walking foot: The immobile presser foot is replaced with a foot that moves with the feed, which
+#   allows easier performance on thick, spongy or cushioned materials.
+#
+# Puller feed: The machine grips and pulls straight-seemed material as it is sewn and can perform on
+#   large, heavy-duty items such as canvas tents.
+#
+# Manual feed: The feed is controlled entirely by the worker, who can do delicate, personal work such
+#   as shoe repair, embroidery and quilting. On industrial sewing machines, it is sometimes necessary
+#   to remove the feed dogs to obtain a manual feed.
+
+#  Compound Feed utilizes a feeder below the plate that raises up through the plate, compresses the
+#  fabric against the presser foot in conjunction with a feeder above the plate which both pinch the
+#  fabric and both move one stitch to advance the fabric together
+
+#  Unison Feed combines Needle Feed with Compound Feed The Needle penetrates the fabric, the top and
+#  bottom feed dogs compress on the fabric, and they all advance the fabric one stitch, all release
+#  as the presser foot drops to hold the fabric, and all return for the next stitch
+#
+#  Differential Feed utilizes a two piece feeder below the plate that raises up through the plate,
+#  compresses the fabric against the presser foot and then advances the fabric.  The front (main)
+#  feeder and rear feeder can be set to move the same or different distances.  When the rear feeder
+#  is set to move farther than the front, the fabric is stretched.  When the rear feeder is set to
+#  move less than the front, the fabric is gathered (shirring)
+#
+#  Compound-Differential Feed utilizes a feeder below the plate that raises up through the plate,
+#  compresses the fabric against the presser foot in conjunction with a feeder above the plate which
+#  both pinch the fabric and both move one stitch to advance the fabric together.  The feeder below
+#  the plate is in two parts, front and rear and can either be set to stretch or gather (shirr) the
+#  fabric as it feeds.
+#
+#  Wheel Feed utilizes a roller that advances the fabric one stitch length at a time, in a
+#  ratcheting motion. The presser foot has small rollers to permit easy movement.  Wheel feed is
+#  used when the material being sewn would be damaged by tooth feeders.  Examples are vinyl plastic
+#  and some leather products
+#
+#  Cup (Wheel) Feed utilizes one or two cup shaped wheels that pinch the edge of the material,
+#  permitting the needle to sew across the edge of the material. Often called a "fur machine" as
+#  this machine is ideal for sewing the narrow strips together to create a fur coat.
+
+#---------------------------------------------------------------------------------------------------
+
+Machine Types:
+
+  Lockstitch:
+
+    description: A needle thread and bobbin thread are threaded through every needle. The front
+      fabric and back fabric are stitched in the same way.
+
+    machines:
+      Lockstitch sewing machine: null
+      Zigzag stitching machine: null
+
+  Chainstitch:
+
+    description: A single thread is stitched under the fabric in a chain-like pattern to create a
+      knit-style seam.
+
+    machines:
+      Lock sewing machine: null
+      Button sewing machine: null
+
+#---------------------------------------------------------------------------------------------------
+
+# Coverstitch machine
+# Chainstitch machine
+# Button sewing machine
+# Buttonholing sewing machine
+# Bartacking machine
+# Shape-tacking machine
+# Post-bed sewing machine
+# Long arm sewing machine
+# Computer-controlled cycle machine
+# Automatic machine
+
+# For Apparel
+# 1-needle, Lockstitch Machine
+# 2-needle, Lockstitch Machine
+# Overlock / Safety Stitch Machine
+#
+# Zigzag Stitching Machine
+# Post-bed Sewing Machine
+# Coverstitch Machine
+#
+# Chainstitch Machine
+# Button Sewing Machine
+# Buttonholing Machine
+#
+# Bartacking Machine
+# Shape-tacking Machine
+# Computer-controlled Cycle Machine
+#
+# Automatic Machine
+# Non-sewing
+
+# For Non-apparel
+# Flat-bed Sewing Machine
+# Cylinder-bed Sewing Machine
+# Post-bed Sewing Machine
+#
+# Long Arm Sewing Machine
+# Machine for Extra Heavy-weight Materials
+# Bartacking Machine
+#
+# Shape-tacking Machine
+# Computer-controlled Cycle Machine
+# Automatic Machine

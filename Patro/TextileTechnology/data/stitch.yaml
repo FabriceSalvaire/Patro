@@ -1,0 +1,296 @@
+#----------------------------------------------------------------------------------------------------
+#
+# According to Standard
+#
+#   ASTM
+#   D 6193 – 97 (Reapproved 2004)
+#   Standard Practice for Stitches and Seams
+#
+#----------------------------------------------------------------------------------------------------
+
+#---------------------------------------------------------------------------------------------------
+#
+# TODO: check, complete and reword so as to be general versus a copy-paste
+#
+#---------------------------------------------------------------------------------------------------
+
+#---------------------------------------------------------------------------------------------------
+
+Introduction: Stitches are divided into six classes which are identified by the first digit of three
+  digit numerals. Each class is divided into several types which are identified by the second and
+  third digit.
+
+Classes:
+
+  Stitch Class 100:
+    name: Single Thread Chain Stitches
+
+    description: This class of stitch (Types 101 through 105) is formed with one or more needle
+      threads and requires interlooping. A loop (or loops) of thread(s) shall be passed through the
+      material and be secured by interlooping with succeeding loop or loops, after they are passed
+      through the material, to form a stitch.
+
+    stitches:
+
+      101:
+        name: Single Thread Chain Stitches
+        number_of_needles: 1
+        number_of_threads: 1
+
+      103:
+        name: Single Thread Blind Stitch
+        number_of_needles: 1
+        number_of_threads: 1
+
+      104:
+        name: Blindstitch
+        number_of_needles: 1
+        number_of_threads: 1
+
+      105: null
+
+#----------------------------------------------------------------------------------------------------
+
+  Stitch Class 200:
+    name: Handstitch
+
+    description: This class of stitch (Types 201 through 205) is formed by hand with one or more
+      needle threads and requires that each thread passes through the material as a single line of
+      thread. Each stitch is secured by the single line of thread passing in and out of the material
+      or the interlooping of the threads with themselves. When more than one thread is used, the
+      threads pass through the same perfora- tions in the material.
+
+    stitches:
+
+      201: null
+      202: null
+      203: null
+      204: null
+
+      205:
+        name: Handstitch 205
+        number_of_needles: 1
+        number_of_threads: 1
+
+      209:
+        name: Handstitch 209
+        number_of_needles: 1
+        number_of_threads: 1
+
+#----------------------------------------------------------------------------------------------------
+
+  Stitch Class 300:
+    name: Lock Stitches
+
+    description: This class of stitch (Types 301 through 316) is formed with two or more groups of
+      threads and requires the interlacing of the two groups. Loops of the first group are passed
+      through the material where they are secured by the thread(s) of the second group to form a
+      stitch.
+
+    stitches:
+
+      301:
+        name: Lock Stitch
+        number_of_needles: 1
+        number_of_threads: 2
+
+      302: null
+      303: null
+
+      304:
+        name: Zigzag Lock Stitch
+        number_of_needles: 1
+        number_of_threads: 2
+
+      305: null
+
+      306:
+        name: Blindstitch
+        number_of_needles: 1
+        number_of_threads: 2
+
+      307: null
+
+      308:
+        name: Double Step Zigzag
+        number_of_needles: 1
+        number_of_threads: 2
+
+      309: null
+      310: null
+      311: null
+      312: null
+      313: null
+      314: null
+
+      315:
+        name: Three Step Zigzag
+        number_of_needles: 1
+        number_of_threads: 2
+
+      316:
+        name: Lockstitch
+
+#----------------------------------------------------------------------------------------------------
+
+  Stitch Class 400:
+    name: Multi-Thread Chain Stitches
+
+    description: This class of stitch (Types 401 through 407) shall be formed with two or more
+      groups of threads and requires the interlacing and interlooping of the loops of the two
+      groups. Loops of the first group of threads are passed through the material and are secured by
+      interlacing and interlooping with loops of the second group to form a stitch.
+
+    stitches:
+
+      401:
+        name: Chain Stitch
+        number_of_needles: 1
+        number_of_threads: 1
+
+      402: null
+      403: null
+
+      404:
+        name: Zigzag Stitch
+        number_of_needles: 1
+        number_of_threads: 1
+
+      405: null
+
+      406:
+        name: 2-Needle Bottom Coverstitch
+        number_of_needles: 2
+        number_of_threads: 3
+
+      407:
+        name: 3-Needle Bottom Coverstitch
+        number_of_needles: 3
+        number_of_threads: 4
+
+      408:
+        name: Two-Needle Chain Stich with Cover Thread
+        number_of_needles: 2
+        number_of_threads: 4
+        astm: false
+
+#----------------------------------------------------------------------------------------------------
+
+  Stitch Class 500:
+    name: Overedge Chain Stitches
+
+    description: This class of stitch (Types 501 through 522) is formed with one or more groups of
+      thread, and requires that loops from at least one group of thread shall pass around the edge
+      of the material. Loops of one group of thread are passed through the material and are secured
+      by interlooping with themselves before succeeding loops are passed through the material, or
+      secured by interlooping with loops of one or more interlooped groups of threads before
+      succeeding loops of the first group are again passed through the material.
+
+    stitches:
+
+      501: null
+
+      502:
+        name: Overedge Stitch
+        number_of_needles: 1
+        # number_of_threads: ?
+
+      503:
+        name: 2-Thread Overedge ( single "purl" on edge )
+        number_of_needles: 1
+        number_of_threads: 2
+        number_of_loops: 1
+
+      504:
+        name: 3-Thread Overedge
+        number_of_needles: 1
+        number_of_threads: 3
+        number_of_loops: 2
+
+      505:
+        name: 3 Thread Overedge ( double purl on edge )
+        number_of_needles: 1
+        number_of_threads: 3
+        number_of_loops: 4
+
+      506: null
+      507: null
+      508: null
+      509: null
+      510: null
+      511: null
+
+      512:
+        name: Mock Safety Stitch
+        number_of_needles: 2
+        number_of_threads: 4
+        number_of_loops: 2
+
+      513: null
+
+      514:
+        name: 2-Needle 4-Thread Overedge
+        number_of_needles: 2
+        number_of_threads: 4
+        number_of_loops: 2
+
+      515:
+        name: 4-Thread Safety Stich
+        composition: 401 + 503
+        number_of_needles: 1
+        number_of_threads: 4
+        number_of_loops: 3
+
+      516:
+        name: 5-Thread Safety Stich
+        composition: 401 + 504
+        number_of_needles: 1
+        number_of_threads: 5
+        number_of_loops: 4
+
+      517: null
+      518: null
+      519: null
+      520: null
+      521: null
+      522: null
+
+#----------------------------------------------------------------------------------------------------
+
+  Stitch Class 600:
+    name: Covering Chain Stitches
+
+    description: This class of stitch (Types 601 through 607) is formed with two or more groups of
+      threads, and requires that two of the groups cover the raw edges of both surfaces of the
+      material. Loops of the first group of thread are passed through loops of the third group
+      already cast on the surface of the material and then through the material where they are
+      interlooped with loops of the second group of thread on the underside of the material. The one
+      exception to this procedure is stitch type 601 where only two groups of thread are used and
+      the function of the third group is performed by one of the threads in the first group.
+
+    stitches:
+
+      601: null
+
+      602:
+        name: 2-Needle 4-Thread Coverstitch
+        number_of_needles: 2
+        number_of_threads: 4
+        number_of_loops: 2
+
+      603: null
+      604: null
+
+      605:
+        name: 3-Needle 5-Thread Coverstitch
+        number_of_needles: 3
+        number_of_threads: 5
+        number_of_loops: 2
+
+      606: null
+
+      607:
+        name: 4-Needle 6-Thread Coverstitch / Flatseamer / Flatlock
+        number_of_needles: 4
+        number_of_threads: 6
+        number_of_loops: 2
