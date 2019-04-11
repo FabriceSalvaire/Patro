@@ -1,0 +1,613 @@
+===================================================================================================
+
+BSa      | Binding (coverstitch - 602 or 605 )
+BSa      | Binding (selvedge edge binding - 301 or 401)
+BSb      | Binding (bottom coverstitch - 406 stitch)
+BSc      | Waistbanding (1 piece - binding - jeans)
+BSc      | Binding (clean finish - usually 301)
+BSd      | Binding (2 needle - selvedge edge - 301 or 401)
+BSe      | Binding (2 needle - clean finish - 301 or 401)
+BSf mod  | Waistbanding (with "stitch-in-a-ditch" topstitching)
+BSg      | Binding (Mock clean finish binding - 2 operations)
+BSj      | Binding (Mock clean finish binding - 2 operations)
+
+EFa      | Hemming (selvedge edge)
+EFa Inv. | Hemming - 2 Ndl. hemming on knits
+EFad     | Making Strap or Belt (2 needle - 2 piece)
+EFb      | Hemming (clean finish)
+EFc      | Hemming - blindhemming w overedge
+EFd      | Serging - generally with 503, 504 or 505 stitch
+EFe      | Hem Serging
+EFf      | Hem with Elastic
+EFg      | Hem with Elastic (2 needle)
+EFh      | Making Belt Loops (for jeans, chinos)
+EFj      | Making Strap or Belt (1 needle)
+EFl      | Hemming - blindstitch hemming (serged or pinked)
+EFm      | Hemming - blindstitch hemming (clean finish)
+EFn      | Making Strap or Belt (2 needle - 2 piece)
+EFp      | Making Strap or Belt (1 needle)
+EFq      | Hem with Elastic (2 needle)
+EFr      | Hemming - Tunneled Elastic (2 needle)
+EFu      | Making Spaghetti
+EFv      | Centerplait (Cut-on centerplait - 401/ 301 stitch)
+EFy      | Making Strap or Belt (1 needle)
+EFz      | Making Strap or Belt (1 needle)
+
+FSa      | Crotch seam (Flatseaming with 607 stitch)
+FSa      | Flatlock seaming (with 606 stitch)
+FSa      | Flatseaming (with 607 stitch)
+FSf      | Bolt-end seaming (501 - single thread overedge)
+LSa      | Lap Seaming
+LSa      | Waistbanding (with Elastic - 406 / 407 stitch)
+LSa      | Crotch seam (Flatlock seaming with 606 stitch)
+LSa      | Elastic attaching - 406 or 407 stitch - underwear
+LSar     | Joining Bib to Overall
+LSas     | Crotch seam on Jeans - usually 301 stitch
+LSb      | Lap Seaming - top edge turned under
+LSc      | Felling or felled seam (2 or 3 needle 401 stitch)
+LSd      | Patch Pocket Setting - 301 stitch
+LSe      | Yoking (1 operation - w folder)
+LSf      | Yoking (1 operation - wo folder)
+LSg      | Waistbanding (2 piece band)
+LSj      | Waistbanding (2 piece w interlining)
+LSk      | Waistbanding (1 piece)
+LSl      | Joining Bib to Overall
+LSm      | Centerplait (Set-on - generally 401 stitch)
+LSn      | Hem with Piping
+LSq      | Seam & Cord Seam
+LSq      | Seam & Topstitch Seam
+LSq (b)  | Cord seam only - generally 301 or 401 stitch
+LSr      | Sleeve Set (2 operations)
+LSs      | Pocket Set (patch pkt. - 2 operations)
+LSz      | Join & Tape Front (flatseamer)
+
+OSa      | Deco Stitching
+OSf      | Darting (panel not cut - generally 301 stitch)
+
+SSa      | Seaming (1st part of 2 part operation)
+SSa      | Seaming (General)
+SSa      | General Seaming
+SSaa     | Taping Edge - generally 301
+SSab     | Seaming with Stay Tape
+SSae     | Attach & Edgestitch (usually 301 stitch)
+SSae     | French Seam
+SSag     | Seaming then Taping Seam
+SSag (b) | Taping only - 2nd part of 2 part operation
+SSat     | Stripes attaching - 2 needle - either 301 or 401
+SSav     | Seam with Piping & Topstitch
+SSaw     | Seam with Piping & Topstitch
+SSaz     | Making Straps, Belts (hidden stitch w interlining)
+SSbc     | Lining Cuffs for Dress Shirts
+SSc      | Bagging Welt Pockets on Trousers (usually 301)
+SSd      | Bag Seaming - 401
+SSe      | Runstitch & Topstitch - generally 301 stitch
+SSe (b)  | Topstitch only - 2nd part of 2 part operation
+SSf      | Butt seam & tape - generally 301 lockstitch
+SSh      | Seaming & Coverseaming
+SSh (b)  | Coverseaming only (straddle stitch - 406 stitch)
+SSj      | Facing to front with Zipper
+SSk      | Seam with Piping
+SSl      | Pocket Set (hem & set front pocket - jeans)
+SSn      | Hem Seaming (raw edges)
+SSp      | Hem Seaming (clean finish)
+SSq      | Yoking (2 operations)
+SSt      | Waistbanding (with Elastic - 3 or 4 needle)
+SSt      | Elastic attaching - 3 or 4 needle 401 stitch
+SSv      | Joining plies
+SSw      | Mock Felled Seam
+SSw      | Felling (Mock Felled Seam)
+
+===================================================================================================
+
+BSa
+3.01.01
+Binding Carpets, etc. with selvedge edge binding
+1) Specify the Binding finished width.
+
+BSf mod
+Topstitch hidden in seam line
+"Stitch in a Ditch" - Topstitching Waistband with stitch line on top of previous seam line.
+1) May require special PF with Guide so stitch is totally hidden
+
+BSa
+3.01.01
+Setting collarettes & Sleeve Binding on Undershirts, etc. Usually sewn with a 602 or 605 coverstitch
+1) Specify the needle spacing if 602 or 605 stitch is used;
+2) specify the Binding finished width.
+
+BSg
+Sewn in 2 Operations
+3.14.01
+Mock Clean Finish Binding
+1) Specify width of Binding
+
+BSb
+3.03.01
+Setting collarettes on T Shirts; binding legs and fly on knit briefs, etc. Usually sewn with a 406 bottom coverstitch
+1) Specify the needle spacing if 406 stitch is used (Ex: 1/8", 3/16");
+2) specify the Binding finished width. Sewn in two operations
+
+BSj
+3.05.06
+Mock Clean Finish Binding
+1) Specify the width of the binding. Example: 1/2" Binding.
+
+BSc
+3.05.01
+For setting sleeve facings to shirts, piping edges of outerwear, etc. Can be sewn with a 301 lockstitch or 401 Chainstitch
+1) Specify the width of the binding. Example: 1/2" Binding.
+2) Requires a binding folder. Waistbanding on Jeans
+
+BSc
+3.05.01
+For setting waistbands to jeans, etc. Can be sewn with a 401 chainstitch or 301 lockstitch
+1) Specify needle spacing; and
+2) Specify the width of the binding. (Example: 1- 3/8" and 1- 5/8" Binding.)
+3) Requires a binding folder.
+
+BSd
+3.01.02
+Seaming with selvedge edge binding on Outerwear
+1) Specify the needle spacing; and
+2) Width binding. Example: 3/8" needle spacing and 1/4" Binding.
+3) Requires a binding folder.
+
+BSe
+3.05.05
+Seaming and binding on Outerwear
+1) Specify the needle spacing; and
+2) Width binding. (Example: 3/8" needle spacing and 1/4" Binding.)
+3) Requires a binding folder.
+
+EFa
+6.02.01
+Hemming Selvedge Edge Shirt Front
+1) Specify width of hem.
+
+EFl
+Blindstitch Hem
+Hemming Dresses, Slacks, Coats, Bedspreads.
+Generally sewn with 103 blindstitch
+1) Specify Width Hem 2 Ndl. Hem
+
+EFa Inv.
+6.02.07
+Hemming Tee Shirts, Polo Shirts, etc. Generally sewn with a 406 stitch.
+1) Specify width of hem; and
+) Needle Spacing. (Ex. 1" hem with 1/4" needle spacing). Belt Loops
+
+EFh
+Making Belt Loops for Jeans and Casual Pants, Shorts, Etc. Usually sewn with 406 stitch.
+1) Specify needle Spacing &
+2) Width of Belt Loop.  (Ex. 1/4" needle spacing and 3/8" width belt loops)
+3) Requires belt loop folder.
+
+EFb
+Clean Finish Hem
+6.03.01
+Hemming Shirts, Jeans, Shorts, etc.
+1) Specify width of hem.
+2) Generally a hemming folder is required or a hemming PF.
+
+EFm
+Blindstitch Hem
+Hemming Dresses, Slacks, Coats, Bedspreads. Generally sewn with 103 blindstitch.
+1) Specify Width Hem
+
+EFc
+Blindhemming
+6.06.01
+Hemming bottoms of Tee Shirts, Undershirts, etc. Usually sewn with a 503 Stitch.
+1) Specify width Hem. (Ex. 1" hem);
+2) Generally a hemming guide is required.
+
+EFv
+Centerplaiting
+Cut-on Centerplait. Generally sewn with 2 rows of 401 stitch. (See also LSm - set- on centerplait)
+1) Specity needle spacing; and
+2) Width centerplait. (Ex. 1" needle spacing & 1 1/2" centerplait.
+3) Requires centerplait folder.
+
+====================================================================================================
+
+EFd
+Serging
+6.01.01
+Serging Pants Panels, Flys, Facings, etc.
+1) Specify width Bite. (Ex. 3/16")
+
+EFu
+Making Spaghetti
+8.07.01
+Making straps. The stitch is hidden and not visible.
+1) Specify with of strap.
+
+EFe
+Serge & Hem
+Serging edges of napkins, sheer curtains, etc.
+1) Specify width Bite. (Ex. 3/32")
+2) A hemming P.F. is required.
+
+EFj
+8.05.01
+Making straps or belts with clean finish.
+1) Specify with of strap.
+
+EFf
+Hem & insert
+7.24.02
+Hem and Insert Elastic to Infants Panties, etc.
+1) Specify the width of hem
+
+EFn
+8.19.01
+Making straps or belts with clean finish.
+1) Specify needle spacing; and
+2) Specify with of strap.
+
+EFg
+7.24.03
+Hem and Insert Elastic to Infants Panties, etc.
+1) Specify the needle spacing; and
+2) Specify the width of hem. (Ex. 1/4" needle spacing and 1/2" width hem.)
+3) Requires hemming folder & elastic guide.
+
+EFp
+8.06.01
+Making straps or belts with clean finish.
+1) Specify with of strap.
+
+EFq
+7.26.05
+Hem and Insert Elastic to Infants Panties, etc.
+1) Specify the needle spacing; and
+2) Specify the width of hem. (Ex. 1/4" needle spacing and 1/2" width hem.)
+3) Requires hemming folder & elastic guide.
+
+EFad 8.17.01
+Making straps or belts with clean finish with interlining.
+1) Specify with of strap.
+
+EFr
+Tunnelled Elastic
+7.26.05
+Hem and Insert Elastic to Infants Panties, etc.
+1) Specify the needle spacing; and
+2) Specify the width of hem. (Ex. 1/4" needle spacing and 1/2" width hem.)
+3) Requires hemming folder & elastic guide.
+
+EFy
+8.03.03
+Making straps or belts with clean finish.
+1) Specify with of strap.
+
+EFz
+8.03.04
+Making straps or belts with clean finish.
+1) Specify with of strap.
+
+====================================================================================================
+
+Lap Seaming
+
+LSa
+2.01.01
+Attaching knitted cuffs - generally sewn with a coverstitch - 605 or 607
+1) A seaming guide or trimmer is used to keep the edges even.
+2) Specify Needle Spacing. (Ex.- 1/4" ndl spacing)
+
+LSa
+Attaching Elastic
+2.01.01
+Setting Elastic to panties or briefs - 406 or 407 stitch; Attaching knitted cuffs - generally sewn with a coverstitch - 605 or 607
+1) A seaming guide or trimmer is used to keep the edges even.
+2) Specify Needle Spacing. (Ex.- 1/4" ndl spacing)
+
+LSb
+2.02.01
+Not as common as LSq where the piece is attached and then corded or topstitched.
+1) Specify the dimension from stitching to edge of top ply. Example: 1/8" header.
+
+LSq
+Seam & Cord Seam
+2.02.03
+Sideseam on jeans; Chinos; Jackets, etc.
+1) 1st Operation - specify seam width;
+2) 2nd Operation - specify number of needles (1, 2, 3) and needle spacing.
+
+LSc
+Felled Seam
+2.04.06
+Seaming Jeans, Shirts, Jackets, etc. Generally with a two or three needle 401 Chainstitch
+1) Specify needle spacing & seam width. (Ex: 1/4 needle spacing w 3/8" seam width).
+2) A felling folder with correct capacity is required.
+
+LSk
+7.32.03
+Waistbanding on Pajamas; Making Rod Pkt.on Curtains & Shower Curtains, etc.
+1) Specify needle spacing and
+2) Tape width.3) A folder combining a turn down folder and strip folder is required.
+
+LSd
+Patch Pocket Setting
+5.31.01
+For setting patch pockets, flaps, pocket facings, etc.generally with a 301 Lockstitch
+1) Specify margin (example: 1/16" or 3/32").
+2) A pressure foot with a yielding section is used to maintain a uniform margin from the stitch to the edge.
+
+LSg
+Two piece Waistband
+7.57.01
+Attaching a Waistband to Chinos or Work Pants
+1) Specify the needle spacing;
+2) width of W.B.;
+3) A folder consisting of an upper strip folder and lower strip folder is required.
+
+LSs
+Patch Pocket Setting
+2.05.02
+For setting large patch pockets on Suit Coats, Overcoats and Jackets
+1) 1st Operation - highly skilled operation;
+2) Specify margin (example: 1/16" or 3/32").
+
+LSj
+Two piece Waistband
+7.76.01
+Attaching a Waistband to Chinos or Work Pants
+1) Specify the needle spacing;
+2) width of W.B.;
+3) A folder consisting of an upper strip folder with guide for interlining, and lower strip folder is required. 
+
+LSe
+Yoking
+1.22.01
+Seaming yokes to back on Shirts or Blouses in one operation. Not as common as SSq.
+1) Specify margin (example: 1/16" or 3/32");
+2) A folder consisting of upper and lower scrolls are required.
+
+LSf
+Yoking
+Seaming yokes to back on Shirts or Blouses in one operation.
+1) Specify margin from stitch line to edge (example: 1/16" or 3/32") 
+
+LSm
+Set-On Center Plait
+7.62.01
+Attaching Set-On Centerplaits to Shirts and Blouses
+1) Specify Needle Spacing (Ex. 1");
+2) Specify width of Centerplait (Ex. 1 1/2")
+3) Requires a Folder with Top Strip Folder with 
+
+Lsas
+Crotch Seaming on Jeans & Chinos
+1) Specify needle spacing - (Ex. 1/4")
+
+LSn
+Not Common
+
+LSbj
+5.30.01
+Facing front pockets on jeans
+1) Facing should be serged prior to being set.
+
+LSz
+Joining & Taping
+2.14.02
+Joining & Taping Fronts of Knit Briefs & Thermal Underwear
+1) Generally done on a 607 Flatseaming machine with or with the upper spreader thread.
+2) Requires an upper Taping Folder.
+
+LSr
+Sleeve Set
+2.06.02
+Setting Sleeves on Dress Shirts or Blouses
+1) 1st Operation - specify the seam width - a folder may be required;
+2) 2nd Operation - specify topstitch margin.
+
+====================================================================================================
+
+LSl
+2.28.03
+Joining the Bib to Pants of Bib Overall in 1 operation.
+1) Needle Spacing and
+2) Strip width are required. Flatseaming
+
+FSa
+4.01.01
+Flatseaming Underwear, Fleese, Exercisewear, etc. Generally sewn with a 607 stitch.
+
+LSar
+Joining the Bib to Pants of Bib Overall in 1 operation.
+1) Needle Spacing and
+2) Strip width are required.
+
+FSf
+Bolt-End Seaming
+Bolt-End Seaming with a 501 Stitch
+
+OSf
+Sewing Darts
+6.05.01
+Dart panel on Slacks, Chinos, Blouses, etc.
+1) Specify width of Dart and length. (Ex. 3/8" wide and 3" long)
+
+OSa
+Decorative Stitching
+5.01.01
+Decorative Stitch Back Pockets on Jeans; Saddle Stitching
+1) Specify Design Pattern with dimensions of stitch location
+
+SSa
+General Seaming
+1.01
+Most common seam construction for both wovens & knits.
+1) Seam Margin must be specified to maintain fit.
+2) A seaming guide or trimmer is used to keep the edges even.
+
+SSj
+1.11
+For attaching a Zipper Tape between the Shell and Facing.
+1) Seam Margin must be specified to maintain fit;
+2) A seaming guide is used to keep the edges even.
+3) A zipper Foot may be required.
+
+SSab
+Seaming & Taping
+Joining Shoulders with Stay Tape; Attaching Facing to Jacket Front with Stay Tape
+1) Specify width of Stay Tape;
+2) Specify Seam Margin
+
+SSk
+Seam with Piping
+1.12
+For seam apparel, furniture with piping in seam
+1) Seam Margin must be specified to maintain fit.
+2) A seaming guide is used to keep the edges even.
+3) May require a Foot with grooved bottom if cord is used in piping.
+
+SSaa
+Attaching Tape to Edge
+Attaching a Zipper tape to Fly Facing; Attaching Stay Tape to Armhole
+1) Specify width of tape; and
+2) Specify seam margin Seam, Fold, & Topstitch
+
+SSax
+1.18/1.19
+For seaming and piping edges of pillow; Pajama Tops, etc.
+1) Specify Seam Margin;
+2) Topstitch Heading / Margin; and 3) a Folder may be used to make the piping w/or wo cord
+
+SSe
+Runstitch & Topstitch
+1.06.02
+For making collars & Cuffs on Shirts; attaching front pockets, bagging front pockets, setting fly on Chinos, etc.
+1) Seam Margin must be specified on both 1st & 2nd operations.
+2) A seaming guide is used to keep the edges even.
+3) There is a turning process between 1st & 2nd process. Seam, Fold, & Topstitch
+
+SSaw
+2.19.02
+For seaming and piping edges of cushions; pillows; attaching yokes to backs on casual shirts, dresses, etc.
+1) Specify Seam Margin; and
+2) Topstitch Heading / Margin
+
+SSae
+1.06.03
+French Seaming
+For edgestitching front facings on Jackets, Dresses.
+1) Seam Margin must be specified on both 1st & 2nd operations.
+2) A seaming guide is used to keep the edges even.
+3) There is a turning process between 1st & 2nd process.
+
+SSn
+Hem Seam
+1.20.01
+For seaming fabrics that may be susceptable to Seam Slippage
+1) A hemming folder or guide is generally used.
+2) Hem width should be specified. Example: 3/8" Hem.
+
+====================================================================================================
+
+SSq
+Seam, Fold & Cord
+2.42.04
+For attaching Yokes to Back or Shoulder Joining on Shirts, Blouses, etc. Similar to LSe but done in 2 steps.
+1) A swing out margin guide is required along with a Yielding Presser Foot.
+2) The correct PF with the preferred margin guide should be used (example: 1/16 or 3/32 inch).
+
+SSp
+Hem Seam
+1.21.01
+For seaming fabrics that may be susceptable to Seam Slippage
+1) A hemming folder is generally required.
+2) Hem width should be specified. Example: 3/8" hem.
+
+SSf
+Butt Seam & Tape
+4.08.02
+For Butt seaming & Taping heel seams on Shoes, etc.
+1) Seam margin must be specified on 1st Operation.
+2) Needle spacing and Tape width specified on 2nd operation.
+
+SSs
+7.09.01
+Hemming and attaching zipper tape.
+1) Specify width of tape; and
+2) Specify seam margin.
+
+SSh
+Seaming & Coverseaming
+4.04.01
+For coverseaming knit tops, undergarments to reenforce the seam and give it a decorative appearance
+1) Suggest using a 504 for 1st operation and 406 with 1/4" needle spacing for 2nd operation;
+2) Seaming guide on Coverseaming machine.
+
+SSt
+Attaching Elastic
+7.09
+For seaming knitted or woven elastic to Boxers, Gym Shorts
+1) Specify Width of Elastic;
+2) Usually 2, 3, or 4 rows of 401 chainstitch are used to make this seam - Specify Needle Spacing.
+(Ex.: 1 1/4" Elastic with 4 rows 1/4" needle spacing) Seaming, then Taping Seam
+
+SSag 4.10.02
+For taping the shoulder and neck of Tee Shirts
+1) The finished width of the Tape and
+2) needle spacing on the taping operation is generally required.
+3) A taping folder is required fold and guide the tape on to the seam. Lining Cuffs
+
+SSbc
+1.03.01
+Attaching Lining to Cuffs for Shirts & Blouses
+1) Specify the Width Hem, if necessary. Setting Stripes Shirts, Shorts, etc.
+
+SSat
+5.06.01
+For attaching stripes to Shirt Fronts, etc.
+1) Specify Tape Finshed Width and
+2) Needle Spacing. (Ex.: 3/4" Tape with 1/2" needle spacing)
+
+SSb
+1.04
+Not common
+Mock Felled Seam
+
+SSw
+2.04.06
+For Side Seaming Shirts, Blouses, Dresses, etc.
+Manual method for making a felled seam.
+1) Hem ply 1 around ply 2 - Specify Hem width and
+2) Topstitch seam - Heading /Topstitch Margin
+
+SSaz
+8.11.01
+Making Straps, Belts, etc.
+1) Specify finished width.
+2) This seam is made on a special "spaghetti" machine.
+
+SSw (b)
+Mock Felled Seam
+For Side Seaming Shirts, Blouses, Dresses, etc. Manual method for making a felled seam.
+1) Lay ply 1 on top of ply two with edges uneven;
+2) Fold and Toptitch - Heading /Topstitch Margin
+
+SSd
+1.07
+Not common.
+1) Manual method for making a felled seam.
+2) Specify Hem width and 3) Heading /Topstitch Margin
+
+SSl
+1.08
+For setting front pockets on Jeans
+1) A heming folder is used to hem the bottom ply uniformly.
+2) Hem width should be specified.
+3) If more than one needle, specify needle spacing (ex. 1/4")
+
+SSv
+5.01
+Not Common
+
+SSc
+1.06.01
+Not common. SSe is more common.
