@@ -46,7 +46,17 @@ class Segment2D(Primitive2DMixin, Primitive2P):
 
     def __init__(self, p0, p1):
 
-        """Construct a :class:`Segment2D` between two points."""
+        """Construct a :class:`Segment2D` between two points.
+
+        Parameters
+
+        p0 : :class:`Vector2D`
+           from point
+
+        p1 : :class:`Vector2D`
+            to point
+
+        """
 
         Primitive2P.__init__(self, p0, p1)
 
