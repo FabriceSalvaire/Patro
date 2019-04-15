@@ -4,11 +4,351 @@
 #
 #---------------------------------------------------------------------------------------------------
 
-braided: tressé
-knitted: tricoté
-thread: fil
-twill: sergé
-warp: chaîne
-weft: trame
-woven: tissé
-yarn: fil
+#---------------------------------------------------------------------------------------------------
+#
+# TODO: check, complete and reword so as to be general versus a copy-paste
+#
+# Suppress usual word like length etc.
+# Vérifier avec Google Translate
+#
+#---------------------------------------------------------------------------------------------------
+
+A:
+  # a-line skirt: jupe trapèze
+  adjustment: altération, ajustement (du patron)
+  appliqué: appliqué
+  arm: bras
+  armhole: emmanchure
+
+B:
+  back: dos
+  backstitch: point arrière
+  bag: sac
+  baste (to): bâtir
+  belt: ceinture
+  belt loop: passant de ceinture
+  bias, bias tape, bias binding: biais
+  blanket stitch: point de feston
+  blind hem presser foot: pied à ourlet invisible
+  blind stitch: point invisible
+  boat neck: décolleté bateau
+  bobbin: canette
+  bodice: corsage, haut d'une robe
+  bodkin: enfile-élastique, enfile-ruban
+  boiled wool: laine bouillie
+  bone, boning: baleine (de soutien-gorge)
+  bound buttonhole: boutonnière passepoilée
+  bound pocket: poche passepoilée
+  box pleat: pli creux
+  braid: galon
+  braided: tressé
+  burlap: toile de jute
+  bust dart: pince poitrine
+  bust: poitrine, buste
+  button loop: bride à bouton
+  button: bouton
+  buttonhole: boutonnière
+
+C:
+  calico: calicot
+  casing: coulisse
+  catch stitch: 'point d'ourlet'
+  center back: milieu dos
+  center front: milieu devant
+  chain stitch: point de chaînette
+  charmeuse: charmeuse, crêpe charmeuse
+  chiffon: mousseline
+  # clear ruler: règle transparente
+  clip (to): cranter
+  collar: col
+  contrasting fabric: tissu contrasté en opposition au tissu principalement utilisé pour le projet.
+  corduroy: velours côtelé
+  corner: coin
+  cotton: coton
+  crepe: crêpe
+  crosswise grain: sens de la chaine (perpendiculaire au droit fil)
+  crotch: fourche, entrejambe
+  cuff: poignet, revers de manche, manchette
+  cup size: taille de bonnet de soutien-gorge
+  curve: courbe
+  cut (to): couper
+  cutting layout: plan de coupe
+  cutting line: ligne de coupe
+  cutting mat: fond de découpe
+
+D:
+  dart: pince
+  denim: jean
+  # dots: ronds, souvent utilisés comme repères d'assemblage sur les patrons
+  double-sided fusible (interfacing): thermocollant double face
+  drape: drapé
+  dress: robe
+  dress form: mannequin de couture
+
+E:
+  ease: aisance
+  ease (to): répartir l’aisance d'une pièce plus longue que celle à laquelle on l'assemble.
+  edge: bord
+  elastic casing: coulisse à élastique
+  embellishment: ornement, fioriture
+  embroidery: broderie
+  eyelet: œillet
+
+F:
+  fabric: tissu
+  fabric marker: crayon de marquage
+  facing: parementure
+  fastener: attache
+  faux fur: fausse fourrure
+  fba, full bust adjustment: altération, ajustement pour poitrine généreuse
+  feed dogs: griffes d'entrainement
+  felt: feutrine
+  felted wool: laine feutrée
+  fine cord: velours milleraies
+  fit (to): ajuster
+  flanel: flanelle
+  flap: rabat
+  flat felled seam: couture rabattue
+  flat piping: passepoil plat (sans le cordon)
+  fleece: molleton, parfois utilisé en diminutif pour \"polar fleece\" = polaire
+  fold: "plier, un pli, une pliure, on fold : sur la pliure"
+  fold line: ligne de pliure
+  french curve: pistolet, perroquet
+  french seam: couture anglaise
+  fringe: frange
+  frog clossure: brandebourg
+  front: devant
+  fullness: ampleur
+  fur: fourrure
+  fusible interfacing: entoilage thermocollant
+
+G:
+  garment: vêtement
+  gather: froncer, fronces
+  gingham: vichy
+  gown strap: sangle de robe
+  grain line: ligne de droit fil sur la pièce de patron
+  grainline: droit fil
+  grommet: œillet
+  hand stitch: couture à la main
+  handle: poignée
+
+H:
+  hem: ourlet, ourler
+  hemline: ligne d'ourlet
+  hip: hanche
+  hood: capuche
+  hook and eye: "agrafe (hook = partie crochet, eye = partie porte de l'agrafe)"
+  hook and loop tape: ruban agrippant (scratch)
+  horizontal tuck: pli religieuse
+
+I:
+  inseam pocket: poche intérieure (montée dans les coutures)
+  interfacing: entoilage
+  interlining: triplure
+  inverted pleat: pli d'aisance
+  invisible zipper: fermeture éclair invisible, fermeture à glissière invisible
+  invisible zipper foot: pied pour fermeture à glissière invisible
+  iron (to): repasser
+  ironing board: planche à repasser
+
+J:
+  jersey: jersey
+
+K:
+  # kimono sleeves: manches kimono
+  knitted: tricoté
+  knits: désigne tous les tissus à mailles et extensibles (jersey,...) en opposition aux tissus tissés non extensibles (= woven)
+
+L:
+  lace: dentelle
+  lapel: revers de col (en général sur une veste de costume)
+  leather: cuir
+  # length: longueur
+  lengthen: allonger, rallonger
+  lengthwise: dans le sens de la longueur
+  lightweight: léger # , lightweight fabric : tissu léger
+  linen: lin
+  lining: doublure
+  loop: boucle, passant
+  lower edge: bord inférieur
+
+M:
+  machine bast (to): bâtir à la machine à coudre
+  main fabric: tissu principal du projet
+  markings: marques, repères sur le patron
+  match (to): faire coïncider
+  measuring tape: mètre de couturière, mètre ruban
+  muslin: mousseline ou "toile" dans le sens vêtement cousu rapidement d'après le patron afin de voir si tout tombe bien avant de faire le vêtement dans le tissu final prévu.
+
+N:
+  nap: sens du poil d'un tissu (comme pour le velours)
+  narrow hem: ourlet étroit
+  neckline: encolure
+  needle: aiguille
+  needle threader: enfile-aiguille
+  notch: encoche, repère d'assemblage de patron en forme de v
+  notions: fournitures de mercerie
+  novelty ribbon: ruban fantaisie
+
+O:
+  one-way design: motif unidirectionnel
+  overlock machine: surjeteuse
+  overlock stitch: point de surjet
+
+P:
+  padding: rembourrage
+  paisley: motif cachemire
+  panne velvet: panne de velours
+  pants: pantalon
+  patch pocket: poche appliquée
+  pattern: patron
+  pattern piece: pièce de patron
+  pattern tissue: papier à patron
+  pattern weights: poids de coupe, poids pour maintenir les pièces de patrons sur le tissu.
+  peter pan collar: col claudine
+  pin: épingle
+  pin (to): épingler
+  pin cushion: coussin pique-aiguilles
+  pinafore dress: robe chasuble
+  pinking shears: ciseaux à cranter, ciseaux cranteurs
+  piping: passepoil
+  placket: patte
+  plaid: a carreaux écossais
+  pleat: pli
+  pocket: poche
+  polar fleece: polaire (tissu)
+  polka dots: pois, motif à pois
+  poplin: popeline
+  press (to): presser (avec le fer à repasser), repasser
+  press the seam open (to): ouvrir la couture au fer
+  press under (to): rentrer au fer à repasser
+  presser foot: pied de biche
+  princess seam: découpe princesse
+  print: "imprimé (d'un tissu)"
+
+R:
+  raglan sleeve: manche raglan
+  raw edge: bord brut
+  rayon: viscose
+  ribbing: bord-côte
+  ribbon: ruban
+  rickrack: croquet
+  right side: endroit
+  right sides together: endroit contre endroit
+  rip (to): déchirer mais se dit aussi quand on découd un vêtement au découd-vite.
+  rolled hem: ourlet roulotté
+  rotary cutter: cutter circulaire
+  ruffles: fronces (comme pour un volant)
+  ruler: règle
+
+S:
+  safety pin: épingle à nourrice
+  satin: satin
+  scissors: ciseaux
+  scraps: chutes (de tissu)
+  seam: (ligne de) couture
+  seam allowance: marge de couture
+  seam ripper: découd-vite
+  seamline: ligne de couture
+  seamstress: couturière
+  selvage (us): lisière du tissu
+  selvedge: lisière (du tissu)
+  serge (to): surjeter
+  serger: surjeteuse
+  set in sleeve: manche montée
+  sew (to): coudre
+  sew-in interfacing: entoilage à coudre
+  sewing machine: machine à coudre
+  shank button: bouton avec pied
+  shawl collar: col châle
+  shirring: smocks
+  shirting: tissu pour chemise
+  shorten: raccourcir
+  shoulder: épaule
+  shoulder dart: pince d'épaule
+  shoulder pad: épaulette
+  shoulder-strap: bandoulière
+  side: côté
+  silk: soie
+  silk chiffon: mousseline de soie
+  size: taille (de vêtement)
+  size chart: tableau des tailles
+  skirt: jupe
+  sleeve: manche
+  slip stitch: point d'ourlet
+  snap fastener: bouton pression
+  snip (to): faire une petite entaille
+  spool: bobine de fil
+  stand-up collar: col officier
+  stay stitch: couture de soutien
+  steam: vapeur
+  steam iron: fer à vapeur
+  stitch: point de couture, piquer
+  stitching line: ligne de couture
+  straight grain: droit fil
+  straight stitch: point droit
+  strap: lanière
+  stretch fabric: tissu extensible
+  stretch stitch: point élastique (à la machine)
+  stripes: rayures
+  suede: suédine
+  sway back: dos cambré
+
+T:
+  taffeta: taffetas
+  "tailor's chalk": craie tailleur
+  "tailor's ham": coussin de repassage, cochon de repassage
+  tank top: débardeur
+  tape measure: mètre de couturière, mètre ruban
+  terry cloth: tissu éponge
+  textured fabric: tissu texturé
+  thimble: dé à coudre
+  thread: fil
+  thread nippers: coupe-fil
+  topstitch (to): surpiquer
+  tracing weel: roulette à patron
+  trim (to): "découper. en général employé lorsqu'il s'agit de couper un excès de tissu."
+  tuck: pli
+  turn right side out (to): retourner sur l'endroit
+  twill: sergé
+  twill tape: gros grain, ruban sergé
+  twin needle: aiguille double
+
+U:
+  under collar: sous col
+  understitch (to): sous-piquer
+  upper collar: col de dessus (quand on parle des pièces de col à assembler)
+  upper edge: bord supérieur
+
+V:
+  v neck, v neckline: décolleté en v, encolure en v
+  velvet: velours
+  velveteen: veloutine
+  vent: fente
+  vest: gilet sans manche
+
+W:
+  waist: taille
+  waist dart: pince de la taille
+  waistband: ceinture
+  waistline: ligne de taille, tour de taille
+  warp: chaîne (du tissu)
+  weft: trame (sens de la trame du tissu)
+  welt pocket: poche passepoilée
+  # width: largeur
+  widthwise: dans le sens de la largeur
+  wool: laine, lainage
+  woven: tissé
+  wrinkle: pli, plisser
+  wrong side: envers
+  wrong side out: a l'envers
+
+Y:
+  yarn: fil
+  yoke: empiècement
+
+Z:
+  zigzag stitch: point zigzag
+  zipper: fermeture éclair, fermeture à glissière
+  zipper foot: pied pour fermeture à glissière
