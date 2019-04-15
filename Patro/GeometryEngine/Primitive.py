@@ -44,6 +44,7 @@ from collections import abc as collections
 
 import numpy as np
 
+from Patro.Common.IterTools import closed_iterator, closed_pairwise
 from .BoundingBox import bounding_box_from_points
 
 # Fixme: circular import
@@ -211,12 +212,14 @@ class PointPrimitive(Primitive):
         # if self._point_array is None:
         #     self._point_array = np.array(list(self.points)).transpose()
         # return self._point_array
-        return np.array(list(self.points)).transpose()
+        return np.array(self.points).transpose()
 
     ##############################################
 
     def is_point_equal(self, other):
-        return self._points == list(other.points)
+        # Fixme: performance issue !!!
+        #     list vs tuple
+        return self.points == tuple(other.points)
 
     def __eq__(self, other):
         return self.is_point_equal(other)
@@ -319,9 +322,16 @@ class ClosedPrimitiveMixin:
 
     @property
     def closed_points(self):
-        points = list(self.points)
-        points.append(self.start_point)
-        return points
+        # Fixme: don't work for iterator
+        # return closed_iterator(self.points)
+        return closed_iterator(self._points)
+
+    ##############################################
+
+    @property
+    def closed_pairwise_points(self):
+        # return closed_pairwise(self.points)
+        return closed_pairwise(self._points)
 
     ##############################################
 
@@ -339,7 +349,8 @@ class ClosedPrimitiveMixin:
         """
         # Fixme: place, func for closed_point
         # Fixme: cache ???
-        return np.array(self.closed_points).transpose()
+        # Fixme: tuple() performance issue ???
+        return np.array(tuple(self.closed_points)).transpose()
 
 ####################################################################################################
 
@@ -408,7 +419,7 @@ class Primitive1P(PointPrimitive, Primitive1PMixin):
 
     @property
     def points(self):
-        return iter(self._p0) # Fixme: efficiency ???
+        return (self._p0,) # Fixme: efficiency ???
 
     @property
     def reversed_points(self):
@@ -462,7 +473,7 @@ class Primitive2P(Primitive1P, ReversiblePrimitiveMixin):
 
     @property
     def points(self):
-        return iter((self._p0, self._p1))
+        return (self._p0, self._p1)
 
     @property
     def reversed_points(self):
@@ -516,7 +527,7 @@ class Primitive3P(Primitive2P):
 
     @property
     def points(self):
-        return iter((self._p0, self._p1, self._p2))
+        return (self._p0, self._p1, self._p2)
 
     @property
     def reversed_points(self):
@@ -570,7 +581,7 @@ class Primitive4P(Primitive3P):
 
     @property
     def points(self):
-        return iter((self._p0, self._p1, self._p2, self._p3))
+        return (self._p0, self._p1, self._p2, self._p3)
 
     @property
     def reversed_points(self):
@@ -626,6 +637,7 @@ class PrimitiveNP(PointPrimitive, ReversiblePrimitiveMixin):
 
     @property
     def points(self):
+        # Fixme: could cause performance issue !!!
         return iter(self._points)
 
     @property
@@ -648,7 +660,16 @@ class PrimitiveNP(PointPrimitive, ReversiblePrimitiveMixin):
 
     ##############################################
 
+    def is_point_equal(self, other):
+        # Fixme: performance issue !!!
+        #     list vs tuple
+        return self._points == list(other.points)
+
+    ##############################################
+
     def iter_on_nuplets(self, size):
+
+        # Fixme: see also Itertools.multiwise
 
         if size > self.number_of_points:
             raise ValueError('size {} > number of points {}'.format(size, self.number_of_points))

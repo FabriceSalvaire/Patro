@@ -40,6 +40,7 @@ import math
 import numpy as np
 
 from Patro.Common.Math.Functions import sign
+from Patro.Common.IterTools import closed_multiwise_index_iterator
 from .Conic import Circle2D
 from .Primitive import PrimitiveNP, ClosedPrimitiveMixin, PathMixin, Primitive2DMixin
 from .Segment import Segment2D
@@ -87,7 +88,7 @@ class Polygon2D(Primitive2DMixin, ClosedPrimitiveMixin, PathMixin, PrimitiveNP):
 
     ##############################################
 
-    def __init__(self, *points, is_convex=None):
+    def __init__(self, *points, is_convex=None, is_clockwise=None):
 
         # Fixme: ctor for list of points
 
@@ -101,6 +102,7 @@ class Polygon2D(Primitive2DMixin, ClosedPrimitiveMixin, PathMixin, PrimitiveNP):
         self._is_convex = is_convex
 
         self._area = None
+        self._is_clockwise = is_clockwise
         # self._cross = None
         # self._barycenter = None
 
@@ -125,23 +127,22 @@ class Polygon2D(Primitive2DMixin, ClosedPrimitiveMixin, PathMixin, PrimitiveNP):
 
     @property
     def edges(self):
-
         if self._edges is None:
-            edges = []
-            N = self.number_of_points
-            for i in range(N):
-                j = (i+1) % N
-                edge = Segment2D(self._points[i], self._points[j])
-                edges.append(edge)
-            self._edges = edges
+            self._edges = [Segment2D(*pair) for pair in self.closed_pairwise_points]
+        # Fixme: performance issue, see _test_is_simple
+        # return iter(self._edges)
+        return self._edges
 
-        return iter(self._edges)
+    @property
+    def number_of_edges(self):
+        # return len(self.edges)
+        return self.number_of_points
 
     ##############################################
 
     def _test_is_simple(self):
 
-        edges = list(self.edges)
+        edges = self.edges # must be a list !!!
         # intersections = []
         # Test for edge intersection
         for edge1 in edges:
@@ -173,7 +174,7 @@ class Polygon2D(Primitive2DMixin, ClosedPrimitiveMixin, PathMixin, PrimitiveNP):
         if not self.is_simple:
             return False
 
-        edges = list(self.edges)
+        edges = self.edges # must be a list !!!
         number_of_edges = len(edges)
         # a polygon is convex if all turns from one edge vector to the next have the same sense
         # sign = edges[-1].perp_dot(edges[0])
@@ -224,7 +225,7 @@ class Polygon2D(Primitive2DMixin, ClosedPrimitiveMixin, PathMixin, PrimitiveNP):
 
     @property
     def point_barycenter(self):
-        center = self.start_point
+        center = self.__vector_cls__(self.start_point)
         for point in self.iter_from_second_point():
             center += point
         return center / self.number_of_points
@@ -375,11 +376,17 @@ class Polygon2D(Primitive2DMixin, ClosedPrimitiveMixin, PathMixin, PrimitiveNP):
 
     @property
     def is_clockwise(self):
-        self._check_area()
-        if self._area is None:
+
+        # Fixme:
+        if not self.is_simple:
             return None
-        else:
-            return self._area_sign < 0
+
+        if self._is_clockwise is None:
+            self._check_area()
+            self._is_clockwise = self._area_sign < 0
+
+        return self._is_clockwise
+
 
     @property
     def is_counterclockwise(self):
@@ -489,6 +496,57 @@ class Polygon2D(Primitive2DMixin, ClosedPrimitiveMixin, PathMixin, PrimitiveNP):
         # Fixme: bounding box test
 
         return self._winding_number_test(point)
+
+    ##############################################
+
+    def simplify(self, threshold):
+
+        points = self._points
+        number_of_points = self.number_of_points
+        last_i = number_of_points -1
+
+        remove = []
+
+        def test_edge_pair(i, j):
+            k = (j+1) % number_of_points
+            # if point is removed then try next one
+            if i == last_i:
+                while k in remove:
+                    k += 1
+                    if k == number_of_points:
+                        break
+            p1 = points[i]
+            p2 = points[j]
+            p3 = points[k]
+            deviation = (p2-p1).deviation_with(p3-p1)
+            # print(i, j, k, p1, p2, p3, deviation)
+            return abs(deviation) <= threshold
+
+        try:
+           i = 0 # fist point
+           j = 1 # next point
+           while i < number_of_points:
+               # print(i, j)
+               if test_edge_pair(i, j):
+                   # print('remove', j)
+                   remove.append(j)
+                   if j < i:
+                       break # we tested the first vertex
+               elif j < i:
+                   break
+               else:
+                   i = j # next edge
+               j = (j+1) % number_of_points # next edge
+        except ZeroDivisionError:
+            # degenerated case: p1 == p3
+            return None
+
+        # print(remove)
+        if remove:
+            points = [self._points[i] for i in range(number_of_points) if i not in remove]
+            return self.__class__(*points)
+        else:
+            return self
 
 ####################################################################################################
 
@@ -712,6 +770,6 @@ def convex_hull(points, as_polygon=True):
     # the stack is now a representation of the convex hull
     if as_polygon and len(_convex_hull) >= 3:
         # Fixme: see ctor for list of points
-        return Polygon2D(*_convex_hull, is_convex=True)
+        return Polygon2D(*_convex_hull, is_convex=True, is_clockwise=False)
     else:
         return _convex_hull

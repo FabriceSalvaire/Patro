@@ -23,12 +23,28 @@
 ####################################################################################################
 
 __all__ = [
-    'pairwise', # used in Patro/GeometryEngine/Line.py
+    'closed_iterator',
+    'pairwise',
+    'closed_pairwise',
 ]
 
 ####################################################################################################
 
 from itertools import tee
+
+####################################################################################################
+
+def closed_iterator(iterable):
+
+    """Return a closed iterator.
+
+    s -> (s[0], s[1], ... , s[N-1], s[N], s[0])
+
+    """
+
+    number_of_items = len(iterable)
+    for i in range(number_of_items +1):
+        yield iterable[i%number_of_items]
 
 ####################################################################################################
 
@@ -55,9 +71,9 @@ def closed_pairwise(iterable):
 
     """
 
-   number_of_items = len(iterable)
-   for i in range(number_of_items):
-       yield iterable[i], iterable[(i+1)%number_of_items]
+    number_of_items = len(iterable)
+    for i in range(number_of_items):
+        yield iterable[i], iterable[(i+1)%number_of_items]
 
 ####################################################################################################
 
@@ -98,6 +114,13 @@ def multiwise(iterable, n=2):
     # Return the aggregate
     #   zip stops when the shortest iterator is exhausted
     return zip(*iterators)
+
+   # number_of_items = len(iterable)
+   # if n > number_of_items:
+   #     raise ValueError('size {} > number of items {}'.format(n, number_of_items))
+
+   # for i in range(number_of_itemss - n +1):
+   #     yield self._points[i:i+n]
 
 ####################################################################################################
 

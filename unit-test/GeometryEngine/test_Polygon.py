@@ -23,6 +23,7 @@
 import unittest
 
 from Patro.GeometryEngine.Polygon import *
+from Patro.GeometryEngine.Segment import Segment2D
 from Patro.GeometryEngine.Vector import Vector2D
 
 ####################################################################################################
@@ -31,6 +32,7 @@ class TestPolygon(unittest.TestCase):
 
     ##############################################
 
+    # @unittest.skip
     def test_basic(self):
 
         x, y = 10, 20
@@ -57,6 +59,14 @@ class TestPolygon(unittest.TestCase):
         self.assertTrue(polygon.is_simple)
         self.assertTrue(polygon.is_convex)
 
+        # Edges
+        self.assertEqual(polygon.number_of_edges, len(points))
+        for i in range(i):
+            self.assertEqual(polygon.edges[i], Segment2D(points[i], points[(i+1)%len(points)]))
+        self.assertEqual(polygon.edges[1], Segment2D(p1, p2))
+        self.assertEqual(polygon.edges[2], Segment2D(p2, p3))
+        self.assertEqual(polygon.edges[3], Segment2D(p3, p0))
+
         # Perimeter Area
         self.assertEqual(polygon.perimeter, 4*(x+y))
         self.assertEqual(polygon.area, 4*x*y)
@@ -66,8 +76,12 @@ class TestPolygon(unittest.TestCase):
         self.assertEqual(polygon.point_barycenter, origin)
         self.assertEqual(polygon.barycenter, origin)
 
+        # Simplify
+        self.assertIs(polygon.simplify(threshold=1.), polygon)
+
     ##############################################
 
+    # @unittest.skip
     def test_convex_hull(self):
 
         # 6           *
@@ -99,6 +113,7 @@ class TestPolygon(unittest.TestCase):
         convex_hull_points = [points[i] for i in (0, 10, 9, 8, 5, 4, 1)] # ccw
 
         polygon = Polygon2D(*points)
+        convex_hull_truth = Polygon2D(*convex_hull_points)
 
         self.assertTrue(polygon.is_simple)
         self.assertFalse(polygon.is_convex)
@@ -108,6 +123,7 @@ class TestPolygon(unittest.TestCase):
 
         convex_hull = polygon.convex_hull()
         self.assertListEqual(list(convex_hull.points), convex_hull_points)
+        self.assertEqual(convex_hull, convex_hull_truth)
         self.assertFalse(convex_hull.is_clockwise)
         self.assertTrue(convex_hull.is_counterclockwise)
 
@@ -118,6 +134,42 @@ class TestPolygon(unittest.TestCase):
         self.assertEqual(convex_hull, convex_hull2)
         self.assertFalse(convex_hull2.is_clockwise)
         self.assertTrue(convex_hull2.is_counterclockwise)
+
+        # Simplify
+        simplified_polygon = convex_hull.simplify(threshold=.1)
+        self.assertEqual(simplified_polygon, convex_hull_truth)
+
+    ##############################################
+
+    # @unittest.skip
+    def test_simplification(self):
+
+        # Points are clockwise oriented
+        points = Vector2D.from_coordinates(
+            (  0.1, 10.1), # 0
+            ( -0.1, 10.9), # 1
+            (  0.1, 20.1), # 2
+            (  0  , 30  ), # 3 *
+            ( 15.1, 30.1), # 4
+            ( 30  , 30  ), # 5 *
+            ( 29.9, 10.0), # 6
+            ( 30  ,  0  ), # 7 *
+            ( 15.1,  0.1), # 8
+            (  0  ,  0  ), # 9 *
+        )
+        polygon = Polygon2D(*points)
+        simplified_polygon = polygon.simplify(threshold=1.)
+        simplified_polygon_truth = Polygon2D(*[points[i] for i in (3, 5, 7, 9)])
+        self.assertEqual(simplified_polygon, simplified_polygon_truth)
+
+        points = Vector2D.from_coordinates(
+            (  0  ,  0  ),
+            (  0.1, 10.1),
+            (  0.2, 20.1),
+        )
+        polygon = Polygon2D(*points)
+        simplified_polygon = polygon.simplify(threshold=1.)
+        self.assertIsNone(simplified_polygon)
 
 ####################################################################################################
 
