@@ -39,7 +39,7 @@ import logging
 import math
 
 from Patro.Common.Math.Functions import sign
-from .Primitive import Primitive, Primitive1PMixin, Primitive2DMixin
+from .Primitive import Primitive, Primitive1PMixin, Primitive2DMixin, PointPrimitive
 from .Bezier import QuadraticBezier2D, CubicBezier2D
 from .Conic import AngularDomain, Circle2D, Ellipse2D
 from .Segment import Segment2D
@@ -868,7 +868,7 @@ class ArcSegment(OnePointMixin, PathPart):
 
 ####################################################################################################
 
-class Path2D(Primitive1PMixin, Primitive2DMixin, Primitive):
+class Path2D(Primitive1PMixin, Primitive2DMixin, PointPrimitive):
 
     """Class to implements 2D Path."""
 
