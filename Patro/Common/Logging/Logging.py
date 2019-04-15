@@ -36,7 +36,7 @@ def setup_logging(application_name='Patro',
                   config_file=ConfigInstall.Logging.default_config_file):
 
     logging_config_file_name = ConfigInstall.Logging.find(config_file)
-    logging_config = yaml.load(open(logging_config_file_name, 'r'))
+    logging_config = yaml.load(open(logging_config_file_name, 'r'), Loader=yaml.SafeLoader)
 
     if ConfigInstall.OS.on_linux:
         # Fixme: \033 is not interpreted in YAML
