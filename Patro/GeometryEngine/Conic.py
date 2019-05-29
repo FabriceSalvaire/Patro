@@ -277,7 +277,7 @@ class Circle2D(Primitive2DMixin, CenterMixin, AngularDomainMixin, Primitive):
 
         p0 = segment.p0 - self.center
         p1 = segment.p1 - self.center
-        D = p0.cross_product(p1)
+        D = p0.cross(p1) # Fixme: fixed typo _product ??
 
         # from sympy import *
         # x, y, dx, dy, D, r = symbols('x y dx dy D r')
