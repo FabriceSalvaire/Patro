@@ -18,38 +18,15 @@
 #
 ####################################################################################################
 
-__all__ = ['AstmSeam']
+__all__ = ['AstmStitchSeam']
 
 ####################################################################################################
 
-class AstmSeamClass:
+class AstmStitchSeam:
 
     ##############################################
 
-    def __init__(self, name):
+    def __init__(self, stitch_type, seam):
 
-        self._name = str(name)
-
-    ##############################################
-
-    @property
-    def name(self):
-        return self._name
-
-####################################################################################################
-
-class AstmSeam:
-
-    ##############################################
-
-    def __init__(self, seam_class, seam_type, number_of_rows):
-
-        self._class = seam_class
-        self._type = seam_type
-        self._number_of_rows = number_of_rows
-
-    ##############################################
-
-    @property
-    def name(self):
-        return '{self._class}{self._type}-{self._number_of_rows}'.format(self)
+        self._stitch_type = stitch_type
+        self._seam = seam
