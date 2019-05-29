@@ -354,6 +354,9 @@ class Expression:
 
     ##############################################
 
+    # def __float__(self):
+    #     return self.value
+
     @property
     def value(self):
         """Eval on the fly and return the value"""
