@@ -168,10 +168,17 @@ class Application(QObject):
     ##############################################
 
     def _print_critical_message(self, message):
-        # print('\nCritical Error on {}'.format(datetime.datetime.now()))
-        # print('-'*80)
-        # print(message)
-        self._logger.critical(message)
+
+        print('\nCritical Error on {}'.format(datetime.datetime.now()))
+        print('-'*80)
+        print(message)
+
+        # Fixme: don't print ???
+        # self._logger.critical(message)
+
+        # Fixme: useless
+        sys.stdout.flush()
+        sys.stderr.flush()
 
     ##############################################
 
@@ -183,9 +190,13 @@ class Application(QObject):
             method = self._logger.info
         elif msg_type == QtCore.QtWarningMsg:
             method = self._logger.warning
+        # elif msg_type == QtCore.QtCriticalMsg:
+        #     method = self._logger.critical
+        # elif msg_type == QtCore.QtFatalMsg:
+        #     method = self._logger.critical
         elif msg_type in (QtCore.QtCriticalMsg, QtCore.QtFatalMsg):
-            method = self._logger.critical
-            # method = None
+            # method = self._logger.critical
+            method = None
 
         # local_msg = msg.toLocal8Bit()
         # localMsg.constData()
