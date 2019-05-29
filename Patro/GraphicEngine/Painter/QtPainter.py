@@ -160,12 +160,16 @@ class QtPainter(Painter):
 
     def paint(self, painter):
 
-        self._logger.info('Start painting')
-        self._painter = painter
-        if self._show_grid:
-            self._paint_grid()
-        super().paint()
-        self._logger.info('Paint done')
+        if bool(self):
+            self._logger.info('Start painting')
+            self._painter = painter
+            if self._show_grid:
+                self._paint_grid()
+            super().paint()
+            self._logger.info('Paint done')
+        else:
+            # Fixme: also protected in _paint_grid
+            self._logger.warning('Scene is undefined')
 
     ##############################################
 
@@ -773,44 +777,54 @@ class QtQuickPaintedSceneItem(QQuickPaintedItem, QtPainter):
 
     @Slot(QPointF, result=str)
     def format_coordinate(self, position):
-        scene_position = self._viewport_area.viewport_to_scene(position)
-        return '{:.3f}, {:.3f}'.format(scene_position[0], scene_position[1])
+        if bool(self._scene):
+            scene_position = self._viewport_area.viewport_to_scene(position)
+            return '{:.3f}, {:.3f}'.format(scene_position[0], scene_position[1])
+        else:
+            return ''
 
     ##############################################
 
     @Slot(float)
     def zoom_at_center(self, zoom):
-        self._viewport_area.zoom_at(self._viewport_area.center, zoom)
-        self.update()
+        if bool(self._scene):
+            self._viewport_area.zoom_at(self._viewport_area.center, zoom)
+            self.update()
 
     ##############################################
 
     @Slot(QPointF, float)
     def zoom_at(self, position, zoom):
         # print('zoom_at', position, zoom)
-        scene_position = self._viewport_area.viewport_to_scene(position)
-        self._viewport_area.zoom_at(scene_position, zoom)
-        self.update()
+        if bool(self._scene):
+            scene_position = self._viewport_area.viewport_to_scene(position)
+            self._viewport_area.zoom_at(scene_position, zoom)
+            self.update()
 
     ##############################################
 
     @Slot()
     def fit_scene(self):
-        self._viewport_area.fit_scene()
-        self.update()
+        if bool(self._scene):
+            self._viewport_area.fit_scene()
+            self.update()
 
     ##############################################
 
     @Slot(QPointF)
     def pan(self, dxy):
-        position = self._viewport_area.center + self._viewport_area.pan_delta_to_scene(dxy)
-        self._viewport_area.zoom_at(position, self._viewport_area.scale_px_by_mm)
-        self.update()
+        if bool(self._scene):
+            position = self._viewport_area.center + self._viewport_area.pan_delta_to_scene(dxy)
+            self._viewport_area.zoom_at(position, self._viewport_area.scale_px_by_mm)
+            self.update()
 
     ##############################################
 
     @Slot(QPointF)
     def item_at(self, position, radius_px=10):
+
+        if not bool(self._scene):
+            return
 
         self._scene.update_rtree()
         self._scene.unselect_items()
