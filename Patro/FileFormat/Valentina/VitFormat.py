@@ -374,6 +374,12 @@ class AngleMixin:
 class LengthAngleMixin(LengthMixin, AngleMixin):
     pass
 
+class CenterRadiusMixin:
+    __attributes__ = (
+        IntAttribute('center'), # center point
+        StringAttribute('radius'),
+    )
+
 ####################################################################################################
 
 class PointMixin(CalculationTypeMixin, MxMyMixin):
@@ -500,8 +506,15 @@ class NormalPoint(PointLinePropertiesMixin, FirstSecondPointMixin, LengthAngleMi
 # __type__ = 'pointFromCircleAndTangent'
 # <point id="81" tangent="80" mx="-2.9" cRadius="3" cCenter="71" crossPoint="1" name="Cp1" type="pointFromCircleAndTangent" my="-2.7"/>
 
-# __type__ = 'pointOfContact'
-# <point id="19" radius="Line_A_M*3/2" center="4" firstPoint="1" mx="0.1" secondPoint="5" name="R" type="pointOfContact" my="0.2"/>
+####################################################################################################
+
+class PointOfContact(PointMixin, FirstSecondPointMixin, CenterRadiusMixin, XmlObjectAdaptator):
+
+    # <point id="19" radius="Line_A_M*3/2" center="4" firstPoint="1" mx="0.1" secondPoint="5" name="R" type="pointOfContact" my="0.2"/>
+
+    # Fixme: name
+    __type__ = 'pointOfContact'
+    __operation__ = SketchOperation.PointOfContact
 
 ####################################################################################################
 
@@ -577,7 +590,7 @@ class Point:
         'normal': NormalPoint,
         'pointFromArcAndTangent': None,
         'pointFromCircleAndTangent': None,
-        'pointOfContact': None,
+        'pointOfContact': PointOfContact,
         'pointOfIntersection': PointOfIntersection,
         'pointOfIntersectionArcs': None,
         'pointOfIntersectionCircles': None,

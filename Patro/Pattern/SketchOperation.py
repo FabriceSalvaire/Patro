@@ -31,6 +31,7 @@ import logging
 
 from Patro.Common.Object import ObjectGlobalIdMixin
 from Patro.GeometryEngine.Bezier import CubicBezier2D
+from Patro.GeometryEngine.Conic import Circle2D
 from Patro.GeometryEngine.Line import Line2D
 from Patro.GeometryEngine.Segment import Segment2D
 from Patro.GeometryEngine.Vector import Vector2D
@@ -319,6 +320,48 @@ class LengthAngleMixin(LengthMixin, AngleMixin):
 
 ####################################################################################################
 
+class CenterMixin:
+
+    ##############################################
+
+    def __init__(self, center):
+        self._center = self._get_operation(center)
+        self._connect_ancestor(self._center)
+
+    ##############################################
+
+    @property
+    def center(self):
+        return self._center
+
+####################################################################################################
+
+class RadiusMixin:
+
+    ##############################################
+
+    def __init__(self, radius):
+        self._radius = Expression(radius, self._sketch.calculator)
+        # self._connect_ancestor_for_expressions(self._radius)
+
+    ##############################################
+
+    @property
+    def radius(self):
+        return self._radius
+
+####################################################################################################
+
+class CenterRadiusMixin(CenterMixin, RadiusMixin):
+
+    ##############################################
+
+    def __init__(self, center, radius):
+        CenterMixin.__init__(self, center)
+        RadiusMixin.__init__(self, radius)
+
+####################################################################################################
+
 class Point(SketchOperation):
 
     """Base class for point."""
@@ -556,6 +599,51 @@ class NormalPoint(Point, LinePropertiesMixin, FirstSecondPointMixin, LengthAngle
             direction = direction.rotate(angle)
         self._vector = self._first_point.vector + direction*self._length.value
         self._sketch.calculator.unset_current_segment()
+        self._post_eval_internal()
+
+####################################################################################################
+
+class PointOfContact(Point, FirstSecondPointMixin, CenterRadiusMixin):
+
+    """Construct a point at the intersection of a circle and a line"""
+
+    # Fixme: name
+
+    _logger = _module_logger.getChild('PointOfContact')
+
+    ##############################################
+
+    def __init__(self, sketch, name,
+                 first_point, second_point,
+                 center, radius,
+                 label_offset,
+                 id=None,
+    ):
+
+        Point.__init__(self, sketch, name, label_offset, id)
+        FirstSecondPointMixin.__init__(self, first_point, second_point)
+        CenterRadiusMixin.__init__(self, center, radius)
+
+    ##############################################
+
+    def __repr__(self):
+        return (self.__class__.__name__ +
+                ' {0._name} = ({0._first_point.name}, {0._second_point.name})'
+                ', {0._center}, {0._radius}'.format(self))
+
+    ##############################################
+
+    def eval_internal(self):
+        segment = Segment2D(self._first_point.vector, self._second_point.vector)
+        circle = Circle2D(self._center.vector, self._radius.value)
+        points = circle.intersect_segment(segment)
+         # Fixme: multi-points ???
+        if not points:
+            self._logger.warning('line-circle intersection is null')
+            self._vector = None
+        if len(points) > 1:
+            self._logger.warning('More than one points for line-circle intersection')
+        self._vector = points[0]
         self._post_eval_internal()
 
 ####################################################################################################
