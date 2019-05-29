@@ -60,7 +60,7 @@ class ValentinaStandardMeasurement(StandardMeasurement):
 
         yaml_path = Path(__file__).parent.joinpath('data', 'valentina-standard-measurements.yaml')
         with open(yaml_path, 'r') as fh:
-            data = yaml.load(fh.read())
+            data = yaml.load(fh.read(), Loader=yaml.SafeLoader)
             for topic in data.values():
                 for code, measurement_data in topic['measurements'].items():
                     measurement = ValentinaMeasurement(code, *measurement_data)
