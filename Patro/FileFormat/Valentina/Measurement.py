@@ -97,8 +97,10 @@ class VitFileInternal(XmlFileMixin):
 
         personal = measurements.personal
         personal_element = self.get_xpath_element(tree, 'personal')
-        personal.last_name = self.get_xpath_element(personal_element, 'family-name').text
-        personal.first_name = self.get_xpath_element(personal_element, 'given-name').text
+        # replace last_name first_name
+        personal.customer = self.get_xpath_element(personal_element, 'customer').text
+        # personal.last_name = self.get_xpath_element(personal_element, 'family-name').text
+        # personal.first_name = self.get_xpath_element(personal_element, 'given-name').text
         personal.birth_date = self.get_xpath_element(personal_element, 'birth-date').text
         personal.gender = Gender[self.get_xpath_element(personal_element, 'gender').text.upper()]
         personal.email = self.get_xpath_element(personal_element, 'email').text
