@@ -634,6 +634,8 @@ class PointOfContact(Point, FirstSecondPointMixin, CenterRadiusMixin):
     ##############################################
 
     def eval_internal(self):
+        print('>'*50)
+        print(self)
         segment = Segment2D(self._first_point.vector, self._second_point.vector)
         circle = Circle2D(self._center.vector, self._radius.value)
         points = circle.intersect_segment(segment)
@@ -641,9 +643,20 @@ class PointOfContact(Point, FirstSecondPointMixin, CenterRadiusMixin):
         if not points:
             self._logger.warning('line-circle intersection is null')
             self._vector = None
-        if len(points) > 1:
+        elif len(points) == 1:
+            self._vector = points[0]
+        else:
             self._logger.warning('More than one points for line-circle intersection')
-        self._vector = points[0]
+            # point must lie in the segment
+            point0 = points[0]
+            segment.contain_point(points[0])
+            segment.contain_point(points[1])
+            print('>'*50)
+            if segment.contain_point(point0):
+                self._vector = point0
+            else:
+                # Fixme: more than two points ???
+                self._vector = points[1]
         self._post_eval_internal()
 
 ####################################################################################################

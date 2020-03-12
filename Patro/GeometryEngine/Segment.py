@@ -205,3 +205,16 @@ class Segment2D(Primitive2DMixin, Primitive2P):
             else:
                 p = self._p1
             return (p - point).magnitude
+
+    ##############################################
+
+    def contain_point(self, point):
+
+        # Fixme: purpose ???
+
+        line = self.to_line()
+        d, s = line.distance_and_abscissa_to_line(point)
+        # Fixme: check d / is collinear
+        # Fixme: p2 <- p1
+        #! print('>'*10, line, point, d, s)
+        return 0 <= s <= 1
