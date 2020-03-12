@@ -40,9 +40,10 @@ class Tiler:
 
     ##############################################
 
-    def __init__(self, bounding_box, paper):
+    def __init__(self, bounding_box, paper, margin=1):
 
-        self._bounding_box = bounding_box
+        # print('Tiler', bounding_box)
+        self._bounding_box = bounding_box.enlarge(margin)
         self._paper = paper
 
     ##############################################
@@ -69,7 +70,7 @@ class Tiler:
                 local_min_point = min_point + area_vector * Vector2D(r, c)
                 local_max_point = local_min_point + area_vector
                 interval = Interval2D((local_min_point.x, local_max_point.x), (local_min_point.y, local_max_point.y))
-                yield interval
+                yield (interval, r, c)
 
 ####################################################################################################
 

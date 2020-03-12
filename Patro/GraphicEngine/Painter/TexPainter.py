@@ -180,9 +180,21 @@ class TexPainter(Painter):
 
         self._add_pagestyle_empty()
         tiler = Tiler(self._scene.bounding_box, self._paper)
-        for interval in tiler:
+        for interval, r, c in tiler:
             options = 'x=10mm,y=10mm'
             self._figure = TikzFigure(options)
+            offset = 1
+            self._figure.append(r'\fontsize{128}{128}\selectfont % \fontsize{size}{baselineskip}' + '\n')
+            self._figure.append(r'\color{gray!50}' + '\n')
+            self._figure.append(
+                Document._format(r'\draw[] («0»,«1») node[anchor=south west] {«2», «3»};',
+                                 interval.x.inf + offset,
+                                 interval.y.inf + offset,
+                                 r+1,
+                                 c+1,
+                ) + '\n')
+            self._figure.append(r'\fontsize{14}{16}\selectfont % \fontsize{size}{baselineskip}' + '\n')
+            self._figure.append(r'\color{black}' + '\n')
             self._figure.append(r'\draw[clip] '
                                 r'({0.x.inf:.2f},{0.y.inf:.2f}) -- '
                                 r'({0.x.sup:.2f},{0.y.inf:.2f}) -- '
