@@ -39,8 +39,10 @@ from PatroExample import find_data_path
 ####################################################################################################
 
 val_file = 'flat-city-trouser.val'
-# val_file = 'path-bezier.val'
+val_file = 'path-bezier.val'
 val_path = find_data_path('patterns-valentina', val_file)
+
+val_path = '/home/fabrice/home/documents/couture/patrons/homme/jeans-trouser-base-esmod.val'
 
 val_file = ValFileReader(val_path)
 pattern = val_file.pattern

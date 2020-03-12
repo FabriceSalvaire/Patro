@@ -18,6 +18,8 @@
 #
 ####################################################################################################
 
+# main script
+
 ####################################################################################################
 
 from pathlib import Path
@@ -42,6 +44,10 @@ from Patro.GraphicEngine.Painter.TexPainter import TexPainter
 val_file = 'flat-city-trouser.val'
 val_path = find_data_path('patterns-valentina', val_file)
 
+# val_path = '/home/fabrice/home/documents/couture/patrons/homme/jeans-trouser-base-esmod.val'
+# val_path = '/home/fabrice/home/documents/couture/patrons/patron-pantalon/jeans-trouser-base-esmod.val'
+val_path = '/home/fabrice/home/modelisme/patrons/patron-pantalon/test-pantalon-escalade-dos-devant.val'
+
 val_file = ValFileReader(val_path)
 pattern = val_file.pattern
 
@@ -64,8 +70,9 @@ output.mkdir(exist_ok=True)
 
 # Fixme: see VitFormat.py StrokeStyleAttribute !!!
 # val_file.write(output.joinpath('write-test.val'))
-val_file = ValFileWriter(output.joinpath('write-test-from-api.val'), val_file.vit_file, pattern)
+# val_file = ValFileWriter(output.joinpath('write-test-from-api.val'), val_file.vit_file, pattern)
 
+# for Qt Painter, see also load-pattern.py
 scene = sketch.detail_scene()
 
 # paper = PaperSize('a0', 'portrait', 10)
@@ -76,29 +83,29 @@ scene = sketch.detail_scene()
 # pdf_path = output.joinpath('pattern-a0-reportlab.pdf')
 # pdf_painter = PdfPainter(pdf_path, scene, paper, driver='reportlab')
 
-paper = PaperSize('a0', 'portrait', 10)
-svg_path = output.joinpath('pattern-a0.svg')
-svg_painter = SvgPainter(svg_path, scene, paper)
+# paper = PaperSize('a0', 'portrait', 10)
+# svg_path = output.joinpath('pattern-a0.svg')
+# svg_painter = SvgPainter(svg_path, scene, paper)
 
 # paper = PaperSize('a0', 'portrait', 10)
 # dxf_path = output.joinpath('pattern.dxf')
 # dxf_painter = DxfPainter(dxf_path, scene, paper)
 
 
-# style = DetailSketchStyle(
-#     point_size=PointUnit(1),
-#     line_style=PointUnit(.5),
-# )
-# scene = sketch.detail_scene(style=style)
+style = DetailSketchStyle(
+    point_size=PointUnit(1),
+    line_style=PointUnit(.5),
+)
+scene = sketch.detail_scene(style=style)
 
-# tex_path = output.joinpath('pattern-a0.tex')
-# paper = PaperSize('a0', 'portrait', 10)
-# tex_painter = TexPainter(str(tex_path), scene, paper)
-# tex_painter.add_detail_figure()
-# tex_painter._document.write()
+tex_path = output.joinpath('pattern-a0.tex')
+paper = PaperSize('a0', 'portrait', 10)
+tex_painter = TexPainter(str(tex_path), scene, paper)
+tex_painter.add_detail_figure()
+tex_painter._document.write()
 
-# tex_path = output.joinpath('pattern-a4.tex')
-# paper = PaperSize('a4', 'portrait', 10)
-# tex_painter = TexPainter(str(tex_path), scene, paper)
-# tex_painter.add_tiled_detail_figure()
-# tex_painter._document.write()
+tex_path = output.joinpath('pattern-a4.tex')
+paper = PaperSize('a4', 'portrait', 10)
+tex_painter = TexPainter(str(tex_path), scene, paper)
+tex_painter.add_tiled_detail_figure()
+tex_painter._document.write()

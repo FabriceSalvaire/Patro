@@ -152,7 +152,7 @@ class SceneImporter(SvgFileInternal):
 # svg_path = find_data_path('svg', 'basic-demo-2.by-hand.svg')
 svg_path = find_data_path('svg', 'demo.svg')
 # svg_path = find_data_path('svg', 'demo.simple.svg')
-# svg_path = find_data_path('patterns-svg', 'veravenus-little-bias-dress.pattern-a0.svg')
+svg_path = find_data_path('patterns-svg', 'veravenus-little-bias-dress.pattern-a0.svg')
 # svg_path = find_data_path('patterns-svg', 'veravenus-little-bias-dress.pattern-a0.no-text-zaggy.svg')
 
 # svg_file = SvgFile(svg_path)
