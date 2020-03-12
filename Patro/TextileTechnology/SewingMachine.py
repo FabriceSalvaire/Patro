@@ -64,7 +64,7 @@ class SewingMachine:
 
         self._feed_system = str(kwargs.get('feed_system', None))
         # Gathering 1:x , Stretching 1:y
-        self._differential_feed_ration = kwargs.get('differential_feed_ration', None)
+        self._differential_feed_ratio = kwargs.get('differential_feed_ratio', None)
 
         self._needle_gauge = float(kwargs.get('needle_gauge', None)) # [mm]
         self._needle_system = str(kwargs.get('needle_system', None))
