@@ -30,6 +30,7 @@ class TikzFigure(Environment):
     ##############################################
 
     __STROKE_STYLE__ = {
+        StrokeStyle.DashLine: 'dash pattern=on 5mm off 5mm',
         StrokeStyle.DashDotLine: 'dash pattern=on 5mm off 4mm on 2mm off 4mm', # 'loosely dashdotted',
         StrokeStyle.DotLine: 'dash pattern=on 2mm off 2mm', # 'dotted',
         StrokeStyle.NoPen: None,
