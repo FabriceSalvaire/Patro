@@ -28,10 +28,14 @@ __all__ = ['Line2D']
 
 ####################################################################################################
 
+import math
+
+from IntervalArithmetic import Interval2D
+
 from Patro.Common.IterTools import pairwise
 
 from .Primitive import Primitive, Primitive2DMixin
-from .Vector import Vector2D
+from .Vector import Vector2D, NormalisedVector2D
 
 ####################################################################################################
 
@@ -42,47 +46,46 @@ class Line2D(Primitive2DMixin, Primitive):
     ##############################################
 
     @staticmethod
-    def from_two_points(p0, p1):
-
+    def from_two_points(p0: Vector2D, p1: Vector2D) -> 'Line2D':
         """Construct a :class:`Line2D` from two points."""
-
         return Line2D(p0, p1 - p0)
 
     ##############################################
 
-    def __init__(self, point, vector):
-
+    def __init__(self, point: Vector2D, vector: Vector2D) -> None:
         """Construct a :class:`Line2D` from a point and a vector."""
-
         self.p = point
         self.v = vector
 
     ##############################################
 
-    def clone(self):
+    def clone(self) -> 'Line2D':
         return self.__class__(self.p, self.v)
 
     ##############################################
 
-    def __str__(self):
-
-        str_format = '''Line
-  Point  {0.p}
-  Vector {0.v}
-    magnitude {1}
+    def __str__(self) -> str:
+        return f'''Line
+  Point  {self.p}
+  Vector {self.v}
+    magnitude {self.v.magnitude}
 '''
-
-        return str_format.format(self, self.v.magnitude)
 
     ##############################################
 
     @property
-    def is_infinite(self):
+    def is_infinite(self) -> bool:
         return True
 
     ##############################################
 
-    def interpolate(self, s):
+    @property
+    def vn(self) -> NormalisedVector2D:
+        return self.v.to_normalised()
+
+    ##############################################
+
+    def interpolate(self, s: float) -> float:
         """Return the Point corresponding to the curvilinear abscissa s"""
         return self.p + (self.v * s)
 
@@ -91,31 +94,33 @@ class Line2D(Primitive2DMixin, Primitive):
 
     ##############################################
 
-    def compute_distance_between_abscissae(self, s0, s1):
+    def point_at_distance(self, distance: float, point: Vector2D=None) -> Vector2D:
+        return point + self.vn * distance
+
+    ##############################################
+
+    def compute_distance_between_abscissae(self, s0: float, s1: float) -> float:
         """Compute distance between two abscissae"""
         return abs(s1 - s0) * self.v.magnitude()
 
     ##############################################
 
-    def compute_distance(self, s_list):
-
+    def compute_distance(self, s_list: list[float]) -> list[float]:
         """Compute distance between a set of abscissae"""
-
         # Fixme: ?
         #   s_list_sorted = copy.deepcopy(s_list)
         #   s_list_sorted.sort()
-
         return [self.compute_distance_between_abscissae(s0, s1) for s0, s1 in pairwise(s_list)]
 
     ##############################################
 
-    def get_y_from_x(self, x):
+    def get_y_from_x(self, x: float) -> float:
         """Return y corresponding to x"""
         return self.v.tan * (x - self.p.x) + self.p.y
 
     ##############################################
 
-    def get_x_from_y(self, y):
+    def get_x_from_y(self, y: float) -> float:
         """Return x corresponding to y"""
         return self.v.inverse_tan * (y - self.p.y) + self.p.x
 
@@ -123,45 +128,50 @@ class Line2D(Primitive2DMixin, Primitive):
 
     # Fixme: is_parallel_to
 
-    def is_parallel(self, other, return_cross=False):
+    def is_parallel(self, other: 'Line2D', return_cross: bool=False) -> bool:
         """Self is parallel to other"""
         return self.v.is_parallel(other.v, return_cross)
 
     ##############################################
 
-    def is_orthogonal(self, other):
+    def is_orthogonal(self, other: 'Line2D') -> bool:
         """Self is orthogonal to other"""
         return self.v.is_orthogonal(other.v)
 
     ##############################################
 
-    def shifted_parallel_line(self, shift):
-
-        """Return the shifted parallel line"""
-
-        n = self.v.normal
-        n.normalise()
-        point = self.p + n*shift
-
+    def parallel_line_at(self, point: Vector2D) -> 'Line2D':
+        """Return the parallel line"""
         return self.__class__(point, self.v)
 
     ##############################################
 
-    def orthogonal_line_at_abscissa(self, s):
+    def shifted_parallel_line(self, shift: float) -> 'Line2D':
+        """Return the shifted parallel line"""
+        n = self.v.normal
+        n.normalise()
+        point = self.p + n*shift
+        return self.__class__(point, self.v)
 
-        """Return the orthogonal line at abscissa s"""
+    ##############################################
 
-        point = self.interpolate(s)
+    def orthogonal_line_at(self, point: Vector2D) -> 'Line2D':
+        """Return the orthogonal line"""
         vector = self.v.normal
-
         return self.__class__(point, vector)
 
     ##############################################
 
-    def intersection_abscissae(l1, l2):
+    def orthogonal_line_at_abscissa(self, s: float) -> 'Line2D':
+        """Return the orthogonal line at abscissa s"""
+        point = self.interpolate(s)
+        vector = self.v.normal
+        return self.__class__(point, vector)
 
+    ##############################################
+
+    def intersection_abscissae(l1: 'Line2D', l2: 'Line2D') -> (float, float):
         """Return the intersection abscissae between l1 and l2"""
-
         # l1 = p1 + s1*v1
         # l2 = p2 + s2*v2
         # at intersection l1 = l2
@@ -169,7 +179,6 @@ class Line2D(Primitive2DMixin, Primitive):
         # delta = p2 - p1 = s1*v1 - s2*v2
         # delta x v1 = - s2 * v2 x v1 = s2 * v1 x v2
         # delta x v2                  = s1 * v1 x v2
-
         test, cross = l1.is_parallel(l2, return_cross=True)
         if test:
             return (None, None)
@@ -182,10 +191,8 @@ class Line2D(Primitive2DMixin, Primitive):
 
     ##############################################
 
-    def intersection(self, other):
-
+    def intersection(self, other: 'Line2D') -> Vector2D:
         """Return the intersection Point between self and other"""
-
         s1, s2 = self.intersection_abscissae(other)
         if s1 is None:
             return None
@@ -194,20 +201,27 @@ class Line2D(Primitive2DMixin, Primitive):
 
     ##############################################
 
-    def projected_abscissa(self, point):
-
+    def projected_abscissa(self, point: Vector2D) -> float:
         """Return the abscissa corresponding to the perpendicular projection of a point to the line
 
         """
-
         delta = point - self.p
         s = delta.projection_on(self.v)
-
         return s
+
+    def projected_point(self, point: Vector2D) -> Vector2D:
+        return self.interpolate(self.projected_abscissa(point))
+
+    def triangle_projected_point(self, point: Vector2D, distance: float, reverse: bool=False) -> Vector2D:
+        p = self.projected_point(point)
+        d = math.sqrt(distance**2 - (p-point).magnitude_square)
+        if reverse:
+            d = -d
+        return self.point_at_distance(d, p)
 
     ##############################################
 
-    def distance_to_line(self, point):
+    def distance_to_line(self, point: Vector2D) -> float:
 
         """Return the distance of a point to the line"""
 
@@ -233,26 +247,22 @@ class Line2D(Primitive2DMixin, Primitive):
 
     ##############################################
 
-    def distance_and_abscissa_to_line(self, point):
-
+    def distance_and_abscissa_to_line(self, point: Vector2D) -> (float, float):
         """Return the distance of a point to the line"""
-
         delta = point - self.p
         if delta.magnitude_square == 0:
             return 0, 0
         else:
             d = delta.deviation_with(self.v)
             s = delta.projection_on(self.v)
-            return d, s # distance to line, abscissa
+            return d, s   # distance to line, abscissa
 
     ##############################################
 
-    def get_x_y_from_bounding_box(self, interval):
-
+    def get_x_y_from_bounding_box(self, interval: Interval2D) -> Vector2D:
         """Return the bounding box build on the intersection of the input bounding box with the line
 
         """
-
         left, bottom, right, top = interval.bounding_box()
         vb = Vector2D(interval.size())
         if abs(self.v.tan) > vb.tan:
@@ -261,5 +271,4 @@ class Line2D(Primitive2DMixin, Primitive):
         else:
             x_min, y_min = left, self.get_y_from_x(left)
             x_max, y_max = right, self.get_y_from_x(right)
-
         return Vector2D(x_min, y_min), Vector2D(x_max, y_max)
