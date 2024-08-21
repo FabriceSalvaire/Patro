@@ -18,6 +18,16 @@
 #
 ####################################################################################################
 
+# python examples/geometry-engine/spline.py
+
+# [CubicBezier2D(Vector2D[0. 0.], Vector2D[5. 5.], Vector2D[7.5 0. ], Vector2D[ 9.58333333 -0.83333333]), CubicBezier2D(Vector2D[ 9.58333333 -0.83333333], Vector2D[11.66666667 -1.66666667], Vector2D[13.33333333  1.66666667], Vector2D[15.41666667  0.83333333]), CubicBezier2D(Vector2D[15.41666667  0.83333333], Vector2D[17.5  0. ], Vector2D[20. -5.], Vector2D[25.  5.])]
+# Traceback (most recent call last):
+#   File "/home/fabrice/home/developpement/python/patro/examples/geometry-engine/spline.py", line 113, in <module>
+#     plot_spline(spline, deboor=True, naive=True, offset=-.1)
+#   File "/home/fabrice/home/developpement/python/patro/examples/geometry-engine/spline.py", line 41, in plot_spline
+#     control_point_array = spline.point_array + offset
+# TypeError: unsupported operand type(s) for +: 'list_iterator' and 'float
+
 ####################################################################################################
 
 from Patro.GeometryEngine.Spline import BSpline2D
