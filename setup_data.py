@@ -1,7 +1,7 @@
 ####################################################################################################
 #
 # Patro - A Python library to make patterns for fashion design
-# Copyright (C) 2018 Fabrice Salvaire
+# Copyright (C) 2022 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -18,11 +18,11 @@
 #
 ####################################################################################################
 
+# Note: Still required for long_description
+
 ####################################################################################################
 
 import os
-
-from Patro import __version__
 
 ####################################################################################################
 
@@ -46,7 +46,7 @@ def merge_include(src_lines, doc_path, included_rst_files=None):
 
 # Utility function to read the README file.
 # Used for the long_description.
-def read_readme(file_name):
+def read_readme(file_name: str) -> str:
 
     source_path = os.path.dirname(os.path.realpath(__file__))
     if os.path.basename(source_path) == 'tools':
@@ -73,13 +73,5 @@ else:
 ####################################################################################################
 
 setup_dict = dict(
-    name='Patro',
-    version=__version__,
-    author='Fabrice Salvaire',
-    author_email='fabrice.salvaire@orange.fr',
-    description='A Python library to make pattern for fashion design',
-    license='AGPLv3',
-    keywords= 'pattern making drafting digitising digitizing sewing fashion design garment cloth valentina seamly svg latex tikz geometry engine cad',
-    url='https://github.com/FabriceSalvaire/Patro',
     long_description=long_description,
 )

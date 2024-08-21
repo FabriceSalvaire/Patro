@@ -22,54 +22,18 @@
 
 ####################################################################################################
 
-import glob
 import sys
 
-from setuptools import setup, find_packages
-setuptools_available = True
+from setuptools import setup
 
 ####################################################################################################
 
-if sys.version_info < (3,):
-    print('Patro requires Python 3', file=sys.stderr)
+# Check for python3 setup.py install
+required_python_version = (3, 10)
+if sys.version_info < required_python_version:
+    sys.stderr.write('ERROR: PySpice requires Python {}.{}\n'.format(*required_python_version))
     sys.exit(1)
-
-exec(compile(open('setup_data.py').read(), 'setup_data.py', 'exec'))
-
 ####################################################################################################
 
-def read_requirement():
-    return [requirement.strip() for requirement in open('requirements.txt').readlines()]
-
-####################################################################################################
-
-setup_dict.update(dict(
-    # include_package_data=True, # Look in MANIFEST.in
-    packages=find_packages(exclude=['unit-test']),
-    scripts=glob.glob('bin/*'),
-    # [
-    #     'bin/...',
-    # ],
-    package_data={
-        'Patro.Config': ['logging.yml'],
-    },
-
-    platforms='any',
-    zip_safe=False, # due to data files
-
-    # cf. http://pypi.python.org/pypi?%3Aaction=list_classifiers
-    classifiers=[
-        'Topic :: Scientific/Engineering',
-        'Development Status :: 4 - Beta',
-        # 'Development Status :: 5 - Production/Stable',
-        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python :: 3.7',
-        ],
-
-    install_requires=read_requirement(),
-))
-
-####################################################################################################
-
+from setup_data import setup_dict
 setup(**setup_dict)
