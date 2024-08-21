@@ -38,6 +38,8 @@ logger = logging.getLogger(__name__)
 #     logger.warning('Failed to import sphinx_rtd_theme')
 #     pass
 
+import Patro
+
 ####################################################################################################
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -96,7 +98,7 @@ copyright = '{0.year}, Fabrice Salvaire'.format(datetime.now())
 # built documents.
 #
 # The full version, including alpha/beta/rc tags.
-release = setup_dict['version']
+release = Patro.__version__
 # The short X.Y version.
 version = '.'.join(release.split('.')[:2])
 
@@ -139,28 +141,17 @@ pygments_style = 'sphinx'
 # Options for Autodoc
 #
 
-# http://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html
+# See Pyterate/ApiRstFactory/templates/macros.jinja2
+# https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html
+# https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#configuration
 
 # Show both class-level docstring and __init__ docstring in class documentation
 autoclass_content = 'both'
 
-autodoc_member_order = 'alphabetical' # groupwise bysource
-
-# autodoc_default_flags = [
-#     'members',
-#     'undoc-members',
-#
-#     # 'members',
-#     # 'undoc-members',
-#     # 'private-members',
-#     # 'special-members',
-#     # 'inherited-members',
-#     # 'show-inheritance',
-#     # 'ignore-module-all',
-#     # 'exclude-members',
-# ]
+autodoc_member_order = 'alphabetical'   # groupwise bysource
 
 excluded_members = [
+    '__annotations__',
     '__dict__',
     '__module__',
     '__weakref__',
@@ -175,8 +166,22 @@ autodoc_default_options = {
     # 'inherited-members': ,
     'show-inheritance': None,
     'ignore-module-all': None,
+    # 'imported-members'
     'exclude-members': ','.join(excluded_members),
+    # 'class-doc-from'
+    # 'no-value'
 }
+
+# autodoc_class_signature
+# autodoc_docstring_signature
+# autodoc_mock_imports
+autodoc_typehints = 'both'   # signature description
+# autodoc_type_aliases
+# autodoc_typehints_format
+# autodoc_preserve_defaults
+# autodoc_warningiserror
+# autodoc_inherit_docstrings
+# suppress_warnings
 
 ####################################################################################################
 #
