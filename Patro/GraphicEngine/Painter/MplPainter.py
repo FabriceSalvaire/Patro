@@ -81,9 +81,7 @@ class MplPainter(Painter):
     ##############################################
 
     def _add_path(self, item, vertices, codes):
-
         path = Path(vertices, codes)
-
         path_syle = item.path_style
         color = path_syle.stroke_color.name
         line_style = self.__STROKE_STYLE__[path_syle.stroke_style]
@@ -102,7 +100,6 @@ class MplPainter(Painter):
     ##############################################
 
     def paint_CircleItem(self, item):
-
         center = list(self.cast_position(item.position))
         circle = plt.Circle(center, .5, color='black')
         self._axes.add_artist(circle)
@@ -110,7 +107,6 @@ class MplPainter(Painter):
     ##############################################
 
     def paint_SegmentItem(self, item):
-
         vertices = self.cast_item_coordinates(item)
         codes = [Path.MOVETO, Path.LINETO]
         self._add_path(item, vertices, codes)
@@ -118,7 +114,6 @@ class MplPainter(Painter):
     ##############################################
 
     def paint_CubicBezierItem(self, item):
-
         vertices = self.cast_item_coordinates(item)
         codes = [Path.MOVETO, Path.CURVE4, Path.CURVE4, Path.CURVE4]
         self._add_path(item, vertices, codes)

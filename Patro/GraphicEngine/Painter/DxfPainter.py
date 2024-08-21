@@ -46,9 +46,7 @@ class DxfPainterBase(Painter):
     ##############################################
 
     def __init__(self, path, scene, paper):
-
         super().__init__(scene)
-
         self._path = path
         self._paper = paper
 
@@ -110,9 +108,7 @@ class EzdxfPainter(DxfPainterBase):
     ##############################################
 
     def _graphic_style(self, item):
-
         # cf. https://ezdxf.readthedocs.io/en/latest/graphic_base_class.html#common-dxf-attributes-for-dxf-r13-or-later
-
         path_style = item.path_style
         if path_style.stroke_color is None:
             return {'linetype': 'PHANTOM', 'color': 2} # Fixme:
@@ -120,13 +116,11 @@ class EzdxfPainter(DxfPainterBase):
         line_type = self.__STROKE_STYLE__[path_style.stroke_style]
         # https://ezdxf.readthedocs.io/en/latest/graphic_base_class.html#GraphicEntity.dxf.lineweight
         # line_weight = float(path_syle.line_width.replace('pt', '')) / 3 # Fixme: pt ???
-
         return {'linetype': line_type, 'color': color} # 'lineweight':line_weight
 
     ##############################################
 
     def paint_TextItem(self, item):
-
         position = self.cast_position(item.position)
         # Fixme: anchor position
         # https://ezdxf.readthedocs.io/en/latest/tutorials/text.html
@@ -141,7 +135,6 @@ class EzdxfPainter(DxfPainterBase):
     ##############################################
 
     def paint_SegmentItem(self, item):
-
         positions = self.cast_item_coordinates(item)
         self._model_space.add_line(
             *positions,
@@ -151,7 +144,6 @@ class EzdxfPainter(DxfPainterBase):
     ##############################################
 
     def paint_CubicBezierItem(self, item):
-
         positions = self.cast_item_coordinates(item)
         for position in positions:
             position.append(0)

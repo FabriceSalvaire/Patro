@@ -96,9 +96,7 @@ class QtPainter(Painter):
     ##############################################
 
     def __init__(self, scene=None):
-
         super().__init__(scene)
-
         self._show_grid = True
 
         # self._paper = paper
@@ -159,7 +157,6 @@ class QtPainter(Painter):
     ##############################################
 
     def paint(self, painter):
-
         if bool(self):
             self._logger.info('Start painting')
             self._painter = painter
@@ -286,7 +283,6 @@ class QtPainter(Painter):
     ##############################################
 
     def _paint_axis_grid(self, xinf, xsup, yinf, ysup, is_x, step):
-
         for i in range(int(xinf // step), int(xsup // step) +1):
             x = i*step
             if xinf <= x <= xsup:
@@ -389,7 +385,6 @@ class QtPainter(Painter):
     ##############################################
 
     def paint_CubicBezierItem(self, item):
-
         vertices = self.cast_item_positions(item)
         self._paint_cubic(item, vertices)
 
@@ -410,7 +405,6 @@ class QtPainter(Painter):
     ##############################################
 
     def paint_SegmentItem(self, item):
-
         self._set_pen(item)
         vertices = self.cast_item_positions(item)
         self._painter.drawLine(*vertices)
@@ -418,7 +412,6 @@ class QtPainter(Painter):
     ##############################################
 
     def paint_PolylineItem(self, item):
-
         self._set_pen(item)
         vertices = self.cast_item_positions(item)
         path = QPainterPath()
@@ -430,7 +423,6 @@ class QtPainter(Painter):
     ##############################################
 
     def paint_PolygonItem(self, item):
-
         self._set_pen(item)
         vertices = self.cast_item_positions(item)
         # Fixme: fill ???
@@ -439,7 +431,6 @@ class QtPainter(Painter):
     ##############################################
 
     def paint_PathItem(self, item):
-
         self._set_pen(item)
         position = self.cast_position(item.position)
         path = QPainterPath()
@@ -467,7 +458,6 @@ class QtPainter(Painter):
     ##############################################
 
     def paint_TextItem(self, item):
-
         position = self.cast_position(item.position)
 
         font = item.font
@@ -637,7 +627,6 @@ class ViewportArea:
     ##############################################
 
     def scene_to_viewport(self, position):
-
         point = QPointF(position.x, position.y)
         point += self._translation
         point *= self._scale
@@ -647,7 +636,6 @@ class ViewportArea:
     ##############################################
 
     def viewport_to_scene(self, position):
-
         point = QPointF(position.x(), -position.y())
         point /= self._scale
         point -= self._translation
@@ -695,7 +683,6 @@ class QtQuickPaintedSceneItem(QQuickPaintedItem, QtPainter):
     ##############################################
 
     def geometryChanged(self, new_geometry, old_geometry):
-
         # self._logger.info('geometryChanged', new_geometry, old_geometry)
         self._viewport_area.viewport_size = new_geometry
         # if self._scene:

@@ -41,7 +41,6 @@ class Tiler:
     ##############################################
 
     def __init__(self, bounding_box, paper, margin=1):
-
         # print('Tiler', bounding_box)
         self._bounding_box = bounding_box.enlarge(margin)
         self._paper = paper
@@ -79,9 +78,7 @@ class Painter:
     ##############################################
 
     def __init_subclass__(cls, **kwargs):
-
         super().__init_subclass__(**kwargs)
-
         # Register paint methods
         paint_method = {}
         for item_cls in GraphicItem.__subclasses__:

@@ -174,7 +174,6 @@ class BezierMixin2D(Primitive2DMixin):
     ##############################################
 
     def _map_to_line(self, line):
-
         transformation = AffineTransformation.Rotation(-line.v.orientation)
         # Fixme: use __vector_cls__
         transformation *= AffineTransformation.Translation(Vector2D(0, -line.p.y))
@@ -184,12 +183,10 @@ class BezierMixin2D(Primitive2DMixin):
     ##############################################
 
     def non_parametric_curve(self, line):
-
         """Return the non-parametric Bezier curve D(ti, di(t)) where di(t) is the distance of the curve from
         the baseline of the fat-line, ti is equally spaced in [0, 1].
 
         """
-
         ts = np.arange(0, 1, 1/(self.number_of_points-1))
         distances = [line.distance_to_line(p) for p in self.points]
         points = [Vector2D(t, d) for t, f in zip(ts, distances)]
@@ -198,7 +195,6 @@ class BezierMixin2D(Primitive2DMixin):
     ##############################################
 
     def distance_to_point(self, point):
-
         p = self.closest_point(point)
         if p is not None:
             return (point - p).magnitude
@@ -361,12 +357,10 @@ class QuadraticBezier2D(BezierMixin2D, Primitive3P):
     ##############################################
 
     def fat_line(self):
-
         line = Line2D.from_two_points(self._p0, self._p3)
         d1 = line.distance_to_line(self._p1)
         d_min = min(0, d1 / 2)
         d_max = max(0, d1 / 2)
-
         return (line, d_min, d_max)
 
     ##############################################
@@ -401,16 +395,13 @@ class QuadraticBezier2D(BezierMixin2D, Primitive3P):
     ##############################################
 
     def to_cubic(self):
-
         r"""Elevate the quadratic Bézier curve to a cubic Bézier cubic with the same shape.
 
         For more details see :ref:`this section <bezier-curve-degree-elevation-section>`.
 
         """
-
         p1 = (self._p0 + self._p1 * 2) / 3
         p2 = (self._p2 + self._p1 * 2) / 3
-
         return CubicBezier2D(self._p0, p1, p2, self._p2)
 
 ####################################################################################################
@@ -494,9 +485,7 @@ class CubicBezier2D(BezierMixin2D, Primitive4P):
     ##############################################
 
     def split_at_t(self, t):
-
         """Split the curve at given position"""
-
         p01 = interpolate_two_points(self._p0, self._p1, t)
         p12 = interpolate_two_points(self._p1, self._p2, t)
         p23 = interpolate_two_points(self._p2, self._p3, t)
@@ -504,7 +493,6 @@ class CubicBezier2D(BezierMixin2D, Primitive4P):
         p123 = interpolate_two_points(p12, p23, t)
         p = interpolate_two_points(p012, p123, t) # p = p0123
         # p = self.point_at_t(t)
-
         return (CubicBezier2D(self._p0, p01, p012, p), CubicBezier2D(p, p123, p23, self._p3))
 
     ##############################################
@@ -528,9 +516,7 @@ class CubicBezier2D(BezierMixin2D, Primitive4P):
     ##############################################
 
     def adaptive_length_approximation(self):
-
         """Return the length of the adaptive quadratic approximation"""
-
         segments = []
         segment = self
         t_max = segment._t_max()
@@ -540,7 +526,6 @@ class CubicBezier2D(BezierMixin2D, Primitive4P):
             segment = split[1]
             t_max = segment._t_max()
         segments.append(segment)
-
         return sum([segment.q_length() for segment in segments])
 
     ##############################################
@@ -591,7 +576,6 @@ class CubicBezier2D(BezierMixin2D, Primitive4P):
     ##############################################
 
     def fat_line(self):
-
         line = Line2D.from_two_points(self._p0, self._p3)
         d1 = line.distance_to_line(self._p1)
         d2 = line.distance_to_line(self._p2)
@@ -601,7 +585,6 @@ class CubicBezier2D(BezierMixin2D, Primitive4P):
             factor = 4 / 9
         d_min = factor * min(0, d1, d2)
         d_max = factor * max(0, d1, d2)
-
         return (line, d_min, d_max)
 
     ##############################################
@@ -855,18 +838,14 @@ class CubicBezier2D(BezierMixin2D, Primitive4P):
     
     @property
     def area(self):
-
         """Compute the area delimited by the curve and the segment across the start and stop point."""
-
         # Reference: http://objectmix.com/graphics/133553-area-closed-bezier-curve.html BUT DEAD LINK
         # Proof using divergence theorem ???
         # Fixme: any proof !
-
         x0, y0 = list(self._p0)
         x1, y1 = list(self._p1)
         x2, y2 = list(self._p2)
         x3, y3 = list(self._p3)
-
         return (3 * ((y3 - y0) * (x1 + x2) - (x3 - x0) * (y1 + y2)
                      + y1 * (x0 - x2) - x1 * (y0 - y2)
                      + y3 * (x2 + x0 / 3) - x3 * (y2 + y0 / 3)) / 20)

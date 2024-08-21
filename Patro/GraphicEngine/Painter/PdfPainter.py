@@ -48,9 +48,7 @@ class PdfPainterBase(Painter):
     ##############################################
 
     def __init__(self, path, scene, paper):
-
         super().__init__(scene)
-
         self._path = path
         self._paper = paper
 
@@ -119,7 +117,6 @@ class ReportlabPainter(PdfPainterBase):
     ##############################################
 
     def _set_graphic_style(self, item):
-
         path_syle = item.path_style
         color = path_syle.stroke_color.name
         self._canvas.setStrokeColor(color)
@@ -131,7 +128,6 @@ class ReportlabPainter(PdfPainterBase):
     ##############################################
 
     def paint_TextItem(self, item):
-
         position = self.cast_position(item.position)
         # Fixme: anchor position
         self._canvas.drawString(position.x, position.y, item.text)
@@ -139,7 +135,6 @@ class ReportlabPainter(PdfPainterBase):
     ##############################################
 
     def paint_CircleItem(self, item):
-
         position = self.cast_position(item.position)
         self._canvas.saveState()
         self._canvas.setFillColor('black')
@@ -149,14 +144,12 @@ class ReportlabPainter(PdfPainterBase):
     ##############################################
 
     def paint_SegmentItem(self, item):
-
         # self._set_graphic_style(item)
         self._canvas.line(*self.cast_item_coordinates(item, flat=True))
 
     ##############################################
 
     def paint_CubicBezierItem(self, item):
-
         # self._set_graphic_style(item)
         self._canvas.bezier(*self.cast_item_coordinates(item, flat=True))
 

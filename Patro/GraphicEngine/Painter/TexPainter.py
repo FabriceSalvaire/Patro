@@ -71,12 +71,9 @@ class TexPainter(Painter):
     ##############################################
 
     def __init__(self, path, scene, paper):
-
         super().__init__(scene)
-
         self._document = Document(path, 'article', '12pt')
         self._paper = paper
-
         self._preambule.append(Document._format(_preambule, self))
 
     ##############################################
@@ -100,7 +97,6 @@ class TexPainter(Painter):
     ##############################################
 
     def _format_position(self, position):
-
         if isinstance(position, str):
             return '(' + position + ')'
         elif isinstance(position, Vector2D):
@@ -109,7 +105,6 @@ class TexPainter(Painter):
     ##############################################
 
     def paint(self):
-
         for item in self._scene.coordinates:
             self.paint_CoordinateItem(item)
         super().paint()
@@ -117,30 +112,25 @@ class TexPainter(Painter):
     ##############################################
 
     def paint_CoordinateItem(self, item):
-
         # Fixme: implement detail in TikzFigure ?
-
         coordinate = self._format_position(item.position)
         self._figure.append(r'\coordinate ({0}) at {1};'.format(item.name, coordinate) + '\n')
 
     ##############################################
 
     def paint_TextItem(self, item):
-
         coordinate = self._format_position(item.position)
         self._figure.append(Document._format(r'\draw[] «0» node[anchor=north west] {«1»};', coordinate, item.text) + '\n')
 
     ##############################################
 
     def paint_CircleItem(self, item):
-
         coordinate = self._format_position(item.position)
         self._figure.append(r'\fill [black] {0} circle (1pt);'.format(coordinate) + '\n')
 
     ##############################################
 
     def paint_SegmentItem(self, item):
-
         style = TikzFigure.format_path_style(item.path_style)
         coordinates = [self._format_position(position) for position in item.positions]
         self._figure.append(r'\draw[{0}] {1} -- {2};'.format(style, *coordinates) + '\n')
@@ -148,7 +138,6 @@ class TexPainter(Painter):
     ##############################################
 
     def paint_CubicBezierItem(self, item):
-
         style = TikzFigure.format_path_style(item.path_style)
         coordinates = [self._format_position(position) for position in item.positions]
         self._figure.append(r'\draw[{0}] {1} .. controls {2} and {3} .. {4};'.format(style, *coordinates) + '\n')
@@ -156,17 +145,14 @@ class TexPainter(Painter):
     ##############################################
 
     def _add_pagestyle_empty(self):
-
         # Fixme: implement in Document ?
         self._content.append(r'\pagestyle{empty}' + '\n')
 
     ##############################################
 
     def add_detail_figure(self):
-
         # Fixme: split document / scene painter
         #  don't make sense to generate a0 and a4 content on the same file !
-
         self._add_pagestyle_empty()
         self._content.append(r'\fontsize{64}{72}\selectfont % \fontsize{size}{baselineskip}' + '\n')
         options = 'x=8mm,y=8mm'
@@ -177,7 +163,6 @@ class TexPainter(Painter):
     ##############################################
 
     def add_tiled_detail_figure(self):
-
         self._add_pagestyle_empty()
         tiler = Tiler(self._scene.bounding_box, self._paper)
         for interval, r, c in tiler:

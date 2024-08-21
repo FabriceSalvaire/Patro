@@ -105,7 +105,6 @@ class SvgPainter(Painter):
     ##############################################
 
     def paint_TextItem(self, item):
-
         x, y = list(self.cast_position(item.position))
         # Fixme: anchor position
         text = SvgFormat.Text(x=x, y=y, text=item.text, fill='black')
@@ -114,7 +113,6 @@ class SvgPainter(Painter):
     ##############################################
 
     def paint_CircleItem(self, item):
-
         x, y = self.cast_position(item.position)
         circle = SvgFormat.Text(cx=x, cy=y, r=2, fill='black', _class='normal')
         self._append(circle)
@@ -122,7 +120,6 @@ class SvgPainter(Painter):
     ##############################################
 
     def paint_SegmentItem(self, item):
-
         p1, p2 = self.cast_item_positions(item)
         line = SvgFormat.Line(
             x1=p1.x,
@@ -136,7 +133,6 @@ class SvgPainter(Painter):
     ##############################################
 
     def paint_CubicBezierItem(self, item):
-
         coordinates = self.cast_item_coordinates(item, flat=True)
         path = SvgFormat.Path(
             path_data='M {} {} C {} {}, {} {}, {} {}'.format(*coordinates),
