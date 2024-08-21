@@ -1,0 +1,7 @@
+#! /usr/bin/bash
+
+rsync \
+  -av -c --delete \
+  --exclude='*~' --delete-excluded \
+  doc/sphinx/build/html/ \
+  apache-rsync@ovh-vps2:/var/www/@projectname@
