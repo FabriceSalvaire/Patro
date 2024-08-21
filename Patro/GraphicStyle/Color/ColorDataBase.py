@@ -29,6 +29,7 @@ __all__ = ['Color', 'ColorDataBase']
 ####################################################################################################
 
 import colorsys
+from typing import Iterator
 
 ####################################################################################################
 
@@ -55,7 +56,7 @@ class Color:
 
     ##############################################
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: list, **kwargs: dict) -> None:
 
         # self._rgb = str(rgb)
 
@@ -69,7 +70,7 @@ class Color:
             else:
                 rgb = str(color)
                 if not rgb.startswith('#'):
-                    raise ValueError('Invalid color {}'.format(rgb))
+                    raise ValueError(f'Invalid color {rgb}')
                 rgb = rgb[1:]
                 red, green, blue = rgb[:2], rgb[2:4], rgb[-2:]
                 self._red, self._green, self._blue = [self._to_float(int(x, 16))
@@ -77,7 +78,7 @@ class Color:
         elif number_of_args == 3:
             self._red, self._green, self._blue = [self._check_value(arg) for arg in args]
         else:
-            self._red, self._green, self._blue = 0
+            self._red = self._green = self._blue = 0
 
         if 'hue' in kwargs:
             if 'light' in kwargs:
@@ -98,80 +99,77 @@ class Color:
 
     ##############################################
 
-    def clone(self):
+    def clone(self) -> 'Color':
         return self.__class__(self._red, self._green, self._blue, name=self._name)
 
     ##############################################
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.__STR_FORMAT__.format(self.red, self.green, self.blue)
 
     ##############################################
 
-    def __repr__(self):
-        return 'Color({})'.format(str(self))
+    def __repr__(self) -> str:
+        return f'Color({str(self)})'
 
     ##############################################
 
     @staticmethod
-    def _to_int(x):
+    def _to_int(x: float) -> int:
         return int(x*255)
 
     @staticmethod
-    def _to_float(x):
+    def _to_float(x: int) -> float:
         return x/255
 
     ##############################################
 
-    def _check_value(self, value):
-
+    def _check_value(self, value: int | float) -> float:
         if isinstance(value, int):
             if 0 <= value <= 255:
                 return self._to_float(value)
-
         if isinstance(value, float):
             if 0 <= value <= 1:
                 # return int(value * 255)
-                return value # keep float
-
-        raise ValueError('Invalid colour {}'.format(value))
+                return value   # keep float
+        raise ValueError(f'Invalid colour {value}')
 
     ##############################################
 
     @property
-    def red_float(self):
+    def red_float(self) -> float:
         return self._red
 
     @property
-    def red(self):
+    def red(self) -> int:
         return self._to_int(self._red)
 
     @red.setter
-    def red(self, value):
+    def red(self, value: int | float) -> None:
         self._red = self._check_value(value)
 
     @property
-    def green_float(self):
+    def green_float(self) -> float:
         return self._green
 
     @property
-    def green(self):
+    def green(self) -> int:
         return self._to_int(self._green)
 
     @green.setter
-    def green(self, value):
+    def green(self, value: int | float) -> None:
         self._green = self._check_value(value)
 
     @property
-    def blue_float(self):
+    def blue_float(self) -> float:
         return self._blue
 
     @property
-    def blue(self):
+    def blue(self) -> int:
         return self._to_int(self._blue)
 
     @blue.setter
-    def blue(self, value):
+    def blue(self, value: int | float) -> None:
         self._blue = self._check_value(value)
 
     ##############################################
@@ -179,26 +177,26 @@ class Color:
     # note hue and saturation is ambiguous
 
     @property
-    def hls(self):
+    def hls(self) -> list[float, float, float]:
         return colorsys.rgb_to_hls(self._red, self._green, self._blue)
 
     @property
-    def hsv(self):
+    def hsv(self) -> list[float, float, float]:
         return colorsys.rgb_to_hsv(self._red, self._green, self._blue)
 
     ##############################################
 
     @property
-    def name(self):
+    def name(self) -> str:
         return self._name
 
     @name.setter
-    def name(self, value):
+    def name(self, value: str) -> None:
         self._name = str(value)
 
     ##############################################
 
-    def __eq__(self, other):
+    def __eq__(self, other: 'Color') -> bool:
         return str(self) == str(other)
 
 ####################################################################################################
@@ -223,44 +221,43 @@ class ColorDataBase:
 
     ##############################################
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._colors = {}
 
     ##############################################
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self._colors)
 
-    def __iter__(self):
+    def __iter__(self) -> Iterator[Color]:
         return iter(self._colors.values())
 
-    def __contains__(self, name):
+    def __contains__(self, name: str) -> bool:
         return name in self._colors
 
-    def __getitem__(self, name):
+    def __getitem__(self, name: str) -> Color:
         return self._colors[str(name)]
 
-    def __getattr__(self, name):
+    def __getattr__(self, name: str) -> Color:
         return self._colors[name]
 
     ##############################################
 
-    def iter_names(self):
+    def iter_names(self) -> Iterator[str]:
         return iter(self._colors.keys())
 
     ##############################################
 
-    def add(self, name, color):
+    def add(self, name: str, color: Color) -> None:
         """Register a :class:`Color` instance"""
+        # Fixme: create Color obj here ???
         # Fixme: color.name ???
         self._colors[str(name)] = color
 
     ##############################################
 
-    def ensure_color(self, color):
-
+    def ensure_color(self, color: Color | str | None) -> Color:
         """Ensure *color* is a :class:`Color` instance"""
-
         if color is None:
             return None
         elif isinstance(color, Color):
@@ -270,5 +267,4 @@ class ColorDataBase:
                 return Color(color)
             else:
                 return self[color]
-
-        raise ValueError('Invalid color {}'.format(color))
+        raise ValueError(f'Invalid color {color}')

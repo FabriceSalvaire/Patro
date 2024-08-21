@@ -27,19 +27,19 @@
 ####################################################################################################
 
 __all__ = [
- 'InchUnit',
- 'MmUnit',
- 'PointUnit',
+    'InchUnit',
+    'MmUnit',
+    'PointUnit',
 ]
 
 ####################################################################################################
 
 class TypographyUnit:
 
-    INCH_2_MM        = 25.4  # 1 inch = 25.4 mm
-    POINT_2_INCH     = 72    # 1 inch = 72 point   PostScript, CSS pt and TeX bp
-    TEX_POINT_2_INCH = 72.27 # TeX pt
-    PICA_2_POINT     = 12    # 1 pica = 12 point
+    INCH_2_MM        = 25.4    # 1 inch = 25.4 mm
+    POINT_2_INCH     = 72      # 1 inch = 72 point   PostScript, CSS pt and TeX bp
+    TEX_POINT_2_INCH = 72.27   # TeX pt
+    PICA_2_POINT     = 12      # 1 pica = 12 point
 
     POINT_2_MM    = INCH_2_MM / POINT_2_INCH
 
@@ -49,49 +49,49 @@ class TypographyUnit:
 
     ##############################################
 
-    def __init__(self, value):
+    def __init__(self, value: int | float) -> None:
         self._value = value
 
     ##############################################
 
-    def __float__(self):
+    def __float__(self) -> float:
         return self._value
 
 ####################################################################################################
 
 class MmUnit(TypographyUnit):
 
-    def to_mm(self):
+    def to_mm(self) -> float:
         return self
 
-    def to_inch(self):
-        return InchUnit(self._value * self.MM_2_Point)
+    def to_inch(self) -> 'InchUnit':
+        return InchUnit(self._value * self.MM_2_POINT)
 
-    def to_point(self):
+    def to_point(self) -> 'PointUnit':
         return PointUnit(self._value * self.MM_2_POINT)
 
 ####################################################################################################
 
 class InchUnit(TypographyUnit):
 
-    def to_inch(self):
+    def to_inch(self) -> float:
         return self
 
-    def to_mm(self):
+    def to_mm(self) -> MmUnit:
         return MmUnit(self._value * self.INCH_2_MM)
 
-    def to_point(self):
+    def to_point(self) -> 'PointUnit':
         return PointUnit(self._value * self.INCH_2_POINT)
 
 ####################################################################################################
 
 class PointUnit(TypographyUnit):
 
-    def to_point(self):
+    def to_point(self) -> 'PointUnit':
         return self
 
-    def to_mm(self):
+    def to_mm(self) -> MmUnit:
         return MmUnit(self._value * self.POINT_2_MM)
 
-    def to_inch(self):
+    def to_inch(self) -> InchUnit:
         return InchUnit(self._value * self.POINT_2_INCH)

@@ -25,14 +25,15 @@
 ####################################################################################################
 
 __all__ = [
-    'GraphicScene',
     # sphinx
+    'GraphicScene',
     'GraphicSceneScope',
 ]
 
 ####################################################################################################
 
 import logging
+from typing import Any, Iterator
 
 import rtree
 
@@ -52,6 +53,7 @@ from Patro.GeometryEngine.Transformation import AffineTransformation2D
 from Patro.GeometryEngine.Vector import Vector2D
 from . import GraphicItem
 from .GraphicItem import CoordinateItem
+from .GraphicStyle import GraphicPathStyle
 
 ####################################################################################################
 
@@ -81,14 +83,13 @@ class GraphicSceneScope:
 
     ##############################################
 
-    def __init__(self, transformation=None):
-
+    def __init__(self, transformation=None) -> None:
         if transformation is None:
             transformation = AffineTransformation2D.Identity()
         self._transformation = transformation
 
         self._coordinates = {}
-        self._items = {} # id(item) -> item, e.g. for rtree query
+        self._items = {}   # id(item) -> item, e.g. for rtree query
 
         self._user_data_map = {}
 
@@ -99,32 +100,31 @@ class GraphicSceneScope:
     ##############################################
 
     @property
-    def transformation(self):
+    def transformation(self) -> None:
         return self._transformation
 
     ##############################################
 
-    def __len__(self):
+    def __len__(self) -> int:
         return self.number_of_items
 
     @property
-    def number_of_items(self):
+    def number_of_items(self) -> int:
         return len(self._items)
 
-    def __iter__(self):
+    def __iter__(self) -> Iterator:
         # must be an ordered item list
         return iter(self._items.values())
 
     ##############################################
 
     @property
-    def coordinates(self):
+    def coordinates(self) -> None:
         return self._coordinates.values()
 
     ##############################################
 
-    def z_value_iter(self):
-
+    def z_value_iter(self) -> None:
         # Fixme: cache ???
         # Group by z_value and keep inserting order
         z_map = {}
@@ -132,7 +132,6 @@ class GraphicSceneScope:
             if item.visible:
                 items = z_map.setdefault(item.z_value, [])
                 items.append(item)
-
         for z_value in sorted(z_map.keys()):
             for item in z_map[z_value]:
                 yield item
@@ -140,43 +139,40 @@ class GraphicSceneScope:
     ##############################################
 
     @property
-    def selected_items(self):
+    def selected_items(self) -> list[GraphicItem]:
         # Fixme: cache ?
         return [item for item in self._items.values() if item.selected]
 
     ##############################################
 
-    def unselect_items(self):
+    def unselect_items(self) -> None:
         for item in self.selected_items:
             item.selected = False
 
     ##############################################
 
-    def add_coordinate(self, name, position):
-
+    def add_coordinate(self, name: str, position) -> CoordinateItem:
         item = CoordinateItem(name, position)
         self._coordinates[name] = item
         return item
 
     ##############################################
 
-    def remove_coordinate(self, name):
+    def remove_coordinate(self, name: str) -> None:
         del self._coordinates[name]
 
     ##############################################
 
-    def coordinate(self, name):
+    def coordinate(self, name: str) -> CoordinateItem:
         return self._coordinates[name]
 
     ##############################################
 
-    def cast_position(self, position):
-
+    def cast_position(self, position: str | Vector2D) -> Vector2D:
         """Cast coordinate and apply scope transformation, *position* can be a coordinate name string of a
         :class:`Patro.GeometryEngine.Vector.Vector2D`.
 
         """
-
         # Fixme: cache ?
         if isinstance(position, str):
             vector = self._coordinates[position].position
@@ -186,19 +182,18 @@ class GraphicSceneScope:
 
     ##############################################
 
-    def add_item(self, cls, *args, **kwargs):
-
+    def add_item(self, cls, *args: list, **kwargs: dict) -> GraphicItem:
         item = cls(self, *args, **kwargs)
         # print(item, item.user_data, hash(item))
         # if item in self._items:
         #     print('Warning duplicate', item.user_data)
 
-        item_id = id(item) # Fixme: hash ???
+        item_id = id(item)   # Fixme: hash ???
         self._items[item_id] = item
 
         user_data = item.user_data
         if user_data is not None:
-            user_data_id = id(user_data) # Fixme: hash ???
+            user_data_id = id(user_data)   # Fixme: hash ???
             items = self._user_data_map.setdefault(user_data_id, [])
             items.append(item)
 
@@ -206,8 +201,7 @@ class GraphicSceneScope:
 
     ##############################################
 
-    def remove_item(self, item):
-
+    def remove_item(self, item: GraphicItem) -> None:
         self.update_rtree(item, insert=False)
 
         items = self.item_for_user_data(item.user_data)
@@ -218,28 +212,27 @@ class GraphicSceneScope:
 
     ##############################################
 
-    def item_for_user_data(self, user_data):
+    def item_for_user_data(self, user_data: Any) -> None:
         user_data_id = id(user_data)
         return self._user_data_map.get(user_data_id, None)
 
     ##############################################
 
-    def update_rtree(self):
+    def update_rtree(self) -> None:
         for item in self._items.values():
             if item.dirty:
                 self.update_rtree_item(item)
 
     ##############################################
 
-    def update_rtree_item(self, item, insert=True):
-
+    def update_rtree_item(self: GraphicItem, item, insert=True) -> None:
         item_id = id(item)
         old_bounding_box = self._item_bounding_box_cache.pop(item_id, None)
         if old_bounding_box is not None:
             self._rtree.delete(item_id, old_bounding_box)
         if insert:
             # try:
-            bounding_box = item.bounding_box.bounding_box # Fixme: name
+            bounding_box = item.bounding_box.bounding_box   # Fixme: name
             # print(item, bounding_box)
             self._rtree.insert(item_id, bounding_box)
             self._item_bounding_box_cache[item_id] = bounding_box
@@ -249,8 +242,7 @@ class GraphicSceneScope:
 
     ##############################################
 
-    def item_in_bounding_box(self, bounding_box):
-
+    def item_in_bounding_box(self, bounding_box) -> None:
         # Fixme: Interval2D ok ?
         # print('item_in_bounding_box', bounding_box)
         item_ids = self._rtree.intersection(bounding_box)
@@ -261,8 +253,7 @@ class GraphicSceneScope:
 
     ##############################################
 
-    def item_at(self, position, radius):
-
+    def item_at(self, position, radius: int | float) -> None:
         x, y = list(position)
         bounding_box = (
             x - radius, y - radius,
@@ -270,7 +261,7 @@ class GraphicSceneScope:
         )
         items = []
         for item in self.item_in_bounding_box(bounding_box):
-            try: # Fixme
+            try:   # Fixme
                 distance = item.distance_to_point(position)
                 # print('distance_to_point {:6.2f} {}'.format(distance, item))
                 # Fixme: distance is None
@@ -283,13 +274,12 @@ class GraphicSceneScope:
     ##############################################
 
     # Fixme: !!!
-    # def add_scope(self, *args, **kwargs):
+    # def add_scope(self, *args, **kwargs) -> None:
     #     return self.add_item(GraphicSceneScope, self, *args, **kwargs)
 
     ##############################################
 
-    def add_geometry(self, item, path_style):
-
+    def add_geometry(self, item, path_style: GraphicPathStyle) -> None:
         """Add a geometry primitive"""
 
         ctor = None
@@ -330,17 +320,17 @@ class GraphicSceneScope:
 
         # Polygon
         elif isinstance(item, Polygon.Polygon2D):
-            ctor = self.polygon # or linear closed path
+            ctor = self.polygon   # or linear closed path
             unpack_points = False
 
         # Polyline
         elif isinstance(item, Polyline.Polyline2D):
-            ctor = self.polyline # or linear path
+            ctor = self.polyline   # or linear path
             unpack_points = False
 
         # Rectangle
         elif isinstance(item, Rectangle.Rectangle2D):
-            ctor = self.rectangle # or linear closed path
+            ctor = self.rectangle   # or linear closed path
 
         # Segment
         elif isinstance(item, Segment.Segment2D):
@@ -357,7 +347,7 @@ class GraphicSceneScope:
 
         # Not implemented
         else:
-            self._logger.warning('Not implemented item {}'.format(item))
+            self._logger.warning(f'Not implemented item {item}')
             raise NotImplementedError
 
         if ctor is not None:
@@ -370,14 +360,14 @@ class GraphicSceneScope:
 
     ##############################################
 
-    # def add_quadratic_bezier(self, curve, *args, **kwargs):
+    # def add_quadratic_bezier(self, curve, *args, **kwargs) -> None:
     #     # Fixme:
     #     cubic = curve.to_cubic()
     #     return self.cubic_bezier(*cubic.points, *args, **kwargs)
 
     ##############################################
 
-    def add_spline(self, spline, path_style):
+    def add_spline(self, spline, path_style: GraphicPathStyle) -> list:
         return [
             self.cubic_bezier(*bezier.points, path_style, user_data=spline)
             for bezier in spline.to_bezier()
@@ -385,26 +375,32 @@ class GraphicSceneScope:
 
     ##############################################
 
-    def add_path(self, path, path_style, user_data=None, as_segments=True):
-
+    def add_path(self,
+                 path: Path.Path2D,
+                 path_style: GraphicPathStyle,
+                 user_data: Any = None,
+                 as_segments: bool = True,
+                 ) -> None:
         if as_segments:
             method = self.add_as_path_segments
         else:
             method = self.add_as_path
-
         return method(path, path_style, user_data)
 
     ##############################################
 
-    def add_as_path(self, path, path_style, user_data=None):
-
+    def add_as_path(self,
+                    path,
+                    path_style: GraphicPathStyle,
+                    user_data: Any = None,
+                    ) -> GraphicItem:
         """Add a path as only one path item.
 
         .. warning: path can be filled.
 
         """
 
-        item = self.add_item(GraphicItem.PathItem, path.p0, path_style, user_data)
+        item = self.add_item(GraphicItem.PathItem, path.p0, path_style: GraphicPathStyle, user_data)
 
         # cf. add_as_path_segments
         for segment in path:
@@ -430,8 +426,11 @@ class GraphicSceneScope:
 
     ##############################################
 
-    def add_as_path_segments(self, path, path_style, user_data=None):
-
+    def add_as_path_segments(self,
+                             path,
+                             path_style: GraphicPathStyle,
+                             user_data: Any = None,
+                             ) -> None:
         """Add a path as one item for each segments.
 
         .. warning: path cannot be filled.
@@ -443,29 +442,29 @@ class GraphicSceneScope:
 
         items = []
 
-        def add_bulge(segment):
+        def add_bulge(segment) -> None:
             arc = segment.bulge_geometry
             arc_item = self.circle(
                 arc.center, arc.radius,
                 path_style,
                 start_angle=arc.domain.start,
                 stop_angle=arc.domain.stop,
-                user_data=user_data, # segment
+                user_data=user_data,   # segment
             )
             items.append(arc_item)
 
-        def add_by_method(method, segment):
+        def add_by_method(method, segment) -> None:
             item = method(
                 *segment.points,
                 path_style,
-                user_data=user_data, # segment
+                user_data=user_data,   # segment
             )
             items.append(item)
 
-        def add_segment(segment):
+        def add_segment(segment) -> None:
             add_by_method(self.segment, segment)
 
-        def add_ellipse(segment):
+        def add_ellipse(segment) -> None:
             # add_segment(Segment.Segment2D(*segment.points))
             ellipse = segment.geometry
             # print(ellipse, ellipse.domain)
@@ -481,10 +480,10 @@ class GraphicSceneScope:
             )
             items.append(arc_item)
 
-        def add_quadratic(segment):
+        def add_quadratic(segment) -> None:
             add_by_method(self.quadratic_bezier, segment)
 
-        def add_cubic(segment):
+        def add_cubic(segment) -> None:
             add_by_method(self.cubic_bezier, segment)
 
         for segment in path:
@@ -512,15 +511,14 @@ class GraphicSceneScope:
 
     ##############################################
 
-    # def quadratic_bezier(self, p0, p1, p2, *args, **kwargs):
+    # def quadratic_bezier(self, p0, p1, p2, *args, **kwargs) -> None:
     #     # Fixme:
     #     cubic = Bezier.QuadraticBezier2D(p0, p1, p2).to_cubic()
     #     return self.add_cubic(cubic, *args, **kwargs)
 
     ##############################################
 
-    def bezier_path(self, points, degree, *args, **kwargs):
-
+    def bezier_path(self, points, degree: int, *args: list, **kwargs: dict) -> None:
         """Add a Bézier curve with the given control points and degree"""
 
         if degree == 1:
@@ -531,14 +529,14 @@ class GraphicSceneScope:
         elif degree == 3:
             method = self.cubic_bezier
         else:
-            raise ValueError('Unsupported degree for Bezier curve: {}'.format(degree))
+            raise ValueError(f'Unsupported degree for Bezier curve: {degree}')
 
         # Fixme: generic code
 
         number_of_points = len(points)
-        n = number_of_points -1
+        n = number_of_points - 1
         if n % degree:
-            raise ValueError('Wrong number of points for Bezier {} curve: {}'.format(degree, number_of_points))
+            raise ValueError(f'Wrong number of points for Bezier {degree} curve: {number_of_points}')
 
         items = []
         for i in range(number_of_points // degree):
@@ -553,8 +551,8 @@ class GraphicSceneScope:
 
 # Register a method in GraphicSceneScope class for each type of graphic item
 
-def _make_add_item_wrapper(cls):
-    def wrapper(self, *args, **kwargs):
+def _make_add_item_wrapper(cls) -> None:
+    def wrapper(self, *args: list, **kwargs: dict) -> None:
         return self.add_item(cls, *args, **kwargs)
     return wrapper
 
