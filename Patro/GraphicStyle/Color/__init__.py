@@ -35,7 +35,7 @@ from .ColorDataBase import Color, ColorDataBase
 #: Colour Database Singleton as an instance of :class:`ColorDataBase`
 Colors = ColorDataBase()
 
-def __init__():
+def __init__() -> None:
     # First name set color
     for color_set in (
             _color_data.BASE_COLORS,
@@ -43,7 +43,7 @@ def __init__():
             _color_data.XKCD_COLORS,
             _color_data.CSS4_COLORS,
             _color_data.QML_COLORS,
-            _color_data.VALENTINA_COLORS ,
+            _color_data.VALENTINA_COLORS,
     ):
         for name, value in color_set.items():
             name = name.replace(' ', '_')

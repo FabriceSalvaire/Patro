@@ -20,18 +20,17 @@
 
 ####################################################################################################
 
-from pathlib import Path
-
-import yaml
+from typing import Iterator
 
 ####################################################################################################
 
 class Measurement:
 
+    """Class to define a measurement."""
+
     ##############################################
 
-    def __init__(self, name, full_name, description, default_value=0):
-
+    def __init__(self, name: str, full_name: str, description: str, default_value: int | float=0) -> None:
         self._name = name
         self._full_name = full_name
         self._description = description
@@ -40,91 +39,89 @@ class Measurement:
     ##############################################
 
     @property
-    def name(self):
+    def name(self) -> str:
         return self._name
 
     @name.setter
-    def name(self, value):
+    def name(self, value: str) -> None:
         self._name = value
 
     ##############################################
 
     @property
-    def full_name(self):
+    def full_name(self) -> str:
         return self._full_name
 
     @full_name.setter
-    def full_name(self, value):
+    def full_name(self, value: str) -> None:
         self._full_name = value
 
     ##############################################
 
     @property
-    def description(self):
+    def description(self) -> str:
         return self._description
 
     @description.setter
-    def description(self, value):
+    def description(self, value: str) -> None:
         self._description = value
 
     ##############################################
 
     @property
-    def default_value(self):
+    def default_value(self) -> int | float:
         return self._default_value
 
     @default_value.setter
-    def default_value(self, value):
+    def default_value(self, value: str) -> None:
         self._default_value = value
 
 ####################################################################################################
 
 class StandardMeasurement:
 
+    """Class to define a set of measurements."""
+
     ##############################################
 
-    def __init__(self):
-
+    def __init__(self) -> None:
         self._names = {}
 
     ##############################################
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self._names)
 
     ##############################################
 
-    def __iter__(self):
+    def __iter__(self) -> Iterator[Measurement]:
         return iter(self._names.values())
 
     ##############################################
 
-    def __getitem__(self, name):
+    def __getitem__(self, name: str) -> Measurement:
         return self._names[name]
 
     ##############################################
 
-    def __contains__(self, name):
+    def __contains__(self, name: str) -> bool:
         return name in self._names
 
     ##############################################
 
-    def add(self, measurement):
-
+    def add(self, measurement: Measurement) -> None:
         if measurement.name not in self._names:
             self._names[measurement.name] = measurement
         else:
-            raise NameError('{} is already registered'.format(measurement.name))
+            raise NameError(f'{measurement.name} is already registered')
 
     ##############################################
 
-    def dump(self):
-
+    def dump(self) -> None:
         template = '''{0.name}
 - {0.full_name}
 - {0.description}
 - {0.default_value}
 '''
-
         for measurement in self:
             print(template.format(measurement))

@@ -30,7 +30,7 @@
 
 from Patro.GeometryEngine.Polygon import Polygon2D
 from Patro.GeometryEngine.Vector import Vector2D
-from Patro.GraphicEngine.GraphicScene.GraphicStyle import GraphicPathStyle, GraphicBezierStyle
+from Patro.GraphicEngine.GraphicScene.GraphicStyle import GraphicPathStyle
 from Patro.GraphicEngine.Painter.QtPainter import QtScene
 from Patro.GraphicStyle import Colors, StrokeStyle
 
@@ -60,7 +60,6 @@ class SceneBuilder:
     ##############################################
 
     def _update_bounding_box(self, item):
-
         interval = item.bounding_box
         if self._bounding_box is None:
             self._bounding_box = interval

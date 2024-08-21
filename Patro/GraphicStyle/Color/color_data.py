@@ -1413,4 +1413,4 @@ VALENTINA_COLORS = (
     'violet',
     'yellow',
 )
-VALENTINA_COLORS = {name:QML_COLORS[name.lower()] for name in VALENTINA_COLORS}
+VALENTINA_COLORS = {name: QML_COLORS[name.lower()] for name in VALENTINA_COLORS}

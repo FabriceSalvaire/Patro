@@ -20,6 +20,7 @@
 
 ####################################################################################################
 
+from datetime import datetime, date
 from enum import Enum, auto
 
 from Patro.Common.Datetime import ensure_date, ensure_datetime
@@ -27,11 +28,11 @@ from Patro.Common.Datetime import ensure_date, ensure_datetime
 ####################################################################################################
 
 class Gender(Enum):
-    UNKNOWN = auto() # information is not available
+    UNKNOWN = auto()   # information is not available
     FEMALE = auto()
     MALE = auto()
     # Gender can be mixed or modified, body malformation or injury
-    PARTICULAR = auto() # Fixme: use case to be defined ...
+    PARTICULAR = auto()   # Fixme: use case to be defined ...
 
 ####################################################################################################
 
@@ -41,18 +42,18 @@ class PersonalData:
 
     ##############################################
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: dict) -> None:
 
         self._first_name = None
         self._last_name = None
-        self._birth_date = None # to get age
-        self._measurement_date = None # when the measurement was done
+        self._birth_date = None   # to get age
+        self._measurement_date = None   # when the measurement was done
         self._gender = None
-        self._email = None # contact
-        self._comment = None # any useful information to adapt garment to the person
+        self._email = None   # contact
+        self._comment = None   # any useful information to adapt garment to the person
 
         for key, default in (
-                ('first_name', ''), # Fixme: str_or_none ?
+                ('first_name', ''),   # Fixme: str_or_none ?
                 ('last_name', ''),
                 ('birth_date', None),
                 ('measurement_date', None),
@@ -65,31 +66,31 @@ class PersonalData:
     ##############################################
 
     @property
-    def first_name(self):
+    def first_name(self) -> str:
         return self._first_name
 
     @first_name.setter
-    def first_name(self, value):
+    def first_name(self, value: str) -> None:
         self._first_name = str(value)
 
     ##############################################
 
     @property
-    def last_name(self):
+    def last_name(self) -> str:
         return self._last_name
 
     @last_name.setter
-    def last_name(self, value):
+    def last_name(self, value: str) -> None:
         self._last_name = str(value)
 
     ##############################################
 
     @property
-    def birth_date(self):
+    def birth_date(self) -> date:
         return self._birth_date
 
     @birth_date.setter
-    def birth_date(self, value):
+    def birth_date(self, value: date | str) -> None:
         if value is not None:
             self._birth_date = ensure_date(value)
         else:
@@ -98,11 +99,11 @@ class PersonalData:
     ##############################################
 
     @property
-    def measurement_date(self):
+    def measurement_date(self) -> datetime:
         return self._measurement_date
 
     @measurement_date.setter
-    def measurement_date(self, value):
+    def measurement_date(self, value: datetime | str) -> None:
         if value is not None:
             self._measurement_date = ensure_datetime(value)
         else:
@@ -111,12 +112,11 @@ class PersonalData:
     ##############################################
 
     @property
-    def gender(self):
+    def gender(self) -> Gender:
         return self._gender
 
     @gender.setter
-    def gender(self, value):
-
+    def gender(self, value: Gender | str) -> None:
         if isinstance(value, str):
             gender = Gender[value.upper()]
         else:
@@ -126,19 +126,19 @@ class PersonalData:
     ##############################################
 
     @property
-    def email(self):
+    def email(self) -> str:
         return self._email
 
     @email.setter
-    def email(self, value):
+    def email(self, value: str) -> None:
         self._email = str(value)
 
     ##############################################
 
     @property
-    def comment(self):
+    def comment(self: str) -> str:
         return self._comment
 
     @comment.setter
-    def comment(self, value):
+    def comment(self, value: str) -> None:
         self._comment = str(value)

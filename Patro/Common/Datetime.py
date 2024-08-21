@@ -18,11 +18,15 @@
 #
 ####################################################################################################
 
+__all__ = ['ensure_date', 'ensure_datetime']
+
+####################################################################################################
+
 from datetime import datetime, date
 
 ####################################################################################################
 
-def ensure_date(x):
+def ensure_date(x: date | str) -> date:
     if isinstance(x, date):
         return x
     else:
@@ -31,7 +35,7 @@ def ensure_date(x):
 
 ####################################################################################################
 
-def ensure_datetime(x):
+def ensure_datetime(x: datetime | str) -> datetime:
     if isinstance(x, datetime):
         return x
     else:

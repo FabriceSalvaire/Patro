@@ -45,14 +45,19 @@ class ValentinaMeasurement(Measurement):
     ##############################################
 
     @classmethod
-    def replace_custom_prefix(cls, string):
+    def replace_custom_prefix(cls, string: str) -> str:
         # Fixme: how to only replace when there is no clash ?
         return string.replace('@', cls.CUSTOM_PREFIX)
 
     ##############################################
 
-    def __init__(self, measurements, name, value, full_name='', description=''):
-
+    def __init__(self,
+                 measurements: 'ValentinaMeasurements',
+                 name: str,
+                 value: str,
+                 full_name: str='',
+                 description: str='',
+                 ):
         # Valentina defines custom measurement with a @ prefix
         self._valentina_name = str(name)
         name = self.replace_custom_prefix(self._valentina_name)
@@ -60,20 +65,18 @@ class ValentinaMeasurement(Measurement):
         #     name = name[1:]
         #     if name in _valentina_standard_measurement:
         #         name = self.CUSTOM_PREFIX + name
-
         value = self.replace_custom_prefix(value)
-
         super().__init__(measurements, name, value, full_name, description)
 
     ##############################################
 
     @property
-    def valentina_name(self):
+    def valentina_name(self) -> str:
         return self._valentina_name
 
     ##############################################
 
-    def is_custom(self):
+    def is_custom(self) -> bool:
         return self._valentina_name.startswith('@')
 
 ####################################################################################################
@@ -88,10 +91,8 @@ class ValentinaMeasurements(Measurements):
 
     ##############################################
 
-    def add(self, *args, **kgwars):
-
+    def add(self, *args: list, **kgwars: dict) -> None:
         # Fixme: name ?
-
         measurement = super().add(*args, **kgwars)
         if measurement.is_custom():
             self._measurements[measurement.valentina_name] = measurement

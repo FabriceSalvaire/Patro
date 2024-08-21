@@ -73,15 +73,14 @@ class VitFileInternal(XmlFileMixin):
 
     ##############################################
 
-    def __init__(self, path):
-
+    def __init__(self, path: str) -> None:
         super().__init__(path)
         self.measurements = ValentinaMeasurements()
         self.read()
 
     ##############################################
 
-    def read(self):
+    def read(self) -> None:
 
         self._logger.info('Load measurements from ' + str(self._path))
 
@@ -119,15 +118,15 @@ class VitFile:
 
     ##############################################
 
-    def __init__(self, path):
+    def __init__(self, path: str) -> None:
         self._internal = VitFileInternal(path)
 
     ##############################################
 
     @property
-    def path(self):
+    def path(self) -> str:
         return self._internal.path
 
     @property
-    def measurements(self):
+    def measurements(self) -> ValentinaMeasurements:
         return self._internal.measurements
